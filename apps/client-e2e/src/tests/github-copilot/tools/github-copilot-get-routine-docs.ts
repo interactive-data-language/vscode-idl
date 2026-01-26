@@ -30,7 +30,7 @@ export const RunGitHubCopilotGetRoutineDocs: RunnerFunction = async (init) => {
   expect(routineDocs.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(routineDocs.content.length).toBe(1);
+  expect(routineDocs.content.length).toEqual(1);
 
   // init variable
   let docs: ({ [key: string]: any } | string)[];
@@ -46,15 +46,15 @@ export const RunGitHubCopilotGetRoutineDocs: RunnerFunction = async (init) => {
   expect(docs).toBeTruthy();
 
   // verify one set of matches returned
-  expect(docs.length).toBe(2);
+  expect(docs.length).toEqual(2);
 
   // make sure we have an object first
-  expect(typeof docs[0]).toBe('object');
+  expect(typeof docs[0]).toEqual('object');
 
   // verify there are docs our structure definition (checks docs parsing and reporting properties)
-  expect(typeof (docs[0] as any)?.docs).toBe('string');
+  expect(typeof (docs[0] as any)?.docs).toEqual('string');
 
   // verify second result
-  expect(typeof docs[1]).toBe('string');
-  expect(docs[1]).toBe(NO_MATCHES);
+  expect(typeof docs[1]).toEqual('string');
+  expect(docs[1]).toEqual(NO_MATCHES);
 };

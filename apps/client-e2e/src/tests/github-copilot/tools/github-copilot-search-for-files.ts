@@ -23,7 +23,7 @@ export const RunGitHubSearchForFilesAll: RunnerFunction = async (init) => {
   expect(basicSearch.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(basicSearch.content.length).toBe(1);
+  expect(basicSearch.content.length).toEqual(1);
 
   // init variable
   let basicSearchFiles: string[];
@@ -70,7 +70,7 @@ export const RunGitHubSearchForFilesSingle: RunnerFunction = async (init) => {
   expect(basicSearch.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(basicSearch.content.length).toBe(1);
+  expect(basicSearch.content.length).toEqual(1);
 
   // init variable
   let basicSearchFiles: string[];
@@ -96,7 +96,7 @@ export const RunGitHubSearchForFilesSingle: RunnerFunction = async (init) => {
       .filter((file) => file.includes('.'))
       .map((file) => file.split('.').pop())
   );
-  expect(extensions.size).toBe(1);
+  expect(extensions.size).toEqual(1);
 };
 
 /**
@@ -137,7 +137,7 @@ export const RunGitHubSearchForFilesRecursionAll: RunnerFunction = async (
   expect(basicSearch.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(basicSearch.content.length).toBe(1);
+  expect(basicSearch.content.length).toEqual(1);
 
   // init variable
   let basicSearchFiles: string[];
@@ -181,7 +181,7 @@ export const RunGitHubSearchForFilesNoRecursion: RunnerFunction = async (
   expect(basicSearch.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(basicSearch.content.length).toBe(1);
+  expect(basicSearch.content.length).toEqual(1);
 
   // init variable
   let basicSearchFiles: string[];

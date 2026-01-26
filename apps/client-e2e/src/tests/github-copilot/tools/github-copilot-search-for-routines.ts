@@ -27,7 +27,7 @@ export const RunGitHubCopilotSearchForRoutineAll: RunnerFunction = async (
   expect(routineSearch.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(routineSearch.content.length).toBe(1);
+  expect(routineSearch.content.length).toEqual(1);
 
   // init variable
   let routineMatches: { [key: string]: string[] }[];
@@ -43,11 +43,11 @@ export const RunGitHubCopilotSearchForRoutineAll: RunnerFunction = async (
   expect(routineMatches).toBeTruthy();
 
   // verify one set of matches returned
-  expect(routineMatches.length).toBe(1);
+  expect(routineMatches.length).toEqual(1);
 
   // make sure the number of keys for the first entry is 6 (all fields)
   // this test will need to be updated if the MCP server chagnes
-  expect(Object.keys(routineMatches[0]).length).toBe(6);
+  expect(Object.keys(routineMatches[0]).length).toEqual(6);
 };
 
 /**
@@ -73,7 +73,7 @@ export const RunGitHubCopilotSearchForRoutineSingle: RunnerFunction = async (
   expect(routineSearch.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(routineSearch.content.length).toBe(1);
+  expect(routineSearch.content.length).toEqual(1);
 
   // init variable
   let routineMatches: { [key: string]: string[] }[];
@@ -89,10 +89,10 @@ export const RunGitHubCopilotSearchForRoutineSingle: RunnerFunction = async (
   expect(routineMatches).toBeTruthy();
 
   // verify one set of matches returned
-  expect(routineMatches.length).toBe(1);
+  expect(routineMatches.length).toEqual(1);
 
   // verify one match for first search
-  expect(Object.keys(routineMatches[0]).length).toBe(1);
+  expect(Object.keys(routineMatches[0]).length).toEqual(1);
 };
 
 /**
@@ -122,7 +122,7 @@ export const RunGitHubCopilotSearchForRoutineMultiple: RunnerFunction = async (
   expect(routineSearch.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(routineSearch.content.length).toBe(1);
+  expect(routineSearch.content.length).toEqual(1);
 
   // init variable
   let routineMatches: { [key: string]: string[] }[];
@@ -138,12 +138,12 @@ export const RunGitHubCopilotSearchForRoutineMultiple: RunnerFunction = async (
   expect(routineMatches).toBeTruthy();
 
   // verify one set of matches returned
-  expect(routineMatches.length).toBe(2);
+  expect(routineMatches.length).toEqual(2);
 
   // verify one match for first search
-  expect(Object.keys(routineMatches[0]).length).toBe(1);
+  expect(Object.keys(routineMatches[0]).length).toEqual(1);
 
   // make sure the number of keys for the first entry is 6 (all fields)
   // this test will need to be updated if the MCP server chagnes
-  expect(Object.keys(routineMatches[1]).length).toBe(6);
+  expect(Object.keys(routineMatches[1]).length).toEqual(6);
 };

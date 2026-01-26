@@ -22,7 +22,7 @@ export async function InitializeVSCodeGitHubCopilot(
   RegisterCopilotCommands(ctx);
 
   /**
-   * Attempt to add isntructions
+   * Attempt to add instructions
    */
   try {
     await RegisterGitHubCopilotFilesFromExtension('instructions');

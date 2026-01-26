@@ -18,7 +18,7 @@ export const RunGitHubResourcesWorkflow: RunnerFunction = async (init) => {
   expect(listResources.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(listResources.content.length).toBe(1);
+  expect(listResources.content.length).toEqual(1);
 
   // init variable
   let parsedResourceNames: string[];
@@ -53,7 +53,7 @@ export const RunGitHubResourcesWorkflow: RunnerFunction = async (init) => {
   expect(getResource.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(getResource.content.length).toBe(1);
+  expect(getResource.content.length).toEqual(1);
 
   // init variable
   let parsedResources: { [key: string]: any };

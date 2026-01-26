@@ -22,7 +22,7 @@ export const RunGitHubSearchResources: RunnerFunction = async (init) => {
   expect(searchNoQuery.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(searchNoQuery.content.length).toBe(1);
+  expect(searchNoQuery.content.length).toEqual(1);
 
   // init variable
   let noQueryResourcesrces: string[];
@@ -38,7 +38,7 @@ export const RunGitHubSearchResources: RunnerFunction = async (init) => {
   expect(noQueryResourcesrces).toBeTruthy();
 
   // make sure no matches since no queries
-  expect(noQueryResourcesrces.length).toBe(0);
+  expect(noQueryResourcesrces.length).toEqual(0);
 
   // Call a tool
   const functonResources = await CallMCPTool(
@@ -52,7 +52,7 @@ export const RunGitHubSearchResources: RunnerFunction = async (init) => {
   expect(functonResources.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(functonResources.content.length).toBe(1);
+  expect(functonResources.content.length).toEqual(1);
 
   // init variable
   let parsedFunctionResources: string[];
