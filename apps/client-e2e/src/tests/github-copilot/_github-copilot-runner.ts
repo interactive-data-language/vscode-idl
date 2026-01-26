@@ -3,6 +3,7 @@ import { Logger } from '@idl/logger';
 import { Runner } from '../runner.class';
 import { RunGitHubCopilotValidateMCPConnection } from './github-copilot-validate-mcp-connection';
 import { RunGitHubCopilotENVIInvalidTaskName } from './tools/envi/github-copilot-envi-invalid-task-name';
+import { RunGitHubCopilotENVIListTools } from './tools/envi/github-copilot-envi-list-tools';
 import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-copilot-envi-parameter-validation';
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
 import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-envi';
@@ -170,6 +171,11 @@ GITHUB_COPILOT_RUNNER.addTest({
       architecture: ['arm', 'arm64'],
     },
   ],
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIListTools,
+  name: 'Verify we can list ENVI tools via MCP (at least 200 returned)',
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
