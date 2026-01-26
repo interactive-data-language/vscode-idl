@@ -24,12 +24,6 @@ export const RunGitHubCopilotStartENVI: RunnerFunction = async (init) => {
   // verify we started
   expect(init.debug.adapter.isStarted()).toBeTruthy();
 
-  const res = CleanIDLOutput(
-    await init.debug.adapter.evaluate(`print, envi.widget_id`)
-  );
-
-  console.log(res);
-
   // make sure that the ENVI UI is not started
   expect(
     CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`))
