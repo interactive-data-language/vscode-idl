@@ -5,6 +5,7 @@ import { RunGitHubCopilotValidateMCPConnection } from './github-copilot-validate
 import { RunGitHubCopilotENVIInvalidTaskName } from './tools/envi/github-copilot-envi-invalid-task-name';
 import { RunGitHubCopilotENVIListTools } from './tools/envi/github-copilot-envi-list-tools';
 import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-copilot-envi-parameter-validation';
+import { RunGitHubCopilotENVIRunTool } from './tools/envi/github-copilot-envi-run-tool';
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
 import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-envi';
 import { RunGitHubGetResources } from './tools/github-copilot-get-resources';
@@ -191,4 +192,9 @@ GITHUB_COPILOT_RUNNER.addTest({
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotENVIParameterValidation,
   name: 'Verify ENVI parameters are validated and tool execution fails',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIRunTool,
+  name: 'Run simple tool and get expected results',
 });
