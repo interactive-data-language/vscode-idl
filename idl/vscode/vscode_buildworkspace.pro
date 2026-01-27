@@ -215,6 +215,14 @@ end
 ;   description: in, optional, String
 ;     When `condense_to` is set, optionally specify a description for the file
 ;     that gets saved
+;   destination: in, optional, String
+;     If set, specify the location that files should be written. By default
+;     a "dist" folder is created in the root of the workspace.
+;
+;     Output folder is deleted and recreated during the build process.
+;   silent: in, optional, Boolean
+;     If set, we don't alert users about unresolved routines and we don't
+;     write them out to disk.
 ;
 ; :Examples:
 ;
@@ -228,7 +236,11 @@ end
 ;   found within the workspace.
 ;
 ;-
-pro vscode_BuildWorkspace, workspace, condense_to = condense_to, description = description
+pro vscode_BuildWorkspace, workspace, $
+  condense_to = condense_to, $
+  description = description, $
+  destination = destination, $
+  silent = silent
   compile_opt idl2, hidden
   on_error, 2
 
@@ -245,7 +257,7 @@ pro vscode_BuildWorkspace, workspace, condense_to = condense_to, description = d
   if ~file_test(srcDir, /directory) then message, 'Workspace does not include a "src" folder as expected'
 
   ;+ specify the output folder
-  outDir = workspace + path_sep() + 'dist'
+  outDir = keyword_set(destination) ? destination : workspace + path_sep() + 'dist'
 
   ; clean up if the output folder exists already
   if file_test(outDir, /directory) then file_delete, outDir, /recursive
@@ -423,7 +435,7 @@ pro vscode_BuildWorkspace, workspace, condense_to = condense_to, description = d
   unresolvedNames = (unresolved.keys()).sort()
 
   ; check if we have unresolved
-  if (n_elements(unresolvedNames) gt 0) then begin
+  if ~keyword_set(silent) && (n_elements(unresolvedNames) gt 0) then begin
     ; alert user
     print, 'Detected unresolved routines, see "dist/unresolved.json"'
     print, '  to make sure critical dependencies are not missing. It is'
