@@ -10,7 +10,7 @@ import { join } from 'path';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
-import { MCPTestENVIRaster } from '../../helpers/mcp-test-envi-raster';
+import { ENVITestDatasets } from '../../helpers/envi-test-datasets.class';
 
 /**
  * Makes sure we can run a simple ENVI tool
@@ -26,7 +26,7 @@ export const RunGitHubCopilotENVIRunTool: RunnerFunction = async (init) => {
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.ENVI_RUN_TOOL, {
     taskName: 'ISODataClassification',
     inputParameters: {
-      input_raster: MCPTestENVIRaster(),
+      input_raster: ENVITestDatasets.raster(),
       change_threshold_percent: 2.0,
       iterations: 10,
       number_of_classes: 5,

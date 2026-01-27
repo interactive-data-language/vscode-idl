@@ -7,7 +7,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
-import { MCPTestENVIRaster } from '../../helpers/mcp-test-envi-raster';
+import { ENVITestDatasets } from '../../helpers/envi-test-datasets.class';
 
 /**
  * Makes sure we can query a dataset
@@ -17,7 +17,7 @@ export const RunGitHubCopilotENVIQueryDataset: RunnerFunction = async (
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET, {
-    dataset: MCPTestENVIRaster(),
+    dataset: ENVITestDatasets.raster(),
   });
 
   console.log(JSON.stringify(result, undefined, 2));
