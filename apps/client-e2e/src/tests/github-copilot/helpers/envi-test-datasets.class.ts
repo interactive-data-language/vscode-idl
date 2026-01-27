@@ -82,7 +82,7 @@ export class ENVITestDatasets {
     const envi = this.getENVIDir();
 
     return {
-      factory: 'URLRoi',
+      factory: 'URLROI',
       url: join(envi, 'data', 'qb_boulder_roi.xml'),
     };
   }

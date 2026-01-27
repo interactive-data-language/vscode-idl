@@ -35,8 +35,6 @@ export const RunGitHubCopilotENVIRunTool: RunnerFunction = async (init) => {
     interactive: false,
   });
 
-  console.log(JSON.stringify(result, undefined, 2));
-
   // make sure the tool runs
   expect(result.isError).toBeFalsy();
 
@@ -55,8 +53,6 @@ export const RunGitHubCopilotENVIRunTool: RunnerFunction = async (init) => {
   } catch (err) {
     // do nothing
   }
-
-  console.log(JSON.stringify(results, undefined, 2));
 
   // make sure we parsed
   expect(results).toBeTruthy();

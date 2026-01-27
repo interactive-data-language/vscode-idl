@@ -5,10 +5,13 @@ import { RunGitHubCopilotValidateMCPConnection } from './github-copilot-validate
 import { RunGitHubCopilotENVIInvalidTaskName } from './tools/envi/github-copilot-envi-invalid-task-name';
 import { RunGitHubCopilotENVIListTools } from './tools/envi/github-copilot-envi-list-tools';
 import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-copilot-envi-parameter-validation';
-import { RunGitHubCopilotENVIQueryDataset } from './tools/envi/github-copilot-envi-query-dataset';
 import { RunGitHubCopilotENVIRunTool } from './tools/envi/github-copilot-envi-run-tool';
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
 import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-envi';
+import { RunGitHubCopilotENVIQueryDataset_Raster } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-raster';
+import { RunGitHubCopilotENVIQueryDataset_ROI } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-roi';
+import { RunGitHubCopilotENVIQueryDataset_SpectralLibrary } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-spectral-library';
+import { RunGitHubCopilotENVIQueryDataset_Vector } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-vector';
 import { RunGitHubGetResources } from './tools/github-copilot-get-resources';
 import { RunGitHubCopilotGetRoutineDocs } from './tools/github-copilot-get-routine-docs';
 import { RunGitHubResourcesWorkflow } from './tools/github-copilot-resources-workflow';
@@ -201,6 +204,21 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIQueryDataset,
-  name: 'Query dataset works (raster)',
+  fn: RunGitHubCopilotENVIQueryDataset_Raster,
+  name: 'Query dataset works (Raster)',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIQueryDataset_ROI,
+  name: 'Query dataset works (ROI)',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIQueryDataset_SpectralLibrary,
+  name: 'Query dataset works (Spectral Library)',
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIQueryDataset_Vector,
+  name: 'Query dataset works (Vector)',
 });

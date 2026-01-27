@@ -5,22 +5,20 @@ import {
 } from '@idl/types/mcp';
 import expect from 'expect';
 
-import { RunnerFunction } from '../../../runner.interface';
-import { CallMCPTool } from '../../helpers/call-mcp-tool';
-import { ENVITestDatasets } from '../../helpers/envi-test-datasets.class';
+import { RunnerFunction } from '../../../../runner.interface';
+import { CallMCPTool } from '../../../helpers/call-mcp-tool';
+import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
 
 /**
  * Makes sure we can query a dataset
  */
-export const RunGitHubCopilotENVIQueryDataset: RunnerFunction = async (
+export const RunGitHubCopilotENVIQueryDataset_Raster: RunnerFunction = async (
   init
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET, {
     dataset: ENVITestDatasets.raster(),
   });
-
-  console.log(JSON.stringify(result, undefined, 2));
 
   // make sure the tool runs
   expect(result.isError).toBeFalsy();
