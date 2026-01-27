@@ -37,6 +37,23 @@ To build your own version of the extension run the following from the root of th
 
 4. Manually install the generated `idl-*.vsix` file in VS Code
 
+### Updating the ENVI and IDL MCP Tools
+
+1. Create a file at the root level of this workspace called `build.json`
+
+2. Populate the contents with the following:
+
+```json
+{
+  "mcp-dir": "C:\\path-to-envi-idl-mcp-tools",
+  "idl-dir": "C:\\Program Files\\NV5\\ENVI62\\IDL92\\bin\\bin.x86_64"
+}
+```
+
+3. Execute `npm run update-mcp-tools`
+
+> This happens automatically when packaging.
+
 ## Quick Links and Helpful Information
 
 Developer docs (tests, architecture, etc.) are located in: `extension/docs/developer`
