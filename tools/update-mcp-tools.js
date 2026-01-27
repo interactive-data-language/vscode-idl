@@ -72,6 +72,7 @@ function updateMcpTools() {
 
 // return if no file
 if (!existsSync(buildJsonPath)) {
+  console.log('Skipping updating IDL and ENVI MCP tools');
   process.exit(0);
 }
 
