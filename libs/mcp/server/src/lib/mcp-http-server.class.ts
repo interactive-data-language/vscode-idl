@@ -202,13 +202,13 @@ export class McpHttpServerCore {
 
     try {
       this.logCallback({
-        content: `Starting MCP server on port ${this.mcpPort}`,
+        content: `Attempting to start MCP server on port ${this.mcpPort}`,
         type: 'info',
       });
 
       this.appInstance = this.app.listen(this.mcpPort, (err) => {
         this.logCallback({
-          content: `MCP server successfully started!`,
+          content: `MCP server successfully started! Available at "http://localhost:${this.mcpPort}"`,
           type: 'info',
         });
       });
