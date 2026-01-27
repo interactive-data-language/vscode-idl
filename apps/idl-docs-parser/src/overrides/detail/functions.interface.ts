@@ -907,6 +907,10 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
         type: IDL_BOOLEAN_TYPE,
         direction: 'in',
       },
+      error: {
+        type: IDL_STRING_TYPE,
+        direction: 'out',
+      },
       version: {
         type: IDL_STRING_TYPE,
         direction: 'in',
