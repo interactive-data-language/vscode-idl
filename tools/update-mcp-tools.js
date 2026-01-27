@@ -2,12 +2,13 @@ const { readFileSync, existsSync } = require('fs');
 const { join, delimiter, sep } = require('path');
 const { spawnSync } = require('child_process');
 
+/** Build.json file at the root folder */
+const buildJsonPath = join(process.cwd(), 'build.json');
+
 /**
  * Main function to update MCP tools
  */
 function updateMcpTools() {
-  // Step 1: Parse the build.json file
-  const buildJsonPath = join(__dirname, '..', 'build.json');
   let buildConfig;
 
   try {
@@ -67,6 +68,11 @@ function updateMcpTools() {
   }
 
   console.log('MCP tools updated successfully!');
+}
+
+// return if no file
+if (!existsSync(buildJsonPath)) {
+  process.exit(0);
 }
 
 // Execute the main function
