@@ -8,8 +8,12 @@ export function MCP_ENVIRasterSeries(description: string) {
   return z
     .object({
       factory: z
-        .literal('URLRasterSeries')
-        .describe('This value should always be "URLRasterSeries"'),
+        .string()
+        .default('URLRasterSeries')
+        .refine((val) => val.toLowerCase() === 'urlrasterseries', {
+          message: 'factory must be "URLRasterSeries" (case-insensitive)',
+        })
+        .describe('This value should be "URLRasterSeries" (case-insensitive)'),
       url: z
         .string()
         .describe(

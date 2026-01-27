@@ -8,8 +8,12 @@ export function MCP_ENVIRaster(description: string) {
   return z
     .object({
       factory: z
-        .literal('URLRaster')
-        .describe('This value should always be "URLRaster"'),
+        .string()
+        .default('URLRaster')
+        .refine((val) => val.toLowerCase() === 'urlraster', {
+          message: 'factory must be "URLRaster" (case-insensitive)',
+        })
+        .describe('This value should be "URLRaster" (case-insensitive)'),
       url: z
         .string()
         .describe(

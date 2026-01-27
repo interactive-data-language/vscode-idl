@@ -7,8 +7,12 @@ export function MCP_ENVIAgZones(description: string) {
   return z
     .object({
       factory: z
-        .literal('ENVIAgZones')
-        .describe('This value should always be "ENVIAgZones"'),
+        .string()
+        .default('ENVIAgZones')
+        .refine((val) => val.toLowerCase() === 'enviagzones', {
+          message: 'factory must be "ENVIAgZones" (case-insensitive)',
+        })
+        .describe('This value should be "ENVIAgZones" (case-insensitive)'),
       url: z
         .string()
         .describe(

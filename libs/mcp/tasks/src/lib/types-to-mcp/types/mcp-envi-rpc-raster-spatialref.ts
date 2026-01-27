@@ -8,8 +8,14 @@ export function MCP_ENVIRPCRasterSpatialref(description: string) {
   return z
     .object({
       factory: z
-        .literal('RPCRasterSpatialRef')
-        .describe('This value should always be "RPCRasterSpatialRef"'),
+        .string()
+        .default('RPCRasterSpatialRef')
+        .refine((val) => val.toLowerCase() === 'rpcrasterspatialref', {
+          message: 'factory must be "RPCRasterSpatialRef" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "RPCRasterSpatialRef" (case-insensitive)'
+        ),
       coord_sys_code: z
         .number()
         .int()

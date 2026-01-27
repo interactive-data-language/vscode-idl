@@ -8,8 +8,12 @@ export function MCP_ENVIVector(description: string) {
   return z
     .object({
       factory: z
-        .literal('URLVector')
-        .describe('This value should always be "URLVector"'),
+        .string()
+        .default('URLVector')
+        .refine((val) => val.toLowerCase() === 'urlvector', {
+          message: 'factory must be "URLVector" (case-insensitive)',
+        })
+        .describe('This value should be "URLVector" (case-insensitive)'),
       url: z
         .string()
         .describe(

@@ -7,8 +7,14 @@ export function MCP_ENVIDeepLearningONNXModel(description: string) {
   return z
     .object({
       factory: z
-        .literal('DeepLearningONNXModel')
-        .describe('This value should always be "DeepLearningONNXModel"'),
+        .string()
+        .default('DeepLearningONNXModel')
+        .refine((val) => val.toLowerCase() === 'deeplearningonnxmodel', {
+          message: 'factory must be "DeepLearningONNXModel" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "DeepLearningONNXModel" (case-insensitive)'
+        ),
       url: z
         .string()
         .describe(

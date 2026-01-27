@@ -7,8 +7,14 @@ export function MCP_ENVISpectralSignature(description: string) {
   return z
     .object({
       factory: z
-        .literal('ENVISpectralSignature')
-        .describe('This value should always be "ENVISpectralSignature"'),
+        .string()
+        .default('ENVISpectralSignature')
+        .refine((val) => val.toLowerCase() === 'envispectralsignature', {
+          message: 'factory must be "ENVISpectralSignature" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "ENVISpectralSignature" (case-insensitive)'
+        ),
       name: z.string().describe('The name of the spectral signture'),
       reflectance_scale_factor: z
         .string()

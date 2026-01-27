@@ -11,8 +11,12 @@ export function MCP_ENVICoordSys(description: string) {
   return z
     .object({
       factory: z
-        .literal('CoordSys')
-        .describe('This value should always be "CoordSys"'),
+        .string()
+        .default('CoordSys')
+        .refine((val) => val.toLowerCase() === 'coordsys', {
+          message: 'factory must be "CoordSys" (case-insensitive)',
+        })
+        .describe('This value should be "CoordSys" (case-insensitive)'),
       coord_sys_code: z
         .string()
         .describe(`The EPSG code for the coordinate system`),

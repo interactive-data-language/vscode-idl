@@ -7,8 +7,12 @@ export function MCP_SARscapeData(description: string) {
   return z
     .object({
       factory: z
-        .literal('ENVISARscapedata')
-        .describe('This value should always be "ENVISARscapedata"'),
+        .string()
+        .default('ENVISARscapedata')
+        .refine((val) => val.toLowerCase() === 'envisarscapedata', {
+          message: 'factory must be "ENVISARscapedata" (case-insensitive)',
+        })
+        .describe('This value should be "ENVISARscapedata" (case-insensitive)'),
       url: z
         .string()
         .describe(

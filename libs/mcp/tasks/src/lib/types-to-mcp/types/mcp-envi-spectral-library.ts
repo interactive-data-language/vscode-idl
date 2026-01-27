@@ -8,8 +8,14 @@ export function MCP_ENVISpectralLibrary(description: string) {
   return z
     .object({
       factory: z
-        .literal('URLSpectralLibrary')
-        .describe('This value should always be "URLSpectralLibrary"'),
+        .string()
+        .default('URLSpectralLibrary')
+        .refine((val) => val.toLowerCase() === 'urlspectrallibrary', {
+          message: 'factory must be "URLSpectralLibrary" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "URLSpectralLibrary" (case-insensitive)'
+        ),
       url: z
         .string()
         .describe(

@@ -9,8 +9,15 @@ export function MCP_ENVIDeepLearningKerasModel(description: string) {
   return z
     .object({
       factory: z
-        .literal('DeepLearningKerasModel')
-        .describe('This value should always be "DeepLearningKerasModel"'),
+        .string()
+        .default('DeepLearningKerasModel')
+        .refine((val) => val.toLowerCase() === 'deeplearningkerasmodel', {
+          message:
+            'factory must be "DeepLearningKerasModel" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "DeepLearningKerasModel" (case-insensitive)'
+        ),
       url: z
         .string()
         .describe(

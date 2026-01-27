@@ -10,8 +10,12 @@ export function MCP_ENVIGridDefinition(description: string) {
     .union([
       z.object({
         factory: z
-          .literal('GridDefinition')
-          .describe('This value should always be "GridDefinition"'),
+          .string()
+          .default('GridDefinition')
+          .refine((val) => val.toLowerCase() === 'griddefinition', {
+            message: 'factory must be "GridDefinition" (case-insensitive)',
+          })
+          .describe('This value should be "GridDefinition" (case-insensitive)'),
         coord_sys: MCP_ENVICoordSys(
           'Coordinate system for the grid definition'
         ),
@@ -39,8 +43,12 @@ export function MCP_ENVIGridDefinition(description: string) {
       }),
       z.object({
         factory: z
-          .literal('GridDefinition')
-          .describe('This value should always be "GridDefinition"'),
+          .string()
+          .default('GridDefinition')
+          .refine((val) => val.toLowerCase() === 'griddefinition', {
+            message: 'factory must be "GridDefinition" (case-insensitive)',
+          })
+          .describe('This value should be "GridDefinition" (case-insensitive)'),
         coord_sys: MCP_ENVICoordSys(
           'Coordinate system for the grid definition'
         ),

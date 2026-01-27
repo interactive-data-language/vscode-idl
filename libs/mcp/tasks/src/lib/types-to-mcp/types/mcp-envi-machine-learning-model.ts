@@ -7,8 +7,14 @@ export function MCP_ENVIMachineLearningModel(description: string) {
   return z
     .object({
       factory: z
-        .literal('MachineLearningModel')
-        .describe('This value should always be "MachineLearningModel"'),
+        .string()
+        .default('MachineLearningModel')
+        .refine((val) => val.toLowerCase() === 'machinelearningmodel', {
+          message: 'factory must be "MachineLearningModel" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "MachineLearningModel" (case-insensitive)'
+        ),
       url: z
         .string()
         .describe(

@@ -7,8 +7,15 @@ export function MCP_ENVIPseudoRasterSpatialref(description: string) {
   return z
     .object({
       factory: z
-        .literal('PseudoRasterSpatialRef')
-        .describe('This value should always be "PseudoRasterSpatialRef"'),
+        .string()
+        .default('PseudoRasterSpatialRef')
+        .refine((val) => val.toLowerCase() === 'pseudorasterspatialref', {
+          message:
+            'factory must be "PseudoRasterSpatialRef" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "PseudoRasterSpatialRef" (case-insensitive)'
+        ),
       pseudo_geo_point_1: z
         .array(z.number())
         .length(4)

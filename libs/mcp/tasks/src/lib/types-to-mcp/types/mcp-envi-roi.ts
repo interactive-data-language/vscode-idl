@@ -9,8 +9,12 @@ export function MCP_ENVIROI(description: string) {
   return z
     .object({
       factory: z
-        .literal('URLROI')
-        .describe('This value should always be "URLROI"'),
+        .string()
+        .default('URLROI')
+        .refine((val) => val.toLowerCase() === 'urlroi', {
+          message: 'factory must be "URLROI" (case-insensitive)',
+        })
+        .describe('This value should be "URLROI" (case-insensitive)'),
       url: z
         .string()
         .describe(

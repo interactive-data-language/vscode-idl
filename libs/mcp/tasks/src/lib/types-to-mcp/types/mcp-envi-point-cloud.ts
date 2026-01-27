@@ -8,8 +8,12 @@ export function MCP_ENVIPointCloud(description: string) {
   return z
     .object({
       factory: z
-        .literal('URLPointCloud')
-        .describe('This value should always be "URLPointCloud"'),
+        .string()
+        .default('URLPointCloud')
+        .refine((val) => val.toLowerCase() === 'urlpointcloud', {
+          message: 'factory must be "URLPointCloud" (case-insensitive)',
+        })
+        .describe('This value should be "URLPointCloud" (case-insensitive)'),
       url: z
         .array(z.string())
         .describe(

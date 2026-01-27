@@ -6,7 +6,13 @@ import { z } from 'zod';
 export function MCP_ENVITime(description: string) {
   return z
     .object({
-      factory: z.literal('Time').describe('This value should always be "Time"'),
+      factory: z
+        .string()
+        .default('Time')
+        .refine((val) => val.toLowerCase() === 'time', {
+          message: 'factory must be "Time" (case-insensitive)',
+        })
+        .describe('This value should be "Time" (case-insensitive)'),
       acquisition: z
         .string()
         .describe(

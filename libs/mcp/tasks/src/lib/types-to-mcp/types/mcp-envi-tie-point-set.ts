@@ -10,8 +10,12 @@ export function MCP_ENVITiePointSet(description: string) {
   return z
     .object({
       factory: z
-        .literal('URLTiePointSet')
-        .describe('This value should always be "URLTiePointSet"'),
+        .string()
+        .default('URLTiePointSet')
+        .refine((val) => val.toLowerCase() === 'urltiepointset', {
+          message: 'factory must be "URLTiePointSet" (case-insensitive)',
+        })
+        .describe('This value should be "URLTiePointSet" (case-insensitive)'),
       url: z
         .string()
         .describe(

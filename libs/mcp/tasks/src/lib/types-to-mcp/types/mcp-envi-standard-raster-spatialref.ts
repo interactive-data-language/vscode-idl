@@ -8,8 +8,15 @@ export function MCP_ENVIStandardRasterSpatialref(description: string) {
   return z
     .object({
       factory: z
-        .literal('StandardRasterSpatialRef')
-        .describe('This value should always be "StandardRasterSpatialRef"'),
+        .string()
+        .default('StandardRasterSpatialRef')
+        .refine((val) => val.toLowerCase() === 'standardrasterspatialref', {
+          message:
+            'factory must be "StandardRasterSpatialRef" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "StandardRasterSpatialRef" (case-insensitive)'
+        ),
       coord_sys_code: z
         .number()
         .int()

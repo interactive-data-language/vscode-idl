@@ -8,8 +8,15 @@ export function MCP_ENVIDeepLearningLabelRaster(description: string) {
   return z
     .object({
       factory: z
-        .literal('DeepLearningLabelRaster')
-        .describe('This value should always be "DeepLearningLabelRaster"'),
+        .string()
+        .default('DeepLearningLabelRaster')
+        .refine((val) => val.toLowerCase() === 'deeplearninglabelraster', {
+          message:
+            'factory must be "DeepLearningLabelRaster" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "DeepLearningLabelRaster" (case-insensitive)'
+        ),
       url: z
         .string()
         .describe(

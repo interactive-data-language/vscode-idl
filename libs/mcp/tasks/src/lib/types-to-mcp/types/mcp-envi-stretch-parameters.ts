@@ -7,8 +7,14 @@ export function MCP_ENVIStretchParameters(description: string) {
   return z
     .object({
       factory: z
-        .literal('StretchParameters')
-        .describe('This value should always be "StretchParameters"'),
+        .string()
+        .default('StretchParameters')
+        .refine((val) => val.toLowerCase() === 'stretchparameters', {
+          message: 'factory must be "StretchParameters" (case-insensitive)',
+        })
+        .describe(
+          'This value should be "StretchParameters" (case-insensitive)'
+        ),
       stretchType: z
         .enum([
           'Linear',
