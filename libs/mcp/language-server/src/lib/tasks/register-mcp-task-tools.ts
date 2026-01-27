@@ -9,6 +9,7 @@ import { FilterMCPENVITasks, MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLIndex } from '@idl/parsing/index';
 import {
   GLOBAL_TOKEN_TYPES,
+  GlobalFunctionToken,
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
@@ -38,12 +39,16 @@ export async function RegisterMCPTaskTools(
   RegisterMCPTool_ENVIGetToolParameters(messenger, registry);
   RegisterMCPTool_ENVIRunTool(messenger, registry);
 
+  /** Get all functions that we know about */
+  const functions =
+    index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.FUNCTION];
+
   /** Get all structures that we know about */
   const structures =
     index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.STRUCTURE];
 
   /** Find names of ENVI Tasks and exclude those we dont need to expose  */
-  const keys = FilterMCPENVITasks(Object.keys(structures)).sort();
+  const keys = FilterMCPENVITasks(functions, Object.keys(structures)).sort();
 
   logger.log({
     log: IDL_MCP_LOG,
@@ -54,6 +59,7 @@ export async function RegisterMCPTaskTools(
   // add all ENVI Tasks
   for (let i = 0; i < keys.length; i++) {
     registry.registerTask(
+      functions[keys[i]][0] as IGlobalIndexedToken<GlobalFunctionToken>,
       structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>
     );
   }

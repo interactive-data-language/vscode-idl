@@ -1,6 +1,7 @@
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { IDLTypeHelper, TASK_REGEX } from '@idl/parsing/type-parser';
 import {
+  GlobalFunctionToken,
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
@@ -136,13 +137,25 @@ export class MCPTaskRegistry {
 
   /**
    * Register a task
+   *
+   * The function contains the helpful docs and syntax examples
+   *
+   * The structure contains all properties and docs for them
+   *
+   * **DO NOT** use the docs in the overall structure definition, as
+   * it *only* contains properties
    */
-  registerTask(task: IGlobalIndexedToken<GlobalStructureToken>) {
+  registerTask(
+    taskFunction: IGlobalIndexedToken<GlobalFunctionToken>,
+    taskStructure: IGlobalIndexedToken<GlobalStructureToken>
+  ) {
     /** Get the task name */
-    const taskName = TASK_REGEX.exec(task.meta.display)[1].toLowerCase();
+    const taskName = TASK_REGEX.exec(
+      taskStructure.meta.display
+    )[1].toLowerCase();
 
     /** Get short task description */
-    const description = GetCleanDescription(task.meta.docs);
+    const description = GetCleanDescription(taskFunction.meta.docs);
 
     /**
      * If there is no description, return since we need one to run tools
@@ -167,7 +180,7 @@ export class MCPTaskRegistry {
     const outputArgs: ZodRawShape = {};
 
     /** Get task properties */
-    const props = task.meta.props;
+    const props = taskStructure.meta.props;
 
     /** Get names of properties */
     const names = Object.keys(props);
@@ -222,7 +235,7 @@ export class MCPTaskRegistry {
         .object(inputArgs)
         .describe(
           `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${GetCleanDescription(
-            task.meta.docs,
+            taskFunction.meta.docs,
             false
           )}`
         )
@@ -243,12 +256,12 @@ export class MCPTaskRegistry {
     );
 
     // see if we need to track task file
-    if (task.file) {
+    if (taskStructure.file) {
       /** Create metadata so its strictly types */
       const meta: TaskLocation<TaskLocation_File> = {
         type: 'file',
         meta: {
-          path: task.file,
+          path: taskStructure.file,
         },
       };
       this.location[taskName] = meta;
