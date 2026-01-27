@@ -56,8 +56,8 @@ export interface MCPToolParams_ENVIQueryDataset {
  */
 export interface MCPToolResponse_ENVIQueryDataset
   extends IMCPToolVSCode_BaseResponse {
-  /** Information about the dataset that we return to the agent */
-  info: { [key: string]: any };
+  /** Information about the dataset that we return to the agent, array of values */
+  info: { [key: string]: any }[];
 }
 
 /**
