@@ -8,6 +8,7 @@
 .nx
 extension/docs/.vitepress/cache
 extension/docs/.vitepress/dist
+build.json
 
 # dependencies
 /node_modules

@@ -269,7 +269,7 @@ pro vscode_BuildWorkspace, workspace, $
   file_copy, srcDir, outDir, /recursive
 
   ;+ specify the folder for our dependencies
-  depDir = workspace + path_sep() + 'dist' + path_sep() + 'deps'
+  depDir = outDir + path_sep() + 'deps'
   if ~file_test(depDir, /directory) then file_mkdir, depDir
 
   ;+ Specify routines to skip
@@ -449,4 +449,8 @@ pro vscode_BuildWorkspace, workspace, $
     printf, lun, json_serialize(unresolvedNames, /pretty)
     free_lun, lun
   endif
+
+  ; check if we need to clean up the dependency folder
+  !null = file_search(depDir, '*.sav', count = nSave)
+  if (nSave eq 0) then file_delete, depDir
 end
