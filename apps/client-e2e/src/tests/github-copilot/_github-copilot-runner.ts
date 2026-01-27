@@ -8,6 +8,9 @@ import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-cop
 import { RunGitHubCopilotENVIRunTool } from './tools/envi/github-copilot-envi-run-tool';
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
 import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-envi';
+import { RunGitHubCopilotENVIOpenDatasets_Raster } from './tools/envi/open-datasets/github-copilot-envi-open-datasets-raster';
+import { RunGitHubCopilotENVIOpenDatasets_RasterSeries } from './tools/envi/open-datasets/github-copilot-envi-open-datasets-raster-series';
+import { RunGitHubCopilotENVIOpenDatasets_Vector } from './tools/envi/open-datasets/github-copilot-envi-open-datasets-vector';
 import { RunGitHubCopilotENVIQueryDataset_Raster } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-raster';
 import { RunGitHubCopilotENVIQueryDataset_ROI } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-roi';
 import { RunGitHubCopilotENVIQueryDataset_SpectralLibrary } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-spectral-library';
@@ -201,24 +204,87 @@ GITHUB_COPILOT_RUNNER.addTest({
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotENVIRunTool,
   name: 'Run simple tool and get expected results',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotENVIQueryDataset_Raster,
   name: 'Query dataset works (Raster)',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotENVIQueryDataset_ROI,
   name: 'Query dataset works (ROI)',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotENVIQueryDataset_SpectralLibrary,
   name: 'Query dataset works (Spectral Library)',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
   fn: RunGitHubCopilotENVIQueryDataset_Vector,
   name: 'Query dataset works (Vector)',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIOpenDatasets_Raster,
+  name: 'Open dataset (Raster)',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIOpenDatasets_RasterSeries,
+  name: 'Open dataset (Raster Series)',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
+});
+
+GITHUB_COPILOT_RUNNER.addTest({
+  fn: RunGitHubCopilotENVIOpenDatasets_Vector,
+  name: 'Open dataset (Vector)',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
