@@ -34,7 +34,9 @@ export function RegisterMCPTool_ENVIOpenDatasets(
             MCP_ENVIRasterSeries('An ENVI Raster series file'),
           ])
         )
-        .describe('The datasets to open in ENVI.'),
+        .describe(
+          'The datasets to open in ENVI. The order of the array is the order in which items are displayed in ENVI, so the first item is the bottom-most layer.'
+        ),
       automaticZoom: z
         .enum(['all-layers', 'last-layer', 'none'])
         .default('last-layer')
