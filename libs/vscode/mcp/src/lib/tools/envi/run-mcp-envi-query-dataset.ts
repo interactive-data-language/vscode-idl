@@ -27,7 +27,7 @@ export async function RunMCP_ENVIQueryDataset(
 
   // return if unable to start IDL
   if (!started.started) {
-    return { success: false, err: started.reason, info: {} };
+    return { success: false, err: started.reason, info: [{}] };
   }
 
   // verify version
@@ -35,7 +35,7 @@ export async function RunMCP_ENVIQueryDataset(
     return {
       success: false,
       err: 'Requires at least IDL 9.2 and ENVI 6.2 to function',
-      info: {},
+      info: [{}],
     };
   }
 
@@ -49,7 +49,7 @@ export async function RunMCP_ENVIQueryDataset(
     return {
       success: start.succeeded,
       err: `${start.error}, IDL Output: ${start.idlOutput}`,
-      info: {},
+      info: [{}],
     };
   }
 
@@ -65,6 +65,6 @@ export async function RunMCP_ENVIQueryDataset(
   return {
     success: res.succeeded,
     err: res.error,
-    info: res.payload || {},
+    info: res.payload || [{}],
   };
 }
