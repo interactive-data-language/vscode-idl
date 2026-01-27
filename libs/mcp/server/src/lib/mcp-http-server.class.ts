@@ -3,6 +3,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import * as express from 'express';
 
+import { LOCAL_IPS } from './local-ips.interface';
 import { MCP_SERVER_CONFIG } from './mcp-server.interface';
 
 /**
@@ -77,6 +78,25 @@ export class McpHttpServerCore {
    * Start the streamable MCP server
    */
   private startStreamableWebServer() {
+    // Middleware to only allow requests from localhost
+    this.app.use((req: express.Request, res: express.Response, next) => {
+      const ip = req.ip || req.socket.remoteAddress || '';
+      const isLocalhost = ip in LOCAL_IPS || ip.startsWith('127.');
+
+      if (!isLocalhost) {
+        this.logCallback({
+          content: `Rejected request from non-localhost IP: ${ip}`,
+          type: 'warn',
+        });
+        res
+          .status(403)
+          .json('Forbidden: Only localhost connections are allowed');
+        return;
+      }
+
+      next();
+    });
+
     this.app.post(
       '/mcp',
       async (req: express.Request, res: express.Response) => {
