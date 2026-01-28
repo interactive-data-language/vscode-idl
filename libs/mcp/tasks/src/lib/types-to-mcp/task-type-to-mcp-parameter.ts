@@ -25,6 +25,7 @@ import { MCP_ENVIStandardRasterSpatialref } from './types/mcp-envi-standard-rast
 import { MCP_ENVIStretchParameters } from './types/mcp-envi-stretch-parameters';
 import { MCP_ENVITiePointSet } from './types/mcp-envi-tie-point-set';
 import { MCP_ENVITime } from './types/mcp-envi-time';
+import { MCP_ENVIVariant } from './types/mcp-envi-variant';
 import { MCP_ENVIVector } from './types/mcp-envi-vector';
 import { MCP_SARscapeData } from './types/mcp-sarscape-data';
 
@@ -243,6 +244,12 @@ export function TaskTypeToMCPParameter(
      */
     case IDLTypeHelper.isType(type, 'envitime'):
       return MCP_ENVITime(docs);
+
+    /**
+     * Variant (i.e. publish to repo)
+     */
+    case IDLTypeHelper.isType(type, 'variant'):
+      return MCP_ENVIVariant(docs);
 
     /**
      * Vector
