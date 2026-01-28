@@ -157,6 +157,9 @@ export class MCPTaskRegistry {
     /** Get short task description */
     const description = GetCleanDescription(taskFunction.meta.docs);
 
+    /** Get full description */
+    const fullDescription = GetCleanDescription(taskFunction.meta.docs, false);
+
     /**
      * If there is no description, return since we need one to run tools
      */
@@ -203,7 +206,7 @@ export class MCPTaskRegistry {
       }
 
       /** Get cleaned parameter docs */
-      const docs = GetCleanDescription(prop.docs); // markdownToTxt(prop.docs);
+      const docs = GetCleanDescription(prop.docs, false);
 
       /** Make zod parameter */
       const param = TaskTypeToMCPParameter(names[i], docs, prop.type);
@@ -234,10 +237,7 @@ export class MCPTaskRegistry {
       z
         .object(inputArgs)
         .describe(
-          `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${GetCleanDescription(
-            taskFunction.meta.docs,
-            false
-          )}`
+          `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${fullDescription}`
         )
     );
 
