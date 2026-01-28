@@ -10,6 +10,7 @@ import { MCP_ENVIDeepLearningLabelRaster } from './types/mcp-envi-deep-learning-
 import { MCP_ENVIDeepLearningObjectDetectionRaster } from './types/mcp-envi-deep-learning-object-detection-raster';
 import { MCP_ENVIDeepLearningONNXModel } from './types/mcp-envi-deep-learning-onnx-model';
 import { MCP_ENVIDeepLearningRaster } from './types/mcp-envi-deep-learning-raster';
+import { MCP_ENVIGCPSet } from './types/mcp-envi-gcp-set';
 import { MCP_ENVIGeoJSON } from './types/mcp-envi-geojson';
 import { MCP_ENVIGridDefinition } from './types/mcp-envi-grid-definition';
 import { MCP_ENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
@@ -142,6 +143,12 @@ export function TaskTypeToMCPParameter(
      */
     case IDLTypeHelper.isType(type, 'envideeplearningraster'):
       return MCP_ENVIDeepLearningRaster(docs);
+
+    /**
+     * GCP Set
+     */
+    case IDLTypeHelper.isType(type, 'envigcpset'):
+      return MCP_ENVIGCPSet(docs);
 
     /**
      * GeoJSON
