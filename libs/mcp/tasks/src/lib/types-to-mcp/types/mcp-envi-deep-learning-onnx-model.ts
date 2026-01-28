@@ -18,7 +18,7 @@ export function MCP_ENVIDeepLearningONNXModel(description: string) {
       url: z
         .string()
         .describe(
-          `Provide a fully-qualified filepath to the ENVI ONNX model on disk. This should be a file with a ".envi.onnx" file extension. The ".envi.onnx" comes from the model being configured to run in ENVI (needs to happen if not ".envi.onnx"). To verify that the ONNX model is compatible with data, use the ENVI Query Dataset tool to cehck model and image data before use.`
+          `Provide a fully-qualified filepath to the ENVI ONNX model on disk. This should be a file with a ".envi.onnx" file extension. The ".envi.onnx" comes from the model being configured to run in ENVI (needs to happen if not ".envi.onnx"). To verify that the ONNX model is compatible with data, use the ENVI Query Dataset tool to check the model before use.`
         ),
     })
     .describe(description);

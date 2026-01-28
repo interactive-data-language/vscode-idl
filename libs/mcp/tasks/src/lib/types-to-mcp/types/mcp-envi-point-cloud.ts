@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /**
- * Returns an ENVI Raster task parameter for an ENVI Task MCP
+ * Returns an ENVI Point Cloud task parameter for an ENVI Task MCP
  * Tool
  */
 export function MCP_ENVIPointCloud(description: string) {
