@@ -494,6 +494,8 @@ export const EN: ITranslation = {
       enviError:
         'Error while accessing ENVI, see the IDL console for more details',
       noUI: 'ENVI has started, but has no UI. Please restart ENVI with the UI to display data',
+      noLicense:
+        'The ENVI Agent license feature was not found. This license feature includes optimized tools for LLMs to interact with ENVI to increase repeatability and quality of results.',
       openError: 'Unable to open dataset, see the IDL console for more details',
     },
     openerText: 'ENVI should attempt to open the image shortly, please wait.',

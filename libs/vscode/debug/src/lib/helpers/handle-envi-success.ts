@@ -49,6 +49,9 @@ export async function HandleENVISuccess(
       case 'no-envi-ui':
         msg = IDL_TRANSLATION.envi.open.noUI;
         break;
+      case 'no-license':
+        msg = IDL_TRANSLATION.envi.open.noLicense;
+        break;
       case 'open-error':
         msg = IDL_TRANSLATION.envi.open.openError;
         break;

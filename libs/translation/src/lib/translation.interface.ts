@@ -490,6 +490,8 @@ export interface ITranslation {
       enviError: string;
       /** ENVI is running already, but no UI */
       noUI: string;
+      /** When there is no ENVI Agent license */
+      noLicense: string;
       /** Error when executing ENVI::OpenRaster */
       openError: string;
     };
