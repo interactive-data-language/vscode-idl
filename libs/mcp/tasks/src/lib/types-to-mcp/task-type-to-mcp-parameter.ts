@@ -14,6 +14,7 @@ import { MCP_ENVIGeoJSON } from './types/mcp-envi-geojson';
 import { MCP_ENVIGridDefinition } from './types/mcp-envi-grid-definition';
 import { MCP_ENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
 import { MCP_ENVIPointCloud } from './types/mcp-envi-point-cloud';
+import { MCP_ENVIPointCloudSpatialRef } from './types/mcp-envi-point-cloud-spatial-ref';
 import { MCP_ENVIPseudoRasterSpatialref } from './types/mcp-envi-pseudo-raster-spatialref';
 import { MCP_ENVIRaster } from './types/mcp-envi-raster';
 import { MCP_ENVIRasterSeries } from './types/mcp-envi-raster-series';
@@ -165,6 +166,12 @@ export function TaskTypeToMCPParameter(
     case IDLTypeHelper.isType(type, 'envipointcloudbase'):
     case IDLTypeHelper.isType(type, 'envipointcloud'):
       return MCP_ENVIPointCloud(docs);
+
+    /**
+     * Point cloud spatial reference
+     */
+    case IDLTypeHelper.isType(type, 'envipointcloudspatialref'):
+      return MCP_ENVIPointCloudSpatialRef(docs);
 
     /**
      * ENVI pseudo raster spatial ref
