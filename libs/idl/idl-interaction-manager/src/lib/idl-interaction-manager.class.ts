@@ -11,6 +11,7 @@ import {
   DEFAULT_IDL_EVALUATE_OPTIONS,
   DEFAULT_IDL_INFO,
   IDL_EVENT_LOOKUP,
+  IDL_OUTPUT_COMPILED_MODULE,
   IDLBreakpoint,
   IDLCallStack,
   IDLCallStackItem,
@@ -24,6 +25,7 @@ import {
   IDLVariable,
   IRawBreakpoint,
   IStartIDLConfig,
+  REGEX_COMPILE_COMMAND,
   REGEX_SYNTAX_ERROR,
 } from '@idl/types/idl/idl-process';
 import { URI } from 'vscode-uri';
@@ -127,6 +129,17 @@ export class IDLInteractionManager {
       throw new Error('Start IDL before evaluating any expressions');
     }
 
+    /** Check if we are compiling */
+    const isCompile = REGEX_COMPILE_COMMAND.test(command);
+
+    /** track call stack */
+    let oldStack: IDLCallStack;
+
+    // get current call stack
+    if (isCompile) {
+      oldStack = await this.getCallStack();
+    }
+
     /**
      * Fill options with all values
      */
@@ -200,6 +213,55 @@ export class IDLInteractionManager {
     // indicate that we are finished and the queue can be cleared
     this._processing = undefined;
 
+    /**
+     * If we have compiled a file, check to see if we need to
+     * manipulate our call stack
+     */
+    if (isCompile) {
+      /**
+       * Get list of routines that we compiled
+       */
+      const compiledRoutines = results
+        .trim()
+        .split(/\r?\n/gim)
+        .filter((line) => line.startsWith('% Compiled module'))
+        .map((line) =>
+          line.replace(IDL_OUTPUT_COMPILED_MODULE, (match, group1) => {
+            return group1;
+          })
+        )
+        .map((routine) => routine.toLowerCase())
+        .reverse();
+
+      /** Get existing call stack */
+      const stackRoutines = oldStack.frames.map((frame) =>
+        frame.name.toLowerCase()
+      );
+
+      console.log(stackRoutines);
+      console.log(compiledRoutines);
+
+      // check for return if we have a call stack
+      if (stackRoutines.length > 0) {
+        // check everything we compiled
+        for (let i = 0; i < compiledRoutines.length; i++) {
+          if (stackRoutines.indexOf(compiledRoutines[i]) !== -1) {
+            console.log('found a match');
+            // if we have main, then reset main
+            if (compiledRoutines[i] === '$main$' && this.isIDLMachine()) {
+              await this.evaluate('.r', { silent: true });
+            } else {
+              await this.evaluate('retall', { silent: true });
+            }
+
+            // emit that we have continued
+            this.idl.emit('continue');
+            break;
+          }
+        }
+      }
+    }
+
     // trigger next processing
     this._next();
 
@@ -259,8 +321,22 @@ export class IDLInteractionManager {
       return { frames: [], count: 0 };
     }
 
-    /** Get latest call stack from IDL */
-    const scope = await this.getCurrentStack();
+    /** Get latest call stack from IDL and clean up */
+    const scope = (await this.getCurrentStack()).map((item) => {
+      // fix "command input line"
+      if (item.file.toLowerCase() === '<command input line>') {
+        item.file = '';
+        item.routine = '$main$';
+        item.line = 0;
+      }
+
+      return item;
+    });
+
+    // if in main not in a file, return empty stack
+    if (scope.length === 1 && scope[0].routine.toLowerCase() === '$main$') {
+      return { frames: [], count: 0 };
+    }
 
     // initialize call stack
     const frames: IDLCallStackItem[] = [];
@@ -443,6 +519,7 @@ export class IDLInteractionManager {
    * Resets information about the call stack so that we are always fresh
    */
   async resetCallStack() {
+    // reset the call stack
     await this.idl.resetCallStack();
   }
 

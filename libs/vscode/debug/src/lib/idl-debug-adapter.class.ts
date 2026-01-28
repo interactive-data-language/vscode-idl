@@ -9,7 +9,6 @@ import {
   IDL_EVENT_LOOKUP,
   REGEX_COMPILE_COMMAND,
   REGEX_COMPILE_EDIT_COMMAND,
-  REGEX_COMPILED_MAIN,
   REGEX_EDIT_COMMAND,
   REGEX_IDL_EXIT,
   REGEX_IDL_LINE_CONTINUATION,
@@ -274,78 +273,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     /** Output from running all commands */
     let res = '';
 
-    /** Track if we had a main level program */
-    let atMain = false;
-
-    /** Flag indicating if we need to return */
-    let shouldReturn = false;
-
     // check if we need to return
     if (REGEX_COMPILE_COMMAND.test(useCommand)) {
       // update flag that we compiled code
       didCompile = true;
-
-      // get the current scope information
-      const scope = await this._runtime.getCurrentStack();
-
-      // check for main level
-      if (scope.length > 0) {
-        if (scope[scope.length - 1].routine === '$main$') {
-          atMain = true;
-        }
-      }
-
-      // process every file we are in
-      for (let i = 0; i < scope.length; i++) {
-        // get current file so we can build regex expressions
-        const scopeFile = scope[i].file;
-
-        // check if our compiled file matches our command
-        switch (true) {
-          // test full filepath
-          case new RegExp(
-            `^\\s*\\.(com|comp|compi|compil|compile)\\s+(-v\\s*)?('|")?${scopeFile}('|")?`,
-            'gim'
-          ).test(useCommand):
-            shouldReturn = true;
-            break;
-          // test base name
-          case new RegExp(
-            `^\\s*\\.(com|comp|compi|compil|compile)\\s+(-v\\s*)?('|")?${basename(
-              scopeFile
-            )}('|")?`,
-            'gim'
-          ).test(useCommand):
-            shouldReturn = true;
-            break;
-          default:
-            break;
-        }
-
-        // stop checking scope if we found that we are in our file
-        if (shouldReturn) {
-          break;
-        }
-      }
-
-      // return silently if needed
-      if (shouldReturn) {
-        await this._runtime.evaluate('retall', {
-          echo: false,
-          silent: true,
-          idlInfo: false,
-        });
-
-        // alert vscode
-        this.sendEvent(
-          new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.returning}\n`)
-        );
-        this._eventHelper.resetStopAndContinue();
-      }
     }
-
-    // reset return flag
-    shouldReturn = false;
 
     /** Flag if we need to issue a continued event or not */
     let shouldContinue = false;
@@ -366,19 +298,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         if (REGEX_IDL_RETALL.test(splitCommands[i])) {
           shouldContinue = true;
         }
-
-        /**
-         * Check if we are at a main level program and have compiled a main
-         * level program.
-         *
-         * We don't know this until we run our commands.
-         */
-        if (atMain) {
-          if (REGEX_COMPILED_MAIN.test(CleanIDLOutput(iOutput, false))) {
-            shouldReturn = true;
-            shouldContinue = true;
-          }
-        }
       }
 
       // open pro code on edit or compile
@@ -392,18 +311,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         // open file
         await this.editProCodeFile(splitCommands[i]);
       }
-    }
-
-    /**
-     * Check if we need to return, indicated by the fact that we compiled a main
-     * level program and we were stopped in one
-     */
-    if (shouldReturn) {
-      await this._runtime.evaluate('retall', {
-        echo: false,
-        silent: true,
-        idlInfo: false,
-      });
     }
 
     // determine how to proceed
@@ -1341,7 +1248,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
-        type: ADAPTER_METHOD_LOG_LEVEL,
+        type: 'info',
         content: ['Stack trace request', args],
       });
 

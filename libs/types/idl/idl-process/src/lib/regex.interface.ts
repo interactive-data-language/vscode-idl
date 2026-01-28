@@ -106,6 +106,15 @@ export const REGEX_IDL_RETALL = /^retall|^return/gim;
 export const REGEX_COMPILE_COMMAND = /^\s*\.(com|comp|compi|compil|compile)\s/i;
 
 /**
+ * Regular expression that detects routine compiled statements in
+ * IDL output.
+ *
+ * First capture group is the name of the routine that was compiled.
+ */
+export const IDL_OUTPUT_COMPILED_MODULE =
+  /% Compiled module:\s([$a-z_][a-z0-9_$]*)\./gim;
+
+/**
  * Tests a command for .compile and excludes when we pass in the "-v" flag
  * which comes from clicking buttons to match eclipse
  *

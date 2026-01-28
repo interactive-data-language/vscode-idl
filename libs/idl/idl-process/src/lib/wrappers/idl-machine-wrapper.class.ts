@@ -82,10 +82,23 @@ export class IDLMachineWrapper {
        */
     });
 
-    this.machine.onNotification('compilerOpenFile', () => {
+    this.machine.onNotification('compilerOpenFile', (file) => {
       /**
        * Nothing to do here for now
        */
+      if (this.lastDebugSend) {
+        /**
+         * Check if we need to continue
+         */
+        const idx = (this.lastDebugSend.stack.frames || [])
+          .map((frame) => frame.file.toLowerCase())
+          .indexOf(file);
+
+        // return
+        if (idx !== -1) {
+          this.process.emit('continue');
+        }
+      }
     });
 
     this.machine.onNotification('deathHint', () => {
@@ -363,8 +376,19 @@ export class IDLMachineWrapper {
       return '';
     });
 
+    /**
+     * Track number of requests for .run
+     */
+    let count = 0;
+
     this.machine.onRequest('readProgramLine', (msg) => {
-      return '';
+      if (count === 0) {
+        count++;
+        return 'cd';
+      } else {
+        count = 0;
+        return 'end';
+      }
     });
 
     this.machine.onRequest('resetSessionConfirm', () => {
