@@ -394,6 +394,9 @@ export class IDLProcess extends EventEmitter {
       args.env.IDL_PROMPT = 'IDL> ';
     }
 
+    // set variabe that we are in VSCode
+    args.env.IDL_FOR_VSCODE = 'true';
+
     // build the command for starting IDL
     const cmd = `${args.config.IDL.directory}${path.sep}${
       this.processType === 'machine' ? 'idl_machine' : 'idl'
