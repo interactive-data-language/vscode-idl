@@ -1,6 +1,6 @@
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ENVIOpenDatasets,
+  MCPTool_OpenDatasetsInENVI,
   MCPToolResponse,
 } from '@idl/types/mcp';
 import expect from 'expect';
@@ -12,11 +12,11 @@ import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
 /**
  * Makes sure we can open and display a dataset in ENVI
  */
-export const RunGitHubCopilotENVIOpenDatasets_Raster: RunnerFunction = async (
+export const RunGitHubCopilotOpenDatasetsInENVI_Raster: RunnerFunction = async (
   init
 ) => {
   // Call a tool
-  const result = await CallMCPTool(MCP_TOOL_LOOKUP.ENVI_OPEN_DATASETS, {
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {
     datasets: [ENVITestDatasets.raster()],
     automaticZoom: 'all-layers',
     resetView: true,
@@ -29,7 +29,7 @@ export const RunGitHubCopilotENVIOpenDatasets_Raster: RunnerFunction = async (
   expect((result.content as any[])?.length).toEqual(1);
 
   // init variable
-  let results: MCPToolResponse<MCPTool_ENVIOpenDatasets>;
+  let results: MCPToolResponse<MCPTool_OpenDatasetsInENVI>;
 
   // attempt to parse
   try {

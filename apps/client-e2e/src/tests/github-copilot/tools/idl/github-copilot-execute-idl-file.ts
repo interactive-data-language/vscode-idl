@@ -2,7 +2,7 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_IDLExecuteCode,
+  MCPTool_ExecuteIDLFile,
   MCPToolResponse_VSCode,
 } from '@idl/types/mcp';
 import expect from 'expect';
@@ -17,7 +17,7 @@ export const RunGitHubCopilotExecuteIDLFile: RunnerFunction = async (init) => {
   /**
    * Run a file that works correctly
    */
-  const resSuccess = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_FILE, {
+  const resSuccess = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
     uri: GetExtensionPath(
       'idl/test/client-e2e/github-copilot/mcp/idl-file-runs-fine.pro'
     ),
@@ -29,7 +29,7 @@ export const RunGitHubCopilotExecuteIDLFile: RunnerFunction = async (init) => {
   // parse result
   const parsedSuccess = JSON.parse(
     resSuccess.content[0].text
-  ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
+  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
   expect(parsedSuccess.success).toBeTruthy();
@@ -40,7 +40,7 @@ export const RunGitHubCopilotExecuteIDLFile: RunnerFunction = async (init) => {
   /**
    * Run a file that has a runtime error
    */
-  const resRuntimeErr = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_FILE, {
+  const resRuntimeErr = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
     uri: GetExtensionPath(
       'idl/test/client-e2e/github-copilot/mcp/idl-file-runtime-error.pro'
     ),
@@ -55,7 +55,7 @@ export const RunGitHubCopilotExecuteIDLFile: RunnerFunction = async (init) => {
   // parse result
   const parsedRuntimeErr = JSON.parse(
     resRuntimeErr.content[0].text
-  ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
+  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
   expect(parsedRuntimeErr.success).toBeFalsy();
@@ -63,7 +63,7 @@ export const RunGitHubCopilotExecuteIDLFile: RunnerFunction = async (init) => {
   /**
    * Run a file with syntax errors
    */
-  const resSyntaxErr = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_FILE, {
+  const resSyntaxErr = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
     uri: GetExtensionPath(
       'idl/test/client-e2e/github-copilot/mcp/idl-file-syntax-error.pro'
     ),
@@ -75,7 +75,7 @@ export const RunGitHubCopilotExecuteIDLFile: RunnerFunction = async (init) => {
   // parse result
   const parsedSyntaxErr = JSON.parse(
     resSyntaxErr.content[0].text
-  ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
+  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
   expect(parsedSyntaxErr.success).toBeFalsy();

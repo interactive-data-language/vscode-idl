@@ -2,29 +2,26 @@ import { NO_MATCHES } from '@idl/mcp/language-server';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
-import { RunnerFunction } from '../../runner.interface';
-import { CallMCPTool } from '../helpers/call-mcp-tool';
+import { RunnerFunction } from '../../../runner.interface';
+import { CallMCPTool } from '../../helpers/call-mcp-tool';
 
 /**
  * Get docs for a specific routine
  */
 export const RunGitHubCopilotGetRoutineDocs: RunnerFunction = async (init) => {
   // Call a tool
-  const routineDocs = await CallMCPTool(
-    MCP_TOOL_LOOKUP.RESOURCES_GET_ROUTINE_DOCS,
-    {
-      routines: [
-        {
-          name: 'httprequest',
-          type: 'StructureOrClassDefinition',
-        },
-        {
-          name: 'mcfoobers',
-          type: 'StructureOrClassDefinition',
-        },
-      ],
-    }
-  );
+  const routineDocs = await CallMCPTool(MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS, {
+    routines: [
+      {
+        name: 'httprequest',
+        type: 'StructureOrClassDefinition',
+      },
+      {
+        name: 'mcfoobers',
+        type: 'StructureOrClassDefinition',
+      },
+    ],
+  });
 
   // make sure the tool runs
   expect(routineDocs.isError).toBeFalsy();

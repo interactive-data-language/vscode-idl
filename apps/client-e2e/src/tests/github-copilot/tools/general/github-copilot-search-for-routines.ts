@@ -1,8 +1,8 @@
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
-import { RunnerFunction } from '../../runner.interface';
-import { CallMCPTool } from '../helpers/call-mcp-tool';
+import { RunnerFunction } from '../../../runner.interface';
+import { CallMCPTool } from '../../helpers/call-mcp-tool';
 
 /**
  * Make sure that we can search for routines using the "all" type
@@ -11,17 +11,14 @@ export const RunGitHubCopilotSearchForRoutineAll: RunnerFunction = async (
   init
 ) => {
   // Call a tool
-  const routineSearch = await CallMCPTool(
-    MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE,
-    {
-      routines: [
-        {
-          name: 'plot',
-          type: 'All',
-        },
-      ],
-    }
-  );
+  const routineSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE, {
+    routines: [
+      {
+        name: 'plot',
+        type: 'All',
+      },
+    ],
+  });
 
   // make sure the tool runs
   expect(routineSearch.isError).toBeFalsy();
@@ -57,17 +54,14 @@ export const RunGitHubCopilotSearchForRoutineSingle: RunnerFunction = async (
   init
 ) => {
   // Call a tool
-  const routineSearch = await CallMCPTool(
-    MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE,
-    {
-      routines: [
-        {
-          name: 'plot',
-          type: 'Function',
-        },
-      ],
-    }
-  );
+  const routineSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE, {
+    routines: [
+      {
+        name: 'plot',
+        type: 'Function',
+      },
+    ],
+  });
 
   // make sure the tool runs
   expect(routineSearch.isError).toBeFalsy();
@@ -102,21 +96,18 @@ export const RunGitHubCopilotSearchForRoutineMultiple: RunnerFunction = async (
   init
 ) => {
   // Call a tool
-  const routineSearch = await CallMCPTool(
-    MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE,
-    {
-      routines: [
-        {
-          name: 'plot',
-          type: 'Function',
-        },
-        {
-          name: 'csv',
-          type: 'All',
-        },
-      ],
-    }
-  );
+  const routineSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE, {
+    routines: [
+      {
+        name: 'plot',
+        type: 'Function',
+      },
+      {
+        name: 'csv',
+        type: 'All',
+      },
+    ],
+  });
 
   // make sure the tool runs
   expect(routineSearch.isError).toBeFalsy();

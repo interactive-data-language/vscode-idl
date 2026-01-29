@@ -14,7 +14,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  */
 export const RunGitHubCopilotStartENVI: RunnerFunction = async (init) => {
   // Call a tool
-  const resultHeadless = await CallMCPTool(MCP_TOOL_LOOKUP.ENVI_START, {
+  const resultHeadless = await CallMCPTool(MCP_TOOL_LOOKUP.START_ENVI, {
     headless: true,
   });
 
@@ -42,7 +42,7 @@ export const RunGitHubCopilotStartENVI: RunnerFunction = async (init) => {
   expect(init.debug.adapter.isStarted()).toBeFalsy();
 
   // start ENVI with the UI
-  const resultUI = await CallMCPTool(MCP_TOOL_LOOKUP.ENVI_START, {
+  const resultUI = await CallMCPTool(MCP_TOOL_LOOKUP.START_ENVI, {
     headless: false,
   });
 

@@ -1,6 +1,6 @@
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ENVIRunTool,
+  MCPTool_RunENVITool,
   MCPToolResponse,
 } from '@idl/types/mcp';
 import expect from 'expect';
@@ -15,7 +15,7 @@ import { ENVITestDatasets } from '../../helpers/envi-test-datasets.class';
 /**
  * Makes sure we can run a simple ENVI tool
  */
-export const RunGitHubCopilotENVIRunTool: RunnerFunction = async (init) => {
+export const RunGitHubCopilotRunENVITool: RunnerFunction = async (init) => {
   /** Output raster URI */
   const outUri = join(tmpdir(), 'envi_tool.dat');
   if (existsSync(outUri)) {
@@ -23,7 +23,7 @@ export const RunGitHubCopilotENVIRunTool: RunnerFunction = async (init) => {
   }
 
   // Call a tool
-  const result = await CallMCPTool(MCP_TOOL_LOOKUP.ENVI_RUN_TOOL, {
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
     taskName: 'ISODataClassification',
     inputParameters: {
       input_raster: ENVITestDatasets.raster(),
@@ -45,7 +45,7 @@ export const RunGitHubCopilotENVIRunTool: RunnerFunction = async (init) => {
   expect(existsSync(outUri)).toBeTruthy();
 
   // init variable
-  let results: MCPToolResponse<MCPTool_ENVIRunTool>;
+  let results: MCPToolResponse<MCPTool_RunENVITool>;
 
   // attempt to parse
   try {

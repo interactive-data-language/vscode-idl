@@ -1,8 +1,8 @@
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
-import { RunnerFunction } from '../../runner.interface';
-import { CallMCPTool } from '../helpers/call-mcp-tool';
+import { RunnerFunction } from '../../../runner.interface';
+import { CallMCPTool } from '../../helpers/call-mcp-tool';
 
 /**
  * Makes sure we error when we get resources
@@ -11,12 +11,9 @@ import { CallMCPTool } from '../helpers/call-mcp-tool';
  */
 export const RunGitHubSearchResources: RunnerFunction = async (init) => {
   // Call a tool
-  const searchNoQuery = await CallMCPTool(
-    MCP_TOOL_LOOKUP.RESOURCES_SEARCH_RESOURCES,
-    {
-      queries: [],
-    }
-  );
+  const searchNoQuery = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_RESOURCES, {
+    queries: [],
+  });
 
   // make sure the tool runs
   expect(searchNoQuery.isError).toBeFalsy();
@@ -41,12 +38,9 @@ export const RunGitHubSearchResources: RunnerFunction = async (init) => {
   expect(noQueryResourcesrces.length).toEqual(0);
 
   // Call a tool
-  const functonResources = await CallMCPTool(
-    MCP_TOOL_LOOKUP.RESOURCES_SEARCH_RESOURCES,
-    {
-      queries: ['function'],
-    }
-  );
+  const functonResources = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_RESOURCES, {
+    queries: ['function'],
+  });
 
   // make sure the tool runs
   expect(functonResources.isError).toBeFalsy();

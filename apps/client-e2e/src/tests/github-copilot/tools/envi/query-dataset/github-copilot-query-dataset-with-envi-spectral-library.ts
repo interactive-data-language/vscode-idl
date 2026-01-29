@@ -1,6 +1,6 @@
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ENVIQueryDataset,
+  MCPTool_QueryDatasetWithENVI,
   MCPToolResponse,
 } from '@idl/types/mcp';
 import expect from 'expect';
@@ -12,10 +12,10 @@ import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
 /**
  * Makes sure we can query a dataset
  */
-export const RunGitHubCopilotENVIQueryDataset_SpectralLibrary: RunnerFunction =
+export const RunGitHubCopilotQueryDatasetWithENVI_SpectralLibrary: RunnerFunction =
   async (init) => {
     // Call a tool
-    const result = await CallMCPTool(MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET, {
+    const result = await CallMCPTool(MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI, {
       dataset: ENVITestDatasets.spectralLibrary(),
     });
 
@@ -26,7 +26,7 @@ export const RunGitHubCopilotENVIQueryDataset_SpectralLibrary: RunnerFunction =
     expect((result.content as any[])?.length).toEqual(1);
 
     // init variable
-    let results: MCPToolResponse<MCPTool_ENVIQueryDataset>;
+    let results: MCPToolResponse<MCPTool_QueryDatasetWithENVI>;
 
     // attempt to parse
     try {

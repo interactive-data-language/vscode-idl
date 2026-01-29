@@ -2,35 +2,33 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { RunGitHubCopilotValidateMCPConnection } from './github-copilot-validate-mcp-connection';
-import { RunGitHubCopilotENVIInvalidTaskName } from './tools/envi/github-copilot-envi-invalid-task-name';
-import { RunGitHubCopilotENVIListTools } from './tools/envi/github-copilot-envi-list-tools';
-import { RunGitHubCopilotENVIParameterValidation } from './tools/envi/github-copilot-envi-parameter-validation';
-import { RunGitHubCopilotENVIRunTool } from './tools/envi/github-copilot-envi-run-tool';
+import { RunGitHubCopilotInvalidENVIToolName } from './tools/envi/github-copilot-envi-invalid-tool-name';
 import { RunGitHubCopilotENVIToolNotesLoad } from './tools/envi/github-copilot-envi-tool-notes-load';
+import { RunGitHubCopilotENVIToolParameterValidation } from './tools/envi/github-copilot-envi-tool-parameter-validation';
+import { RunGitHubCopilotListENVITools } from './tools/envi/github-copilot-list-envi-tools';
+import { RunGitHubCopilotRunENVITool } from './tools/envi/github-copilot-run-envi-tool';
 import { RunGitHubCopilotStartENVI } from './tools/envi/github-copilot-start-envi';
-import { RunGitHubCopilotENVIOpenDatasets_Raster } from './tools/envi/open-datasets/github-copilot-envi-open-datasets-raster';
-import { RunGitHubCopilotENVIOpenDatasets_RasterSeries } from './tools/envi/open-datasets/github-copilot-envi-open-datasets-raster-series';
-import { RunGitHubCopilotENVIOpenDatasets_Vector } from './tools/envi/open-datasets/github-copilot-envi-open-datasets-vector';
-import { RunGitHubCopilotENVIQueryDataset_Raster } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-raster';
-import { RunGitHubCopilotENVIQueryDataset_ROI } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-roi';
-import { RunGitHubCopilotENVIQueryDataset_SpectralLibrary } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-spectral-library';
-import { RunGitHubCopilotENVIQueryDataset_Vector } from './tools/envi/query-dataset/github-copilot-envi-query-dataset-vector';
-import { RunGitHubGetResources } from './tools/github-copilot-get-resources';
-import { RunGitHubCopilotGetRoutineDocs } from './tools/github-copilot-get-routine-docs';
-import { RunGitHubResourcesWorkflow } from './tools/github-copilot-resources-workflow';
-import {
-  RunGitHubSearchForFilesAll,
-  RunGitHubSearchForFilesFailRight,
-  RunGitHubSearchForFilesNoRecursion,
-  RunGitHubSearchForFilesRecursionAll,
-  RunGitHubSearchForFilesSingle,
-} from './tools/github-copilot-search-for-files';
+import { RunGitHubCopilotOpenDatasetsInENVI_Raster } from './tools/envi/open-datasets/github-copilot-open-datasets-in-envi-raster';
+import { RunGitHubCopilotOpenDatasetsInENVI_RasterSeries } from './tools/envi/open-datasets/github-copilot-open-datasets-in-envi-raster-series';
+import { RunGitHubCopilotOpenDatasetsInENVI_Vector } from './tools/envi/open-datasets/github-copilot-open-datasets-in-envi-vector';
+import { RunGitHubCopilotQueryDatasetWithENVI_Raster } from './tools/envi/query-dataset/github-copilot-query-dataset-with-envi-raster';
+import { RunGitHubCopilotQueryDatasetWithENVI_ROI } from './tools/envi/query-dataset/github-copilot-query-dataset-with-envi-roi';
+import { RunGitHubCopilotQueryDatasetWithENVI_SpectralLibrary } from './tools/envi/query-dataset/github-copilot-query-dataset-with-envi-spectral-library';
+import { RunGitHubCopilotQueryDatasetWithENVI_Vector } from './tools/envi/query-dataset/github-copilot-query-dataset-with-envi-vector';
+import { RunGitHubCopilotGetResources } from './tools/general/github-copilot-get-resources';
+import { RunGitHubCopilotGetRoutineDocs } from './tools/general/github-copilot-get-routine-docs';
+import { RunGitHubResourcesWorkflow } from './tools/general/github-copilot-resources-workflow';
 import {
   RunGitHubCopilotSearchForRoutineAll,
   RunGitHubCopilotSearchForRoutineMultiple,
   RunGitHubCopilotSearchForRoutineSingle,
-} from './tools/github-copilot-search-for-routines';
-import { RunGitHubSearchResources } from './tools/github-copilot-search-resources';
+} from './tools/general/github-copilot-search-for-routines';
+import { RunGitHubSearchResources } from './tools/general/github-copilot-search-resources';
+import { RunGitHubSearchForFiles_All } from './tools/general/search-for-files/github-copilot-search-for-files-all';
+import { RunGitHubSearchForFiles_FailRight } from './tools/general/search-for-files/github-copilot-search-for-files-fail-right';
+import { RunGitHubSearchForFiles_NoRecursion } from './tools/general/search-for-files/github-copilot-search-for-files-no-recursion';
+import { RunGitHubSearchForFiles_RecursionAll } from './tools/general/search-for-files/github-copilot-search-for-files-recursion-all';
+import { RunGitHubSearchForFiles_Single } from './tools/general/search-for-files/github-copilot-search-for-files-single';
 import { RunGitHubCopilotCreateIDLNotebook } from './tools/idl/github-copilot-create-idl-notebook';
 import { RunGitHubCopilotExecuteIDLCode } from './tools/idl/github-copilot-execute-idl-code';
 import { RunGitHubCopilotExecuteIDLFile } from './tools/idl/github-copilot-execute-idl-file';
@@ -98,7 +96,7 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubGetResources,
+  fn: RunGitHubCopilotGetResources,
   name: 'Make sure getting resources fails correctly',
 });
 
@@ -113,27 +111,27 @@ GITHUB_COPILOT_RUNNER.addTest({
  * =======================================================================
  */
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubSearchForFilesAll,
+  fn: RunGitHubSearchForFiles_All,
   name: 'File search: Make sure we can search for all files in a folder',
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubSearchForFilesSingle,
+  fn: RunGitHubSearchForFiles_Single,
   name: 'File search: Make sure we can search for single file extension in a folder',
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubSearchForFilesFailRight,
+  fn: RunGitHubSearchForFiles_FailRight,
   name: 'File: search Make sure we fail with invalid folders',
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubSearchForFilesRecursionAll,
+  fn: RunGitHubSearchForFiles_RecursionAll,
   name: 'File search: Make sure we recursively search',
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubSearchForFilesNoRecursion,
+  fn: RunGitHubSearchForFiles_NoRecursion,
   name: 'File search: Honor no recursion',
 });
 
@@ -182,7 +180,7 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIListTools,
+  fn: RunGitHubCopilotListENVITools,
   name: 'Verify we can list ENVI tools via MCP (at least 200 returned)',
 });
 
@@ -192,17 +190,17 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIInvalidTaskName,
+  fn: RunGitHubCopilotInvalidENVIToolName,
   name: 'Verify ENVI tools fail with unknown task name',
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIParameterValidation,
+  fn: RunGitHubCopilotENVIToolParameterValidation,
   name: 'Verify ENVI parameters are validated and tool execution fails',
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIRunTool,
+  fn: RunGitHubCopilotRunENVITool,
   name: 'Run simple tool and get expected results',
   excludeOS: [
     {
@@ -213,7 +211,7 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIQueryDataset_Raster,
+  fn: RunGitHubCopilotQueryDatasetWithENVI_Raster,
   name: 'Query dataset works (Raster)',
   excludeOS: [
     {
@@ -224,7 +222,7 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIQueryDataset_ROI,
+  fn: RunGitHubCopilotQueryDatasetWithENVI_ROI,
   name: 'Query dataset works (ROI)',
   excludeOS: [
     {
@@ -235,7 +233,7 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIQueryDataset_SpectralLibrary,
+  fn: RunGitHubCopilotQueryDatasetWithENVI_SpectralLibrary,
   name: 'Query dataset works (Spectral Library)',
   excludeOS: [
     {
@@ -246,7 +244,7 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIQueryDataset_Vector,
+  fn: RunGitHubCopilotQueryDatasetWithENVI_Vector,
   name: 'Query dataset works (Vector)',
   excludeOS: [
     {
@@ -257,7 +255,7 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIOpenDatasets_Raster,
+  fn: RunGitHubCopilotOpenDatasetsInENVI_Raster,
   name: 'Open dataset (Raster)',
   excludeOS: [
     {
@@ -268,7 +266,7 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIOpenDatasets_RasterSeries,
+  fn: RunGitHubCopilotOpenDatasetsInENVI_RasterSeries,
   name: 'Open dataset (Raster Series)',
   excludeOS: [
     {
@@ -279,7 +277,7 @@ GITHUB_COPILOT_RUNNER.addTest({
 });
 
 GITHUB_COPILOT_RUNNER.addTest({
-  fn: RunGitHubCopilotENVIOpenDatasets_Vector,
+  fn: RunGitHubCopilotOpenDatasetsInENVI_Vector,
   name: 'Open dataset (Vector)',
   excludeOS: [
     {

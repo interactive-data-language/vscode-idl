@@ -1,7 +1,7 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_IDLExecuteCode,
+  MCPTool_ExecuteIDLCode,
   MCPToolResponse_VSCode,
 } from '@idl/types/mcp';
 import expect from 'expect';
@@ -16,7 +16,7 @@ export const RunGitHubCopilotExecuteIDLCode: RunnerFunction = async (init) => {
   /**
    * Run code that completes
    */
-  const result = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE, {
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE, {
     code: `print, 'foo'`,
   });
 
@@ -29,7 +29,7 @@ export const RunGitHubCopilotExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsed = JSON.parse(
     result.content[0].text
-  ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
+  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we have "foo" as the cleaned text
   expect(CleanIDLOutput(parsed.idlOutput)).toEqual('foo');
@@ -39,7 +39,7 @@ export const RunGitHubCopilotExecuteIDLCode: RunnerFunction = async (init) => {
    *
    * a and b are undefined
    */
-  const runtimeError = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE, {
+  const runtimeError = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE, {
     code: `foo = a + b`,
   });
 
@@ -48,7 +48,7 @@ export const RunGitHubCopilotExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsedRuntimeError = JSON.parse(
     runtimeError.content[0].text
-  ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
+  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we catch in the IDL MCP tool
   expect(parsedRuntimeError.success).toBeFalsy();
@@ -63,7 +63,7 @@ export const RunGitHubCopilotExecuteIDLCode: RunnerFunction = async (init) => {
   /**
    * Run code with a syntax error
    */
-  const syntaxError = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE, {
+  const syntaxError = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE, {
     code: `help, 42 + `,
   });
 
@@ -72,7 +72,7 @@ export const RunGitHubCopilotExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsedSyntaxError = JSON.parse(
     syntaxError.content[0].text
-  ) as MCPToolResponse_VSCode<MCPTool_IDLExecuteCode>;
+  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we catch in the IDL MCP tool
   expect(parsedSyntaxError.success).toBeFalsy();

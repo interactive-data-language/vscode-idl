@@ -26,7 +26,7 @@ export const RunGitHubCopilotCreateIDLNotebook: RunnerFunction = async (
   /**
    * Run code that completes
    */
-  const result = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_CREATE_NOTEBOOK, {
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK, {
     uri: nbUri,
     cells: [
       {

@@ -9,7 +9,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  */
 export const RunGitHubCopilotStartIDL: RunnerFunction = async (init) => {
   // Call a tool
-  const result = await CallMCPTool(MCP_TOOL_LOOKUP.IDL_START, {});
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.START_IDL, {});
 
   // make sure the tool runs
   expect(result.isError).toBeFalsy();

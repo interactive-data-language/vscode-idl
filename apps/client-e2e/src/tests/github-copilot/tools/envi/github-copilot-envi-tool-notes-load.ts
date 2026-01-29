@@ -13,7 +13,7 @@ export const RunGitHubCopilotENVIToolNotesLoad: RunnerFunction = async (
   init
 ) => {
   // Call a tool
-  const result = await CallMCPTool(MCP_TOOL_LOOKUP.ENVI_GET_TOOL_PARAMETERS, {
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS, {
     taskName: 'ISODataClassification',
   });
 
