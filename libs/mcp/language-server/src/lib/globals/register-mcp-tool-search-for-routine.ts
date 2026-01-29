@@ -10,7 +10,7 @@ import {
   mappedNames,
   reverseMap,
   SEARCH_FOR_ROUTINE_DESCRIPTION,
-} from './register-mcp-tool-resources-search-for-routine.interface';
+} from './register-mcp-tool-search-for-routine.interface';
 
 /**
  * Search known routines for matches

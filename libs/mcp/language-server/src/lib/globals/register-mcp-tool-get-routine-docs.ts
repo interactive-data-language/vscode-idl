@@ -8,8 +8,8 @@ import { z } from 'zod';
 import {
   GET_ROUTINE_DOCS_DESCRIPTION,
   NO_MATCHES,
-} from './register-mcp-tool-resources-get-routine-docs.interface';
-import { reverseMap } from './register-mcp-tool-resources-search-for-routine.interface';
+} from './register-mcp-tool-get-routine-docs.interface';
+import { reverseMap } from './register-mcp-tool-search-for-routine.interface';
 
 /**
  * Gets docs for a routine, up to one match for each request
