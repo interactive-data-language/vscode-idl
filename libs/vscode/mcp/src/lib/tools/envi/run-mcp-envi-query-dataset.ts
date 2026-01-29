@@ -1,6 +1,6 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPTool_ENVIQueryDataset,
+  MCPTool_QueryDatasetWithENVI,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -16,8 +16,8 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
  */
 export async function RunMCP_ENVIQueryDataset(
   id: string,
-  params: MCPToolParams<MCPTool_ENVIQueryDataset>
-): Promise<MCPToolResponse<MCPTool_ENVIQueryDataset>> {
+  params: MCPToolParams<MCPTool_QueryDatasetWithENVI>
+): Promise<MCPToolResponse<MCPTool_QueryDatasetWithENVI>> {
   VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
 
   /**

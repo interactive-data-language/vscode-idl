@@ -1,7 +1,7 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_IDLStart,
+  MCPTool_StartIDL,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -16,19 +16,19 @@ export function RegisterMCPTool_IDLStart(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.IDL_START,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.IDL_START],
+    MCP_TOOL_LOOKUP.START_IDL,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.START_IDL],
     "Starts a new session of IDL in VSCode. If IDL has already started, this tool won't do anything.",
     {},
     async (id) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPTool_IDLStart> = {};
+      const params: MCPToolParams<MCPTool_StartIDL> = {};
 
       const resp = await messenger.sendRequest(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           id,
-          tool: MCP_TOOL_LOOKUP.IDL_START,
+          tool: MCP_TOOL_LOOKUP.START_IDL,
           params,
         }
       );

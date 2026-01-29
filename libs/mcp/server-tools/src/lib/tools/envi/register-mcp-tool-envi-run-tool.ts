@@ -6,7 +6,7 @@ import {
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ENVIRunTool,
+  MCPTool_RunENVITool,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -25,9 +25,9 @@ export function RegisterMCPTool_ENVIRunTool(
   registry: MCPTaskRegistry
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.ENVI_RUN_TOOL,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_RUN_TOOL],
-    `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TOOLS}. Here's the process to get the input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
+    MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.RUN_ENVI_TOOL],
+    `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}. Here's the process to get the input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
     {
       taskName: z
         .string()
@@ -36,7 +36,7 @@ export function RegisterMCPTool_ENVIRunTool(
         .object({})
         .catchall(z.any())
         .describe(
-          `Specify a JSON object containing the task parameters that matches the JSON schema returned from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TOOLS}`
+          `Specify a JSON object containing the task parameters that matches the JSON schema returned from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}`
         ),
       interactive: z
         .boolean()
@@ -52,7 +52,7 @@ export function RegisterMCPTool_ENVIRunTool(
           content: [
             {
               type: 'text',
-              text: `ENVI Tool with name '${taskName}' is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TOOLS}?`,
+              text: `ENVI Tool with name '${taskName}' is not known, did it come from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}?`,
             },
           ],
         };
@@ -83,7 +83,7 @@ export function RegisterMCPTool_ENVIRunTool(
       const detail = registry.getTaskDetail(taskName);
 
       // strictly typed parameters and make sure we always have content in the cells
-      const params: MCPToolParams<MCPTool_ENVIRunTool> = {
+      const params: MCPToolParams<MCPTool_RunENVITool> = {
         interactive,
         taskName,
         inputParameters,
@@ -102,10 +102,10 @@ export function RegisterMCPTool_ENVIRunTool(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           id,
-          tool: MCP_TOOL_LOOKUP.ENVI_RUN_TOOL,
+          tool: MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
           params,
         }
-      )) as MCPToolResponse<MCPTool_ENVIRunTool>;
+      )) as MCPToolResponse<MCPTool_RunENVITool>;
 
       return {
         isError: !resp.success,

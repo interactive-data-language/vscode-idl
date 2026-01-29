@@ -13,11 +13,9 @@ export function RegisterMCPTool_ResourcesGetResource(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.RESOURCES_GET_RESOURCE,
-    IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.RESOURCES_GET_RESOURCE
-    ],
-    `Returns the content for a resource based on the name. The name should come from "${MCP_TOOL_LOOKUP.RESOURCES_LIST_ALL}".`,
+    MCP_TOOL_LOOKUP.GET_RESOURCE,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_RESOURCE],
+    `Returns the content for a resource based on the name. The name should come from "${MCP_TOOL_LOOKUP.LIST_ALL_RESOURCES}".`,
     {
       names: z.array(z.string()).describe('The names of the resource to fetch'),
     },
@@ -34,7 +32,7 @@ export function RegisterMCPTool_ResourcesGetResource(
             content: [
               {
                 type: 'text',
-                text: `No matching resource of name "${names[i]}", did the name come from the tool "${MCP_TOOL_LOOKUP.RESOURCES_LIST_ALL}"?`,
+                text: `No matching resource of name "${names[i]}", did the name come from the tool "${MCP_TOOL_LOOKUP.LIST_ALL_RESOURCES}"?`,
               },
             ],
           };

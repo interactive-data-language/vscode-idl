@@ -1,7 +1,7 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_IDLExecuteCode,
+  MCPTool_ExecuteIDLCode,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -18,8 +18,8 @@ export function RegisterMCPTool_IDLExecuteCode(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE],
+    MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE],
     IDL_EXECUTE_CODE,
     {
       code: z
@@ -30,7 +30,7 @@ export function RegisterMCPTool_IDLExecuteCode(
     },
     async (id, { code }) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPTool_IDLExecuteCode> = {
+      const params: MCPToolParams<MCPTool_ExecuteIDLCode> = {
         code,
       };
 
@@ -39,7 +39,7 @@ export function RegisterMCPTool_IDLExecuteCode(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           id,
-          tool: MCP_TOOL_LOOKUP.IDL_EXECUTE_CODE,
+          tool: MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
           params,
         }
       );

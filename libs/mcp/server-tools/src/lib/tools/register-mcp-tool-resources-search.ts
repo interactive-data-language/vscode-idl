@@ -15,11 +15,9 @@ export function RegisterMCPTool_ResourcesSearchResources(
   logger: LogManager
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.RESOURCES_SEARCH_RESOURCES,
-    IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.RESOURCES_SEARCH_RESOURCES
-    ],
-    `Searches known resources about IDL and ENVI and returns the top results with one or more queries. If you are searching for routines, start with ${MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE} instead.`,
+    MCP_TOOL_LOOKUP.SEARCH_RESOURCES,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.SEARCH_RESOURCES],
+    `Searches known resources about IDL and ENVI and returns the top results with one or more queries. If you are searching for routines, start with ${MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE} instead.`,
     {
       queries: z
         .array(z.string())

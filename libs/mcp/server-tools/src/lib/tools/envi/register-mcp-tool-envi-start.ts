@@ -1,7 +1,7 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ENVIStart,
+  MCPTool_StartENVI,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -17,15 +17,15 @@ export function RegisterMCPTool_ENVIStart(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.ENVI_START,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_START],
+    MCP_TOOL_LOOKUP.START_ENVI,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.START_ENVI],
     "Starts a session of ENVI and IDL in VSCode. If ENVI has already started, this tool won't do anything.",
     {
       headless: z.boolean().describe('Should ENVI be started without the UI?'),
     },
     async (id, { headless }) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPTool_ENVIStart> = {
+      const params: MCPToolParams<MCPTool_StartENVI> = {
         headless,
       };
 
@@ -33,7 +33,7 @@ export function RegisterMCPTool_ENVIStart(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           id,
-          tool: MCP_TOOL_LOOKUP.ENVI_START,
+          tool: MCP_TOOL_LOOKUP.START_ENVI,
           params,
         }
       );

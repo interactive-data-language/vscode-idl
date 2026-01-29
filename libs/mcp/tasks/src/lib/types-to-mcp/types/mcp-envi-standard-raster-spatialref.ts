@@ -60,6 +60,6 @@ export function MCP_ENVIStandardRasterSpatialref(description: string) {
         ),
     })
     .describe(
-      `${description}\n\nTo fetch the spatial reference for a dataset, use the "spatialref" property returned from the ${MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET} tool. However, rasters may not always have this type of spatial reference.`
+      `${description}\n\nTo fetch the spatial reference for a dataset, use the "spatialref" property returned from the ${MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI} tool. However, rasters may not always have this type of spatial reference.`
     );
 }

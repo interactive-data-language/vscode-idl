@@ -6,7 +6,7 @@ import {
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ENVIOpenDatasets,
+  MCPTool_OpenDatasetsInENVI,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -22,8 +22,10 @@ export function RegisterMCPTool_ENVIOpenDatasets(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.ENVI_OPEN_DATASETS,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_OPEN_DATASETS],
+    MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
+    IDL_TRANSLATION.mcp.tools.displayNames[
+      MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI
+    ],
     'Open one or more raster, raster series, or vector datasets in ENVI and display. The view in ENVI will be centered on the extend of all open datasets after loading.',
     {
       datasets: z
@@ -52,7 +54,7 @@ export function RegisterMCPTool_ENVIOpenDatasets(
     },
     async (id, { datasets, resetView, automaticZoom }) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPTool_ENVIOpenDatasets> = {
+      const params: MCPToolParams<MCPTool_OpenDatasetsInENVI> = {
         datasets,
         resetView,
         automaticZoom,
@@ -62,7 +64,7 @@ export function RegisterMCPTool_ENVIOpenDatasets(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           id,
-          tool: MCP_TOOL_LOOKUP.ENVI_OPEN_DATASETS,
+          tool: MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
           params,
         }
       );

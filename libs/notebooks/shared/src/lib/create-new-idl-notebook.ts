@@ -1,5 +1,5 @@
 import { EncodeNotebook } from '@idl/notebooks/encoders';
-import { MCPToolParams_IDLCreateNotebook } from '@idl/types/mcp';
+import { MCPToolParams_CreateIDLNotebook } from '@idl/types/mcp';
 import {
   IDLRawNotebook,
   IDLRawNotebookVersion_2_0_0,
@@ -10,7 +10,7 @@ import { LINE_SEPARATOR } from '@idl/types/tokenizer';
  * Creates a new IDL Notebook and returns it encoded as byte data
  */
 export async function CreateNewIDLNotebook(
-  payload: MCPToolParams_IDLCreateNotebook
+  payload: MCPToolParams_CreateIDLNotebook
 ) {
   /**
    * Create raw notebook

@@ -7,7 +7,7 @@ Returns detailed information about one or more IDL routines.
 
 Returns the first match found or the text "${NO_MATCHES}" if we can't find a routine.
 
-To discover routines, you can use the ${MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE} before this one..
+To discover routines, you can use the ${MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE} before this one..
 
 Examples:
 

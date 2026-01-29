@@ -1,5 +1,5 @@
 import {
-  MCPTool_IDLStart,
+  MCPTool_StartIDL,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -10,8 +10,8 @@ import { StartIDL } from '@idl/vscode/debug';
  */
 export async function RunMCP_IDLStart(
   id: string,
-  params: MCPToolParams<MCPTool_IDLStart>
-): Promise<MCPToolResponse<MCPTool_IDLStart>> {
+  params: MCPToolParams<MCPTool_StartIDL>
+): Promise<MCPToolResponse<MCPTool_StartIDL>> {
   /**
    * Start IDL
    */

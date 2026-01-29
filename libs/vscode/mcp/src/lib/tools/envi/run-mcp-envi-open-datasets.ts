@@ -1,6 +1,6 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPTool_ENVIOpenDatasets,
+  MCPTool_OpenDatasetsInENVI,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -16,8 +16,8 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
  */
 export async function RunMCP_ENVIOpenDatasets(
   id: string,
-  params: MCPToolParams<MCPTool_ENVIOpenDatasets>
-): Promise<MCPToolResponse<MCPTool_ENVIOpenDatasets>> {
+  params: MCPToolParams<MCPTool_OpenDatasetsInENVI>
+): Promise<MCPToolResponse<MCPTool_OpenDatasetsInENVI>> {
   /**
    * Start IDL
    */

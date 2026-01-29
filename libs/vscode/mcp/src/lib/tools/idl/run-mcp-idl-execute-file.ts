@@ -3,7 +3,7 @@ import { IDL_MCP_LOG } from '@idl/logger';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPTool_IDLExecuteFile,
+  MCPTool_ExecuteIDLFile,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -20,8 +20,8 @@ import * as vscode from 'vscode';
  */
 export async function RunMCP_IDLExecuteFile(
   id: string,
-  params: MCPToolParams<MCPTool_IDLExecuteFile>
-): Promise<MCPToolResponse<MCPTool_IDLExecuteFile>> {
+  params: MCPToolParams<MCPTool_ExecuteIDLFile>
+): Promise<MCPToolResponse<MCPTool_ExecuteIDLFile>> {
   /**
    * Start IDL
    */

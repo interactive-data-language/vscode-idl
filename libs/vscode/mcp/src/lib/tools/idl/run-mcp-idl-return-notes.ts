@@ -1,5 +1,5 @@
 import {
-  MCPTool_IDLReturnNotes,
+  MCPTool_ReturnNotes,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -13,8 +13,8 @@ import { MCPVerifyIDLVersion } from '../../helpers/mcp-verify-idl-version';
  */
 export async function RunMCP_IDLReturnNotes(
   id: string,
-  params: MCPToolParams<MCPTool_IDLReturnNotes>
-): Promise<MCPToolResponse<MCPTool_IDLReturnNotes>> {
+  params: MCPToolParams<MCPTool_ReturnNotes>
+): Promise<MCPToolResponse<MCPTool_ReturnNotes>> {
   /**
    * Start IDL
    */

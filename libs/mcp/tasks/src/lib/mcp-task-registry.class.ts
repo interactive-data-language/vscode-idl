@@ -311,7 +311,7 @@ export class MCPTaskRegistry {
 
         return {
           success: false,
-          reason: `MCP Error -32602: Input parameters validation failed for task '${taskName}':\n${errors}\n\nYou *must* follow the task schema provided by "${MCP_TOOL_LOOKUP.ENVI_GET_TOOL_PARAMETERS}"`,
+          reason: `MCP Error -32602: Input parameters validation failed for task '${taskName}':\n${errors}\n\nYou *must* follow the task schema provided by "${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS}"`,
         };
       }
     } catch (validationError) {

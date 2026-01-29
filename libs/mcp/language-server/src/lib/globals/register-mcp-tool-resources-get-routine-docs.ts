@@ -22,10 +22,8 @@ export function RegisterMCPTool_GetRoutineDocs(
   index: IDLIndex
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.RESOURCES_GET_ROUTINE_DOCS,
-    IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.RESOURCES_GET_ROUTINE_DOCS
-    ],
+    MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS],
     GET_ROUTINE_DOCS_DESCRIPTION,
     {
       routines: z

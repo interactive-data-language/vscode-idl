@@ -2,7 +2,7 @@ import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_IDLReturnNotes,
+  MCPTool_ReturnNotes,
   MCPToolResponse,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -25,11 +25,11 @@ export function RegisterMCPTool_ENVIGetToolParameters(
   registry: MCPTaskRegistry
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.ENVI_GET_TOOL_PARAMETERS,
+    MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS,
     IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.ENVI_GET_TOOL_PARAMETERS
+      MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS
     ],
-    `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.ENVI_RUN_TOOL}. Here's the process to use these input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
+    `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.RUN_ENVI_TOOL}. Here's the process to use these input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
     {
       taskName: z
         .string()
@@ -42,7 +42,7 @@ export function RegisterMCPTool_ENVIGetToolParameters(
           content: [
             {
               type: 'text',
-              text: `Task with name ${taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.ENVI_LIST_TOOLS}?`,
+              text: `Task with name ${taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}?`,
             },
           ],
         };
@@ -54,10 +54,10 @@ export function RegisterMCPTool_ENVIGetToolParameters(
           LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
           {
             id,
-            tool: MCP_TOOL_LOOKUP.IDL_RETURN_NOTES,
+            tool: MCP_TOOL_LOOKUP.RETURN_NOTES,
             params: {},
           }
-        )) as MCPToolResponse<MCPTool_IDLReturnNotes>;
+        )) as MCPToolResponse<MCPTool_ReturnNotes>;
 
         // mark as loaded, even if we have an error
         LOADED_NOTES = true;

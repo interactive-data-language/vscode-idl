@@ -6,7 +6,7 @@ Returns names of routines that match your search parameters.
 
 Uses fuzzy searching and you can search for one or all of functions, procedures, function methods, procedure methods, structures, and system variables.
 
-To retrieve more detailed information, use the returned names with the ${MCP_TOOL_LOOKUP.RESOURCES_GET_ROUTINE_DOCS} tool.
+To retrieve more detailed information, use the returned names with the ${MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS} tool.
 
 Default search looks across all types, or you can select a specific type of routine.
 

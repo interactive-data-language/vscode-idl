@@ -20,10 +20,8 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
   index: IDLIndex
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE,
-    IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.RESOURCES_SEARCH_FOR_ROUTINE
-    ],
+    MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE,
+    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE],
     SEARCH_FOR_ROUTINE_DESCRIPTION,
     {
       routines: z

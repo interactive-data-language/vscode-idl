@@ -9,7 +9,7 @@ import {
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ENVIQueryDataset,
+  MCPTool_QueryDatasetWithENVI,
   MCPToolParams,
 } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -26,8 +26,10 @@ export function RegisterMCPTool_ENVIQueryDataset(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.registerTool(
-    MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET],
+    MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
+    IDL_TRANSLATION.mcp.tools.displayNames[
+      MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI
+    ],
     ENVI_QUERY_DATASET_DESCRIPTION,
     {
       dataset: z
@@ -45,7 +47,7 @@ export function RegisterMCPTool_ENVIQueryDataset(
     },
     async (id, { dataset }) => {
       // strictly typed parameters
-      const params: MCPToolParams<MCPTool_ENVIQueryDataset> = {
+      const params: MCPToolParams<MCPTool_QueryDatasetWithENVI> = {
         dataset,
       };
 
@@ -53,7 +55,7 @@ export function RegisterMCPTool_ENVIQueryDataset(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
         {
           id,
-          tool: MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET,
+          tool: MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
           params,
         }
       );

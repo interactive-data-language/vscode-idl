@@ -23,7 +23,7 @@ export function MCP_ENVIROI(description: string) {
       dataset_index: z
         .number()
         .describe(
-          `If an ROI file has more than one ROI, optionally specify the zero-based index of which ROI you want. The tool ${MCP_TOOL_LOOKUP.ENVI_QUERY_DATASET} returns an array of matches and their dehydrated versions to help.`
+          `If an ROI file has more than one ROI, optionally specify the zero-based index of which ROI you want. The tool ${MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI} returns an array of matches and their dehydrated versions to help.`
         )
         .optional(),
     })
