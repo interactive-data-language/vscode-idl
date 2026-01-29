@@ -9,7 +9,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  *
  * Some covered in the "resources-workflow" file next to this
  */
-export const RunGitHubCopilotGetResources: RunnerFunction = async (init) => {
+export const RunMCPTestGetResources: RunnerFunction = async (init) => {
   // Call a tool
   const listResources = await CallMCPTool(MCP_TOOL_LOOKUP.GET_RESOURCE, {
     names: [`I'm blue, da-ba-dee, da-ba-di`],

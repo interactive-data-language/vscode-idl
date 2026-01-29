@@ -15,7 +15,7 @@ import { ENVITestDatasets } from '../../helpers/envi-test-datasets.class';
 /**
  * Makes sure we can run a simple ENVI tool
  */
-export const RunGitHubCopilotRunENVITool: RunnerFunction = async (init) => {
+export const RunMCPTestRunENVITool: RunnerFunction = async (init) => {
   /** Output raster URI */
   const outUri = join(tmpdir(), 'envi_tool.dat');
   if (existsSync(outUri)) {

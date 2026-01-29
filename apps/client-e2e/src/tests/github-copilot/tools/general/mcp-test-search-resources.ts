@@ -9,7 +9,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  *
  * resources-workflow tests this working
  */
-export const RunGitHubSearchResources: RunnerFunction = async (init) => {
+export const RunMCPTestSearchResources: RunnerFunction = async (init) => {
   // Call a tool
   const searchNoQuery = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_RESOURCES, {
     queries: [],

@@ -12,7 +12,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  *
  * Headless execution of
  */
-export const RunGitHubCopilotStartENVI: RunnerFunction = async (init) => {
+export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
   // Call a tool
   const resultHeadless = await CallMCPTool(MCP_TOOL_LOOKUP.START_ENVI, {
     headless: true,

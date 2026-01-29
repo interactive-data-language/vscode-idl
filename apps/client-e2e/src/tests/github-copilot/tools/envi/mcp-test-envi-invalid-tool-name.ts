@@ -10,7 +10,7 @@ const FAKE_NAME = 'Hello. My name is Inigo Montoya.';
 /**
  * Makes sure MCP tool fails when we have tasks that don't exist
  */
-export const RunGitHubCopilotInvalidENVIToolName: RunnerFunction = async (
+export const RunMCPTestInvalidENVIToolName: RunnerFunction = async (
   init
 ) => {
   // query parameters fail

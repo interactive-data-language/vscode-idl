@@ -13,7 +13,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 /**
  * Makes sure we can start IDL through MCP
  */
-export const RunGitHubCopilotExecuteIDLFile: RunnerFunction = async (init) => {
+export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   /**
    * Run a file that works correctly
    */

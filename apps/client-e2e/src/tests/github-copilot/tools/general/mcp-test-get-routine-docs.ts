@@ -8,7 +8,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 /**
  * Get docs for a specific routine
  */
-export const RunGitHubCopilotGetRoutineDocs: RunnerFunction = async (init) => {
+export const RunMCPTestGetRoutineDocs: RunnerFunction = async (init) => {
   // Call a tool
   const routineDocs = await CallMCPTool(MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS, {
     routines: [

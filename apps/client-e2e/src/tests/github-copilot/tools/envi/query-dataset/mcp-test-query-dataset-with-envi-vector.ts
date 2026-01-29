@@ -12,7 +12,7 @@ import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
 /**
  * Makes sure we can query a dataset
  */
-export const RunGitHubCopilotQueryDatasetWithENVI_Vector: RunnerFunction =
+export const RunMCPTestQueryDatasetWithENVI_Vector: RunnerFunction =
   async (init) => {
     // Call a tool
     const result = await CallMCPTool(MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI, {

@@ -12,7 +12,7 @@ import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
 /**
  * Makes sure we can open and display a dataset in ENVI
  */
-export const RunGitHubCopilotOpenDatasetsInENVI_RasterSeries: RunnerFunction =
+export const RunMCPTestOpenDatasetsInENVI_RasterSeries: RunnerFunction =
   async (init) => {
     // Call a tool
     const result = await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {

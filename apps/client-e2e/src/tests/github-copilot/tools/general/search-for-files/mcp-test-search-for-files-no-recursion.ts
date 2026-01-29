@@ -1,22 +1,24 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
+import { dirname, sep } from 'path';
 
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 
 /**
- * Search for files with one extension
+ * Tests for the search for files MCP tool
  */
-export const RunGitHubSearchForFiles_Single: RunnerFunction = async (init) => {
+export const RunMCPTestSearchForFiles_NoRecursion: RunnerFunction = async (
+  init
+) => {
   /** IDL folder for searching */
-  const basicDir = GetExtensionPath('idl/helpers');
+  const basicDir = GetExtensionPath('idl/vscode');
 
   // Call a tool
   const basicSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_FILES, {
     folder: basicDir,
-    recursive: true,
-    extensions: ['.pro'],
+    recursive: false,
   });
 
   // make sure the tool runs
@@ -31,7 +33,7 @@ export const RunGitHubSearchForFiles_Single: RunnerFunction = async (init) => {
   // attempt to parse
   try {
     basicSearchFiles = JSON.parse(basicSearch.content[0].text as string).map(
-      (file) => file.replace(basicDir, '')
+      (file) => dirname(file.replace(basicDir + sep, ''))
     );
   } catch (err) {
     // do nothing
@@ -41,13 +43,9 @@ export const RunGitHubSearchForFiles_Single: RunnerFunction = async (init) => {
   expect(basicSearchFiles).toBeTruthy();
 
   // make sure no matches since no queries
-  expect(basicSearchFiles.length).toBeGreaterThanOrEqual(1);
+  expect(basicSearchFiles.length).toBeGreaterThanOrEqual(5);
 
   // verify multiple file extensions
-  const extensions = new Set(
-    basicSearchFiles
-      .filter((file) => file.includes('.'))
-      .map((file) => file.split('.').pop())
-  );
+  const extensions = new Set(basicSearchFiles);
   expect(extensions.size).toEqual(1);
 };

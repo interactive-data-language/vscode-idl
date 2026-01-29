@@ -6,9 +6,9 @@ import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 
 /**
- * Search for files with one extension
+ * Tests for the search for files MCP tool
  */
-export const RunGitHubSearchForFiles_Single: RunnerFunction = async (init) => {
+export const RunMCPTestSearchForFiles_All: RunnerFunction = async (init) => {
   /** IDL folder for searching */
   const basicDir = GetExtensionPath('idl/helpers');
 
@@ -16,7 +16,6 @@ export const RunGitHubSearchForFiles_Single: RunnerFunction = async (init) => {
   const basicSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_FILES, {
     folder: basicDir,
     recursive: true,
-    extensions: ['.pro'],
   });
 
   // make sure the tool runs
@@ -41,7 +40,7 @@ export const RunGitHubSearchForFiles_Single: RunnerFunction = async (init) => {
   expect(basicSearchFiles).toBeTruthy();
 
   // make sure no matches since no queries
-  expect(basicSearchFiles.length).toBeGreaterThanOrEqual(1);
+  expect(basicSearchFiles.length).toBeGreaterThanOrEqual(3);
 
   // verify multiple file extensions
   const extensions = new Set(
@@ -49,5 +48,5 @@ export const RunGitHubSearchForFiles_Single: RunnerFunction = async (init) => {
       .filter((file) => file.includes('.'))
       .map((file) => file.split('.').pop())
   );
-  expect(extensions.size).toEqual(1);
+  expect(extensions.size).toBeGreaterThan(1);
 };

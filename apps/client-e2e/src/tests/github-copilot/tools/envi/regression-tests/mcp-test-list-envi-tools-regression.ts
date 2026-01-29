@@ -7,7 +7,7 @@ import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 /**
  * Makes regression tests for listing ENVI tools
  */
-export const RunGitHubCopilotListENVIToolsRegression: RunnerFunction = async (
+export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
   init
 ) => {
   // Call a tool

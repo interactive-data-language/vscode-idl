@@ -6,7 +6,7 @@ import { CreateMCPClient } from './helpers/create-mcp-client';
 /**
  * Makes sure we can connect to our MCP server and list our tools
  */
-export const RunGitHubCopilotValidateMCPConnection: RunnerFunction = async (
+export const RunMCPTestValidateMCPConnection: RunnerFunction = async (
   init
 ) => {
   const client = await CreateMCPClient(init.ports.mcp);

@@ -7,7 +7,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 /**
  * Makes sure invalid input parameters cause tool execution to fail
  */
-export const RunGitHubCopilotENVIToolParameterValidation: RunnerFunction =
+export const RunMCPTestENVIToolParameterValidation: RunnerFunction =
   async (init) => {
     const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
       taskName: 'ISODataClassification',

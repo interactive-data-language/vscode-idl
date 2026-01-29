@@ -9,7 +9,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  *
  * We get 3 items back when ntoes are present, 2 when no notes
  */
-export const RunGitHubCopilotENVIToolNotesLoad: RunnerFunction = async (
+export const RunMCPTestENVIToolNotesLoad: RunnerFunction = async (
   init
 ) => {
   // Call a tool

@@ -8,7 +8,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  * Makes sure we can list ENVI's tools and that we have more
  * than 200 available
  */
-export const RunGitHubCopilotListENVITools: RunnerFunction = async (init) => {
+export const RunMCPTestListENVITools: RunnerFunction = async (init) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS, {});
 

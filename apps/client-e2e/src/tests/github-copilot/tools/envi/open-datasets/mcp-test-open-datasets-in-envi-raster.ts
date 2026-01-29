@@ -12,12 +12,12 @@ import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
 /**
  * Makes sure we can open and display a dataset in ENVI
  */
-export const RunGitHubCopilotOpenDatasetsInENVI_Vector: RunnerFunction = async (
+export const RunMCPTestOpenDatasetsInENVI_Raster: RunnerFunction = async (
   init
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {
-    datasets: [ENVITestDatasets.vector()],
+    datasets: [ENVITestDatasets.raster()],
     automaticZoom: 'all-layers',
     resetView: true,
   });

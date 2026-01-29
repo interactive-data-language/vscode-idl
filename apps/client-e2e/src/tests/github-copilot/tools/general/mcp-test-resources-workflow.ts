@@ -7,7 +7,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 /**
  * Makes sure we can list and request resources as expected
  */
-export const RunGitHubResourcesWorkflow: RunnerFunction = async (init) => {
+export const RunMCPTestResourcesWorkflow: RunnerFunction = async (init) => {
   // Call a tool
   const listResources = await CallMCPTool(
     MCP_TOOL_LOOKUP.LIST_ALL_RESOURCES,
