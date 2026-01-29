@@ -24,11 +24,11 @@ export function PopulateENVIError(msg: IENVISuccess) {
     case 'envi-not-started':
       errMsg = IDL_TRANSLATION.envi.task.enviNotStarted;
       break;
+    case 'no-envi-agent-license':
+      errMsg = IDL_TRANSLATION.mcp.errors.noLicense;
+      break;
     case 'no-envi-ui':
       errMsg = IDL_TRANSLATION.envi.open.noUI;
-      break;
-    case 'no-license':
-      errMsg = IDL_TRANSLATION.envi.open.noLicense;
       break;
     case 'open-error':
       errMsg = IDL_TRANSLATION.envi.open.openError;
