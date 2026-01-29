@@ -1,6 +1,6 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPTool_RunENVITool,
+  MCPTool_QueryDatasetWithENVI,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -12,12 +12,12 @@ import { MCPVerifyIDLVersion } from '../../helpers/mcp-verify-idl-version';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
 
 /**
- * Start ENVI
+ * Query a dataset with ENVI
  */
-export async function RunMCP_ENVIRunTool(
+export async function RunMCPTool_QueryDatasetWithENVI(
   id: string,
-  params: MCPToolParams<MCPTool_RunENVITool>
-): Promise<MCPToolResponse<MCPTool_RunENVITool>> {
+  params: MCPToolParams<MCPTool_QueryDatasetWithENVI>
+): Promise<MCPToolResponse<MCPTool_QueryDatasetWithENVI>> {
   VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
 
   /**
@@ -27,7 +27,16 @@ export async function RunMCP_ENVIRunTool(
 
   // return if unable to start IDL
   if (!started.started) {
-    return { success: false, err: started.reason, outputParameters: {} };
+    return { success: false, err: started.reason, info: [{}] };
+  }
+
+  // verify version
+  if (!MCPVerifyIDLVersion()) {
+    return {
+      success: false,
+      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
+      info: [{}],
+    };
   }
 
   VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
@@ -39,35 +48,23 @@ export async function RunMCP_ENVIRunTool(
   if (!start.succeeded) {
     return {
       success: start.succeeded,
-      err: start.error,
-      outputParameters: {},
-      idlOutput: start.idlOutput,
-    };
-  }
-
-  // verify version
-  if (!MCPVerifyIDLVersion()) {
-    return {
-      success: false,
-      err: 'Requires at least IDL 9.2 and ENVI 6.2 to function',
-      outputParameters: {},
-      idlOutput: '',
+      err: `${start.error}, IDL Output: ${start.idlOutput}`,
+      info: [{}],
     };
   }
 
   // attempting to run ENVI task
-  VSCodeSendMCPNotification(id, { message: 'Running task' });
+  VSCodeSendMCPNotification(id, { message: 'Querying dataset' });
 
   // run our command to open in ENVI
   const res = await MCPEvaluateENVICommand(
-    `vscode_runENVITask, '${MCPSerializeJSON(params)}'`,
-    { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false }
+    `vscode_queryDataset, '${MCPSerializeJSON(params.dataset)}'`,
+    { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false }
   );
 
   return {
     success: res.succeeded,
     err: res.error,
-    outputParameters: res.payload || {},
-    idlOutput: res.idlOutput,
+    info: res.payload || [{}],
   };
 }

@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCPTool_ReturnNotes,
   MCPToolParams,
@@ -5,13 +6,13 @@ import {
 } from '@idl/types/mcp';
 import { StartIDL } from '@idl/vscode/debug';
 
-import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command';
-import { MCPVerifyIDLVersion } from '../../helpers/mcp-verify-idl-version';
+import { MCPEvaluateENVICommand } from '../helpers/mcp-evaluate-envi-command';
+import { MCPVerifyIDLVersion } from '../helpers/mcp-verify-idl-version';
 
 /**
- * Start IDL
+ * Return notes from IDL and ENVI
  */
-export async function RunMCP_IDLReturnNotes(
+export async function RunMCPTool_ReturnNotes(
   id: string,
   params: MCPToolParams<MCPTool_ReturnNotes>
 ): Promise<MCPToolResponse<MCPTool_ReturnNotes>> {
@@ -33,7 +34,7 @@ export async function RunMCP_IDLReturnNotes(
   if (!MCPVerifyIDLVersion()) {
     return {
       success: false,
-      err: 'Requires at least IDL 9.2 to function',
+      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
       notes: { envi: {}, idl: {} },
     };
   }

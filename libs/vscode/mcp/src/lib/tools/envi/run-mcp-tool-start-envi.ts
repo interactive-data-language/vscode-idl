@@ -1,3 +1,4 @@
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCPTool_StartENVI,
   MCPToolParams,
@@ -12,7 +13,7 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
 /**
  * Start ENVI
  */
-export async function RunMCP_ENVIStart(
+export async function RunMCPTool_StartENVI(
   id: string,
   params: MCPToolParams<MCPTool_StartENVI>
 ): Promise<MCPToolResponse<MCPTool_StartENVI>> {
@@ -32,7 +33,7 @@ export async function RunMCP_ENVIStart(
   if (!MCPVerifyIDLVersion()) {
     return {
       success: false,
-      err: 'Requires at least IDL 9.2 and ENVI 6.2 to function',
+      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
     };
   }
 

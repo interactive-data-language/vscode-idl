@@ -18,7 +18,7 @@ import { join } from 'path';
 /**
  * Executes IDL code
  */
-export async function RunMCP_IDLExecuteCode(
+export async function RunMCPTool_ExecuteIDLCode(
   id: string,
   params: MCPToolParams<MCPTool_ExecuteIDLCode>
 ): Promise<MCPToolResponse<MCPTool_ExecuteIDLCode>> {

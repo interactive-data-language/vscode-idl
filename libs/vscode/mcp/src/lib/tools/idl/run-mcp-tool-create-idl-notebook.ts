@@ -11,7 +11,7 @@ import { dirname } from 'path';
 /**
  * Create an IDL Notebook!
  */
-export async function RunMCP_IDLCreateNotebook(
+export async function RunMCPTool_CreateIDLNotebook(
   id: string,
   params: MCPToolParams<MCPTool_CreateIDLNotebook>
 ): Promise<MCPToolResponse<MCPTool_CreateIDLNotebook>> {

@@ -14,7 +14,7 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
 /**
  * Open a dataset in ENVI
  */
-export async function RunMCP_ENVIOpenDatasets(
+export async function RunMCPTool_OpenDatasetsInENVI(
   id: string,
   params: MCPToolParams<MCPTool_OpenDatasetsInENVI>
 ): Promise<MCPToolResponse<MCPTool_OpenDatasetsInENVI>> {
@@ -32,7 +32,7 @@ export async function RunMCP_ENVIOpenDatasets(
   if (!MCPVerifyIDLVersion()) {
     return {
       success: false,
-      err: 'Requires at least IDL 9.2 and ENVI 6.2 to function',
+      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
     };
   }
 
