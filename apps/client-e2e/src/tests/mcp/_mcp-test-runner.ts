@@ -15,6 +15,8 @@ import { RunMCPTestQueryDatasetWithENVI_Raster } from './tools/envi/query-datase
 import { RunMCPTestQueryDatasetWithENVI_ROI } from './tools/envi/query-dataset/mcp-test-query-dataset-with-envi-roi';
 import { RunMCPTestQueryDatasetWithENVI_SpectralLibrary } from './tools/envi/query-dataset/mcp-test-query-dataset-with-envi-spectral-library';
 import { RunMCPTestQueryDatasetWithENVI_Vector } from './tools/envi/query-dataset/mcp-test-query-dataset-with-envi-vector';
+import { RunMCPTestGetENVIToolParametersRegression } from './tools/envi/regression-tests/mcp-test-get-envi-tool-parameters-regression';
+import { RunMCPTestListENVIToolsRegression } from './tools/envi/regression-tests/mcp-test-list-envi-tools-regression';
 import { RunMCPTestGetResources } from './tools/general/mcp-test-get-resources';
 import { RunMCPTestGetRoutineDocs } from './tools/general/mcp-test-get-routine-docs';
 import { RunMCPTestResourcesWorkflow } from './tools/general/mcp-test-resources-workflow';
@@ -285,4 +287,19 @@ MCP_TEST_RUNNER.addTest({
       architecture: ['arm', 'arm64'],
     },
   ],
+});
+
+/**
+ * =======================================================================
+ * Regression tests
+ * =======================================================================
+ */
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestListENVIToolsRegression,
+  name: 'List ENVI Tools regression test',
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestGetENVIToolParametersRegression,
+  name: 'Get ENVI Tool Parameters regression test',
 });

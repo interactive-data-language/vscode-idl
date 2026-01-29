@@ -1,0 +1,3 @@
+[
+  "Export classes to be set with relevant classes for users. Classes such as Unclassified, Background, or Masked Pixels should be removed. Check the input raster's metadata for this information"
+]

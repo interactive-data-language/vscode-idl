@@ -5,29 +5,49 @@
 export function SplitDescription(obj: { [key: string]: any }): any {
   // Handle null/undefined
   if (obj === null || obj === undefined) {
-    return obj;
+    return;
   }
 
   // Handle primitives
   if (typeof obj !== 'object') {
-    return obj;
+    return;
   }
 
   // Handle arrays
   if (Array.isArray(obj)) {
-    return obj.map((item) => SplitDescription(item));
-  }
-
-  // Handle objects
-  const result: { [key: string]: any } = {};
-  for (const key in obj) {
-    if (key === 'description' && typeof obj[key] === 'string') {
-      // Split description on newlines
-      result[key] = obj[key].split('\n');
-    } else {
-      // Recursively process other properties
-      result[key] = SplitDescription(obj[key]);
+    for (let j = 0; j < obj.length; j++) {
+      SplitDescription(obj[j]);
     }
   }
-  return result;
+
+  /**
+   * Get keys assuming we are an object
+   */
+  const keys = Object.keys(obj);
+
+  // process each key
+  for (let i = 0; i < keys.length; i++) {
+    /** Extract the value */
+    const val = obj[keys[i]];
+
+    // determine how to proceed/recurse
+    switch (true) {
+      // recurse if array
+      case Array.isArray(val):
+        for (let j = 0; j < val.length; j++) {
+          SplitDescription(val[j]);
+        }
+        break;
+      // recurse if object
+      case typeof val === 'object':
+        SplitDescription(val);
+        break;
+      // split if a string
+      case keys[i].toLowerCase() === 'description' && typeof val === 'string':
+        obj[keys[i]] = val.split(/\n/g);
+        break;
+      default:
+        break;
+    }
+  }
 }
