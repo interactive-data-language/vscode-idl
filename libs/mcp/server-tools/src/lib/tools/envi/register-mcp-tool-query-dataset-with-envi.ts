@@ -17,12 +17,12 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
-import { ENVI_QUERY_DATASET_DESCRIPTION } from './register-mcp-tool-envi-query-dataset.interface';
+import { QUERY_DATASET_WITH_ENVI_DESCRIPTION } from './register-mcp-tool-query-dataset-with-envi.interface';
 
 /**
  * Registers a tool that allows an agent to get additional information about a dataset
  */
-export function RegisterMCPTool_ENVIQueryDataset(
+export function RegisterMCPTool_QueryDatasetWithENVI(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.registerTool(
@@ -30,7 +30,7 @@ export function RegisterMCPTool_ENVIQueryDataset(
     IDL_TRANSLATION.mcp.tools.displayNames[
       MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI
     ],
-    ENVI_QUERY_DATASET_DESCRIPTION,
+    QUERY_DATASET_WITH_ENVI_DESCRIPTION,
     {
       dataset: z
         .union([

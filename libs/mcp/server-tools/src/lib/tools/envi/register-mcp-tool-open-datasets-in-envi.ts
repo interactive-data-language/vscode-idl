@@ -18,7 +18,7 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 /**
  * Registers a tool that allows us to open an image in ENVI
  */
-export function RegisterMCPTool_ENVIOpenDatasets(
+export function RegisterMCPTool_OpenDatasetsInENVI(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.registerTool(

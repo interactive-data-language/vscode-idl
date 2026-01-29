@@ -10,7 +10,7 @@ import { MCPToolRegistry } from '../mcp-tool-registry.class';
 /**
  * Search through registered resources
  */
-export function RegisterMCPTool_ResourcesSearchResources(
+export function RegisterMCPTool_SearchResources(
   messenger: VSCodeLanguageServerMessenger,
   logger: LogManager
 ) {

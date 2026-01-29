@@ -14,7 +14,7 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 /**
  * Registers a tool that creates an IDL Notebook
  */
-export function RegisterMCPTool_IDLCreateNotebook(
+export function RegisterMCPTool_CreateIDLNotebook(
   messenger: VSCodeLanguageServerMessenger
 ) {
   MCPToolRegistry.registerTool(

@@ -1,4 +1,4 @@
-export const IDL_EXECUTE_FILE = `
+export const EXECUTE_IDL_FILE_DESCRIPTION = `
 Executes a file of IDL code. 
 
 This tool manages running a file of IDL code which manages starting IDL, handling different flavors of files, and returning success or not.

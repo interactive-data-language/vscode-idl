@@ -20,7 +20,7 @@ import { ENVI_TASK_INSTRUCTIONS } from './envi-task-instructions.interface';
 /**
  * Registers a tool that can run an ENVI Task
  */
-export function RegisterMCPTool_ENVIRunTool(
+export function RegisterMCPTool_RunENVITool(
   messenger: VSCodeLanguageServerMessenger,
   registry: MCPTaskRegistry
 ) {

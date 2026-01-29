@@ -20,7 +20,7 @@ let LOADED_NOTES = false;
 /**
  * Registers a tool that can run an ENVI Task
  */
-export function RegisterMCPTool_ENVIGetToolParameters(
+export function RegisterMCPTool_GetENVIToolParameters(
   messenger: VSCodeLanguageServerMessenger,
   registry: MCPTaskRegistry
 ) {
