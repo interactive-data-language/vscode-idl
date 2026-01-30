@@ -2,10 +2,13 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { RunMCPTestValidateMCPConnection } from './mcp-test-validate-mcp-connection';
+import { RunMCPTestInvalidENVIToolWorkflowName } from './tools/envi/mcp-test-envi-invalid-envi-tool-workflow-name';
 import { RunMCPTestInvalidENVIToolName } from './tools/envi/mcp-test-envi-invalid-tool-name';
 import { RunMCPTestENVIToolNotesLoad } from './tools/envi/mcp-test-envi-tool-notes-load';
 import { RunMCPTestENVIToolParameterValidation } from './tools/envi/mcp-test-envi-tool-parameter-validation';
+import { RunMCPTestListENVIToolWorkflows } from './tools/envi/mcp-test-list-envi-tool-workflows';
 import { RunMCPTestListENVITools } from './tools/envi/mcp-test-list-envi-tools';
+import { RunMCPTestGetENVIToolWorkflow } from './tools/envi/mcp-test-list-get-envi-tool-workflow';
 import { RunMCPTestRunENVITool } from './tools/envi/mcp-test-run-envi-tool';
 import { RunMCPTestStartENVI } from './tools/envi/mcp-test-start-envi';
 import { RunMCPTestOpenDatasetsInENVI_Raster } from './tools/envi/open-datasets/mcp-test-open-datasets-in-envi-raster';
@@ -210,6 +213,21 @@ MCP_TEST_RUNNER.addTest({
       architecture: ['arm', 'arm64'],
     },
   ],
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestListENVIToolWorkflows,
+  name: 'Verify we can list ENVI Tool Workflows',
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestGetENVIToolWorkflow,
+  name: 'Verify we can list ENVI Tool Workflows and retrieve by name',
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestInvalidENVIToolWorkflowName,
+  name: 'Verify retrieving workflows with bad name fails',
 });
 
 MCP_TEST_RUNNER.addTest({
