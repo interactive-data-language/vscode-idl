@@ -48,5 +48,5 @@ export function PopulateENVIError(msg: IENVISuccess) {
   }
 
   // update
-  msg.error = errMsg;
+  msg.reason = `${errMsg}. Original reason: "${msg.reason}"`;
 }

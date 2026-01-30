@@ -40,7 +40,7 @@ export async function HandleENVISuccess(
     IDL_DEBUG_ADAPTER.sendEvent(new OutputEvent(`${parsed.error}`, 'stderr'));
 
     // alert user
-    vscode.window.showErrorMessage(parsed.error);
+    vscode.window.showErrorMessage(parsed.reason);
   }
 
   return parsed;
