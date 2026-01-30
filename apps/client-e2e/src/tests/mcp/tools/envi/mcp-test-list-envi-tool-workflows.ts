@@ -5,8 +5,7 @@ import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 
 /**
- * Makes sure we can list ENVI's tools and that we have more
- * than 200 available
+ * Makes sure we can list ENVI Tool Workflows
  */
 export const RunMCPTestListENVIToolWorkflows: RunnerFunction = async (init) => {
   // Call a tool
