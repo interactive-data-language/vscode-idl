@@ -1,4 +1,5 @@
 export * from './lib/http/mcp-tool-get-envi-tool-parameters.interface';
+export * from './lib/http/mcp-tool-get-envi-tool-workflow.interface';
 export * from './lib/http/mcp-tool-get-resource.interface';
 export * from './lib/http/mcp-tool-get-routine-docs.interface';
 export * from './lib/http/mcp-tool-list-all-resources.interface';
@@ -13,6 +14,7 @@ export * from './lib/mcp-tools-vscode.interface';
 export * from './lib/vscode/mcp-tool-create-idl-notebook.interface';
 export * from './lib/vscode/mcp-tool-execute-idl-code.interface';
 export * from './lib/vscode/mcp-tool-execute-idl-file.interface';
+export * from './lib/vscode/mcp-tool-list-envi-tool-workflows.interface';
 export * from './lib/vscode/mcp-tool-open-datasets-in-envi.interface';
 export * from './lib/vscode/mcp-tool-query-dataset-with-envi.interface';
 export * from './lib/vscode/mcp-tool-return-notes.interface';

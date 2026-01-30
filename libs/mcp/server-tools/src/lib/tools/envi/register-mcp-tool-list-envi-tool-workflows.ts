@@ -1,0 +1,94 @@
+import { MCPToolWorkflowRegistry } from '@idl/mcp/tool-workflows';
+import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  MCP_TOOL_LOOKUP,
+  MCPTool_ListENVIToolWorkflows,
+  MCPToolResponse,
+} from '@idl/types/mcp';
+import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
+import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+
+import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructions.interface';
+
+/**
+ * ENVI tool workflow registry
+ */
+export const ENVI_TOOL_WORKFLOW_REGISTRY = new MCPToolWorkflowRegistry();
+
+/**
+ * Track if we loaded notes or not
+ */
+let LOADED_NOTES = false;
+
+/**
+ * Track failure so we can report to the LLM
+ */
+let LOAD_FAILURE: string;
+
+/**
+ * Registers a tool that can run an ENVI Task
+ */
+export function RegisterMCPTool_ListENVIToolWorkflows(
+  messenger: VSCodeLanguageServerMessenger
+) {
+  // register tool
+  MCPToolRegistry.registerTool(
+    MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
+    IDL_TRANSLATION.mcp.tools.displayNames[
+      MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS
+    ],
+    `Lists the names of known ENVI Tool Workflows that describe how you chain together ENVI Tools to solve different types of problems. Used as a starting point to plan remote sensing workflows. Instructions for tool usage: ${ENVI_TOOL_WORKFLOW_INSTRUCTIONS}`,
+    {},
+    async (id, inputParameters) => {
+      // check for load failure
+      if (LOAD_FAILURE) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text: `Error when loading ENVI Tool workflows, unable to proceed. Error: ${LOAD_FAILURE}`,
+            },
+          ],
+        };
+      }
+
+      // load notes if we havent
+      if (!LOADED_NOTES) {
+        const resp = (await messenger.sendRequest(
+          LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
+          {
+            id,
+            tool: MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
+            params: {},
+          }
+        )) as MCPToolResponse<MCPTool_ListENVIToolWorkflows>;
+
+        // try to load based on the response
+        if (resp.success) {
+          ENVI_TOOL_WORKFLOW_REGISTRY.addManyToolWorkflows(resp.workflows);
+          LOADED_NOTES = true;
+        } else {
+          LOAD_FAILURE = resp.err;
+          return {
+            isError: true,
+            content: [{ type: 'text', text: JSON.stringify(resp) }],
+          };
+        }
+      }
+
+      return {
+        isError: false,
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(
+              ENVI_TOOL_WORKFLOW_REGISTRY.getWorkflowNames()
+            ),
+          },
+        ],
+      };
+    }
+  );
+}

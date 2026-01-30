@@ -1,6 +1,7 @@
 import { CallToolResult } from '@modelcontextprotocol/sdk/types';
 
 import { MCPTool_GetENVIToolParameters } from './http/mcp-tool-get-envi-tool-parameters.interface';
+import { MCPTool_GetENVIToolWorkflow } from './http/mcp-tool-get-envi-tool-workflow.interface';
 import { MCPTool_GetResource } from './http/mcp-tool-get-resource.interface';
 import { MCPTool_GetRoutineDocs } from './http/mcp-tool-get-routine-docs.interface';
 import { MCPTool_ListAllResources } from './http/mcp-tool-list-all-resources.interface';
@@ -18,6 +19,7 @@ import {
 import { MCPTool_CreateIDLNotebook } from './vscode/mcp-tool-create-idl-notebook.interface';
 import { MCPTool_ExecuteIDLCode } from './vscode/mcp-tool-execute-idl-code.interface';
 import { MCPTool_ExecuteIDLFile } from './vscode/mcp-tool-execute-idl-file.interface';
+import { MCPTool_ListENVIToolWorkflows } from './vscode/mcp-tool-list-envi-tool-workflows.interface';
 import { MCPTool_OpenDatasetsInENVI } from './vscode/mcp-tool-open-datasets-in-envi.interface';
 import { MCPTool_QueryDatasetWithENVI } from './vscode/mcp-tool-query-dataset-with-envi.interface';
 import { MCPTool_ReturnNotes } from './vscode/mcp-tool-return-notes.interface';
@@ -65,12 +67,16 @@ interface IMCPToolLookup {
   EXECUTE_IDL_FILE: MCPTool_ExecuteIDLFile;
   /** Query parameters for tasks ENVI has */
   GET_ENVI_TOOL_PARAMETERS: MCPTool_GetENVIToolParameters;
+  /** Get kneown ENVI workflow */
+  GET_ENVI_TOOL_WORKFLOW: MCPTool_GetENVIToolWorkflow;
   /** Get a specific resource from the server */
   GET_RESOURCE: MCPTool_GetResource;
   /** Retrieve docs for a routine */
   GET_ROUTINE_DOCS: MCPTool_GetRoutineDocs;
   /** List all resources */
   LIST_ALL_RESOURCES: MCPTool_ListAllResources;
+  /** List know ENVI tool workflows */
+  LIST_ENVI_TOOL_WORKFLOWS: MCPTool_ListENVIToolWorkflows;
   /** Query ENVI's tasks */
   LIST_ENVI_TOOLS: MCPTool_ListENVITools;
   /** Open a dataset in ENVI */
@@ -101,9 +107,11 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   EXECUTE_IDL_CODE: 'execute-idl-code',
   EXECUTE_IDL_FILE: 'execute-idl-file',
   GET_ENVI_TOOL_PARAMETERS: 'get-envi-tool-parameters',
+  GET_ENVI_TOOL_WORKFLOW: 'get-envi-tool-workflow',
   GET_RESOURCE: 'get-resource',
   GET_ROUTINE_DOCS: 'get-routine-docs',
   LIST_ALL_RESOURCES: 'list-all-resources',
+  LIST_ENVI_TOOL_WORKFLOWS: 'list-envi-tool-workflows',
   LIST_ENVI_TOOLS: 'list-envi-tools',
   OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',

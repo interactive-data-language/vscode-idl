@@ -21,6 +21,7 @@ export function RegisterMCPTool_ListENVITools(
     {},
     async (id, inputParameters) => {
       return {
+        isError: false,
         content: [
           {
             type: 'text',

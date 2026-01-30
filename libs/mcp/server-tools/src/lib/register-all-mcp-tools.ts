@@ -3,6 +3,8 @@ import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { MCPToolContext } from './mcp-tool-context.class';
+import { RegisterMCPTool_GetENVIToolWorkflow } from './tools/envi/register-mcp-tool-get-envi-tool-workflow';
+import { RegisterMCPTool_ListENVIToolWorkflows } from './tools/envi/register-mcp-tool-list-envi-tool-workflows';
 import { RegisterMCPTool_OpenDatasetsInENVI } from './tools/envi/register-mcp-tool-open-datasets-in-envi';
 import { RegisterMCPTool_QueryDatasetWithENVI } from './tools/envi/register-mcp-tool-query-dataset-with-envi';
 import { RegisterMCPTool_StartENVI } from './tools/envi/register-mcp-tool-start-envi';
@@ -61,6 +63,8 @@ export function RegisterAllMCPTools(
    *
    * The tools that use tasks are registered after the language server has started up
    */
+  RegisterMCPTool_GetENVIToolWorkflow(messenger);
+  RegisterMCPTool_ListENVIToolWorkflows(messenger);
   RegisterMCPTool_OpenDatasetsInENVI(messenger);
   RegisterMCPTool_QueryDatasetWithENVI(messenger);
   RegisterMCPTool_StartENVI(messenger);

@@ -3,6 +3,10 @@ import {
   MCPToolParams_GetENVIToolParameters,
 } from './http/mcp-tool-get-envi-tool-parameters.interface';
 import {
+  MCPTool_GetENVIToolWorkflow,
+  MCPToolParams_GetENVIToolWorkflows,
+} from './http/mcp-tool-get-envi-tool-workflow.interface';
+import {
   MCPTool_GetResource,
   MCPToolParams_GetResource,
 } from './http/mcp-tool-get-resource.interface';
@@ -36,6 +40,7 @@ import {
  */
 export type MCPTools_HTTP =
   | MCPTool_GetENVIToolParameters
+  | MCPTool_GetENVIToolWorkflow
   | MCPTool_GetResource
   | MCPTool_GetRoutineDocs
   | MCPTool_ListAllResources
@@ -51,6 +56,8 @@ export type MCPTools_HTTP =
 export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
   T extends MCPTool_GetENVIToolParameters
     ? MCPToolParams_GetENVIToolParameters
+    : T extends MCPTool_GetENVIToolWorkflow
+    ? MCPToolParams_GetENVIToolWorkflows
     : T extends MCPTool_GetResource
     ? MCPToolParams_GetResource
     : T extends MCPTool_GetRoutineDocs

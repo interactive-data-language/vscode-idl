@@ -14,6 +14,11 @@ import {
   MCPToolResponse_ExecuteIDLFile,
 } from './vscode/mcp-tool-execute-idl-file.interface';
 import {
+  MCPTool_ListENVIToolWorkflows,
+  MCPToolParams_ListENVIToolWorkflows,
+  MCPToolResponse_ListENVIToolWorkflows,
+} from './vscode/mcp-tool-list-envi-tool-workflows.interface';
+import {
   MCPTool_OpenDatasetsInENVI,
   MCPToolParams_OpenDatasetsInENVI,
   MCPToolResponse_OpenDatasetsInENVI,
@@ -51,6 +56,7 @@ export type MCPTools_VSCode =
   | MCPTool_CreateIDLNotebook
   | MCPTool_ExecuteIDLCode
   | MCPTool_ExecuteIDLFile
+  | MCPTool_ListENVIToolWorkflows
   | MCPTool_OpenDatasetsInENVI
   | MCPTool_QueryDatasetWithENVI
   | MCPTool_ReturnNotes
@@ -69,6 +75,8 @@ export type MCPToolParams_VSCode<T extends MCPTools_VSCode> =
     ? MCPToolParams_ExecuteIDLCode
     : T extends MCPTool_ExecuteIDLFile
     ? MCPToolParams_ExecuteIDLFile
+    : T extends MCPTool_ListENVIToolWorkflows
+    ? MCPToolParams_ListENVIToolWorkflows
     : T extends MCPTool_OpenDatasetsInENVI
     ? MCPToolParams_OpenDatasetsInENVI
     : T extends MCPTool_QueryDatasetWithENVI
@@ -93,6 +101,8 @@ export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
     ? MCPToolResponse_ExecuteIDLCode
     : T extends MCPTool_ExecuteIDLFile
     ? MCPToolResponse_ExecuteIDLFile
+    : T extends MCPTool_ListENVIToolWorkflows
+    ? MCPToolResponse_ListENVIToolWorkflows
     : T extends MCPTool_OpenDatasetsInENVI
     ? MCPToolResponse_OpenDatasetsInENVI
     : T extends MCPTool_QueryDatasetWithENVI

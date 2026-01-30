@@ -26,6 +26,18 @@ export async function MCPEvaluateENVICommand(
    */
   const idlOutput = await IDL_DEBUG_ADAPTER.evaluate(command, options);
 
+  /**
+   * Combine response information
+   */
+  const res: IENVISuccess = {
+    ...(LAST_ENVI_SUCCESS_MESSAGE || DEFAULT_SUCCESS),
+  };
+
+  // if we failed, update the error with the reson too
+  if (!res.succeeded) {
+    res.error = `${res.reason || ''}\n\n${res.error || ''}`.trim();
+  }
+
   // return and merge with most recent message from ENVI
-  return { idlOutput, ...(LAST_ENVI_SUCCESS_MESSAGE || DEFAULT_SUCCESS) };
+  return { idlOutput, ...res };
 }
