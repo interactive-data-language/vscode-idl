@@ -141,12 +141,23 @@ export class IDLMachineWrapper {
     });
 
     this.machine.onNotification('licensingEvent', (params) => {
-      if (params.event === 'AcquireFailure') {
-        this.process.licensed = false;
-        this.process.emit(
-          IDL_EVENT_LOOKUP.STANDARD_ERR,
-          IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
-        );
+      switch (params.event) {
+        case 'AcquireFailure':
+          this.process.licensed = false;
+          this.process.emit(
+            IDL_EVENT_LOOKUP.STANDARD_ERR,
+            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
+          );
+          break;
+        case 'InitializeFailure':
+          this.process.licensed = false;
+          this.process.emit(
+            IDL_EVENT_LOOKUP.STANDARD_ERR,
+            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
+          );
+          break;
+        default:
+          break;
       }
     });
 
