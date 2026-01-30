@@ -51,18 +51,18 @@ export type MCPTools_HTTP =
 export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
   T extends MCPTool_GetENVIToolParameters
     ? MCPToolParams_GetENVIToolParameters
-    : T extends MCPTool_ListENVITools
-    ? MCPToolParams_ListENVITools
     : T extends MCPTool_GetResource
     ? MCPToolParams_GetResource
     : T extends MCPTool_GetRoutineDocs
     ? MCPToolParams_GetRoutineDocs
     : T extends MCPTool_ListAllResources
     ? MCPToolParams_ListAllResources
+    : T extends MCPTool_ListENVITools
+    ? MCPToolParams_ListENVITools
+    : T extends MCPTool_SearchForFiles
+    ? MCPToolParams_SearchForFiles
     : T extends MCPTool_SearchForRoutine
     ? MCPToolParams_SearchForRoutine
     : T extends MCPTool_SearchResources
     ? MCPToolParams_SearchResources
-    : T extends MCPTool_SearchForFiles
-    ? MCPToolParams_SearchForFiles
     : never;

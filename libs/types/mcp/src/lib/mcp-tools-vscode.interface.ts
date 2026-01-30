@@ -63,22 +63,22 @@ export type MCPTools_VSCode =
  * that requires ENVI or IDL
  */
 export type MCPToolParams_VSCode<T extends MCPTools_VSCode> =
-  T extends MCPTool_OpenDatasetsInENVI
-    ? MCPToolParams_OpenDatasetsInENVI
-    : T extends MCPTool_QueryDatasetWithENVI
-    ? MCPToolParams_QueryDatasetWithENVI
-    : T extends MCPTool_RunENVITool
-    ? MCPToolParams_RunENVITool
-    : T extends MCPTool_StartENVI
-    ? MCPToolParams_StartENVI
-    : T extends MCPTool_CreateIDLNotebook
+  T extends MCPTool_CreateIDLNotebook
     ? MCPToolParams_CreateIDLNotebook
     : T extends MCPTool_ExecuteIDLCode
     ? MCPToolParams_ExecuteIDLCode
     : T extends MCPTool_ExecuteIDLFile
     ? MCPToolParams_ExecuteIDLFile
+    : T extends MCPTool_OpenDatasetsInENVI
+    ? MCPToolParams_OpenDatasetsInENVI
+    : T extends MCPTool_QueryDatasetWithENVI
+    ? MCPToolParams_QueryDatasetWithENVI
     : T extends MCPTool_ReturnNotes
     ? MCPToolParams_ReturnNotes
+    : T extends MCPTool_RunENVITool
+    ? MCPToolParams_RunENVITool
+    : T extends MCPTool_StartENVI
+    ? MCPToolParams_StartENVI
     : T extends MCPTool_StartIDL
     ? MCPToolParams_StartIDL
     : never;
@@ -87,22 +87,22 @@ export type MCPToolParams_VSCode<T extends MCPTools_VSCode> =
  * Responses from MCP tools that run in VSCode for ENVI and IDL
  */
 export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
-  T extends MCPTool_OpenDatasetsInENVI
-    ? MCPToolResponse_OpenDatasetsInENVI
-    : T extends MCPTool_QueryDatasetWithENVI
-    ? MCPToolResponse_QueryDatasetWithENVI
-    : T extends MCPTool_RunENVITool
-    ? MCPToolResponse_RunENVITool
-    : T extends MCPTool_StartENVI
-    ? MCPToolResponse_StartENVI
-    : T extends MCPTool_CreateIDLNotebook
+  T extends MCPTool_CreateIDLNotebook
     ? MCPToolResponse_CreateIDLNotebook
     : T extends MCPTool_ExecuteIDLCode
     ? MCPToolResponse_ExecuteIDLCode
     : T extends MCPTool_ExecuteIDLFile
     ? MCPToolResponse_ExecuteIDLFile
+    : T extends MCPTool_OpenDatasetsInENVI
+    ? MCPToolResponse_OpenDatasetsInENVI
+    : T extends MCPTool_QueryDatasetWithENVI
+    ? MCPToolResponse_QueryDatasetWithENVI
     : T extends MCPTool_ReturnNotes
     ? MCPToolResponse_ReturnNotes
+    : T extends MCPTool_RunENVITool
+    ? MCPToolResponse_RunENVITool
+    : T extends MCPTool_StartENVI
+    ? MCPToolResponse_StartENVI
     : T extends MCPTool_StartIDL
     ? MCPToolResponse_StartIDL
     : never;
