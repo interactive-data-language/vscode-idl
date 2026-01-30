@@ -810,6 +810,10 @@ export interface ITranslation {
       failedStart: string;
       /** Failed to handle progress messages */
       failedProgress: string;
+      /** When there is no ENVI Agent license */
+      noLicense: string;
+      /** When you don't have IDL Machine */
+      badIDLVersion: string;
     };
     /** Translations for MCP tools */
     tools: {

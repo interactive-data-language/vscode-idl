@@ -1,0 +1,137 @@
+{
+  "type": "object",
+  "properties": {
+    "apply_symbology": {
+      "type": "boolean",
+      "default": false,
+      "description": [
+        "Set this parameter if you want to generate a vector style sheet that will automatically set the colors of the output polygons to match the class colors of the input raster."
+      ]
+    },
+    "export_classes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": [
+        "Specify a string array with class names to export to the shapefile."
+      ]
+    },
+    "input_raster": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "default": "URLRaster",
+          "description": [
+            "This value should be \"URLRaster\" (case-insensitive)"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the dataset on disk.",
+            "",
+            "Common extensions to use: .dat, .img, .hsi, .tif, .nitf, .ntf. For complex file formats, this should likely be the metadata file itself and not individual image files which ENVI supports.",
+            "",
+            "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
+          ]
+        },
+        "auxiliary_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": [
+            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
+          ]
+        },
+        "dataset_index": {
+          "type": "number",
+          "description": [
+            "If a raster has more than one dataset present, optionally specify the zero-based index of which image to open. Applicable to file types like NITF, Sentinel 2, or similar where multi-resolutions or images are present in a single file."
+          ]
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify a classification raster from which to generate a shapefile."
+      ]
+    },
+    "output_method": {
+      "type": "string",
+      "enum": [
+        "Single Vector Layer",
+        "One Vector Layer Per Class"
+      ],
+      "default": "Single Vector Layer",
+      "description": [
+        "Specify a string indicating whether the output is a single vector layer with all classes, or one vector layer per class. The choices are:",
+        "",
+        "Single Vector Layer (default): If you specify this option, provide a single filename for OUTPUT_VECTOR.",
+        "One Vector Layer per Class: If you specify this option, the output filenames will be <_output filename_>_<_class name_>.shp, one for each class."
+      ]
+    },
+    "output_vector_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    }
+  },
+  "required": [
+    "input_raster"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Inputs for running the tool. These *MUST* be specified based on the schema. Summary:",
+    "",
+    "This task exports one or more classes to a single shapefile. The vectors include separate records for each polygon.",
+    "",
+    "Example",
+    "",
+    "  ; Start the application",
+    "  e = envi()",
+    "",
+    "  ; Open an input file",
+    "  File = filepath('qb_boulder_msi', subdir = ['data'], $",
+    "    root_dir = e.root_dir)",
+    "  Raster = e.openRaster(File)",
+    "",
+    "  ; Create a classification ENVIRaster",
+    "  ClassTask = ENVITask('ISODATAClassification')",
+    "  ClassTask.input_raster = Raster",
+    "  ClassTask.execute",
+    "",
+    "  ; Run the smoothing task",
+    "  SmoothTask = ENVITask('ClassificationSmoothing')",
+    "  SmoothTask.input_raster = ClassTask.output_raster",
+    "  SmoothTask.execute",
+    "",
+    "  ; Run the aggregation task",
+    "  AggregationTask = ENVITask('ClassificationAggregation')",
+    "  AggregationTask.input_raster = SmoothTask.output_raster",
+    "  AggregationTask.execute",
+    "",
+    "  ; Convert the classes to shapefiles",
+    "  ClassToVectorTask = ENVITask('ClassificationToShapefile')",
+    "  ClassToVectorTask.input_raster = AggregationTask.output_raster",
+    "  ClassToVectorTask.execute",
+    "",
+    "  ; Get the collection of data objects currently available in the Data Manager",
+    "  DataColl = e.data",
+    "",
+    "  ; Add the output to the Data Manager",
+    "  DataColl.add, AggregationTask.output_raster",
+    "  DataColl.add, ClassToVectorTask.output_vector",
+    "",
+    "  ; Display the result",
+    "  View = e.getView()",
+    "  Layer1 = View.createLayer(AggregationTask.output_raster)",
+    "  Layer2 = View.createLayer(ClassToVectorTask.output_vector)"
+  ]
+}

@@ -1,0 +1,5 @@
+[
+  "This task clusters pixels in a dataset based on statistics only, without requiring you to define training classes. It uses the ISODATA unsupervised method for classification.",
+  "",
+  "The ISODATA method starts by calculating class means evenly distributed in the data space, then iteratively clusters the remaining pixels using minimum distance techniques. Each iteration recalculates means and reclassifies pixels with respect to the new means. This process continues until the percentage of pixels that change classes during an iteration is less than the change threshold or the maximum number of iterations is reached."
+]

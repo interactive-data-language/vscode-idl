@@ -17,6 +17,8 @@ compliance
 /*idl.json
 *settings.json
 apps/test-tokenizer/src/test-maker/cache/cache.json
+apps/client-e2e/src/tests/mcp/tools/envi/regression-tests/tool-descriptions
+apps/client-e2e/src/tests/mcp/tools/envi/regression-tests/tool-parameters
 .angular
 
 /.nx/cache

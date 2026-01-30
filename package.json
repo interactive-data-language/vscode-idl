@@ -14,7 +14,7 @@
   "scripts": {
     "build-client": "nx run-many --target=build --projects=client,idl-webview --prod",
     "build-client-web": "node ./tools/merge-client-web-paths.js && nx build client-web --prod",
-    "build-extension": "npm-run-all -s clean build-mcp-tools build-package-json build-docs build-client build-renderer build-server build-client-web",
+    "build-extension": "npm-run-all -s clean build-package-json build-docs build-client build-renderer build-server build-client-web",
     "build-docs": "node ./tools/build-and-copy-docs.js",
     "build-i18n": "nx build i18n && node ./dist/apps/i18n/main.js",
     "build-mcp-tools": "node ./tools/update-mcp-tools.js",

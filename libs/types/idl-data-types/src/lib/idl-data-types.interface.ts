@@ -255,10 +255,16 @@ export interface ICreateIDLDataType {
 export interface IDLDataTypeBaseMetadata {
   // overload for all other properties
   [key: string]: any;
+  /** If choice list, what is the default value? */
+  default?: number | string;
   /** If we have a string, is it a URI/filepath to a folder on disk */
   isFolder?: boolean;
   /** If we have a string, is it a URI/filepath */
   isUri?: boolean;
+  /** If number, what is the max value? */
+  max?: number;
+  /** If number, what is the min value? */
+  min?: number;
   /** Field to store information about properties - used for "Structure" types */
   properties?: IPropertyLookup;
 }

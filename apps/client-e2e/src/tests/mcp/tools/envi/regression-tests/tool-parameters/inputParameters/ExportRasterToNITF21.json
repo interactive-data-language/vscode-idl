@@ -1,0 +1,136 @@
+{
+  "type": "object",
+  "properties": {
+    "data_ignore_value": {
+      "type": "number",
+      "description": [
+        "Specify a unique data value for pixels in the output raster that have a non-zero pixel state value. See Raster Pixel State for more information."
+      ]
+    },
+    "input_raster": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "default": "URLRaster",
+          "description": [
+            "This value should be \"URLRaster\" (case-insensitive)"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the dataset on disk.",
+            "",
+            "Common extensions to use: .dat, .img, .hsi, .tif, .nitf, .ntf. For complex file formats, this should likely be the metadata file itself and not individual image files which ENVI supports.",
+            "",
+            "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
+          ]
+        },
+        "auxiliary_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": [
+            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
+          ]
+        },
+        "dataset_index": {
+          "type": "number",
+          "description": [
+            "If a raster has more than one dataset present, optionally specify the zero-based index of which image to open. Applicable to file types like NITF, Sentinel 2, or similar where multi-resolutions or images are present in a single file."
+          ]
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify a raster to export to NITF 2.1 format."
+      ]
+    },
+    "nitf_compression": {
+      "type": "string",
+      "enum": [
+        "EPJE Num Lossless",
+        "EPJE Vis Lossless",
+        "JPEG DCT (High)",
+        "JPEG DCT (Low)",
+        "JPEG DCT (Medium)",
+        "No Compression",
+        "NPJE Num Lossless",
+        "NPJE Vis Lossless",
+        "Transcode EPJE to NPJE",
+        "Transcode NPJE to EPJE"
+      ],
+      "default": "No Compression",
+      "description": [
+        "Specifies the NITF compression type. The choices are as follows:",
+        "",
+        "If the data type is byte, integer, unsigned integer, long integer, or unsigned long integer, the following options will work:",
+        "",
+        "EPJE Num Lossless",
+        "EPJE Vis Lossless",
+        "NPJE Num Lossless",
+        "NPJE Vis Lossless",
+        "Transcode EPJE to NPJE: Only works for NITF files that are C8-compressed and are not spatially subsetted",
+        "Transcode NPJE to EPJE: Only works for NITF files that are C8-compressed and are not spatially subsetted",
+        "",
+        "The following options work for rasters that have one or three bands, and the data type is byte:",
+        "",
+        "JPEG DCT (High)",
+        "JPEG DCT (Low)",
+        "JPEG DCT (Medium)",
+        "",
+        "The default value is No Compression."
+      ]
+    },
+    "output_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    }
+  },
+  "required": [
+    "input_raster"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Inputs for running the tool. These *MUST* be specified based on the schema. Summary:",
+    "",
+    "This task exports a raster to NITF 2.1 file format.",
+    "",
+    "Example",
+    "",
+    "  ; Start the application",
+    "  e = envi()",
+    "",
+    "  ; Open an input file",
+    "  File = filepath('qb_boulder_msi', subdir = ['data'], $",
+    "    root_dir = e.root_dir)",
+    "  Raster = e.openRaster(File)",
+    "",
+    "  ; Get the task from the catalog of ENVITasks",
+    "  Task = ENVITask('ExportRasterToNITF21')",
+    "",
+    "  ; Define inputs",
+    "  Task.input_raster = Raster",
+    "",
+    "  ; Run the task",
+    "  Task.execute",
+    "",
+    "  ; Get the collection of data objects currently available in the Data Manager",
+    "  DataColl = e.data",
+    "",
+    "  ; Add the output to the Data Manager",
+    "  DataColl.add, Task.output_raster",
+    "",
+    "  ; Display the result",
+    "  View = e.getView()",
+    "  Layer = View.createLayer(Task.output_raster)"
+  ]
+}

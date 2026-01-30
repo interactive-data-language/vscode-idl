@@ -3,17 +3,17 @@ import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { MCPToolContext } from './mcp-tool-context.class';
-import { RegisterMCPTool_ENVIOpenDatasets } from './tools/envi/register-mcp-tool-envi-open-datasets';
-import { RegisterMCPTool_ENVIQueryDataset } from './tools/envi/register-mcp-tool-envi-query-dataset';
-import { RegisterMCPTool_ENVIStart } from './tools/envi/register-mcp-tool-envi-start';
-import { RegisterMCPTool_IDLCreateNotebook } from './tools/idl/register-mcp-tool-idl-create-notebook';
-import { RegisterMCPTool_IDLExecuteCode } from './tools/idl/register-mcp-tool-idl-execute-code';
-import { RegisterMCPTool_IDLExecuteFile } from './tools/idl/register-mcp-tool-idl-execute-file';
-import { RegisterMCPTool_IDLStart } from './tools/idl/register-mcp-tool-idl-start';
-import { RegisterMCPTool_ResourcesGetResource } from './tools/register-mcp-tool-resources-get-resource';
-import { RegisterMCPTool_ResourcesListAll } from './tools/register-mcp-tool-resources-list-all';
-import { RegisterMCPTool_ResourcesSearchResources } from './tools/register-mcp-tool-resources-search';
+import { RegisterMCPTool_OpenDatasetsInENVI } from './tools/envi/register-mcp-tool-open-datasets-in-envi';
+import { RegisterMCPTool_QueryDatasetWithENVI } from './tools/envi/register-mcp-tool-query-dataset-with-envi';
+import { RegisterMCPTool_StartENVI } from './tools/envi/register-mcp-tool-start-envi';
+import { RegisterMCPTool_CreateIDLNotebook } from './tools/idl/register-mcp-tool-create-idl-notebook';
+import { RegisterMCPTool_ExecuteIDLCode } from './tools/idl/register-mcp-tool-execute-idl-code';
+import { RegisterMCPTool_ExecuteIDLFile } from './tools/idl/register-mcp-tool-execute-idl-file';
+import { RegisterMCPTool_StartIDL } from './tools/idl/register-mcp-tool-start-idl';
+import { RegisterMCPTool_GetResource } from './tools/register-mcp-tool-get-resource';
+import { RegisterMCPTool_ListAllResources } from './tools/register-mcp-tool-list-all-resources';
 import { RegisterMCPTool_SearchForFiles } from './tools/register-mcp-tool-search-for-files';
+import { RegisterMCPTool_SearchResources } from './tools/register-mcp-tool-search-resources';
 
 /**
  * Track contexts for all actively running tools so we can send notification
@@ -43,27 +43,27 @@ export function RegisterAllMCPTools(
   /**
    * Register generic tools
    */
-  RegisterMCPTool_ResourcesGetResource(messenger);
-  RegisterMCPTool_ResourcesListAll(messenger);
-  RegisterMCPTool_ResourcesSearchResources(messenger, logManager);
+  RegisterMCPTool_GetResource(messenger);
+  RegisterMCPTool_ListAllResources(messenger);
+  RegisterMCPTool_SearchResources(messenger, logManager);
   RegisterMCPTool_SearchForFiles(messenger);
 
   /**
    * Register IDL tools
    */
-  RegisterMCPTool_IDLCreateNotebook(messenger);
-  RegisterMCPTool_IDLExecuteCode(messenger);
-  RegisterMCPTool_IDLExecuteFile(messenger);
-  RegisterMCPTool_IDLStart(messenger);
+  RegisterMCPTool_CreateIDLNotebook(messenger);
+  RegisterMCPTool_ExecuteIDLCode(messenger);
+  RegisterMCPTool_ExecuteIDLFile(messenger);
+  RegisterMCPTool_StartIDL(messenger);
 
   /**
    * ENVI tools
    *
    * The tools that use tasks are registered after the language server has started up
    */
-  RegisterMCPTool_ENVIOpenDatasets(messenger);
-  RegisterMCPTool_ENVIQueryDataset(messenger);
-  RegisterMCPTool_ENVIStart(messenger);
+  RegisterMCPTool_OpenDatasetsInENVI(messenger);
+  RegisterMCPTool_QueryDatasetWithENVI(messenger);
+  RegisterMCPTool_StartENVI(messenger);
 
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;

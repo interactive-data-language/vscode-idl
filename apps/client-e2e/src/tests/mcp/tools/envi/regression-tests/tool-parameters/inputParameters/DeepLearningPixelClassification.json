@@ -1,0 +1,185 @@
+{
+  "type": "object",
+  "properties": {
+    "cuda_device_id": {
+      "type": "number",
+      "description": [
+        "If the RUNTIME parameter is set to CUDA, specify the target GPU device ID. If a valid ID is provided, the classification task will execute on the specified CUDA-enabled GPU. If the ID is omitted or invalid, the system defaults to GPU device 0. Use this parameter to explicitly control GPU selection in multi-GPU environments."
+      ]
+    },
+    "enhance_display": {
+      "type": "boolean",
+      "default": false,
+      "description": [
+        "Specify whether to apply an additional small stretch to the processed data to suppress noise and enhance feature visibility. The optional stretch is effective for improving visual clarity in imagery acquired from aerial platforms or sensors with higher noise profiles."
+      ]
+    },
+    "input_metadata": {
+      "type": "object",
+      "additionalProperties": {},
+      "description": [
+        "Specify an optional hash containing metadata that will be passed on and accessible to ONNX preprocessor and postprocessor functions."
+      ]
+    },
+    "input_model": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "default": "DeepLearningONNXModel",
+          "description": [
+            "This value should be \"DeepLearningONNXModel\" (case-insensitive)"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the ENVI ONNX model on disk. This should be a file with a \".envi.onnx\" file extension. The \".envi.onnx\" comes from the model being configured to run in ENVI (needs to happen if not \".envi.onnx\"). To verify that the ONNX model is compatible with data, use the ENVI Query Dataset tool to check the model before use."
+          ]
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify the trained ONNX model (.envi.onnx) to use for pixel-level classification of the INPUT_RASTER. The model must be compatible with the task requirements and capable of assigning accurate labels to individual pixels within the raster."
+      ]
+    },
+    "input_raster": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "default": "URLRaster",
+          "description": [
+            "This value should be \"URLRaster\" (case-insensitive)"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the dataset on disk.",
+            "",
+            "Common extensions to use: .dat, .img, .hsi, .tif, .nitf, .ntf. For complex file formats, this should likely be the metadata file itself and not individual image files which ENVI supports.",
+            "",
+            "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
+          ]
+        },
+        "auxiliary_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": [
+            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
+          ]
+        },
+        "dataset_index": {
+          "type": "number",
+          "description": [
+            "If a raster has more than one dataset present, optionally specify the zero-based index of which image to open. Applicable to file types like NITF, Sentinel 2, or similar where multi-resolutions or images are present in a single file."
+          ]
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify the raster to classify."
+      ]
+    },
+    "output_class_activation_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    },
+    "output_classification_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    },
+    "runtime": {
+      "type": "string",
+      "enum": [
+        "CUDA",
+        "CPU"
+      ],
+      "default": "CUDA",
+      "description": [
+        "Specify the execution environment for the classification task with one of these options:",
+        "",
+        "CUDA: (Default) Uses NVIDIA GPU acceleration for optimal performance and faster processing. See also CUDA_DEVICE_ID for details on providing a device ID.",
+        "CPU: Ensures compatibility on systems without GPU support, but with reduced processing speeds."
+      ]
+    },
+    "visual_rgb": {
+      "type": "boolean",
+      "default": false,
+      "description": [
+        "Specify whether to encode the output raster as a three-band RGB composite (red, green, blue) for color image processing. This ensures consistent band selection from ENVI display types (such as RGB, CIR, and pan) and supports integration of diverse data sources (such as MSI, panchromatic, and VNIR) without band mismatch."
+      ]
+    }
+  },
+  "required": [
+    "input_model",
+    "input_raster"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Inputs for running the tool. These *MUST* be specified based on the schema. Summary:",
+    "",
+    "This task uses a trained Deep Learning ONNX model to perform pixel segmentation classification on a raster. The result is a classification image, with an optional output of a class activation raster whose pixel values represent the probability (0 to 1) of matching the feature of interest. If necessary, this task will convert a raster into an ENVIDeepLearningRaster for classification. To avoid having to convert the same input raster again, use the BuildDeepLearningRaster task once to convert it to an ENVIDeepLearningRaster.",
+    "",
+    "Example",
+    "",
+    "  ; Start the application",
+    "  e = envi()",
+    "",
+    "  ; Select a raster to classify.",
+    "  ; Update the following line with a valid raster path",
+    "  RasterFile = 'RasterToClassify.dat'",
+    "  Raster = e.openRaster(RasterFile)",
+    "",
+    "  ; Select a trained model.",
+    "  ; Update the following line with a valid model path",
+    "  ModelFile = 'pixelModel.envi.onnx'",
+    "  Model = ENVIDeepLearningOnnxModel(ModelFile)",
+    "",
+    "  ; Get the task from the catalog of ENVITasks",
+    "  Task = ENVITask('DeepLearningPixelClassification')",
+    "",
+    "  ; Select task inputs",
+    "  Task.input_raster = Raster",
+    "  Task.input_model = Model",
+    "",
+    "  ; Set task outputs",
+    "  Task.output_classification_raster_uri = e.getTemporaryFilename('.dat', /cleanup_on_exit)",
+    "  Task.output_class_activation_raster_uri = e.getTemporaryFilename('.dat', /cleanup_on_exit)",
+    "",
+    "  ; Run the task",
+    "  Task.execute",
+    "",
+    "  ; Get the classification and activation outputs",
+    "  ClassificationRaster = Task.output_classification_raster",
+    "  ActivationRaster = Task.output_class_activation_raster",
+    "",
+    "  ; Add data to the Data Manager",
+    "  e.data.add, Raster",
+    "  e.data.add, ClassificationRaster",
+    "  e.data.add, ActivationRaster",
+    "",
+    "  ; Access the view",
+    "  View = e.getView()",
+    "",
+    "  ; Create the layers",
+    "  Layer1 = View.createLayer(Raster)",
+    "  Layer2 = View.createLayer(ClassificationRaster)",
+    "  Layer3 = View.createLayer(ActivationRaster)"
+  ]
+}
