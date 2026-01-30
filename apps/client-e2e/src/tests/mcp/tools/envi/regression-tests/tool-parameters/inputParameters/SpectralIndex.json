@@ -1,0 +1,220 @@
+{
+  "type": "object",
+  "properties": {
+    "index": {
+      "type": "string",
+      "description": [
+        "Specify a string representing the pre-defined spectral index to apply to the input raster:",
+        "",
+        "Alunite Index (ALUI)",
+        "Anthocyanin Reflectance Index 1 (ARI1)",
+        "Anthocyanin Reflectance Index 2 (ARI2)",
+        "Atmospherically Resistant Vegetation Index (ARVI)",
+        "Burn Area Index (BAI)",
+        "Calcite Index (CALI)",
+        "Carotenoid Reflectance Index 1 (CRI1)",
+        "Carotenoid Reflectance Index 2 (CRI2)",
+        "Cellulose Absorption Index (CAI)",
+        "Clay Alteration Index (CLAI)",
+        "Clay Minerals Ratio (CLAY)",
+        "Difference Vegetation Index (DVI)",
+        "Disease Water Stress Index (DWSI)",
+        "Dolomite Index (DOLI)",
+        "Enhanced Vegetation Index (EVI)",
+        "Epidote / Chlorite / Amphibole Index (ECAI)",
+        "Ferric Iron Alteration Index (FEAI)",
+        "Ferrous Iron (Fe2+) Index (FEI)",
+        "Ferrous Minerals Ratio (Ferrous)",
+        "Ferrous Silicates Index (FESI)",
+        "Global Environmental Monitoring Index (GEMI)",
+        "Green Atmospherically Resistant Index (GARI)",
+        "Green Chlorophyll Index (GCI)",
+        "Green Difference Vegetation Index (GDVI)",
+        "Green Leaf Index (GLI)",
+        "Green Normalized Difference Vegetation Index (GNDVI)",
+        "Green Optimized Soil Adjusted Vegetation Index (GOSAVI)",
+        "Green Ratio Vegetation Index (GRVI)",
+        "Green Soil Adjusted Vegetation Index (GSAVI)",
+        "Green Vegetation Index (GVI)",
+        "Hydroxyl-Bearing (OH) Altered Minerals Index 1 (OHI1)",
+        "Hydroxyl-Bearing (OH) Altered Minerals Index 2 (OHI2)",
+        "Hydroxyl-Bearing (OH) Altered Minerals Index 3 (OHI3)",
+        "Infrared Percentage Vegetation Index (IPVI)",
+        "Iron Oxide Ratio (Iron Oxide)",
+        "Kaolinite Index 1 (KAI1)",
+        "Kaolinite Index 2 (KAI2)",
+        "Kaolinite Index 3 (KAI3)",
+        "Laterite Index (LATI)",
+        "Leaf Area Index (LAI)",
+        "Leaf Chlorophyll Index (LCI)",
+        "Leaf Water Vegetation Index 1 (LWVI1)",
+        "Leaf Water Vegetation Index 2 (LWVI2)",
+        "Lignin Cellulose Absorption Index (LCAI)",
+        "Magnesite Index (MAGI)",
+        "Methane Index (METHANE)",
+        "Methane Index for AVIRIS (AVIRIS-METHANE)",
+        "Methane Index for AVIRIS-NG (AVIRIS-NG-METHANE)",
+        "Methane Index for EMIT (EMIT-METHANE)",
+        "Methane Index for ENMAP (ENMAP-METHANE)",
+        "Methane Index for PRISMA (PRISMA-METHANE)",
+        "MgOH-Carbonate Abundance Index (MGAI)",
+        "Modified Chlorophyll Absorption Ratio Index (MCARI)",
+        "Modified Chlorophyll Absorption Radio Index Improved (MCARI2)",
+        "Modified Non-Linear Index (MNLI)",
+        "Modified Normalized Difference Water Index (MNDWI)",
+        "Modified Red Edge Normalized Difference Vegetation Index (MRENDVI)",
+        "Modified Red Edge Simple Ratio (MRESR)",
+        "Modified Simple Ratio (MSR)",
+        "Modified Soil Adjusted Vegetation Index 2 (MSAVI2)",
+        "Modified Triangular Vegetation Index (MTVI)",
+        "Modified Triangular Vegetation Index - Improved (MTVI2)",
+        "Moisture Stress Index (MSI)",
+        "Montmorillonite Index (MONI)",
+        "Muscovite Index (MUSI)",
+        "Non-Linear Index (NLI)",
+        "Normalized Burn Ratio (NBR)",
+        "Normalized Burn Ratio Thermal 1 (NBRT1)",
+        "Normalized Difference Built-Up Index (NDBI)",
+        "Normalized Difference Infrared Index (NDII)",
+        "Normalized Difference Lignin Index (NDLI)",
+        "Normalized Difference Mud Index (NDMI)",
+        "Normalized Difference Moisture Index (NDMSI)",
+        "Normalized Difference Nitrogen Index (NDNI)",
+        "Normalized Difference Pond Index (NDPI)",
+        "Normalized Difference Snow Index (NDSI)",
+        "Normalized Difference Vegetation Index (NDVI)",
+        "Normalized Difference Water Index (NDWI)",
+        "Normalized Multiband Drought Index (NMDI)",
+        "Normalized Pigment Chlorophyll Index (NPCI)",
+        "Optimized Soil Adjusted Vegetation Index (OSAVI)",
+        "Phengitic Index (PHEI)",
+        "Photochemical Reflectance Index (PRI)",
+        "Phyllic Alteration Index (PHAI)",
+        "Plant Senescence Reflectance Index (PSRI)",
+        "Propylitic Alteration Index (PRAI)",
+        "Red Edge Normalized Difference Vegetation Index (RENDVI)",
+        "Red Edge Position Index (REPI)",
+        "Red Green Ratio Index (RGRI)",
+        "Renormalized Difference Vegetation Index (RDVI)",
+        "Silica Dioxide Index (SIDI)",
+        "Simple Ratio (SR)",
+        "Simple Water Index (SWI)",
+        "Soil Adjusted Vegetation Index (SAVI)",
+        "Structure Independent Pigment Index (SIPI1)",
+        "Structure Insensitive Pigment Index (SIPI)",
+        "Sum Green Index (SGI)",
+        "Transformed Chlorophyll Absorption Reflectance Index (TCARI)",
+        "Transformed Difference Vegetation Index (TDVI)",
+        "Triangular Greenness (TGI)",
+        "Triangular Vegetation Index (TVI)",
+        "Visible Atmospherically Resistant Index (VARI)",
+        "Water Band Index (WBI)",
+        "Water Ratio Index (WRI)",
+        "Wide Dynamic Range Vegetation Index (WDRVI)",
+        "WorldView Built-Up Index (WV-BI)",
+        "WorldView Improved Vegetative Index (WV-VI)",
+        "WorldView New Iron Index (WV-II)",
+        "WorldView Non-Homogeneous Feature Difference (WV-NHFD)",
+        "WorldView Soil Index (WV-SI)",
+        "WorldView Water Index (WV-WI)"
+      ]
+    },
+    "input_raster": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "default": "URLRaster",
+          "description": [
+            "This value should be \"URLRaster\" (case-insensitive)"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the dataset on disk.",
+            "",
+            "Common extensions to use: .dat, .img, .hsi, .tif, .nitf, .ntf. For complex file formats, this should likely be the metadata file itself and not individual image files which ENVI supports.",
+            "",
+            "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
+          ]
+        },
+        "auxiliary_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": [
+            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
+          ]
+        },
+        "dataset_index": {
+          "type": "number",
+          "description": [
+            "If a raster has more than one dataset present, optionally specify the zero-based index of which image to open. Applicable to file types like NITF, Sentinel 2, or similar where multi-resolutions or images are present in a single file."
+          ]
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify a raster from which to generate a spectral index raster."
+      ]
+    },
+    "output_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    }
+  },
+  "required": [
+    "index",
+    "input_raster"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Inputs for running the tool. These *MUST* be specified based on the schema. Summary:",
+    "",
+    "This task creates a spectral index raster from one pre-defined spectral index. Spectral indices are combinations of surface reflectance at two or more wavelengths that indicate relative abundance of features of interest. ",
+    "",
+    "Use the SpectralIndices task to create a raster with one or more bands, where each band represents a different spectral index.",
+    "",
+    " The data-ignore value of the output raster is set to -1034.",
+    "",
+    "The virtual raster associated with this task is ENVISpectralIndexRaster.",
+    "",
+    "Example",
+    "",
+    "  ; Start the application",
+    "  e = envi()",
+    "",
+    "  ; Open an input file",
+    "  File = filepath('qb_boulder_msi', subdir = ['data'], $",
+    "    root_dir = e.root_dir)",
+    "  Raster = e.openRaster(File)",
+    "",
+    "  ; Get the task from the catalog of ENVITasks",
+    "  Task = ENVITask('SpectralIndex')",
+    "",
+    "  ; Define inputs",
+    "  Task.index = 'Normalized Difference Vegetation Index'",
+    "  Task.input_raster = Raster",
+    "",
+    "  ; Run the task",
+    "  Task.execute",
+    "",
+    "  ; Get the collection of data objects currently available in the Data Manager",
+    "  DataColl = e.data",
+    "",
+    "  ; Add the output to the Data Manager",
+    "  DataColl.add, Task.output_raster",
+    "",
+    "  ; Display the result",
+    "  View = e.getView()",
+    "  Layer = View.createLayer(Task.output_raster)"
+  ]
+}

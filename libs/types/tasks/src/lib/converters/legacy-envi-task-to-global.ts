@@ -4,13 +4,16 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionToken,
   GlobalStructureToken,
+  IDLDataTypeBaseMetadata,
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
 
 import {
   ENVITaskLegacy,
+  ENVITaskLegacyParameter,
   ENVITaskLegacyVersion,
+  ENVITaskLegacyVersion532,
 } from '../envitasklegacy.interface';
 import { IGlobalsToTrack } from '../task-to-global-token.interface';
 import { TaskTypeToIDLType } from './task-type-to-idl-type';
@@ -50,6 +53,39 @@ export function LegacyENVITaskToGlobal(
     const propName = param.name.toLowerCase();
     const dir = (param.direction || 'input').toLowerCase();
 
+    /** Create type metadata for URI specials */
+    const meta: IDLDataTypeBaseMetadata = {};
+
+    // set min
+    if (
+      (param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>)?.min !==
+      undefined
+    ) {
+      meta.min = (
+        param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
+      )?.min;
+    }
+
+    // set max
+    if (
+      (param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>)?.max !==
+      undefined
+    ) {
+      meta.max = (
+        param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
+      )?.max;
+    }
+
+    // set default
+    if (
+      (param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>)
+        ?.defaultValue !== undefined
+    ) {
+      meta.default = (
+        param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
+      )?.defaultValue;
+    }
+
     // save our property
     props[propName] = {
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
@@ -59,7 +95,7 @@ export function LegacyENVITaskToGlobal(
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description || '',
-      type: TaskTypeToIDLType(param.dataType, {}, param.choiceList),
+      type: TaskTypeToIDLType(param.dataType, meta, param.choiceList),
       req: param.parameterType === 'required',
     };
   }

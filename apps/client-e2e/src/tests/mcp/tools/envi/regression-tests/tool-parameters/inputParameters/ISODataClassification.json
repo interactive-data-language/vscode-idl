@@ -1,0 +1,121 @@
+{
+  "type": "object",
+  "properties": {
+    "change_threshold_percent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 2,
+      "description": [
+        "The change threshold percentage that determines when to complete the classification. When the percentage of pixels that change classes during an iteration is less than the threshold value, the classification completes. The default value is 2.0."
+      ]
+    },
+    "input_raster": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "default": "URLRaster",
+          "description": [
+            "This value should be \"URLRaster\" (case-insensitive)"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the dataset on disk.",
+            "",
+            "Common extensions to use: .dat, .img, .hsi, .tif, .nitf, .ntf. For complex file formats, this should likely be the metadata file itself and not individual image files which ENVI supports.",
+            "",
+            "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
+          ]
+        },
+        "auxiliary_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": [
+            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
+          ]
+        },
+        "dataset_index": {
+          "type": "number",
+          "description": [
+            "If a raster has more than one dataset present, optionally specify the zero-based index of which image to open. Applicable to file types like NITF, Sentinel 2, or similar where multi-resolutions or images are present in a single file."
+          ]
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify a raster on which to perform unsupervised classification."
+      ]
+    },
+    "iterations": {
+      "type": "number",
+      "minimum": 1,
+      "default": 10,
+      "description": [
+        "The maximum iterations to perform. If the change threshold percent is not met before the maximum number of iterations is reached, the classification completes. The default value is 10."
+      ]
+    },
+    "number_of_classes": {
+      "type": "number",
+      "minimum": 2,
+      "default": 5,
+      "description": [
+        "Specify the number of classes to generate. The default value is 5."
+      ]
+    },
+    "output_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    }
+  },
+  "required": [
+    "input_raster"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Inputs for running the tool. These *MUST* be specified based on the schema. Summary:",
+    "",
+    "This task clusters pixels in a dataset based on statistics only, without requiring you to define training classes. It uses the ISODATA unsupervised method for classification.",
+    "",
+    "The ISODATA method starts by calculating class means evenly distributed in the data space, then iteratively clusters the remaining pixels using minimum distance techniques. Each iteration recalculates means and reclassifies pixels with respect to the new means. This process continues until the percentage of pixels that change classes during an iteration is less than the change threshold or the maximum number of iterations is reached.",
+    "",
+    "Example",
+    "",
+    "  ; Start the application",
+    "  e = envi()",
+    "",
+    "  ; Open an input file",
+    "  File = filepath('qb_boulder_msi', subdir = ['data'], $",
+    "    root_dir = e.root_dir)",
+    "  Raster = e.openRaster(File)",
+    "",
+    "  ; Get the  task from the catalog of ENVITasks",
+    "  Task = ENVITask('ISODATAClassification')",
+    "",
+    "  ; Define inputs",
+    "  Task.input_raster = Raster",
+    "",
+    "  ; Run the task",
+    "  Task.execute",
+    "",
+    "  ; Get the collection of data objects currently available in the Data Manager",
+    "  DataColl = e.data",
+    "",
+    "  ; Add the output to the Data Manager",
+    "  DataColl.add, Task.output_raster",
+    "",
+    "  ; Display the result",
+    "  View = e.getView()",
+    "  Layer = View.createLayer(Task.output_raster)"
+  ]
+}

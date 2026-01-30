@@ -1,32 +1,29 @@
 import { CallToolResult } from '@modelcontextprotocol/sdk/types';
 
+import { MCPTool_GetENVIToolParameters } from './http/mcp-tool-get-envi-tool-parameters.interface';
+import { MCPTool_GetResource } from './http/mcp-tool-get-resource.interface';
+import { MCPTool_GetRoutineDocs } from './http/mcp-tool-get-routine-docs.interface';
+import { MCPTool_ListAllResources } from './http/mcp-tool-list-all-resources.interface';
+import { MCPTool_ListENVITools } from './http/mcp-tool-list-envi-tools.interface';
+import { MCPTool_SearchForFiles } from './http/mcp-tool-search-for-files.interface';
+import { MCPTool_SearchForRoutine } from './http/mcp-tool-search-for-routine.interface';
+import { MCPTool_SearchResources } from './http/mcp-tool-search-resources.interface';
+import { MCPToolParams_HTTP, MCPTools_HTTP } from './mcp-tools-http.interface';
 import {
-  MCPTool_ENVIGetToolParameters,
-  MCPTool_ENVIListTools,
-  MCPTool_ResourcesGetResource,
-  MCPTool_ResourcesGetRoutineDocs,
-  MCPTool_ResourcesListAll,
-  MCPTool_ResourcesSearchForRoutine,
-  MCPTool_ResourcesSearchResources,
-  MCPTool_SearchForFiles,
-  MCPToolParams_HTTP,
-  MCPTools_HTTP,
-} from './mcp-tools-http.interface';
-import {
-  MCPTool_ENVIOpenDatasets,
-  MCPTool_ENVIQueryDataset,
-  MCPTool_ENVIRunTool,
-  MCPTool_ENVIStart,
-  MCPTool_IDLCreateNotebook,
-  MCPTool_IDLExecuteCode,
-  MCPTool_IDLExecuteFile,
-  MCPTool_IDLReturnNotes,
-  MCPTool_IDLStart,
   MCPToolHTTPResponse_VSCode,
   MCPToolParams_VSCode,
   MCPToolResponse_VSCode,
   MCPTools_VSCode,
 } from './mcp-tools-vscode.interface';
+import { MCPTool_CreateIDLNotebook } from './vscode/mcp-tool-create-idl-notebook.interface';
+import { MCPTool_ExecuteIDLCode } from './vscode/mcp-tool-execute-idl-code.interface';
+import { MCPTool_ExecuteIDLFile } from './vscode/mcp-tool-execute-idl-file.interface';
+import { MCPTool_OpenDatasetsInENVI } from './vscode/mcp-tool-open-datasets-in-envi.interface';
+import { MCPTool_QueryDatasetWithENVI } from './vscode/mcp-tool-query-dataset-with-envi.interface';
+import { MCPTool_ReturnNotes } from './vscode/mcp-tool-return-notes.interface';
+import { MCPTool_RunENVITool } from './vscode/mcp-tool-run-envi-tool.interface';
+import { MCPTool_StartENVI } from './vscode/mcp-tool-start-envi.interface';
+import { MCPTool_StartIDL } from './vscode/mcp-tool-start-idl.interface';
 
 /**
  * All MCP tools
@@ -60,61 +57,61 @@ export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_VSCode
  * Strictly typed messages that we can send back and forth
  */
 interface IMCPToolLookup {
-  /** Query parameters for tasks ENVI has */
-  ENVI_GET_TOOL_PARAMETERS: MCPTool_ENVIGetToolParameters;
-  /** Query ENVI's tasks */
-  ENVI_LIST_TOOLS: MCPTool_ENVIListTools;
-  /** Open a dataset in ENVI */
-  ENVI_OPEN_DATASETS: MCPTool_ENVIOpenDatasets;
-  /** Get additional information about a dataset */
-  ENVI_QUERY_DATASET: MCPTool_ENVIQueryDataset;
-  /** Run ENVI Task */
-  ENVI_RUN_TOOL: MCPTool_ENVIRunTool;
-  /** Start ENVI */
-  ENVI_START: MCPTool_ENVIStart;
   /** Create an IDL Notebook */
-  IDL_CREATE_NOTEBOOK: MCPTool_IDLCreateNotebook;
+  CREATE_IDL_NOTEBOOK: MCPTool_CreateIDLNotebook;
   /** Run code in IDL */
-  IDL_EXECUTE_CODE: MCPTool_IDLExecuteCode;
+  EXECUTE_IDL_CODE: MCPTool_ExecuteIDLCode;
   /** Run code in IDL that comes from a file */
-  IDL_EXECUTE_FILE: MCPTool_IDLExecuteFile;
-  /** RETURN NOTES FOR ENVI AND IDL TASKS */
-  IDL_RETURN_NOTES: MCPTool_IDLReturnNotes;
-  /** Start IDL */
-  IDL_START: MCPTool_IDLStart;
+  EXECUTE_IDL_FILE: MCPTool_ExecuteIDLFile;
+  /** Query parameters for tasks ENVI has */
+  GET_ENVI_TOOL_PARAMETERS: MCPTool_GetENVIToolParameters;
   /** Get a specific resource from the server */
-  RESOURCES_GET_RESOURCE: MCPTool_ResourcesGetResource;
+  GET_RESOURCE: MCPTool_GetResource;
   /** Retrieve docs for a routine */
-  RESOURCES_GET_ROUTINE_DOCS: MCPTool_ResourcesGetRoutineDocs;
+  GET_ROUTINE_DOCS: MCPTool_GetRoutineDocs;
   /** List all resources */
-  RESOURCES_LIST_ALL: MCPTool_ResourcesListAll;
-  /** Search for a particular routine */
-  RESOURCES_SEARCH_FOR_ROUTINE: MCPTool_ResourcesSearchForRoutine;
-  /** Search all resources */
-  RESOURCES_SEARCH_RESOURCES: MCPTool_ResourcesSearchResources;
+  LIST_ALL_RESOURCES: MCPTool_ListAllResources;
+  /** Query ENVI's tasks */
+  LIST_ENVI_TOOLS: MCPTool_ListENVITools;
+  /** Open a dataset in ENVI */
+  OPEN_DATASETS_IN_ENVI: MCPTool_OpenDatasetsInENVI;
+  /** Get additional information about a dataset */
+  QUERY_DATASET_WITH_ENVI: MCPTool_QueryDatasetWithENVI;
+  /** RETURN NOTES FOR ENVI AND IDL TASKS */
+  RETURN_NOTES: MCPTool_ReturnNotes;
+  /** Run ENVI Task */
+  RUN_ENVI_TOOL: MCPTool_RunENVITool;
   /** Search a location for files */
   SEARCH_FOR_FILES: MCPTool_SearchForFiles;
+  /** Search for a particular routine */
+  SEARCH_FOR_ROUTINE: MCPTool_SearchForRoutine;
+  /** Search all resources */
+  SEARCH_RESOURCES: MCPTool_SearchResources;
+  /** Start ENVI */
+  START_ENVI: MCPTool_StartENVI;
+  /** Start IDL */
+  START_IDL: MCPTool_StartIDL;
 }
 
 /**
  * Lookup with types of messages
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
-  ENVI_OPEN_DATASETS: 'open-datasets-in-envi',
-  ENVI_QUERY_DATASET: 'query-dataset-with-envi',
-  ENVI_LIST_TOOLS: 'list-envi-tools',
-  ENVI_GET_TOOL_PARAMETERS: 'get-envi-tool-parameters',
-  ENVI_RUN_TOOL: 'run-envi-tool',
-  ENVI_START: 'start-envi',
-  IDL_CREATE_NOTEBOOK: 'create-idl-notebook',
-  IDL_EXECUTE_CODE: 'execute-idl-code',
-  IDL_EXECUTE_FILE: 'execute-idl-file',
-  IDL_RETURN_NOTES: 'return-notes',
-  IDL_START: 'start-idl',
-  RESOURCES_GET_RESOURCE: 'get-resource',
-  RESOURCES_GET_ROUTINE_DOCS: 'get-routine-docs',
-  RESOURCES_LIST_ALL: 'list-all-resources',
-  RESOURCES_SEARCH_FOR_ROUTINE: 'search-for-routine',
-  RESOURCES_SEARCH_RESOURCES: 'search-resources',
+  CREATE_IDL_NOTEBOOK: 'create-idl-notebook',
+  EXECUTE_IDL_CODE: 'execute-idl-code',
+  EXECUTE_IDL_FILE: 'execute-idl-file',
+  GET_ENVI_TOOL_PARAMETERS: 'get-envi-tool-parameters',
+  GET_RESOURCE: 'get-resource',
+  GET_ROUTINE_DOCS: 'get-routine-docs',
+  LIST_ALL_RESOURCES: 'list-all-resources',
+  LIST_ENVI_TOOLS: 'list-envi-tools',
+  OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
+  QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',
+  RETURN_NOTES: 'return-notes',
+  RUN_ENVI_TOOL: 'run-envi-tool',
   SEARCH_FOR_FILES: 'search-for-files',
+  SEARCH_FOR_ROUTINE: 'search-for-routine',
+  SEARCH_RESOURCES: 'search-resources',
+  START_ENVI: 'start-envi',
+  START_IDL: 'start-idl',
 };

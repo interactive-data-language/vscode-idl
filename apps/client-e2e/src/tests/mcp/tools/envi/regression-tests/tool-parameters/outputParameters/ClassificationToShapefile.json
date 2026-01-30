@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "properties": {
+    "output_vector": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "default": "URLVector",
+          "description": [
+            "This value should be \"URLVector\" (case-insensitive)"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the shapefile. Should end with a \".shp\" extension."
+          ]
+        },
+        "auxiliary_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": [
+            "If a shapefile has any auxiliary files, specify them here. This can include .dbf, .ebb, .ed1, .eq1, .prj, .shp.qtr, .shp.sml and .shx files that are adjacent to the URL file. Only include files that exist."
+          ]
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "This is a reference to the output vector."
+      ]
+    }
+  },
+  "required": [
+    "output_vector"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Outputs from running the tool. These should *NEVER* be specified and are returned."
+  ]
+}

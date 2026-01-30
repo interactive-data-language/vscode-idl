@@ -494,8 +494,6 @@ export const EN: ITranslation = {
       enviError:
         'Error while accessing ENVI, see the IDL console for more details',
       noUI: 'ENVI has started, but has no UI. Please restart ENVI with the UI to display data',
-      noLicense:
-        'You do not appear to have an ENVI Agent license. The ENVI Agent can perform actions on your behalf such as start the ENVI application, discover and import datasets into ENVI, and make intelligent suggestions on ENVI tools to solve your geospatial tasks. Without the license, you can still use the IDL Agent to create and run IDL code, but will not have access to the extended set of ENVI Agent actions. Contact your system administrator or sales representative to acquire an ENVI Agent license.',
       openError: 'Unable to open dataset, see the IDL console for more details',
     },
     openerText: 'ENVI should attempt to open the image shortly, please wait.',
@@ -920,6 +918,9 @@ export const EN: ITranslation = {
       failedStart:
         'Failed to start MCP server. Is the port available? If not, this can be changed in the extension settings.',
       failedProgress: 'Failed to handle progress message to MCP server',
+      noLicense:
+        'You do not appear to have an ENVI Agent license. The ENVI Agent can perform actions on your behalf such as start the ENVI application, discover and import datasets into ENVI, and make intelligent suggestions on ENVI tools to solve your geospatial tasks. Without the license, you can still use the IDL Agent to create and run IDL code, but will not have access to the extended set of ENVI Agent actions. Contact your system administrator or sales representative to acquire an ENVI Agent license.',
+      badIDLVersion: 'Requires at least IDL 9.2 and ENVI 6.2 to function',
     },
   },
   notebooks: {
