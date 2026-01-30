@@ -71,6 +71,21 @@ export function ENVITaskToGlobal(
       meta.isFolder = true;
     }
 
+    // set min
+    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.min !== undefined) {
+      meta.min = (param as ENVITaskParameter<ENVITaskSchema32>)?.min;
+    }
+
+    // set max
+    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.max !== undefined) {
+      meta.max = (param as ENVITaskParameter<ENVITaskSchema32>)?.max;
+    }
+
+    // set default
+    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.default !== undefined) {
+      meta.default = (param as ENVITaskParameter<ENVITaskSchema32>)?.default;
+    }
+
     // save our property
     props[propName] = {
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,

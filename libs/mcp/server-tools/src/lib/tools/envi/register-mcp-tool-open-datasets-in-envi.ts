@@ -31,9 +31,9 @@ export function RegisterMCPTool_OpenDatasetsInENVI(
       datasets: z
         .array(
           z.union([
-            MCP_ENVIRaster('An ENVI Raster'),
-            MCP_ENVIVector('An ENVI vector file (shapefile)'),
-            MCP_ENVIRasterSeries('An ENVI Raster series file'),
+            MCP_ENVIRaster().describe('An ENVI Raster'),
+            MCP_ENVIVector().describe('An ENVI vector file (shapefile)'),
+            MCP_ENVIRasterSeries().describe('An ENVI Raster series file'),
           ])
         )
         .describe(

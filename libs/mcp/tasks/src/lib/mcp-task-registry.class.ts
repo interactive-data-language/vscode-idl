@@ -17,7 +17,7 @@ import {
   TaskLocation_File,
   TaskLocationKind,
 } from './task-location.interface';
-import { TaskTypeToMCPParameter } from './types-to-mcp/task-type-to-mcp-parameter';
+import { ParsedParameterToMCPParameter } from './types-to-mcp/parsed-parameter-to-mcp-parameter';
 
 /**
  * Class that tracks and organizes tasks for ENVI and IDL
@@ -209,7 +209,7 @@ export class MCPTaskRegistry {
       const docs = GetCleanDescription(prop.docs, false);
 
       /** Make zod parameter */
-      const param = TaskTypeToMCPParameter(names[i], docs, prop.type);
+      const param = ParsedParameterToMCPParameter(prop, docs);
 
       // check if unknown parameter
       if (!param) {

@@ -54,13 +54,9 @@ const Feature = z.object({
 /**
  * Returns an ENVI GeoJSON parameter
  */
-export function MCP_ENVIGeoJSON(description: string) {
-  return z
-    .object({
-      type: z.literal('FeatureCollection'),
-      features: z.array(Feature),
-    })
-    .describe(
-      `${description}\n\nThis is just GeoJSON with a single feature collection`
-    );
+export function MCP_ENVIGeoJSON() {
+  return z.object({
+    type: z.literal('FeatureCollection'),
+    features: z.array(Feature),
+  });
 }

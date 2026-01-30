@@ -16,18 +16,16 @@ import { MCP_SARscapeData } from './mcp-sarscape-data';
  * Technically can be anything, limiting to key ENVI types that
  * are datasets and not covered in other tools for publishing
  */
-export function MCP_ENVIVariant(description: string) {
-  return z
-    .union([
-      MCP_ENVIAgCrops(''),
-      MCP_ENVIAgZones(''),
-      MCP_ENVIPointCloud(''),
-      MCP_ENVIRaster(''),
-      MCP_ENVIRasterSeries(''),
-      MCP_ENVIROI(''),
-      MCP_ENVISpectralLibrary(''),
-      MCP_ENVIVector(''),
-      MCP_SARscapeData(''),
-    ])
-    .describe(description);
+export function MCP_ENVIVariant() {
+  return z.union([
+    MCP_ENVIAgCrops(),
+    MCP_ENVIAgZones(),
+    MCP_ENVIPointCloud(),
+    MCP_ENVIRaster(),
+    MCP_ENVIRasterSeries(),
+    MCP_ENVIROI(),
+    MCP_ENVISpectralLibrary(),
+    MCP_ENVIVector(),
+    MCP_SARscapeData(),
+  ]);
 }

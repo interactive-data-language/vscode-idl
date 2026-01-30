@@ -1,5 +1,9 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
+import {
+  IDL_TYPE_LOOKUP,
+  IDLDataType,
+  IParameterOrPropertyDetails,
+} from '@idl/types/idl-data-types';
 import { z } from 'zod';
 
 import { MCP_ENVIAgCrops } from './types/mcp-envi-ag-crops';
@@ -33,13 +37,27 @@ import { MCP_ENVIVector } from './types/mcp-envi-vector';
 import { MCP_SARscapeData } from './types/mcp-sarscape-data';
 
 /**
- * Converts a task type to the MCP Parameter
+ * Actually convert our data type to an MCP parameter
+ *
+ * This recurses if we have an array, can be updated to manage
+ * multiple types like we get from IDL code.
  */
-export function TaskTypeToMCPParameter(
-  name: string,
-  docs: string,
-  type: IDLDataType
+function ParsedParameterToMCPParameter_Recurser(
+  param: IParameterOrPropertyDetails,
+  cleanDocs: string,
+  type?: IDLDataType
 ) {
+  // default type if it wasn't specified
+  if (!type) {
+    type = param.type;
+  }
+
+  /** Extract the first type */
+  const firstType = type[0];
+
+  /** Initialize return value */
+  let res: z.ZodType;
+
   /**
    * Convert to ZOD
    */
@@ -51,271 +69,301 @@ export function TaskTypeToMCPParameter(
       /** Get type arguments for arrays (i.e. Array<TypeArg>) */
       const typeArgs = IDLTypeHelper.getAllTypeArgs(type);
 
-      /** Attempt to map our parameter */
-      const arrayType = TaskTypeToMCPParameter(name, '', typeArgs);
+      /** Attempt to map our parameter - dont pass in docs, set below */
+      const arrayType = ParsedParameterToMCPParameter_Recurser(
+        param,
+        '',
+        typeArgs
+      );
 
       // see if we mapped a parameter or not
       if (arrayType) {
-        return z.array(arrayType).describe(docs);
+        res = z.array(arrayType);
       }
-
       break;
     }
 
     /**
      * ENVI URI - Folder
      */
-    case type[0].meta.isUri && type[0].meta.isFolder:
-      return z
-        .string()
-        .default('!')
-        .describe(
-          'Fully-qualified path to the output folder, default is "!" which indicates a temporary location will be created. Only set this when requested by user.'
-        );
+    case firstType.meta.isUri && firstType.meta.isFolder:
+      res = z.string().default('!');
+      cleanDocs =
+        'Fully-qualified path to the output folder, default is "!" which indicates a temporary location will be created. Only set this when requested by user.';
+      break;
 
     /**
      * ENVI URI - Folder
      */
-    case type[0].meta.isUri:
-      return z
-        .string()
-        .default('!')
-        .describe(
-          'Fully-qualified path to the output dataset, default is "!" which indicates a temporary file will be created. Only set this when requested by user.'
-        );
+    case firstType.meta.isUri:
+      res = z.string().default('!');
+      cleanDocs =
+        'Fully-qualified path to the output dataset, default is "!" which indicates a temporary file will be created. Only set this when requested by user.';
+      break;
 
     /**
      * Any type of spatial reference
      */
     case IDLTypeHelper.isType(type, '_envispatialref'):
-      return z
-        .union([
-          MCP_ENVIPseudoRasterSpatialref(''),
-          MCP_ENVIRPCRasterSpatialref(''),
-          MCP_ENVIStandardRasterSpatialref(''),
-        ])
-        .describe(`${docs}\n\nSpecify one of the types of spatial references.`);
+      res = z.union([
+        MCP_ENVIPseudoRasterSpatialref(),
+        MCP_ENVIRPCRasterSpatialref(),
+        MCP_ENVIStandardRasterSpatialref(),
+      ]);
+      break;
 
     /**
      * Crop counting results
      */
     case IDLTypeHelper.isType(type, 'enviagcrops'):
-      return MCP_ENVIAgCrops(docs);
+      res = MCP_ENVIAgCrops();
+      break;
 
     /**
      * Field zones
      */
     case IDLTypeHelper.isType(type, 'enviagzones'):
-      return MCP_ENVIAgZones(docs);
+      res = MCP_ENVIAgZones();
+      break;
 
     /**
      * Coordinate system
      */
     case IDLTypeHelper.isType(type, 'envicoordsys'):
-      return MCP_ENVICoordSys(docs);
+      res = MCP_ENVICoordSys();
+      break;
 
     /**
      * Deep Learning Keras model
      */
     case IDLTypeHelper.isType(type, 'envideeplearningkerasmodel'):
-      return MCP_ENVIDeepLearningKerasModel(docs);
+      res = MCP_ENVIDeepLearningKerasModel();
+      break;
 
     /**
      * Deep Learning Label Raster for Pixel training
      */
     case IDLTypeHelper.isType(type, 'envideeplearninglabelraster'):
-      return MCP_ENVIDeepLearningLabelRaster(docs);
+      res = MCP_ENVIDeepLearningLabelRaster();
+      break;
 
     /**
      * Deep Learning raster for OD training
      */
     case IDLTypeHelper.isType(type, 'envideeplearningobjectdetectionraster'):
-      return MCP_ENVIDeepLearningObjectDetectionRaster(docs);
+      res = MCP_ENVIDeepLearningObjectDetectionRaster();
+      break;
 
     /**
      * Deep Learning ONNX model
      */
     case IDLTypeHelper.isType(type, 'envideeplearningonnxmodel'):
-      return MCP_ENVIDeepLearningONNXModel(docs);
+      res = MCP_ENVIDeepLearningONNXModel();
+      break;
 
     /**
      * Deep Learning Label Raster for Pixel training
      */
     case IDLTypeHelper.isType(type, 'envideeplearningraster'):
-      return MCP_ENVIDeepLearningRaster(docs);
+      res = MCP_ENVIDeepLearningRaster();
+      break;
 
     /**
      * GCP Set
      */
     case IDLTypeHelper.isType(type, 'envigcpset'):
-      return MCP_ENVIGCPSet(docs);
+      res = MCP_ENVIGCPSet();
+      break;
 
     /**
      * GeoJSON
      */
     case IDLTypeHelper.isType(type, 'envigeojson'):
-      return MCP_ENVIGeoJSON(docs);
+      res = MCP_ENVIGeoJSON();
+      break;
 
     /**
      * GridDefinitions
      */
     case IDLTypeHelper.isType(type, 'envigriddefinition'):
-      return MCP_ENVIGridDefinition(docs);
+      res = MCP_ENVIGridDefinition();
+      break;
 
     /**
      * Machine Learning model
      */
     case IDLTypeHelper.isType(type, 'envimachinelearningmodel'):
-      return MCP_ENVIMachineLearningModel(docs);
+      res = MCP_ENVIMachineLearningModel();
+      break;
 
     /**
      * Point cloud
      */
     case IDLTypeHelper.isType(type, 'envipointcloudbase'):
     case IDLTypeHelper.isType(type, 'envipointcloud'):
-      return MCP_ENVIPointCloud(docs);
+      res = MCP_ENVIPointCloud();
+      break;
 
     /**
      * Point cloud product info
      */
     case IDLTypeHelper.isType(type, 'envipointcloudproductsinfo'):
-      return MCP_ENVIPointCloudProductsInfo(docs);
+      res = MCP_ENVIPointCloudProductsInfo();
+      break;
 
     /**
      * Point cloud spatial reference
      */
     case IDLTypeHelper.isType(type, 'envipointcloudspatialref'):
-      return MCP_ENVIPointCloudSpatialRef(docs);
+      res = MCP_ENVIPointCloudSpatialRef();
+      break;
 
     /**
      * ENVI pseudo raster spatial ref
      */
     case IDLTypeHelper.isType(type, 'envipseudorasterspatialref'):
-      return MCP_ENVIPseudoRasterSpatialref(docs);
+      res = MCP_ENVIPseudoRasterSpatialref();
+      break;
 
     /**
      * Raster
      */
     case IDLTypeHelper.isType(type, 'enviraster'):
-      return MCP_ENVIRaster(docs);
+      res = MCP_ENVIRaster();
+      break;
 
     /**
      * Raster series
      */
     case IDLTypeHelper.isType(type, 'envirasterseries'):
-      return MCP_ENVIRasterSeries(docs);
+      res = MCP_ENVIRasterSeries();
+      break;
 
     /**
      * ROI
      */
     case IDLTypeHelper.isType(type, 'enviroi'):
-      return MCP_ENVIROI(docs);
+      res = MCP_ENVIROI();
+      break;
 
     /**
      * RPC spatial ref
      */
     case IDLTypeHelper.isType(type, 'envirpcrasterspatialref'):
-      return MCP_ENVIRPCRasterSpatialref(docs);
+      res = MCP_ENVIRPCRasterSpatialref();
+      break;
 
     /**
      * Passwords - map to proper parameters when we
      * run the task
      */
     case IDLTypeHelper.isType(type, 'envisecurestring'):
-      return z.string().describe(docs);
+      res = z.string();
+      break;
 
     /**
      * ENVI spectral index
      */
     case IDLTypeHelper.isType(type, 'envispectralindex'):
-      return z.string().describe(docs);
+      res = z.string();
+      break;
 
     /**
      * ENVI spectral library
      */
     case IDLTypeHelper.isType(type, 'envispectrallibrary'):
-      return MCP_ENVISpectralLibrary(docs);
+      res = MCP_ENVISpectralLibrary();
+      break;
 
     /**
      * ENVI Spectral Signature
      */
     case IDLTypeHelper.isType(type, 'envispectralsignature'):
-      return MCP_ENVISpectralSignature(docs);
+      res = MCP_ENVISpectralSignature();
+      break;
 
     /**
      * Standard spatial ref
      */
     case IDLTypeHelper.isType(type, 'envistandardrasterspatialref'):
-      return MCP_ENVIStandardRasterSpatialref(docs);
+      res = MCP_ENVIStandardRasterSpatialref();
+      break;
 
     /**
      * Stretch parameters
      */
     case IDLTypeHelper.isType(type, 'envistretchparameters'):
-      return MCP_ENVIStretchParameters(docs);
+      res = MCP_ENVIStretchParameters();
+      break;
 
     /**
      * Tie points
      */
     case IDLTypeHelper.isType(type, 'envitiepointset'):
-      return MCP_ENVITiePointSet(docs);
+      res = MCP_ENVITiePointSet();
+      break;
 
     /**
      * Time
      */
     case IDLTypeHelper.isType(type, 'envitime'):
-      return MCP_ENVITime(docs);
+      res = MCP_ENVITime();
+      break;
 
     /**
      * Variant (i.e. publish to repo)
      */
     case IDLTypeHelper.isType(type, 'variant'):
-      return MCP_ENVIVariant(docs);
+      res = MCP_ENVIVariant();
+      break;
 
     /**
      * Vector
      */
     case IDLTypeHelper.isType(type, 'envivector'):
-      return MCP_ENVIVector(docs);
+      res = MCP_ENVIVector();
+      break;
 
     /**
      * SARscapeData -
      */
     case IDLTypeHelper.isType(type, 'sarscapedata'):
-      return MCP_SARscapeData(docs);
+      res = MCP_SARscapeData();
+      break;
 
     /**
      * String
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING):
       // check for values from a choice list and map to literals
-      if (type[0]?.value?.length > 0) {
+      if (firstType?.value?.length > 0) {
         try {
-          return z
-            .union(type[0].value.map((v) => z.literal(v)) as any)
-            .describe(docs);
+          res = z.union(firstType.value.map((v) => z.literal(v)) as any);
         } catch (err) {
           console.log(`Error while enumerating literal string types`, {
-            type,
+            type: type,
             err,
           });
-          return z.string().describe(docs);
+          res = z.string();
         }
       } else {
-        return z.string().describe(docs);
+        res = z.string();
       }
+      break;
 
     /**
      * Bool
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BOOLEAN):
-      return z.boolean().describe(docs);
+      res = z.boolean();
+      break;
 
     /**
      * List
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.LIST):
-      return z.array(z.any()).describe(docs);
+      res = z.array(z.any());
+      break;
 
     /**
      * Objects/hashes
@@ -323,7 +371,8 @@ export function TaskTypeToMCPParameter(
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.HASH):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.ORDERED_HASH):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.DICTIONARY):
-      return z.record(z.any()).describe(docs);
+      res = z.record(z.any());
+      break;
 
     /**
      * Numbers
@@ -343,23 +392,80 @@ export function TaskTypeToMCPParameter(
        * Attempt to convert choice list to literal numbers as we
        * store literal numbers as strings (from parsing)
        */
-      if (type[0]?.value?.length > 0) {
+      if (firstType?.value?.length > 0) {
         try {
-          return z
-            .union(type[0].value.map((v) => z.literal(+v)) as any)
-            .describe(docs);
+          res = z.union(firstType.value.map((v) => z.literal(+v)) as any);
         } catch (err) {
           console.log(`Error while enumerating literal number types`, {
-            type,
+            type: type,
             err,
           });
-          return z.number().describe(docs);
+          res = z.number();
         }
       } else {
-        return z.number().describe(docs);
+        res = z.number();
       }
+
+      // check for min
+      if (typeof firstType.meta.min !== 'undefined') {
+        res = (res as z.ZodNumber).min(firstType.meta.min);
+      }
+
+      // check for max
+      if (typeof firstType.meta.max !== 'undefined') {
+        res = (res as z.ZodNumber).max(firstType.meta.max);
+      }
+      break;
 
     default:
       break;
   }
+
+  /**
+   * Populate some additional root-level properties based on the first type
+   * metadata and parameter docs
+   */
+  if (res) {
+    // check for default
+    if (typeof firstType.meta.default !== 'undefined') {
+      res = res.default(firstType.meta.default);
+    }
+
+    // add description if we have one
+    const trimmed = cleanDocs.trim();
+    if (trimmed) {
+      res = res.describe(trimmed);
+    }
+  }
+
+  return res;
+}
+
+/**
+ * Converts a parameter to an MCP Parameter
+ *
+ * Assumes that we only have one type for the input parameter because
+ * that's what we have for tasks.
+ *
+ * Could be updated to support any IDL type with unions and iterating
+ * through all possible types, but we don't need that right now.
+ */
+export function ParsedParameterToMCPParameter(
+  param: IParameterOrPropertyDetails,
+  cleanDocs: string,
+  type?: IDLDataType
+): z.ZodType {
+  /**
+   * Recurse into the data type and populate
+   */
+  let res = ParsedParameterToMCPParameter_Recurser(param, cleanDocs, type);
+
+  // set as optional if not required
+  if (res) {
+    if (!param.req) {
+      res = res.optional();
+    }
+  }
+
+  return res;
 }

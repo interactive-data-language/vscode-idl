@@ -4,11 +4,17 @@ import {
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionToken,
   GlobalStructureToken,
+  IDLDataTypeBaseMetadata,
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
 
-import { IDLTask, IDLTaskSchemaVersion } from '../idltask.interface';
+import {
+  IDLTask,
+  IDLTaskParameter,
+  IDLTaskSchema12,
+  IDLTaskSchemaVersion,
+} from '../idltask.interface';
 import { IGlobalsToTrack } from '../task-to-global-token.interface';
 import { TaskTypeToIDLType } from './task-type-to-idl-type';
 
@@ -47,6 +53,24 @@ export function IDLTaskToGlobal(
     const propName = param.name.toLowerCase();
     const dir = (param.direction || 'input').toLowerCase();
 
+    /** Create type metadata for URI specials */
+    const meta: IDLDataTypeBaseMetadata = {};
+
+    // set min
+    if ((param as IDLTaskParameter<IDLTaskSchema12>)?.min !== undefined) {
+      meta.min = (param as IDLTaskParameter<IDLTaskSchema12>)?.min;
+    }
+
+    // set max
+    if ((param as IDLTaskParameter<IDLTaskSchema12>)?.max !== undefined) {
+      meta.max = (param as IDLTaskParameter<IDLTaskSchema12>)?.max;
+    }
+
+    // set default
+    if ((param as IDLTaskParameter<IDLTaskSchema12>)?.default !== undefined) {
+      meta.default = (param as IDLTaskParameter<IDLTaskSchema12>)?.default;
+    }
+
     // save our property
     props[propName] = {
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
@@ -56,7 +80,7 @@ export function IDLTaskToGlobal(
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description || '',
-      type: TaskTypeToIDLType(param.type, {}, param.choice_list),
+      type: TaskTypeToIDLType(param.type, meta, param.choice_list),
       req: param.required,
     };
   }
