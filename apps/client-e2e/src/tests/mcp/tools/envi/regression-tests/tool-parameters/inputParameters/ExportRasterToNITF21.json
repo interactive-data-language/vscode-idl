@@ -65,6 +65,7 @@
         "Transcode EPJE to NPJE",
         "Transcode NPJE to EPJE"
       ],
+      "default": "No Compression",
       "description": [
         "Specifies the NITF compression type. The choices are as follows:",
         "",
@@ -95,9 +96,7 @@
     }
   },
   "required": [
-    "data_ignore_value",
-    "input_raster",
-    "nitf_compression"
+    "input_raster"
   ],
   "additionalProperties": false,
   "description": [

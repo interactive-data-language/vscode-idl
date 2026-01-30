@@ -3,6 +3,9 @@
   "properties": {
     "change_threshold_percent": {
       "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 2,
       "description": [
         "The change threshold percentage that determines when to complete the classification. When the percentage of pixels that change classes during an iteration is less than the threshold value, the classification completes. The default value is 2.0."
       ]
@@ -53,12 +56,16 @@
     },
     "iterations": {
       "type": "number",
+      "minimum": 1,
+      "default": 10,
       "description": [
         "The maximum iterations to perform. If the change threshold percent is not met before the maximum number of iterations is reached, the classification completes. The default value is 10."
       ]
     },
     "number_of_classes": {
       "type": "number",
+      "minimum": 2,
+      "default": 5,
       "description": [
         "Specify the number of classes to generate. The default value is 5."
       ]
@@ -72,10 +79,7 @@
     }
   },
   "required": [
-    "change_threshold_percent",
-    "input_raster",
-    "iterations",
-    "number_of_classes"
+    "input_raster"
   ],
   "additionalProperties": false,
   "description": [

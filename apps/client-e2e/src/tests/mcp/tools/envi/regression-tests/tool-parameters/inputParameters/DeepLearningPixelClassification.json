@@ -9,6 +9,7 @@
     },
     "enhance_display": {
       "type": "boolean",
+      "default": false,
       "description": [
         "Specify whether to apply an additional small stretch to the processed data to suppress noise and enhance feature visibility. The optional stretch is effective for improving visual clarity in imagery acquired from aerial platforms or sensors with higher noise profiles."
       ]
@@ -109,6 +110,7 @@
         "CUDA",
         "CPU"
       ],
+      "default": "CUDA",
       "description": [
         "Specify the execution environment for the classification task with one of these options:",
         "",
@@ -118,19 +120,15 @@
     },
     "visual_rgb": {
       "type": "boolean",
+      "default": false,
       "description": [
         "Specify whether to encode the output raster as a three-band RGB composite (red, green, blue) for color image processing. This ensures consistent band selection from ENVI display types (such as RGB, CIR, and pan) and supports integration of diverse data sources (such as MSI, panchromatic, and VNIR) without band mismatch."
       ]
     }
   },
   "required": [
-    "cuda_device_id",
-    "enhance_display",
-    "input_metadata",
     "input_model",
-    "input_raster",
-    "runtime",
-    "visual_rgb"
+    "input_raster"
   ],
   "additionalProperties": false,
   "description": [

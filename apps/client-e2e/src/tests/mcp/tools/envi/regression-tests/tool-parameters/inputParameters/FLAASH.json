@@ -1,0 +1,585 @@
+{
+  "type": "object",
+  "properties": {
+    "aer_band_ratio": {
+      "type": "number",
+      "description": [
+        "Specify a target ratio of reflectance values between two bands for the custom 2-band aerosol retrieval."
+      ]
+    },
+    "aer_band_wavl": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": [
+        "Specify wavelengths [nanometers] for the band of the custom single-band aerosol retrieval. Specify a single wavelength or an interval."
+      ]
+    },
+    "aer_bandhigh_maxrefl": {
+      "type": "number",
+      "description": [
+        "Specify a maximum reflectance threshold for the upper band of the custom 2-band aerosol retrieval. Pixels brighter than this value will be excluded from the aerosol retrieval process."
+      ]
+    },
+    "aer_bandhigh_wavl": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": [
+        "Specify wavelengths [nanometers] for the upper band of the custom 2-band aerosol retrieval. Specify a single wavelength or an interval."
+      ]
+    },
+    "aer_bandlow_maxrefl": {
+      "type": "number",
+      "description": [
+        "Specify the maximum reflectance threshold for the lower band of the custom 2-band aerosol retrieval. Pixels brighter than this value will be excluded from the aerosol retrieval process."
+      ]
+    },
+    "aer_bandlow_wavl": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": [
+        "Specify wavelengths [nanometers] for the lower band of the custom 2-band aerosol retrieval. Specify a single wavelength or an interval."
+      ]
+    },
+    "aer_reference_pixel": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": [
+        "Specify the location of a pixel (column, line) to use in the single band aerosol retrieval. If undefined, the darkest in-band pixel will be used as a reference."
+      ]
+    },
+    "aer_reference_value": {
+      "type": "number",
+      "default": 0,
+      "description": [
+        "Specify the expected reflectance value of a pixel to use in the single band aerosol retrieval. This is primarily useful when a known target material is present. The default value is 0."
+      ]
+    },
+    "aerosol_scale_ht": {
+      "type": "number",
+      "default": 2,
+      "description": [
+        "Adjust the scattering range for adjacency correction. Specify the highest altitude in kilometers of the boundary aerosol layer. The default value is 2."
+      ]
+    },
+    "calibration_file": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    },
+    "calibration_format": {
+      "type": "string",
+      "enum": [
+        "ASCII",
+        "ENVI",
+        "Discrete",
+        "Filter Format",
+        "FLAASH",
+        "Spectrograph"
+      ],
+      "default": "flaash",
+      "description": [
+        "Set the sensor calibration file format with one of the following:",
+        "",
+        "ASCII",
+        "Discrete",
+        "ENVI",
+        "Filter Format",
+        "FLAASH (default)",
+        "Spectograph",
+        "",
+        " For FLAASH, sensor calibration data is defined within the FLAASH input configuration. For all other selections, you must also specify a CALIBRATION_FILE."
+      ]
+    },
+    "calibration_units": {
+      "type": "string",
+      "enum": [
+        "Nanometers",
+        "Microns"
+      ],
+      "description": [
+        "If a CALIBRATION_FILE was added, specify the wavelength units of the calibration data. Valid values are:",
+        "",
+        "nanometers",
+        "microns"
+      ]
+    },
+    "cloud_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    },
+    "co2_mixing": {
+      "type": "number",
+      "description": [
+        "Sets a CO2 mixing ratio in ppmv. If omitted, a default value is estimated for the year of the acquisition based on historical trends."
+      ]
+    },
+    "date_time": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "default": "Time",
+          "description": [
+            "This value should be \"Time\" (case-insensitive)"
+          ]
+        },
+        "acquisition": {
+          "type": "string",
+          "description": [
+            "Specify a string with the acquisition time, conforming to the ISO-8601 standard. The string can be in any of the following formats:",
+            "- YYYY-MM-DD",
+            "- YYYY-MM-DDTHH:MM:SS.DZ",
+            "- YYYY-MM-DDTHH:MM:SS:Dooo:mm"
+          ]
+        }
+      },
+      "required": [
+        "acquisition"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify the collection date and time of the image as [YYYY,MM,DD,H,M,S]. Time is given in GMT."
+      ]
+    },
+    "default_visibility": {
+      "type": "number",
+      "minimum": 0.1,
+      "default": 40,
+      "description": [
+        "Set a default visibility in kilometers for the scene. If the aerosol retrieval is disabled, the default visibility is used; otherwise, the default visibility is used only for the first water retrieval. The default value is 40."
+      ]
+    },
+    "ground_elevation": {
+      "type": "number",
+      "description": [
+        "Specify the average ground elevation, in kilometers."
+      ]
+    },
+    "ifov": {
+      "type": "number",
+      "minimum": 0,
+      "description": [
+        "(Instantaneous Field of View) Specify the angle of individual sensors, in milliradians."
+      ]
+    },
+    "input_raster": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "default": "URLRaster",
+          "description": [
+            "This value should be \"URLRaster\" (case-insensitive)"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the dataset on disk.",
+            "",
+            "Common extensions to use: .dat, .img, .hsi, .tif, .nitf, .ntf. For complex file formats, this should likely be the metadata file itself and not individual image files which ENVI supports.",
+            "",
+            "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
+          ]
+        },
+        "auxiliary_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": [
+            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
+          ]
+        },
+        "dataset_index": {
+          "type": "number",
+          "description": [
+            "If a raster has more than one dataset present, optionally specify the zero-based index of which image to open. Applicable to file types like NITF, Sentinel 2, or similar where multi-resolutions or images are present in a single file."
+          ]
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify a raster on which to perform atmospheric correction."
+      ]
+    },
+    "input_scale": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": [
+        "Specify the band normalization factors that convert the pixel values in the input raster into uW/cm2/nm/sr."
+      ]
+    },
+    "lat_long": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": [
+        "Specify the Latitude and Longitude of the scene center, in decimal degrees."
+      ]
+    },
+    "los_azimuth": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360,
+      "default": 0,
+      "description": [
+        "Specify the line-of-sight azimuth angle for a non-nadir data acquisition. The azimuth angle is measured as degrees clockwise from North to the line-of-sight vector (90 degrees due east, 270 degrees due west)."
+      ]
+    },
+    "los_zenith": {
+      "type": "number",
+      "minimum": 90,
+      "maximum": 270,
+      "default": 180,
+      "description": [
+        "Specify the line-of-sight zenith angle in degrees for a non-nadir data acquisition. For a nadir viewing instrument this angle is 180 degrees. The default value is 180."
+      ]
+    },
+    "modtran_aer": {
+      "type": "string",
+      "enum": [
+        "No Aerosol",
+        "High-Visibility Rural",
+        "Low-Visibility Rural",
+        "Maritime",
+        "Urban",
+        "Tropospheric"
+      ],
+      "default": "No Aerosol",
+      "description": [
+        "Set the MODTRAN aerosol model with one of the following:",
+        "",
+        "No Aerosol",
+        "High-Visibility Rural: (default) (visibility = 23 Km)",
+        "Low-Visibility Rural: (visibility = 5 Km)",
+        "Maritime: (visibility = 23 Km)",
+        "Tropospheric: (visibility = 50 Km)",
+        "Urban"
+      ]
+    },
+    "modtran_atm": {
+      "type": "string",
+      "enum": [
+        "Tropical Atmosphere",
+        "Mid-Latitude Summer",
+        "Mid-Latitude Winter",
+        "Sub-Arctic Summer",
+        "Sub-Arctic Winter",
+        "1976 US Standard Atmosphere"
+      ],
+      "default": "Tropical Atmosphere",
+      "description": [
+        "Set the MODTRAN atmospheric model.",
+        "",
+        "Tropical Atmosphere: (default) (15 degrees north latitude)",
+        "Mid-Latitude Summer: (45 degrees north latitude)",
+        "Mid-Latitude Winter: (45 degrees north latitude)",
+        "Sub-Arctic Summer: (60 degrees north latitude)",
+        "Sub-Arctic Winter: (60 degrees north latitude)",
+        "1976 US Standard Atmosphere"
+      ]
+    },
+    "modtran_mscat": {
+      "type": "string",
+      "enum": [
+        "ISAACS",
+        "DISORT",
+        "Scaled ISAACS"
+      ],
+      "default": "Scaled ISAACS",
+      "description": [
+        "Selects a multiple scattering method to use in MODTRAN. ISAACS (fastest), Scaled ISAACS (fast, more accurate), DISORT (SLOW, most accurate).",
+        "",
+        "The default value is Scaled ISAACS.",
+        "",
+        "ISAACS: The fastest method.",
+        "DISORT: The slowest method, but is the most accurate.",
+        "Scaled ISAACS: (default) Fast, more accurate than ISAACS."
+      ]
+    },
+    "modtran_res": {
+      "type": "number",
+      "enum": [
+        15,
+        5,
+        1,
+        0.1
+      ],
+      "default": 15,
+      "description": [
+        "Specify the bandmodel resolution to use with the MODTRAN simulations with one of the following:",
+        "",
+        "15.0 (default)",
+        "5.0",
+        "1.0",
+        "0.1"
+      ]
+    },
+    "output_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    },
+    "output_scale": {
+      "type": "number",
+      "description": [
+        "Specify a multiplier to rescale reflectance values [0,1] to integer values in the output. Output reflectances are always written as short integers."
+      ]
+    },
+    "polishing_resolution": {
+      "type": "number",
+      "minimum": 3,
+      "description": [
+        "Width of the smoothing filter (in bands) used for the spectral polishing. An odd number is recommended for performance reasons. A number equivalent to the spectral width between 50 and 200 nm is also recommended."
+      ]
+    },
+    "sensor_altitude": {
+      "type": "number",
+      "description": [
+        "Specify the sensor altitude, in kilometers."
+      ]
+    },
+    "sensor_autocalibration": {
+      "type": "boolean",
+      "default": true,
+      "description": [
+        "Specify true or false to enable or disable sensor auto-calibration (NODD) algorithm. This also activates the automated smile correction for appropriate sensors. This calibration is not compatible with MSI sensor types. The default is false."
+      ]
+    },
+    "sensor_cal_feature_list": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "CO2_2040",
+          "H2O_940",
+          "O2_763",
+          "CO2_1614",
+          "H2O_820",
+          "H2O_1130",
+          "O2_691",
+          "O2_1266",
+          "Solar_H_434",
+          "Solar_H_486",
+          "Solar_Mg_517",
+          "Solar_H_656"
+        ]
+      },
+      "description": [
+        "Specify a set of spectral features used to adjust sensor calibration when Sensor Autocalibration is active. All features are selected by default. In the following list of features, the first three are the most reliable based on past performance. O2_763, H2O_940, CO2_2040, Solar_H_434, Solar_H_486, Solar_Mg_517, Solar_H_656, O2_691, H2O_820, H2O_1130, O2_1266, CO2_1614."
+      ]
+    },
+    "sensor_cal_precision": {
+      "type": "number",
+      "default": 0.15,
+      "description": [
+        "Set a minimum accuracy threshold for the sensor autocalibration. This parameter determines whether or not a spectral absorption feature will contribute to the calibration adjustment, based on the variance of the estimated wavelength shift local to that feature. The default value is 0.150000."
+      ]
+    },
+    "sensor_type": {
+      "type": "string",
+      "enum": [
+        "AVIRIS",
+        "HYDICE",
+        "HyMap",
+        "Hyperion",
+        "NVIS",
+        "Compass",
+        "Hycas",
+        "Mars",
+        "Multispectral",
+        "Unknown"
+      ],
+      "default": "Unknown",
+      "description": [
+        "Set the name of the sensor as one of the following:",
+        "",
+        "AVIRIS",
+        "HYDICE",
+        "HyMap",
+        "Hyperion",
+        "NVIS",
+        "Compass",
+        "Hycas",
+        "Mars",
+        "Multispectral",
+        "Unknown (default)"
+      ]
+    },
+    "solar_azimuth": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360,
+      "description": [
+        "Specify the relative solar angle as measured from the ground at the imaged site. The azimuth angle is measured as degrees clockwise from north to the line of sight vector of the sun."
+      ]
+    },
+    "solar_zenith": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 90,
+      "description": [
+        "The relative solar angle as measured from the ground at the imaged site. A zenith angle of 0 is directly overhead, 90 is on the horizon."
+      ]
+    },
+    "use_adjacency": {
+      "type": "string",
+      "enum": [
+        "Disabled",
+        "Legacy exponential scattering kernel",
+        "Wavelength-dependent scattering kernel"
+      ],
+      "default": "Wavelength-dependent scattering kernel",
+      "description": [
+        "Enable or disable compensation for adjacency effects with one of the following:",
+        "",
+        "Disabled",
+        "Legacy exponential scattering kernel",
+        "Wavelength-dependent scattering kernel (default)"
+      ]
+    },
+    "use_aerosol": {
+      "type": "string",
+      "enum": [
+        "Disabled",
+        "Automatic Selection",
+        "Vegetation Based Retrieval",
+        "Water Based Retrieval",
+        "Wavelength Dependent Water Based Retrieval",
+        "Linear Regression Retrieval"
+      ],
+      "default": "Automatic Selection",
+      "description": [
+        "Enable or disable an aerosol retrieval algorithm to obtain a scene visibility with one of the following:",
+        "",
+        "Disabled",
+        "Automated Selection (default)",
+        "Vegetation Based Retrieval",
+        "Water Based Retrieval",
+        "Wavelength Dependent Water Based Retrieval",
+        "Linear Regression Retrieval"
+      ]
+    },
+    "use_polishing": {
+      "type": "string",
+      "enum": [
+        "Disabled",
+        "Polish using reference materials",
+        "Polish using statistical detection of spectral artifacts"
+      ],
+      "default": "Disabled",
+      "description": [
+        "Specify whether to enable or disable spectral polishing with one of the following. Polishing is incompatible with MSI sensors.",
+        "",
+        "Disabled (default)",
+        "Polish using reference materials",
+        "Polish using statistical detection of spectral artifacts"
+      ]
+    },
+    "water_abs_choice": {
+      "type": "string",
+      "enum": [
+        "820",
+        "940",
+        "1130",
+        "Automatic Selection"
+      ],
+      "default": "Automatic Selection",
+      "description": [
+        "Set the water absorption feature to use with the water vapor retrieval with one of the following\"",
+        "",
+        "1130",
+        "940",
+        "820",
+        "Automated Selection (default)"
+      ]
+    },
+    "water_mult": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "default": [
+          0.01,
+          1
+        ]
+      },
+      "description": [
+        "Specify the minimum and maximum water column multiplier for selected MODTRAN atmosphere. The default value is 0.0100000."
+      ]
+    },
+    "water_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+      ]
+    },
+    "water_vapor_preset": {
+      "type": "number",
+      "default": 0,
+      "description": [
+        "Specify a value to override the water retrieval with a constant scale factor. A positive value will disable the water vapor retrieval. The default value is 0."
+      ]
+    }
+  },
+  "required": [
+    "input_raster"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Inputs for running the tool. These *MUST* be specified based on the schema. Summary:",
+    "",
+    "This task performs Fast Line-of-sight Atmospheric Analysis of Spectral Hypercubes (FLAASH) on multispectral or hyperspectral imagery.",
+    "",
+    "This task requires a separate license for the ENVI Atmospheric Correction Module; contact your sales representative for more information.",
+    "",
+    "Example",
+    "",
+    "  ; Start the application",
+    "  e = envi()",
+    "",
+    "  ; Open an input file",
+    "  File = filepath('AVIRISReflectanceSubset.dat', subdir = ['data', 'hyperspectral'], $",
+    "    root_dir = e.root_dir)",
+    "  Raster = e.openRaster(File)",
+    "",
+    "  ; Get the task from the catalog of ENVITasks",
+    "  Task = ENVITask('FLAASH')",
+    "",
+    "  ; Define inputs",
+    "  Task.input_raster = Raster",
+    "  Task.input_scale = 1",
+    "",
+    "  ; Run the task",
+    "  Task.execute",
+    "",
+    "  ; Add the output to the Data Manager",
+    "  e.data.add, Task.output_raster",
+    "",
+    "  ; Display the result",
+    "  View = e.getView()",
+    "  Layer = View.createLayer(Task.output_raster)"
+  ]
+}

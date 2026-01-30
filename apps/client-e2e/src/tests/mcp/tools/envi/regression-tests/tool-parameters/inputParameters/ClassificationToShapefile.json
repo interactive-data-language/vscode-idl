@@ -3,6 +3,7 @@
   "properties": {
     "apply_symbology": {
       "type": "boolean",
+      "default": false,
       "description": [
         "Set this parameter if you want to generate a vector style sheet that will automatically set the colors of the output polygons to match the class colors of the input raster."
       ]
@@ -66,6 +67,7 @@
         "Single Vector Layer",
         "One Vector Layer Per Class"
       ],
+      "default": "Single Vector Layer",
       "description": [
         "Specify a string indicating whether the output is a single vector layer with all classes, or one vector layer per class. The choices are:",
         "",
@@ -82,10 +84,7 @@
     }
   },
   "required": [
-    "apply_symbology",
-    "export_classes",
-    "input_raster",
-    "output_method"
+    "input_raster"
   ],
   "additionalProperties": false,
   "description": [

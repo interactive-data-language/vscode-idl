@@ -1,0 +1,3 @@
+[
+  "This task sets specific metadata values for an input raster and produces a new raster with the edited metadata. Metadata items that are not set with the task will remain intact."
+]
