@@ -8,6 +8,7 @@ import expect from 'expect';
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
+import { LogWhenExpectSuccess } from '../../../helpers/test-loggers';
 
 /**
  * Makes sure we can open and display a dataset in ENVI
@@ -21,6 +22,9 @@ export const RunMCPTestOpenDatasetsInENVI_Vector: RunnerFunction = async (
     automaticZoom: 'all-layers',
     resetView: true,
   });
+
+  // log if failure
+  LogWhenExpectSuccess(result);
 
   // make sure the tool runs
   expect(result.isError).toBeFalsy();

@@ -8,36 +8,41 @@ import expect from 'expect';
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
+import { LogWhenExpectSuccess } from '../../../helpers/test-loggers';
 
 /**
  * Makes sure we can open and display a dataset in ENVI
  */
-export const RunMCPTestOpenDatasetsInENVI_RasterSeries: RunnerFunction =
-  async (init) => {
-    // Call a tool
-    const result = await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {
-      datasets: [ENVITestDatasets.rasterSeries()],
-      automaticZoom: 'all-layers',
-      resetView: true,
-    });
+export const RunMCPTestOpenDatasetsInENVI_RasterSeries: RunnerFunction = async (
+  init
+) => {
+  // Call a tool
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {
+    datasets: [ENVITestDatasets.rasterSeries()],
+    automaticZoom: 'all-layers',
+    resetView: true,
+  });
 
-    // make sure the tool runs
-    expect(result.isError).toBeFalsy();
+  // log if failure
+  LogWhenExpectSuccess(result);
 
-    // make sure the tool runs
-    expect((result.content as any[])?.length).toEqual(1);
+  // make sure the tool runs
+  expect(result.isError).toBeFalsy();
 
-    // init variable
-    let results: MCPToolResponse<MCPTool_OpenDatasetsInENVI>;
+  // make sure the tool runs
+  expect((result.content as any[])?.length).toEqual(1);
 
-    // attempt to parse
-    try {
-      results = JSON.parse(result.content[0].text as string);
-    } catch (err) {
-      // do nothing
-    }
+  // init variable
+  let results: MCPToolResponse<MCPTool_OpenDatasetsInENVI>;
 
-    // make sure we got an answer
-    expect(results).toBeTruthy();
-    expect(results.success).toBeTruthy();
-  };
+  // attempt to parse
+  try {
+    results = JSON.parse(result.content[0].text as string);
+  } catch (err) {
+    // do nothing
+  }
+
+  // make sure we got an answer
+  expect(results).toBeTruthy();
+  expect(results.success).toBeTruthy();
+};

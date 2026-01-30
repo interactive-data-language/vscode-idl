@@ -8,6 +8,7 @@ import expect from 'expect';
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
+import { LogWhenExpectSuccess } from '../../../helpers/test-loggers';
 
 /**
  * Makes sure we can query a dataset
@@ -19,6 +20,9 @@ export const RunMCPTestQueryDatasetWithENVI_ROI: RunnerFunction = async (
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI, {
     dataset: ENVITestDatasets.roi(),
   });
+
+  // log if failure
+  LogWhenExpectSuccess(result);
 
   // make sure the tool runs
   expect(result.isError).toBeFalsy();

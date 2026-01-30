@@ -9,9 +9,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  *
  * We get 3 items back when ntoes are present, 2 when no notes
  */
-export const RunMCPTestENVIToolNotesLoad: RunnerFunction = async (
-  init
-) => {
+export const RunMCPTestENVIToolNotesLoad: RunnerFunction = async (init) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS, {
     taskName: 'ISODataClassification',
