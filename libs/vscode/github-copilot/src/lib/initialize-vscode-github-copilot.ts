@@ -5,6 +5,10 @@ import * as vscode from 'vscode';
 import { RegisterCopilotCommands } from './commands/register-copilot-commands';
 import { RegisterGitHubCopilotFilesFromExtension } from './helpers/register-github-copilot-files-from-extension';
 import { RegisterGitHubCopilotFilesFromIDLPackages } from './helpers/register-github-copilot-files-from-idl-packages';
+import {
+  SyncInstructionsFromFileToSetting,
+  WatchCustomInstructionsChanges,
+} from './helpers/synch-additional-instructions';
 
 /**
  * Initializes our GitHub Copilot VSCode integration
@@ -37,6 +41,9 @@ export async function InitializeVSCodeGitHubCopilot(
       ],
     });
   }
+
+  await SyncInstructionsFromFileToSetting();
+  ctx.subscriptions.push(WatchCustomInstructionsChanges());
 
   /**
    * Attempt to add prompt files to VSCode

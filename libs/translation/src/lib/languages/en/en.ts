@@ -263,6 +263,10 @@ export const EN: ITranslation = {
       'mcp.enabled':
         'Do we automatically launch the MCP server on language server startup? If enabled in one workspace, enabled for all.',
 
+      copilot: 'Preferences for GitHub Copilot integration',
+      'copilot.customInstructions':
+        'Custom instructions that will be automatically appended to the IDL Copilot instructions file under "## Additional Instructions". These are preserved between extension updates.',
+
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',
       'notebooks.embedGraphics':
@@ -372,6 +376,7 @@ export const EN: ITranslation = {
     reloadWindow:
       'IDL configuration has changed, reload window for changes to take effect?',
     titles: {
+      copilot: 'GitHub Copilot',
       developer: 'Developer',
       documentation: 'Documentation',
       formatting: 'Formatting',

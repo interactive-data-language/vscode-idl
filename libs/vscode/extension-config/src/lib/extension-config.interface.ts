@@ -97,6 +97,11 @@ export interface IDLExtensionsConfigKeys {
   /** Do we make IDL quiet? */
   readonly notebooksQuietMode: 'notebooks.quietMode';
 
+  /** Key for GitHub Copilot preferences */
+  readonly copilot: 'copilot';
+  /** Custom instructions for GitHub Copilot */
+  readonly copilotCustomInstructions: 'copilot.customInstructions';
+
   /** Key for problem preferences */
   readonly problems: 'problems';
   /** Paths that we exclude reporting problems for, follows the same pattern for IDL's search path */
@@ -221,6 +226,11 @@ export interface IMCPConfig {
   readonly enabled: boolean;
 }
 
+export interface ICopilotConfig {
+  /** Custom instructions for GitHub Copilot */
+  readonly customInstructions: string;
+}
+
 /**
  * Extension configuration for VSCode. This comes from user-settings in
  * VSCode and is separate from the "idl.json"
@@ -267,6 +277,11 @@ export interface IDLExtensionConfig {
    * Configuration for the MCP server
    */
   readonly mcp: IMCPConfig;
+
+  /**
+   * Configuration for GitHub Copilot
+   */
+  readonly copilot: ICopilotConfig;
 
   /**
    * Configuration for notebooks
@@ -327,6 +342,9 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
 
   mcp: 'mcp',
   mcpEnabled: 'mcp.enabled',
+
+  copilot: 'copilot',
+  copilotCustomInstructions: 'copilot.customInstructions',
 
   notebooks: 'notebooks',
   notebooksQuietMode: 'notebooks.quietMode',
@@ -403,6 +421,9 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   },
   mcp: {
     enabled: true,
+  },
+  copilot: {
+    customInstructions: '',
   },
   notebooks: {
     quietMode: true,
