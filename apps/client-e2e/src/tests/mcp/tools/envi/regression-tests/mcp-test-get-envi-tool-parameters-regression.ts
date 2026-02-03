@@ -16,9 +16,7 @@ export const RunMCPTestGetENVIToolParametersRegression: RunnerFunction = async (
   init
 ) => {
   const toolParametersDir = join(
-    GetExtensionPath(
-      'apps/client-e2e/src/tests/mcp/tools/envi/regression-tests'
-    ),
+    GetExtensionPath('idl/test/client-e2e/mcp/regression'),
     'tool-parameters'
   );
 
