@@ -5,7 +5,7 @@ import {
   MCP_ENVIROI,
   MCP_ENVISpectralLibrary,
   MCP_ENVIVector,
-} from '@idl/mcp/tasks';
+} from '@idl/mcp/envi-to-mcp';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,

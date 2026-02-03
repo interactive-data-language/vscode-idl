@@ -1,4 +1,5 @@
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
 import { IDLTypeHelper, TASK_REGEX } from '@idl/parsing/type-parser';
 import {
   GlobalFunctionToken,
@@ -17,7 +18,6 @@ import {
   TaskLocation_File,
   TaskLocationKind,
 } from './task-location.interface';
-import { ParsedParameterToMCPParameter } from './types-to-mcp/parsed-parameter-to-mcp-parameter';
 
 /**
  * Class that tracks and organizes tasks for ENVI and IDL
@@ -209,7 +209,7 @@ export class MCPTaskRegistry {
       const docs = GetCleanDescription(prop.docs, false);
 
       /** Make zod parameter */
-      const param = ParsedParameterToMCPParameter(prop, docs);
+      const param = IDLParameterToMCPParameter(prop, docs);
 
       // check if unknown parameter
       if (!param) {
