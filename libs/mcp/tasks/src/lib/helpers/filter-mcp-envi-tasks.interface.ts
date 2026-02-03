@@ -6,54 +6,35 @@
  * But there's still some that we don't need to expose to the LLM
  */
 export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
-  buildlabelrasterfromclassification: undefined,
-  buildobjectdetectionrasterfromannotation: undefined,
-  buildobjectdetectionrasterfromvector: undefined,
+  // not something that has value for follow-on processes
+  // i.e. why would an LLM run this?
   buildrasterpyramids: undefined,
 
-  calculatequacgainoffset: undefined,
-  convertinterleave: undefined,
-
-  dicerasterbyvector: undefined,
-
-  emissivityfromalpharesiduals: undefined,
-  emissivityfromnormalization: undefined,
-  emissivityfromreferencechannel: undefined,
-  extractbandsfromraster: undefined,
-
+  // handled via MCP
   findrasters: undefined,
 
-  geopackagetoshapefile: undefined,
+  // handled via MCP
   generatefilename: undefined,
   generateindexarray: undefined,
-  getcolorslices: undefined,
-  getcolortable: undefined,
+
+  // not needed
   getversion: undefined,
 
-  initializeenvinet5model: undefined,
-  initializeenvinet5multimodel: undefined,
-
-  mirrorraster: undefined,
-
+  // handled via MCP
   queryalltasks: undefined,
   querytask: undefined,
   querytaskcatalog: undefined,
 
-  randomizetraintensorflowmaskmodel: undefined,
+  // handled via MCP query dataset
   rastermetadataitem: undefined,
   rasterproperties: undefined,
+
+  // not needed
   runtask: undefined,
 
-  spectralsubspacebackgroundstatistics: undefined,
+  // LLM can do this automatically
   stringprocessing: undefined,
-  subsetlabelraster: undefined,
 
+  // duplicate - should use ROI statistics
   trainingclassificationstatistics: undefined,
-  traintensorflowgridmodel: undefined,
-  traintensorflowmaskmodel: undefined,
-  traintensorflowpixelmodel: undefined,
-  traintensorflowobjectmodel: undefined,
-  transposeraster: undefined,
-
-  vectortofeaturecount: undefined,
 };

@@ -42,7 +42,14 @@ export function FilterMCPENVITasks(
      * Cases that we return from
      */
     switch (true) {
-      // exluced any of the extract routines which we dont need
+      /**
+       * Exclude any of the extract routines which we dont need
+       *
+       * Dehydrated parameters should account for these instead or dedicated
+       * MCP tools
+       *
+       * This is code and not a static list so it is future-proof
+       */
       case taskName.startsWith('extract') && taskName.endsWith('fromfile'):
         break;
       // skip tasks with names we decide not to expose as tools
