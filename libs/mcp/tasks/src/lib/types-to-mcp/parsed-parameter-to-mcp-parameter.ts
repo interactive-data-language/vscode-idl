@@ -6,6 +6,7 @@ import {
 } from '@idl/types/idl-data-types';
 import { z } from 'zod';
 
+import { MCP_Boolean } from './types/mcp-boolean';
 import { MCP_ENVIAgCrops } from './types/mcp-envi-ag-crops';
 import { MCP_ENVIAgZones } from './types/mcp-envi-ag-zones';
 import { MCP_ENVICoordSys } from './types/mcp-envi-coord-sys';
@@ -26,15 +27,23 @@ import { MCP_ENVIRaster } from './types/mcp-envi-raster';
 import { MCP_ENVIRasterSeries } from './types/mcp-envi-raster-series';
 import { MCP_ENVIROI } from './types/mcp-envi-roi';
 import { MCP_ENVIRPCRasterSpatialref } from './types/mcp-envi-rpc-raster-spatialref';
+import { MCP_ENVISecureString } from './types/mcp-envi-secure-string';
+import { MCP_ENVISpatialref } from './types/mcp-envi-spatialref';
+import { MCP_ENVISpectralIndex } from './types/mcp-envi-spectral-index';
 import { MCP_ENVISpectralLibrary } from './types/mcp-envi-spectral-library';
 import { MCP_ENVISpectralSignature } from './types/mcp-envi-spectral-signature';
 import { MCP_ENVIStandardRasterSpatialref } from './types/mcp-envi-standard-raster-spatialref';
 import { MCP_ENVIStretchParameters } from './types/mcp-envi-stretch-parameters';
 import { MCP_ENVITiePointSet } from './types/mcp-envi-tie-point-set';
 import { MCP_ENVITime } from './types/mcp-envi-time';
+import { MCP_ENVIURI } from './types/mcp-envi-uri';
 import { MCP_ENVIVariant } from './types/mcp-envi-variant';
 import { MCP_ENVIVector } from './types/mcp-envi-vector';
+import { MCP_List } from './types/mcp-list';
+import { MCP_Number } from './types/mcp-number';
+import { MCP_Object } from './types/mcp-object';
 import { MCP_SARscapeData } from './types/mcp-sarscape-data';
+import { MCP_String } from './types/mcp-string';
 
 /**
  * Actually convert our data type to an MCP parameter
@@ -79,6 +88,8 @@ function ParsedParameterToMCPParameter_Recurser(
       // see if we mapped a parameter or not
       if (arrayType) {
         res = z.array(arrayType);
+      } else {
+        res = MCP_List();
       }
       break;
     }
@@ -87,7 +98,7 @@ function ParsedParameterToMCPParameter_Recurser(
      * ENVI URI - Folder
      */
     case firstType.meta.isUri && firstType.meta.isFolder:
-      res = z.string().default('!');
+      res = MCP_ENVIURI();
       cleanDocs =
         'Fully-qualified path to the output folder, default is "!" which indicates a temporary location will be created. Only set this when requested by user.';
       break;
@@ -96,7 +107,7 @@ function ParsedParameterToMCPParameter_Recurser(
      * ENVI URI - Folder
      */
     case firstType.meta.isUri:
-      res = z.string().default('!');
+      res = MCP_ENVIURI();
       cleanDocs =
         'Fully-qualified path to the output dataset, default is "!" which indicates a temporary file will be created. Only set this when requested by user.';
       break;
@@ -105,11 +116,7 @@ function ParsedParameterToMCPParameter_Recurser(
      * Any type of spatial reference
      */
     case IDLTypeHelper.isType(type, '_envispatialref'):
-      res = z.union([
-        MCP_ENVIPseudoRasterSpatialref(),
-        MCP_ENVIRPCRasterSpatialref(),
-        MCP_ENVIStandardRasterSpatialref(),
-      ]);
+      res = MCP_ENVISpatialref();
       break;
 
     /**
@@ -258,14 +265,14 @@ function ParsedParameterToMCPParameter_Recurser(
      * run the task
      */
     case IDLTypeHelper.isType(type, 'envisecurestring'):
-      res = z.string();
+      res = MCP_ENVISecureString();
       break;
 
     /**
      * ENVI spectral index
      */
     case IDLTypeHelper.isType(type, 'envispectralindex'):
-      res = z.string();
+      res = MCP_ENVISpectralIndex();
       break;
 
     /**
@@ -335,34 +342,23 @@ function ParsedParameterToMCPParameter_Recurser(
      * String
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING):
-      // check for values from a choice list and map to literals
-      if (firstType?.value?.length > 0) {
-        try {
-          res = z.union(firstType.value.map((v) => z.literal(v)) as any);
-        } catch (err) {
-          console.log(`Error while enumerating literal string types`, {
-            type: type,
-            err,
-          });
-          res = z.string();
-        }
-      } else {
-        res = z.string();
-      }
+      res = MCP_String(firstType?.value);
       break;
 
     /**
      * Bool
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BOOLEAN):
-      res = z.boolean();
+      res = MCP_Boolean();
       break;
 
     /**
      * List
+     *
+     * TODO: Get actual types for literal arguments
      */
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.LIST):
-      res = z.array(z.any());
+      res = MCP_List();
       break;
 
     /**
@@ -371,7 +367,7 @@ function ParsedParameterToMCPParameter_Recurser(
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.HASH):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.ORDERED_HASH):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.DICTIONARY):
-      res = z.record(z.any());
+      res = MCP_Object();
       break;
 
     /**
@@ -388,33 +384,7 @@ function ParsedParameterToMCPParameter_Recurser(
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.UNSIGNED_INTEGER):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.INTEGER):
     case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BYTE):
-      /**
-       * Attempt to convert choice list to literal numbers as we
-       * store literal numbers as strings (from parsing)
-       */
-      if (firstType?.value?.length > 0) {
-        try {
-          res = z.union(firstType.value.map((v) => z.literal(+v)) as any);
-        } catch (err) {
-          console.log(`Error while enumerating literal number types`, {
-            type: type,
-            err,
-          });
-          res = z.number();
-        }
-      } else {
-        res = z.number();
-      }
-
-      // check for min
-      if (typeof firstType.meta.min !== 'undefined') {
-        res = (res as z.ZodNumber).min(firstType.meta.min);
-      }
-
-      // check for max
-      if (typeof firstType.meta.max !== 'undefined') {
-        res = (res as z.ZodNumber).max(firstType.meta.max);
-      }
+      res = MCP_Number(firstType.value, firstType.meta.min, firstType.meta.max);
       break;
 
     default:
