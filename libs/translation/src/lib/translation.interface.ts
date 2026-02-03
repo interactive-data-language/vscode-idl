@@ -234,6 +234,8 @@ export interface IConfigTranslation {
   reloadWindow: string;
   /** Titles for configuration tabs */
   titles: {
+    /** GitHub Copilot settings */
+    copilot: string;
     /** Internal developer settings */
     developer: string;
     /** Documentation settings */

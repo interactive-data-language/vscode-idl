@@ -882,6 +882,20 @@
       },
       {
         "type": "object",
+        "title": "%configuration.titles.copilot%",
+        "additionalProperties": false,
+        "properties": {
+          "idl.copilot.customInstructions": {
+            "type": "string",
+            "default": "",
+            "editPresentation": "multilineText",
+            "description": "%configuration.descriptions.copilot.customInstructions%",
+            "scope": "machine"
+          }
+        }
+      },
+      {
+        "type": "object",
         "title": "%configuration.titles.notebooks%",
         "additionalProperties": false,
         "properties": {

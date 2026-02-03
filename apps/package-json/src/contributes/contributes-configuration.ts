@@ -2,6 +2,7 @@ import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 
 import { IPackageJSON, IPackageNLS } from '../package.interface';
 import { AddCodeConfig } from './config/code-config';
+import { AddCopilotConfig } from './config/copilot-config';
 import { AddDocumentationConfig } from './config/documentation-config';
 import { AddIDLConfig } from './config/idl-config';
 import { AddLanguageServerConfig } from './config/language-server-config';
@@ -49,6 +50,7 @@ export function ProcessConfiguration(
   AddIDLConfig(nls);
   AddLanguageServerConfig(nls);
   AddMCPConfig(nls);
+  AddCopilotConfig(nls);
   AddNotebookConfig(nls);
   AddProblemsConfig(nls);
   AddQuestionsConfig(nls);
