@@ -1,3 +1,38 @@
+import {
+  MCP_ENVIAgCrops,
+  MCP_ENVIAgZones,
+  MCP_ENVICoordSys,
+  MCP_ENVIDeepLearningKerasModel,
+  MCP_ENVIDeepLearningLabelRaster,
+  MCP_ENVIDeepLearningObjectDetectionRaster,
+  MCP_ENVIDeepLearningONNXModel,
+  MCP_ENVIDeepLearningRaster,
+  MCP_ENVIGCPSet,
+  MCP_ENVIGeoJSON,
+  MCP_ENVIGridDefinition,
+  MCP_ENVIMachineLearningModel,
+  MCP_ENVIPointCloud,
+  MCP_ENVIPointCloudProductsInfo,
+  MCP_ENVIPointCloudSpatialRef,
+  MCP_ENVIPseudoRasterSpatialref,
+  MCP_ENVIRaster,
+  MCP_ENVIRasterSeries,
+  MCP_ENVIROI,
+  MCP_ENVIRPCRasterSpatialref,
+  MCP_ENVISecureString,
+  MCP_ENVISpatialref,
+  MCP_ENVISpectralIndex,
+  MCP_ENVISpectralLibrary,
+  MCP_ENVISpectralSignature,
+  MCP_ENVIStandardRasterSpatialref,
+  MCP_ENVIStretchParameters,
+  MCP_ENVITiePointSet,
+  MCP_ENVITime,
+  MCP_ENVIURI,
+  MCP_ENVIVariant,
+  MCP_ENVIVector,
+  MCP_SARscapeData,
+} from '@idl/mcp/envi-to-mcp';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   IDL_TYPE_LOOKUP,
@@ -7,51 +42,18 @@ import {
 import { z } from 'zod';
 
 import { MCP_Boolean } from './types/mcp-boolean';
-import { MCP_ENVIAgCrops } from './types/mcp-envi-ag-crops';
-import { MCP_ENVIAgZones } from './types/mcp-envi-ag-zones';
-import { MCP_ENVICoordSys } from './types/mcp-envi-coord-sys';
-import { MCP_ENVIDeepLearningKerasModel } from './types/mcp-envi-deep-learning-keras-model';
-import { MCP_ENVIDeepLearningLabelRaster } from './types/mcp-envi-deep-learning-label-raster';
-import { MCP_ENVIDeepLearningObjectDetectionRaster } from './types/mcp-envi-deep-learning-object-detection-raster';
-import { MCP_ENVIDeepLearningONNXModel } from './types/mcp-envi-deep-learning-onnx-model';
-import { MCP_ENVIDeepLearningRaster } from './types/mcp-envi-deep-learning-raster';
-import { MCP_ENVIGCPSet } from './types/mcp-envi-gcp-set';
-import { MCP_ENVIGeoJSON } from './types/mcp-envi-geojson';
-import { MCP_ENVIGridDefinition } from './types/mcp-envi-grid-definition';
-import { MCP_ENVIMachineLearningModel } from './types/mcp-envi-machine-learning-model';
-import { MCP_ENVIPointCloud } from './types/mcp-envi-point-cloud';
-import { MCP_ENVIPointCloudProductsInfo } from './types/mcp-envi-point-cloud-products-info';
-import { MCP_ENVIPointCloudSpatialRef } from './types/mcp-envi-point-cloud-spatial-ref';
-import { MCP_ENVIPseudoRasterSpatialref } from './types/mcp-envi-pseudo-raster-spatialref';
-import { MCP_ENVIRaster } from './types/mcp-envi-raster';
-import { MCP_ENVIRasterSeries } from './types/mcp-envi-raster-series';
-import { MCP_ENVIROI } from './types/mcp-envi-roi';
-import { MCP_ENVIRPCRasterSpatialref } from './types/mcp-envi-rpc-raster-spatialref';
-import { MCP_ENVISecureString } from './types/mcp-envi-secure-string';
-import { MCP_ENVISpatialref } from './types/mcp-envi-spatialref';
-import { MCP_ENVISpectralIndex } from './types/mcp-envi-spectral-index';
-import { MCP_ENVISpectralLibrary } from './types/mcp-envi-spectral-library';
-import { MCP_ENVISpectralSignature } from './types/mcp-envi-spectral-signature';
-import { MCP_ENVIStandardRasterSpatialref } from './types/mcp-envi-standard-raster-spatialref';
-import { MCP_ENVIStretchParameters } from './types/mcp-envi-stretch-parameters';
-import { MCP_ENVITiePointSet } from './types/mcp-envi-tie-point-set';
-import { MCP_ENVITime } from './types/mcp-envi-time';
-import { MCP_ENVIURI } from './types/mcp-envi-uri';
-import { MCP_ENVIVariant } from './types/mcp-envi-variant';
-import { MCP_ENVIVector } from './types/mcp-envi-vector';
 import { MCP_List } from './types/mcp-list';
 import { MCP_Number } from './types/mcp-number';
 import { MCP_Object } from './types/mcp-object';
-import { MCP_SARscapeData } from './types/mcp-sarscape-data';
 import { MCP_String } from './types/mcp-string';
 
 /**
- * Actually convert our data type to an MCP parameter
+ * Actually convert our parameter to an MCP parameter
  *
  * This recurses if we have an array, can be updated to manage
  * multiple types like we get from IDL code.
  */
-function ParsedParameterToMCPParameter_Recurser(
+function IDLParameterToMCPParameter_Recurser(
   param: IParameterOrPropertyDetails,
   cleanDocs: string,
   type?: IDLDataType
@@ -79,7 +81,7 @@ function ParsedParameterToMCPParameter_Recurser(
       const typeArgs = IDLTypeHelper.getAllTypeArgs(type);
 
       /** Attempt to map our parameter - dont pass in docs, set below */
-      const arrayType = ParsedParameterToMCPParameter_Recurser(
+      const arrayType = IDLParameterToMCPParameter_Recurser(
         param,
         '',
         typeArgs
@@ -420,7 +422,7 @@ function ParsedParameterToMCPParameter_Recurser(
  * Could be updated to support any IDL type with unions and iterating
  * through all possible types, but we don't need that right now.
  */
-export function ParsedParameterToMCPParameter(
+export function IDLParameterToMCPParameter(
   param: IParameterOrPropertyDetails,
   cleanDocs: string,
   type?: IDLDataType
@@ -428,7 +430,7 @@ export function ParsedParameterToMCPParameter(
   /**
    * Recurse into the data type and populate
    */
-  let res = ParsedParameterToMCPParameter_Recurser(param, cleanDocs, type);
+  let res = IDLParameterToMCPParameter_Recurser(param, cleanDocs, type);
 
   // set as optional if not required
   if (res) {
