@@ -15,24 +15,31 @@ export function RegisterMCPTool_SearchForFiles(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_FOR_FILES,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.SEARCH_FOR_FILES],
-    `Searches a location for files. By default reads a folder and returns all files in a location. You can optionally specify file extensions to search for`,
     {
-      folder: z
-        .string()
-        .describe('The fully qualified path to a location to search for files'),
-      extensions: z
-        .array(z.string())
-        .optional()
-        .describe(
-          'Optionally specify one or more file extensions to search for. All files are returned unless this parameter is specified.'
-        ),
-      recursive: z
-        .boolean()
-        .default(true)
-        .describe(
-          'Do we recursively search? Default is to search recursively.'
-        ),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.SEARCH_FOR_FILES
+        ],
+      description: `Searches a location for files. By default reads a folder and returns all files in a location. You can optionally specify file extensions to search for`,
+      inputSchema: {
+        folder: z
+          .string()
+          .describe(
+            'The fully qualified path to a location to search for files'
+          ),
+        extensions: z
+          .array(z.string())
+          .optional()
+          .describe(
+            'Optionally specify one or more file extensions to search for. All files are returned unless this parameter is specified.'
+          ),
+        recursive: z
+          .boolean()
+          .default(true)
+          .describe(
+            'Do we recursively search? Default is to search recursively.'
+          ),
+      },
     },
     async (id, { folder, extensions, recursive }) => {
       /**

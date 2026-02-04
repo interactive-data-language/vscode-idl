@@ -18,10 +18,15 @@ export function RegisterMCPTool_StartENVI(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.START_ENVI,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.START_ENVI],
-    "Starts a session of ENVI and IDL in VSCode. If ENVI has already started, this tool won't do anything.",
     {
-      headless: z.boolean().describe('Should ENVI be started without the UI?'),
+      title: IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.START_ENVI],
+      description:
+        "Starts a session of ENVI and IDL in VSCode. If ENVI has already started, this tool won't do anything.",
+      inputSchema: {
+        headless: z
+          .boolean()
+          .describe('Should ENVI be started without the UI?'),
+      },
     },
     async (id, { headless }) => {
       // strictly typed parameters

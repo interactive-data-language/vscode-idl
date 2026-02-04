@@ -19,14 +19,19 @@ export function RegisterMCPTool_ExecuteIDLCode(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE],
-    EXECUTE_IDL_CODE_DESCRIPTION,
     {
-      code: z
-        .string()
-        .describe(
-          "The IDL code that should be executed. The code will always run with IDL's `idl2` compile option set and, if needed, will have an \"end\" statement appended to the code before it runs. If there is a file that should run, then the syntax to execute should follow the form:\n\n```idl\n.compile'C:\\path-to-file\\my_file.pro'"
-        ),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE
+        ],
+      description: EXECUTE_IDL_CODE_DESCRIPTION,
+      inputSchema: {
+        code: z
+          .string()
+          .describe(
+            "The IDL code that should be executed. The code will always run with IDL's `idl2` compile option set and, if needed, will have an \"end\" statement appended to the code before it runs. If there is a file that should run, then the syntax to execute should follow the form:\n\n```idl\n.compile'C:\\path-to-file\\my_file.pro'"
+          ),
+      },
     },
     async (id, { code }) => {
       // strictly typed parameters

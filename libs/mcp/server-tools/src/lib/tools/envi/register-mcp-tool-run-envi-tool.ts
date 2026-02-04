@@ -26,24 +26,27 @@ export function RegisterMCPTool_RunENVITool(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.RUN_ENVI_TOOL],
-    `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}. Here's the process to get the input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
     {
-      taskName: z
-        .string()
-        .describe('Specify the name of the ENVI Task that will run'),
-      inputParameters: z
-        .object({})
-        .catchall(z.any())
-        .describe(
-          `Specify a JSON object containing the task parameters that matches the JSON schema returned from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}`
-        ),
-      interactive: z
-        .boolean()
-        .default(false)
-        .describe(
-          `If true, the tool will appear in the ENVI UI and the user can fine-tune/tweak parameters. Only do this when requrested.`
-        ),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.RUN_ENVI_TOOL],
+      description: `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}. Here's the process to get the input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
+      inputSchema: {
+        taskName: z
+          .string()
+          .describe('Specify the name of the ENVI Task that will run'),
+        inputParameters: z
+          .object({})
+          .catchall(z.any())
+          .describe(
+            `Specify a JSON object containing the task parameters that matches the JSON schema returned from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}`
+          ),
+        interactive: z
+          .boolean()
+          .default(false)
+          .describe(
+            `If true, the tool will appear in the ENVI UI and the user can fine-tune/tweak parameters. Only do this when requrested.`
+          ),
+      },
     },
     async (id, { taskName, inputParameters, interactive }) => {
       if (!registry.hasTask(taskName)) {

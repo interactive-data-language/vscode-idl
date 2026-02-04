@@ -19,14 +19,19 @@ export function RegisterMCPTool_ExecuteIDLFile(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE],
-    EXECUTE_IDL_FILE_DESCRIPTION,
     {
-      uri: z
-        .string()
-        .describe(
-          'The fully-qualified path to a file on disk that contains IDL code that should run.'
-        ),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE
+        ],
+      description: EXECUTE_IDL_FILE_DESCRIPTION,
+      inputSchema: {
+        uri: z
+          .string()
+          .describe(
+            'The fully-qualified path to a file on disk that contains IDL code that should run.'
+          ),
+      },
     },
     async (id, { uri }) => {
       // strictly typed parameters

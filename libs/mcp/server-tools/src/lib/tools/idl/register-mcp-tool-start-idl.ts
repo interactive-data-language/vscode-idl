@@ -17,9 +17,12 @@ export function RegisterMCPTool_StartIDL(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.START_IDL,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.START_IDL],
-    "Starts a new session of IDL in VSCode. If IDL has already started, this tool won't do anything.",
-    {},
+    {
+      title: IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.START_IDL],
+      description:
+        "Starts a new session of IDL in VSCode. If IDL has already started, this tool won't do anything.",
+      inputSchema: {},
+    },
     async (id) => {
       // strictly typed parameters
       const params: MCPToolParams<MCPTool_StartIDL> = {};

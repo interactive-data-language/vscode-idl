@@ -19,30 +19,36 @@ export function RegisterMCPTool_CreateIDLNotebook(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK],
-    'Creates an IDL Notebook.\n\nThis is a native IDL Notebook and does not use or require Jupyter or any other configuration in order to work.',
     {
-      uri: z
-        .string()
-        .describe(
-          'The fully qualified filepath to where the notebook should live on disk. It needs to have a ".idlnb" file extension.'
-        ),
-      cells: z
-        .array(
-          z.object({
-            type: z
-              .union([z.literal('markdown'), z.literal('code')])
-              .describe(
-                'The type of the notebook cell. Markdown cells are informational whereas code cell contain the logic that runs'
-              ),
-            content: z
-              .string()
-              .describe(
-                'The content of the notebook cell as a single-line string separated by new line characters'
-              ),
-          })
-        )
-        .describe('The content for the IDL Notebook file'),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK
+        ],
+      description:
+        'Creates an IDL Notebook.\n\nThis is a native IDL Notebook and does not use or require Jupyter or any other configuration in order to work.',
+      inputSchema: {
+        uri: z
+          .string()
+          .describe(
+            'The fully qualified filepath to where the notebook should live on disk. It needs to have a ".idlnb" file extension.'
+          ),
+        cells: z
+          .array(
+            z.object({
+              type: z
+                .union([z.literal('markdown'), z.literal('code')])
+                .describe(
+                  'The type of the notebook cell. Markdown cells are informational whereas code cell contain the logic that runs'
+                ),
+              content: z
+                .string()
+                .describe(
+                  'The content of the notebook cell as a single-line string separated by new line characters'
+                ),
+            })
+          )
+          .describe('The content for the IDL Notebook file'),
+      },
     },
     async (id, { uri, cells }) => {
       // strictly typed parameters and make sure we always have content in the cells

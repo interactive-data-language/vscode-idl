@@ -5,7 +5,10 @@ import { MCPToolHTTPResponse, MCPTools } from '@idl/types/mcp';
 import { ToolCallback } from '@modelcontextprotocol/sdk/server/mcp';
 import { ZodRawShape } from 'zod';
 
-import { MCPRegistryToolCallback } from './mcp-tool-registry.interface';
+import {
+  MCPRegistryToolCallback,
+  MCPRegistryToolInfo,
+} from './mcp-tool-registry.interface';
 import { MCP_TOOL_CONTEXT } from './register-all-mcp-tools';
 
 /**
@@ -26,53 +29,42 @@ export class MCPToolRegistry {
    */
   static registerTool<Tool extends MCPTools, Args extends ZodRawShape>(
     name: Tool,
-    displayName: string,
-    description: string,
-    paramsSchema: Args,
+    info: MCPRegistryToolInfo<Args>,
     cb: MCPRegistryToolCallback<Args, Tool>
   ) {
-    return MCP_SERVER.registerTool(
-      name,
-      {
-        title: displayName,
-        description,
-        inputSchema: paramsSchema,
-        // outputSchema: { result: z.number() },
-      },
-      (async (params, context) => {
-        /** Track context */
-        const id = MCP_TOOL_CONTEXT.registerContext(context);
+    return MCP_SERVER.registerTool(name, info, (async (params, context) => {
+      /** Track context */
+      const id = MCP_TOOL_CONTEXT.registerContext(context);
 
-        try {
-          // init result
-          let res: MCPToolHTTPResponse<Tool>;
+      try {
+        // init result
+        let res: MCPToolHTTPResponse<Tool>;
 
-          // run tool one at a time
-          await TOOL_EXECUTION_QUEUE.add(async () => {
-            res = await cb(id, params, context);
-          });
+        // run tool one at a time
+        await TOOL_EXECUTION_QUEUE.add(async () => {
+          res = await cb(id, params, context);
+        });
 
-          // cleanup
-          MCP_TOOL_CONTEXT.removeContext(id);
+        // cleanup
+        MCP_TOOL_CONTEXT.removeContext(id);
 
-          // return result
-          return res;
-        } catch (err) {
-          // cleanup
-          MCP_TOOL_CONTEXT.removeContext(id);
+        // return result
+        return res;
+      } catch (err) {
+        // cleanup
+        MCP_TOOL_CONTEXT.removeContext(id);
 
-          return {
-            content: [
-              {
-                type: 'text',
-                text: `Unknown error while running tool (could be server-based or in IDL/ENVI): ${JSON.stringify(
-                  ObjectifyError(err)
-                )}`,
-              },
-            ],
-          };
-        }
-      }) as ToolCallback<Args>
-    );
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Unknown error while running tool (could be server-based or in IDL/ENVI): ${JSON.stringify(
+                ObjectifyError(err)
+              )}`,
+            },
+          ],
+        };
+      }
+    }) as ToolCallback<Args>);
   }
 }

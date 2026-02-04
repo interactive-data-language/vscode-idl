@@ -13,9 +13,12 @@ export function RegisterMCPTool_ListAllResources(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.LIST_ALL_RESOURCES,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_RESOURCE],
-    `Returns a list of the names of all resources available. This tool provides an alternate way to return resources instead of searching with "${MCP_TOOL_LOOKUP.SEARCH_RESOURCES}". Do not use this to list ENVI's available tools, use the tool "${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}" instead. Pass IDs for content you want to retrieve to the tool "${MCP_TOOL_LOOKUP.GET_RESOURCE}" to fetch the resource.`,
-    {},
+    {
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_RESOURCE],
+      description: `Returns a list of the names of all resources available. This tool provides an alternate way to return resources instead of searching with "${MCP_TOOL_LOOKUP.SEARCH_RESOURCES}". Do not use this to list ENVI's available tools, use the tool "${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}" instead. Pass IDs for content you want to retrieve to the tool "${MCP_TOOL_LOOKUP.GET_RESOURCE}" to fetch the resource.`,
+      inputSchema: {},
+    },
     async (id) => {
       return {
         isError: false,

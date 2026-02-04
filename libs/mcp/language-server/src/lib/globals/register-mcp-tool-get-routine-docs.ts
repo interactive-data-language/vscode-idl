@@ -23,32 +23,37 @@ export function RegisterMCPTool_GetRoutineDocs(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS],
-    GET_ROUTINE_DOCS_DESCRIPTION,
     {
-      routines: z
-        .array(
-          z.object({
-            name: z
-              .string()
-              .describe(
-                'The name to return docs for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
-              ),
-            type: z
-              .enum([
-                'Function',
-                'FunctionMethod',
-                'Procedure',
-                'ProcedureMethod',
-                'StructureOrClassDefinition',
-                'SystemVariable',
-              ])
-              .describe('The type of routine to search for.'),
-          })
-        )
-        .describe(
-          'The routines to return docs for, returns the first match or an empty array for no matches.'
-        ),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS
+        ],
+      description: GET_ROUTINE_DOCS_DESCRIPTION,
+      inputSchema: {
+        routines: z
+          .array(
+            z.object({
+              name: z
+                .string()
+                .describe(
+                  'The name to return docs for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
+                ),
+              type: z
+                .enum([
+                  'Function',
+                  'FunctionMethod',
+                  'Procedure',
+                  'ProcedureMethod',
+                  'StructureOrClassDefinition',
+                  'SystemVariable',
+                ])
+                .describe('The type of routine to search for.'),
+            })
+          )
+          .describe(
+            'The routines to return docs for, returns the first match or an empty array for no matches.'
+          ),
+      },
     },
     async (id, { routines }) => {
       /** Init results */

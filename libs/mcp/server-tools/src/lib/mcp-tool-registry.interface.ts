@@ -15,3 +15,12 @@ export type MCPRegistryToolCallback<
       ...a: U
     ) => MCPToolHTTPResponse<Tool> | Promise<MCPToolHTTPResponse<Tool>>
   : never;
+
+/**
+ * Parameters for registering a new tool
+ */
+export type MCPRegistryToolInfo<Args extends ZodRawShape> = {
+  title: string;
+  description: string;
+  inputSchema: Args;
+};

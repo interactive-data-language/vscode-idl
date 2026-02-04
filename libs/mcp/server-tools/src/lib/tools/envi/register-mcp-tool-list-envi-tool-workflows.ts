@@ -35,11 +35,14 @@ export function RegisterMCPTool_ListENVIToolWorkflows(
   // register tool
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
-    IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS
-    ],
-    `Lists the names of known ENVI Tool Workflows that describe how you chain together ENVI Tools to solve different types of problems. Used as a starting point to plan remote sensing workflows. Instructions for tool usage: ${ENVI_TOOL_WORKFLOW_INSTRUCTIONS}`,
-    {},
+    {
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS
+        ],
+      description: `Lists the names of known ENVI Tool Workflows that describe how you chain together ENVI Tools to solve different types of problems. Used as a starting point to plan remote sensing workflows. Instructions for tool usage: ${ENVI_TOOL_WORKFLOW_INSTRUCTIONS}`,
+      inputSchema: {},
+    },
     async (id, inputParameters) => {
       // check for load failure
       if (LOAD_FAILURE) {

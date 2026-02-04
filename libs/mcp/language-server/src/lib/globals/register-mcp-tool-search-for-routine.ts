@@ -21,34 +21,39 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE],
-    SEARCH_FOR_ROUTINE_DESCRIPTION,
     {
-      routines: z
-        .array(
-          z.object({
-            name: z
-              .string()
-              .describe(
-                'The name to search for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
-              ),
-            type: z
-              .enum([
-                'All',
-                'Function',
-                'FunctionMethod',
-                'Procedure',
-                'ProcedureMethod',
-                'StructureOrClassDefinition',
-                'SystemVariable',
-              ])
-              .default('All')
-              .describe('The type of routine to search for.'),
-          })
-        )
-        .describe(
-          'The search queries to look for, returns an array of matches for each query.'
-        ),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE
+        ],
+      description: SEARCH_FOR_ROUTINE_DESCRIPTION,
+      inputSchema: {
+        routines: z
+          .array(
+            z.object({
+              name: z
+                .string()
+                .describe(
+                  'The name to search for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
+                ),
+              type: z
+                .enum([
+                  'All',
+                  'Function',
+                  'FunctionMethod',
+                  'Procedure',
+                  'ProcedureMethod',
+                  'StructureOrClassDefinition',
+                  'SystemVariable',
+                ])
+                .default('All')
+                .describe('The type of routine to search for.'),
+            })
+          )
+          .describe(
+            'The search queries to look for, returns an array of matches for each query.'
+          ),
+      },
     },
     async (id, { routines }) => {
       /** Init results */

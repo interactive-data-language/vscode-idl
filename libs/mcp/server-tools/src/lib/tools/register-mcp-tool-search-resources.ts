@@ -16,14 +16,19 @@ export function RegisterMCPTool_SearchResources(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_RESOURCES,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.SEARCH_RESOURCES],
-    `Searches known resources about IDL and ENVI and returns the top results with one or more queries. If you are searching for routines, start with ${MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE} instead.`,
     {
-      queries: z
-        .array(z.string())
-        .describe(
-          'The queries to search for, uses fuzzy-style searching so queries should be shorter.'
-        ),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.SEARCH_RESOURCES
+        ],
+      description: `Searches known resources about IDL and ENVI and returns the top results with one or more queries. If you are searching for routines, start with ${MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE} instead.`,
+      inputSchema: {
+        queries: z
+          .array(z.string())
+          .describe(
+            'The queries to search for, uses fuzzy-style searching so queries should be shorter.'
+          ),
+      },
     },
     async (id, { queries }) => {
       /** Init results */

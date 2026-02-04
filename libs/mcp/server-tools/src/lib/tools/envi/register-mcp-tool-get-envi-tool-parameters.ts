@@ -26,14 +26,17 @@ export function RegisterMCPTool_GetENVIToolParameters(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS,
-    IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS
-    ],
-    `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.RUN_ENVI_TOOL}. Here's the process to use these input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
     {
-      taskName: z
-        .string()
-        .describe('Specify an ENVI Task to return the parameter schema for'),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS
+        ],
+      description: `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.RUN_ENVI_TOOL}. Here's the process to use these input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
+      inputSchema: {
+        taskName: z
+          .string()
+          .describe('Specify an ENVI Task to return the parameter schema for'),
+      },
     },
     async (id, { taskName }) => {
       if (!registry.hasTask(taskName)) {

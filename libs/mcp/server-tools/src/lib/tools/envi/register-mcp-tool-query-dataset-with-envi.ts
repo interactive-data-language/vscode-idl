@@ -27,25 +27,30 @@ export function RegisterMCPTool_QueryDatasetWithENVI(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
-    IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI
-    ],
-    QUERY_DATASET_WITH_ENVI_DESCRIPTION,
     {
-      dataset: z
-        .union([
-          MCP_ENVIDeepLearningONNXModel().describe(
-            'An ONNX model configured for ENVI'
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI
+        ],
+      description: QUERY_DATASET_WITH_ENVI_DESCRIPTION,
+      inputSchema: {
+        dataset: z
+          .union([
+            MCP_ENVIDeepLearningONNXModel().describe(
+              'An ONNX model configured for ENVI'
+            ),
+            MCP_ENVIMachineLearningModel().describe(
+              'An machine learning model (i.e. random forest) made with ENVI'
+            ),
+            MCP_ENVIRaster().describe('An ENVI Raster'),
+            MCP_ENVIROI().describe('An ENVI ROI'),
+            MCP_ENVISpectralLibrary().describe('An ENVI spectral library'),
+            MCP_ENVIVector().describe('An ENVI vector file (shapefile)'),
+          ])
+          .describe(
+            'The dataset that you want to query, one of the above types'
           ),
-          MCP_ENVIMachineLearningModel().describe(
-            'An machine learning model (i.e. random forest) made with ENVI'
-          ),
-          MCP_ENVIRaster().describe('An ENVI Raster'),
-          MCP_ENVIROI().describe('An ENVI ROI'),
-          MCP_ENVISpectralLibrary().describe('An ENVI spectral library'),
-          MCP_ENVIVector().describe('An ENVI vector file (shapefile)'),
-        ])
-        .describe('The dataset that you want to query, one of the above types'),
+      },
     },
     async (id, { dataset }) => {
       // strictly typed parameters

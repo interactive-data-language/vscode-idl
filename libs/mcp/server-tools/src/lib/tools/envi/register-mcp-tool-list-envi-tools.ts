@@ -16,9 +16,12 @@ export function RegisterMCPTool_ListENVITools(
   // register tool
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS],
-    `Lists all image processing and spectral analysis tools that ENVI has available. Here's the process to get the list of ENVI Tools and how to use them:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
-    {},
+    {
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS],
+      description: `Lists all image processing and spectral analysis tools that ENVI has available. Here's the process to get the list of ENVI Tools and how to use them:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
+      inputSchema: {},
+    },
     async (id, inputParameters) => {
       return {
         isError: false,

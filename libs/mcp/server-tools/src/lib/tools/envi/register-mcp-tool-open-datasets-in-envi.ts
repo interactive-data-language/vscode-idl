@@ -23,34 +23,38 @@ export function RegisterMCPTool_OpenDatasetsInENVI(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
-    IDL_TRANSLATION.mcp.tools.displayNames[
-      MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI
-    ],
-    'Open one or more raster, raster series, or vector datasets in ENVI and display. The view in ENVI will be centered on the extend of all open datasets after loading.',
     {
-      datasets: z
-        .array(
-          z.union([
-            MCP_ENVIRaster().describe('An ENVI Raster'),
-            MCP_ENVIVector().describe('An ENVI vector file (shapefile)'),
-            MCP_ENVIRasterSeries().describe('An ENVI Raster series file'),
-          ])
-        )
-        .describe(
-          'The datasets to open in ENVI. The order of the array is the order in which items are displayed in ENVI, so the first item is the bottom-most layer.'
-        ),
-      automaticZoom: z
-        .enum(['all-layers', 'last-layer', 'none'])
-        .default('last-layer')
-        .describe(
-          'Automatic zoom strategy when we add a layer. "all-layers" uses the extent of all displayed layers. "last-layer" zooms to the last layer added. "none" means no automatic zooming.'
-        ),
-      resetView: z
-        .boolean()
-        .default(false)
-        .describe(
-          'If true, the ENVI view is reset and all datasets are removed before displaying datasets.'
-        ),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[
+          MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI
+        ],
+      description:
+        'Open one or more raster, raster series, or vector datasets in ENVI and display. The view in ENVI will be centered on the extend of all open datasets after loading.',
+      inputSchema: {
+        datasets: z
+          .array(
+            z.union([
+              MCP_ENVIRaster().describe('An ENVI Raster'),
+              MCP_ENVIVector().describe('An ENVI vector file (shapefile)'),
+              MCP_ENVIRasterSeries().describe('An ENVI Raster series file'),
+            ])
+          )
+          .describe(
+            'The datasets to open in ENVI. The order of the array is the order in which items are displayed in ENVI, so the first item is the bottom-most layer.'
+          ),
+        automaticZoom: z
+          .enum(['all-layers', 'last-layer', 'none'])
+          .default('last-layer')
+          .describe(
+            'Automatic zoom strategy when we add a layer. "all-layers" uses the extent of all displayed layers. "last-layer" zooms to the last layer added. "none" means no automatic zooming.'
+          ),
+        resetView: z
+          .boolean()
+          .default(false)
+          .describe(
+            'If true, the ENVI view is reset and all datasets are removed before displaying datasets.'
+          ),
+      },
     },
     async (id, { datasets, resetView, automaticZoom }) => {
       // strictly typed parameters

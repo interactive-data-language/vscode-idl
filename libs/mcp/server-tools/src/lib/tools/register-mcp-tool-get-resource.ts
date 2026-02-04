@@ -14,10 +14,15 @@ export function RegisterMCPTool_GetResource(
 ) {
   MCPToolRegistry.registerTool(
     MCP_TOOL_LOOKUP.GET_RESOURCE,
-    IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_RESOURCE],
-    `Returns the content for a resource based on the name. The name should come from "${MCP_TOOL_LOOKUP.LIST_ALL_RESOURCES}".`,
     {
-      names: z.array(z.string()).describe('The names of the resource to fetch'),
+      title:
+        IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_RESOURCE],
+      description: `Returns the content for a resource based on the name. The name should come from "${MCP_TOOL_LOOKUP.LIST_ALL_RESOURCES}".`,
+      inputSchema: {
+        names: z
+          .array(z.string())
+          .describe('The names of the resource to fetch'),
+      },
     },
     async (id, { names }) => {
       /** Init results by names of sources */
