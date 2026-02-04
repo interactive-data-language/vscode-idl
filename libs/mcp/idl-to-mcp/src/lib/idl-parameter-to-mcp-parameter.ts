@@ -91,8 +91,6 @@ function IDLParameterToMCPParameter_Recurser(
       // see if we mapped a parameter or not
       if (arrayType) {
         res = z.array(arrayType);
-      } else {
-        res = MCP_List();
       }
       break;
     }
