@@ -9,6 +9,8 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
+import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructions.interface';
 
 /**
@@ -44,6 +46,19 @@ export function RegisterMCPTool_ListENVIToolWorkflows(
       inputSchema: {},
     },
     async (id, inputParameters) => {
+      // make sure ENVI is installed
+      if (!IS_ENVI_INSTALLED) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text: ENVI_INSTALL_MESSAGE,
+            },
+          ],
+        };
+      }
+
       // check for load failure
       if (LOAD_FAILURE) {
         return {

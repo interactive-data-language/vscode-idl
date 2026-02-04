@@ -32,4 +32,7 @@ export function AddAdditionalSearchPaths(
   for (let i = 0; i < enviPaths.length; i++) {
     paths[enviPaths[i]] = true;
   }
+
+  // return if we found ENVI paths
+  return enviPaths.length > 0;
 }

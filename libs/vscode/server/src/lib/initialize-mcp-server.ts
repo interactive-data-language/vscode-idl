@@ -21,7 +21,7 @@ import {
 /**
  * Starts our MCP Server and adds all of our known tools
  */
-export function InitializeMCPServer(port: number) {
+export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
   // check if it is disabled or not
   if (!MCP_CONFIG.enabled) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
@@ -81,7 +81,8 @@ export function InitializeMCPServer(port: number) {
         SendUsageMetricServer(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
           idl_command: `idl.mcp.${toolName}`,
         });
-      }
+      },
+      isEnviInstalled
     );
 
     // register all tools that require the language server (IDL Index) to function

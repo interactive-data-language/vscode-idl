@@ -36,12 +36,18 @@ let REGISTERED = false;
 export let TOOL_INVOKED_CALLBACK: MCPToolInvokedCallback<MCPTools> = () => {};
 
 /**
+ *
+ */
+export let IS_ENVI_INSTALLED = false;
+
+/**
  * Helper that adds all tools to the MCP server
  */
 export function RegisterAllMCPTools(
   messenger: VSCodeLanguageServerMessenger,
   logManager: LogManager,
-  toolInvokedCallback: MCPToolInvokedCallback<MCPTools>
+  toolInvokedCallback: MCPToolInvokedCallback<MCPTools>,
+  isEnviInstalled: boolean
 ) {
   if (!IS_MCP_SERVER_STARTED) {
     return;
@@ -50,7 +56,10 @@ export function RegisterAllMCPTools(
     return;
   }
 
-  // save tol logs
+  // update flag for ENVI being installed
+  IS_ENVI_INSTALLED = isEnviInstalled;
+
+  // save tool log callback
   TOOL_INVOKED_CALLBACK = toolInvokedCallback;
 
   /**

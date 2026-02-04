@@ -158,7 +158,7 @@ SERVER_INFO.then(async (res) => {
     const merged = { ...res[0], ...res[1] };
 
     // register other paths we need to index
-    AddAdditionalSearchPaths(merged, idlBin);
+    const foundEnvi = AddAdditionalSearchPaths(merged, idlBin);
 
     // alert users
     IDL_LANGUAGE_SERVER_LOGGER.log({
@@ -176,7 +176,10 @@ SERVER_INFO.then(async (res) => {
      * We do this here because we need information from VSCode about whether
      * we can launch the server or not
      */
-    InitializeMCPServer(SERVER_INITIALIZATION_OPTIONS.serverPorts.mcp);
+    InitializeMCPServer(
+      SERVER_INITIALIZATION_OPTIONS.serverPorts.mcp,
+      foundEnvi
+    );
 
     /**
      * Check if we can't detect the number of CPUs

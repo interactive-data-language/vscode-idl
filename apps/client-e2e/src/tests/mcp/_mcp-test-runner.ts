@@ -2,6 +2,7 @@ import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
 import { RunMCPTestValidateMCPConnection } from './mcp-test-validate-mcp-connection';
+import { RunMCPENVINotInstalledErrors } from './tools/envi/mcp-envi-not-installed-errors';
 import { RunMCPTestInvalidENVIToolWorkflowName } from './tools/envi/mcp-test-envi-invalid-envi-tool-workflow-name';
 import { RunMCPTestInvalidENVIToolName } from './tools/envi/mcp-test-envi-invalid-tool-name';
 import { RunMCPTestENVIToolNotesLoad } from './tools/envi/mcp-test-envi-tool-notes-load';
@@ -307,6 +308,17 @@ MCP_TEST_RUNNER.addTest({
   ],
 });
 
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPENVINotInstalledErrors,
+  name: 'Verify errors with ENVI Tools when not installed',
+  includeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
+});
+
 /**
  * =======================================================================
  * Regression tests
@@ -315,9 +327,21 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestListENVIToolsRegression,
   name: 'List ENVI Tools regression test',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestGetENVIToolParametersRegression,
   name: 'Get ENVI Tool Parameters regression test',
+  excludeOS: [
+    {
+      os: ['darwin'],
+      architecture: ['arm', 'arm64'],
+    },
+  ],
 });

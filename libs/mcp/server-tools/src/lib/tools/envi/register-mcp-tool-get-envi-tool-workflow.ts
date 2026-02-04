@@ -4,6 +4,8 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
+import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructions.interface';
 import { ENVI_TOOL_WORKFLOW_REGISTRY } from './register-mcp-tool-list-envi-tool-workflows';
 
@@ -27,6 +29,19 @@ export function RegisterMCPTool_GetENVIToolWorkflow(
       },
     },
     async (id, { name }) => {
+      // make sure ENVI is installed
+      if (!IS_ENVI_INSTALLED) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text: ENVI_INSTALL_MESSAGE,
+            },
+          ],
+        };
+      }
+
       // make sure it exists
       if (!ENVI_TOOL_WORKFLOW_REGISTRY.hasWorkflow(name)) {
         return {

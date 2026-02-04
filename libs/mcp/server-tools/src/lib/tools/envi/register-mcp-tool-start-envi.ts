@@ -9,6 +9,8 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
+import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 
 /**
  * Registers a tool that allows us to start ENVI
@@ -29,6 +31,19 @@ export function RegisterMCPTool_StartENVI(
       },
     },
     async (id, { headless }) => {
+      // make sure ENVI is installed
+      if (!IS_ENVI_INSTALLED) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text: ENVI_INSTALL_MESSAGE,
+            },
+          ],
+        };
+      }
+
       // strictly typed parameters
       const params: MCPToolParams<MCPTool_StartENVI> = {
         headless,
