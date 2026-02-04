@@ -1,5 +1,6 @@
 import { LogManager } from '@idl/logger';
 import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
+import { MCPToolInvokedCallback, MCPTools } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { MCPToolContext } from './mcp-tool-context.class';
@@ -29,11 +30,18 @@ export const MCP_TOOL_CONTEXT = new MCPToolContext();
 let REGISTERED = false;
 
 /**
+ * Placeholder for tool callback
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export let TOOL_INVOKED_CALLBACK: MCPToolInvokedCallback<MCPTools> = () => {};
+
+/**
  * Helper that adds all tools to the MCP server
  */
 export function RegisterAllMCPTools(
   messenger: VSCodeLanguageServerMessenger,
-  logManager: LogManager
+  logManager: LogManager,
+  toolInvokedCallback: MCPToolInvokedCallback<MCPTools>
 ) {
   if (!IS_MCP_SERVER_STARTED) {
     return;
@@ -42,13 +50,16 @@ export function RegisterAllMCPTools(
     return;
   }
 
+  // save tol logs
+  TOOL_INVOKED_CALLBACK = toolInvokedCallback;
+
   /**
    * Register generic tools
    */
   RegisterMCPTool_GetResource(messenger);
   RegisterMCPTool_ListAllResources(messenger);
-  RegisterMCPTool_SearchResources(messenger, logManager);
   RegisterMCPTool_SearchForFiles(messenger);
+  RegisterMCPTool_SearchResources(messenger, logManager);
 
   /**
    * Register IDL tools

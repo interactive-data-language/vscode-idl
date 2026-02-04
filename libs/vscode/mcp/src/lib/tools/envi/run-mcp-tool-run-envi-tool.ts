@@ -4,7 +4,9 @@ import {
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
+import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { StartIDL } from '@idl/vscode/debug';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 
 import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command';
 import { MCPSerializeJSON } from '../../helpers/mcp-serialize-json';
@@ -57,6 +59,11 @@ export async function RunMCPTool_RunENVITool(
 
   // attempting to run ENVI task
   VSCodeSendMCPNotification(id, { message: 'Running task' });
+
+  // track high-level task called
+  VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+    idl_command: `idl.mcp.runTask.${params.taskName}`,
+  });
 
   // run our command to open in ENVI
   const res = await MCPEvaluateENVICommand(

@@ -9,7 +9,10 @@ import {
   MCPRegistryToolCallback,
   MCPRegistryToolInfo,
 } from './mcp-tool-registry.interface';
-import { MCP_TOOL_CONTEXT } from './register-all-mcp-tools';
+import {
+  MCP_TOOL_CONTEXT,
+  TOOL_INVOKED_CALLBACK,
+} from './register-all-mcp-tools';
 
 /**
  * Queue to throttle MCP server requests
@@ -39,6 +42,9 @@ export class MCPToolRegistry {
       try {
         // init result
         let res: MCPToolHTTPResponse<Tool>;
+
+        // call invoked callback
+        TOOL_INVOKED_CALLBACK(name);
 
         // run tool one at a time
         await TOOL_EXECUTION_QUEUE.add(async () => {

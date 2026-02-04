@@ -7,10 +7,12 @@ import { StartMCPServer } from '@idl/mcp/server';
 import { RegisterAllMCPResources } from '@idl/mcp/server-resources';
 import { MCP_TOOL_CONTEXT, RegisterAllMCPTools } from '@idl/mcp/server-tools';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 
 import { IDL_INDEX } from './events/initialize-document-manager';
 import { MCP_CONFIG } from './helpers/merge-config';
+import { SendUsageMetricServer } from './helpers/send-usage-metric-server';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
@@ -72,7 +74,15 @@ export function InitializeMCPServer(port: number) {
     }
 
     // register all of our tools
-    RegisterAllMCPTools(SERVER_MESSENGER, IDL_LANGUAGE_SERVER_LOGGER);
+    RegisterAllMCPTools(
+      SERVER_MESSENGER,
+      IDL_LANGUAGE_SERVER_LOGGER,
+      (toolName) => {
+        SendUsageMetricServer(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          idl_command: `idl.mcp.${toolName}`,
+        });
+      }
+    );
 
     // register all tools that require the language server (IDL Index) to function
     RegisterAllLanguageServerMCPTools(
