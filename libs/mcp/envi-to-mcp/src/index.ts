@@ -6,6 +6,7 @@ export * from './lib/mcp-envi-deep-learning-label-raster';
 export * from './lib/mcp-envi-deep-learning-object-detection-raster';
 export * from './lib/mcp-envi-deep-learning-onnx-model';
 export * from './lib/mcp-envi-deep-learning-raster';
+export * from './lib/mcp-envi-feature-count';
 export * from './lib/mcp-envi-gcp-set';
 export * from './lib/mcp-envi-geojson';
 export * from './lib/mcp-envi-grid-definition';

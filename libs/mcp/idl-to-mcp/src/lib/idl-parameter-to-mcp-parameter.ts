@@ -7,6 +7,7 @@ import {
   MCP_ENVIDeepLearningObjectDetectionRaster,
   MCP_ENVIDeepLearningONNXModel,
   MCP_ENVIDeepLearningRaster,
+  MCP_ENVIFeatureCount,
   MCP_ENVIGCPSet,
   MCP_ENVIGeoJSON,
   MCP_ENVIGridDefinition,
@@ -196,6 +197,13 @@ function IDLParameterToMCPParameter_Recurser(
      */
     case IDLTypeHelper.isType(type, 'envigriddefinition'):
       res = MCP_ENVIGridDefinition();
+      break;
+
+    /**
+     * FeatureCount
+     */
+    case IDLTypeHelper.isType(type, 'envifeaturecount'):
+      res = MCP_ENVIFeatureCount();
       break;
 
     /**
