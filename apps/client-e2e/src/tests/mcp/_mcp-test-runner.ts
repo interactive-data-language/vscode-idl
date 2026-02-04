@@ -1,10 +1,12 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
+import { IOSDefinition } from '../runner.interface';
 import { RunMCPTestValidateMCPConnection } from './mcp-test-validate-mcp-connection';
 import { RunMCPENVINotInstalledErrors } from './tools/envi/mcp-envi-not-installed-errors';
 import { RunMCPTestInvalidENVIToolWorkflowName } from './tools/envi/mcp-test-envi-invalid-envi-tool-workflow-name';
 import { RunMCPTestInvalidENVIToolName } from './tools/envi/mcp-test-envi-invalid-tool-name';
+import { RunMCPTestENVIRasterArray } from './tools/envi/mcp-test-envi-raster-array';
 import { RunMCPTestENVIToolNotesLoad } from './tools/envi/mcp-test-envi-tool-notes-load';
 import { RunMCPTestENVIToolParameterValidation } from './tools/envi/mcp-test-envi-tool-parameter-validation';
 import { RunMCPTestListENVIToolWorkflows } from './tools/envi/mcp-test-list-envi-tool-workflows';
@@ -54,6 +56,16 @@ export const MCP_TEST_LOGGER = new Logger(
  * Test runner for debugging
  */
 export const MCP_TEST_RUNNER = new Runner(MCP_TEST_LOGGER);
+
+/**
+ * OS to exclude
+ */
+const ENVI_TEST_EXCLUDE_OS: IOSDefinition[] = [
+  {
+    os: ['darwin'],
+    architecture: ['arm', 'arm64'],
+  },
+];
 
 /**
  * =======================================================================
@@ -177,12 +189,7 @@ MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestStartENVI,
   name: 'Start ENVI with and without the UI',
   critical: true,
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
@@ -208,104 +215,73 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestRunENVITool,
   name: 'Run simple tool and get expected results',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestENVIRasterArray,
+  name: 'Run simple tool to test array parameters work',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestListENVIToolWorkflows,
   name: 'Verify we can list ENVI Tool Workflows',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestGetENVIToolWorkflow,
   name: 'Verify we can list ENVI Tool Workflows and retrieve by name',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestInvalidENVIToolWorkflowName,
   name: 'Verify retrieving workflows with bad name fails',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_Raster,
   name: 'Query dataset works (Raster)',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_ROI,
   name: 'Query dataset works (ROI)',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_SpectralLibrary,
   name: 'Query dataset works (Spectral Library)',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_Vector,
   name: 'Query dataset works (Vector)',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestOpenDatasetsInENVI_Raster,
   name: 'Open dataset (Raster)',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestOpenDatasetsInENVI_RasterSeries,
   name: 'Open dataset (Raster Series)',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestOpenDatasetsInENVI_Vector,
   name: 'Open dataset (Vector)',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
@@ -327,21 +303,11 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestListENVIToolsRegression,
   name: 'List ENVI Tools regression test',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestGetENVIToolParametersRegression,
   name: 'Get ENVI Tool Parameters regression test',
-  excludeOS: [
-    {
-      os: ['darwin'],
-      architecture: ['arm', 'arm64'],
-    },
-  ],
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
