@@ -12,7 +12,7 @@ import {
 import { MCP_TOOL_CONTEXT } from './register-all-mcp-tools';
 
 /**
- * Queu to throttle MCP server requests
+ * Queue to throttle MCP server requests
  */
 const TOOL_EXECUTION_QUEUE = new SimplePromiseQueue();
 
