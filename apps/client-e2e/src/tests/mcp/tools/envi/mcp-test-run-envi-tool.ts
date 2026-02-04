@@ -11,6 +11,7 @@ import { join } from 'path';
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { ENVITestDatasets } from '../../helpers/envi-test-datasets.class';
+import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
 
 /**
  * Makes sure we can run a simple ENVI tool
@@ -34,6 +35,9 @@ export const RunMCPTestRunENVITool: RunnerFunction = async (init) => {
     },
     interactive: false,
   });
+
+  // log
+  LogWhenExpectSuccess(result);
 
   // make sure the tool runs
   expect(result.isError).toBeFalsy();

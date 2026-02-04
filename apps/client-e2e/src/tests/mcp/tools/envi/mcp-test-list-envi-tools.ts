@@ -3,6 +3,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
 
 /**
  * Makes sure we can list ENVI's tools and that we have more
@@ -11,6 +12,9 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 export const RunMCPTestListENVITools: RunnerFunction = async (init) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS, {});
+
+  // log
+  LogWhenExpectSuccess(result);
 
   // make sure the tool runs
   expect(result.isError).toBeFalsy();

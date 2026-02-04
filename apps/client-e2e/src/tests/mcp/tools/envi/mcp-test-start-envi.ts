@@ -6,6 +6,7 @@ import expect from 'expect';
 import { DEBUG_PAUSE } from '../../../debugging/_shared.interface';
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
 
 /**
  * Makes sure we can start ENVI through MCP
@@ -17,6 +18,9 @@ export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
   const resultHeadless = await CallMCPTool(MCP_TOOL_LOOKUP.START_ENVI, {
     headless: true,
   });
+
+  // log
+  LogWhenExpectSuccess(resultHeadless);
 
   // make sure the tool runs
   expect(resultHeadless.isError).toBeFalsy();
@@ -45,6 +49,9 @@ export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
   const resultUI = await CallMCPTool(MCP_TOOL_LOOKUP.START_ENVI, {
     headless: false,
   });
+
+  // log
+  LogWhenExpectSuccess(resultUI);
 
   // make sure the tool runs
   expect(resultUI.isError).toBeFalsy();
