@@ -6,6 +6,7 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { MCPToolContext } from './mcp-tool-context.class';
 import { RegisterMCPTool_GetENVIToolWorkflow } from './tools/envi/register-mcp-tool-get-envi-tool-workflow';
 import { RegisterMCPTool_ListENVIToolWorkflows } from './tools/envi/register-mcp-tool-list-envi-tool-workflows';
+import { RegisterMCPTool_ManageENVIAndIDLSession } from './tools/envi/register-mcp-tool-manage-envi-and-idl-session';
 import { RegisterMCPTool_OpenDatasetsInENVI } from './tools/envi/register-mcp-tool-open-datasets-in-envi';
 import { RegisterMCPTool_QueryDatasetWithENVI } from './tools/envi/register-mcp-tool-query-dataset-with-envi';
 import { RegisterMCPTool_StartENVI } from './tools/envi/register-mcp-tool-start-envi';
@@ -77,6 +78,11 @@ export function RegisterAllMCPTools(
   RegisterMCPTool_ExecuteIDLCode(messenger);
   RegisterMCPTool_ExecuteIDLFile(messenger);
   RegisterMCPTool_StartIDL(messenger);
+
+  /**
+   * Register ENVI and IDL tools
+   */
+  RegisterMCPTool_ManageENVIAndIDLSession(messenger);
 
   /**
    * ENVI tools

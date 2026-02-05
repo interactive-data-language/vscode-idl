@@ -13,6 +13,7 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 
 import { RunMCPTool_ListENVIToolWorkflows } from './tools/envi/run-mcp-tool-list-envi-tool-workflows';
+import { RunMCPTool_ManageENVIAndIDLSession } from './tools/run-mcp-tool-manage-envi-and-idl-session';
 import { RunMCPTool_OpenDatasetsInENVI } from './tools/envi/run-mcp-tool-open-datasets-in-envi';
 import { RunMCPTool_QueryDatasetWithENVI } from './tools/envi/run-mcp-tool-query-dataset-with-envi';
 import { RunMCPTool_RunENVITool } from './tools/envi/run-mcp-tool-run-envi-tool';
@@ -36,6 +37,7 @@ export const MCP_TOOL_LOOKUP: {
   'execute-idl-code': RunMCPTool_ExecuteIDLCode,
   'execute-idl-file': RunMCPTool_ExecuteIDLFile,
   'list-envi-tool-workflows': RunMCPTool_ListENVIToolWorkflows,
+  'manage-envi-and-idl-session': RunMCPTool_ManageENVIAndIDLSession,
   'open-datasets-in-envi': RunMCPTool_OpenDatasetsInENVI,
   'query-dataset-with-envi': RunMCPTool_QueryDatasetWithENVI,
   'return-notes': RunMCPTool_ReturnNotes,

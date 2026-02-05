@@ -17,6 +17,7 @@ export * from './lib/vscode/mcp-tool-create-idl-notebook.interface';
 export * from './lib/vscode/mcp-tool-execute-idl-code.interface';
 export * from './lib/vscode/mcp-tool-execute-idl-file.interface';
 export * from './lib/vscode/mcp-tool-list-envi-tool-workflows.interface';
+export * from './lib/vscode/mcp-tool-manage-envi-and-idl-session.interface';
 export * from './lib/vscode/mcp-tool-open-datasets-in-envi.interface';
 export * from './lib/vscode/mcp-tool-query-dataset-with-envi.interface';
 export * from './lib/vscode/mcp-tool-return-notes.interface';

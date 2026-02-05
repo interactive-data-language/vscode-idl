@@ -12,6 +12,7 @@ import { RunMCPTestENVIToolParameterValidation } from './tools/envi/mcp-test-env
 import { RunMCPTestListENVIToolWorkflows } from './tools/envi/mcp-test-list-envi-tool-workflows';
 import { RunMCPTestListENVITools } from './tools/envi/mcp-test-list-envi-tools';
 import { RunMCPTestGetENVIToolWorkflow } from './tools/envi/mcp-test-list-get-envi-tool-workflow';
+import { RunMCPManageENVIAndIDLSession } from './tools/envi/mcp-test-manage-envi-and-idl-session';
 import { RunMCPTestRunENVITool } from './tools/envi/mcp-test-run-envi-tool';
 import { RunMCPTestStartENVI } from './tools/envi/mcp-test-start-envi';
 import { RunMCPTestOpenDatasetsInENVI_Raster } from './tools/envi/open-datasets/mcp-test-open-datasets-in-envi-raster';
@@ -281,6 +282,12 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestOpenDatasetsInENVI_Vector,
   name: 'Open dataset (Vector)',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPManageENVIAndIDLSession,
+  name: 'Make sure we can properly manage our ENVI and IDL sessions',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 

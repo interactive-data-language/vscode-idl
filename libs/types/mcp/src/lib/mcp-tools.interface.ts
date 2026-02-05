@@ -20,6 +20,7 @@ import { MCPTool_CreateIDLNotebook } from './vscode/mcp-tool-create-idl-notebook
 import { MCPTool_ExecuteIDLCode } from './vscode/mcp-tool-execute-idl-code.interface';
 import { MCPTool_ExecuteIDLFile } from './vscode/mcp-tool-execute-idl-file.interface';
 import { MCPTool_ListENVIToolWorkflows } from './vscode/mcp-tool-list-envi-tool-workflows.interface';
+import { MCPTool_ManageENVIAndIDLSession } from './vscode/mcp-tool-manage-envi-and-idl-session.interface';
 import { MCPTool_OpenDatasetsInENVI } from './vscode/mcp-tool-open-datasets-in-envi.interface';
 import { MCPTool_QueryDatasetWithENVI } from './vscode/mcp-tool-query-dataset-with-envi.interface';
 import { MCPTool_ReturnNotes } from './vscode/mcp-tool-return-notes.interface';
@@ -79,6 +80,8 @@ interface IMCPToolLookup {
   LIST_ENVI_TOOL_WORKFLOWS: MCPTool_ListENVIToolWorkflows;
   /** Query ENVI's tasks */
   LIST_ENVI_TOOLS: MCPTool_ListENVITools;
+  /** Manage ENVI and IDL session */
+  MANAGE_ENVI_AND_IDL_SESSION: MCPTool_ManageENVIAndIDLSession;
   /** Open a dataset in ENVI */
   OPEN_DATASETS_IN_ENVI: MCPTool_OpenDatasetsInENVI;
   /** Get additional information about a dataset */
@@ -113,6 +116,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   LIST_ALL_RESOURCES: 'list-all-resources',
   LIST_ENVI_TOOL_WORKFLOWS: 'list-envi-tool-workflows',
   LIST_ENVI_TOOLS: 'list-envi-tools',
+  MANAGE_ENVI_AND_IDL_SESSION: 'manage-envi-and-idl-session',
   OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',
   RETURN_NOTES: 'return-notes',

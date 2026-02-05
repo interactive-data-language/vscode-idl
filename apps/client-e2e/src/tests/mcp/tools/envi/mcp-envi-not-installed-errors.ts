@@ -85,4 +85,22 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
       })
     ).isError
   ).toBeTruthy();
+
+  // manage ENVI session
+  expect(
+    (
+      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_ENVI_AND_IDL_SESSION, {
+        action: 'restart-envi-ui',
+      })
+    ).isError
+  ).toBeTruthy();
+
+  // manage ENVI session
+  expect(
+    (
+      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_ENVI_AND_IDL_SESSION, {
+        action: 'restart-envi-headless',
+      })
+    ).isError
+  ).toBeTruthy();
 };

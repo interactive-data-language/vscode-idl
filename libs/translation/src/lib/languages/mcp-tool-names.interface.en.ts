@@ -18,6 +18,7 @@ export const MCPToolNames_EN: ValsOfToStrings<MCPTools> = {
   'list-all-resources': 'List All Resources',
   'list-envi-tool-workflows': 'List ENVI Tool Workflows',
   'list-envi-tools': 'List ENVI Tools',
+  'manage-envi-and-idl-session': 'Manage ENVI and IDL Session',
   'open-datasets-in-envi': 'Open Datasets in ENVI',
   'query-dataset-with-envi': 'Query Dataset with ENVI',
   'return-notes': 'Return Notes',
