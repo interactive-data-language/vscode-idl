@@ -1,6 +1,6 @@
 import { ITranslation } from '../../translation.interface';
-import { MCPToolNames_EN } from '../mcp-tool-names.interface.en';
 import { HOVER_HELP_EN } from './hover-help.en';
+import { MCPToolNames_EN } from './mcp-tool-names.interface.en';
 
 /**
  * English translation

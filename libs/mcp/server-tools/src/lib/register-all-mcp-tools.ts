@@ -6,16 +6,14 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { MCPToolContext } from './mcp-tool-context.class';
 import { RegisterMCPTool_GetENVIToolWorkflow } from './tools/envi/register-mcp-tool-get-envi-tool-workflow';
 import { RegisterMCPTool_ListENVIToolWorkflows } from './tools/envi/register-mcp-tool-list-envi-tool-workflows';
-import { RegisterMCPTool_ManageENVIAndIDLSession } from './tools/envi/register-mcp-tool-manage-envi-and-idl-session';
 import { RegisterMCPTool_OpenDatasetsInENVI } from './tools/envi/register-mcp-tool-open-datasets-in-envi';
 import { RegisterMCPTool_QueryDatasetWithENVI } from './tools/envi/register-mcp-tool-query-dataset-with-envi';
-import { RegisterMCPTool_StartENVI } from './tools/envi/register-mcp-tool-start-envi';
 import { RegisterMCPTool_CreateIDLNotebook } from './tools/idl/register-mcp-tool-create-idl-notebook';
 import { RegisterMCPTool_ExecuteIDLCode } from './tools/idl/register-mcp-tool-execute-idl-code';
 import { RegisterMCPTool_ExecuteIDLFile } from './tools/idl/register-mcp-tool-execute-idl-file';
-import { RegisterMCPTool_StartIDL } from './tools/idl/register-mcp-tool-start-idl';
 import { RegisterMCPTool_GetResource } from './tools/register-mcp-tool-get-resource';
 import { RegisterMCPTool_ListAllResources } from './tools/register-mcp-tool-list-all-resources';
+import { RegisterMCPTool_ManageIDLAndENVISession } from './tools/register-mcp-tool-manage-idl-and-envi-session';
 import { RegisterMCPTool_SearchForFiles } from './tools/register-mcp-tool-search-for-files';
 import { RegisterMCPTool_SearchResources } from './tools/register-mcp-tool-search-resources';
 
@@ -77,12 +75,11 @@ export function RegisterAllMCPTools(
   RegisterMCPTool_CreateIDLNotebook(messenger);
   RegisterMCPTool_ExecuteIDLCode(messenger);
   RegisterMCPTool_ExecuteIDLFile(messenger);
-  RegisterMCPTool_StartIDL(messenger);
 
   /**
-   * Register ENVI and IDL tools
+   * Register ENVI and IDL shared tools
    */
-  RegisterMCPTool_ManageENVIAndIDLSession(messenger);
+  RegisterMCPTool_ManageIDLAndENVISession(messenger);
 
   /**
    * ENVI tools
@@ -93,7 +90,6 @@ export function RegisterAllMCPTools(
   RegisterMCPTool_ListENVIToolWorkflows(messenger);
   RegisterMCPTool_OpenDatasetsInENVI(messenger);
   RegisterMCPTool_QueryDatasetWithENVI(messenger);
-  RegisterMCPTool_StartENVI(messenger);
 
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;

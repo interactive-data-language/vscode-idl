@@ -1,6 +1,6 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPTool_StartENVI,
+  MCPTool_ManageIDLAndENVISession,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -15,8 +15,8 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
  */
 export async function RunMCPTool_StartENVI(
   id: string,
-  params: MCPToolParams<MCPTool_StartENVI>
-): Promise<MCPToolResponse<MCPTool_StartENVI>> {
+  params: MCPToolParams<MCPTool_ManageIDLAndENVISession>
+): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {
   VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
 
   /**
@@ -39,9 +39,18 @@ export async function RunMCPTool_StartENVI(
 
   VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
 
+  /**
+   * Check if UI or not
+   */
+  const headless =
+    params.action === 'restart-envi-headless' ||
+    params.action === 'start-envi-headless'
+      ? true
+      : false;
+
   // execute our command
   const res = await MCPEvaluateENVICommand(
-    `vscode_startENVI, headless = ${params.headless ? '!true' : '!false'}`
+    `vscode_startENVI, headless = ${headless ? '!true' : '!false'}`
   );
 
   return {

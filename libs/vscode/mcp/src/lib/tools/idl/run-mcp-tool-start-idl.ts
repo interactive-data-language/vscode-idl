@@ -1,5 +1,5 @@
 import {
-  MCPTool_StartIDL,
+  MCPTool_ManageIDLAndENVISession,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -12,8 +12,8 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
  */
 export async function RunMCPTool_StartIDL(
   id: string,
-  params: MCPToolParams<MCPTool_StartIDL>
-): Promise<MCPToolResponse<MCPTool_StartIDL>> {
+  params: MCPToolParams<MCPTool_ManageIDLAndENVISession>
+): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {
   VSCodeSendMCPNotification(id, {
     message: 'Starting IDL session',
   });

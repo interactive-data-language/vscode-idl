@@ -8,15 +8,6 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  * Makes sure MCP tools fail when errors run
  */
 export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
-  // start ENVI
-  expect(
-    (
-      await CallMCPTool(MCP_TOOL_LOOKUP.START_ENVI, {
-        headless: true,
-      })
-    ).isError
-  ).toBeTruthy();
-
   // list ENVI tools
   expect(
     (await CallMCPTool(MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS, {})).isError
@@ -86,11 +77,20 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
     ).isError
   ).toBeTruthy();
 
-  // manage ENVI session
+  // start ENVI
   expect(
     (
-      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_ENVI_AND_IDL_SESSION, {
-        action: 'restart-envi-ui',
+      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+        action: 'start-envi',
+      })
+    ).isError
+  ).toBeTruthy();
+
+  // start ENVI
+  expect(
+    (
+      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+        action: 'start-envi-headless',
       })
     ).isError
   ).toBeTruthy();
@@ -98,7 +98,16 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   // manage ENVI session
   expect(
     (
-      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_ENVI_AND_IDL_SESSION, {
+      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+        action: 'restart-envi',
+      })
+    ).isError
+  ).toBeTruthy();
+
+  // manage ENVI session
+  expect(
+    (
+      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
         action: 'restart-envi-headless',
       })
     ).isError

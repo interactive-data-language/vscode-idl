@@ -13,15 +13,13 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 
 import { RunMCPTool_ListENVIToolWorkflows } from './tools/envi/run-mcp-tool-list-envi-tool-workflows';
-import { RunMCPTool_ManageENVIAndIDLSession } from './tools/run-mcp-tool-manage-envi-and-idl-session';
 import { RunMCPTool_OpenDatasetsInENVI } from './tools/envi/run-mcp-tool-open-datasets-in-envi';
 import { RunMCPTool_QueryDatasetWithENVI } from './tools/envi/run-mcp-tool-query-dataset-with-envi';
 import { RunMCPTool_RunENVITool } from './tools/envi/run-mcp-tool-run-envi-tool';
-import { RunMCPTool_StartENVI } from './tools/envi/run-mcp-tool-start-envi';
 import { RunMCPTool_CreateIDLNotebook } from './tools/idl/run-mcp-tool-create-idl-notebook';
 import { RunMCPTool_ExecuteIDLCode } from './tools/idl/run-mcp-tool-execute-idl-code';
 import { RunMCPTool_ExecuteIDLFile } from './tools/idl/run-mcp-tool-execute-idl-file';
-import { RunMCPTool_StartIDL } from './tools/idl/run-mcp-tool-start-idl';
+import { RunMCPTool_ManageENVIAndIDLSession } from './tools/run-mcp-tool-manage-envi-and-idl-session';
 import { RunMCPTool_ReturnNotes } from './tools/run-mcp-tool-return-notes';
 
 /**
@@ -37,13 +35,11 @@ export const MCP_TOOL_LOOKUP: {
   'execute-idl-code': RunMCPTool_ExecuteIDLCode,
   'execute-idl-file': RunMCPTool_ExecuteIDLFile,
   'list-envi-tool-workflows': RunMCPTool_ListENVIToolWorkflows,
-  'manage-envi-and-idl-session': RunMCPTool_ManageENVIAndIDLSession,
+  'manage-idl-and-envi-session': RunMCPTool_ManageENVIAndIDLSession,
   'open-datasets-in-envi': RunMCPTool_OpenDatasetsInENVI,
   'query-dataset-with-envi': RunMCPTool_QueryDatasetWithENVI,
   'return-notes': RunMCPTool_ReturnNotes,
   'run-envi-tool': RunMCPTool_RunENVITool,
-  'start-envi': RunMCPTool_StartENVI,
-  'start-idl': RunMCPTool_StartIDL,
 };
 
 /**

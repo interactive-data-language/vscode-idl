@@ -14,6 +14,8 @@ import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 
 /**
  * Registers a tool that allows us to start ENVI
+ *
+ * @deprecated Use manage IDL and ENVI session
  */
 export function RegisterMCPTool_StartENVI(
   messenger: VSCodeLanguageServerMessenger

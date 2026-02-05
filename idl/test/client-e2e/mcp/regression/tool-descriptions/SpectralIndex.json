@@ -1,9 +1,3 @@
 [
-  "This task creates a spectral index raster from one pre-defined spectral index. Spectral indices are combinations of surface reflectance at two or more wavelengths that indicate relative abundance of features of interest. ",
-  "",
-  "Use the SpectralIndices task to create a raster with one or more bands, where each band represents a different spectral index.",
-  "",
-  " The data-ignore value of the output raster is set to -1034.",
-  "",
-  "The virtual raster associated with this task is ENVISpectralIndexRaster."
+  "This task creates a spectral index raster from one pre-defined spectral index. Spectral indices are combinations of surface reflectance at two or more wavelengths that indicate relative abundance of features of interest."
 ]

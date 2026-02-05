@@ -1,6 +1,6 @@
 import { Sleep } from '@idl/shared/extension';
 import {
-  MCPTool_ManageENVIAndIDLSession,
+  MCPTool_ManageIDLAndENVISession,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -15,8 +15,26 @@ import { RunMCPTool_StartIDL } from './idl/run-mcp-tool-start-idl';
  */
 export async function RunMCPTool_ManageENVIAndIDLSession(
   id: string,
-  params: MCPToolParams<MCPTool_ManageENVIAndIDLSession>
-): Promise<MCPToolResponse<MCPTool_ManageENVIAndIDLSession>> {
+  params: MCPToolParams<MCPTool_ManageIDLAndENVISession>
+): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {
+  /**
+   * Check if we are starting
+   */
+  switch (params.action) {
+    case 'start-envi':
+      return RunMCPTool_StartENVI(id, params);
+    case 'start-envi-headless':
+      return RunMCPTool_StartENVI(id, params);
+    case 'start-idl':
+      return RunMCPTool_StartIDL(id, params);
+    default:
+      break;
+  }
+
+  /**
+   * If not starting, then we are restarting
+   */
+
   // Check if IDL is running
   if (!IDL_DEBUG_ADAPTER.isStarted()) {
     return {
@@ -45,16 +63,19 @@ export async function RunMCPTool_ManageENVIAndIDLSession(
   await Sleep(1000);
 
   /**
-   * Start IDL
+   * Determine how to restart
    */
-  const idlStart = await RunMCPTool_StartIDL(id, {});
-
-  // check action or failure and return if needed
-  if (params.action === 'restart-idl' && !idlStart.success) {
-    return idlStart;
+  switch (params.action) {
+    case 'restart-envi':
+      return RunMCPTool_StartENVI(id, params);
+    case 'restart-envi-headless':
+      return RunMCPTool_StartENVI(id, params);
+    case 'restart-idl':
+      return RunMCPTool_StartIDL(id, params);
+    default:
+      return {
+        success: false,
+        err: `Unknown restart option of "${params.action}"`,
+      };
   }
-
-  return RunMCPTool_StartENVI(id, {
-    headless: params.action === 'restart-envi-headless' ? true : false,
-  });
 }

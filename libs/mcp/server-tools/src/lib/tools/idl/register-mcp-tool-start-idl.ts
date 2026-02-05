@@ -11,6 +11,8 @@ import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 
 /**
  * Registers a tool that allows us to start IDL
+ *
+ * @deprecated Use manage IDL and ENVI session
  */
 export function RegisterMCPTool_StartIDL(
   messenger: VSCodeLanguageServerMessenger

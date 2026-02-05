@@ -20,13 +20,11 @@ import { MCPTool_CreateIDLNotebook } from './vscode/mcp-tool-create-idl-notebook
 import { MCPTool_ExecuteIDLCode } from './vscode/mcp-tool-execute-idl-code.interface';
 import { MCPTool_ExecuteIDLFile } from './vscode/mcp-tool-execute-idl-file.interface';
 import { MCPTool_ListENVIToolWorkflows } from './vscode/mcp-tool-list-envi-tool-workflows.interface';
-import { MCPTool_ManageENVIAndIDLSession } from './vscode/mcp-tool-manage-envi-and-idl-session.interface';
+import { MCPTool_ManageIDLAndENVISession } from './vscode/mcp-tool-manage-idl-and-envi-session.interface';
 import { MCPTool_OpenDatasetsInENVI } from './vscode/mcp-tool-open-datasets-in-envi.interface';
 import { MCPTool_QueryDatasetWithENVI } from './vscode/mcp-tool-query-dataset-with-envi.interface';
 import { MCPTool_ReturnNotes } from './vscode/mcp-tool-return-notes.interface';
 import { MCPTool_RunENVITool } from './vscode/mcp-tool-run-envi-tool.interface';
-import { MCPTool_StartENVI } from './vscode/mcp-tool-start-envi.interface';
-import { MCPTool_StartIDL } from './vscode/mcp-tool-start-idl.interface';
 
 /**
  * All MCP tools
@@ -81,7 +79,7 @@ interface IMCPToolLookup {
   /** Query ENVI's tasks */
   LIST_ENVI_TOOLS: MCPTool_ListENVITools;
   /** Manage ENVI and IDL session */
-  MANAGE_ENVI_AND_IDL_SESSION: MCPTool_ManageENVIAndIDLSession;
+  MANAGE_IDL_AND_ENVI_SESSION: MCPTool_ManageIDLAndENVISession;
   /** Open a dataset in ENVI */
   OPEN_DATASETS_IN_ENVI: MCPTool_OpenDatasetsInENVI;
   /** Get additional information about a dataset */
@@ -96,10 +94,6 @@ interface IMCPToolLookup {
   SEARCH_FOR_ROUTINE: MCPTool_SearchForRoutine;
   /** Search all resources */
   SEARCH_RESOURCES: MCPTool_SearchResources;
-  /** Start ENVI */
-  START_ENVI: MCPTool_StartENVI;
-  /** Start IDL */
-  START_IDL: MCPTool_StartIDL;
 }
 
 /**
@@ -116,7 +110,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   LIST_ALL_RESOURCES: 'list-all-resources',
   LIST_ENVI_TOOL_WORKFLOWS: 'list-envi-tool-workflows',
   LIST_ENVI_TOOLS: 'list-envi-tools',
-  MANAGE_ENVI_AND_IDL_SESSION: 'manage-envi-and-idl-session',
+  MANAGE_IDL_AND_ENVI_SESSION: 'manage-idl-and-envi-session',
   OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',
   RETURN_NOTES: 'return-notes',
@@ -124,6 +118,4 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   SEARCH_FOR_FILES: 'search-for-files',
   SEARCH_FOR_ROUTINE: 'search-for-routine',
   SEARCH_RESOURCES: 'search-resources',
-  START_ENVI: 'start-envi',
-  START_IDL: 'start-idl',
 };

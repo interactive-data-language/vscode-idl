@@ -12,7 +12,6 @@ import { RunMCPTestENVIToolParameterValidation } from './tools/envi/mcp-test-env
 import { RunMCPTestListENVIToolWorkflows } from './tools/envi/mcp-test-list-envi-tool-workflows';
 import { RunMCPTestListENVITools } from './tools/envi/mcp-test-list-envi-tools';
 import { RunMCPTestGetENVIToolWorkflow } from './tools/envi/mcp-test-list-get-envi-tool-workflow';
-import { RunMCPManageENVIAndIDLSession } from './tools/envi/mcp-test-manage-envi-and-idl-session';
 import { RunMCPTestRunENVITool } from './tools/envi/mcp-test-run-envi-tool';
 import { RunMCPTestStartENVI } from './tools/envi/mcp-test-start-envi';
 import { RunMCPTestOpenDatasetsInENVI_Raster } from './tools/envi/open-datasets/mcp-test-open-datasets-in-envi-raster';
@@ -42,6 +41,7 @@ import { RunMCPTestCreateIDLNotebook } from './tools/idl/mcp-test-create-idl-not
 import { RunMCPTestExecuteIDLCode } from './tools/idl/mcp-test-execute-idl-code';
 import { RunMCPTestExecuteIDLFile } from './tools/idl/mcp-test-execute-idl-file';
 import { RunMCPTestStartIDL } from './tools/idl/mcp-test-start-idl';
+import { RunMCPManageENVIAndIDLSession } from './tools/mcp-test-manage-idl-and-envi-session';
 
 /*
  * Logger to be used for tests related to debugging

@@ -15,9 +15,12 @@ import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
  */
 export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
   // Call a tool
-  const resultHeadless = await CallMCPTool(MCP_TOOL_LOOKUP.START_ENVI, {
-    headless: true,
-  });
+  const resultHeadless = await CallMCPTool(
+    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+    {
+      action: 'start-envi-headless',
+    }
+  );
 
   // log
   LogWhenExpectSuccess(resultHeadless);
@@ -46,9 +49,12 @@ export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
   expect(init.debug.adapter.isStarted()).toBeFalsy();
 
   // start ENVI with the UI
-  const resultUI = await CallMCPTool(MCP_TOOL_LOOKUP.START_ENVI, {
-    headless: false,
-  });
+  const resultUI = await CallMCPTool(
+    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+    {
+      action: 'start-envi',
+    }
+  );
 
   // log
   LogWhenExpectSuccess(resultUI);

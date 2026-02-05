@@ -19,10 +19,10 @@ import {
   MCPToolResponse_ListENVIToolWorkflows,
 } from './vscode/mcp-tool-list-envi-tool-workflows.interface';
 import {
-  MCPTool_ManageENVIAndIDLSession,
-  MCPToolParams_ManageENVIAndIDLSession,
-  MCPToolResponse_ManageENVIAndIDLSession,
-} from './vscode/mcp-tool-manage-envi-and-idl-session.interface';
+  MCPTool_ManageIDLAndENVISession,
+  MCPToolParams_ManageIDLAndENVISession,
+  MCPToolResponse_ManageIDLAndENVISession,
+} from './vscode/mcp-tool-manage-idl-and-envi-session.interface';
 import {
   MCPTool_OpenDatasetsInENVI,
   MCPToolParams_OpenDatasetsInENVI,
@@ -43,16 +43,6 @@ import {
   MCPToolParams_RunENVITool,
   MCPToolResponse_RunENVITool,
 } from './vscode/mcp-tool-run-envi-tool.interface';
-import {
-  MCPTool_StartENVI,
-  MCPToolParams_StartENVI,
-  MCPToolResponse_StartENVI,
-} from './vscode/mcp-tool-start-envi.interface';
-import {
-  MCPTool_StartIDL,
-  MCPToolParams_StartIDL,
-  MCPToolResponse_StartIDL,
-} from './vscode/mcp-tool-start-idl.interface';
 
 /**
  * MCP Tools that run in VSCode
@@ -62,13 +52,11 @@ export type MCPTools_VSCode =
   | MCPTool_ExecuteIDLCode
   | MCPTool_ExecuteIDLFile
   | MCPTool_ListENVIToolWorkflows
-  | MCPTool_ManageENVIAndIDLSession
+  | MCPTool_ManageIDLAndENVISession
   | MCPTool_OpenDatasetsInENVI
   | MCPTool_QueryDatasetWithENVI
   | MCPTool_ReturnNotes
-  | MCPTool_RunENVITool
-  | MCPTool_StartENVI
-  | MCPTool_StartIDL;
+  | MCPTool_RunENVITool;
 
 /**
  * MCP parameters and payload sent to VSCode to run an MCP tool
@@ -83,8 +71,8 @@ export type MCPToolParams_VSCode<T extends MCPTools_VSCode> =
     ? MCPToolParams_ExecuteIDLFile
     : T extends MCPTool_ListENVIToolWorkflows
     ? MCPToolParams_ListENVIToolWorkflows
-    : T extends MCPTool_ManageENVIAndIDLSession
-    ? MCPToolParams_ManageENVIAndIDLSession
+    : T extends MCPTool_ManageIDLAndENVISession
+    ? MCPToolParams_ManageIDLAndENVISession
     : T extends MCPTool_OpenDatasetsInENVI
     ? MCPToolParams_OpenDatasetsInENVI
     : T extends MCPTool_QueryDatasetWithENVI
@@ -93,10 +81,6 @@ export type MCPToolParams_VSCode<T extends MCPTools_VSCode> =
     ? MCPToolParams_ReturnNotes
     : T extends MCPTool_RunENVITool
     ? MCPToolParams_RunENVITool
-    : T extends MCPTool_StartENVI
-    ? MCPToolParams_StartENVI
-    : T extends MCPTool_StartIDL
-    ? MCPToolParams_StartIDL
     : never;
 
 /**
@@ -111,8 +95,8 @@ export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
     ? MCPToolResponse_ExecuteIDLFile
     : T extends MCPTool_ListENVIToolWorkflows
     ? MCPToolResponse_ListENVIToolWorkflows
-    : T extends MCPTool_ManageENVIAndIDLSession
-    ? MCPToolResponse_ManageENVIAndIDLSession
+    : T extends MCPTool_ManageIDLAndENVISession
+    ? MCPToolResponse_ManageIDLAndENVISession
     : T extends MCPTool_OpenDatasetsInENVI
     ? MCPToolResponse_OpenDatasetsInENVI
     : T extends MCPTool_QueryDatasetWithENVI
@@ -121,10 +105,6 @@ export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
     ? MCPToolResponse_ReturnNotes
     : T extends MCPTool_RunENVITool
     ? MCPToolResponse_RunENVITool
-    : T extends MCPTool_StartENVI
-    ? MCPToolResponse_StartENVI
-    : T extends MCPTool_StartIDL
-    ? MCPToolResponse_StartIDL
     : never;
 
 /**
