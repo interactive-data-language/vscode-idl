@@ -1,3 +1,4 @@
+import { Sleep } from '@idl/shared/extension';
 import {
   MCPTool_ManageENVIAndIDLSession,
   MCPToolParams,
@@ -38,6 +39,10 @@ export async function RunMCPTool_ManageENVIAndIDLSession(
       idlOutput: 'ENVI and IDL session stopped successfully',
     };
   }
+
+  // short pause for everything to catch up
+  // we have to do the same thing in our tests
+  await Sleep(1000);
 
   /**
    * Start IDL
