@@ -233,7 +233,7 @@ If an ENVI tool, add it to: "libs\vscode\mcp\src\lib\tools\envi"
 
 If an IDL tool, add it to: "libs\vscode\mcp\src\lib\tools\idl"
 
-10. Populate a boilerplat with this text:
+10. Populate a boilerplate with this text:
 
 ```typescript
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -290,3 +290,7 @@ export async function RunMCPTool_MyMCPTool(
   };
 }
 ```
+
+11. Update the MCP tool callback lookup in "libs\vscode\mcp\src\lib\run-mcp-tool-message-handler.ts"
+
+Add new extry to the variable "MCP_TOOL_LOOKUP"
