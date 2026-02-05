@@ -25,7 +25,7 @@ export function RegisterMCPTool_CreateIDLNotebook(
           MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK
         ],
       description:
-        'Creates an IDL Notebook.\n\nThis is a native IDL Notebook and does not use or require Jupyter or any other configuration in order to work.',
+        'Creates an IDL Notebook and should always be used when asked to create notebooks for IDL code. This is a native IDL Notebook and does not use or require Jupyter or require other configuration in order to work. When writing code to add, you do not need to add "compile_opt idl2" to cells as IDL Notebooks always run with this option set.',
       inputSchema: {
         uri: z
           .string()
