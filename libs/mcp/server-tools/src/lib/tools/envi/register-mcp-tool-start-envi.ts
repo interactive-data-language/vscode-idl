@@ -27,7 +27,10 @@ export function RegisterMCPTool_StartENVI(
       inputSchema: {
         headless: z
           .boolean()
-          .describe('Should ENVI be started without the UI?'),
+          .default(false)
+          .describe(
+            'Should ENVI be started without the UI? Only set to true when the user asks for it. Some MCP tools will not function without the UI.'
+          ),
       },
     },
     async (id, { headless }) => {
