@@ -169,7 +169,7 @@ type KeysOfToStrings<T> = {
 /**
  * Map values to strings
  */
-type ValsOfToStrings<T extends string> = {
+export type ValsOfToStrings<T extends string> = {
   [P in T]: string;
 };
 
