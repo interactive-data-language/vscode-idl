@@ -17,7 +17,7 @@ import { z } from 'zod';
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
-import { ENVI_TASK_INSTRUCTIONS } from './envi-task-instructions.interface';
+import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
 
 /**
  * Registers a tool that can run an ENVI Task
@@ -31,7 +31,7 @@ export function RegisterMCPTool_RunENVITool(
     {
       title:
         IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.RUN_ENVI_TOOL],
-      description: `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}. Here's the process to get the input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
+      description: `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}. Here's the process to get the input parameters:\n\n ${ENVI_TOOL_INSTRUCTIONS}`,
       inputSchema: {
         taskName: z
           .string()

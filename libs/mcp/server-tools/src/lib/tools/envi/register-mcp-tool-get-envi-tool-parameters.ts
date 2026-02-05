@@ -12,7 +12,7 @@ import { z } from 'zod';
 import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
-import { ENVI_TASK_INSTRUCTIONS } from './envi-task-instructions.interface';
+import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
 
 /**
  * Track if we have loaded notes or not
@@ -33,7 +33,7 @@ export function RegisterMCPTool_GetENVIToolParameters(
         IDL_TRANSLATION.mcp.tools.displayNames[
           MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS
         ],
-      description: `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.RUN_ENVI_TOOL}. Here's the process to use these input parameters:\n\n ${ENVI_TASK_INSTRUCTIONS}`,
+      description: `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.RUN_ENVI_TOOL}. Here's the process to use these input parameters:\n\n ${ENVI_TOOL_INSTRUCTIONS}`,
       inputSchema: {
         taskName: z
           .string()

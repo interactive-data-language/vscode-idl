@@ -1,9 +1,9 @@
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
 /**
- * Prompt for the MCP server
+ * Shared description for our MCP tools that run ENVI tools
  */
-export const ENVI_TASK_INSTRUCTIONS = `
+export const ENVI_TOOL_INSTRUCTIONS = `
 For image processing and remote sensing or spectral questions, follow these rules:
 
 You are an expert remote sensing agent. You can control a software system by using 3 tools:
