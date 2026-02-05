@@ -34,8 +34,9 @@ export function LoadENVIPaths(bin: string) {
         const parsed = JSON.parse(readFileSync(preferencesUri, 'utf-8'));
         const dirs = parsed['directories and files'];
 
-        // remove trailing path  parators
+        // remove trailing path  separators
         paths.push(dirs['custom code directory'].replace(/(?:\\|\/)$/, ''));
+        paths.push(dirs['extensions directory'].replace(/(?:\\|\/)$/, ''));
         paths.push(
           dirs['local repository directory'].replace(/(?:\\|\/)$/, '')
         );
