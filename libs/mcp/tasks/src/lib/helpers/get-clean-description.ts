@@ -69,7 +69,12 @@ export function GetCleanDescription(description: string, limit = true) {
   }
 
   /**
-   * Get only the descriptions
+   * Flag for if we keep or toss invidialual lines
+   */
+  let keep = true;
+
+  /**
+   * Get only the descriptions - First sentence
    *
    * 1000 character limit is to try and have a high-level description.
    *
@@ -79,5 +84,16 @@ export function GetCleanDescription(description: string, limit = true) {
    * I'm not sure if it is critical still, but some tasks have a lot of content and
    * we only need a high-level description
    */
-  return description.substring(0, 1000);
+  return description
+    .split(/\r?\n/gim)
+    .map((item) => item.trim())
+    .filter((item) => {
+      // when we find an empty line, turn off keeping content
+      if (!item && keep) {
+        keep = false;
+      }
+      return keep;
+    })
+    .join(`\n`)
+    .substring(0, 1000);
 }
