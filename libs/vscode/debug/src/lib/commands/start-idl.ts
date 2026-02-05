@@ -29,7 +29,7 @@ export async function StartIDL(show = true): Promise<IStartIDL> {
   if (!IsIDLDirValid(IDL_EXTENSION_CONFIG.IDL.directory)) {
     return {
       started: false,
-      reason: IDL_TRANSLATION.debugger.idl.existingSessionFound,
+      reason: IDL_TRANSLATION.debugger.idl.idlNotConfigured,
     };
   }
 
