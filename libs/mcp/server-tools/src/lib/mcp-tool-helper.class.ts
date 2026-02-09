@@ -1,6 +1,7 @@
 import { ObjectifyError } from '@idl/error-shared';
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { SimplePromiseQueue } from '@idl/shared/extension';
+import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IMCPToolProgress,
   MCPToolHTTPResponse,
@@ -113,7 +114,8 @@ export class MCPToolHelper implements IMCPHelperOptions {
         this.logManager.log({
           log: IDL_MCP_LOG,
           type: 'error',
-          content: ['Unknown error while executing toool'],
+          content: ['Unknown error while executing toool', err],
+          alert: IDL_TRANSLATION.mcp.errors.unknownMCPToolError,
         });
 
         return {

@@ -818,6 +818,8 @@ export interface ITranslation {
       noLicense: string;
       /** When you don't have IDL Machine */
       badIDLVersion: string;
+      /** Unknown error in MCP tool */
+      unknownMCPToolError: string;
     };
     /** Translations for MCP tools */
     tools: {

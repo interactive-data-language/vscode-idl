@@ -911,6 +911,8 @@ export const EN: ITranslation = {
       noLicense:
         'You do not appear to have an ENVI Agent license. The ENVI Agent can perform actions on your behalf such as start the ENVI application, discover and import datasets into ENVI, and make intelligent suggestions on ENVI tools to solve your geospatial tasks. Without the license, you can still use the IDL Agent to create and run IDL code, but will not have access to the extended set of ENVI Agent actions. Contact your system administrator or sales representative to acquire an ENVI Agent license.',
       badIDLVersion: 'Requires at least IDL 9.2 and ENVI 6.2 to function',
+      unknownMCPToolError:
+        'Unknown error while executing MCP tool, see log for more details.',
     },
   },
   notebooks: {
