@@ -102,7 +102,7 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
           IDL_LANGUAGE_SERVER_LOGGER.log({
             log: IDL_MCP_LOG,
             type: 'error',
-            content: ['Error handling MCP progress notification', err],
+            content: ['Error while handling MCP progress notification', err],
             alert: IDL_TRANSLATION.mcp.errors.failedProgress,
           });
         }

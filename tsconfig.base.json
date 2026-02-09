@@ -58,6 +58,7 @@
       "@idl/logger": ["libs/logger/src/index.ts"],
       "@idl/mcp/envi-to-mcp": ["libs/mcp/envi-to-mcp/src/index.ts"],
       "@idl/mcp/idl-to-mcp": ["libs/mcp/idl-to-mcp/src/index.ts"],
+      "@idl/mcp/instructions": ["libs/mcp/instructions/src/index.ts"],
       "@idl/mcp/language-server": ["libs/mcp/language-server/src/index.ts"],
       "@idl/mcp/server": ["libs/mcp/server/src/index.ts"],
       "@idl/mcp/server-resources": ["libs/mcp/server-resources/src/index.ts"],

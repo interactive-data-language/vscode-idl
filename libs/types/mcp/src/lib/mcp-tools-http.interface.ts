@@ -7,6 +7,10 @@ import {
   MCPToolParams_GetENVIToolWorkflows,
 } from './http/mcp-tool-get-envi-tool-workflow.interface';
 import {
+  MCPTool_GetInstructions,
+  MCPToolParams_GetInstructions,
+} from './http/mcp-tool-get-instructions.interface';
+import {
   MCPTool_GetResource,
   MCPToolParams_GetResource,
 } from './http/mcp-tool-get-resource.interface';
@@ -22,6 +26,10 @@ import {
   MCPTool_ListENVITools,
   MCPToolParams_ListENVITools,
 } from './http/mcp-tool-list-envi-tools.interface';
+import {
+  MCPTool_ListInstructions,
+  MCPToolParams_ListInstructions,
+} from './http/mcp-tool-list-instructions.interface';
 import {
   MCPTool_SearchForFiles,
   MCPToolParams_SearchForFiles,
@@ -41,10 +49,12 @@ import {
 export type MCPTools_HTTP =
   | MCPTool_GetENVIToolParameters
   | MCPTool_GetENVIToolWorkflow
+  | MCPTool_GetInstructions
   | MCPTool_GetResource
   | MCPTool_GetRoutineDocs
   | MCPTool_ListAllResources
   | MCPTool_ListENVITools
+  | MCPTool_ListInstructions
   | MCPTool_SearchForFiles
   | MCPTool_SearchForRoutine
   | MCPTool_SearchResources;
@@ -58,6 +68,8 @@ export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
     ? MCPToolParams_GetENVIToolParameters
     : T extends MCPTool_GetENVIToolWorkflow
     ? MCPToolParams_GetENVIToolWorkflows
+    : T extends MCPTool_GetInstructions
+    ? MCPToolParams_GetInstructions
     : T extends MCPTool_GetResource
     ? MCPToolParams_GetResource
     : T extends MCPTool_GetRoutineDocs
@@ -66,6 +78,8 @@ export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
     ? MCPToolParams_ListAllResources
     : T extends MCPTool_ListENVITools
     ? MCPToolParams_ListENVITools
+    : T extends MCPTool_ListInstructions
+    ? MCPToolParams_ListInstructions
     : T extends MCPTool_SearchForFiles
     ? MCPToolParams_SearchForFiles
     : T extends MCPTool_SearchForRoutine
