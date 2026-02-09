@@ -1,20 +1,16 @@
-import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { IDL_MCP_LOG } from '@idl/logger';
 import { MCPResourceIndex } from '@idl/mcp/server-resources';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../mcp-tool-registry.class';
+import { MCPToolHelper } from '../mcp-tool-helper.class';
 
 /**
  * Search through registered resources
  */
-export function RegisterMCPTool_SearchResources(
-  messenger: VSCodeLanguageServerMessenger,
-  logger: LogManager
-) {
-  MCPToolRegistry.registerTool(
+export function RegisterMCPTool_SearchResources(helper: MCPToolHelper) {
+  helper.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_RESOURCES,
     {
       title:
@@ -42,7 +38,7 @@ export function RegisterMCPTool_SearchResources(
         results = results.concat(MCPResourceIndex.search(queries[i]));
       }
 
-      logger.log({
+      helper.logManager.log({
         log: IDL_MCP_LOG,
         type: 'debug',
         content: [

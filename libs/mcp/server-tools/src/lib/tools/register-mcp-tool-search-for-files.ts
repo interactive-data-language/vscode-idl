@@ -1,19 +1,16 @@
 import { FindFiles, IFolderRecursion } from '@idl/idl/files';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { existsSync } from 'fs';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../mcp-tool-registry.class';
+import { MCPToolHelper } from '../mcp-tool-helper.class';
 
 /**
  * Search through registered resources
  */
-export function RegisterMCPTool_SearchForFiles(
-  messenger: VSCodeLanguageServerMessenger
-) {
-  MCPToolRegistry.registerTool(
+export function RegisterMCPTool_SearchForFiles(helper: MCPToolHelper) {
+  helper.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_FOR_FILES,
     {
       title:

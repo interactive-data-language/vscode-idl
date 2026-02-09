@@ -176,7 +176,7 @@ SERVER_INFO.then(async (res) => {
      * We do this here because we need information from VSCode about whether
      * we can launch the server or not
      */
-    InitializeMCPServer(
+    const mcpToolHelper = InitializeMCPServer(
       SERVER_INITIALIZATION_OPTIONS.serverPorts.mcp,
       foundEnvi
     );
@@ -286,11 +286,7 @@ SERVER_INFO.then(async (res) => {
       );
 
       // using what we parsed, register MCP tools for the user
-      RegisterMCPTaskTools(
-        IDL_INDEX,
-        IDL_LANGUAGE_SERVER_LOGGER,
-        SERVER_MESSENGER
-      );
+      RegisterMCPTaskTools(mcpToolHelper, IDL_INDEX);
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,

@@ -1,19 +1,18 @@
 import { MCPInstructionRegistry } from '@idl/mcp/instructions';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../mcp-tool-registry.class';
+import { MCPToolHelper } from '../mcp-tool-helper.class';
 
 /**
  * Get instruction set content
  */
 export function RegisterMCPTool_GetInstructions(
-  messenger: VSCodeLanguageServerMessenger,
+  helper: MCPToolHelper,
   registry: MCPInstructionRegistry
 ) {
-  MCPToolRegistry.registerTool(
+  helper.registerTool(
     MCP_TOOL_LOOKUP.GET_INSTRUCTIONS,
     {
       title:

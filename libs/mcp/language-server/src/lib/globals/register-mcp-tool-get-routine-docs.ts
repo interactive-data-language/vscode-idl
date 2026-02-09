@@ -1,8 +1,7 @@
-import { MCPToolRegistry } from '@idl/mcp/server-tools';
+import { MCPToolHelper } from '@idl/mcp/server-tools';
 import { IDLIndex } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
 import {
@@ -18,10 +17,10 @@ import { reverseMap } from './register-mcp-tool-search-for-routine.interface';
  * to remove excess string/tokens that the LLM has to process
  */
 export function RegisterMCPTool_GetRoutineDocs(
-  messenger: VSCodeLanguageServerMessenger,
+  helper: MCPToolHelper,
   index: IDLIndex
 ) {
-  MCPToolRegistry.registerTool(
+  helper.registerTool(
     MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS,
     {
       title:

@@ -1,18 +1,15 @@
 import { MCPResourceIndex } from '@idl/mcp/server-resources';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../mcp-tool-registry.class';
+import { MCPToolHelper } from '../mcp-tool-helper.class';
 
 /**
  * Get a resource from the server
  */
-export function RegisterMCPTool_GetResource(
-  messenger: VSCodeLanguageServerMessenger
-) {
-  MCPToolRegistry.registerTool(
+export function RegisterMCPTool_GetResource(helper: MCPToolHelper) {
+  helper.registerTool(
     MCP_TOOL_LOOKUP.GET_RESOURCE,
     {
       title:

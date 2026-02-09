@@ -1,9 +1,8 @@
-import { MCPToolRegistry } from '@idl/mcp/server-tools';
+import { MCPToolHelper } from '@idl/mcp/server-tools';
 import { IDLIndex } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/idl-data-types';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
 import {
@@ -16,10 +15,10 @@ import {
  * Search known routines for matches
  */
 export function RegisterMCPTool_ResourcesSearchForRoutine(
-  messenger: VSCodeLanguageServerMessenger,
+  helper: MCPToolHelper,
   index: IDLIndex
 ) {
-  MCPToolRegistry.registerTool(
+  helper.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE,
     {
       title:

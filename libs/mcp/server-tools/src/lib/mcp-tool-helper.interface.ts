@@ -1,12 +1,14 @@
+import { LogManager } from '@idl/logger';
 import { MCPToolHTTPResponse, MCPTools } from '@idl/types/mcp';
-import { ToolCallback } from '@modelcontextprotocol/sdk/server/mcp';
+import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+import { McpServer, ToolCallback } from '@modelcontextprotocol/sdk/server/mcp';
 import { ZodRawShape } from 'zod';
 
 /**
  * Callback that adds a new argument to each function so that
  * we have an ID we can send/receive progress messages on
  */
-export type MCPRegistryToolCallback<
+export type MCPToolCallback<
   Args extends ZodRawShape,
   Tool extends MCPTools
 > = ToolCallback<Args> extends (...a: infer U) => infer R
@@ -24,3 +26,19 @@ export type MCPRegistryToolInfo<Args extends ZodRawShape> = {
   description: string;
   inputSchema: Args;
 };
+
+export interface IMCPHelperOptions {
+  /** Log manager */
+  logManager: LogManager;
+
+  /**
+   * Reference to the MCP server to we can register tools
+   */
+  mcpServer: McpServer;
+
+  /** CLient messenger to talk to VSCode */
+  messenger: VSCodeLanguageServerMessenger;
+
+  /** Callback when a tool is invoked */
+  toolInvokedCallback: (toolName: MCPTools) => void;
+}

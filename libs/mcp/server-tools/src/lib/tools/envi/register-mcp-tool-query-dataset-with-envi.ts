@@ -7,16 +7,10 @@ import {
   MCP_ENVIVector,
 } from '@idl/mcp/envi-to-mcp';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  MCP_TOOL_LOOKUP,
-  MCPTool_QueryDatasetWithENVI,
-  MCPToolParams,
-} from '@idl/types/mcp';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 import { QUERY_DATASET_WITH_ENVI_DESCRIPTION } from './register-mcp-tool-query-dataset-with-envi.interface';
@@ -24,10 +18,8 @@ import { QUERY_DATASET_WITH_ENVI_DESCRIPTION } from './register-mcp-tool-query-d
 /**
  * Registers a tool that allows an agent to get additional information about a dataset
  */
-export function RegisterMCPTool_QueryDatasetWithENVI(
-  messenger: VSCodeLanguageServerMessenger
-) {
-  MCPToolRegistry.registerTool(
+export function RegisterMCPTool_QueryDatasetWithENVI(helper: MCPToolHelper) {
+  helper.registerTool(
     MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
     {
       title:
@@ -68,17 +60,11 @@ export function RegisterMCPTool_QueryDatasetWithENVI(
         };
       }
 
-      // strictly typed parameters
-      const params: MCPToolParams<MCPTool_QueryDatasetWithENVI> = {
-        dataset,
-      };
-
-      const resp = await messenger.sendRequest(
-        LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
+      const resp = await helper.sendRequestToVSCode(
+        id,
+        MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
         {
-          id,
-          tool: MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
-          params,
+          dataset,
         }
       );
 

@@ -120,11 +120,7 @@ The location of this tool depends on a few things:
 
 ```typescript
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  MCP_TOOL_LOOKUP,
-  MCPTool_MyMCPTool,
-  MCPToolParams,
-} from '@idl/types/mcp';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
@@ -147,19 +143,12 @@ export function RegisterMCPTool_MyMCPTool(
         myflag: z.boolean().describe('Boilerplate input parameter')
       },
     },
-    async (id) => {
-      // strictly typed parameters
-      const params: MCPToolParams<MCPTool_MyMCPTool> = {
-        myflag
-      };
-
-      const resp = await messenger.sendRequest(
-        LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
-        {
-          id,
-          tool: MCP_TOOL_LOOKUP.MY_MCP_TOOL,
-          params,
-        }
+    async (id, {myFlag}) => {
+      // send request
+      const resp = await helper.sendRequestToVSCode(
+        id,
+        MCP_TOOL_LOOKUP.MY_MCP_TOOL,
+        { myFlag }
       );
 
       return {
@@ -180,11 +169,7 @@ export function RegisterMCPTool_MyMCPTool(
 
 ```typescript
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  MCP_TOOL_LOOKUP,
-  MCPTool_MyMCPTool,
-  MCPToolParams,
-} from '@idl/types/mcp';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';

@@ -1,9 +1,8 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructions.interface';
@@ -12,11 +11,9 @@ import { ENVI_TOOL_WORKFLOW_REGISTRY } from './register-mcp-tool-list-envi-tool-
 /**
  * Registers MCP tool that retrieves a tool workflo by name
  */
-export function RegisterMCPTool_GetENVIToolWorkflow(
-  messenger: VSCodeLanguageServerMessenger
-) {
+export function RegisterMCPTool_GetENVIToolWorkflow(helper: MCPToolHelper) {
   // register tool
-  MCPToolRegistry.registerTool(
+  helper.registerTool(
     MCP_TOOL_LOOKUP.GET_ENVI_TOOL_WORKFLOW,
     {
       title:

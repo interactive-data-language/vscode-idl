@@ -1,19 +1,18 @@
 import { MCPInstructionRegistry } from '@idl/mcp/instructions';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
-import { MCPToolRegistry } from '../mcp-tool-registry.class';
+import { MCPToolHelper } from '../mcp-tool-helper.class';
 import { GET_INSTRUCTIONS_INSTRUCTIONS } from './get-instructions-instructions.interface';
 
 /**
  * List available instruction sets for LLM consumption
  */
 export function RegisterMCPTool_ListInstructions(
-  messenger: VSCodeLanguageServerMessenger,
+  helper: MCPToolHelper,
   registry: MCPInstructionRegistry
 ) {
-  MCPToolRegistry.registerTool(
+  helper.registerTool(
     MCP_TOOL_LOOKUP.LIST_INSTRUCTIONS,
     {
       title:

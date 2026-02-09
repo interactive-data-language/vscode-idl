@@ -10,11 +10,9 @@ import {
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
@@ -23,10 +21,10 @@ import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
  * Registers a tool that can run an ENVI Task
  */
 export function RegisterMCPTool_RunENVITool(
-  messenger: VSCodeLanguageServerMessenger,
+  helper: MCPToolHelper,
   registry: MCPTaskRegistry
 ) {
-  MCPToolRegistry.registerTool(
+  helper.registerTool(
     MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
     {
       title:
@@ -116,13 +114,10 @@ export function RegisterMCPTool_RunENVITool(
         }
       }
 
-      const resp = (await messenger.sendRequest(
-        LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
-        {
-          id,
-          tool: MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
-          params,
-        }
+      const resp = (await helper.sendRequestToVSCode(
+        id,
+        MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
+        params
       )) as MCPToolResponse<MCPTool_RunENVITool>;
 
       return {

@@ -1,6 +1,7 @@
-import { IDL_LSP_LOG, IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { IDL_LSP_LOG, IDL_MCP_LOG } from '@idl/logger';
 import { MCP_SERVER } from '@idl/mcp/server';
 import {
+  MCPToolHelper,
   RegisterMCPTool_GetENVIToolParameters,
   RegisterMCPTool_ListENVITools,
   RegisterMCPTool_RunENVITool,
@@ -13,7 +14,6 @@ import {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { RegisterENVITaskNotes } from './register-envi-task-notes';
 
@@ -21,23 +21,22 @@ import { RegisterENVITaskNotes } from './register-envi-task-notes';
  * Registers MCP Task tools from parsed code on IDL's search path
  */
 export async function RegisterMCPTaskTools(
-  index: IDLIndex,
-  logger: LogManager,
-  messenger: VSCodeLanguageServerMessenger
+  helper: MCPToolHelper,
+  index: IDLIndex
 ) {
-  logger.log({
+  helper.logManager.log({
     log: IDL_LSP_LOG,
     type: 'info',
     content: 'Registering MCP user tools',
   });
 
   /** Create task registry */
-  const registry = new MCPTaskRegistry(logger);
+  const registry = new MCPTaskRegistry(helper.logManager);
 
   // register tools for tasks
-  RegisterMCPTool_ListENVITools(messenger, registry);
-  RegisterMCPTool_GetENVIToolParameters(messenger, registry);
-  RegisterMCPTool_RunENVITool(messenger, registry);
+  RegisterMCPTool_ListENVITools(helper, registry);
+  RegisterMCPTool_GetENVIToolParameters(helper, registry);
+  RegisterMCPTool_RunENVITool(helper, registry);
 
   /** Get all functions that we know about */
   const functions =
@@ -50,7 +49,7 @@ export async function RegisterMCPTaskTools(
   /** Find names of ENVI Tasks and exclude those we dont need to expose  */
   const keys = FilterMCPENVITasks(functions, Object.keys(structures)).sort();
 
-  logger.log({
+  helper.logManager.log({
     log: IDL_MCP_LOG,
     type: 'info',
     content: `Attempting to register ${keys.length} ENVI Tools`,
@@ -64,14 +63,14 @@ export async function RegisterMCPTaskTools(
     );
   }
 
-  logger.log({
+  helper.logManager.log({
     log: IDL_MCP_LOG,
     type: 'info',
     content: `Attempting to load user ENVI Tool notes`,
   });
 
   // load notes
-  RegisterENVITaskNotes(registry, logger);
+  RegisterENVITaskNotes(registry, helper.logManager);
 
   // emit MCP event that tools have changed
   MCP_SERVER.sendToolListChanged();

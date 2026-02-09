@@ -178,6 +178,7 @@
       "@idl/mcp/tool-workflows": ["libs/mcp/tool-workflows/src/index.ts"],
       "@idl/mcp/envi-to-mcp": ["libs/mcp/envi-to-mcp/src/index.ts"],
       "@idl/mcp/idl-to-mcp": ["libs/mcp/idl-to-mcp/src/index.ts"],
+      "@idl/mcp/instructions": ["libs/mcp/instructions/src/index.ts"],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],

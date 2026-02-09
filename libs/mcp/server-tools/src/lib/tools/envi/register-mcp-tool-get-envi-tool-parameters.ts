@@ -1,15 +1,9 @@
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  MCP_TOOL_LOOKUP,
-  MCPTool_ReturnNotes,
-  MCPToolResponse,
-} from '@idl/types/mcp';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
@@ -23,10 +17,10 @@ let LOADED_NOTES = false;
  * Registers a tool that can run an ENVI Task
  */
 export function RegisterMCPTool_GetENVIToolParameters(
-  messenger: VSCodeLanguageServerMessenger,
+  helper: MCPToolHelper,
   registry: MCPTaskRegistry
 ) {
-  MCPToolRegistry.registerTool(
+  helper.registerTool(
     MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS,
     {
       title:
@@ -69,14 +63,11 @@ export function RegisterMCPTool_GetENVIToolParameters(
 
       // load notes if we havent yet
       if (!LOADED_NOTES) {
-        const resp = (await messenger.sendRequest(
-          LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
-          {
-            id,
-            tool: MCP_TOOL_LOOKUP.RETURN_NOTES,
-            params: {},
-          }
-        )) as MCPToolResponse<MCPTool_ReturnNotes>;
+        const resp = await helper.sendRequestToVSCode(
+          id,
+          MCP_TOOL_LOOKUP.RETURN_NOTES,
+          {}
+        );
 
         // mark as loaded, even if we have an error
         LOADED_NOTES = true;

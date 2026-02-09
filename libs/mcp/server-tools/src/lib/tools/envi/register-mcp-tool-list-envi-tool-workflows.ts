@@ -1,14 +1,8 @@
 import { MCPToolWorkflowRegistry } from '@idl/mcp/tool-workflows';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  MCP_TOOL_LOOKUP,
-  MCPTool_ListENVIToolWorkflows,
-  MCPToolResponse,
-} from '@idl/types/mcp';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructions.interface';
@@ -31,11 +25,9 @@ let LOAD_FAILURE: string;
 /**
  * Registers a tool that can run an ENVI Task
  */
-export function RegisterMCPTool_ListENVIToolWorkflows(
-  messenger: VSCodeLanguageServerMessenger
-) {
+export function RegisterMCPTool_ListENVIToolWorkflows(helper: MCPToolHelper) {
   // register tool
-  MCPToolRegistry.registerTool(
+  helper.registerTool(
     MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
     {
       title:
@@ -74,14 +66,11 @@ export function RegisterMCPTool_ListENVIToolWorkflows(
 
       // load notes if we havent
       if (!LOADED_NOTES) {
-        const resp = (await messenger.sendRequest(
-          LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
-          {
-            id,
-            tool: MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
-            params: {},
-          }
-        )) as MCPToolResponse<MCPTool_ListENVIToolWorkflows>;
+        const resp = await helper.sendRequestToVSCode(
+          id,
+          MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
+          {}
+        );
 
         // try to load based on the response
         if (resp.success) {

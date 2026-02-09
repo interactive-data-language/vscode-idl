@@ -1,9 +1,9 @@
 import { LogManager } from '@idl/logger';
-import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
+import { IS_MCP_SERVER_STARTED, MCP_SERVER } from '@idl/mcp/server';
 import { MCPToolInvokedCallback, MCPTools } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
-import { MCPToolContext } from './mcp-tool-context.class';
+import { MCPToolHelper } from './mcp-tool-helper.class';
 import { RegisterMCPTool_GetENVIToolWorkflow } from './tools/envi/register-mcp-tool-get-envi-tool-workflow';
 import { RegisterMCPTool_ListENVIToolWorkflows } from './tools/envi/register-mcp-tool-list-envi-tool-workflows';
 import { RegisterMCPTool_OpenDatasetsInENVI } from './tools/envi/register-mcp-tool-open-datasets-in-envi';
@@ -18,10 +18,9 @@ import { RegisterMCPTool_SearchForFiles } from './tools/register-mcp-tool-search
 import { RegisterMCPTool_SearchResources } from './tools/register-mcp-tool-search-resources';
 
 /**
- * Track contexts for all actively running tools so we can send notification
- * messages backand forth
+ * Helper instance for managing MCP tool registration and execution
  */
-export const MCP_TOOL_CONTEXT = new MCPToolContext();
+export let MCP_TOOL_HELPER: MCPToolHelper;
 
 /**
  * Track if we registered our tools or not
@@ -29,13 +28,7 @@ export const MCP_TOOL_CONTEXT = new MCPToolContext();
 let REGISTERED = false;
 
 /**
- * Placeholder for tool callback
- */
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-export let TOOL_INVOKED_CALLBACK: MCPToolInvokedCallback<MCPTools> = () => {};
-
-/**
- *
+ * Flag indicating if ENVI is installed
  */
 export let IS_ENVI_INSTALLED = false;
 
@@ -58,39 +51,47 @@ export function RegisterAllMCPTools(
   // update flag for ENVI being installed
   IS_ENVI_INSTALLED = isEnviInstalled;
 
-  // save tool log callback
-  TOOL_INVOKED_CALLBACK = toolInvokedCallback;
+  // create helper instance with the MCP server
+  MCP_TOOL_HELPER = new MCPToolHelper({
+    mcpServer: MCP_SERVER,
+    logManager,
+    messenger,
+    toolInvokedCallback,
+  });
 
   /**
    * Register generic tools
    */
-  RegisterMCPTool_GetResource(messenger);
-  RegisterMCPTool_ListAllResources(messenger);
-  RegisterMCPTool_SearchForFiles(messenger);
-  RegisterMCPTool_SearchResources(messenger, logManager);
+  RegisterMCPTool_GetResource(MCP_TOOL_HELPER);
+  RegisterMCPTool_ListAllResources(MCP_TOOL_HELPER);
+  RegisterMCPTool_SearchForFiles(MCP_TOOL_HELPER);
+  RegisterMCPTool_SearchResources(MCP_TOOL_HELPER);
 
   /**
    * Register IDL tools
    */
-  RegisterMCPTool_CreateIDLNotebook(messenger);
-  RegisterMCPTool_ExecuteIDLCode(messenger);
-  RegisterMCPTool_ExecuteIDLFile(messenger);
+  RegisterMCPTool_CreateIDLNotebook(MCP_TOOL_HELPER);
+  RegisterMCPTool_ExecuteIDLCode(MCP_TOOL_HELPER);
+  RegisterMCPTool_ExecuteIDLFile(MCP_TOOL_HELPER);
 
   /**
    * Register ENVI and IDL shared tools
    */
-  RegisterMCPTool_ManageIDLAndENVISession(messenger);
+  RegisterMCPTool_ManageIDLAndENVISession(MCP_TOOL_HELPER);
 
   /**
    * ENVI tools
    *
    * The tools that use tasks are registered after the language server has started up
    */
-  RegisterMCPTool_GetENVIToolWorkflow(messenger);
-  RegisterMCPTool_ListENVIToolWorkflows(messenger);
-  RegisterMCPTool_OpenDatasetsInENVI(messenger);
-  RegisterMCPTool_QueryDatasetWithENVI(messenger);
+  RegisterMCPTool_GetENVIToolWorkflow(MCP_TOOL_HELPER);
+  RegisterMCPTool_ListENVIToolWorkflows(MCP_TOOL_HELPER);
+  RegisterMCPTool_OpenDatasetsInENVI(MCP_TOOL_HELPER);
+  RegisterMCPTool_QueryDatasetWithENVI(MCP_TOOL_HELPER);
 
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;
+
+  // return the tool helper
+  return MCP_TOOL_HELPER;
 }

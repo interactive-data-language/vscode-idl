@@ -1,9 +1,8 @@
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
@@ -12,11 +11,11 @@ import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
  * Registers a tool that can run an ENVI Task
  */
 export function RegisterMCPTool_ListENVITools(
-  messenger: VSCodeLanguageServerMessenger,
+  helper: MCPToolHelper,
   registry: MCPTaskRegistry
 ) {
   // register tool
-  MCPToolRegistry.registerTool(
+  helper.registerTool(
     MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS,
     {
       title:

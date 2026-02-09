@@ -4,26 +4,18 @@ import {
   MCP_ENVIVector,
 } from '@idl/mcp/envi-to-mcp';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  MCP_TOOL_LOOKUP,
-  MCPTool_OpenDatasetsInENVI,
-  MCPToolParams,
-} from '@idl/types/mcp';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
 
 /**
  * Registers a tool that allows us to open an image in ENVI
  */
-export function RegisterMCPTool_OpenDatasetsInENVI(
-  messenger: VSCodeLanguageServerMessenger
-) {
-  MCPToolRegistry.registerTool(
+export function RegisterMCPTool_OpenDatasetsInENVI(helper: MCPToolHelper) {
+  helper.registerTool(
     MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
     {
       title:
@@ -72,19 +64,13 @@ export function RegisterMCPTool_OpenDatasetsInENVI(
         };
       }
 
-      // strictly typed parameters
-      const params: MCPToolParams<MCPTool_OpenDatasetsInENVI> = {
-        datasets,
-        resetView,
-        automaticZoom,
-      };
-
-      const resp = await messenger.sendRequest(
-        LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
+      const resp = await helper.sendRequestToVSCode(
+        id,
+        MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
         {
-          id,
-          tool: MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
-          params,
+          datasets,
+          resetView,
+          automaticZoom,
         }
       );
 

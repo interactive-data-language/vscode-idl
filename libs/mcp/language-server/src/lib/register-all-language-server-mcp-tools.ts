@@ -1,6 +1,5 @@
-import { LogManager } from '@idl/logger';
+import { MCPToolHelper } from '@idl/mcp/server-tools';
 import { IDLIndex } from '@idl/parsing/index';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { RegisterMCPTool_GetRoutineDocs } from './globals/register-mcp-tool-get-routine-docs';
 import { RegisterMCPTool_ResourcesSearchForRoutine } from './globals/register-mcp-tool-search-for-routine';
@@ -9,11 +8,9 @@ import { RegisterMCPTool_ResourcesSearchForRoutine } from './globals/register-mc
  * Registers all MCP tools that require the language server
  */
 export function RegisterAllLanguageServerMCPTools(
-  messenger: VSCodeLanguageServerMessenger,
-  index: IDLIndex,
-  logger: LogManager
+  helper: MCPToolHelper,
+  index: IDLIndex
 ) {
-  // register MCP tools special to the language serv er
-  RegisterMCPTool_GetRoutineDocs(messenger, index);
-  RegisterMCPTool_ResourcesSearchForRoutine(messenger, index);
+  RegisterMCPTool_GetRoutineDocs(helper, index);
+  RegisterMCPTool_ResourcesSearchForRoutine(helper, index);
 }

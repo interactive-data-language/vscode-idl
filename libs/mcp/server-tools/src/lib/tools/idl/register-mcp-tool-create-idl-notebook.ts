@@ -1,23 +1,15 @@
 import { CleanPath } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  MCP_TOOL_LOOKUP,
-  MCPTool_CreateIDLNotebook,
-  MCPToolParams,
-} from '@idl/types/mcp';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
+import { MCPToolHelper } from '../../mcp-tool-helper.class';
 
 /**
  * Registers a tool that creates an IDL Notebook
  */
-export function RegisterMCPTool_CreateIDLNotebook(
-  messenger: VSCodeLanguageServerMessenger
-) {
-  MCPToolRegistry.registerTool(
+export function RegisterMCPTool_CreateIDLNotebook(helper: MCPToolHelper) {
+  helper.registerTool(
     MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK,
     {
       title:
@@ -51,23 +43,17 @@ export function RegisterMCPTool_CreateIDLNotebook(
       },
     },
     async (id, { uri, cells }) => {
-      // strictly typed parameters and make sure we always have content in the cells
-      const params: MCPToolParams<MCPTool_CreateIDLNotebook> = {
-        uri: CleanPath(uri),
-        cells: cells.map((cell) => {
-          return {
-            type: cell?.type || 'markdown',
-            content: cell?.content || '',
-          };
-        }),
-      };
-
-      const resp = await messenger.sendRequest(
-        LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
+      const resp = await helper.sendRequestToVSCode(
+        id,
+        MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK,
         {
-          id,
-          tool: MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK,
-          params,
+          uri: CleanPath(uri),
+          cells: cells.map((cell) => {
+            return {
+              type: cell?.type || 'markdown',
+              content: cell?.content || '',
+            };
+          }),
         }
       );
 
