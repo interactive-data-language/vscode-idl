@@ -903,6 +903,8 @@ export const EN: ITranslation = {
     errors: {
       failedCodePrepare:
         'Failed to prepare IDL code to run, see IDL logs for more details',
+      failedConnect:
+        'Failed to connect to the MCP server, IDL for VSCode tools will be unavailable. Please see logs for more details.',
       failedStart:
         'Failed to start MCP server. Is the port available? If not, this can be changed in the extension settings.',
       failedProgress: 'Failed to handle progress message to MCP server',

@@ -808,6 +808,8 @@ export interface ITranslation {
     errors: {
       /** if we failed to prepare code to run */
       failedCodePrepare: string;
+      /** When we fail to connect to the server on extension startup */
+      failedConnect: string;
       /** Failed to start the MCP server */
       failedStart: string;
       /** Failed to handle progress messages */

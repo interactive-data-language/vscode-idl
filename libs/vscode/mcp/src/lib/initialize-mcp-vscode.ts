@@ -63,46 +63,66 @@ export function InitializeMCPVSCode(ctx: vscode.ExtensionContext) {
         return servers;
       },
 
-      //   // Optional: called right before a server is started.
-      //   // Use this if you need user interaction (auth, config, etc.).
-      //   async resolveMcpServerDefinition(
-      //     server: vscode.McpServerDefinition,
-      //     token: vscode.CancellationToken
-      //   ): Promise<undefined | vscode.McpServerDefinition> {
-      //     if (token.isCancellationRequested) {
-      //       return;
-      //     }
+      /**
+       * Call this just before we try to run an MCP tool for our server
+       */
+      async resolveMcpServerDefinition(
+        server: vscode.McpServerDefinition,
+        token: vscode.CancellationToken
+      ): Promise<undefined | vscode.McpServerDefinition> {
+        if (token.isCancellationRequested) {
+          return;
+        }
 
-      //     // Example: ask for an API key the first time starting a specific server
-      //     if (server.label === 'github') {
-      //       const apiKey = await vscode.window.showInputBox({
-      //         prompt: 'Enter API key for GitHub MCP server',
-      //         password: true,
-      //         ignoreFocusOut: true,
-      //       });
+        // try to get health check and make sure good response
+        try {
+          // set timeout for 2 seconds
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 2000); // timeout
 
-      //       if (!apiKey) {
-      //         // Returning undefined tells VS Code: "don't start this server"
-      //         return;
-      //       }
+          // attempt to fetch
+          const response = await fetch(
+            `http://localhost:${SERVER_PORTS.mcp}/health-check`,
+            {
+              method: 'GET',
+              signal: controller.signal,
+            }
+          );
 
-      //       // For an HTTP server, you’d typically clone & tweak headers:
-      //       if (server instanceof vscode.McpHttpServerDefinition) {
-      //         return new vscode.McpHttpServerDefinition(
-      //           server.label,
-      //           server.uri,
-      //           {
-      //             ...server.headers,
-      //             Authorization: `Bearer ${apiKey}`,
-      //           },
-      //           server.version
-      //         );
-      //       }
-      //     }
+          // remove timeout
+          clearTimeout(timeoutId);
 
-      //     // By default just return the server unchanged
-      //     return server;
-      //   },
+          // check if we did not get a good response from the server
+          if (!response.ok) {
+            IDL_LOGGER.log({
+              log: IDL_MCP_VSCODE_LOG,
+              type: 'error',
+              content: [
+                'Failed to connect to MCP server',
+                await response.json(),
+              ],
+              alert: IDL_TRANSLATION.mcp.errors.failedConnect,
+            });
+            return undefined;
+          }
+
+          // got here, so return server
+          return server;
+        } catch (err) {
+          IDL_LOGGER.log({
+            log: IDL_MCP_VSCODE_LOG,
+            type: 'error',
+            content: [
+              err.name === 'AbortError'
+                ? 'Failed to connect to MCP server because of connection timeout'
+                : 'Unknown error while connecting to MCP server',
+              err,
+            ],
+            alert: IDL_TRANSLATION.mcp.errors.failedConnect,
+          });
+          return undefined;
+        }
+      },
     })
   );
 }

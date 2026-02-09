@@ -200,6 +200,22 @@ export class McpHttpServerCore {
       }
     );
 
+    /**
+     * Health check endpoint to make sure server is running
+     */
+    this.app.get(
+      '/health-check',
+      async (req: express.Request, res: express.Response) => {
+        this.logCallback({
+          content: 'Received health check request',
+          type: 'debug',
+        });
+        res.status(200).json({
+          message: 'Server is up and running',
+        });
+      }
+    );
+
     try {
       this.logCallback({
         content: `Attempting to start MCP server on port ${this.mcpPort}`,
