@@ -2,10 +2,12 @@ import {
   FindFiles,
   GetExtensionPath,
   USER_COPILOT_FOLDER,
+  USER_COPILOT_FOLDER_HOME_RELATIVE,
   USER_COPILOT_INSTRUCTIONS_FOLDER,
+  USER_COPILOT_INSTRUCTIONS_FOLDER_HOME_RELATIVE,
   USER_COPILOT_PROMPTS_FOLDER,
+  USER_COPILOT_PROMPTS_FOLDER_HOME_RELATIVE,
 } from '@idl/idl/files';
-import { basename, join } from 'path';
 import * as vscode from 'vscode';
 
 import { MoveAndUpdateCopilotFile } from './move-and-update-copilot-file';
@@ -42,6 +44,12 @@ export async function RegisterGitHubCopilotFilesFromExtension(
       ? USER_COPILOT_INSTRUCTIONS_FOLDER
       : USER_COPILOT_PROMPTS_FOLDER;
 
+  /** Home-relative path for settings */
+  const destinationDirForSettings =
+    type === 'instructions'
+      ? USER_COPILOT_INSTRUCTIONS_FOLDER_HOME_RELATIVE
+      : USER_COPILOT_PROMPTS_FOLDER_HOME_RELATIVE;
+
   /**
    * Get prompt files
    *
@@ -62,7 +70,11 @@ export async function RegisterGitHubCopilotFilesFromExtension(
 
   // remove any existing files from settings in case we deleted/removed prompts
   for (let i = 0; i < existing.length; i++) {
-    if (existing[i].startsWith(USER_COPILOT_FOLDER)) {
+    if (
+      // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
+      existing[i].startsWith(USER_COPILOT_FOLDER) ||
+      existing[i].startsWith(USER_COPILOT_FOLDER_HOME_RELATIVE)
+    ) {
       states[existing[i]] = filesLocations[existing[i]];
       delete filesLocations[existing[i]];
     }
@@ -71,16 +83,19 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   /** Find prompt files that we should automatically register */
   const files = await FindFiles(dir, fileExtensions);
 
-  // move all files and register
+  // Move all files
+  // we need a absolute path for operations like copy/move/read/write. But we want to register the home-relative path with copilot settings to be compliant.
   for (let i = 0; i < files.length; i++) {
-    // get path of destination file
-    const newPath = join(destinationDir, basename(files[i]));
-
-    // migrate the file
     MoveAndUpdateCopilotFile(files[i], destinationDir);
+  }
 
-    // track new location
-    filesLocations[newPath] = newPath in states ? states[newPath] : true;
+  // Use home-relative paths.
+  // Register directory if files exist
+  if (files.length > 0) {
+    filesLocations[destinationDirForSettings] =
+      destinationDirForSettings in states
+        ? states[destinationDirForSettings]
+        : true;
   }
 
   // Update the configuration globally
