@@ -170,3 +170,21 @@ To write new integration tests, here's the best process:
 4. In the relevant test runner, you should register the test. Open one of the relevant test runners to see an example of this.
 
 > Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps\client-e2e\src\tests\mcp\_mcp-test-runner.ts`
+
+## Releasing
+
+1. Bump the version of the extension in `libs\shared\extension\src\lib\version.interface.ts` to match thenew version
+
+2. Execute `npm run package`
+
+3. Commit changes from version to Github
+
+4. Merge the `develop` branch into `main`
+
+5. Wait for GitHub actions to finish to make sure that docs build
+
+6. Create release checkpoint on GitHub and attach the VSIX file to release
+
+7. Publish release to the marketplace with `vsce publish` (you need special permissions to do this)
+
+8. Wait and check for confirmation email that the extension was published!
