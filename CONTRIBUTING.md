@@ -19,7 +19,7 @@ This repository is forward leaning with LTS and new versions of node and NPM.
 At the time of writing this, you need:
 
 - Node.js 20.12 or newer
-- NPM 9.2 or newer
+- NPM 9.2 or 10.0 or newer
 
 You should see an error when you try to install dependencies or package the extension, both of which check your node and NPM versions to make sure they are valid.
 
@@ -36,23 +36,6 @@ To build your own version of the extension run the following from the root of th
 3. `npm run package`
 
 4. Manually install the generated `idl-*.vsix` file in VS Code
-
-### Updating the ENVI and IDL MCP Tools
-
-1. Create a file at the root level of this workspace called `build.json`
-
-2. Populate the contents with the following:
-
-```json
-{
-  "mcp-dir": "C:\\path-to-envi-idl-mcp-tools",
-  "idl-dir": "C:\\Program Files\\NV5\\ENVI62\\IDL92\\bin\\bin.x86_64"
-}
-```
-
-3. Execute `npm run update-mcp-tools`
-
-> This happens automatically when packaging.
 
 ## Quick Links and Helpful Information
 
@@ -93,13 +76,22 @@ This will build, and rebuild on changes, the client, server, and parsing-worker 
 
 3. On changes, and after a few seconds, things will rebuild and you can refresh using the debug menu in VSCode.
 
-For more advanced cases, and if you want to only have the server/client start, you can do the following:
+### Updating the ENVI and IDL MCP Tools
 
-1. Open a terminal and run `npm run start-server`
+1. Create a file at the root level of this workspace called `build.json`
 
-2. Open a terminal and run `npm run start-client`
+2. Populate the contents with the following:
 
-On any changed, each will recompile and update oon-the-fly and this is a bit quicker to start up compared to using `npm start`.
+```json
+{
+  "mcp-dir": "C:\\path-to-envi-idl-mcp-tools",
+  "idl-dir": "C:\\Program Files\\NV5\\ENVI62\\IDL92\\bin\\bin.x86_64"
+}
+```
+
+3. Execute `npm run build-mcp-tools`
+
+> NOTE: This is a manually step because the SAVE files are bundled in the extension. Anytime we recompile IDL code, it is tracked as changes for git, so that's why this doesn't happen every time
 
 ### Changing Extension Contribution
 
@@ -158,3 +150,41 @@ Most of our testing happens in the first step above as the second is more compli
 To test this application you can run `npm run test-everything` which will run all tests and take several minutes to run. To do this, you need to have ENVI and IDL installed.
 
 If you are just updating or working with the libraries, you can use `npm run test-libs` which will just test the libraries. This does not require ENVI and IDL to be installed to run.
+
+### Writing Integration Tests
+
+Integration tests live in this folder `apps\client-e2e\src\tests`
+
+They are separated by test runners, which are where tests are registered for each component of the extension. These test runners are the files prefixed with `_` at in each sub folder.
+
+To write new integration tests, here's the best process:
+
+1. Identify the relevant sub-folder to add your tests to
+
+2. For test development, we recommend commenting out the test runners that aren't related to what you are running. you can find that in `apps\client-e2e\src\tests\test-runner.ts`
+
+3. Create a new test - it's recommended to copy/paste from an exaisting test and adjust to meet your needs
+
+> If you have additional files needed for the test, the standard location to save content is here `idl\test\client-e2e`
+
+4. In the relevant test runner, you should register the test. Open one of the relevant test runners to see an example of this.
+
+> Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps\client-e2e\src\tests\mcp\_mcp-test-runner.ts`
+
+## Releasing
+
+1. Bump the version of the extension in `libs\shared\extension\src\lib\version.interface.ts` to match thenew version
+
+2. Execute `npm run package`
+
+3. Commit changes from version to Github
+
+4. Merge the `develop` branch into `main`
+
+5. Wait for GitHub actions to finish to make sure that docs build
+
+6. Create release checkpoint on GitHub and attach the VSIX file to release
+
+7. Publish release to the marketplace with `vsce publish` (you need special permissions to do this)
+
+8. Wait and check for confirmation email that the extension was published!
