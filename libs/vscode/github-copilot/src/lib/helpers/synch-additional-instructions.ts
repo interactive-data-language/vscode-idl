@@ -11,9 +11,14 @@ const CONFIG_NAMESPACE = 'idl';
 const SETTING_KEY = 'copilot.customInstructions';
 const FULL_SETTING_KEY = `${CONFIG_NAMESPACE}.${SETTING_KEY}`;
 
-let debounceTimer: NodeJS.Timeout | undefined;
+let settingDebounceTimer: NodeJS.Timeout | undefined;
+let fileDebounceTimer: NodeJS.Timeout | undefined;
 
-export async function ReadInstructions(): Promise<string> {
+/**
+ * Reads the custom instructions from the file system.
+ * @returns The file content, or null if the file doesn't exist or can't be read
+ */
+export async function readInstructions(): Promise<null | string> {
   const filePath = join(USER_COPILOT_INSTRUCTIONS_FOLDER, INSTRUCTIONS_FILE);
   const fileUri = vscode.Uri.file(filePath);
   try {
@@ -30,16 +35,16 @@ export async function ReadInstructions(): Promise<string> {
         err,
       ],
     });
-    return ''; // Return empty string on error
+    return null; // Return null on error to distinguish from empty content
   }
 }
 
-export async function SyncInstructionsFromFileToSetting() {
+export async function syncInstructionsFromFileToSetting() {
   // From file
-  let existingInstructions = await ReadInstructions();
+  let existingInstructions = await readInstructions();
 
   // If file read failed, nothing to sync
-  if (!existingInstructions) {
+  if (existingInstructions === null) {
     return;
   }
 
@@ -66,28 +71,68 @@ export async function SyncInstructionsFromFileToSetting() {
 }
 
 /**
- * Watches for changes to the custom instructions setting
+ * Handler for file changes - debounced to avoid excessive syncing
  */
+function handleInstructionsFileChange() {
+  if (fileDebounceTimer) {
+    clearTimeout(fileDebounceTimer);
+  }
 
-async function CBHandleConfigChange(ev: vscode.ConfigurationChangeEvent) {
+  fileDebounceTimer = setTimeout(async function () {
+    await syncInstructionsFromFileToSetting();
+  }, DEBOUNCE_MS);
+}
+
+/**
+ * Watches for changes to the custom instructions file and syncs to settings.
+ * @returns Disposable to stop watching
+ */
+export function watchCustomInstructionsFileChanges(): vscode.Disposable {
+  // Create a file watcher for the instructions file
+  const watcher = vscode.workspace.createFileSystemWatcher(
+    new vscode.RelativePattern(
+      USER_COPILOT_INSTRUCTIONS_FOLDER,
+      INSTRUCTIONS_FILE
+    )
+  );
+
+  watcher.onDidChange(handleInstructionsFileChange);
+  watcher.onDidCreate(handleInstructionsFileChange);
+
+  return {
+    dispose() {
+      watcher.dispose();
+      if (fileDebounceTimer) {
+        clearTimeout(fileDebounceTimer);
+        fileDebounceTimer = undefined;
+      }
+    },
+  };
+}
+
+/**
+ * Handles configuration changes for custom instructions setting.
+ * Debounced to avoid excessive file writes.
+ */
+async function handleConfigChange(ev: vscode.ConfigurationChangeEvent) {
   // Only act if our specific setting changed
   if (!ev.affectsConfiguration(FULL_SETTING_KEY)) {
     return;
   }
 
   // Clear existing timer
-  if (debounceTimer) {
-    clearTimeout(debounceTimer);
+  if (settingDebounceTimer) {
+    clearTimeout(settingDebounceTimer);
   }
 
   // Set new timer - only execute after user stops changing settings
-  debounceTimer = setTimeout(async () => {
+  settingDebounceTimer = setTimeout(async () => {
     try {
-      // Read our instructions file in to make some changes.
-      const fileContent = await ReadInstructions();
+      // Read current file content
+      const fileContent = await readInstructions();
 
-      // we dont know where our file is, or if it exists... Skip.
-      if (fileContent === '') {
+      // If file doesn't exist or can't be read, skip
+      if (fileContent === null) {
         return;
       }
 
@@ -105,7 +150,7 @@ async function CBHandleConfigChange(ev: vscode.ConfigurationChangeEvent) {
         INSTRUCTIONS_FILE
       );
       const fileUri = vscode.Uri.file(filePath);
-      const newContent = beforeMarker + '\n\n' + MARKER + '\n\n' + value;
+      const newContent = `${beforeMarker}\n\n${MARKER}\n\n${value}`;
       const encoded = new TextEncoder().encode(newContent);
 
       await vscode.workspace.fs.writeFile(fileUri, encoded);
@@ -119,18 +164,20 @@ async function CBHandleConfigChange(ev: vscode.ConfigurationChangeEvent) {
   }, DEBOUNCE_MS);
 }
 
-// if the custom instructions setting change, update the file with a CB
-export function WatchCustomInstructionsChanges(): vscode.Disposable {
-  // return disposable so it can be pushed onto subscriptions and then disposed on shutdown
+/**
+ * Watches for changes to the custom instructions setting and syncs to file.
+ * @returns Disposable to stop watching
+ */
+export function watchCustomInstructionsChanges(): vscode.Disposable {
   const listener =
-    vscode.workspace.onDidChangeConfiguration(CBHandleConfigChange);
+    vscode.workspace.onDidChangeConfiguration(handleConfigChange);
 
   return {
     dispose() {
       listener.dispose();
-      if (debounceTimer) {
-        clearTimeout(debounceTimer);
-        debounceTimer = undefined;
+      if (settingDebounceTimer) {
+        clearTimeout(settingDebounceTimer);
+        settingDebounceTimer = undefined;
       }
     },
   };
