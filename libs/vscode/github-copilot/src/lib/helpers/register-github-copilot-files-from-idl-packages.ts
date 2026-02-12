@@ -1,4 +1,8 @@
-import { FindFiles, IDL_PACKAGE_DIR } from '@idl/idl/files';
+import {
+  FindFiles,
+  IDL_PACKAGE_DIR,
+  IDL_PACKAGE_DIR_HOME_RELATIVE,
+} from '@idl/idl/files';
 import * as vscode from 'vscode';
 
 /**
@@ -38,19 +42,34 @@ export async function RegisterGitHubCopilotFilesFromIDLPackages(
 
   // remove any existing files from settings in case we deleted/removed prompts
   for (let i = 0; i < existing.length; i++) {
-    if (existing[i].startsWith(IDL_PACKAGE_DIR)) {
+    if (
+      // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
+      existing[i].startsWith(IDL_PACKAGE_DIR) ||
+      existing[i].startsWith(IDL_PACKAGE_DIR_HOME_RELATIVE)
+    ) {
       states[existing[i]] = filesLocations[existing[i]];
       delete filesLocations[existing[i]];
     }
   }
 
-  /** Find prompt files that we should automatically register */
-  const files = await FindFiles(IDL_PACKAGE_DIR, fileExtensions);
+  /** Get the subdirectory for this type */
+  const subDirForFind = `${IDL_PACKAGE_DIR}/vscode/github-copilot/${
+    type === 'instructions' ? 'instructions' : 'prompts'
+  }`;
 
-  // move all files and register
-  for (let i = 0; i < files.length; i++) {
-    // track new location
-    filesLocations[files[i]] = files[i] in states ? states[files[i]] : true;
+  /** Find prompt files that we should automatically register */
+  // Find files needs a absolute path.
+  const files = await FindFiles(subDirForFind, fileExtensions);
+
+  // Register directory if files exist
+  // settings need a relative.
+  if (files.length > 0) {
+    const subDirForSettings = `${IDL_PACKAGE_DIR_HOME_RELATIVE}/vscode/github-copilot/${
+      type === 'instructions' ? 'instructions' : 'prompts'
+    }`;
+
+    filesLocations[subDirForSettings] =
+      subDirForSettings in states ? states[subDirForSettings] : true;
   }
 
   // Update the configuration globally
