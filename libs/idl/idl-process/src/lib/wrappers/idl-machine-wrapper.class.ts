@@ -108,15 +108,23 @@ export class IDLMachineWrapper {
        * Only update if we changed
        */
       if (params.stack.changed) {
+        let scope = params.stack.frames.map((frame) => {
+          return {
+            file: frame.file,
+            line: frame.line,
+            routine: frame.name,
+          };
+        });
+        // If the user compiles a $MAIN$ program, we get a single frame
+        // with line 0. In this case, we want to show an empty stack.
+        // If we don't do this, VS code will show a frame with line 0
+        // and will also foolishly try to open up an empty file.
+        if (scope.length === 1 && scope[0].line === 0) {
+          scope = [];
+        }
         this.process.idlInfo = {
           hasInfo: true,
-          scope: params.stack.frames.map((frame) => {
-            return {
-              file: frame.file,
-              line: frame.line,
-              routine: frame.name,
-            };
-          }),
+          scope: scope,
           variables: this._mapVariables(params.stack.frames[0]),
         };
       }
