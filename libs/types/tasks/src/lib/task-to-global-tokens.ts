@@ -3,7 +3,6 @@ import {
   IDL_DOCS_HEADERS,
   MARKDOWN_TYPE_LOOKUP,
 } from '@idl/parsing/syntax-tree';
-import { GlobalTokens } from '@idl/types/idl-data-types';
 
 import { ENVITaskToGlobal } from './converters/envi-task-to-global';
 import { IDLTaskToGlobal } from './converters/idl-task-to-global';
@@ -21,7 +20,7 @@ import { IGlobalsToTrack } from './task-to-global-token.interface';
  * Converts a parsed task definition to global routines so that we have auto-complete, hover, help
  * and integration with IDL.
  */
-export function TaskToGlobalToken(task: ParsedTask): GlobalTokens {
+export function TaskToGlobalToken(task: ParsedTask): IGlobalsToTrack {
   /** Results from loading task */
   let res: IGlobalsToTrack;
 
@@ -77,5 +76,5 @@ export function TaskToGlobalToken(task: ParsedTask): GlobalTokens {
   });
   delete res.structure.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT];
 
-  return [res.structure, res.function];
+  return res;
 }

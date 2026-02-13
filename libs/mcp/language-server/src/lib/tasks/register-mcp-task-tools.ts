@@ -33,6 +33,18 @@ export async function RegisterMCPTaskTools(
   /** Create task registry */
   const registry = new MCPTaskRegistry(helper.logManager);
 
+  // listen for task changes
+  index.onParse.on('envi-task', (parsed) => {
+    helper.logManager.log({
+      log: IDL_MCP_LOG,
+      type: 'debug',
+      content: `Updating task definition for "${parsed.globals.function.name}"`,
+    });
+
+    // register task
+    registry.registerTask(parsed.globals.function, parsed.globals.structure);
+  });
+
   // register tools for tasks
   RegisterMCPTool_ListENVITools(helper, registry);
   RegisterMCPTool_GetENVIToolParameters(helper, registry);

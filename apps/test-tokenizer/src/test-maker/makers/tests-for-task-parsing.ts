@@ -1,8 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GlobalTokens } from '@idl/types/idl-data-types';
-import { TaskToGlobalToken } from '@idl/types/tasks';
+import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -26,8 +25,9 @@ export async function TestsForTaskParsing(
   strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { ResetGlobalDisplayNames } from '@idl/parsing/index';`);
   strings.push(`import { LoadTask } from '@idl/schemas/tasks';`);
-  strings.push(`import { GlobalTokens } from '@idl/types/idl-data-types';`);
-  strings.push(`import { TaskToGlobalToken } from '@idl/types/tasks';`);
+  strings.push(
+    `import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';`
+  );
   strings.push(``);
 
   // add the basic code for our test
@@ -55,7 +55,7 @@ export async function TestsForTaskParsing(
     const task = await LoadTask(filepath);
 
     // convert to global tokens
-    const global: GlobalTokens = TaskToGlobalToken(task);
+    const global: IGlobalsToTrack = TaskToGlobalToken(task);
 
     strings.push(`    // reset global display names`);
     strings.push(`    ResetGlobalDisplayNames();`);
@@ -68,7 +68,7 @@ export async function TestsForTaskParsing(
     // add the start to  our tokens
     strings.push(`    // define expected local variables`);
     strings.push(
-      `    const expected: GlobalTokens = ${JSON.stringify(global)}`
+      `    const expected: IGlobalsToTrack = ${JSON.stringify(global)}`
     );
     strings.push('');
 
