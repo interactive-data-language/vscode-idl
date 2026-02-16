@@ -1,5 +1,6 @@
 import { IDL_MCP_LOG } from '@idl/logger';
 import {
+  MCPTrackPromptsAsResources,
   MCPTrackTutorialsAsResources,
   RegisterAllLanguageServerMCPTools,
 } from '@idl/mcp/language-server';
@@ -70,6 +71,17 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
         log: IDL_MCP_LOG,
         type: 'error',
         content: [`Problem tracking IDL tutorial files`, err],
+      });
+    }
+
+    // add all prompts as server resources
+    try {
+      MCPTrackPromptsAsResources(IDL_LANGUAGE_SERVER_LOGGER);
+    } catch (err) {
+      IDL_LANGUAGE_SERVER_LOGGER.log({
+        log: IDL_MCP_LOG,
+        type: 'error',
+        content: [`Problem tracking GitHub Copilot prompt files`, err],
       });
     }
 
