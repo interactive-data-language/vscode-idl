@@ -89,6 +89,7 @@ import {
 } from './idl-index.interface';
 import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
+import { OnParseEventManager } from './on-parse-event-manager.class';
 import { GetCodeOutline } from './outline/get-code-outline';
 import { PostProcessParsed } from './post-process/post-process-parsed';
 import { GetTokenDefinition } from './token-definiton/get-token-definition';
@@ -162,6 +163,11 @@ export class IDLIndex {
    * Number of workers that we populate our indexer pool with
    */
   nWorkers: number;
+
+  /**
+   * Event manager for when we parse different types of files
+   */
+  onParse = new OnParseEventManager();
 
   /**
    * Track tokens for each file that we process
@@ -1653,7 +1659,11 @@ export class IDLIndex {
   /**
    * Index task file
    */
-  private async indexTaskFile(file: string, content?: string, sync = true) {
+  private async indexTaskFile(
+    file: string,
+    content?: string,
+    sync = true
+  ): Promise<GlobalTokens> {
     /**
      * Wrap parsing in try catch since we will eventually have task file errors
      */
@@ -1665,23 +1675,39 @@ export class IDLIndex {
       const global = TaskToGlobalToken(task);
 
       // save the file type
-      if (global[0].name.startsWith('envi')) {
+      if (global.function.name.startsWith('envi')) {
         this.fileTypes['envi-task'].add(file);
+        this.onParse.emit('envi-task', {
+          type: 'envi-task',
+          globals: global,
+          uri: file,
+        });
       } else {
         this.fileTypes['idl-task'].add(file);
+        this.onParse.emit('idl-task', {
+          type: 'idl-task',
+          globals: global,
+          uri: file,
+        });
       }
 
       // track and sync if needed
-      this.saveGlobalTokens(global, file, DEFAULT_DISABLED_PROBLEMS, sync);
+      this.saveGlobalTokens(
+        [global.function, global.structure],
+        file,
+        DEFAULT_DISABLED_PROBLEMS,
+        sync
+      );
 
       // track as known file
       this.knownFiles[file] = undefined;
 
       // return global token
-      return global;
+      return [global.function, global.structure];
     } catch (err) {
+      console.log(err);
       /**
-       * Silently ignore errors as we could have many while
+       * Silently ignore errors as we coul have many while
        * people are editing or changing task files
        */
       return [];

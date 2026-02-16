@@ -269,6 +269,31 @@ export class MCPTaskRegistry {
   }
 
   /**
+   * Remove a task from the registry
+   *
+   * Deletes entries from all root level properties
+   */
+  removeTask(taskName: string): boolean {
+    /** Get lower case name */
+    const lc = taskName.toLowerCase();
+
+    // check if task exists
+    if (!(lc in this.descriptions)) {
+      return false;
+    }
+
+    // remove from all root level properties
+    delete this.descriptions[lc];
+    delete this.inputParameters[lc];
+    delete this.inputValidators[lc];
+    delete this.outputParameters[lc];
+    delete this.location[lc];
+    delete this.notes[lc];
+
+    return true;
+  }
+
+  /**
    * Validate input parameters for a task
    *
    * We can validate them before they ever get to ENVI and, in fact, we should

@@ -108,7 +108,7 @@ export function RegisterMCPTool_RunENVITool(
       // check if we have a task file to use instead
       if (detail.location) {
         if (detail.location.type === 'file') {
-          params.taskName = (
+          params.uri = (
             detail.location as TaskLocation<TaskLocation_File>
           ).meta.path;
         }

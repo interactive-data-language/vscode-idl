@@ -38,7 +38,7 @@ CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop wo
 
 - Query ENVI's available tools using "IDL for VSCode/list-envi-tools" and build a rough outline of what tools should be chained together
 
-- See if there are known ENVI Tool Workflows to help guide your decision making by using "IDL for VSCode/list-envi-tool-workflows". If there are matches, use "IDL for VSCOde/get-envi-tool-workflow" to retrieve the detail.
+- See if there are known ENVI Tool Workflows to help guide your decision making by using "IDL for VSCode/list-envi-tool-workflows". If there are matches, use "IDL for VSCode/get-envi-tool-workflow" to retrieve the detail.
 
 - Request parameters for each tool and verify we can connect the input and output parameters from each step together
 

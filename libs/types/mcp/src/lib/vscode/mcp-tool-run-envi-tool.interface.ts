@@ -17,6 +17,8 @@ export interface MCPToolParams_RunENVITool {
    * Name of the task
    */
   taskName: string;
+  /** Fully qualified path to the task on disk */
+  uri?: string;
 }
 
 /**

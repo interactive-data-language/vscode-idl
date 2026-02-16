@@ -33,10 +33,10 @@ import {
   SERVER_INITIALIZATION_OPTIONS,
   SERVER_MESSENGER,
 } from '../initialize-language-server';
-import { InitializeMCPServer } from '../initialize-mcp-server';
 import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
 import { WORKSPACE_FOLDER_LIST } from './documents/on-connection-initialized';
 import { IDL_INDEX } from './initialize-document-manager';
+import { InitializeMCPServer } from './initialize-mcp-server';
 
 /**
  * Timeout for all global promises if we don't get the right responses

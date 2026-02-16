@@ -82,8 +82,7 @@ export async function SetTaskTypes(global: GlobalTokens) {
           const taskGlobals = TaskToGlobalToken(byName[taskName]);
 
           // get first global, always structure from our routines
-          const struct =
-            taskGlobals[0] as IGlobalIndexedToken<GlobalStructureToken>;
+          const struct = taskGlobals.structure;
 
           // get properties
           const props = struct.meta?.props || {};

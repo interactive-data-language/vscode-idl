@@ -60,10 +60,12 @@ export async function RunMCPTool_RunENVITool(
   // attempting to run ENVI task
   VSCodeSendMCPNotification(id, { message: 'Running task' });
 
-  // track high-level task called
-  VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
-    idl_command: `idl.mcp.runTask.${params.taskName}`,
-  });
+  // track high-level task called - only do this for core ENVI tools
+  if (!params.uri) {
+    VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+      idl_command: `idl.mcp.runTask.${params.taskName}`,
+    });
+  }
 
   // run our command to open in ENVI
   const res = await MCPEvaluateENVICommand(
