@@ -45,7 +45,7 @@ export function CreateRoutineSyntax(
         `; :Returns: ${IDLTypeHelper.serializeIDLType(typed.returns)}\n`
       );
     }
-    syntax.push(';+\n');
+    syntax.push(';-\n');
 
     switch (true) {
       case info.name.toLowerCase().endsWith('::init'):
