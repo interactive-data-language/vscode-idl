@@ -15,8 +15,6 @@ import {
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 
-import { RegisterENVITaskNotes } from './register-envi-task-notes';
-
 /**
  * Registers MCP Task tools from parsed code on IDL's search path
  */
@@ -75,14 +73,14 @@ export async function RegisterMCPTaskTools(
     );
   }
 
-  helper.logManager.log({
-    log: IDL_MCP_LOG,
-    type: 'info',
-    content: `Attempting to load user ENVI Tool notes`,
-  });
+  // helper.logManager.log({
+  //   log: IDL_MCP_LOG,
+  //   type: 'info',
+  //   content: `Attempting to load user ENVI Tool notes`,
+  // });
 
-  // load notes
-  RegisterENVITaskNotes(registry, helper.logManager);
+  // // load notes
+  // RegisterENVITaskNotes(registry, helper.logManager);
 
   // emit MCP event that tools have changed
   MCP_SERVER.sendToolListChanged();
