@@ -1,4 +1,4 @@
-import { MCPInstructionRegistry } from '@idl/mcp/instructions';
+import { MCPPromptRegistry } from '@idl/mcp/prompts';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
@@ -10,7 +10,7 @@ import { GET_INSTRUCTIONS_INSTRUCTIONS } from './get-instructions-instructions.i
  */
 export function RegisterMCPTool_ListInstructions(
   helper: MCPToolHelper,
-  registry: MCPInstructionRegistry
+  registry: MCPPromptRegistry
 ) {
   helper.registerTool(
     MCP_TOOL_LOOKUP.LIST_INSTRUCTIONS,

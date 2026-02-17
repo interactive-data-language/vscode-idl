@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'fs';
 /**
  * Helper class that tracks and manages access to instruction sets
  */
-export class MCPInstructionRegistry {
+export class MCPPromptRegistry {
   /**
    * Lookup of descriptions by name/id
    */
