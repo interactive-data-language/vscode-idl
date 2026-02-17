@@ -13,7 +13,7 @@ Here's a helpful place to start with tools you can run. You are not limited to t
 
 - "IDL for VSCode/execute-idl-file"
 - "IDL for VSCode/get-envi-tool-parameters"
-- "IDL for VSCOde/get-envi-tool-workflow"
+- "IDL for VSCode/get-envi-tool-workflow"
 - "IDL for VSCode/get-resource"
 - "IDL for VSCode/list-envi-tools"
 - "IDL for VSCode/list-envi-tool-workflows"
