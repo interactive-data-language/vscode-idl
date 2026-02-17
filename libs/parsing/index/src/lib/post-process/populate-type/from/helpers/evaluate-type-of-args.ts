@@ -7,16 +7,6 @@ import { IDLIndex } from '../../../../idl-index.class';
 import { GetArgTypes } from '../../../tree-handlers/helpers/get-arg-types';
 
 /**
- * Simple helper that tells us if a number is a number
- */
-function IsNumber(name: string) {
-  return (
-    !isNaN(name as any) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-    !isNaN(parseFloat(name))
-  );
-}
-
-/**
  * Given a token determines our return type
  */
 export function EvaluateTypeOfArgs(
