@@ -86,7 +86,7 @@ export class IDLTypeEvaluator {
      * will not be "Number" and will instead be something like "Int"
      * because of our smart IDL type processing.
      */
-    const iArg = typeOfArgType[0][0].serialized;
+    const iArg = typeOfArgType[0].args[0][0].serialized;
 
     /**
      * If we dont have a number, return "any" because we cant process this
