@@ -19,8 +19,8 @@ import {
   SERVER_INITIALIZATION_OPTIONS,
   SERVER_MESSENGER,
 } from '../../initialize-language-server';
+import { PROMISE_TIMEOUT } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
-import { PROMISE_TIMEOUT } from '../is-initialized';
 
 /**
  * Flag if we have been resolved

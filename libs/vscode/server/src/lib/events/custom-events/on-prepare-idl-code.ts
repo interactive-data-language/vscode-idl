@@ -7,8 +7,8 @@ import {
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
-import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
  * Callback to handle preparing IDL code for execution

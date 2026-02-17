@@ -10,8 +10,8 @@ import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
-import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
  * Callback to migrate code to newer versions

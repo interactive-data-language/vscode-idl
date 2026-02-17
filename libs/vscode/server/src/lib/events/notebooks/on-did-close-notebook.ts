@@ -4,8 +4,8 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { NotebookDocument } from 'vscode-languageserver/node';
 
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
-import { SERVER_INITIALIZED } from '../is-initialized';
 import { SendNotebookProblems } from './send-notebook-problems';
 
 /**

@@ -7,7 +7,7 @@ import { FormatFile } from '../../helpers/format-file';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
-import { SERVER_INITIALIZED } from '../is-initialized';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 
 /**
  * Callback to handle formatting files

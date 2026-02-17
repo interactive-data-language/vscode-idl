@@ -18,25 +18,25 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { arch, cpus, platform } from 'os';
 
-import { AddAdditionalSearchPaths } from '../helpers/add-additional-search-paths';
-import { CacheValidFSPath } from '../helpers/cache-valid';
+import { CONFIG_INITIALIZATION } from './events/custom-events/on-workspace-config';
+import { WORKSPACE_FOLDER_LIST } from './events/documents/on-connection-initialized';
+import { IDL_INDEX } from './events/initialize-document-manager';
+import { AddAdditionalSearchPaths } from './helpers/add-additional-search-paths';
+import { CacheValidFSPath } from './helpers/cache-valid';
 import {
   IGNORE_PROBLEM_CODES,
   INCLUDE_PROBLEMS_FOR,
-} from '../helpers/merge-config';
-import { SendProblems } from '../helpers/send-problems';
-import { SendUsageMetricServer } from '../helpers/send-usage-metric-server';
-import { IDL_CLIENT_CONFIG } from '../helpers/track-workspace-config';
+} from './helpers/merge-config';
+import { SendProblems } from './helpers/send-problems';
+import { SendUsageMetricServer } from './helpers/send-usage-metric-server';
+import { IDL_CLIENT_CONFIG } from './helpers/track-workspace-config';
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_INITIALIZATION_OPTIONS,
   SERVER_MESSENGER,
-} from '../initialize-language-server';
-import { CONFIG_INITIALIZATION } from './custom-events/on-workspace-config';
-import { WORKSPACE_FOLDER_LIST } from './documents/on-connection-initialized';
-import { IDL_INDEX } from './initialize-document-manager';
-import { InitializeMCPServer } from './initialize-mcp-server';
+} from './initialize-language-server';
+import { InitializeMCPServer } from './mcp/initialize-mcp-server';
 
 /**
  * Timeout for all global promises if we don't get the right responses

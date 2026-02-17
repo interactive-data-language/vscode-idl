@@ -11,9 +11,9 @@ import {
 
 import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../initialize-notebook-manager';
-import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
  * Callback to handle converting notebooks to PRO code

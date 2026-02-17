@@ -13,8 +13,8 @@ import {
   SERVER_CONNECTION,
   SERVER_MESSENGER,
 } from '../../initialize-language-server';
+import { PROMISE_TIMEOUT, SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
-import { PROMISE_TIMEOUT, SERVER_INITIALIZED } from '../is-initialized';
 import { ON_DID_CHANGE_WORKSPACE_FOLDERS } from './on-did-change-workspace-folders';
 
 /**

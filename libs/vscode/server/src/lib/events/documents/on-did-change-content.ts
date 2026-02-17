@@ -7,8 +7,8 @@ import { CacheValid } from '../../helpers/cache-valid';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { SendProblems } from '../../helpers/send-problems';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
-import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
  * Callback to handle file changes

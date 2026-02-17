@@ -9,8 +9,8 @@ import {
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { URIFromIDLIndexFile } from '../../helpers/uri-from-idl-index-file';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
-import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
  * Get the location of a tokens's definition

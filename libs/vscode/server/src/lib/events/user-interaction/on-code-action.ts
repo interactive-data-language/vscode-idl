@@ -10,7 +10,7 @@ import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-
 import { IsIDLDiagnostic } from '../../helpers/is-idl-diagnostinc';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
-import { SERVER_INITIALIZED } from '../is-initialized';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 
 /**
  * Event handler for retrieving code actions

@@ -12,8 +12,8 @@ import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { UpdateDocument } from '../../helpers/update-document';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
-import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
  * Do we write to disk or not?

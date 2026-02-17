@@ -1,7 +1,7 @@
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
+import { SERVER_INITIALIZED } from '../../is-initialized';
 import { ON_DOCUMENT_FORMATTING } from '../documents/on-document-formatting';
-import { SERVER_INITIALIZED } from '../is-initialized';
 
 /**
  * Callback to handle adding docs to a file

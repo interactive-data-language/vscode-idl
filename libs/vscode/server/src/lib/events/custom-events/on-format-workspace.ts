@@ -18,7 +18,7 @@ import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
 } from '../../initialize-language-server';
-import { SERVER_INITIALIZED } from '../is-initialized';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 
 /**
  * Callback to handle formatting code in workspaces

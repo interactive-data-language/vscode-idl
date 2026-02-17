@@ -9,9 +9,9 @@ import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_CONNECTION,
 } from '../../initialize-language-server';
+import { SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../initialize-notebook-manager';
-import { SERVER_INITIALIZED } from '../is-initialized';
 import { SendNotebookProblems } from './send-notebook-problems';
 
 /**
