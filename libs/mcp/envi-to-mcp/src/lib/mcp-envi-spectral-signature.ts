@@ -14,7 +14,7 @@ export function MCP_ENVISpectralSignature() {
       .describe(
         'This value should be "ENVISpectralSignature" (case-insensitive)'
       ),
-    name: z.string().describe('The name of the spectral signture'),
+    name: z.string().describe('The name of the spectral signature'),
     reflectance_scale_factor: z
       .string()
       .describe(
@@ -29,7 +29,7 @@ export function MCP_ENVISpectralSignature() {
     spectrum: z
       .array(z.number())
       .describe(
-        'The values of the spectrum. Should be units of surface reflectance, but may not dependeing on the library source (i.e. user creates from raster).'
+        'The values of the spectrum. Should be units of surface reflectance, but may not depending on the library source (i.e. user creates from raster).'
       ),
     wavelength_units: z
       .enum(['Micrometers', 'Nanometers', 'nm', 'Wavenumber', 'GHz', 'MHz'])

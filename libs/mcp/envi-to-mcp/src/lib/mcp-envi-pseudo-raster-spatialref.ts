@@ -18,7 +18,7 @@ export function MCP_ENVIPseudoRasterSpatialref() {
       .array(z.number())
       .length(4)
       .describe(
-        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the top-left geographics.`
+        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the top-left geographic corner.`
       ),
     pseudo_geo_point_2: z
       .array(z.number())
