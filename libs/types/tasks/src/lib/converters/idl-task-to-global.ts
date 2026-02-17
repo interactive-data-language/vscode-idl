@@ -24,6 +24,9 @@ import { TaskTypeToIDLType } from './task-type-to-idl-type';
 export function IDLTaskToGlobal(
   task: IDLTask<IDLTaskSchemaVersion>
 ): IGlobalsToTrack {
+  // make sure we have description
+  task.description = task.description || '';
+
   /** Get the name of our task */
   const name = `IDL${task.name}Task`;
 

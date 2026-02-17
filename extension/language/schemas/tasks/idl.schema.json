@@ -82,14 +82,7 @@
           }
         }
       },
-      "required": [
-        "name",
-        "base_class",
-        "display_name",
-        "description",
-        "schema",
-        "parameters"
-      ]
+      "required": ["name", "base_class", "display_name", "schema", "parameters"]
     },
     "idltask-1.2-parameter": {
       "type": "object",

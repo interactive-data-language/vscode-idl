@@ -24,6 +24,9 @@ import { TaskTypeToIDLType } from './task-type-to-idl-type';
 export function ENVITaskToGlobal(
   task: ENVITask<ENVITaskSchemaVersion>
 ): IGlobalsToTrack {
+  // make sure we have description
+  task.description = task.description || '';
+
   /** Get the name of our task */
   const name = `ENVI${task.name}Task`;
 
