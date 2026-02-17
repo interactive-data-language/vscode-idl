@@ -7,6 +7,7 @@ import { TYPES_SIDEBAR } from './sidebars/types.sidebar';
 import { ADVANCED_SIDEBAR } from './sidebars/advanced.sidebar';
 import { CODE_COMMENTS_SIDEBAR } from './sidebars/code-comments.sidebar';
 import { NOTEBOOK_SIDEBAR } from './sidebars/notebook.sidebar';
+import { GITHUB_COPILOT_SIDEBAR } from './sidebars/github-copilot.sidebar';
 import { GETTING_STARTED_SIDEBAR } from './sidebars/getting-started.sidebar';
 import { PROBLEMS_SIDEBAR } from './sidebars/problems.sidebar';
 import { VERSION } from '../../../libs/shared/extension/src/lib/version.interface';
@@ -89,6 +90,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Getting Started', link: '/getting-started/' },
+      { text: 'GitHub Copilot', link: '/github-copilot/' },
       { text: 'Notebooks', link: '/notebooks/' },
       { text: 'Types', link: '/types/' },
       {
@@ -101,6 +103,11 @@ export default defineConfig({
       {
         text: 'Getting Started',
         items: GETTING_STARTED_SIDEBAR,
+        // link: '/getting-started/',
+      },
+      {
+        text: 'GitHub Copilot',
+        items: GITHUB_COPILOT_SIDEBAR,
         // link: '/getting-started/',
       },
       {
@@ -148,7 +155,7 @@ export default defineConfig({
 
     footer: {
       message: 'Licensed under MIT.',
-      copyright: 'Copyright (c) 2024, NV5 Geospatial Software, Inc.',
+      copyright: 'Copyright (c) 2026, NV5 Geospatial Software, Inc.',
     },
 
     logo: '/assets/idlicon-color.svg',

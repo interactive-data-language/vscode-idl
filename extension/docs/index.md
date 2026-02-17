@@ -21,12 +21,12 @@ features:
   - title: Modern User Experience
     icon: 🚀
     details: Syntax-based highlighting, in-depth code analysis, type-detection
+  - title: AI Ready
+    icon: 🤖
+    details: Native integration of IDL and ENVI with GitHub Copilot
   - title: Notebooks
     icon: 📒
     details: Natively create notebooks using IDL and ENVI Notebooks with no additional setup
-  - title: Fast and Responsive
-    icon: ⏱️
-    details: Multi-threaded analysis of your code
   - title: Customizable and Automated
     icon: 🔧
     details: Configure automated actions to fix problems, format code, and disable problem reporting
