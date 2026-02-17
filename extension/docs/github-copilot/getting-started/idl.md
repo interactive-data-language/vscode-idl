@@ -1,24 +1,23 @@
 # Quick Start: IDL
 
-::: info
+## Key Takeaways
 
-- Requires IDL 9.2 or newer
+GitHub Copilot becomes an expert IDL programmer through specialized root-level instructions that automatically apply when you work with IDL code or notebooks.
 
-- Root-level instructions are registered for IDL and IDL Notebooks
+**Requirements:**
 
-- They are applied automatically when you have IDL code or IDL Notebooks open or attached to chats
+- IDL 9.2 or newer
+- Instructions automatically load when IDL code or notebooks are open or attached
 
-- You'll see "GitHub Copilot: IDL" printed in your chat when these instructions load
+**What to Look For:** "GitHub Copilot: IDL" message in your chat when instructions load
 
-:::
+## How It Works
 
-## Background
+GitHub Copilot is already an expert programmer across many languages. We've enhanced this expertise with specialized instructions that help it write better IDL code and understand your existing routines. These instructions apply automatically when you work with IDL files or notebooks, no manual setup required.
 
-Because GitHub Copilot is an expert programmer, we decided to provide instructions to help GitHub Copilot be better at writing IDL code and to do our best to have these instructions automatically applied.
+## Example Prompts
 
-## Sample Questions
-
-Because GitHub Copilot is an expert programmer, and has many tools available to it, the sky is the limit with what kinds of questions you can ask and have answered.
+GitHub Copilot has access to many tools and can handle a wide range of IDL-related tasks or requests. Here are some examples to get you started:
 
 ::: code-group
 
@@ -47,28 +46,18 @@ that goes through the bounding boxes one time (so it is more linear for performa
 
 :::
 
-## Tips and Tricks
+## Helpful Tips
 
-::: info
-ENVI and IDL will automatically start for you when a tool requires it. You don't need to manually start IDL or ENVI.
-:::
+**Automatic Startup:** IDL starts automatically when needed—no manual intervention required.
 
-::: tip
-When creating a notebook for IDL, you should explicitly ask for an "IDL Notebook". This makes sure a native IDL Notebook is created and not a Python/Jupyter notebook.
-
-There's dedicated support for IDL Notebooks native to VSCode which does not require any additional setup or configuration.
-:::
+**Creating IDL Notebooks:** Explicitly request an "IDL Notebook" to ensure you get the native VSCode implementation rather than a Python/Jupyter notebook. Native IDL Notebooks require no additional setup or configuration.
 
 ## Attaching Context
 
-::: info
-Select the paperclip icon in your chat to explore what you can attach to a conversation to add context about code.
-:::
+GitHub Copilot can incorporate various sources to better understand your code and provide more relevant answers. Click the paperclip icon in your chat to explore available options.
 
-One very helpful aspect of GitHub Copilot is that you can attach a variety of sources to the chat to help the LLM have context and better answer questions for you.
+**Ways to Add Context:**
 
-Examples:
-
-- Highlight a block of code in an open editor and ask the LLM about it (automatically attached)
-
-- Attach multiple PRO files and ask the LLM to explain the code or make changes between the two files
+- Highlight code in an editor, it attaches automatically
+- Attach multiple PRO files to explain or compare code
+- Reference specific files or folders for targeted assistance

@@ -1,44 +1,44 @@
 # Quick Start: ENVI
 
-::: info
+## Key Takeaways
 
-- Requires IDL 9.2 and ENVI 6.2 or newer and the ENVI Agent license feature
+ENVI's GitHub Copilot integration uses specialized MCP tools to run processing workflows, understand datasets, and solve remote sensing problems using expert approaches.
 
-- ENVI's integration with GitHub Copilot is focused on dedicated MCP tools to drive ENVI and provide the LLM with additional context to solve remote sensing problems
+**Requirements:**
 
-- You can also have GitHub Copilot write IDL code for you using IDL and the ENVI API
+- IDL 9.2 and ENVI 6.2 or newer
+- ENVI Agent license feature
+- Works alongside IDL Agent capabilities
 
-:::
+**Key Difference:** ENVI uses a guided "happy path" approach with dedicated tools, unlike IDL's open-ended programming focus.
 
-## Background
+## How It Works
 
-Unlike IDL, ENVI's integration with GitHub Copilot is focused on a set of dedicated MCP tools that allow the LLM to run processing in ENVI, understand your datasets, and find additional examples of how ENVI's processing tools can be chained together.
+ENVI's integration centers on specialized MCP tools that enable GitHub Copilot to run ENVI processing, understand your datasets, and chain together workflows. This differs from the IDL integration—instead of open-ended programming, we guide the LLM through proven approaches using ENVI's established toolset.
 
-The distinct difference is that we have a "happy path" we guide the LLM down. This is a fundamentally different approach than open-ended programming questions because we have a fixed number of tools that you can run in ENVI.
+## What You Can Do
 
-## High-level Capabilities
+**List and Run Tools**
 
-- List and run ENVI's tools for you
+Run any ENVI tool, including custom tools from the Analytics Repository, IDL's search path, or ENVI's custom code folder.
 
-  Includes any custom tools that have been installed in ENVI through the Analytics Repository, on IDL's search path, or in ENVI's custom code folder.
+**Query Datasets**
 
-- Query datasets to learn more about them.
+Learn about rasters, vectors, machine learning models, deep learning models, and more.
 
-  Supports raster, vector, machine learning models, deep learning models, and more
+**Open and Display Data**
 
-- Open and display data in ENVI.
+View rasters, vectors, and raster series datasets directly in ENVI.
 
-  Supports raster, vectors, and raster series datasets.
+**Create Workflow Artifacts**
 
-- Create workflow artifacts such as IDL routines and IDL Notebooks
+Generate IDL routines and IDL Notebooks for repeatable workflows.
 
-## Example Questions
+## Example Prompts
 
-::: tip
-To guide the LLM towards using ENVI, add text like "Using ENVI", "With ENVI", or "Can ENVI" to your requests.
-:::
+Guide GitHub Copilot to use ENVI by adding phrases like "Using ENVI", "With ENVI", or "Can ENVI" to your requests.
 
-Here are some basic questions that you can ask the LLM for help with.
+Here are some examples to get started:
 
 ::: code-group
 
@@ -62,17 +62,11 @@ and display the results?
 
 :::
 
-### Example Questions: ENVI's Tools
+### Working with ENVI's Tools
 
-::: tip
-We include a few prompts for ENVI (sets of instructions for solving remote sensing problems).
+**Built-in Prompts:** Start your chat with "/envi" to access pre-configured prompts designed for common remote sensing problems. These provide ready-to-use templates you can copy and customize.
 
-You can find them my starting your chat with "/envi" which will show a list that you can pick from.
-
-Some of the examples below include the prompt used which you can copy/paste.
-:::
-
-Here's some additional examples of how you can learn about ENVI's tools.
+Here are additional examples for exploring ENVI's capabilities:
 
 ::: code-group
 
@@ -109,22 +103,12 @@ other data sources.
 
 :::
 
-## Tips and Tricks
+## Helpful Tips
 
-::: info
-ENVI and IDL will automatically start for you when a tool requires it. You don't need to manually start IDL or ENVI.
-:::
+**Automatic Startup:** ENVI and IDL start automatically when needed—no manual intervention required.
 
-::: tip
-If you have multi-file data sources (like Sentinel 2 or PlanetScope), you may need to guide the LLM to use the root metadata file.
+**Built-in Prompts:** Start your chat with "/envi" to access pre-configured prompts designed for common remote sensing problems.
 
-For example: Give the direct path to the "metadata.xml" file for Sentinel 2 or the "\_metadata.json" file for Planet data.
+**Multi-File Data Sources:** For complex formats like Sentinel 2 or PlanetScope, provide the direct path to the root metadata file (e.g., "metadata.xml" for Sentinel 2 or "\_metadata.json" for Planet data). This ensures GitHub Copilot opens the correct dataset.
 
-This makes sure that the LLM opens the right dataset in ENVI.
-:::
-
-::: tip
-To help the LLM find the right data, you can always ask it to tell you more about a dataset or query a dataset in ENVI for you.
-
-Same rules apply to complex file formats listed above.
-:::
+**Understanding Data:** Ask GitHub Copilot to query or describe datasets when you need more information. This works for all data types, including complex multi-file formats.

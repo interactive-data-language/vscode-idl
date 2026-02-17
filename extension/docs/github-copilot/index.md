@@ -1,51 +1,52 @@
 # GitHub Copilot Integration
 
-::: tip
-Any GitHub Copilot integration, or AI-enabled tools, are opt-in and are not required to use IDL for VSCode.
+IDL for VSCode integrates seamlessly with GitHub Copilot, giving you AI-powered assistance for IDL programming and ENVI workflows. This integration is completely optional and designed to enhance your productivity.
 
-You are not forced to use these capabilities and they are intended for users who are using GitHub Copilot or are interested in giving it a try.
-:::
+**What You Get:**
 
-IDL for VSCode now includes native support and integration with GitHub Copilot through the use of MCP (Model Context Protocol).
+- Native GitHub Copilot support through Model Context Protocol (MCP)
+- Smart IDL code generation with context-aware suggestions
+- Automated ENVI workflows that mirror expert problem-solving approaches
+- Automatic setup, no manual configuration required
 
-- Requires IDL 9.2 and ENVI 6.2
+**Requirements:**
 
-- ENVI's LLM-enabled capabilities requires an additional license feature
+- IDL 9.2 or newer
+- ENVI 6.2 or newer (for ENVI features)
+- ENVI Agent license feature (for ENVI capabilities)
 
-This integration is focused around two key concepts:
+## How It Works
 
-1. Enable LLMs to better write and understand IDL code. This is done by configuring root instructions for any IDL code that GitHub Copilot automatically picks up
+This integration focuses on two powerful capabilities:
 
-2. Specialized tools for being able to talk to and run ENVI to emulate how the experts use ENVI to solve remote sensing problems.
+1. **Better IDL Code:** GitHub Copilot receives specialized instructions to write cleaner, more accurate IDL code and better understands your existing routines.
 
-## Introduction: IDL Agent and ENVI Agent
+2. **Expert ENVI Workflows:** Specialized tools enable GitHub Copilot to interact with ENVI and solve remote sensing problems using proven expert approaches.
 
-Conceptually, we separate out our GitHub Copilot integration by IDL and by ENVI. Here's a short description of each:
+## Understanding Model Context Protocol
 
-| IDL Agent                                                                                                                                  | ENVI Agent                                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| A set of instructions and MCP tools to allow GitHub Copilot to write better IDL code, interact with IDL, and understand your IDL routines. | A set of MCP tools dedicated for enabling GitHub Copilot to run ENVI and solve remote sensing problems. Can also access IDL Agent. |
+The integration uses Model Context Protocol (MCP), a standardized interface that allows LLMs to run tools and interact with software. Think of MCP as a bridge between GitHub Copilot and IDL/ENVI.
 
-## GitHub Copilot and Model Context Protocol
+## Automatic MCP Server Setup
 
-Our integration with GitHub Copilot is based on a set of what are called MCP Tools. MCP stands for Model Context Protocol and can be loosely thought of as a standardized interface that allows LLMs to run tools and interact with software on behalf of users.
+IDL for VSCode includes an MCP server that configures and starts automatically, requiring zero setup on your part.
 
-## IDL for VSCode and MCP
+**Key Features:**
 
-To enable GitHub Copilot to run ENVI and IDL, IDL for VSCode now includes an MCP server as part of it. The MCP server is automatically configured and started so you don't need to do anything extra to take advantage of the integration.
+- Starts when the extension loads
+- Each VSCode window gets a dedicated server
+- Secure by design, only accessible from your local machine
 
-Here are some key details to know about our implementation of MCP:
+## Licensing and Software Requirements
 
-1. The MCP server starts automatically when the IDL for VSCode extension loads
+**IDL:**
 
-2. Each VSCode window get's a dedicated MCP server
+- IDL 9.2 or newer (uses IDL Machine for code execution)
+- Included with your maintenance subscription
 
-3. The MCP server can _only_ be accessed from your local machine (requests not originating from your machine are blocked)
+**ENVI:**
 
-## Software and Licensing Requirements
+- ENVI 6.2 or newer
+- ENVI Agent license feature required
 
-You'll need to be on IDL 9.2 and ENVI 6.2 in order to use the native integration with GitHub Copilot. The reason for this is we use the IDL Machine, which was released with IDL 9.2, to run IDL and ENVI.
-
-The IDL integration is included with your maintenance and the ENVI integration requires the ENVI Agent license feature.
-
-The ENVI Agent capabilities require a module because we have a specialized implementation of tools that optimize the thought-process and increase repeatability of how LLMs solve problems related to remote sensing.
+The ENVI Agent license enables specialized tools optimized for remote sensing workflows, ensuring repeatable and reliable problem-solving approaches.

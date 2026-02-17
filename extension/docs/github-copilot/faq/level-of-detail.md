@@ -1,23 +1,38 @@
 # Right Level of Detail
 
-In general, you want to make sure that an LLM has the right level of detail for how you want a problem to be solved. _How_ in this case refers to the amount of flexibility for reasoning and on-the-fly decision making vs a very strict path that hte LLM should follow.
+## Key Takeaways
 
-There's two lines of thought:
+The right level of detail depends on how much flexibility you want the LLM to have. Balance prescriptive instructions with creative freedom based on your goals.
 
-1. Prescriptive with exact steps
+**Prescriptive Approach:** Use when you have a specific way things should be done
 
-2. Broad Strokes and the LLM can Adapt
+**Broad Strokes Approach:** Use when you want the LLM to adapt and make decisions
 
-## Prescriptive
+## Prescriptive Instructions
 
-::: tip
-If you find yourself saying "I didn't want the LLM to do it that way" then you probably want to give more exact instructions.
-:::
+When you have a specific way you want something accomplished, be explicit in your instructions. This approach works well for:
 
-Typically, when you have a specific way you want something done, you should be explicit in what you tell the LLM.
+- Programming tasks (renaming routines, reorganizing code)
+- Complex multi-step processes with specific requirements
+- Situations where you've said "I didn't want the LLM to do it that way"
 
-This often works well with programming tasks (such as renaming routines, reorganizing code).
+Provide detailed steps to ensure the LLM behaves as you expect, saving time by getting the right answer on the first attempt.
 
-Also works well with other complex, multi-step processes. We recommend writing everything down that you want to happen so that the LLM behaves as you expect and then you save time by getting the right answer the first time.
+**Example:** "Rename all instances of `old_function` to `new_function` in files matching `src/**/*.pro`. Update all calls to use the new name and verify no references to the old name remain."
 
-## Broad Strokes
+## Broad Strokes Approach
+
+When you want the LLM to have flexibility in solving a problem, provide high-level goals and let it determine the best approach. This works well for:
+
+- Exploratory data analysis
+- Creative problem-solving
+- Situations where multiple valid approaches exist
+- Tasks where you want the LLM to apply its expertise
+
+The LLM can adapt to unexpected situations and choose optimal methods based on context.
+
+**Example:** "Analyze the image quality in this dataset and suggest preprocessing steps to improve classification results."
+
+## Finding the Balance
+
+Start with broad instructions and add prescriptive details where needed. If the LLM's approach doesn't match your expectations, refine your instructions to be more specific in those areas.

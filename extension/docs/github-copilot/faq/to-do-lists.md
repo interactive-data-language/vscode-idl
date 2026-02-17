@@ -1,10 +1,31 @@
 # To-Do Lists: Keeping LLMs on Track
 
-One of the most helpful capabilities that GitHub Copilot has access to is to-do lists. To-do lists not only help you see what the LLM has to do, but it also offers an easy way to keep an LLM on track.
+## Key Takeaways
 
-Whenever possible, it is recommended to express your requests to the LLM as a list of steps and, for heavy processing, to explicitly call out "create a to-do list."
+To-do lists help keep GitHub Copilot organized and give you visibility into its progress. Structure your requests as numbered steps and ask for the LLM to create a to-do list to make sure all actions are done as instructed.
 
-Here's an example of how you can do this with IDL or ENVI:
+**Benefits:**
+
+- Clear visibility into what the LLM plans to do
+- Easy tracking of progress on complex tasks
+- Better organization for multi-step workflows
+
+**Best Practice:** Express requests as numbered lists, especially for complex tasks
+
+## Why To-Do Lists Matter
+
+GitHub Copilot has access to a to-do list tool that provides structure for complex tasks. When you express your request as a list of steps, the LLM can create an organized plan and work through each item systematically. We also recommend, for workflows that have many actions, that you explicitly ask the LLM to create a to-do list.
+
+This approach is particularly valuable for:
+
+- Multi-file operations
+- Complex ENVI workflows
+- Tasks that require multiple tools or steps
+- Situations where you want clear progress updates
+
+## Example Requests
+
+Here's how to structure your requests to take advantage of to-do lists:
 
 ::: code-group
 
