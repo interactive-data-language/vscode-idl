@@ -1,6 +1,6 @@
 import { FindFiles, FindIDL } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { RegisterMCPTaskTools } from '@idl/mcp/language-server';
+import { RegisterMCPTaskTools } from '@idl/mcp/language-server-tools';
 import { NUM_WORKERS } from '@idl/parsing/index';
 import { RoundToNearest } from '@idl/shared/extension';
 import {

@@ -1,4 +1,4 @@
-import { NO_MATCHES } from '@idl/mcp/language-server';
+import { NO_MATCHES } from '@idl/mcp/language-server-tools';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 

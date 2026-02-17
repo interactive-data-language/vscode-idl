@@ -1,10 +1,10 @@
 export default {
-  displayName: 'mcp-language-server',
+  displayName: 'mcp-language-server-tools',
   preset: '../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/mcp/language-server',
+  coverageDirectory: '../../../coverage/libs/mcp/language-server-tools',
 };

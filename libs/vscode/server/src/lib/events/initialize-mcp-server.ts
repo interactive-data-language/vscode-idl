@@ -3,7 +3,7 @@ import {
   MCPTrackPromptsAsResources,
   MCPTrackTutorialsAsResources,
   RegisterAllLanguageServerMCPTools,
-} from '@idl/mcp/language-server';
+} from '@idl/mcp/language-server-tools';
 import { StartMCPServer } from '@idl/mcp/server';
 import { RegisterAllMCPResources } from '@idl/mcp/server-resources';
 import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
