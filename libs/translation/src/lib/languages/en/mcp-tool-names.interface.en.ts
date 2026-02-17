@@ -13,6 +13,7 @@ export const MCPToolNames_EN: ValsOfToStrings<MCPTools> = {
   'execute-idl-file': 'Execute IDL File',
   'get-envi-tool-parameters': 'Get ENVI Tool Parameters',
   'get-envi-tool-workflow': 'Get ENVI Tool Workflow',
+  'get-prompt': 'Get Prompt',
   'get-instructions': 'Get Instructions',
   'get-resource': 'Get Resource',
   'get-routine-docs': 'Get Routine Docs',
@@ -27,5 +28,6 @@ export const MCPToolNames_EN: ValsOfToStrings<MCPTools> = {
   'run-envi-tool': 'Run ENVI Tool',
   'search-for-files': 'Search for Files',
   'search-for-routine': 'Search for Routine',
+  'list-prompts': 'List Prompts',
   'search-resources': 'Search Resources',
 };

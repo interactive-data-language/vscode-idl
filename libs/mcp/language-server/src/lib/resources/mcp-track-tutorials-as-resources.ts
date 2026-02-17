@@ -13,7 +13,7 @@ export function MCPTrackTutorialsAsResources(logger: LogManager) {
    */
   const folder = GetExtensionPath('extension/example-notebooks/IDL Tutorials');
 
-  // track resources
+  // track tutorials as resources.
   MCPTrackResourcesInFolder(logger, folder, 'tutorials', {
     'setting up (must be completed first!).md': true,
   });
