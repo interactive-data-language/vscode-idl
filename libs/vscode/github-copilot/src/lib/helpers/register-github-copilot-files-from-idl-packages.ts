@@ -1,9 +1,8 @@
-import {
-  FindFiles,
-  IDL_PACKAGE_DIR,
-  IDL_PACKAGE_DIR_HOME_RELATIVE,
-} from '@idl/idl/files';
+import { IDL_PACKAGE_DIR } from '@idl/idl/files';
+import { existsSync } from 'fs';
 import * as vscode from 'vscode';
+
+import { HomeRelativePath } from './home-relative-path';
 
 /**
  * Registers prompts and instruction files from the IDL Packages folder
@@ -21,9 +20,13 @@ export async function RegisterGitHubCopilotFilesFromIDLPackages(
       ? 'instructionsFilesLocations'
       : 'promptFilesLocations';
 
-  /** Get the file extension we search for */
-  const fileExtensions =
-    type === 'instructions' ? '**/*.instructions.md' : '**/*.prompt.md';
+  // return if .idl folder doesnt exist
+  if (!existsSync(IDL_PACKAGE_DIR)) {
+    return;
+  }
+
+  // relative path for destination
+  const destinationRelative = HomeRelativePath(IDL_PACKAGE_DIR);
 
   /**
    * Get prompt files
@@ -45,32 +48,16 @@ export async function RegisterGitHubCopilotFilesFromIDLPackages(
     if (
       // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
       existing[i].startsWith(IDL_PACKAGE_DIR) ||
-      existing[i].startsWith(IDL_PACKAGE_DIR_HOME_RELATIVE)
+      existing[i].startsWith(destinationRelative)
     ) {
       states[existing[i]] = filesLocations[existing[i]];
       delete filesLocations[existing[i]];
     }
   }
 
-  /** Get the subdirectory for this type */
-  const subDirForFind = `${IDL_PACKAGE_DIR}/vscode/github-copilot/${
-    type === 'instructions' ? 'instructions' : 'prompts'
-  }`;
-
-  /** Find prompt files that we should automatically register */
-  // Find files needs a absolute path.
-  const files = await FindFiles(subDirForFind, fileExtensions);
-
-  // Register directory if files exist
-  // settings need a relative.
-  if (files.length > 0) {
-    const subDirForSettings = `${IDL_PACKAGE_DIR_HOME_RELATIVE}/vscode/github-copilot/${
-      type === 'instructions' ? 'instructions' : 'prompts'
-    }`;
-
-    filesLocations[subDirForSettings] =
-      subDirForSettings in states ? states[subDirForSettings] : true;
-  }
+  // set relative path to IDL packages folder to load from
+  filesLocations[destinationRelative] =
+    destinationRelative in states ? states[destinationRelative] : true;
 
   // Update the configuration globally
   await config.update(

@@ -1,87 +1,93 @@
-import { existsSync, readFileSync } from 'fs';
+import { LogManager } from '@idl/logger';
+
+import {
+  MCPPromptLookup,
+  MCPPromptType,
+} from './mcp-prompt-registry.interface';
 
 /**
  * Helper class that tracks and manages access to instruction sets
  */
 export class MCPPromptRegistry {
   /**
-   * Lookup of descriptions by name/id
+   * Logger
    */
-  private descriptions: { [key: string]: string } = {};
+  private logger: LogManager;
 
   /**
-   * Lookup of instructions by name/id
+   * Lookup of prompts
    *
-   * Value is a fully-qualified filepath to disk where we can
-   * read instructions from. Do this dynamically so users can
-   * change instructions and get updated without restart.
+   * Key is the name, value is all information we need for prompts
    */
-  private instructions: { [key: string]: string } = {};
+  private prompts: { [key: string]: MCPPromptLookup } = {};
+
+  constructor(logger: LogManager) {
+    this.logger = logger;
+  }
 
   /**
    * Adds an instruction set to the registry
    */
-  addInstruction(name: string, description: string, uri: string) {
-    // get lower case
-    const lc = name.toLowerCase();
-
-    // store the instruction
-    this.descriptions[lc] = description;
-    this.instructions[lc] = uri;
+  addPrompt(info: MCPPromptLookup) {
+    this.prompts[info.name.toLowerCase()] = info;
   }
 
   /**
    * Returns all descriptions that we have
    */
-  allDescriptions() {
-    return this.descriptions;
+  descriptions(type?: 'all' | MCPPromptType): { [key: string]: string } {
+    /** Track descriptions */
+    const descriptions: { [key: string]: string } = {};
+
+    // init value with all prompts
+    let toMap = Object.values(this.prompts);
+
+    /**
+     * Check if we need to filter
+     */
+    switch (type) {
+      // only ENVI
+      case 'envi':
+        toMap = toMap.filter((item) => item.type === 'envi');
+        break;
+
+      // only IDL
+      case 'idl':
+        toMap = toMap.filter((item) => item.type === 'idl');
+        break;
+
+      default:
+        break;
+    }
+
+    // populate
+    for (let i = 0; i < toMap.length; i++) {
+      descriptions[toMap[i].name] = toMap[i].description;
+    }
+
+    // return value
+    return descriptions;
   }
 
   /**
-   * Gets an instruction set by name
-   *
-   * Use "instructionsExist()" prior to make sure the file
-   * exists
+   * Gets a prompt set by name
    */
-  getInstruction(name: string) {
+  getPrompt(name: string) {
     /** Get lower case name */
     const lc = name.toLowerCase();
 
     // return if no match
-    if (!(lc in this.instructions)) {
+    if (!(lc in this.prompts)) {
       return;
     }
 
-    return readFileSync(this.instructions[lc], 'utf-8');
+    return this.prompts[lc].prompt;
   }
 
   /**
-   * Returns all instruction names
+   * Checks if we have a prompt file or not
    */
-  getInstructionNames() {
-    return Object.keys(this.instructions);
-  }
-
-  /**
-   * Checks if we have an instruction set registered or not
-   */
-  hasInstruction(name: string) {
-    return name.toLowerCase() in this.instructions;
-  }
-
-  /**
-   * Returns a flag if the instructions file we are accessing exists or not
-   */
-  instructionsExist(name: string) {
-    /** Get lower case name */
-    const lc = name.toLowerCase();
-
-    // return if no match
-    if (!(lc in this.instructions)) {
-      return false;
-    }
-
-    // see if it exists
-    return existsSync(this.instructions[lc]);
+  hasPrompt(name: string) {
+    return name.toLowerCase() in this.prompts;
   }
 }

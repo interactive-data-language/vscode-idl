@@ -1,3 +1,8 @@
+---
+agent: 'agent'
+description: 'Guide for IDL routines to use when creating 2D plots'
+---
+
 # IDL 2D Plotting Best Practices
 
 ### Basic Plotting Functions

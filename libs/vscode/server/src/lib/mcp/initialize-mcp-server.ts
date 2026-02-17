@@ -1,6 +1,5 @@
 import { IDL_MCP_LOG } from '@idl/logger';
 import {
-  MCPTrackPromptsAsResources,
   MCPTrackTutorialsAsResources,
   RegisterAllLanguageServerMCPTools,
 } from '@idl/mcp/language-server-tools';
@@ -11,13 +10,14 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 
+import { IDL_INDEX } from '../events/initialize-document-manager';
 import { MCP_CONFIG } from '../helpers/merge-config';
 import { SendUsageMetricServer } from '../helpers/send-usage-metric-server';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
 } from '../initialize-language-server';
-import { IDL_INDEX } from './initialize-document-manager';
+import { RegisterMCPPromptTools } from './register-mcp-prompt-tools';
 
 /**
  * Starts our MCP Server and adds all of our known tools
@@ -74,17 +74,6 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
       });
     }
 
-    // add all prompts as server resources
-    try {
-      MCPTrackPromptsAsResources(IDL_LANGUAGE_SERVER_LOGGER);
-    } catch (err) {
-      IDL_LANGUAGE_SERVER_LOGGER.log({
-        log: IDL_MCP_LOG,
-        type: 'error',
-        content: [`Problem tracking GitHub Copilot prompt files`, err],
-      });
-    }
-
     // register all of our tools
     const mcpToolHelper = RegisterAllMCPTools(
       SERVER_MESSENGER,
@@ -116,6 +105,17 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
         }
       }
     );
+
+    // add all prompts as server resources
+    try {
+      RegisterMCPPromptTools(mcpToolHelper);
+    } catch (err) {
+      IDL_LANGUAGE_SERVER_LOGGER.log({
+        log: IDL_MCP_LOG,
+        type: 'error',
+        content: [`Problem registering prompts`, err],
+      });
+    }
 
     return mcpToolHelper;
   } catch (err) {

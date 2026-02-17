@@ -16,11 +16,3 @@ export const VSCODE_DOT_IDL_FOLDER = join(DOT_IDL_FOLDER, 'vscode');
  * IDL package directory
  */
 export const IDL_PACKAGE_DIR = join(DOT_IDL_FOLDER, 'idl', 'packages');
-
-/**
- * Home-relative path for IDL package directory
- */
-export const IDL_PACKAGE_DIR_HOME_RELATIVE = IDL_PACKAGE_DIR.replace(
-  homedir(),
-  '~'
-).replace(/\\/g, '/');

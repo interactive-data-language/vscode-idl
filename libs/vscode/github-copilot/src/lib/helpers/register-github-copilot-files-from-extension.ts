@@ -2,14 +2,12 @@ import {
   FindFiles,
   GetExtensionPath,
   USER_COPILOT_FOLDER,
-  USER_COPILOT_FOLDER_HOME_RELATIVE,
   USER_COPILOT_INSTRUCTIONS_FOLDER,
-  USER_COPILOT_INSTRUCTIONS_FOLDER_HOME_RELATIVE,
   USER_COPILOT_PROMPTS_FOLDER,
-  USER_COPILOT_PROMPTS_FOLDER_HOME_RELATIVE,
 } from '@idl/idl/files';
 import * as vscode from 'vscode';
 
+import { HomeRelativePath } from './home-relative-path';
 import { MoveAndUpdateCopilotFile } from './move-and-update-copilot-file';
 
 /**
@@ -44,11 +42,8 @@ export async function RegisterGitHubCopilotFilesFromExtension(
       ? USER_COPILOT_INSTRUCTIONS_FOLDER
       : USER_COPILOT_PROMPTS_FOLDER;
 
-  /** Home-relative path for settings */
-  const destinationDirForSettings =
-    type === 'instructions'
-      ? USER_COPILOT_INSTRUCTIONS_FOLDER_HOME_RELATIVE
-      : USER_COPILOT_PROMPTS_FOLDER_HOME_RELATIVE;
+  // relative path for destination
+  const destinationRelative = HomeRelativePath(destinationDir);
 
   /**
    * Get prompt files
@@ -73,7 +68,7 @@ export async function RegisterGitHubCopilotFilesFromExtension(
     if (
       // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
       existing[i].startsWith(USER_COPILOT_FOLDER) ||
-      existing[i].startsWith(USER_COPILOT_FOLDER_HOME_RELATIVE)
+      existing[i].startsWith(destinationRelative)
     ) {
       states[existing[i]] = filesLocations[existing[i]];
       delete filesLocations[existing[i]];
@@ -92,10 +87,9 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   // Use home-relative paths.
   // Register directory if files exist
   if (files.length > 0) {
-    filesLocations[destinationDirForSettings] =
-      destinationDirForSettings in states
-        ? states[destinationDirForSettings]
-        : true;
+    // save state
+    filesLocations[destinationRelative] =
+      destinationRelative in states ? states[destinationRelative] : true;
   }
 
   // Update the configuration globally
