@@ -2,13 +2,11 @@ import { CallToolResult } from '@modelcontextprotocol/sdk/types';
 
 import { MCPTool_GetENVIToolParameters } from './http/mcp-tool-get-envi-tool-parameters.interface';
 import { MCPTool_GetENVIToolWorkflow } from './http/mcp-tool-get-envi-tool-workflow.interface';
-import { MCPTool_GetInstructions } from './http/mcp-tool-get-instructions.interface';
 import { MCPTool_GetPrompt } from './http/mcp-tool-get-prompt.interface';
 import { MCPTool_GetResource } from './http/mcp-tool-get-resource.interface';
 import { MCPTool_GetRoutineDocs } from './http/mcp-tool-get-routine-docs.interface';
 import { MCPTool_ListAllResources } from './http/mcp-tool-list-all-resources.interface';
 import { MCPTool_ListENVITools } from './http/mcp-tool-list-envi-tools.interface';
-import { MCPTool_ListInstructions } from './http/mcp-tool-list-instructions.interface';
 import { MCPTool_ListPrompts } from './http/mcp-tool-list-prompts.interface';
 import { MCPTool_SearchForFiles } from './http/mcp-tool-search-for-files.interface';
 import { MCPTool_SearchForRoutine } from './http/mcp-tool-search-for-routine.interface';
@@ -72,8 +70,6 @@ interface IMCPToolLookup {
   GET_ENVI_TOOL_PARAMETERS: MCPTool_GetENVIToolParameters;
   /** Get kneown ENVI workflow */
   GET_ENVI_TOOL_WORKFLOW: MCPTool_GetENVIToolWorkflow;
-  /** Get instruction set content */
-  GET_INSTRUCTIONS: MCPTool_GetInstructions;
   /** Get a prompt (instruction set or tutorial) from the server */
   GET_PROMPT: MCPTool_GetPrompt;
   /** Get a specific resource from the server */
@@ -86,8 +82,6 @@ interface IMCPToolLookup {
   LIST_ENVI_TOOL_WORKFLOWS: MCPTool_ListENVIToolWorkflows;
   /** Query ENVI's tasks */
   LIST_ENVI_TOOLS: MCPTool_ListENVITools;
-  /** List available instruction sets */
-  LIST_INSTRUCTIONS: MCPTool_ListInstructions;
   /** List all prompts (instruction sets and tutorials) */
   LIST_PROMPTS: MCPTool_ListPrompts;
   /** Manage ENVI and IDL session */
@@ -118,13 +112,11 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   GET_ENVI_TOOL_PARAMETERS: 'get-envi-tool-parameters',
   GET_ENVI_TOOL_WORKFLOW: 'get-envi-tool-workflow',
   GET_PROMPT: 'get-prompt',
-  GET_INSTRUCTIONS: 'get-instructions',
   GET_RESOURCE: 'get-resource',
   GET_ROUTINE_DOCS: 'get-routine-docs',
   LIST_ALL_RESOURCES: 'list-all-resources',
   LIST_ENVI_TOOL_WORKFLOWS: 'list-envi-tool-workflows',
   LIST_ENVI_TOOLS: 'list-envi-tools',
-  LIST_INSTRUCTIONS: 'list-instructions',
   MANAGE_IDL_AND_ENVI_SESSION: 'manage-idl-and-envi-session',
   OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',
