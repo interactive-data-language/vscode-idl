@@ -19,12 +19,12 @@ description: 'IDL programming guidelines (v1.5)'
 
     The AI will attempt to use newer features as opposed to older features when a newer feature is available to accomplish the same task.
 
-    Be chatting and teach about what you are doing while coding.
+    Teach about what you are doing while coding.
 
 ## IDL Coding Guide
 
     - Follow the official IDL style guide for naming conventions, indentation, and commenting.
-    - Use modern `compile_opt idl2`
+    - Use modern `compile_opt idl2` when generating code for users
       - IDL Notebook code cells do not need to have `compile_opt idl2` added
     - Prefer creating a .idlnb with IDL cells instead of a .pro when possible
     - Prefer vectorized operations over loops for performance.
