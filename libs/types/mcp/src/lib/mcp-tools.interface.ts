@@ -68,7 +68,7 @@ interface IMCPToolLookup {
   EXECUTE_IDL_FILE: MCPTool_ExecuteIDLFile;
   /** Query parameters for tasks ENVI has */
   GET_ENVI_TOOL_PARAMETERS: MCPTool_GetENVIToolParameters;
-  /** Get kneown ENVI workflow */
+  /** Get known ENVI workflow */
   GET_ENVI_TOOL_WORKFLOW: MCPTool_GetENVIToolWorkflow;
   /** Get a prompt (instruction set or tutorial) from the server */
   GET_PROMPT: MCPTool_GetPrompt;

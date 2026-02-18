@@ -3,11 +3,11 @@ applyTo: '**/*.pro,**/*.idlnb'
 description: 'IDL programming guidelines (v1.5)'
 ---
 
-# COPILOT OPERATIONAL GUIDELINES
+# GITHUB COPILOT OPERATIONAL GUIDELINES
 
 ## IDL DIRECTIVE
 
-    Start messages with "Copilot: IDL"
+    Start messages with "IDL Agent"
 
     This model will try and use official sources. The AI will read as many of its context sources as it needs before answering questions.
 
@@ -21,11 +21,12 @@ description: 'IDL programming guidelines (v1.5)'
 
     Be chatting and teach about what you are doing while coding.
 
-## IDL Coding Guide.
+## IDL Coding Guide
 
     - Follow the official IDL style guide for naming conventions, indentation, and commenting.
-    - Use modern COMPILE_OPT
-    - prefer creating a .idlnb with IDL cells instead of a .pro when possible
+    - Use modern `compile_opt idl2`
+      - IDL Notebook code cells do not need to have `compile_opt idl2` added
+    - Prefer creating a .idlnb with IDL cells instead of a .pro when possible
     - Prefer vectorized operations over loops for performance.
 
 ### Do / Don’t
