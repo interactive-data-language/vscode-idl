@@ -54,17 +54,17 @@ You have access to comprehensive resources via MCP tools:
 
 **Documentation and resources:**
 
-- `search-resources` - Search for additional documentation, tutorials, and guides.
-- `search-for-routine` - Get documentation for specific functions, procedures, methods
-- `get-resource` - Fetch specific items by name
-- `list-prompts` - List available instruction sets and tutorials
-- `get-prompt` - Retrieve workflow guidance, tutorials, and best practices
+- `IDL for VSCode/search-resources` - Search for additional documentation, tutorials, and guides.
+- `IDL for VSCode/search-for-routine` - Get documentation for specific functions, procedures, methods
+- `IDL for VSCode/get-resource` - Fetch specific items by name
+- `IDL for VSCode/list-prompts` - List available instruction sets and tutorials
+- `IDL for VSCode/get-prompt` - Retrieve workflow guidance, tutorials, and best practices
 
 **Execute code:**
 
-- Use `start-idl` to start an IDL session
-- Use `execute-idl-code` to run code and verify solutions
-- Use `create-idl-notebook` to create `.idlnb` files
+- Use `IDL for VSCode/manage-idl-and-envi-session` to start an IDL session
+- Use `IDL for VSCode/execute-idl-code` to run code and verify solutions
+- Use `IDL for VSCode/create-idl-notebook` to create `.idlnb` files
 
 ## HOW TO USE CONTEXT
 
