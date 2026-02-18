@@ -1,6 +1,6 @@
 ---
 applyTo: '**/*.pro,**/*.idlnb'
-description: 'IDL programming guidelines (v1.5)'
+description: 'Guidelines for programming with IDL and writing code or creating IDL Notebooks'
 ---
 
 # GITHUB COPILOT OPERATIONAL GUIDELINES
