@@ -31,15 +31,19 @@ export function RegisterMCPTool_QueryDatasetWithENVI(helper: MCPToolHelper) {
         dataset: z
           .union([
             MCP_ENVIDeepLearningONNXModel().describe(
-              'An ONNX model configured for ENVI'
+              'An ENVI Deep Learning ONNX model to query'
             ),
             MCP_ENVIMachineLearningModel().describe(
-              'An machine learning model (i.e. random forest) made with ENVI'
+              'An ENVI Machine learning model to query'
             ),
-            MCP_ENVIRaster().describe('An ENVI Raster'),
-            MCP_ENVIROI().describe('An ENVI ROI'),
-            MCP_ENVISpectralLibrary().describe('An ENVI spectral library'),
-            MCP_ENVIVector().describe('An ENVI vector file (shapefile)'),
+            MCP_ENVIRaster().describe('An ENVI Raster to query'),
+            MCP_ENVIROI().describe('An ENVI ROI to query'),
+            MCP_ENVISpectralLibrary().describe(
+              'An ENVI spectral library to query'
+            ),
+            MCP_ENVIVector().describe(
+              'An ENVI vector file (shapefile) to query'
+            ),
           ])
           .describe(
             'The dataset that you want to query, one of the above types'
