@@ -151,6 +151,9 @@ export class Runner {
       // reset log error tracking information
       ACTIVATION_RESULT.client.logger.resetTracker();
 
+      // reset MCP tool history
+      ACTIVATION_RESULT.mcp.history.reset();
+
       try {
         // check if we should skip running the test
         if (!this.canRunTest(this.tests[i])) {
