@@ -14,7 +14,7 @@ import { IParsedLightWeight, ParsedType } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
 import {
   IGenerateTaskPayload,
-  PrepareIDLCodelMessage,
+  PrepareIDLCodeMessage,
   PrepareNotebookCellMessage,
 } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
@@ -555,7 +555,7 @@ export type LSPWorkerThreadMessage =
   | ParseFilesMessage
   | ParseNotebookMessage
   | PostProcessFilesMessage
-  | PrepareIDLCodelMessage
+  | PrepareIDLCodeMessage
   | PrepareNotebookCellMessage
   | RemoveFilesMessage
   | TrackGlobalTokensMessage
@@ -650,7 +650,7 @@ interface ILSPWorkerThreadMessageLookup {
    */
   POST_PROCESS_FILES: PostProcessFilesMessage;
   /** Prepare idl code for execution */
-  PREPARE_IDL_CODE: PrepareIDLCodelMessage;
+  PREPARE_IDL_CODE: PrepareIDLCodeMessage;
   /**
    * Prep notebook cell for execution
    */

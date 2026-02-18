@@ -1,5 +1,9 @@
 import { LogManager } from '@idl/logger';
-import { MCPToolHTTPResponse, MCPTools } from '@idl/types/mcp';
+import {
+  MCPToolHTTPResponse,
+  MCPToolInvokedCallback,
+  MCPTools,
+} from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { McpServer, ToolCallback } from '@modelcontextprotocol/sdk/server/mcp';
 import { ZodRawShape } from 'zod';
@@ -40,5 +44,5 @@ export interface IMCPHelperOptions {
   messenger: VSCodeLanguageServerMessenger;
 
   /** Callback when a tool is invoked */
-  toolInvokedCallback: (toolName: MCPTools) => void;
+  toolInvokedCallback: MCPToolInvokedCallback<MCPTools>;
 }

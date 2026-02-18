@@ -1,4 +1,4 @@
-import { MCPTools } from './mcp-tools.interface';
+import { MCPToolParams, MCPTools } from './mcp-tools.interface';
 
 /**
  * Callback triggered when we call an MCP tool
@@ -6,5 +6,6 @@ import { MCPTools } from './mcp-tools.interface';
  * Global hook for logging, use tracking, or extending/customizing tool usage
  */
 export type MCPToolInvokedCallback<T extends MCPTools> = (
-  tool: T
+  tool: T,
+  params: MCPToolParams<T>
 ) => Promise<void> | void;

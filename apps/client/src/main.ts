@@ -36,7 +36,7 @@ export async function activate(
   const debug = InitializeDebugger(ctx);
 
   // register handlers for MCP tools - MUST be after debugging
-  InitializeMCPVSCode(ctx);
+  const mcp = InitializeMCPVSCode(ctx);
   InitializeVSCodeGitHubCopilot(ctx);
 
   /**
@@ -77,6 +77,7 @@ export async function activate(
   return {
     client,
     debug,
+    mcp,
     notebooks,
     webview,
     decorations: IDL_DECORATIONS_MANAGER,

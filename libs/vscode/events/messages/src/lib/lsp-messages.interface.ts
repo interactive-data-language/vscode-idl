@@ -1,5 +1,5 @@
 import { ILogOptions } from '@idl/logger';
-import { MCPTools_VSCode } from '@idl/types/mcp';
+import { MCPTools, MCPTools_VSCode } from '@idl/types/mcp';
 import { IUsageMetricAndPayload, UsageMetric } from '@idl/usage-metrics';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
@@ -23,7 +23,10 @@ import {
   IndexingMessage,
 } from './messages/indexing.message.interface';
 import { LoggingMessage } from './messages/logging.message.interface';
-import { MCPHistory_Message } from './messages/mcp-history.interface';
+import {
+  MCPHistory_Message,
+  MCPHistory_MessagePayload,
+} from './messages/mcp-history.interface';
 import {
   MCP_LSP_Message,
   MCP_LSP_MessagePayload,
@@ -121,6 +124,8 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? ILogOptions
     : T extends MCP_LSP_Message
     ? MCP_LSP_MessagePayload<MCPTools_VSCode>
+    : T extends MCPHistory_Message
+    ? MCPHistory_MessagePayload<MCPTools>
     : T extends MCPProgress_LSP_Message
     ? MCPProgress_LSP_MessagePayload
     : T extends MigrateCodeLSPMessage

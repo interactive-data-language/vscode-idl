@@ -1,5 +1,6 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  MCP_TOOL_LOOKUP,
   MCPTool_RunENVITool,
   MCPToolParams,
   MCPToolResponse,
@@ -63,7 +64,7 @@ export async function RunMCPTool_RunENVITool(
   // track high-level task called - only do this for core ENVI tools
   if (!params.uri) {
     VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
-      idl_command: `idl.mcp.runTask.${params.taskName}`,
+      idl_command: `idl.mcp.${MCP_TOOL_LOOKUP.RUN_ENVI_TOOL}.${params.taskName}`,
     });
   }
 

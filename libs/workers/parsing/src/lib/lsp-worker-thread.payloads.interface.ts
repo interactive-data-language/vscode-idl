@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
   MigrateCodeLSPMessage,
-  PrepareIDLCodelMessage,
+  PrepareIDLCodeMessage,
   PrepareIDLCodePayload,
   PrepareIDLCodeResponse,
   PrepareNotebookCellMessage,
@@ -129,7 +129,7 @@ export type PayloadToLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ParseNotebookPayload
     : T extends PostProcessFilesMessage
     ? PostProcessFilesPayload
-    : T extends PrepareIDLCodelMessage
+    : T extends PrepareIDLCodeMessage
     ? PrepareIDLCodePayload
     : T extends PrepareNotebookCellMessage
     ? PrepareNotebookCellPayload
@@ -185,7 +185,7 @@ export type PayloadFromLSPWorker<T extends LSPWorkerThreadMessage> =
     ? ParseNotebookResponse
     : T extends PostProcessFilesMessage
     ? PostProcessFilesResponse
-    : T extends PrepareIDLCodelMessage
+    : T extends PrepareIDLCodeMessage
     ? PrepareIDLCodeResponse
     : T extends PrepareNotebookCellMessage
     ? PrepareNotebookCellResponse

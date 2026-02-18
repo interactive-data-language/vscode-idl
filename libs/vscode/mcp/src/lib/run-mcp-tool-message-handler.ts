@@ -23,7 +23,7 @@ import { RunMCPTool_ReturnNotes } from './tools/run-mcp-tool-return-notes';
 /**
  * Typed lookup of functions that we register for our tools
  */
-export const MCP_TOOL_LOOKUP: {
+export const RUN_MCP_TOOL_LOOKUP: {
   [key in MCPTools_VSCode]: (
     id: string,
     params: MCPToolParams<key>
@@ -56,11 +56,11 @@ export async function RunMCPToolMessageHandler(
   });
 
   // make sure we know how to run the tool
-  if (payload.tool in MCP_TOOL_LOOKUP) {
+  if (payload.tool in RUN_MCP_TOOL_LOOKUP) {
     // try to run
     try {
       // use any to override specific types
-      const res = await MCP_TOOL_LOOKUP[payload.tool](
+      const res = await RUN_MCP_TOOL_LOOKUP[payload.tool](
         payload.id,
         payload.params as any
       );

@@ -5,6 +5,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IMCPToolProgress,
   MCPToolHTTPResponse,
+  MCPToolInvokedCallback,
   MCPToolParams,
   MCPToolResponse_VSCode,
   MCPTools,
@@ -50,7 +51,7 @@ export class MCPToolHelper implements IMCPHelperOptions {
   messenger: VSCodeLanguageServerMessenger;
 
   /** Callback when a tool is invoked */
-  toolInvokedCallback: (toolName: MCPTools) => void;
+  toolInvokedCallback: MCPToolInvokedCallback<MCPTools>;
 
   /** Tool execution contexts that we are currently handling */
   private contexts: {
@@ -94,7 +95,7 @@ export class MCPToolHelper implements IMCPHelperOptions {
         let res: MCPToolHTTPResponse<Tool>;
 
         // call invoked callback
-        this.toolInvokedCallback(name);
+        this.toolInvokedCallback(name, params as any);
 
         // run tool one at a time
         await this.toolExecutionQueue.add(async () => {
