@@ -16,9 +16,9 @@ export function RegisterMCPTool_GetPrompt(
     MCP_TOOL_LOOKUP.GET_PROMPT,
     {
       title: IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_PROMPT],
-      description: `Returns the content for a prompt (instruction set or tutorial) based on the name. The name should come from "${MCP_TOOL_LOOKUP.LIST_PROMPTS}".`,
+      description: `Returns the content of a prompt based on the name. The name should come from "${MCP_TOOL_LOOKUP.LIST_PROMPTS}".`,
       inputSchema: {
-        name: z.string().describe('The names of the prompts to fetch'),
+        name: z.string().describe('The name of the prompts to fetch'),
       },
     },
     async (id, { name }) => {

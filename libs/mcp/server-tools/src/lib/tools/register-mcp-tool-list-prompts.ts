@@ -18,9 +18,12 @@ export function RegisterMCPTool_ListPrompts(
       title:
         IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.LIST_PROMPTS],
       description:
-        'Returns a list of available prompts by category. Prompts contain specialized instructions, best practices, and workflow guidance. Use this before starting complex tasks with ENVI and IDL to check if relevant guidance exists. Filter by: ENVI (image processing), IDL (general programming), or ALL (default).',
+        'Returns a list of available prompts by category. Prompts contain specialized instructions, best practices, and workflow guidance. Use this before starting complex tasks with ENVI and IDL to check if relevant guidance exists.',
       inputSchema: {
-        filter: z.enum(['envi', 'idl', 'all']).default('envi'),
+        filter: z
+          .enum(['envi', 'idl', 'all'])
+          .default('all')
+          .describe('Filter by: ENVI prompts, IDL prompts, or ALL prompts.'),
       },
     },
     async (id, { filter }) => {
