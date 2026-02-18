@@ -16,6 +16,9 @@ export function MCP_ENVIMachineLearningModel() {
       ),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.json'), {
+        message: 'url must end with ".json"',
+      })
       .describe(
         `Provide a fully-qualified filepath to the ENVI Machine Learning model on disk. This should be a file with a ".json" file extension`
       ),

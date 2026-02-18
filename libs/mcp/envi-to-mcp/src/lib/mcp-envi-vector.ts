@@ -15,6 +15,9 @@ export function MCP_ENVIVector() {
       .describe('This value should be "URLVector" (case-insensitive)'),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.shp'), {
+        message: 'url must end with ".shp"',
+      })
       .describe(
         `Provide a fully-qualified filepath to the shapefile. Should end with a ".shp" extension.`
       ),

@@ -18,6 +18,9 @@ export function MCP_ENVIDeepLearningKerasModel() {
       ),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.h5'), {
+        message: 'url must end with ".h5"',
+      })
       .describe(
         `Provide a fully-qualified filepath to the ENVI Keras model on disk. This should be a file with a ".h5" file extension.`
       ),

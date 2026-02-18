@@ -15,6 +15,9 @@ export function MCP_ENVIRasterSeries() {
       .describe('This value should be "URLRasterSeries" (case-insensitive)'),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.series'), {
+        message: 'url must end with ".series"',
+      })
       .describe(
         `Provide a fully-qualified filepath to raster series on disk. Should end with a ".series" extension.`
       ),

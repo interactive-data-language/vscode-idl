@@ -17,6 +17,9 @@ export function MCP_ENVIDeepLearningLabelRaster() {
       ),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.dat'), {
+        message: 'url must end with ".dat"',
+      })
       .describe(
         `Provide a fully-qualified filepath to the dataset on disk. This will always be an ENVI formatted file and should have a ".dat" file extension.`
       ),

@@ -14,6 +14,9 @@ export function MCP_ENVIAgZones() {
       .describe('This value should be "ENVIAgZones" (case-insensitive)'),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.sav'), {
+        message: 'url must end with ".sav"',
+      })
       .describe(
         `Provide a fully-qualified filepath to the az zones on disk. Should end with a ".sav" extension.`
       ),

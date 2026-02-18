@@ -17,6 +17,9 @@ export function MCP_ENVITiePointSet() {
       .describe('This value should be "URLTiePointSet" (case-insensitive)'),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.pts'), {
+        message: 'url must end with ".pts"',
+      })
       .describe(
         `Provide a fully-qualified filepath to the tie points. Should end with a ".pts" extension.`
       ),

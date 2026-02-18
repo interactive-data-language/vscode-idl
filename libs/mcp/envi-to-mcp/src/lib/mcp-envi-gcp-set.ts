@@ -14,6 +14,9 @@ export function MCP_ENVIGCPSet() {
       .describe('This value should be "URLGCPSet" (case-insensitive)'),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.pts'), {
+        message: 'url must end with ".pts"',
+      })
       .describe(
         `Provide a fully-qualified filepath to the GCP (Ground Control Points) file on disk. Should end with a ".pts" extension.`
       ),

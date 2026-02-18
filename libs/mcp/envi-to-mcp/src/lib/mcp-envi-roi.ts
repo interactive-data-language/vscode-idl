@@ -16,6 +16,9 @@ export function MCP_ENVIROI() {
       .describe('This value should be "URLROI" (case-insensitive)'),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.xml'), {
+        message: 'url must end with ".xml"',
+      })
       .describe(
         `Provide a fully-qualified filepath to an ENVI ROI file. Should end with an ".xml" extension.`
       ),

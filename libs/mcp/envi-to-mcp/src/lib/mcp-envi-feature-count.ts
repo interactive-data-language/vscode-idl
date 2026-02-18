@@ -14,6 +14,9 @@ export function MCP_ENVIFeatureCount() {
       .describe('This value should be "FeatureCount" (case-insensitive)'),
     url: z
       .string()
+      .refine((val) => val.toLowerCase().endsWith('.efc'), {
+        message: 'url must end with ".efc"',
+      })
       .describe(
         `Provide a fully-qualified filepath to the feature count file disk. Should end with a ".efc" extension.`
       ),
