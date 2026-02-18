@@ -115,7 +115,7 @@ export class MCPToolHelper implements IMCPHelperOptions {
         this.logManager.log({
           log: IDL_MCP_LOG,
           type: 'error',
-          content: ['Unknown error while executing toool', err],
+          content: ['Unknown error while executing tool', err],
           alert: IDL_TRANSLATION.mcp.errors.unknownMCPToolError,
         });
 
@@ -163,8 +163,18 @@ export class MCPToolHelper implements IMCPHelperOptions {
           },
         });
       } catch (err) {
-        // no connection, race condition?
-        console.log('Error sending notification', progress);
+        // filter out connection errors
+        if (err.message !== 'Not connected') {
+          this.logManager.log({
+            log: IDL_MCP_LOG,
+            type: 'error',
+            content: [
+              'Error while sending tool notification',
+              err,
+              { id, progress },
+            ],
+          });
+        }
       }
     }
   }
