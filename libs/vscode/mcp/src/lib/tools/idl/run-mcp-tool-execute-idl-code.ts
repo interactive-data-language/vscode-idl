@@ -15,8 +15,6 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { MCPVerifyIDLVersion } from '../../helpers/mcp-verify-idl-version';
-
 /**
  * Executes IDL code
  */
