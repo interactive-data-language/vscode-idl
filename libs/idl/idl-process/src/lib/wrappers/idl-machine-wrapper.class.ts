@@ -382,8 +382,22 @@ export class IDLMachineWrapper {
       return '';
     });
 
+    /** Counter for code to execute */
+    let counter = 0;
     this.machine.onRequest('readProgramLine', (msg) => {
-      return '';
+      // increment
+      counter++;
+
+      // execute code
+      switch (counter) {
+        case 1:
+          return '!null = 42';
+        case 2:
+          counter = 0;
+          return 'end';
+        default:
+          break;
+      }
     });
 
     this.machine.onRequest('resetSessionConfirm', () => {

@@ -15,6 +15,8 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
+import { MCPVerifyIDLVersion } from '../../helpers/mcp-verify-idl-version';
+
 /**
  * Executes IDL code
  */
@@ -85,6 +87,9 @@ export async function RunMCPTool_ExecuteIDLCode(
   await IDL_DEBUG_ADAPTER.evaluate(
     `compile_opt idl2 & message, /reset & retall`
   );
+
+  // reset main with ".run"
+  await IDL_DEBUG_ADAPTER.resetMain();
 
   // write file
   writeFileSync(fsPath, resp.code);

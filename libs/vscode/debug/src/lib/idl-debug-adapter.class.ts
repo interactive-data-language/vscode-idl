@@ -39,6 +39,7 @@ import {
 } from '@vscode/debugadapter';
 import { DebugProtocol } from '@vscode/debugprotocol';
 import { Subject } from 'await-notify';
+import { compareVersions } from 'compare-versions';
 import { platform } from 'os';
 import { basename, delimiter } from 'path';
 import * as vscode from 'vscode';
@@ -708,6 +709,20 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
     // update flag that we have started listening to events
     this.listening = true;
+  }
+
+  /**
+   * Resets the main level program
+   *
+   * Requires IDL 9.2 and later, returns if not
+   * valid version of IDL
+   */
+  async resetMain() {
+    if (compareVersions(this.idlVersion.release, '9.2.0') !== -1) {
+      return;
+    }
+    await this.evaluate('.run');
+    this._eventHelper.resetStopAndContinue();
   }
 
   /**

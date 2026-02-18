@@ -1,5 +1,4 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
-import { IDL_MCP_LOG } from '@idl/logger';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -8,11 +7,7 @@ import {
   MCPToolResponse,
 } from '@idl/types/mcp';
 import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
-import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { IDL_LOGGER } from '@idl/vscode/logger';
-import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 /**
@@ -32,41 +27,49 @@ export async function RunMCPTool_ExecuteIDLFile(
     return { success: false, err: started.reason };
   }
 
-  // open file
-  const doc = await OpenFileInVSCode(params.uri);
-
   /**
-   * Send message to convert code
+   * This commented out block of code prepares/fixes some issues in the code
+   * before running. This is just left up to the LLM to figure out right
+   * now, but we could give some hand-holding in the future if needed
    */
-  const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
-    LANGUAGE_SERVER_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
-    {
-      code: doc.getText(),
-    }
-  );
+  // // open file
+  // const doc = await OpenFileInVSCode(params.uri);
 
-  // see if theres a problem, user should be alerted
-  if (!resp) {
-    IDL_LOGGER.log({
-      type: 'error',
-      log: IDL_MCP_LOG,
-      content: [IDL_TRANSLATION.notebooks.errors.failedCodePrepare],
-      alert: IDL_TRANSLATION.mcp.errors.failedCodePrepare,
-    });
+  // /**
+  //  * Send message to convert code
+  //  */
+  // const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
+  //   LANGUAGE_SERVER_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
+  //   {
+  //     code: doc.getText(),
+  //   }
+  // );
 
-    return {
-      success: false,
-      err: IDL_TRANSLATION.mcp.errors.failedCodePrepare,
-    };
-  }
+  // // see if theres a problem, user should be alerted
+  // if (!resp) {
+  //   IDL_LOGGER.log({
+  //     type: 'error',
+  //     log: IDL_MCP_LOG,
+  //     content: [IDL_TRANSLATION.notebooks.errors.failedCodePrepare],
+  //     alert: IDL_TRANSLATION.mcp.errors.failedCodePrepare,
+  //   });
+
+  //   return {
+  //     success: false,
+  //     err: IDL_TRANSLATION.mcp.errors.failedCodePrepare,
+  //   };
+  // }
 
   // update file code to be correct
   // await ReplaceDocumentContent(doc, resp.code);
 
-  // reset error message so we can know for sure if IDL had a problem
-  await IDL_DEBUG_ADAPTER.evaluate(`message, /reset`, {
-    silent: true,
-  });
+  // set compile option and make sure we are at the main level
+  await IDL_DEBUG_ADAPTER.evaluate(
+    `compile_opt idl2 & message, /reset & retall`
+  );
+
+  // reset main with ".run"
+  await IDL_DEBUG_ADAPTER.resetMain();
 
   /** Run our file */
   const result: IRunIDLCommandResult = await vscode.commands.executeCommand(
