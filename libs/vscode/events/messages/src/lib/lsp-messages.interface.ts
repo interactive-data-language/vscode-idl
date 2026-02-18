@@ -23,6 +23,7 @@ import {
   IndexingMessage,
 } from './messages/indexing.message.interface';
 import { LoggingMessage } from './messages/logging.message.interface';
+import { MCPHistory_Message } from './messages/mcp-history.interface';
 import {
   MCP_LSP_Message,
   MCP_LSP_MessagePayload,
@@ -43,7 +44,7 @@ import {
   NotebookToProCodeMessage,
 } from './messages/notebook-to-pro-code.message.interface';
 import {
-  PrepareIDLCodelMessage,
+  PrepareIDLCodeMessage,
   PrepareIDLCodePayload,
   PrepareIDLCodeResponse,
 } from './messages/prepare-idl-code.message.interface';
@@ -86,10 +87,11 @@ export type LanguageServerMessage =
   | InitWorkspaceConfigMessage
   | LoggingMessage
   | MCP_LSP_Message
+  | MCPHistory_Message
   | MCPProgress_LSP_Message
   | MigrateCodeLSPMessage
   | NotebookToProCodeMessage
-  | PrepareIDLCodelMessage
+  | PrepareIDLCodeMessage
   | PrepareNotebookCellMessage
   | ProgressMessage
   | RefreshMCPToolsMessage
@@ -129,7 +131,7 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
     ? IRetrieveDocsPayload
     : T extends ProgressMessage
     ? ProgressMessagePayload
-    : T extends PrepareIDLCodelMessage
+    : T extends PrepareIDLCodeMessage
     ? PrepareIDLCodePayload
     : T extends PrepareNotebookCellMessage
     ? PrepareNotebookCellPayload
@@ -151,7 +153,7 @@ export type LanguageServerResponse<T extends LanguageServerMessage> =
     ? INotebookToProCodeResponse
     : T extends RetrieveDocsMessage
     ? IRetrieveDocsResponse
-    : T extends PrepareIDLCodelMessage
+    : T extends PrepareIDLCodeMessage
     ? PrepareIDLCodeResponse
     : T extends PrepareNotebookCellMessage
     ? PrepareNotebookCellResponse
@@ -179,6 +181,8 @@ export interface ILanguageServerMessages {
   LOG: LoggingMessage;
   /** MCP message to run a tool */
   MCP: MCP_LSP_Message;
+  /** Track history of MCP Tool runs */
+  MCP_HISTORY: MCPHistory_Message;
   /** Progress message via LSP */
   MCP_PROGRESS: MCPProgress_LSP_Message;
   /** Message to migrate ENVI DL API to 3.0 */
@@ -186,7 +190,7 @@ export interface ILanguageServerMessages {
   /** Convert notebooks to PRO code */
   NOTEBOOK_TO_PRO_CODE: NotebookToProCodeMessage;
   /** Prepare idl code for execution */
-  PREPARE_IDL_CODE: PrepareIDLCodelMessage;
+  PREPARE_IDL_CODE: PrepareIDLCodeMessage;
   /** Prepare notebook cell for execution */
   PREPARE_NOTEBOOK_CELL: PrepareNotebookCellMessage;
   /** Progress message */
@@ -218,6 +222,7 @@ export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   INIT_WORKSPACE_CONFIG: 'init-workspace-config',
   LOG: 'log',
   MCP: 'mcp',
+  MCP_HISTORY: 'mcp-history',
   MCP_PROGRESS: 'mcp-progress',
   MIGRATE_CODE: 'migrate-code',
   NOTEBOOK_TO_PRO_CODE: 'notebook/to-pro-code',
