@@ -5,6 +5,7 @@ import {
   USER_COPILOT_INSTRUCTIONS_FOLDER,
   USER_COPILOT_PROMPTS_FOLDER,
 } from '@idl/idl/files';
+import { existsSync, rmSync } from 'fs';
 import * as vscode from 'vscode';
 
 import { HomeRelativePath } from './home-relative-path';
@@ -41,6 +42,11 @@ export async function RegisterGitHubCopilotFilesFromExtension(
     type === 'instructions'
       ? USER_COPILOT_INSTRUCTIONS_FOLDER
       : USER_COPILOT_PROMPTS_FOLDER;
+
+  // clean up
+  if (existsSync(destinationDir)) {
+    rmSync(destinationDir, { recursive: true });
+  }
 
   // relative path for destination
   const destinationRelative = HomeRelativePath(destinationDir);
