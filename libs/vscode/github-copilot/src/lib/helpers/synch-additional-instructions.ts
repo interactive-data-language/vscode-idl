@@ -110,11 +110,45 @@ export function watchCustomInstructionsFileChanges(): vscode.Disposable {
   };
 }
 
+export async function syncInstructionsFromSettingToFile() {
+  try {
+    // Read current file content
+    const fileContent = await readInstructions();
+
+    // If file doesn't exist or can't be read, skip
+    if (fileContent === null) {
+      return;
+    }
+
+    // Split on marker - everything before becomes our base
+    const parts = fileContent.split(new RegExp(MARKER, 'i'));
+    const beforeMarker = parts[0].trim();
+
+    // Content after the marker (Our new setting instructions)
+    const config = vscode.workspace.getConfiguration(CONFIG_NAMESPACE);
+    const value = config.get<string>(SETTING_KEY, '');
+
+    // Write: before + marker + user content
+    const filePath = join(USER_COPILOT_INSTRUCTIONS_FOLDER, INSTRUCTIONS_FILE);
+    const fileUri = vscode.Uri.file(filePath);
+    const newContent = `${beforeMarker}\n\n${MARKER}\n\n${value}`;
+    const encoded = new TextEncoder().encode(newContent);
+
+    await vscode.workspace.fs.writeFile(fileUri, encoded);
+  } catch (err) {
+    IDL_LOGGER.log({
+      log: IDL_COPILOT_VSCODE_LOG,
+      type: 'error',
+      content: ['Failed to sync Custom Instructions to file', err],
+    });
+  }
+}
+
 /**
  * Handles configuration changes for custom instructions setting.
  * Debounced to avoid excessive file writes.
  */
-async function handleConfigChange(ev: vscode.ConfigurationChangeEvent) {
+async function handleSettingChange(ev: vscode.ConfigurationChangeEvent) {
   // Only act if our specific setting changed
   if (!ev.affectsConfiguration(FULL_SETTING_KEY)) {
     return;
@@ -127,40 +161,7 @@ async function handleConfigChange(ev: vscode.ConfigurationChangeEvent) {
 
   // Set new timer - only execute after user stops changing settings
   settingDebounceTimer = setTimeout(async () => {
-    try {
-      // Read current file content
-      const fileContent = await readInstructions();
-
-      // If file doesn't exist or can't be read, skip
-      if (fileContent === null) {
-        return;
-      }
-
-      // Split on marker - everything before becomes our base
-      const parts = fileContent.split(new RegExp(MARKER, 'i'));
-      const beforeMarker = parts[0].trim();
-
-      // Content after the marker (Our new setting instructions)
-      const config = vscode.workspace.getConfiguration(CONFIG_NAMESPACE);
-      const value = config.get<string>(SETTING_KEY, '');
-
-      // Write: before + marker + user content
-      const filePath = join(
-        USER_COPILOT_INSTRUCTIONS_FOLDER,
-        INSTRUCTIONS_FILE
-      );
-      const fileUri = vscode.Uri.file(filePath);
-      const newContent = `${beforeMarker}\n\n${MARKER}\n\n${value}`;
-      const encoded = new TextEncoder().encode(newContent);
-
-      await vscode.workspace.fs.writeFile(fileUri, encoded);
-    } catch (err) {
-      IDL_LOGGER.log({
-        log: IDL_COPILOT_VSCODE_LOG,
-        type: 'error',
-        content: ['Failed to sync Custom Instructions to file', err],
-      });
-    }
+    await syncInstructionsFromSettingToFile();
   }, DEBOUNCE_MS);
 }
 
@@ -170,7 +171,7 @@ async function handleConfigChange(ev: vscode.ConfigurationChangeEvent) {
  */
 export function watchCustomInstructionsChanges(): vscode.Disposable {
   const listener =
-    vscode.workspace.onDidChangeConfiguration(handleConfigChange);
+    vscode.workspace.onDidChangeConfiguration(handleSettingChange);
 
   return {
     dispose() {

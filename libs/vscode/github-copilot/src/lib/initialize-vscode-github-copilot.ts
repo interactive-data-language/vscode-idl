@@ -6,7 +6,7 @@ import { RegisterCopilotCommands } from './commands/register-copilot-commands';
 import { RegisterGitHubCopilotFilesFromExtension } from './helpers/register-github-copilot-files-from-extension';
 import { RegisterGitHubCopilotFilesFromIDLPackages } from './helpers/register-github-copilot-files-from-idl-packages';
 import {
-  syncInstructionsFromFileToSetting,
+  syncInstructionsFromSettingToFile,
   watchCustomInstructionsChanges,
   watchCustomInstructionsFileChanges,
 } from './helpers/synch-additional-instructions';
@@ -47,7 +47,7 @@ export async function InitializeVSCodeGitHubCopilot(
    * Set up bidirectional sync between instructions file and settings
    */
   // fire once.
-  await syncInstructionsFromFileToSetting();
+  await syncInstructionsFromSettingToFile();
 
   // set up our watchers. These keep the file and settings in lockstep.
   ctx.subscriptions.push(watchCustomInstructionsFileChanges());
