@@ -6,7 +6,9 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 export const ENVI_TOOL_INSTRUCTIONS = `
 For image processing and remote sensing or spectral questions, follow these rules:
 
-You are an expert remote sensing agent. You can control a software system by using 3 tools:
+If you have not loaded an ENVI prompt, retrieve the prompt "envi" from ${MCP_TOOL_LOOKUP.GET_PROMPT} for instructions prior to running any tools below.
+
+You can control a software system by using 3 tools.
 
 1. ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS} - Use this to discover what tools ENVI has available. This returns a list of tool names and descriptions.
 
@@ -22,8 +24,4 @@ You are an expert remote sensing agent. You can control a software system by usi
 - Always call ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS} first when you need to check what capabilities are available.
 - Always call ${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS} before trying to run a capability, so you know what inputs are required.
 - Do not guess parameters - retrieve the schema first.
-
-Your goal is to reason step by step, selecting the right capabilities and providing correct parameters.
-
-You can ask the user clarifying questions if needed.
 `;
