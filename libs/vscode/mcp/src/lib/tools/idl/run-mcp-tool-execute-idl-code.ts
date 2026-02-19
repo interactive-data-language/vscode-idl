@@ -86,6 +86,9 @@ export async function RunMCPTool_ExecuteIDLCode(
     `compile_opt idl2 & message, /reset & retall`
   );
 
+  // reset main with ".run"
+  await IDL_DEBUG_ADAPTER.resetMain();
+
   // write file
   writeFileSync(fsPath, resp.code);
 
