@@ -37,14 +37,14 @@ export function RegisterMCPPromptTools(helper: MCPToolHelper) {
   registry.addPrompt({
     name: 'envi',
     description:
-      'A set of instructions that describes how to use ENVI to solve remote sensing and image processing problems. Use when individuals are working with imagery, remote sensing, or image analysis problems.',
+      'Describes how to use ENVI to solve remote sensing and image processing problems. Use when individuals are working with imagery, remote sensing, or image analysis problems.',
     prompt: readFileSync(join(enviDir, 'envi.prompt.md'), 'utf-8'),
     type: 'envi',
   });
   registry.addPrompt({
     name: 'enviBatchProcessing',
     description:
-      'A set of instructions that describes how to use ENVI to perform batch processing. Use when individuals are working with imagery, remote sensing, or image analysis problems and have more than one image or set of images to process.',
+      'Describes how to use ENVI to perform batch processing. Use when individuals are working with imagery, remote sensing, or image analysis problems and have more than one image or set of images to process.',
     prompt: readFileSync(
       join(enviDir, 'enviBatchProcessing.prompt.md'),
       'utf-8'
@@ -61,7 +61,7 @@ export function RegisterMCPPromptTools(helper: MCPToolHelper) {
   registry.addPrompt({
     name: 'idl-plotting',
     description:
-      'A set of instructions that describes how to use routines in IDL to create plots. A focus on newer routines to use for modern IDL programming.',
+      'Describes how to use routines in IDL to create plots. A focus on newer routines to use for modern IDL programming.',
     prompt: readFileSync(join(idlDir, 'idlCreate2DPlot.prompt.md'), 'utf-8'),
     type: 'idl',
   });
