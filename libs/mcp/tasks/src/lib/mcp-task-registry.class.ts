@@ -12,6 +12,7 @@ import { z, ZodRawShape } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { GetCleanDescription } from './helpers/get-clean-description';
+import { StrictCheck } from './helpers/strict-check';
 import {
   ITaskInformation,
   ITaskRegistryEntry,
@@ -42,6 +43,9 @@ export class MCPTaskRegistry {
    */
   private notes: { [key: string]: string[] } = {};
 
+  /** Are we operating in strict mode or not? */
+  private strict = true;
+
   /**
    * Unified registry of all tasks by name (lower case)
    *
@@ -49,8 +53,9 @@ export class MCPTaskRegistry {
    */
   private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
-  constructor(logger: LogManager) {
+  constructor(logger: LogManager, strict = true) {
     this.logger = logger;
+    this.strict = strict;
   }
 
   /**
@@ -151,9 +156,25 @@ export class MCPTaskRegistry {
       this.logger.log({
         log: IDL_MCP_LOG,
         type: 'warn',
-        content: `ENVI Tool "${taskName}" is missing description and will be skipped`,
+        content: `ENVI Tool "${taskDisplay}" is missing description and will be skipped`,
       });
       return;
+    }
+
+    /**
+     * Check if we need to make sure we have a good description
+     */
+    if (this.strict) {
+      if (StrictCheck(taskName, description)) {
+        this.logger.log({
+          log: IDL_MCP_LOG,
+          type: 'warn',
+          content: [
+            `ENVI Tool "${taskDisplay}" has a description which is the same as the tool name`,
+          ],
+        });
+        return;
+      }
     }
 
     /**
@@ -189,6 +210,22 @@ export class MCPTaskRegistry {
         addToArgs = outputArgs;
       }
 
+      /**
+       * Check if we need to make sure parameter name is not same as docs
+       */
+      if (this.strict) {
+        if (StrictCheck(names[i], prop.docs)) {
+          this.logger.log({
+            log: IDL_MCP_LOG,
+            type: 'warn',
+            content: [
+              `ENVI Tool "${taskDisplay}" has a parameter with the same name as description "${names[i]}" with description "${prop.docs}"`,
+            ],
+          });
+          return;
+        }
+      }
+
       /** Get cleaned parameter docs */
       const docs = GetCleanDescription(prop.docs, false);
 
@@ -201,7 +238,7 @@ export class MCPTaskRegistry {
           log: IDL_MCP_LOG,
           type: 'warn',
           content: [
-            `ENVI Tool "${taskName}" has an unhandled ENVI Task data type for property "${
+            `ENVI Tool "${taskDisplay}" has an unhandled ENVI Task data type for property "${
               names[i]
             }" with type "${IDLTypeHelper.serializeIDLType(prop.type)}"`,
           ],
