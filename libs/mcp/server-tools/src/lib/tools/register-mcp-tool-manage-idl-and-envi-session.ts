@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { IS_ENVI_INSTALLED } from '../..';
 import { MCPToolHelper } from '../mcp-tool-helper.class';
-import { ENVI_INSTALL_MESSAGE } from './envi/envi-intall-message.interface';
+import { ENVI_INSTALL_MESSAGE } from './envi/envi-install-message.interface';
 
 /**
  * Registers a tool that allows LLMs to manage ENVI and IDL sessions

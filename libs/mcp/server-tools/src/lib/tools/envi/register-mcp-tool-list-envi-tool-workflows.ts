@@ -4,7 +4,7 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
 import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
-import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
+import { ENVI_INSTALL_MESSAGE } from './envi-install-message.interface';
 import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructions.interface';
 
 /**

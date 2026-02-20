@@ -9,7 +9,7 @@ import { z } from 'zod';
 
 import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
-import { ENVI_INSTALL_MESSAGE } from './envi-intall-message.interface';
+import { ENVI_INSTALL_MESSAGE } from './envi-install-message.interface';
 
 /**
  * Registers a tool that allows us to open an image in ENVI
