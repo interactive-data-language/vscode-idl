@@ -8,6 +8,7 @@ import {
 } from '@idl/types/mcp';
 import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
+import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 /**
@@ -28,13 +29,17 @@ export async function RunMCPTool_ExecuteIDLFile(
   }
 
   /**
+   * Open in VSCOde
+   *
+   * *MUST BE HERE* so that we re-use our "run" logic
+   */
+  const doc = await OpenFileInVSCode(params.uri);
+
+  /**
    * This commented out block of code prepares/fixes some issues in the code
    * before running. This is just left up to the LLM to figure out right
    * now, but we could give some hand-holding in the future if needed
    */
-  // // open file
-  // const doc = await OpenFileInVSCode(params.uri);
-
   // /**
   //  * Send message to convert code
   //  */

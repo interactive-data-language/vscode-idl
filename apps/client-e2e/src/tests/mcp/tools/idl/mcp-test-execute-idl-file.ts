@@ -9,6 +9,10 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import {
+  LogWhenExpectError,
+  LogWhenExpectSuccess,
+} from '../../helpers/test-loggers';
 
 /**
  * Makes sure we can start IDL through MCP
@@ -22,6 +26,8 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
       'idl/test/client-e2e/github-copilot/mcp/idl-file-runs-fine.pro'
     ),
   });
+
+  LogWhenExpectSuccess(resSuccess);
 
   // make sure error is reported in MCP response
   expect(resSuccess.isError).toBeFalsy();
@@ -46,6 +52,8 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
     ),
   });
 
+  LogWhenExpectError(resRuntimeErr);
+
   // make sure the tool runs
   expect(resRuntimeErr.isError).toBeTruthy();
 
@@ -68,6 +76,8 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
       'idl/test/client-e2e/github-copilot/mcp/idl-file-syntax-error.pro'
     ),
   });
+
+  LogWhenExpectError(resSyntaxErr);
 
   // make sure error is reported in MCP response
   expect(resSyntaxErr.isError).toBeTruthy();
