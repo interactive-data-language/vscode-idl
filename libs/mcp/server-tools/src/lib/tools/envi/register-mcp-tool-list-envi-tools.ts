@@ -20,7 +20,7 @@ export function RegisterMCPTool_ListENVITools(
     {
       title:
         IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS],
-      description: `Lists all image processing and spectral analysis tools that ENVI has available. *CRITICAL* load this entire response into your context window to make sure you can properly answer questions. Here's the process to get the list of ENVI Tools and how to use them:\n\n ${ENVI_TOOL_INSTRUCTIONS}`,
+      description: `Lists all image processing, SAR processing, and spectral analysis tools that ENVI has available. *CRITICAL* load this entire response into your context window to make sure you can properly answer questions. Here's the process to get the list of ENVI Tools and how to use them:\n\n ${ENVI_TOOL_INSTRUCTIONS}`,
       inputSchema: {},
     },
     async (id, inputParameters) => {
