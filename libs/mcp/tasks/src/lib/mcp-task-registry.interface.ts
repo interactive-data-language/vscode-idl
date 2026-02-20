@@ -1,16 +1,29 @@
+import { ValidateFunction } from 'ajv';
 import { JsonSchema7Type } from 'zod-to-json-schema';
 
 import { TaskLocation, TaskLocationKind } from './task-location.interface';
 
-export interface ITaskInformation {
-  /** description of the task */
+/**
+ * Internal registry entry that stores all information about a single task
+ */
+export interface ITaskRegistryEntry {
+  /** Description of the task */
   description: string;
+  /** Display name of the task */
+  displayName: string;
   /** Input parameters for task */
   inputParameters: JsonSchema7Type;
+  /** Validation function for input parameters */
+  inputValidator: ValidateFunction<any>;
   /** Location of the task if we know it */
   location?: TaskLocation<TaskLocationKind>;
-  /** If we have them, additional notes for the task */
-  notes?: string[];
   /** Output parameters for task */
   outputParameters: JsonSchema7Type;
+}
+
+/**
+ * Include notes for task
+ */
+export interface ITaskInformation extends ITaskRegistryEntry {
+  notes?: string[];
 }

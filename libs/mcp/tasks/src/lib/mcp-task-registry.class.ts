@@ -7,12 +7,15 @@ import {
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import Ajv, { ValidateFunction } from 'ajv';
+import Ajv from 'ajv';
 import { z, ZodRawShape } from 'zod';
-import { JsonSchema7Type, zodToJsonSchema } from 'zod-to-json-schema';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import { GetCleanDescription } from './helpers/get-clean-description';
-import { ITaskInformation } from './mcp-task-registry.interface';
+import {
+  ITaskInformation,
+  ITaskRegistryEntry,
+} from './mcp-task-registry.interface';
 import {
   TaskLocation,
   TaskLocation_File,
@@ -30,42 +33,21 @@ export class MCPTaskRegistry {
   private ajv = new Ajv({ allErrors: true, allowUnionTypes: true });
 
   /**
-   * Lookup of a description for a task, by name
-   *
-   * This lookup is a limited description that attempts to strip
-   * out examples
-   */
-  private descriptions: { [key: string]: string } = {};
-
-  /**
-   * Input parameters for a task, by name
-   */
-  private inputParameters: { [key: string]: JsonSchema7Type } = {};
-
-  /**
-   * Validation functions for input parameters
-   */
-  private inputValidators: { [key: string]: ValidateFunction<any> } = {};
-
-  /**
-   * Location of a task, if it is not native to ENVI and IDL
-   */
-  private location: { [key: string]: TaskLocation<TaskLocationKind> } = {};
-
-  /**
    * Logger
    */
   private logger: LogManager;
 
   /**
-   * Track key notes for tasks in the registry
+   * Notes for tasks, separate to simplify book keeping
    */
   private notes: { [key: string]: string[] } = {};
 
   /**
-   * Output parameters for a task, by name
+   * Unified registry of all tasks by name (lower case)
+   *
+   * This stores all task information in a single data structure
    */
-  private outputParameters: { [key: string]: JsonSchema7Type } = {};
+  private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
   constructor(logger: LogManager) {
     this.logger = logger;
@@ -92,19 +74,25 @@ export class MCPTaskRegistry {
     // make sure we have an array of notes
     const useNotes = !Array.isArray(notes) ? [notes] : notes;
 
-    // check if it exists already
-    if (lc in this.notes) {
-      this.notes[lc] = this.notes[lc].concat(useNotes);
-    } else {
-      this.notes[lc] = useNotes;
+    // init
+    if (!(lc in this.notes)) {
+      this.notes[lc] = [];
     }
+
+    // save
+    this.notes[lc] = this.notes[lc].concat(useNotes);
   }
 
   /**
    * Returns all task descriptions by task name
    */
   getDescriptions() {
-    return this.descriptions;
+    const descriptions: { [key: string]: string } = {};
+    const tasks = Object.values(this.tasks);
+    for (let i = 0; i < tasks.length; i++) {
+      descriptions[tasks[i].displayName] = tasks[i].description;
+    }
+    return descriptions;
   }
 
   /**
@@ -115,24 +103,19 @@ export class MCPTaskRegistry {
     const lc = taskName.toLowerCase();
 
     // return if no match
-    if (!(lc in this.descriptions)) {
+    if (!(lc in this.tasks)) {
       return;
     }
 
-    return {
-      description: this.descriptions[lc],
-      inputParameters: this.inputParameters[lc],
-      outputParameters: this.outputParameters[lc],
-      notes: this.notes[lc],
-      location: this.location[lc],
-    };
+    // get
+    return { ...this.tasks[lc], notes: this.notes[lc] };
   }
 
   /**
    * Checks if we have a task registered or not
    */
   hasTask(taskName: string) {
-    return taskName.toLowerCase() in this.descriptions;
+    return taskName.toLowerCase() in this.tasks;
   }
 
   /**
@@ -149,10 +132,11 @@ export class MCPTaskRegistry {
     taskFunction: IGlobalIndexedToken<GlobalFunctionToken>,
     taskStructure: IGlobalIndexedToken<GlobalStructureToken>
   ) {
+    /** Get task display name */
+    const taskDisplay = TASK_REGEX.exec(taskStructure.meta.display)[1];
+
     /** Get the task name */
-    const taskName = TASK_REGEX.exec(
-      taskStructure.meta.display
-    )[1].toLowerCase();
+    const taskName = taskDisplay.toLowerCase();
 
     /** Get short task description */
     const description = GetCleanDescription(taskFunction.meta.docs);
@@ -229,11 +213,8 @@ export class MCPTaskRegistry {
       addToArgs[names[i]] = param;
     }
 
-    // save in lookup
-    this.descriptions[taskName] = description;
-
-    // save parameters with full description
-    this.inputParameters[taskName] = zodToJsonSchema(
+    // create input parameters schema
+    const inputParameters = zodToJsonSchema(
       z
         .object(inputArgs)
         .describe(
@@ -241,13 +222,8 @@ export class MCPTaskRegistry {
         )
     );
 
-    // save parameter validation function
-    this.inputValidators[taskName] = this.ajv.compile(
-      this.inputParameters[taskName]
-    );
-
-    // save output parameters
-    this.outputParameters[taskName] = zodToJsonSchema(
+    // create output parameters schema
+    const outputParameters = zodToJsonSchema(
       z
         .object(outputArgs)
         .describe(
@@ -255,40 +231,45 @@ export class MCPTaskRegistry {
         )
     );
 
-    // see if we need to track task file
+    // create location metadata if we have a file
+    let location: TaskLocation<TaskLocationKind> | undefined;
     if (taskStructure.file) {
       /** Create metadata so its strictly types */
-      const meta: TaskLocation<TaskLocation_File> = {
+      location = {
         type: 'file',
         meta: {
           path: taskStructure.file,
         },
-      };
-      this.location[taskName] = meta;
+      } as TaskLocation<TaskLocation_File>;
     }
+
+    // save in unified registry
+    this.tasks[taskName] = {
+      description,
+      displayName: taskDisplay,
+      inputParameters,
+      inputValidator: this.ajv.compile(inputParameters),
+      outputParameters,
+      location,
+    };
   }
 
   /**
    * Remove a task from the registry
    *
-   * Deletes entries from all root level properties
+   * Deletes entry from the unified registry
    */
   removeTask(taskName: string): boolean {
     /** Get lower case name */
     const lc = taskName.toLowerCase();
 
     // check if task exists
-    if (!(lc in this.descriptions)) {
+    if (!(lc in this.tasks)) {
       return false;
     }
 
-    // remove from all root level properties
-    delete this.descriptions[lc];
-    delete this.inputParameters[lc];
-    delete this.inputValidators[lc];
-    delete this.outputParameters[lc];
-    delete this.location[lc];
-    delete this.notes[lc];
+    // remove from unified registry
+    delete this.tasks[lc];
 
     return true;
   }
@@ -307,7 +288,7 @@ export class MCPTaskRegistry {
     const lc = taskName.toLowerCase();
 
     // return if no match
-    if (!(lc in this.descriptions)) {
+    if (!(lc in this.tasks)) {
       return {
         success: false,
         reason: 'Unknown ENVI Task we are validating parameters for',
@@ -316,8 +297,8 @@ export class MCPTaskRegistry {
 
     // Validate inputParameters against the JSON schema
     try {
-      /** Create a validator function */
-      const validate = this.ajv.compile(this.inputParameters[lc]);
+      /** Get the validator function */
+      const validate = this.tasks[lc].inputValidator;
 
       /** Validate parameters */
       const valid = validate(inputParameters);
