@@ -15,6 +15,9 @@ Examples:
 - Searching for function with plot in the name:
   {"routines":[{"name":"plot", "type":"Function"}]}
 
+- Searching for the ENVI Task "ISODataClassification":
+  {"routines":[{"name":"ISODataClassification", "type":"Function"}]}
+
 - Searching for all methods for the ENVIRaster class
   {"routines":[{"name":"enviraster::", "type":"FunctionMethod"}, {"name":"enviraster::", "routineType":"ProcedureMethod"}]}
 
