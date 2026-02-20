@@ -13,6 +13,7 @@ import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command'
 import { MCPSerializeJSON } from '../../helpers/mcp-serialize-json';
 import { MCPVerifyIDLVersion } from '../../helpers/mcp-verify-idl-version';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
+import { MCP_HISTORY } from '../../initialize-mcp-vscode';
 
 /**
  * Run a tool in ENVI
