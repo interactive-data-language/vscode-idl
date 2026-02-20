@@ -5,6 +5,7 @@ import * as vscode from 'vscode';
 import { RegisterCopilotCommands } from './commands/register-copilot-commands';
 import { RegisterGitHubCopilotFilesFromExtension } from './helpers/register-github-copilot-files-from-extension';
 import { RegisterGitHubCopilotFilesFromIDLPackages } from './helpers/register-github-copilot-files-from-idl-packages';
+import { RegisterGitHubCopilotFilesFromUser } from './helpers/register-github-copilot-files-from-user';
 import {
   syncInstructionsFromSettingToFile,
   watchCustomInstructionsChanges,
@@ -32,6 +33,7 @@ export async function InitializeVSCodeGitHubCopilot(
   try {
     await RegisterGitHubCopilotFilesFromExtension('instructions');
     await RegisterGitHubCopilotFilesFromIDLPackages('instructions');
+    await RegisterGitHubCopilotFilesFromUser('instructions');
   } catch (err) {
     IDL_LOGGER.log({
       log: IDL_COPILOT_VSCODE_LOG,
@@ -59,6 +61,7 @@ export async function InitializeVSCodeGitHubCopilot(
   try {
     await RegisterGitHubCopilotFilesFromExtension('prompts');
     await RegisterGitHubCopilotFilesFromIDLPackages('prompts');
+    await RegisterGitHubCopilotFilesFromUser('prompts');
   } catch (err) {
     IDL_LOGGER.log({
       log: IDL_COPILOT_VSCODE_LOG,

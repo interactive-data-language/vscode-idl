@@ -11,7 +11,7 @@ export const USER_COPILOT_FOLDER = join(
 );
 
 /**
- * User folder for GitHub copilot instructions
+ * User folder for GitHub copilot instructions that we manage with the extension
  */
 export const USER_COPILOT_INSTRUCTIONS_FOLDER = join(
   USER_COPILOT_FOLDER,
@@ -19,6 +19,22 @@ export const USER_COPILOT_INSTRUCTIONS_FOLDER = join(
 );
 
 /**
- * User folder for GitHub copilot prompts
+ * User folder for GitHub copilot prompts that we manage with the extension
  */
 export const USER_COPILOT_PROMPTS_FOLDER = join(USER_COPILOT_FOLDER, 'prompts');
+
+/**
+ * User folder for custom instructions
+ */
+export const USER_CUSTOM_COPILOT_INSTRUCTIONS_FOLDER = join(
+  USER_COPILOT_FOLDER,
+  'user-instructions'
+);
+
+/**
+ * User folder for custom prompts
+ */
+export const USER_CUSTOM_COPILOT_PROMPTS_FOLDER = join(
+  USER_COPILOT_FOLDER,
+  'user-prompts'
+);
