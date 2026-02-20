@@ -176,7 +176,7 @@
       "type": "string",
       "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
       ]
     },
     "fwhm": {
@@ -236,7 +236,7 @@
       "type": "string",
       "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user."
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
       ]
     },
     "reflectance_scale_factor": {
@@ -356,7 +356,7 @@
               "minItems": 4,
               "maxItems": 4,
               "description": [
-                "A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the top-left geographics."
+                "A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the top-left geographic corner."
               ]
             },
             "pseudo_geo_point_2": {

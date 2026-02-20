@@ -9,6 +9,14 @@ import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { REGRESSION_TEST_THESE } from './regression-test-these.interface';
 
 /**
+ * Gets a matching key, case insensitive
+ */
+function GetKey(name: string, obj: { [key: string]: any }) {
+  const lc = name.toLowerCase();
+  return Object.keys(obj).find((item) => item.toLowerCase() === lc);
+}
+
+/**
  * Makes regression tests for listing ENVI tools
  */
 export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
@@ -51,17 +59,16 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
     const toolName = REGRESSION_TEST_THESE[i];
     console.log(`  Checking tool ${toolName}`);
 
+    // get the key
+    const key = GetKey(toolName, toolsList);
+
     // make sure our tool is present
-    expect(toolName.toLowerCase() in toolsList).toBeTruthy();
+    expect(key).toBeTruthy();
 
     // write regression test to disk
     writeFileSync(
       join(toolDescriptionDir, `${toolName}.json`),
-      JSON.stringify(
-        toolsList[toolName.toLowerCase()].split(/\n/g),
-        undefined,
-        2
-      )
+      JSON.stringify(toolsList[key].split(/\n/g), undefined, 2)
     );
   }
 };
