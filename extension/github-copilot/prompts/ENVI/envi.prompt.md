@@ -58,4 +58,4 @@ CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop wo
 
 - If problems occur when processing runs, don't retry more than two times without reporting to the user and alerting them. The user may be able to point you in the right direction.
 
-- Open relevant data products in ENVI automatically for the user
+- After processing has finished, open input data and final products, not all intermediate outputs unless a user asked.
