@@ -28,6 +28,9 @@ description: 'Guidelines for programming with IDL and writing code or creating I
       - IDL Notebook code cells do not need to have `compile_opt idl2` added
     - Prefer creating a .idlnb with IDL cells instead of a .pro when possible
     - Prefer vectorized operations over loops for performance.
+    - Using IDL's where statement needs to follow an if-then statement:
+      idx = where(arr eq 42, count)
+      if (count gt 0) then arr[idx] = 42
 
 ### Do / Don’t
 
