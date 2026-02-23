@@ -6,15 +6,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIDeepLearningLabelRaster() {
   return z.object({
-    factory: z
-      .string()
-      .default('DeepLearningLabelRaster')
-      .refine((val) => val.toLowerCase() === 'deeplearninglabelraster', {
-        message: 'factory must be "DeepLearningLabelRaster" (case-insensitive)',
-      })
-      .describe(
-        'This value should be "DeepLearningLabelRaster" (case-insensitive)'
-      ),
+    factory: z.literal('DeepLearningLabelRaster'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.dat'), {

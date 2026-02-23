@@ -6,13 +6,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIRasterSeries() {
   return z.object({
-    factory: z
-      .string()
-      .default('URLRasterSeries')
-      .refine((val) => val.toLowerCase() === 'urlrasterseries', {
-        message: 'factory must be "URLRasterSeries" (case-insensitive)',
-      })
-      .describe('This value should be "URLRasterSeries" (case-insensitive)'),
+    factory: z.literal('URLRasterSeries'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.series'), {

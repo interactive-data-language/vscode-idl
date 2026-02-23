@@ -6,19 +6,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIDeepLearningObjectDetectionRaster() {
   return z.object({
-    factory: z
-      .string()
-      .default('DeepLearningObjectDetectionRaster')
-      .refine(
-        (val) => val.toLowerCase() === 'deeplearningobjectdetectionraster',
-        {
-          message:
-            'factory must be "DeepLearningObjectDetectionRaster" (case-insensitive)',
-        }
-      )
-      .describe(
-        'This value should be "DeepLearningObjectDetectionRaster" (case-insensitive)'
-      ),
+    factory: z.literal('DeepLearningObjectDetectionRaster'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.dat'), {

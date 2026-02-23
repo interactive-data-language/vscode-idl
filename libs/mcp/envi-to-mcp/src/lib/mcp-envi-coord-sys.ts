@@ -9,13 +9,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVICoordSys() {
   return z.object({
-    factory: z
-      .string()
-      .default('CoordSys')
-      .refine((val) => val.toLowerCase() === 'coordsys', {
-        message: 'factory must be "CoordSys" (case-insensitive)',
-      })
-      .describe('This value should be "CoordSys" (case-insensitive)'),
+    factory: z.literal('CoordSys'),
     coord_sys_code: z
       .string()
       .describe(`The EPSG code for the coordinate system`),

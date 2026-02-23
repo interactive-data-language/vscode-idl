@@ -8,13 +8,7 @@ import { MCP_ENVIRaster } from './mcp-envi-raster';
  */
 export function MCP_ENVITiePointSet() {
   return z.object({
-    factory: z
-      .string()
-      .default('URLTiePointSet')
-      .refine((val) => val.toLowerCase() === 'urltiepointset', {
-        message: 'factory must be "URLTiePointSet" (case-insensitive)',
-      })
-      .describe('This value should be "URLTiePointSet" (case-insensitive)'),
+    factory: z.literal('URLTiePointSet'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.pts'), {

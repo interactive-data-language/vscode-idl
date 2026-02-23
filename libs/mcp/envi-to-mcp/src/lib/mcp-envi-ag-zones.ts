@@ -5,13 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIAgZones() {
   return z.object({
-    factory: z
-      .string()
-      .default('ENVIAgZones')
-      .refine((val) => val.toLowerCase() === 'enviagzones', {
-        message: 'factory must be "ENVIAgZones" (case-insensitive)',
-      })
-      .describe('This value should be "ENVIAgZones" (case-insensitive)'),
+    factory: z.literal('ENVIAgZones'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.sav'), {

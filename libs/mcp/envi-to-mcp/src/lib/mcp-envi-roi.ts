@@ -7,13 +7,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIROI() {
   return z.object({
-    factory: z
-      .string()
-      .default('URLROI')
-      .refine((val) => val.toLowerCase() === 'urlroi', {
-        message: 'factory must be "URLROI" (case-insensitive)',
-      })
-      .describe('This value should be "URLROI" (case-insensitive)'),
+    factory: z.literal('URLROI'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.xml'), {

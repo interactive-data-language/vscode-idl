@@ -5,15 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIDeepLearningONNXModel() {
   return z.object({
-    factory: z
-      .string()
-      .default('DeepLearningONNXModel')
-      .refine((val) => val.toLowerCase() === 'deeplearningonnxmodel', {
-        message: 'factory must be "DeepLearningONNXModel" (case-insensitive)',
-      })
-      .describe(
-        'This value should be "DeepLearningONNXModel" (case-insensitive)'
-      ),
+    factory: z.literal('DeepLearningONNXModel'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.envi.onnx'), {

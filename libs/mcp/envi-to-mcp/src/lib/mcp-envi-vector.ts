@@ -6,13 +6,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIVector() {
   return z.object({
-    factory: z
-      .string()
-      .default('URLVector')
-      .refine((val) => val.toLowerCase() === 'urlvector', {
-        message: 'factory must be "URLVector" (case-insensitive)',
-      })
-      .describe('This value should be "URLVector" (case-insensitive)'),
+    factory: z.literal('URLVector'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.shp'), {

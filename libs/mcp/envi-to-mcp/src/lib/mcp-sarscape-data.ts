@@ -5,13 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_SARscapeData() {
   return z.object({
-    factory: z
-      .string()
-      .default('ENVISARscapedata')
-      .refine((val) => val.toLowerCase() === 'envisarscapedata', {
-        message: 'factory must be "ENVISARscapedata" (case-insensitive)',
-      })
-      .describe('This value should be "ENVISARscapedata" (case-insensitive)'),
+    factory: z.literal('ENVISARscapedata'),
     url: z
       .string()
       .describe(

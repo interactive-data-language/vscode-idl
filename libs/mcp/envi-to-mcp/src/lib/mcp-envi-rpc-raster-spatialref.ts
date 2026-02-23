@@ -5,15 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIRPCRasterSpatialref() {
   return z.object({
-    factory: z
-      .string()
-      .default('RPCRasterSpatialRef')
-      .refine((val) => val.toLowerCase() === 'rpcrasterspatialref', {
-        message: 'factory must be "RPCRasterSpatialRef" (case-insensitive)',
-      })
-      .describe(
-        'This value should be "RPCRasterSpatialRef" (case-insensitive)'
-      ),
+    factory: z.literal('RPCRasterSpatialRef'),
     coord_sys_code: z
       .number()
       .int()

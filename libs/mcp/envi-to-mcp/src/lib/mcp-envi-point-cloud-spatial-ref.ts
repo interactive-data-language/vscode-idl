@@ -9,15 +9,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIPointCloudSpatialRef() {
   return z.object({
-    factory: z
-      .string()
-      .default('PointCloudSpatialRef')
-      .refine((val) => val.toLowerCase() === 'pointcloudspatialref', {
-        message: 'factory must be "PointCloudSpatialRef" (case-insensitive)',
-      })
-      .describe(
-        'This value should be "PointCloudSpatialRef" (case-insensitive)'
-      ),
+    factory: z.literal('PointCloudSpatialRef'),
     coord_sys_code: z
       .string()
       .describe(`The EPSG code for the coordinate system`),

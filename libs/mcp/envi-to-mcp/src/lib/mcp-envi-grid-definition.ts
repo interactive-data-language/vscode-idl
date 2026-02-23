@@ -8,13 +8,7 @@ import { MCP_ENVICoordSys } from './mcp-envi-coord-sys';
 export function MCP_ENVIGridDefinition() {
   return z.union([
     z.object({
-      factory: z
-        .string()
-        .default('GridDefinition')
-        .refine((val) => val.toLowerCase() === 'griddefinition', {
-          message: 'factory must be "GridDefinition" (case-insensitive)',
-        })
-        .describe('This value should be "GridDefinition" (case-insensitive)'),
+      factory: z.literal('GridDefinition'),
       coord_sys: MCP_ENVICoordSys().describe(
         'Coordinate system for the grid definition'
       ),
@@ -41,13 +35,7 @@ export function MCP_ENVIGridDefinition() {
         .describe('The number of rows in the grid definition'),
     }),
     z.object({
-      factory: z
-        .string()
-        .default('GridDefinition')
-        .refine((val) => val.toLowerCase() === 'griddefinition', {
-          message: 'factory must be "GridDefinition" (case-insensitive)',
-        })
-        .describe('This value should be "GridDefinition" (case-insensitive)'),
+      factory: z.literal('GridDefinition'),
       coord_sys: MCP_ENVICoordSys().describe(
         'Coordinate system for the grid definition'
       ),

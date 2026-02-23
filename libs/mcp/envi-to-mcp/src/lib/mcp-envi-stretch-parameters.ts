@@ -5,13 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIStretchParameters() {
   return z.object({
-    factory: z
-      .string()
-      .default('StretchParameters')
-      .refine((val) => val.toLowerCase() === 'stretchparameters', {
-        message: 'factory must be "StretchParameters" (case-insensitive)',
-      })
-      .describe('This value should be "StretchParameters" (case-insensitive)'),
+    factory: z.literal('StretchParameters'),
     stretchType: z
       .enum([
         'Linear',

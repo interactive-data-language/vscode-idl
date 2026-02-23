@@ -6,13 +6,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVISpectralLibrary() {
   return z.object({
-    factory: z
-      .string()
-      .default('URLSpectralLibrary')
-      .refine((val) => val.toLowerCase() === 'urlspectrallibrary', {
-        message: 'factory must be "URLSpectralLibrary" (case-insensitive)',
-      })
-      .describe('This value should be "URLSpectralLibrary" (case-insensitive)'),
+    factory: z.literal('URLSpectralLibrary'),
     url: z
       .string()
       .describe(

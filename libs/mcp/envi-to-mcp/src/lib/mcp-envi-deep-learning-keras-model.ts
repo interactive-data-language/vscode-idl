@@ -7,15 +7,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIDeepLearningKerasModel() {
   return z.object({
-    factory: z
-      .string()
-      .default('DeepLearningKerasModel')
-      .refine((val) => val.toLowerCase() === 'deeplearningkerasmodel', {
-        message: 'factory must be "DeepLearningKerasModel" (case-insensitive)',
-      })
-      .describe(
-        'This value should be "DeepLearningKerasModel" (case-insensitive)'
-      ),
+    factory: z.literal('DeepLearningKerasModel'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.h5'), {

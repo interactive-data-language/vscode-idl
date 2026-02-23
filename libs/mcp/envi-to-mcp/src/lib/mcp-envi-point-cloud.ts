@@ -6,13 +6,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIPointCloud() {
   return z.object({
-    factory: z
-      .string()
-      .default('URLPointCloud')
-      .refine((val) => val.toLowerCase() === 'urlpointcloud', {
-        message: 'factory must be "URLPointCloud" (case-insensitive)',
-      })
-      .describe('This value should be "URLPointCloud" (case-insensitive)'),
+    factory: z.literal('URLPointCloud'),
     url: z
       .array(z.string())
       .describe(

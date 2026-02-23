@@ -5,13 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIGCPSet() {
   return z.object({
-    factory: z
-      .string()
-      .default('URLGCPSet')
-      .refine((val) => val.toLowerCase() === 'urlgcpset', {
-        message: 'factory must be "URLGCPSet" (case-insensitive)',
-      })
-      .describe('This value should be "URLGCPSet" (case-insensitive)'),
+    factory: z.literal('URLGCPSet'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.pts'), {

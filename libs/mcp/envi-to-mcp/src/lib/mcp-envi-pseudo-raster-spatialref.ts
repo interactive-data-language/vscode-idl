@@ -5,15 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIPseudoRasterSpatialref() {
   return z.object({
-    factory: z
-      .string()
-      .default('PseudoRasterSpatialRef')
-      .refine((val) => val.toLowerCase() === 'pseudorasterspatialref', {
-        message: 'factory must be "PseudoRasterSpatialRef" (case-insensitive)',
-      })
-      .describe(
-        'This value should be "PseudoRasterSpatialRef" (case-insensitive)'
-      ),
+    factory: z.literal('PseudoRasterSpatialRef'),
     pseudo_geo_point_1: z
       .array(z.number())
       .length(4)

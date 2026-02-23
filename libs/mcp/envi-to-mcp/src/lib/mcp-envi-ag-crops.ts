@@ -5,13 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIAgCrops() {
   return z.object({
-    factory: z
-      .string()
-      .default('ENVIAgCrops')
-      .refine((val) => val.toLowerCase() === 'enviagcrops', {
-        message: 'factory must be "ENVIAgCrops" (case-insensitive)',
-      })
-      .describe('This value should be "ENVIAgCrops" (case-insensitive)'),
+    factory: z.literal('ENVIAgCrops'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.json'), {

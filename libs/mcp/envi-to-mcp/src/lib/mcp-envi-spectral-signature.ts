@@ -5,15 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVISpectralSignature() {
   return z.object({
-    factory: z
-      .string()
-      .default('ENVISpectralSignature')
-      .refine((val) => val.toLowerCase() === 'envispectralsignature', {
-        message: 'factory must be "ENVISpectralSignature" (case-insensitive)',
-      })
-      .describe(
-        'This value should be "ENVISpectralSignature" (case-insensitive)'
-      ),
+    factory: z.literal('ENVISpectralSignature'),
     name: z.string().describe('The name of the spectral signature'),
     reflectance_scale_factor: z
       .string()

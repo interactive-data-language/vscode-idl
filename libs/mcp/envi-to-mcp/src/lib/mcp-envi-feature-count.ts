@@ -5,13 +5,7 @@ import { z } from 'zod';
  */
 export function MCP_ENVIFeatureCount() {
   return z.object({
-    factory: z
-      .string()
-      .default('FeatureCount')
-      .refine((val) => val.toLowerCase() === 'featurecount', {
-        message: 'factory must be "FeatureCount" (case-insensitive)',
-      })
-      .describe('This value should be "FeatureCount" (case-insensitive)'),
+    factory: z.literal('FeatureCount'),
     url: z
       .string()
       .refine((val) => val.toLowerCase().endsWith('.efc'), {
