@@ -483,11 +483,12 @@ export interface ITranslation {
   };
   /** Translations for ENVI helpers/routines/view */
   envi: {
+    /** If there is a problem, default error message if we have no case information */
+    defaultError: string;
+    /** For opening data or working with the UI */
     open: {
       /** Error if we have trouble running our command */
       commandError: string;
-      /** If there is a problem, default error message if we have no case information */
-      defaultError: string;
       /** Error accessing ENVI */
       enviError: string;
       /** ENVI is running already, but no UI */

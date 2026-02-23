@@ -12,17 +12,21 @@ export function PopulateENVIError(msg: IENVISuccess) {
   }
 
   // determine the error to tell the user
-  let errMsg = IDL_TRANSLATION.envi.open.defaultError;
+  let errMsg = IDL_TRANSLATION.envi.defaultError;
 
   /**
    * Handle our failure cases
    */
   switch (msg.reason) {
+    // generic ENVI error
     case 'envi-error':
-      errMsg = IDL_TRANSLATION.envi.open.enviError;
+      errMsg = IDL_TRANSLATION.envi.defaultError;
       break;
     case 'envi-not-started':
       errMsg = IDL_TRANSLATION.envi.task.enviNotStarted;
+      break;
+    case 'envi-open-error':
+      errMsg = IDL_TRANSLATION.envi.open.enviError;
       break;
     case 'no-envi-agent-license':
       errMsg = IDL_TRANSLATION.mcp.errors.noLicense;

@@ -492,15 +492,15 @@ export const EN: ITranslation = {
     },
   },
   envi: {
+    defaultError:
+      'An unknown error occurred, see the IDL console/output for more details',
     open: {
       commandError:
         'An unknown error occurred while trying to open data in ENVI',
-      defaultError:
-        'An unknown error occurred, see the IDL console for more details',
       enviError:
         'Error while accessing ENVI, see the IDL console for more details',
       noUI: 'ENVI has started, but has no UI. Please restart ENVI with the UI to display data',
-      openError: 'Unable to open dataset, see the IDL console for more details',
+      openError: 'Unable to open dataset, see the IDL output for more details',
     },
     openerText: 'ENVI should attempt to open the image shortly, please wait.',
     openerTitle: 'ENVI File Opener',

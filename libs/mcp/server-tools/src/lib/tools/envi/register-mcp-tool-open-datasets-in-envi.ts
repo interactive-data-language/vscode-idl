@@ -46,7 +46,7 @@ export function RegisterMCPTool_OpenDatasetsInENVI(helper: MCPToolHelper) {
           .boolean()
           .default(false)
           .describe(
-            'If true, the ENVI view is reset and all datasets are removed before displaying datasets.'
+            'If true, the ENVI view is reset and all datasets are removed before displaying datasets. Recommended to set this the first time you call this tool.'
           ),
       },
     },
