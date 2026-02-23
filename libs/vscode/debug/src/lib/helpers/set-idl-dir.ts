@@ -15,7 +15,7 @@ export function SetIDLDir() {
    */
   if (
     !IDL_EXTENSION_CONFIG.IDL.directory ||
-    ~existsSync(IDL_EXTENSION_CONFIG.IDL.directory)
+    !existsSync(IDL_EXTENSION_CONFIG.IDL.directory)
   ) {
     const dir = FindIDL();
     if (dir) {
