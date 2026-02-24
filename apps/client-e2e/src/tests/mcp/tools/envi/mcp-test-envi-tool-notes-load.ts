@@ -12,7 +12,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 export const RunMCPTestENVIToolNotesLoad: RunnerFunction = async (init) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS, {
-    taskName: 'ISODataClassification',
+    toolName: 'ISODataClassification',
   });
 
   // make sure the tool runs

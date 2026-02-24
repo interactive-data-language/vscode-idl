@@ -1,0 +1,3 @@
+[
+  "This task performs a Maximum Likelihood supervised classification. Maximum Likelihood assumes that the statistics for each class in each band are normally distributed and calculates the probability that a given pixel belongs to a specific class. Each pixel is assigned to the class that has the highest probability."
+]

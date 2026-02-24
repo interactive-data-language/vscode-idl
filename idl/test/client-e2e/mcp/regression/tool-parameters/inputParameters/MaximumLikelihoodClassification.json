@@ -1,0 +1,212 @@
+{
+  "type": "object",
+  "properties": {
+    "class_colors": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "description": [
+        "This is an array of RGB triplets representing the class colors as defined by the input vector."
+      ]
+    },
+    "class_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": [
+        "This is a string array of class names as defined by the input vector."
+      ]
+    },
+    "covariance": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "description": [
+        "Specify an array that is [number of bands, number of bands, _number of classes_]."
+      ]
+    },
+    "input_raster": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "const": "URLRaster"
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the dataset on disk.",
+            "",
+            "Common extensions to use: .dat, .img, .hsi, .tif, .nitf, .ntf. For complex file formats, this should likely be the metadata file itself and not individual image files which ENVI supports.",
+            "",
+            "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
+          ]
+        },
+        "auxiliary_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": [
+            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
+          ]
+        },
+        "dataset_index": {
+          "type": "number",
+          "description": [
+            "If a raster has more than one dataset present, optionally specify the zero-based index of which image to open. Applicable to file types like NITF, Sentinel 2, or similar where multi-resolutions or images are present in a single file."
+          ]
+        }
+      },
+      "required": [
+        "factory",
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify a raster on which to perform supervised classification."
+      ]
+    },
+    "mean": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "description": [
+        "Specify an array that is [number of bands, _number of classes_]."
+      ]
+    },
+    "output_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+      ]
+    },
+    "output_rule_raster_uri": {
+      "type": "string",
+      "default": "!",
+      "description": [
+        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+      ]
+    },
+    "regularization_method": {
+      "type": "string",
+      "enum": [
+        "Diagonal",
+        "Dominant",
+        "None",
+        "Shrink",
+        "Threshold",
+        "Truncate"
+      ],
+      "default": "Truncate",
+      "description": [
+        "Specify a method for regularizing the covariance matrix:",
+        "",
+        "Diagonal: Diagonal loading, increasing all singular values by the tolerance value.",
+        "Dominant: Dominant mode rejection, setting singular values less than the tolerance value to their mean.",
+        "None: No regularization is used.",
+        "Shrink: Shrinkage of singular values based on the tolerance value.",
+        "Threshold: Singular values less than the tolerance value are set to the tolerance value.",
+        "Truncate (default): Singular values less than the tolerance value are set to zero."
+      ]
+    },
+    "regularization_tolerance": {
+      "type": "number",
+      "description": [
+        "Specify the tolerance value to use for matrix regularization. If not set, the following values will be used based on the regularization method",
+        "",
+        "Diagonal: Ten times the smallest nonzero singular value.",
+        "Dominant: The value prescribed by Gavish & Donoho.",
+        "None: N/A",
+        "Shrink: The Oracle Approximating Shrinkage (OAS) estimator.",
+        "Threshold: The largest singular value times the machine precision.",
+        "Truncate (default): The largest singular value times the machine precision."
+      ]
+    },
+    "threshold_probability": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "default": [
+          0
+        ]
+      },
+      "description": [
+        "Enter a scalar value for all classes or array of values, one per class, from 0.0 to 1.0. For arrays, the number of elements must equal the number of classes. Pixels with a value lower than the threshold will not be classified. The default value is 0.0. The threshold is a probability minimum for inclusion in a class. For example, a value of 0.9 will include fewer pixels in a class than a value of 0.5 because a 90 percent probability requirement is more strict than allowing a pixel in a class based on a chance of 50 percent."
+      ]
+    }
+  },
+  "required": [
+    "covariance",
+    "input_raster",
+    "mean"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Inputs for running the tool. These *MUST* be specified based on the schema. Summary:",
+    "",
+    "This task performs a Maximum Likelihood supervised classification. Maximum Likelihood assumes that the statistics for each class in each band are normally distributed and calculates the probability that a given pixel belongs to a specific class. Each pixel is assigned to the class that has the highest probability.",
+    "",
+    "Example",
+    "",
+    "  ; Start the application",
+    "  e = envi()",
+    "",
+    "  ; Open an input file",
+    "  File1 = filepath('qb_boulder_msi', subdir = ['data'], $",
+    "    root_dir = e.root_dir)",
+    "  Raster = e.openRaster(File1)",
+    "",
+    "  File2 = filepath('qb_boulder_msi_vectors.shp', subdir = ['data'], $",
+    "    root_dir = e.root_dir)",
+    "  Vector = e.openVector(File2)",
+    "",
+    "  ; Get training statistics",
+    "  StatTask = ENVITask('TrainingClassificationStatistics')",
+    "  StatTask.input_raster = Raster",
+    "  StatTask.input_vector = Vector",
+    "  StatTask.execute",
+    "",
+    "  ; Get the task from the catalog of ENVITasks",
+    "  Task = ENVITask('MaximumLikelihoodClassification')",
+    "",
+    "  ; Define inputs",
+    "  Task.input_raster = Raster",
+    "  Task.covariance = StatTask.covariance",
+    "  Task.mean = StatTask.mean",
+    "",
+    "  ; Run the task",
+    "  Task.execute",
+    "",
+    "  ; Get the collection of data objects currently available in the Data Manager",
+    "  DataColl = e.data",
+    "",
+    "  ; Add the output to the Data Manager",
+    "  DataColl.add, Task.output_raster",
+    "",
+    "  ; Display the result",
+    "  View = e.getView()",
+    "  Layer = View.createLayer(Task.output_raster)"
+  ]
+}

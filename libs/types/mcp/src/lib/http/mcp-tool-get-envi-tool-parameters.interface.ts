@@ -8,5 +8,5 @@ export type MCPTool_GetENVIToolParameters = 'get-envi-tool-parameters';
  */
 export interface MCPToolParams_GetENVIToolParameters {
   /** Name of the task to get parameters for */
-  taskName: string;
+  toolName: string;
 }

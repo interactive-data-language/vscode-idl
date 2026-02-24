@@ -12,7 +12,7 @@ export const RunMCPTestENVIToolParameterValidation: RunnerFunction = async (
   init
 ) => {
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
-    taskName: 'ISODataClassification',
+    toolName: 'ISODataClassification',
     inputParameters: {},
     interactive: false,
   });

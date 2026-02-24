@@ -8,5 +8,7 @@ export const REGRESSION_TEST_THESE = [
   'FLAASH',
   'ExportRasterToNITF21',
   'ISODataClassification',
+  'MaximumLikelihoodClassification',
+  'ROIStatistics',
   'SpectralIndex',
 ];

@@ -101,7 +101,7 @@ export function RegisterMCPTool_RunENVITool(
       // strictly typed parameters and make sure we always have content in the cells
       const params: MCPToolParams<MCPTool_RunENVITool> = {
         interactive,
-        taskName: toolName,
+        toolName,
         inputParameters,
       };
 

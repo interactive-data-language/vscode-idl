@@ -26,7 +26,7 @@ export const RunMCPTestENVIRasterArray: RunnerFunction = async (init) => {
 
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
-    taskName: 'BuildMosaicRaster',
+    toolName: 'BuildMosaicRaster',
     inputParameters: {
       input_rasters: rasters,
       output_raster_uri: '!',

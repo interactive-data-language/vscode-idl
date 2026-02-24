@@ -47,7 +47,7 @@ export const RunMCPTestGetENVIToolParametersRegression: RunnerFunction = async (
 
     // Call a tool
     const result = await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS, {
-      taskName: toolName,
+      toolName,
     });
 
     // make sure the tool runs

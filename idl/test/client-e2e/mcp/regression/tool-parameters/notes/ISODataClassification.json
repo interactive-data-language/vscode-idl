@@ -1,4 +1,5 @@
 [
+  "Should not be used when asked for specific classes, you cannot guarantee which output classes map directly to user requests.",
   "This uses in-scene based statistics and is different for each image. As such, you won't ever know what each class maps to and requires a user to look and see.",
   "Not recommended to use as part of change detection workflows"
 ]

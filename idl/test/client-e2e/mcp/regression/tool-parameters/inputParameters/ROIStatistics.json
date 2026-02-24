@@ -1,15 +1,6 @@
 {
   "type": "object",
   "properties": {
-    "change_threshold_percent": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 100,
-      "default": 2,
-      "description": [
-        "The change threshold percentage that determines when to complete the classification. When the percentage of pixels that change classes during an iteration is less than the threshold value, the classification completes. The default value is 2.0."
-      ]
-    },
     "input_raster": {
       "type": "object",
       "properties": {
@@ -49,26 +40,42 @@
       ],
       "additionalProperties": false,
       "description": [
-        "Specify a raster on which to perform unsupervised classification."
+        "Specify a raster from which to generate ROI statistics."
       ]
     },
-    "iterations": {
-      "type": "number",
-      "minimum": 1,
-      "default": 10,
+    "input_roi": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "factory": {
+            "type": "string",
+            "const": "URLROI"
+          },
+          "url": {
+            "type": "string",
+            "description": [
+              "Provide a fully-qualified filepath to an ENVI ROI file. Should end with an \".xml\" extension."
+            ]
+          },
+          "dataset_index": {
+            "type": "number",
+            "description": [
+              "If an ROI file has more than one ROI, optionally specify the zero-based index of which ROI you want. The tool query-dataset-with-envi returns an array of matches and their dehydrated versions to help."
+            ]
+          }
+        },
+        "required": [
+          "factory",
+          "url"
+        ],
+        "additionalProperties": false
+      },
       "description": [
-        "The maximum iterations to perform. If the change threshold percent is not met before the maximum number of iterations is reached, the classification completes. The default value is 10."
+        "Specify an array of one or more ENVIROIs."
       ]
     },
-    "number_of_classes": {
-      "type": "number",
-      "minimum": 2,
-      "default": 5,
-      "description": [
-        "Specify the number of classes to generate. The default value is 5."
-      ]
-    },
-    "output_raster_uri": {
+    "output_report_uri": {
       "type": "string",
       "default": "!",
       "description": [
@@ -77,15 +84,14 @@
     }
   },
   "required": [
-    "input_raster"
+    "input_raster",
+    "input_roi"
   ],
   "additionalProperties": false,
   "description": [
     "Inputs for running the tool. These *MUST* be specified based on the schema. Summary:",
     "",
-    "This task clusters pixels in a dataset based on statistics only, without requiring you to define training classes. It uses the ISODATA unsupervised method for classification.",
-    "",
-    "The ISODATA method starts by calculating class means evenly distributed in the data space, then iteratively clusters the remaining pixels using minimum distance techniques. Each iteration recalculates means and reclassifies pixels with respect to the new means. This process continues until the percentage of pixels that change classes during an iteration is less than the change threshold or the maximum number of iterations is reached.",
+    "This task computes statistics from one or more ENVIROIs and their associated raster. The ROI statistics can be used as input to supervised classification methods.",
     "",
     "Example",
     "",
@@ -97,23 +103,33 @@
     "    root_dir = e.root_dir)",
     "  Raster = e.openRaster(File)",
     "",
-    "  ; Get the  task from the catalog of ENVITasks",
-    "  Task = ENVITask('ISODATAClassification')",
+    "  RoiFile = filepath('qb_boulder_roi.xml', $",
+    "    root_dir = e.root_dir, $",
+    "    subdirectory = ['data'])",
+    "  Rois = e.openROI(RoiFile)",
     "",
-    "  ; Define inputs",
-    "  Task.input_raster = Raster",
+    "  ; Get the task from the catalog of ENVITasks",
+    "  StatTask = ENVITask('ROIStatistics')",
     "",
-    "  ; Run the task",
-    "  Task.execute",
+    "  ; Get training statistics",
+    "  StatTask.input_raster = Raster",
+    "  StatTask.input_ROI = Rois",
+    "  StatTask.output_report_uri = e.getTemporaryFilename('txt')",
+    "  StatTask.execute",
     "",
-    "  ; Get the collection of data objects currently available in the Data Manager",
-    "  DataColl = e.data",
+    "  ; Run SAM classification",
+    "  ClassTask = ENVITask('SpectralAngleMapperClassification')",
+    "  ClassTask.input_raster = Raster",
+    "  ClassTask.mean = StatTask.mean",
+    "  ClassTask.class_names = StatTask.roi_names",
+    "  ClassTask.class_colors = StatTask.roi_colors",
+    "  ClassTask.execute",
     "",
     "  ; Add the output to the Data Manager",
-    "  DataColl.add, Task.output_raster",
+    "  e.data.add, ClassTask.output_raster",
     "",
     "  ; Display the result",
     "  View = e.getView()",
-    "  Layer = View.createLayer(Task.output_raster)"
+    "  Layer = View.createLayer(ClassTask.output_raster)"
   ]
 }

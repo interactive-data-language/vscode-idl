@@ -6,10 +6,7 @@
       "properties": {
         "factory": {
           "type": "string",
-          "default": "URLVector",
-          "description": [
-            "This value should be \"URLVector\" (case-insensitive)"
-          ]
+          "const": "URLVector"
         },
         "url": {
           "type": "string",
@@ -28,6 +25,7 @@
         }
       },
       "required": [
+        "factory",
         "url"
       ],
       "additionalProperties": false,

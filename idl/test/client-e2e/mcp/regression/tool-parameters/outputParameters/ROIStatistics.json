@@ -1,0 +1,114 @@
+{
+  "type": "object",
+  "properties": {
+    "covariance": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "description": [
+        "This is the covariance matrix, returned as an array: [number of bands, number of bands, _number of ROIs_]."
+      ]
+    },
+    "max": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "description": [
+        "This is the maximum data value, returned as an array: [number of bands, _number of ROIs_]."
+      ]
+    },
+    "mean": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "description": [
+        "This is the mean data value, returned as an array: [number of bands, _number of ROIs_]."
+      ]
+    },
+    "min": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "description": [
+        "This is the minimum data value, returned as an array: [number of bands, _number of ROIs_]."
+      ]
+    },
+    "roi_colors": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "description": [
+        "This is an array of RGB triplets representing the ROI colors as defined by the ENVIROIs."
+      ]
+    },
+    "roi_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": [
+        "This is an array of ROI names as defined by the input ENVIROIs."
+      ]
+    },
+    "roi_pixel_count": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": [
+        "This is the number of pixels for each ROI, returned as an array: [_number of ROIs_]."
+      ]
+    },
+    "stddev": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "description": [
+        "This is the standard deviation, returned as an array: [number of bands, _number of ROIs_]."
+      ]
+    }
+  },
+  "required": [
+    "covariance",
+    "max",
+    "mean",
+    "min",
+    "roi_colors",
+    "roi_names",
+    "roi_pixel_count",
+    "stddev"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Outputs from running the tool. These should *NEVER* be specified and are returned."
+  ]
+}

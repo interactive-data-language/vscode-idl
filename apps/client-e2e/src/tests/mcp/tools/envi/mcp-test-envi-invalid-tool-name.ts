@@ -13,7 +13,7 @@ const FAKE_NAME = 'Hello. My name is Inigo Montoya.';
 export const RunMCPTestInvalidENVIToolName: RunnerFunction = async (init) => {
   // query parameters fail
   const result1 = await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS, {
-    taskName: FAKE_NAME,
+    toolName: FAKE_NAME,
   });
 
   // make sure the tool runs
@@ -21,7 +21,7 @@ export const RunMCPTestInvalidENVIToolName: RunnerFunction = async (init) => {
 
   // running fails
   const result2 = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
-    taskName: FAKE_NAME,
+    toolName: FAKE_NAME,
     inputParameters: {},
     interactive: false,
   });

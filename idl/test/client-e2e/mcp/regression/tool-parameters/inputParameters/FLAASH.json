@@ -131,10 +131,7 @@
       "properties": {
         "factory": {
           "type": "string",
-          "default": "Time",
-          "description": [
-            "This value should be \"Time\" (case-insensitive)"
-          ]
+          "const": "Time"
         },
         "acquisition": {
           "type": "string",
@@ -147,6 +144,7 @@
         }
       },
       "required": [
+        "factory",
         "acquisition"
       ],
       "additionalProperties": false,
@@ -180,10 +178,7 @@
       "properties": {
         "factory": {
           "type": "string",
-          "default": "URLRaster",
-          "description": [
-            "This value should be \"URLRaster\" (case-insensitive)"
-          ]
+          "const": "URLRaster"
         },
         "url": {
           "type": "string",
@@ -212,6 +207,7 @@
         }
       },
       "required": [
+        "factory",
         "url"
       ],
       "additionalProperties": false,
@@ -233,6 +229,8 @@
       "items": {
         "type": "number"
       },
+      "minItems": 2,
+      "maxItems": 2,
       "description": [
         "Specify the Latitude and Longitude of the scene center, in decimal degrees."
       ]
@@ -525,6 +523,8 @@
           1
         ]
       },
+      "minItems": 2,
+      "maxItems": 2,
       "description": [
         "Specify the minimum and maximum water column multiplier for selected MODTRAN atmosphere. The default value is 0.0100000."
       ]

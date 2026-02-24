@@ -17,7 +17,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   expect(
     (
       await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS, {
-        taskName: 'ISODATAClassification',
+        toolName: 'ISODATAClassification',
       })
     ).isError
   ).toBeTruthy();
@@ -26,7 +26,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   expect(
     (
       await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
-        taskName: 'ISODATAClassification',
+        toolName: 'ISODATAClassification',
         inputParameters: {
           input_raster: 'foo',
         },

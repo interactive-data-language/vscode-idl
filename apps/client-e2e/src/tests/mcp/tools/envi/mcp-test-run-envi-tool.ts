@@ -25,7 +25,7 @@ export const RunMCPTestRunENVITool: RunnerFunction = async (init) => {
 
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
-    taskName: 'ISODataClassification',
+    toolName: 'ISODataClassification',
     inputParameters: {
       input_raster: ENVITestDatasets.raster(),
       change_threshold_percent: 2.0,
