@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
 import { MCP_ENVICoordSys } from './mcp-envi-coord-sys';
+
+FACTORY_LOOKUP['griddefinition'] = 'GridDefinition';
 
 /**
  * Returns an ENVI Grid Definition as an MCP parameter

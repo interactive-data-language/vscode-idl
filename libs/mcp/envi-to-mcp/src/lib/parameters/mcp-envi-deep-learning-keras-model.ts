@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['deeplearningkerasmodel'] = 'DeepLearningKerasModel';
+
 /**
  * Returns an ENVI Deep Learning Keras Model parameter
  *

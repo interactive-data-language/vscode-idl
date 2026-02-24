@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['pointcloudspatialref'] = 'PointCloudSpatialRef';
+
 /**
  * Returns an ENVI Point Cloud Spatial Ref task parameter for an
  * ENVI Task MCP Tool

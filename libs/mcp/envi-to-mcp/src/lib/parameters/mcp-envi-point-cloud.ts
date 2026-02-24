@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['urlpointcloud'] = 'URLPointCloud';
+
 /**
  * Returns an ENVI Point Cloud task parameter for an ENVI Task MCP
  * Tool

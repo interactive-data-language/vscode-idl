@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['envispectralsignature'] = 'ENVISpectralSignature';
+
 /**
  * Returns an ENVI Spectral Signature object for MCP
  */

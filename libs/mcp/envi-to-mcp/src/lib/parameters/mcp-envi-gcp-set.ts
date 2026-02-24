@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['urlgcpset'] = 'URLGCPSet';
+
 /**
  * Returns an ENVI GCP Set MCP parameter
  */

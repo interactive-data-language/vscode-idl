@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['deeplearningraster'] = 'DeepLearningRaster';
+
 /**
  * Returns an ENVI Deep Learning Raster task parameter for an ENVI Task MCP
  * Tool

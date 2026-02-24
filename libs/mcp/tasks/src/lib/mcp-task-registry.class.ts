@@ -1,4 +1,5 @@
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
 import { IDLTypeHelper, TASK_REGEX } from '@idl/parsing/type-parser';
 import {
@@ -309,6 +310,14 @@ export class MCPTaskRegistry {
     delete this.tasks[lc];
 
     return true;
+  }
+
+  /**
+   * Sanitizes the output parameters for a task to make sure
+   * that the factory statements match what we expect
+   */
+  sanitizeOutputParameters(outputParameters: { [key: string]: any }) {
+    FixENVIFactory(outputParameters);
   }
 
   /**

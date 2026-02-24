@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['urlrasterseries'] = 'URLRasterSeries';
+
 /**
  * Returns an ENVI Raster Series task parameter for an ENVI Task MCP
  * Tool

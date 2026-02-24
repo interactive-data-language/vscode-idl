@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['enviagcrops'] = 'ENVIAgCrops';
+
 /**
  * Returns an ENVI Ag Crops MCP parameter
  */

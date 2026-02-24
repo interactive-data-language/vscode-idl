@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['time'] = 'Time';
+
 /**
  * Returns an ENVI Time object for an MCP parameter
  */

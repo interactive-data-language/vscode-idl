@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['rpcrasterspatialref'] = 'RPCRasterSpatialRef';
+
 /**
  * Returns an ENVI RPC Raster Spatial Reference task parameter for an ENVI Task MCP Tool
  */

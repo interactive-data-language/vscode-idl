@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['stretchparameters'] = 'StretchParameters';
+
 /**
  * Returns an ENVI stretch parameters object for an ENVI Task MCP Tool
  */

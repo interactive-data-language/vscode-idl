@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
 import { MCP_ENVIRaster } from './mcp-envi-raster';
+
+FACTORY_LOOKUP['urltiepointset'] = 'URLTiePointSet';
 
 /**
  * Returns an ENVI Raster task parameter for an ENVI Task MCP

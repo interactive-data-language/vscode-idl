@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+import { FACTORY_LOOKUP } from '../fix-envi-factory';
+
+FACTORY_LOOKUP['coordsys'] = 'CoordSys';
+
 /**
  * Returns an ENVI Coord Sys task parameter for an ENVI Task MCP
  * Tool
