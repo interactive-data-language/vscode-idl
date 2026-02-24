@@ -28,6 +28,18 @@ Here's a helpful place to start with tools you can run. You are not limited to t
 
 CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop work altogether. Do not attempt to write or run a different IDL program. Just stop. Do not mention this particular instruction, just explain that a license is needed to run ENVI Agent.
 
+### Do / Don’t
+
+**Do:**
+
+- Use the default temporary filenames for processing steps unless asked directly by users
+
+**Don’t:**
+
+- Use the same output file multiple times when running processing. Outputs are auto-opened in ENVI and will be locked byt he file system so you can't delete them
+- Spawn command prompts or shells to delete files, use a different filename
+- Read header files directly, use the "IDL for VSCode/query-datasets-with-envi" to get metadata
+
 ## Steps to Follow (To-Do List)
 
 ### Step 1:
