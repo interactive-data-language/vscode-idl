@@ -41,10 +41,10 @@ export function PopulateENVIError(msg: IENVISuccess) {
       errMsg = IDL_TRANSLATION.envi.task.unknownTask;
       break;
     case 'task-execute-error':
-      errMsg = IDL_TRANSLATION.envi.task.unknownParam;
+      errMsg = IDL_TRANSLATION.envi.task.executeError;
       break;
     case 'task-param-error':
-      errMsg = IDL_TRANSLATION.envi.task.unknownParam;
+      errMsg = IDL_TRANSLATION.envi.task.taskParamError;
       break;
     // do nothing
     default:

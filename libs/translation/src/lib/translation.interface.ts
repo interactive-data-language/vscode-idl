@@ -511,7 +511,7 @@ export interface ITranslation {
       /** Error while executing our task */
       executeError: string;
       /** Unknown task parameter */
-      unknownParam: string;
+      taskParamError: string;
       /** Trouble making task */
       unknownTask: string;
     };
