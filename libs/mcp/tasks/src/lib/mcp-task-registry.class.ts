@@ -170,7 +170,7 @@ export class MCPTaskRegistry {
           log: IDL_MCP_LOG,
           type: 'warn',
           content: [
-            `ENVI Tool "${taskDisplay}" has a description which is the same as the tool name`,
+            `ENVI Tool "${taskDisplay}" has a description which is the same as the tool name and will be skipped`,
           ],
         });
         return;
@@ -219,7 +219,7 @@ export class MCPTaskRegistry {
             log: IDL_MCP_LOG,
             type: 'warn',
             content: [
-              `ENVI Tool "${taskDisplay}" has a parameter with the same name as description "${names[i]}" with description "${prop.docs}"`,
+              `The parameter "${names[i]}" for the ENVI Tool "${taskDisplay}" has a description that is the same name of the parameter and the tool will be skipped`,
             ],
           });
           return;
