@@ -18,6 +18,7 @@ export function SplitDescription(obj: { [key: string]: any }): any {
     for (let j = 0; j < obj.length; j++) {
       SplitDescription(obj[j]);
     }
+    return;
   }
 
   /**
