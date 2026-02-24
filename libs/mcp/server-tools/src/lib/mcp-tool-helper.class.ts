@@ -164,7 +164,10 @@ export class MCPToolHelper implements IMCPHelperOptions {
         });
       } catch (err) {
         // filter out connection errors
-        if (err.message !== 'Not connected') {
+        if (
+          err.message !== 'Not connected' &&
+          !err.message.startsWith('No connection established')
+        ) {
           this.logManager.log({
             log: IDL_MCP_LOG,
             type: 'error',
