@@ -12,9 +12,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 /**
  * Makes sure we can start IDL through MCP
  */
-export const RunMCPTestCreateIDLNotebook: RunnerFunction = async (
-  init
-) => {
+export const RunMCPTestCreateIDLNotebook: RunnerFunction = async (init) => {
   /** Notebook file to write */
   const nbUri = join(tmpdir(), 'test-notebook1.idlnb');
 
@@ -49,7 +47,7 @@ export const RunMCPTestCreateIDLNotebook: RunnerFunction = async (
   // compare output notebooks
   await CompareNotebookJSONCells(
     GetExtensionPath(
-      'idl/test/client-e2e/github-copilot/mcp/idl-create-notebook.idlnb'
+      'idl/test/client-e2e/copilot/mcp/idl-create-notebook.idlnb'
     ),
     nbUri
   );

@@ -23,7 +23,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
    */
   const resSuccess = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
     uri: GetExtensionPath(
-      'idl/test/client-e2e/github-copilot/mcp/idl-file-runs-fine.pro'
+      'idl/test/client-e2e/copilot/mcp/idl-file-runs-fine.pro'
     ),
   });
 
@@ -48,7 +48,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
    */
   const resRuntimeErr = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
     uri: GetExtensionPath(
-      'idl/test/client-e2e/github-copilot/mcp/idl-file-runtime-error.pro'
+      'idl/test/client-e2e/copilot/mcp/idl-file-runtime-error.pro'
     ),
   });
 
@@ -73,7 +73,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
    */
   const resSyntaxErr = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
     uri: GetExtensionPath(
-      'idl/test/client-e2e/github-copilot/mcp/idl-file-syntax-error.pro'
+      'idl/test/client-e2e/copilot/mcp/idl-file-syntax-error.pro'
     ),
   });
 
