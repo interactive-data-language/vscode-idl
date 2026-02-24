@@ -2,6 +2,7 @@ import { Logger } from '@idl/logger';
 
 import { DEBUGGING_RUNNER } from './debugging/_debugging-runner';
 import { INTERACTIONS_RUNNER } from './interactions/_interactions-runner';
+import { COPILOT_TEST_RUNNER } from './llm-Eval/_copilot-test-runner';
 import { MCP_TEST_RUNNER } from './mcp/_mcp-test-runner';
 import { NOTEBOOK_RUNNER } from './notebooks/_notebook-runner';
 import { Runner } from './runner.class';
@@ -26,6 +27,7 @@ export async function TestRunner(): Promise<number> {
   clientRunner.addRunner(DEBUGGING_RUNNER);
   clientRunner.addRunner(NOTEBOOK_RUNNER);
   clientRunner.addRunner(MCP_TEST_RUNNER);
+  clientRunner.addRunner(COPILOT_TEST_RUNNER);
 
   // test and return number of failures
   return await clientRunner.runAllTests();
