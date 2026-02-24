@@ -55,7 +55,7 @@ export function RegisterMCPTool_GetENVIToolParameters(
           content: [
             {
               type: 'text',
-              text: `Task with name ${toolName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}?`,
+              text: `Task with name "${toolName}" is not known, did it come from the tool "${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}"?`,
             },
           ],
         };
