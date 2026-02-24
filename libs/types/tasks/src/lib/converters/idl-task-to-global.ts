@@ -83,7 +83,12 @@ export function IDLTaskToGlobal(
       private: param.hidden ? true : false,
       display: task.parameters[i].name.toLowerCase(),
       docs: param.description || '',
-      type: TaskTypeToIDLType(param.type, meta, param.choice_list),
+      type: TaskTypeToIDLType(
+        param.type,
+        meta,
+        param.choice_list,
+        param.dimensions
+      ),
       req: param.required,
     };
   }

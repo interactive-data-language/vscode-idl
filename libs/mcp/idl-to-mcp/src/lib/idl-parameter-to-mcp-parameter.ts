@@ -90,7 +90,20 @@ function IDLParameterToMCPParameter_Recurser(
 
       // see if we mapped a parameter or not
       if (arrayType) {
-        res = z.array(arrayType);
+        /** Check for dimensions */
+        const dims = type[0].meta.dimensions || ['*'];
+
+        // init res with the array type
+        res = arrayType;
+
+        // populate dimensions
+        for (let g = 0; g < dims.length; g++) {
+          if (dims[g] === '*') {
+            res = z.array(res);
+          } else {
+            res = z.array(res).length(dims[g] as number);
+          }
+        }
       }
       break;
     }

@@ -27,7 +27,7 @@ export interface ENVIParameterSchema30 {
   /** parameter description */
   description: string;
   /** If array, dimension string */
-  dimensions?: string;
+  dimensions?: number[] | string;
   /** Direction (input or output) */
   direction: string;
   /** Display name of the parameter showed in UI */

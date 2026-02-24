@@ -25,19 +25,47 @@ function GetArrayOrKeys(value: unknown): any[] {
 }
 
 /**
+ * Converts a dimensions string to a number
+ *
+ * Ex: "[3,2,*]" to [3, 2, number.POSITIVE_INFINITY]
+ */
+function DimensionsToNumber(dims: string): ('*' | number)[] {
+  // Remove brackets and split by comma
+  const cleaned = dims.replace(/[[\]]/g, '').trim();
+  if (!cleaned) {
+    return [];
+  }
+
+  // Split by comma and convert each element
+  return cleaned.split(',').map((dim) => {
+    const trimmed = dim.trim();
+    return trimmed === '*' ? '*' : Number(trimmed);
+  });
+}
+
+/**
  * Takes an arbitrary data type from a task and converts it to an
  * IDL data type.
  */
 export function TaskTypeToIDLType(
   type: string,
   metadata: IDLDataTypeBaseMetadata,
-  choiceList?: any
+  choiceList?: any,
+  dimensions?: number[] | string
 ) {
   /** Check for URI parameter */
   const isUri = CLEAN_URI_REGEX.test(type);
 
   /** Check for array data type */
   const isArray = ARRAY_REGEX.test(type);
+
+  // set dimensions
+  if (isArray && !dimensions) {
+    const match = /\[.*?\]/.exec(type);
+    if (match !== null) {
+      dimensions = match[0];
+    }
+  }
 
   /** Map some ENVI types to better formats */
   const useType = type
@@ -86,6 +114,13 @@ export function TaskTypeToIDLType(
         args: [created],
       },
     ]);
+
+    // add dimensions
+    if (dimensions) {
+      created[0].meta.dimensions = DimensionsToNumber(
+        Array.isArray(dimensions) ? JSON.stringify(dimensions) : dimensions
+      );
+    }
   }
 
   return created;

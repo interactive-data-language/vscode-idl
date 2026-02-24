@@ -257,6 +257,17 @@ export interface IDLDataTypeBaseMetadata {
   [key: string]: any;
   /** If choice list, what is the default value? */
   default?: number | string;
+  /**
+   * Track dimensions of arrays
+   *
+   * If positive infinity, then there is no limit to values
+   *
+   * This represents IDL DIMENSIONS WHICH ARE OPPOSITE OF MANY
+   * LANGUAGES
+   *
+   * Ex: [3,2] in IDL is [2,3] elsewhere
+   */
+  dimensions?: ('*' | number)[];
   /** If we have a string, is it a URI/filepath to a folder on disk */
   isFolder?: boolean;
   /** If we have a string, is it a URI/filepath */
