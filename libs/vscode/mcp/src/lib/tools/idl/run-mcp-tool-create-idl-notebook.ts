@@ -4,9 +4,11 @@ import {
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
+import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { dirname } from 'path';
+import * as vscode from 'vscode';
 
 /**
  * Create an IDL Notebook!
@@ -28,6 +30,9 @@ export async function RunMCPTool_CreateIDLNotebook(
 
   // open the notebook in vscode
   await OpenNotebookInVSCode(params.uri, true, true);
+
+  // format the notebook
+  await vscode.commands.executeCommand(VSCODE_COMMANDS.FORMAT_NOTEBOOK);
 
   // we made it here, so lets return
   return { success: true };
