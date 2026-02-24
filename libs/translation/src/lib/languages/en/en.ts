@@ -508,7 +508,7 @@ export const EN: ITranslation = {
     task: {
       enviNotStarted: 'ENVI has not been started yet or is in a bad state.',
       executeError:
-        'Error while running the task, see the IDL console for more details',
+        'Error while running the task, see the IDL output for more details',
       taskParamError:
         'Unknown parameter or incorrectly formed parameter Are the input parameters right? The extension uses parameters from the latest ENVI version, so there may be a mismatch if you are not on the latest version.',
       unknownTask:
