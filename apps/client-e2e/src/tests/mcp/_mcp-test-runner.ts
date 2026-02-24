@@ -41,6 +41,11 @@ import { RunMCPTestCreateIDLNotebook } from './tools/idl/mcp-test-create-idl-not
 import { RunMCPTestExecuteIDLCode } from './tools/idl/mcp-test-execute-idl-code';
 import { RunMCPTestExecuteIDLFile } from './tools/idl/mcp-test-execute-idl-file';
 import { RunMCPTestStartIDL } from './tools/idl/mcp-test-start-idl';
+import { RunMCPTestListGetPrompts } from './tools/mcp-test-list-get-prompt';
+import {
+  RunMCPTestListAllPrompts,
+  RunMCPTestListPromptsWithFilters,
+} from './tools/mcp-test-list-prompts';
 import { RunMCPManageENVIAndIDLSession } from './tools/mcp-test-manage-idl-and-envi-session';
 
 /*
@@ -77,6 +82,26 @@ MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestValidateMCPConnection,
   name: 'Validate MCP connection to server',
   critical: true,
+});
+
+/**
+ * =======================================================================
+ * Prompt tests
+ * =======================================================================
+ */
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestListAllPrompts,
+  name: 'List all prompts',
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestListPromptsWithFilters,
+  name: 'List filtered prompts for IDL and for ENVI',
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestListGetPrompts,
+  name: 'Verify we can list and get prompts by name',
 });
 
 /**
