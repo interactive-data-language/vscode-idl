@@ -118,6 +118,8 @@ The location of this tool depends on a few things:
 
 ### For an ENVI and IDL MCP Tool
 
+Note: If the tool calls ENVI and returns dehydrated parameters, then you need to include a call to FixENVIFactory from the '@idl/mcp=envi-to-mcp' lib to normalize an object property.
+
 ```typescript
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
