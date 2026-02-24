@@ -4,7 +4,7 @@ import expect from 'expect';
 import { RunnerFunction } from '../../runner.interface';
 import { CallMCPTool } from '../helpers/call-mcp-tool';
 
-/** Task name we will never have */
+/** Prompt name we will never have */
 const FAKE_NAME = '!~\\-Hello. My name is Inigo Montoya.-/~!';
 
 /**
