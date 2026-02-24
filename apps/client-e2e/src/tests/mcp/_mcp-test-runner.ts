@@ -6,6 +6,7 @@ import { RunMCPTestValidateMCPConnection } from './mcp-test-validate-mcp-connect
 import { RunMCPENVINotInstalledErrors } from './tools/envi/mcp-envi-not-installed-errors';
 import { RunMCPTestInvalidENVIToolWorkflowName } from './tools/envi/mcp-test-envi-invalid-envi-tool-workflow-name';
 import { RunMCPTestInvalidENVIToolName } from './tools/envi/mcp-test-envi-invalid-tool-name';
+import { RunMCPTestENVIMultiDimensionalArray } from './tools/envi/mcp-test-envi-multi-dimensional-array';
 import { RunMCPTestENVIRasterArray } from './tools/envi/mcp-test-envi-raster-array';
 import { RunMCPTestENVIToolNotesLoad } from './tools/envi/mcp-test-envi-tool-notes-load';
 import { RunMCPTestENVIToolParameterValidation } from './tools/envi/mcp-test-envi-tool-parameter-validation';
@@ -247,6 +248,12 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestENVIRasterArray,
   name: 'Run simple tool to test array parameters work',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestENVIMultiDimensionalArray,
+  name: 'Run tool with multi-dimensional array input',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
