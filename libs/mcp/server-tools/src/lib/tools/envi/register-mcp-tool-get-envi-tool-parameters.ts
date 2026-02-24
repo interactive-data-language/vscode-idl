@@ -29,12 +29,12 @@ export function RegisterMCPTool_GetENVIToolParameters(
         ],
       description: `Returns the parameters required to run an ENVI Tool. This should *ALWAYS* be used before ${MCP_TOOL_LOOKUP.RUN_ENVI_TOOL}. Here's the process to use these input parameters:\n\n ${ENVI_TOOL_INSTRUCTIONS}`,
       inputSchema: {
-        taskName: z
+        toolName: z
           .string()
           .describe('Specify an ENVI Task to return the parameter schema for'),
       },
     },
-    async (id, { taskName }) => {
+    async (id, { toolName }) => {
       // make sure ENVI is installed
       if (!IS_ENVI_INSTALLED) {
         return {
@@ -49,13 +49,13 @@ export function RegisterMCPTool_GetENVIToolParameters(
       }
 
       // make sure we have the requested task
-      if (!registry.hasTask(taskName)) {
+      if (!registry.hasTask(toolName)) {
         return {
           isError: true,
           content: [
             {
               type: 'text',
-              text: `Task with name ${taskName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}?`,
+              text: `Task with name ${toolName} is not known, did it come from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}?`,
             },
           ],
         };
@@ -79,7 +79,7 @@ export function RegisterMCPTool_GetENVIToolParameters(
       }
 
       /** Get detail for our task */
-      const detail = registry.getTaskDetail(taskName);
+      const detail = registry.getTaskDetail(toolName);
 
       // create content
       const content = [

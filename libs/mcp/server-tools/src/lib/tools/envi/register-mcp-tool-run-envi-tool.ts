@@ -31,7 +31,7 @@ export function RegisterMCPTool_RunENVITool(
         IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.RUN_ENVI_TOOL],
       description: `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}. Here's the process to get the input parameters:\n\n ${ENVI_TOOL_INSTRUCTIONS}`,
       inputSchema: {
-        taskName: z
+        toolName: z
           .string()
           .describe('Specify the name of the ENVI Task that will run'),
         inputParameters: z
@@ -48,7 +48,7 @@ export function RegisterMCPTool_RunENVITool(
           ),
       },
     },
-    async (id, { taskName, inputParameters, interactive }) => {
+    async (id, { toolName, inputParameters, interactive }) => {
       // make sure ENVI is installed
       if (!IS_ENVI_INSTALLED) {
         return {
@@ -62,13 +62,13 @@ export function RegisterMCPTool_RunENVITool(
         };
       }
 
-      if (!registry.hasTask(taskName)) {
+      if (!registry.hasTask(toolName)) {
         return {
           isError: true,
           content: [
             {
               type: 'text',
-              text: `ENVI Tool with name '${taskName}' is not known, did it come from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}?`,
+              text: `ENVI Tool with name '${toolName}' is not known, did it come from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}?`,
             },
           ],
         };
@@ -76,7 +76,7 @@ export function RegisterMCPTool_RunENVITool(
 
       // validate the parameters
       const isValid = registry.validateInputParameters(
-        taskName,
+        toolName,
         inputParameters
       );
 
@@ -96,12 +96,12 @@ export function RegisterMCPTool_RunENVITool(
       }
 
       /** Get detail for our task */
-      const detail = registry.getTaskDetail(taskName);
+      const detail = registry.getTaskDetail(toolName);
 
       // strictly typed parameters and make sure we always have content in the cells
       const params: MCPToolParams<MCPTool_RunENVITool> = {
         interactive,
-        taskName,
+        taskName: toolName,
         inputParameters,
       };
 
