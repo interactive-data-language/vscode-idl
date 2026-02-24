@@ -1,3 +1,4 @@
+import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCPTool_QueryDatasetWithENVI,
@@ -62,9 +63,17 @@ export async function RunMCPTool_QueryDatasetWithENVI(
     { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false }
   );
 
+  // make sure payload has a value
+  if (!res.payload) {
+    res.payload = [{}];
+  }
+
+  // sanitize the dehydrated forms of datasets
+  FixENVIFactory(res.payload);
+
   return {
     success: res.succeeded,
     err: res.error,
-    info: res.payload || [{}],
+    info: res.payload,
   };
 }
