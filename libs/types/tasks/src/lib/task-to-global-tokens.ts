@@ -24,7 +24,7 @@ export function TaskToGlobalToken(task: ParsedTask): IGlobalsToTrack {
   /** Results from loading task */
   let res: IGlobalsToTrack;
 
-  // determine how to procees
+  // determine how to process
   switch (true) {
     case (task as ENVITaskLegacy<ENVITaskLegacyVersion>)?.version !== undefined:
       res = LegacyENVITaskToGlobal(
