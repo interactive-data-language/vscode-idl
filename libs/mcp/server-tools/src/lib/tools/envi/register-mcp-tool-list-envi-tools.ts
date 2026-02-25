@@ -42,7 +42,13 @@ export function RegisterMCPTool_ListENVITools(
         content: [
           {
             type: 'text',
-            text: JSON.stringify(registry.getDescriptions()),
+            /**
+             * When we change "All tools", search for MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS and make
+             * sure there's post-processing to remove this text for the integration tests.
+             *
+             * See this: apps\client-e2e\src\tests\mcp\tools\envi\regression-tests\mcp-test-list-envi-tools-regression.ts
+             */
+            text: `All tools: ${JSON.stringify(registry.getDescriptions())}`,
           },
         ],
       };

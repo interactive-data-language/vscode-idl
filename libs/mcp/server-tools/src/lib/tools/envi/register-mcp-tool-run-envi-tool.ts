@@ -29,7 +29,7 @@ export function RegisterMCPTool_RunENVITool(
     {
       title:
         IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.RUN_ENVI_TOOL],
-      description: `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}. Here's the process to get the input parameters:\n\n ${ENVI_TOOL_INSTRUCTIONS}`,
+      description: `Runs an ENVI Tool given the input parameters The input parameters should *ALWAYS* match the schema from the tool "${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}". Here's the process to get the input parameters:\n\n ${ENVI_TOOL_INSTRUCTIONS}`,
       inputSchema: {
         toolName: z
           .string()
@@ -38,13 +38,13 @@ export function RegisterMCPTool_RunENVITool(
           .object({})
           .catchall(z.any())
           .describe(
-            `Specify a JSON object containing the task parameters that matches the JSON schema returned from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}`
+            `Specify a JSON object containing the task parameters that matches the JSON schema returned from the tool "${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}"`
           ),
         interactive: z
           .boolean()
           .default(false)
           .describe(
-            `If true, the tool will appear in the ENVI UI and the user can fine-tune/tweak parameters. Only do this when requrested.`
+            `If true, the tool will appear in the ENVI UI and the user can fine-tune/tweak parameters. Only do this when requested.`
           ),
       },
     },
@@ -68,7 +68,7 @@ export function RegisterMCPTool_RunENVITool(
           content: [
             {
               type: 'text',
-              text: `ENVI Tool with name '${toolName}' is not known, did it come from the tool ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}?`,
+              text: `ENVI Tool with name "${toolName}" is not known, did it come from the tool "${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}"?`,
             },
           ],
         };

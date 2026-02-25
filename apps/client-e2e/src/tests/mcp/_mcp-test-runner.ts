@@ -6,6 +6,7 @@ import { RunMCPTestValidateMCPConnection } from './mcp-test-validate-mcp-connect
 import { RunMCPENVINotInstalledErrors } from './tools/envi/mcp-envi-not-installed-errors';
 import { RunMCPTestInvalidENVIToolWorkflowName } from './tools/envi/mcp-test-envi-invalid-envi-tool-workflow-name';
 import { RunMCPTestInvalidENVIToolName } from './tools/envi/mcp-test-envi-invalid-tool-name';
+import { RunMCPTestENVIMultiDimensionalArray } from './tools/envi/mcp-test-envi-multi-dimensional-array';
 import { RunMCPTestENVIRasterArray } from './tools/envi/mcp-test-envi-raster-array';
 import { RunMCPTestENVIToolNotesLoad } from './tools/envi/mcp-test-envi-tool-notes-load';
 import { RunMCPTestENVIToolParameterValidation } from './tools/envi/mcp-test-envi-tool-parameter-validation';
@@ -41,6 +42,11 @@ import { RunMCPTestCreateIDLNotebook } from './tools/idl/mcp-test-create-idl-not
 import { RunMCPTestExecuteIDLCode } from './tools/idl/mcp-test-execute-idl-code';
 import { RunMCPTestExecuteIDLFile } from './tools/idl/mcp-test-execute-idl-file';
 import { RunMCPTestStartIDL } from './tools/idl/mcp-test-start-idl';
+import { RunMCPTestListGetPrompts } from './tools/mcp-test-list-get-prompt';
+import {
+  RunMCPTestListAllPrompts,
+  RunMCPTestListPromptsWithFilters,
+} from './tools/mcp-test-list-prompts';
 import { RunMCPManageENVIAndIDLSession } from './tools/mcp-test-manage-idl-and-envi-session';
 
 /*
@@ -77,6 +83,26 @@ MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestValidateMCPConnection,
   name: 'Validate MCP connection to server',
   critical: true,
+});
+
+/**
+ * =======================================================================
+ * Prompt tests
+ * =======================================================================
+ */
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestListAllPrompts,
+  name: 'List all prompts',
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestListPromptsWithFilters,
+  name: 'List filtered prompts for IDL and for ENVI',
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestListGetPrompts,
+  name: 'Verify we can list and get prompts by name',
 });
 
 /**
@@ -222,6 +248,12 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestENVIRasterArray,
   name: 'Run simple tool to test array parameters work',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestENVIMultiDimensionalArray,
+  name: 'Run tool with multi-dimensional array input',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 

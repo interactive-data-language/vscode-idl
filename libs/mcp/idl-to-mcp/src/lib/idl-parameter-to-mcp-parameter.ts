@@ -96,7 +96,16 @@ function IDLParameterToMCPParameter_Recurser(
         // init res with the array type
         res = arrayType;
 
-        // populate dimensions
+        /**
+         * Populate the dimension
+         *
+         * Note that this *REVERSES* the dimension order from IDL because
+         * we set the innermost dimension to the outermost which changes
+         * the row/column major-ness from IDL and JS
+         *
+         * In IDL we also have a transpose from list to array to match what IDL
+         * expects.
+         */
         for (let g = 0; g < dims.length; g++) {
           if (dims[g] === '*') {
             res = z.array(res);

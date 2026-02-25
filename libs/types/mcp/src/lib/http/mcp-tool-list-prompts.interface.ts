@@ -10,5 +10,5 @@ export interface MCPToolParams_ListPrompts {
   /**
    * Category to filter prompts by: 'ENVI', 'IDL', or 'ALL'
    */
-  category?: 'ENVI' | 'IDL' | 'ALL';
+  filter?: 'all' | 'envi' | 'idl';
 }

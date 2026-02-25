@@ -8,7 +8,7 @@ export type MCPTool_GetPrompt = 'get-prompt';
  */
 export interface MCPToolParams_GetPrompt {
   /**
-   * The names of the prompts to fetch
+   * The name of the prompts to fetch
    */
-  names: string[];
+  name: string;
 }
