@@ -27,7 +27,7 @@ function GetArrayOrKeys(value: unknown): any[] {
 /**
  * Converts a dimensions string to a number
  *
- * Ex: "[3,2,*]" to [3, 2, number.POSITIVE_INFINITY]
+ * Ex: "[3,2,*]" to [3, 2, "*"]
  */
 function DimensionsToNumber(dims: string): ('*' | number)[] {
   // Remove brackets and split by comma
@@ -106,7 +106,7 @@ export function TaskTypeToIDLType(
     created[0].meta.isUri = true;
   }
 
-  // check if we need to prompte to an array
+  // check if we need to prompt to an array
   if (isArray) {
     created = IDLTypeHelper.createIDLType([
       {
