@@ -56,8 +56,8 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
       },
     },
     async (id, { routines }) => {
-      /** Init results */
-      const response: any[] = [];
+      /** Init results, one per query */
+      const response: { [key: string]: string[] }[] = [];
 
       // process each query
       for (let i = 0; i < routines.length; i++) {
