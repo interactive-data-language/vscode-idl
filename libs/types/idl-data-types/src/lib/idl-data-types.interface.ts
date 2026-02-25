@@ -263,7 +263,9 @@ export interface IDLDataTypeBaseMetadata {
    * If positive infinity, then there is no limit to values
    *
    * This represents IDL DIMENSIONS WHICH ARE OPPOSITE OF MANY
-   * LANGUAGES
+   * LANGUAGES.
+   *
+   * Reminder: IDL is column major (instead of row major).
    *
    * Ex: [3,2] in IDL is [2,3] elsewhere
    */
