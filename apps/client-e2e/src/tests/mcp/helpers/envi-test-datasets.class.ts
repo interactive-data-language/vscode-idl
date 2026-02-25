@@ -26,7 +26,7 @@ export class ENVITestDatasets {
   }
 
   /**
-   * Returns a dehdyrated raster that contains multiple datasets
+   * Returns a dehydrated raster that contains multiple datasets
    */
   static multiRaster(dataset_index?: number) {
     /** Get ENVI install */
@@ -48,7 +48,7 @@ export class ENVITestDatasets {
   }
 
   /**
-   * Returns a dehdyrated raster
+   * Returns a dehydrated raster
    */
   static raster() {
     /** Get ENVI install */
@@ -62,7 +62,7 @@ export class ENVITestDatasets {
   }
 
   /**
-   * Returns a dehdyrated raster series
+   * Returns a dehydrated raster series
    */
   static rasterSeries() {
     /** Get ENVI install */
@@ -75,7 +75,7 @@ export class ENVITestDatasets {
   }
 
   /**
-   * Returns a dehdyrated ROI
+   * Returns a dehydrated ROI
    */
   static roi() {
     /** Get ENVI install */
@@ -88,7 +88,7 @@ export class ENVITestDatasets {
   }
 
   /**
-   * Returns a dehdyrated spectral library
+   * Returns a dehydrated spectral library
    */
   static spectralLibrary() {
     /** Get ENVI install */
@@ -108,7 +108,7 @@ export class ENVITestDatasets {
   }
 
   /**
-   * Returns a dehdyrated vector (shapefile)
+   * Returns a dehydrated vector (shapefile)
    */
   static vector() {
     /** Get ENVI install */
