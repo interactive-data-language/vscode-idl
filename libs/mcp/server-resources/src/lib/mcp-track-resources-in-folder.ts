@@ -16,6 +16,7 @@ import { MCPResourceIndex } from './mcp-resource-index.class';
 export function MCPTrackResourcesInFolder(
   logger: LogManager,
   folder: string,
+  recursive = true,
   keyPrefix = nanoid(),
   filter: { [key: string]: any } = {}
 ) {
@@ -27,7 +28,7 @@ export function MCPTrackResourcesInFolder(
   /**
    * Recursively search for files
    */
-  const items = readdirSync(folder, { recursive: true }).map((item) =>
+  const items = readdirSync(folder, { recursive }).map((item) =>
     join(folder, item)
   );
 
