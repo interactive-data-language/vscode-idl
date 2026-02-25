@@ -1,4 +1,8 @@
-import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
+import {
+  MCP_TOOL_LOOKUP,
+  MCPTool_RunENVITool,
+  MCPToolResponse,
+} from '@idl/types/mcp';
 import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
@@ -39,3 +43,57 @@ export const RunMCPTestENVIMultiDimensionalArray: RunnerFunction = async (
   // make sure the tool runs
   expect(result.isError).toBeFalsy();
 };
+
+/**
+ * Connect outputs from one task to another to make sure fetching and
+ * sending on is OK
+ */
+export const RunMCPTestENVIMultiDimensionalArrayMultiStep: RunnerFunction =
+  async (init) => {
+    const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
+      toolName: 'ROIStatistics',
+      inputParameters: {
+        input_raster: ENVITestDatasets.raster(),
+        input_roi: [ENVITestDatasets.roi()],
+      },
+      interactive: false,
+    });
+
+    // log
+    LogWhenExpectSuccess(result);
+
+    // make sure the tool runs
+    expect(result.isError).toBeFalsy();
+
+    // init variable
+    let results: MCPToolResponse<MCPTool_RunENVITool>;
+
+    // attempt to parse
+    try {
+      results = JSON.parse(result.content[0].text as string);
+    } catch (err) {
+      // do nothing
+    }
+
+    // make sure we parsed
+    expect(results).toBeTruthy();
+
+    // run second task
+    const result2 = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
+      toolName: 'SpectralAngleMapperClassification',
+      inputParameters: {
+        input_raster: ENVITestDatasets.raster(),
+        class_colors: results.outputParameters.roi_colors,
+        class_names: results.outputParameters.roi_names,
+        mean: results.outputParameters.mean,
+        output_raster_uri: '!',
+      },
+      interactive: false,
+    });
+
+    // log
+    LogWhenExpectSuccess(result2);
+
+    // make sure the tool runs
+    expect(result2.isError).toBeFalsy();
+  };
