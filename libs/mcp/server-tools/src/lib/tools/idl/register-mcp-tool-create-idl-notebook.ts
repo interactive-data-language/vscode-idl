@@ -4,6 +4,7 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
 import { MCPToolHelper } from '../../mcp-tool-helper.class';
+import { CREATE_IDL_NOTEBOOK_DESCRIPTION } from './register-mcp-tool-create-idl-notebook.interface';
 
 /**
  * Registers a tool that creates an IDL Notebook
@@ -16,8 +17,7 @@ export function RegisterMCPTool_CreateIDLNotebook(helper: MCPToolHelper) {
         IDL_TRANSLATION.mcp.tools.displayNames[
           MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK
         ],
-      description:
-        'Creates an IDL Notebook and should always be used when asked to create notebooks for IDL code. This is a native IDL Notebook and does not use or require Jupyter or require other configuration in order to work. When writing code to add, you do not need to add "compile_opt idl2" to cells as IDL Notebooks always run with this option set.',
+      description: CREATE_IDL_NOTEBOOK_DESCRIPTION,
       inputSchema: {
         uri: z
           .string()

@@ -17,7 +17,7 @@ export function RegisterMCPTool_SearchResources(helper: MCPToolHelper) {
         IDL_TRANSLATION.mcp.tools.displayNames[
           MCP_TOOL_LOOKUP.SEARCH_RESOURCES
         ],
-      description: `Searches known resources about IDL and ENVI and returns the top results with one or more queries. If you are searching for routines, start with ${MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE} instead.`,
+      description: `Searches known resources about IDL and ENVI. Resources include tutorials, how-to guides, examples IDL notebooks, and language specifics. If you are searching for routines, start with "${MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE}" instead.`,
       inputSchema: {
         queries: z
           .array(z.string())
