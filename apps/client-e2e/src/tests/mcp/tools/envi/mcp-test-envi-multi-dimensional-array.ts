@@ -22,13 +22,11 @@ export const RunMCPTestENVIMultiDimensionalArray: RunnerFunction = async (
       class_colors: [
         [240, 240, 0],
         [255, 0, 0],
-        [29, 29, 255],
       ],
-      class_names: ['Disturbed Earth', 'Bright Roof', 'Water'],
+      class_names: ['Disturbed Earth', 'Bright Roof'],
       mean: [
         [301.4, 541.8, 504.0, 591.8],
         [707.6, 1157.825, 919.0, 976.575],
-        [197.335, 266.87, 115.81, 73.77],
       ],
       output_raster_uri: '!',
     },
