@@ -9,8 +9,9 @@ import { RegisterMCPTool_ResourcesSearchForRoutine } from './globals/register-mc
  */
 export function RegisterAllLanguageServerMCPTools(
   helper: MCPToolHelper,
-  index: IDLIndex
+  index: IDLIndex,
+  workspaces: () => string[]
 ) {
   RegisterMCPTool_GetRoutineDocs(helper, index);
-  RegisterMCPTool_ResourcesSearchForRoutine(helper, index);
+  RegisterMCPTool_ResourcesSearchForRoutine(helper, index, workspaces);
 }

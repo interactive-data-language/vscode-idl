@@ -62,3 +62,20 @@ export const PROBLEM_MAP: ProblemMap = {
   /** Not actually used, just needed for our type definitions */
   c: IDL_PROBLEM_CODES.UNKNOWN_TOKEN,
 };
+
+/**
+ * Options for when we find global tokens
+ */
+export interface IFindGlobalTokenOptions {
+  fuzzy: boolean;
+  fuzzyLimit: number;
+  workspaceFilter?: string[];
+}
+
+/**
+ * Default options for finding global tokens
+ */
+export const DEFAULT_FIND_OPTIONS: IFindGlobalTokenOptions = {
+  fuzzy: false,
+  fuzzyLimit: 25,
+};

@@ -16,7 +16,8 @@ import {
  */
 export function RegisterMCPTool_ResourcesSearchForRoutine(
   helper: MCPToolHelper,
-  index: IDLIndex
+  index: IDLIndex,
+  getWorkspacesCallback: () => string[]
 ) {
   helper.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE,
@@ -85,7 +86,10 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
 
           // search and merge results
           queryResults[mappedNames[globalTypes[j]]] = index.globalIndex
-            .findMatchingGlobalToken(globalTypes[j], name, true)
+            .findMatchingGlobalToken(globalTypes[j], name, {
+              fuzzy: true,
+              workspaceFilter: getWorkspacesCallback(),
+            })
             .map((g) => g.name);
         }
 

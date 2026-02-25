@@ -4,15 +4,18 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { WorkspaceFoldersChangeEvent } from 'vscode-languageserver/node';
 
+import { GetWorkspaceFSPath } from '../../helpers/get-workspace-fs-path';
 import { MergeFolderRecursion } from '../../helpers/merge-folder-recursion';
 import { SendProblems } from '../../helpers/send-problems';
 import {
   RemoveWorkspaceConfigs,
   TrackWorkspaceConfigs,
 } from '../../helpers/track-workspace-config';
+import { UpdateWorkspaceFolders } from '../../helpers/workspace-folders';
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
+  SERVER_CONNECTION,
   SERVER_MESSENGER,
 } from '../../initialize-language-server';
 import { SERVER_INITIALIZED } from '../../is-initialized';
@@ -70,6 +73,16 @@ export const ON_DID_CHANGE_WORKSPACE_FOLDERS = async (
 
     // send problems
     SendProblems(Array.from(new Set(filesRemoved.concat(filesAdded))));
+
+    // get refreshed list of our workspace folders
+    const folders = await SERVER_CONNECTION.workspace.getWorkspaceFolders();
+
+    // update our list
+    UpdateWorkspaceFolders(
+      (folders !== null ? folders : []).map((item) => GetWorkspaceFSPath(item))
+    );
+
+    // save that we have a list
 
     // alert that we have started indexing
     SERVER_MESSENGER.sendNotification(LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING, {

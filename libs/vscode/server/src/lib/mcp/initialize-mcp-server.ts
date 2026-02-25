@@ -11,6 +11,7 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
 import { MCP_CONFIG } from '../helpers/merge-config';
+import { GetWorkspaceFolders } from '../helpers/workspace-folders';
 import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
@@ -89,7 +90,11 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
     );
 
     // register all tools that require the language server (IDL Index) to function
-    RegisterAllLanguageServerMCPTools(mcpToolHelper, IDL_INDEX);
+    RegisterAllLanguageServerMCPTools(
+      mcpToolHelper,
+      IDL_INDEX,
+      GetWorkspaceFolders
+    );
 
     // listen for progress notifications
     SERVER_MESSENGER.onNotification(

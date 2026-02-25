@@ -11,9 +11,11 @@ import {
 import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 
 import {
+  DEFAULT_FIND_OPTIONS,
   ExportedGlobalTokensByType,
   GlobalIndexedToken,
   GlobalTokensByTypeByName,
+  IFindGlobalTokenOptions,
   PROBLEM_MAP,
 } from './global-index.interface';
 import { SaveGlobalDisplayNames } from './helpers/save-global-display-names';
@@ -177,9 +179,14 @@ export class GlobalIndex {
   findMatchingGlobalToken<T extends GlobalTokenType>(
     type: T,
     name: string,
-    fuzzy = false,
-    fuzzyLimit = 25
+    inOptions: Partial<IFindGlobalTokenOptions> = {}
   ): IGlobalIndexedToken<T>[] {
+    /** Merge options */
+    const options = Object.assign(DEFAULT_FIND_OPTIONS, inOptions);
+
+    // initialize response
+    let res: IGlobalIndexedToken<T>[] = [];
+
     // get the tokens to process
     if (type in this.globalTokensByTypeByName) {
       // convert the name to lower case
@@ -188,47 +195,84 @@ export class GlobalIndex {
       // extract global variables of type
       const toCheck = this.globalTokensByTypeByName[type];
 
-      // use fuzzy search if requested
-      if (fuzzy) {
-        /** Find matches */
-        const matches = fuzzysort.go(useName, Object.keys(toCheck));
-
-        /** Init results */
-        const results: IGlobalIndexedToken<T>[] = [];
-
-        // if we have an exact match, save that first
-        if (useName in toCheck) {
-          results.push(toCheck[useName][0] as IGlobalIndexedToken<T>);
-        }
-
+      /**
+       * Determine how to check
+       */
+      switch (true) {
         /**
-         * Return matches
-         *
-         * Fuzzysort logic:
-         *
-         * 1. Take top "fuzzyLimit" entries
-         * 2. Map the results from fuzzy search to the global token
-         * 3. Remove duplicate detections if we have an exact match
+         * Fuzzy search
          */
-        return results.concat(
-          matches
-            .filter((result) => result.target !== useName)
-            .filter((result) => result.target.includes(useName))
-            .slice(0, Math.min(fuzzyLimit, matches.length))
-            .map(
-              (result) => toCheck[result.target][0] as IGlobalIndexedToken<T>
-            ) as IGlobalIndexedToken<T>[]
-        );
-      }
+        case options.fuzzy: {
+          /** Find matches */
+          const matches = fuzzysort.go(useName, Object.keys(toCheck));
 
-      // exact match
-      if (useName in toCheck) {
-        return toCheck[useName] as IGlobalIndexedToken<T>[];
+          /** Init results */
+          const results: IGlobalIndexedToken<T>[] = [];
+
+          // if we have an exact match, save that first
+          if (useName in toCheck) {
+            results.push(toCheck[useName][0] as IGlobalIndexedToken<T>);
+          }
+
+          /**
+           * Return matches
+           *
+           * Fuzzysort logic:
+           *
+           * 1. Take top "fuzzyLimit" entries
+           * 2. Map the results from fuzzy search to the global token
+           * 3. Remove duplicate detections if we have an exact match
+           */
+          res = results.concat(
+            matches
+              .filter((result) => result.target !== useName)
+              .filter((result) => result.target.includes(useName))
+              .slice(0, Math.min(options.fuzzyLimit, matches.length))
+              .map(
+                (result) => toCheck[result.target][0] as IGlobalIndexedToken<T>
+              ) as IGlobalIndexedToken<T>[]
+          );
+
+          break;
+        }
+        /**
+         * Default is exact name check
+         */
+        default:
+          if (useName in toCheck) {
+            res = toCheck[useName] as IGlobalIndexedToken<T>[];
+          }
+          break;
       }
     }
 
+    /**
+     * Check if we have a private workspace filter
+     */
+    if (Array.isArray(options.workspaceFilter)) {
+      const openFolders = options.workspaceFilter;
+
+      // filter items
+      res = res.filter((item) => {
+        // if no file or not private, keep
+        if (!item.file || !item.meta.private) {
+          return true;
+        }
+
+        // if it is private and we have a file, make sure the path is in an open workspace
+        for (let i = 0; i < openFolders.length; i++) {
+          if (item.file.startsWith(openFolders[i])) {
+            return true;
+          }
+        }
+
+        // default return if no matches
+        return false;
+      });
+    }
+
     // get the tokens of the matching type
-    return [];
+    return res;
   }
 
   /**

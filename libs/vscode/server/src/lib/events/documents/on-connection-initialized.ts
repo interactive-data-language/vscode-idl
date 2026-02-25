@@ -5,8 +5,10 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { InitializedParams } from 'vscode-languageserver/node';
 
 import { CAPABILITIES } from '../../capabilities.interface';
+import { GetWorkspaceFSPath } from '../../helpers/get-workspace-fs-path';
 import { SendProblems } from '../../helpers/send-problems';
 import { TrackWorkspaceConfigs } from '../../helpers/track-workspace-config';
+import { UpdateWorkspaceFolders } from '../../helpers/workspace-folders';
 import {
   GLOBAL_SERVER_SETTINGS,
   IDL_LANGUAGE_SERVER_LOGGER,
@@ -33,7 +35,7 @@ let RESOLVER: (folders: IFolderRecursion) => void;
  *
  * Automatically resolves after 5 seconds in case we don't get this message
  */
-export const WORKSPACE_FOLDER_LIST = new Promise<IFolderRecursion>((res) => {
+export const WORKSPACE_FOLDER_PROMISE = new Promise<IFolderRecursion>((res) => {
   RESOLVER = res;
 });
 
@@ -76,6 +78,9 @@ export const ON_CONNECTION_INITIALIZED = async (event: InitializedParams) => {
           RESOLVER({});
           return;
         }
+
+        // save that we have a list
+        UpdateWorkspaceFolders(folders.map((item) => GetWorkspaceFSPath(item)));
 
         // get and track folder config
         const info = await TrackWorkspaceConfigs(folders);

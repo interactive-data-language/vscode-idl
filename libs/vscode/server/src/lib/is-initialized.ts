@@ -19,7 +19,7 @@ import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { arch, cpus, platform } from 'os';
 
 import { CONFIG_INITIALIZATION } from './events/custom-events/on-workspace-config';
-import { WORKSPACE_FOLDER_LIST } from './events/documents/on-connection-initialized';
+import { WORKSPACE_FOLDER_PROMISE } from './events/documents/on-connection-initialized';
 import { IDL_INDEX } from './events/initialize-document-manager';
 import { AddAdditionalSearchPaths } from './helpers/add-additional-search-paths';
 import { CacheValidFSPath } from './helpers/cache-valid';
@@ -75,7 +75,7 @@ export const SERVER_INITIALIZED = new Promise<void>((res) => {
  */
 export const SERVER_INFO = Promise.all([
   CONFIG_INITIALIZATION,
-  WORKSPACE_FOLDER_LIST,
+  WORKSPACE_FOLDER_PROMISE,
 ]);
 
 // on initialization, load global tokens
