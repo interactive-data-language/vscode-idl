@@ -79,10 +79,10 @@ export function InitializeMCPVSCode(
             IDL_TRANSLATION.packageJSON.displayName,
             vscode.Uri.parse(`http://localhost:${SERVER_PORTS.mcp}/mcp`),
             {},
-            VERSION
-            // `${VERSION}.${Math.floor(100 * Math.random())}.${Math.floor(
-            //   100 * Math.random()
-            // )}.${Math.floor(100 * Math.random())}`
+            // VERSION
+            `${VERSION}.${Math.floor(100 * Math.random())}.${Math.floor(
+              100 * Math.random()
+            )}.${Math.floor(100 * Math.random())}`
           )
         );
 
