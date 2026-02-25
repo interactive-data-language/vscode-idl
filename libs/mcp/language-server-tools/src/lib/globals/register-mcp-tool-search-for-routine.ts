@@ -90,7 +90,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
               fuzzy: true,
               workspaceFilter: getWorkspacesCallback(),
             })
-            .map((g) => g.name);
+            .map((g) => g.meta.display);
         }
 
         // save results for this query
