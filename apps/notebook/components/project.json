@@ -89,7 +89,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/notebook/components/jest.config.ts"
+        "jestConfig": "apps/notebook/components/jest.config.ts",
+        "tsConfig": "apps/notebook/components/tsconfig.spec.json"
       }
     },
     "serve-static": {

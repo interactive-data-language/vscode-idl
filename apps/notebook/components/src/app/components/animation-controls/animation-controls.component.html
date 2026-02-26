@@ -3,32 +3,34 @@
   fxLayoutAlign="center center"
   class="renderer-toolbar"
   style="max-width: 350px; padding-top: 5px"
->
+  >
   <div fxLayout="row" fxLayoutAlign="center center" class="toolbar">
     <!-- icons and buttons -->
     <div
       fxLayout="row"
       fxLayoutAlign="center center"
       style="padding-left: 10px; padding-right: 15px"
-    >
+      >
       <p style="padding-right: 10px">{{ multiplierText() }}</p>
       <mat-icon
         svgIcon="fast-rewind"
         (click)="slowDown()"
         class="icon-button"
       ></mat-icon>
-      <mat-icon
-        *ngIf="isPaused"
-        svgIcon="play"
-        (click)="pauseOrPlay()"
-        class="icon-button"
-      ></mat-icon>
-      <mat-icon
-        *ngIf="!isPaused"
-        svgIcon="pause"
-        (click)="pauseOrPlay()"
-        class="icon-button"
-      ></mat-icon>
+      @if (isPaused) {
+        <mat-icon
+          svgIcon="play"
+          (click)="pauseOrPlay()"
+          class="icon-button"
+        ></mat-icon>
+      }
+      @if (!isPaused) {
+        <mat-icon
+          svgIcon="pause"
+          (click)="pauseOrPlay()"
+          class="icon-button"
+        ></mat-icon>
+      }
       <mat-icon
         svgIcon="fast-forward"
         (click)="speedUp()"
@@ -45,7 +47,7 @@
         (mousedown)="pause()"
         (mouseup)="play()"
         (input)="onInputChange($event)"
-      />
+        />
     </div>
 
     <!-- <mat-slider
@@ -54,13 +56,13 @@
     max="{{ nFrames - 1 }}"
     step="1"
     [displayWith]="label"
-  >
+    >
     <input
       matSliderThumb
       [value]="frame"
       (dragStart)="pause()"
       (input)="onInputChange($event)"
-    />
+      />
   </mat-slider> -->
-  </div>
+</div>
 </div>

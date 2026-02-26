@@ -3,6 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/parsing/syntax-post-processors/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -17,6 +18,5 @@
         "jestConfig": "libs/parsing/syntax-post-processors/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }

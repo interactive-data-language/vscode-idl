@@ -1,30 +1,33 @@
 <div [ngClass]="class" style="width: 100%" class="mat-theme">
-  <div *ngIf="hasData; then thenBlock; else elseBlock"></div>
-
-  <ng-template #thenBlock [ngSwitch]="embed.type">
-    <idl-nb-image-animator
-      *ngSwitchCase="'idlnotebookimage_animationfrompngs'"
-      [embed]="embed"
-    ></idl-nb-image-animator>
-
-    <idl-nb-image
-      *ngSwitchCase="'idlnotebookimage_png'"
-      [embed]="embed"
-    ></idl-nb-image>
-
-    <idl-nb-map *ngSwitchCase="'idlnotebookmap'" [embed]="embed"></idl-nb-map>
-
-    <idl-nb-plot
-      *ngSwitchCase="'idlnotebookplot'"
-      [embed]="embed"
-    ></idl-nb-plot>
-
-    <div *ngSwitchDefault>
-      <p>Unhandled embed type of "{{ embed.type }}"</p>
-    </div>
-  </ng-template>
-
-  <ng-template #elseBlock>
+  @if (hasData) {
+    @switch (embed.type) {
+      @case ('idlnotebookimage_animationfrompngs') {
+        <idl-nb-image-animator
+          [embed]="embed"
+        ></idl-nb-image-animator>
+      }
+      @case ('idlnotebookimage_png') {
+        <idl-nb-image
+          [embed]="embed"
+        ></idl-nb-image>
+      }
+      @case ('idlnotebookmap') {
+        <idl-nb-map [embed]="embed"></idl-nb-map>
+      }
+      @case ('idlnotebookplot') {
+        <idl-nb-plot
+          [embed]="embed"
+        ></idl-nb-plot>
+      }
+      @default {
+        <div>
+          <p>Unhandled embed type of "{{ embed.type }}"</p>
+        </div>
+      }
+    }
+  } @else {
     <p>No data to render!</p>
-  </ng-template>
+  }
+
+
 </div>

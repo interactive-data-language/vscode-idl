@@ -83,7 +83,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/idl-webview"],
       "options": {
-        "jestConfig": "apps/idl-webview/jest.config.ts"
+        "jestConfig": "apps/idl-webview/jest.config.ts",
+        "tsConfig": "apps/idl-webview/tsconfig.spec.json"
       }
     }
   }

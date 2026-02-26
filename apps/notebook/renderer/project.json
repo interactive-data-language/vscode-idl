@@ -3,6 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/notebook/renderer/src",
   "projectType": "application",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
@@ -55,6 +56,5 @@
         "jestConfig": "apps/notebook/renderer/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }
