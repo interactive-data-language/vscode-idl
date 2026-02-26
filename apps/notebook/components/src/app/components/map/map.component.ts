@@ -17,7 +17,6 @@ import { TileLayer } from '@deck.gl/geo-layers';
 import { BitmapLayer } from '@deck.gl/layers';
 import { IDLNotebookMap } from '@idl/types/notebooks';
 import copy from 'fast-copy';
-import { firstValueFrom } from 'rxjs';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
@@ -144,33 +143,18 @@ export class MapComponent
       tileSize: 256,
 
       renderSubLayers: (props) => {
+        const { boundingBox } = props.tile;
+
         return new BitmapLayer(props, {
           data: undefined,
           image: props.data,
           bounds: [
-            props.tile.boundingBox[0][0],
-            props.tile.boundingBox[0][1],
-            props.tile.boundingBox[1][0],
-            props.tile.boundingBox[1][1],
+            boundingBox[0][0],
+            boundingBox[0][1],
+            boundingBox[1][0],
+            boundingBox[1][1],
           ],
         });
-      },
-
-      fetch: async (url) => {
-        // get value as bloc
-        const val = await firstValueFrom(
-          this.http.get(url, {
-            withCredentials: false,
-            responseType: 'blob',
-          })
-        );
-
-        // convert to data URI and display
-        return URL.createObjectURL(val);
-      },
-
-      onTileUnload: (tile) => {
-        URL.revokeObjectURL(tile.data);
       },
     });
   }

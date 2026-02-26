@@ -2,6 +2,7 @@
  * Data structure for display
  */
 export interface ImageDisplayOptions {
+  [key: string]: number;
   /**
    * Scale for blue
    */
