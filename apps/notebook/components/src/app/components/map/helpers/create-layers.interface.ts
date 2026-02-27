@@ -1,7 +1,5 @@
 import { LayerProps } from '@deck.gl/core';
-import GeoJsonLayer, {
-  _GeoJsonLayerProps,
-} from '@deck.gl/layers/dist/geojson-layer/geojson-layer';
+import type { GeoJsonLayer, GeoJsonLayerProps } from '@deck.gl/layers';
 import {
   IDLNotebookEmbeddedItem,
   IDLNotebookMap_GeoJSON,
@@ -18,7 +16,7 @@ export type NotebookMapLayerType = 'geojson' | 'image';
 
 /** GeoJSON properties, from hover help and type inspection */
 export type GeoJSONProps = Partial<
-  Required<_GeoJsonLayerProps<any>> & Required<LayerProps>
+  Required<GeoJsonLayerProps<any>> & Required<LayerProps>
 >;
 
 /** Properties for a notebook layer */

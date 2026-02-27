@@ -2,26 +2,27 @@
 
 import { LayerContext, LayerProps } from '@deck.gl/core';
 import { BitmapLayer, BitmapLayerProps } from '@deck.gl/layers';
+import copy from 'fast-copy';
 
-import { ColorTransform } from './color-transform.class';
-import { ImageDisplayOptions } from './color-transform.interface';
+import {
+  colorTransformUniforms,
+  DEFAULT_IMAGE_DISPLAY,
+  IMAGE_SHADER_INJECT,
+  ImageDisplayOptions,
+} from './shaders/image-shader.interface';
 
 /**
  * Properties for our image
  */
 interface IAwesomeImageProps {
   /**
-   * The color transform class to use
+   * Custom shader uniforms
    */
-  colorTransform?: ColorTransform;
-  /**
-   * Options for displaying an image
-   */
-  colorTransformOptions?: ImageDisplayOptions;
+  uniforms: ImageDisplayOptions;
 }
 
 export type AwesomeImageProps = Partial<
-  IAwesomeImageProps & Required<BitmapLayerProps> & Required<LayerProps>
+  BitmapLayerProps & IAwesomeImageProps & LayerProps
 >;
 
 /**
@@ -29,17 +30,19 @@ export type AwesomeImageProps = Partial<
  * using web.gl shaders to adjust data display at a layer-level
  */
 export class AwesomeImage extends BitmapLayer<IAwesomeImageProps> {
+  static override layerName = 'AwesomeImage';
+
   /**
-   * Color transform which manages shader and web.gl
+   * Current shader uniforms
    */
-  private colorTransform = new ColorTransform();
+  private uniforms = copy(DEFAULT_IMAGE_DISPLAY);
 
   constructor(...propObjects: AwesomeImageProps[]) {
     super(...propObjects);
 
-    // check if we have a color transform
-    if (propObjects[1]?.colorTransform) {
-      this.setColorTransform(propObjects[1].colorTransform);
+    // Initialize uniforms from props if provided
+    if (propObjects.length > 1 && propObjects[1].uniforms) {
+      this.uniforms = { ...this.uniforms, ...propObjects[1].uniforms };
     }
   }
 
@@ -47,13 +50,16 @@ export class AwesomeImage extends BitmapLayer<IAwesomeImageProps> {
    * Draw and pass in uniforms from filter
    */
   override draw(options: any) {
-    super.draw({
-      ...options,
-      uniforms: {
-        ...(options.uniforms || {}),
-        ...this.colorTransform.options,
-      },
-    });
+    const { model } = this.state;
+
+    if (model) {
+      // Set uniforms using shader module pattern (deck.gl 9.x)
+      model.shaderInputs.setProps({
+        colorTransform: this.uniforms,
+      });
+    }
+
+    super.draw(options);
   }
 
   /**
@@ -64,20 +70,23 @@ export class AwesomeImage extends BitmapLayer<IAwesomeImageProps> {
   }
 
   /**
-   * Override shaders from our default filter
+   * Override getShaders to inject custom fragment shader code
    */
   override getShaders() {
+    const parentShaders = super.getShaders();
+
     return {
-      ...super.getShaders(),
-      ...this.colorTransform.shader,
+      ...parentShaders,
+      modules: [...(parentShaders.modules || []), colorTransformUniforms],
+      inject: IMAGE_SHADER_INJECT,
     };
   }
 
   /**
-   * Updates the color transform of this tile layer
+   * Update shader uniforms
    */
-  setColorTransform(ct: ColorTransform) {
-    this.colorTransform = ct;
+  updateImageDisplay(options: Partial<ImageDisplayOptions>) {
+    this.uniforms = { ...this.uniforms, ...options } as ImageDisplayOptions;
+    this.setNeedsRedraw();
   }
 }
-AwesomeImage.layerName = 'AwesomeImage';

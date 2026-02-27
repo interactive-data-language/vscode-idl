@@ -1,6 +1,4 @@
-<div *ngIf="hasData; then thenBlock; else elseBlock"></div>
-
-<ng-template #thenBlock>
+@if (hasData) {
   <div fxLayout="column">
     <!-- toolbar row -->
     <idl-nb-animation-controls
@@ -10,14 +8,13 @@
       [nFrames]="this._embed.item.data.length"
       (frameChange)="setSource($event)"
     ></idl-nb-animation-controls>
-
     <!-- wrap in div so styles dont get goofed up by flex -->
     <div class="embedded-image cell-item-height-max">
       <img #myImage class="cell-item-height-max" src="{{ src }}" />
     </div>
   </div>
-</ng-template>
-
-<ng-template #elseBlock>
+} @else {
   <p>No images to animate!</p>
-</ng-template>
+}
+
+

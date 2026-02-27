@@ -1,4 +1,5 @@
 const { composePlugins, withNx } = require('@nx/webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 /**
  * ABOUT
@@ -13,7 +14,31 @@ const { composePlugins, withNx } = require('@nx/webpack');
 
 // Nx plugins for webpack.
 module.exports = composePlugins(withNx(), (config) => {
-  // Update the webpack config as needed here.
-  // e.g. `config.plugins.push(new MyPlugin())`
+  /**
+   * This was added after a recent update to NX 21 (latest) that needed this for builds to work
+   */
+  // Find and update ForkTsCheckerWebpackPlugin with increased memory limit
+  const forkTsCheckerIndex = config.plugins.findIndex(
+    (plugin) => plugin.constructor.name === 'ForkTsCheckerWebpackPlugin'
+  );
+
+  if (forkTsCheckerIndex !== -1) {
+    // Replace existing plugin with increased memory limit
+    config.plugins[forkTsCheckerIndex] = new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        memoryLimit: 8192,
+      },
+    });
+  } else {
+    // Add plugin with increased memory limit if not present
+    config.plugins.push(
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          memoryLimit: 8192,
+        },
+      })
+    );
+  }
+
   return config;
 });

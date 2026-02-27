@@ -4,35 +4,38 @@
   <canvas #MapCanvas></canvas>
 
   <div class="map-controls" fxLayout="column" fxLayoutAlign="center start">
-    <div
-      *ngIf="showLayers"
-      fxLayout="column"
-      class="toolbar"
-      style="margin-bottom: 5px"
-    >
-      <!-- display layers -->
-      <div *ngIf="layers !== undefined; else elseBlock">
-        <div
-          cdkDropList
-          (cdkDropListDropped)="drop($event)"
-          (cdkDropListSorted)="dragging($event)"
-          cdkDropListLockAxis="y"
+    @if (showLayers) {
+      <div
+        fxLayout="column"
+        class="toolbar"
+        style="margin-bottom: 5px"
         >
-          @for (iLayer of layers.layers; track iLayer) {
-          <div fxLayout="row" fxLayoutAlign=" center">
-            <!-- cdkDrag is on the map layer card -->
-            <idl-map-layer-card
-              (propChange)="propertyChange()"
-              [layer]="iLayer"
-            ></idl-map-layer-card>
+        <!-- display layers -->
+        @if (layers !== undefined) {
+          <div>
+            <div
+              cdkDropList
+              (cdkDropListDropped)="drop($event)"
+              (cdkDropListSorted)="dragging($event)"
+              cdkDropListLockAxis="y"
+              >
+              @for (iLayer of layers.layers; track iLayer) {
+                <div fxLayout="row" fxLayoutAlign=" center">
+                  <!-- cdkDrag is on the map layer card -->
+                  <idl-map-layer-card
+                    (propChange)="propertyChange()"
+                    [layer]="iLayer"
+                  ></idl-map-layer-card>
+                </div>
+              }
+            </div>
           </div>
-          }
-        </div>
+        } @else {
+          No layers to show
+        }
+        <!-- alert user if no map layers -->
       </div>
-
-      <!-- alert user if no map layers -->
-      <ng-template #elseBlock>No layers to show</ng-template>
-    </div>
+    }
     <div fxLayout="row" fxLayoutAlign="space-around center" class="toolbar">
       <mat-icon
         (click)="resetView()"
@@ -54,4 +57,6 @@
   </div>
 </div>
 
-<p *ngIf="!hasData">No data to map!</p>
+@if (!hasData) {
+  <p>No data to map!</p>
+}

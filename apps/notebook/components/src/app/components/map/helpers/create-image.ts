@@ -22,11 +22,16 @@ export function CreateImage(
   //   })
   // );
 
-  return new AwesomeImage({
-    id: nanoid(),
-    image: `data:image/png;base64,${embed.item.data}`,
-    bounds: [extent.xmin, extent.ymin, extent.xmax, extent.ymax],
-    pickable: false,
-    ...props,
-  });
+  console.log('Create image');
+  console.log(props);
+
+  return new AwesomeImage(
+    {
+      id: nanoid(),
+      image: `data:image/png;base64,${embed.item.data}`,
+      bounds: [extent.xmin, extent.ymin, extent.xmax, extent.ymax],
+      pickable: false,
+    },
+    props
+  );
 }
