@@ -19,6 +19,7 @@ module.exports = composePlugins(withNx(), (config) => {
     ...config,
     externals: {
       vscode: 'commonjs vscode', // ignored because it doesn't exist
+      expect: 'commonjs expect', // Don't bundle expect, we should be able to get this from node_modules. Importing was causing a error for e2e tests
     },
 
     // stats: 'none',
