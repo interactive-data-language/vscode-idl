@@ -2,6 +2,7 @@ import { ILogOptions } from '@idl/logger';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import * as express from 'express';
+import { nanoid } from 'nanoid';
 
 import { LOCAL_IPS } from './local-ips.interface';
 import { MCP_SERVER_CONFIG } from './mcp-server.interface';
@@ -28,6 +29,9 @@ export class McpHttpServerCore {
   /** Callback for error failures */
   private failCallback: (err: any) => void;
 
+  /** Track if we've connected to the transport yet */
+  private isConnected = false;
+
   /** Logger for MCP server */
   private logCallback: (options: ILogOptions) => void;
 
@@ -36,6 +40,9 @@ export class McpHttpServerCore {
 
   /** Reference to the MCP server that we will utilize */
   private mcpServer: McpServer;
+
+  /** Single transport instance that handles all HTTP requests with session management */
+  private transport: StreamableHTTPServerTransport;
 
   constructor(
     mcpServer: McpServer,
@@ -47,7 +54,39 @@ export class McpHttpServerCore {
     this.mcpPort = port;
     this.logCallback = logCallback;
     this.failCallback = failCallback;
+
+    // Create transport once with session management for concurrent requests
+    // But don't connect yet - tools must be registered first
+    this.transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: () => nanoid(),
+    });
+
     this.startStreamableWebServer();
+  }
+
+  /**
+   * Connect the MCP server to the transport.
+   * Must be called AFTER all tools/resources/prompts are registered.
+   */
+  public async connectTransport(): Promise<void> {
+    if (this.isConnected) {
+      return;
+    }
+
+    try {
+      await this.mcpServer.connect(this.transport);
+      this.isConnected = true;
+      this.logCallback({
+        content: 'MCP server connected to transport',
+        type: 'info',
+      });
+    } catch (err) {
+      this.logCallback({
+        content: ['Failed to connect MCP server to transport:', err],
+        type: 'error',
+      });
+      this.failCallback(err);
+    }
   }
 
   /**
@@ -68,6 +107,7 @@ export class McpHttpServerCore {
    * Stop MCP server
    */
   public stopMcpServer() {
+    this.transport.close();
     this.mcpServer.close();
     if (this.appInstance) {
       this.appInstance.close();
@@ -100,40 +140,26 @@ export class McpHttpServerCore {
     this.app.post(
       '/mcp',
       async (req: express.Request, res: express.Response) => {
-        try {
-          /** Create transport */
-          const transport: StreamableHTTPServerTransport =
-            new StreamableHTTPServerTransport({
-              sessionIdGenerator: undefined,
-            });
+        // Ensure transport is connected before handling requests
+        if (!this.isConnected) {
+          await this.connectTransport();
+        }
 
-          // connect
-          await this.mcpServer.connect(transport);
-
-          /**
-           * Not sure this is 100% needed, but it was before for long-running
-           * requests, so im keeping it here in case
-           */
-          // https://github.com/nrwl/nx-console/blob/bc58d3a5c5c661e3d1fe00248e160cb19575e7aa/apps/nx-mcp/src/main.ts#L127
-          // create interval to keep connection alive
-          const keepAliveInterval = setInterval(() => {
-            // Check if the connection is still open using the socket's writable state
-            if (!res.writableEnded && !res.writableFinished) {
-              res.write(':beat\n\n');
-            } else {
-              // console.log('SSE connection closed, clearing keep-alive interval');
-              clearInterval(keepAliveInterval);
-            }
-          }, MCP_SERVER_CONFIG.KEEP_ALIVE_INTERVAL);
-
-          // handle connections closing
-          res.on('close', () => {
-            transport.close();
+        // Create interval to keep connection alive during long-running tool executions
+        // Sends SSE-style heartbeat messages to prevent timeouts
+        const keepAliveInterval = setInterval(() => {
+          // Check if the connection is still open using the socket's writable state
+          if (!res.writableEnded && !res.writableFinished) {
+            res.write(':beat\n\n');
+          } else {
             clearInterval(keepAliveInterval);
-          });
+          }
+        }, MCP_SERVER_CONFIG.KEEP_ALIVE_INTERVAL);
 
-          // register request handlers
-          await transport.handleRequest(req, res, req.body);
+        try {
+          // Use the shared transport instance - it handles sessions internally
+          // The transport manages concurrent requests and sessions automatically
+          await this.transport.handleRequest(req, res, req.body);
         } catch (error) {
           this.logCallback({
             content: ['Error handling MCP request:', error],
@@ -149,6 +175,9 @@ export class McpHttpServerCore {
               id: null,
             });
           }
+        } finally {
+          // Always clean up the keep-alive interval
+          clearInterval(keepAliveInterval);
         }
       }
     );
