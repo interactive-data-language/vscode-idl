@@ -129,7 +129,6 @@ export class McpHttpServerCore {
           // handle connections closing
           res.on('close', () => {
             transport.close();
-            this.mcpServer.close();
             clearInterval(keepAliveInterval);
           });
 
