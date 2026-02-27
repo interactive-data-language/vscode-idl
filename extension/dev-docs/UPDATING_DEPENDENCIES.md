@@ -2,6 +2,12 @@
 
 Document that walks through the func, exciting process of updating dependencies!
 
+## Global NX
+
+First, update global NX (if updating to latest NX):
+
+`npm i -g nx@latest`
+
 ## Migrating NX - Updates Angular, TypeScript, and more
 
 The big honcho, takes a while and updates key components. Read through this before getting started, you may need to go through a few iterations before this is finished.
