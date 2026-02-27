@@ -2,11 +2,11 @@ import { GlobalTokenType } from '@idl/types/idl-data-types';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
 export const SEARCH_FOR_ROUTINE_DESCRIPTION = `
-Returns names of routines that match your search parameters using fuzzy search. 
+Used to search for known IDL routines that you can use to retrieve documentation/more information about. 
 
 You can search for one or more of functions, procedures, function methods, procedure methods, structures, and system variables.
 
-To retrieve more detailed information, use the returned names with the "${MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS}" tool.
+To retrieve more detailed information (i.e. docs), use the returned names with the "${MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS}" tool.
 
 Examples:
 
