@@ -1,4 +1,4 @@
-import { runTests } from '@vscode/test-electron';
+import { downloadAndUnzipVSCode, runTests } from '@vscode/test-electron';
 import { join } from 'path';
 
 async function go() {
@@ -15,12 +15,19 @@ async function go() {
       'main.js'
     );
 
+    // Download VSCode version we want to use
+    console.log('Downloading VSCode...');
+    const vscodeExecutablePath = await downloadAndUnzipVSCode('stable');
+
     /**
-     * Basic usage
+     * Run tests with the downloaded VSCode
+     * GitHub Copilot Chat extension will be installed via launchArgs
      */
     await runTests({
+      vscodeExecutablePath,
       extensionDevelopmentPath,
       extensionTestsPath,
+      launchArgs: ['--install-extension', 'GitHub.copilot-chat', '--force'],
     });
   } catch (err) {
     console.error('Failed to run tests');

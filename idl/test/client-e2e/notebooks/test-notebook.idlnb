@@ -47,22 +47,7 @@
         "help, arr"
       ],
       "metadata": {},
-      "outputs": [
-        {
-          "items": [
-            {
-              "mime": "text/plain",
-              "content": [
-                "ARR             FLOAT     = Array[42]",
-                ""
-              ]
-            }
-          ],
-          "metadata": {
-            "id": "not-saved"
-          }
-        }
-      ]
+      "outputs": []
     },
     {
       "type": "code",
@@ -72,22 +57,7 @@
         "help, a"
       ],
       "metadata": {},
-      "outputs": [
-        {
-          "items": [
-            {
-              "mime": "text/plain",
-              "content": [
-                "A               LONG      =           15",
-                ""
-              ]
-            }
-          ],
-          "metadata": {
-            "id": "not-saved"
-          }
-        }
-      ]
+      "outputs": []
     },
     {
       "type": "code",
@@ -110,22 +80,7 @@
         "test1"
       ],
       "metadata": {},
-      "outputs": [
-        {
-          "items": [
-            {
-              "mime": "text/plain",
-              "content": [
-                "          42",
-                ""
-              ]
-            }
-          ],
-          "metadata": {
-            "id": "not-saved"
-          }
-        }
-      ]
+      "outputs": []
     },
     {
       "type": "code",
@@ -139,22 +94,7 @@
         "end"
       ],
       "metadata": {},
-      "outputs": [
-        {
-          "items": [
-            {
-              "mime": "text/plain",
-              "content": [
-                "           5",
-                ""
-              ]
-            }
-          ],
-          "metadata": {
-            "id": "not-saved"
-          }
-        }
-      ]
+      "outputs": []
     },
     {
       "type": "code",
@@ -172,22 +112,7 @@
         "end"
       ],
       "metadata": {},
-      "outputs": [
-        {
-          "items": [
-            {
-              "mime": "text/plain",
-              "content": [
-                "A               LONG      =           15",
-                ""
-              ]
-            }
-          ],
-          "metadata": {
-            "id": "not-saved"
-          }
-        }
-      ]
+      "outputs": []
     },
     {
       "type": "code",
@@ -203,22 +128,7 @@
         "help, a"
       ],
       "metadata": {},
-      "outputs": [
-        {
-          "items": [
-            {
-              "mime": "text/plain",
-              "content": [
-                "A               LONG      =           15",
-                ""
-              ]
-            }
-          ],
-          "metadata": {
-            "id": "not-saved"
-          }
-        }
-      ]
+      "outputs": []
     },
     {
       "type": "code",

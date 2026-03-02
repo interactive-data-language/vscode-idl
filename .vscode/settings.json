@@ -1,4 +1,5 @@
 {
+  "idl.IDL.directory": "C:\\Program Files\\NV5\\IDL92\\bin\\bin.x86_64",
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
