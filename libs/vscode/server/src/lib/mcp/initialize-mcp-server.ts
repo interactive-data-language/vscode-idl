@@ -1,10 +1,10 @@
 import { IDL_MCP_LOG } from '@idl/logger';
 import {
-  MCPTrackTutorialsAsResources,
+  MCPTrackResources,
   RegisterAllLanguageServerMCPTools,
 } from '@idl/mcp/language-server-tools';
 import { StartMCPServer } from '@idl/mcp/server';
-import { RegisterAllMCPResources } from '@idl/mcp/server-resources';
+import { RegisterStaticMCPResources } from '@idl/mcp/server-resources';
 import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
@@ -59,17 +59,17 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
       }
     );
 
-    // register all of our resources
-    RegisterAllMCPResources(SERVER_MESSENGER);
+    // register static resources (documentation links)
+    RegisterStaticMCPResources();
 
-    // add all tutorials as server resources
+    // track dynamic file-based resources
     try {
-      MCPTrackTutorialsAsResources(IDL_LANGUAGE_SERVER_LOGGER);
+      MCPTrackResources(IDL_LANGUAGE_SERVER_LOGGER);
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_MCP_LOG,
         type: 'error',
-        content: [`Problem tracking IDL tutorial files`, err],
+        content: [`Problem tracking resource files`, err],
       });
     }
 

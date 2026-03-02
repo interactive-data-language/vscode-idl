@@ -1,15 +1,11 @@
 import { IS_MCP_SERVER_STARTED } from '@idl/mcp/server';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 
 import { MCPResourceIndex } from './mcp-resource-index.class';
 
 /**
- * Helper that adds all tools to the MCP server
+ * Registers static/hardcoded MCP resources (documentation links)
  */
-export function RegisterAllMCPResources(
-  messenger: VSCodeLanguageServerMessenger,
-  extensionPath?: string
-) {
+export function RegisterStaticMCPResources() {
   if (!IS_MCP_SERVER_STARTED) {
     return;
   }

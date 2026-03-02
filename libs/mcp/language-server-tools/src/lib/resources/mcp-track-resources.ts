@@ -5,9 +5,9 @@ import { MCPTrackResourcesInFolder } from '@idl/mcp/server-resources';
 import { MCPTrackHoverHelpResources } from './mcp-track-hover-help-resources';
 
 /**
- * Tracks our tutorials as MCP resources
+ * Tracks all resources for the MCP server
  */
-export function MCPTrackTutorialsAsResources(logger: LogManager) {
+export function MCPTrackResources(logger: LogManager) {
   /**
    * Get the path to the folder
    */
@@ -25,6 +25,17 @@ export function MCPTrackTutorialsAsResources(logger: LogManager) {
     false,
     'ex-notebooks',
     {}
+  );
+
+  // track additional AI resources folder
+  MCPTrackResourcesInFolder(
+    logger,
+    GetExtensionPath('extension/github-copilot/resources'),
+    true,
+    'resource',
+    {
+      'readme.md': true,
+    }
   );
 
   MCPTrackHoverHelpResources();
