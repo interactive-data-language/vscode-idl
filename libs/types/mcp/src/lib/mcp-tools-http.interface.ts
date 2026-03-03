@@ -1,3 +1,5 @@
+import { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types';
+
 import {
   MCPTool_GetENVIToolParameters,
   MCPToolParams_GetENVIToolParameters,
@@ -87,3 +89,13 @@ export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
     : T extends MCPTool_SearchResources
     ? MCPToolParams_SearchResources
     : never;
+
+/**
+ * CallToolResult with content restricted to TextContent only
+ */
+export type MCPToolHTTPResponse_HTTP = {
+  /** Content returned */
+  content: TextContent[];
+  /** If an error */
+  isError: boolean; // make sure it is included
+} & Omit<CallToolResult, 'content'>;

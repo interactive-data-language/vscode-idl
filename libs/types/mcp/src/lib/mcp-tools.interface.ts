@@ -1,5 +1,3 @@
-import { CallToolResult } from '@modelcontextprotocol/sdk/types';
-
 import { MCPTool_GetENVIToolParameters } from './http/mcp-tool-get-envi-tool-parameters.interface';
 import { MCPTool_GetENVIToolWorkflow } from './http/mcp-tool-get-envi-tool-workflow.interface';
 import { MCPTool_GetPrompt } from './http/mcp-tool-get-prompt.interface';
@@ -11,7 +9,11 @@ import { MCPTool_ListPrompts } from './http/mcp-tool-list-prompts.interface';
 import { MCPTool_SearchForFiles } from './http/mcp-tool-search-for-files.interface';
 import { MCPTool_SearchForRoutine } from './http/mcp-tool-search-for-routine.interface';
 import { MCPTool_SearchResources } from './http/mcp-tool-search-resources.interface';
-import { MCPToolParams_HTTP, MCPTools_HTTP } from './mcp-tools-http.interface';
+import {
+  MCPToolHTTPResponse_HTTP,
+  MCPToolParams_HTTP,
+  MCPTools_HTTP,
+} from './mcp-tools-http.interface';
 import {
   MCPToolHTTPResponse_VSCode,
   MCPToolParams_VSCode,
@@ -53,7 +55,7 @@ export type MCPToolResponse<T extends MCPTools> = T extends MCPTools_VSCode
 export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_VSCode
   ? MCPToolHTTPResponse_VSCode
   : T extends MCPTools_HTTP
-  ? CallToolResult
+  ? MCPToolHTTPResponse_HTTP
   : never;
 
 /**
