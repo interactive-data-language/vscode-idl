@@ -181,6 +181,7 @@
         "libs/mcp/language-server-tools/src/index.ts"
       ],
       "@idl/mcp/prompts": ["libs/mcp/prompts/src/index.ts"],
+      "zod": ["node_modules/zod/v3"],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],
