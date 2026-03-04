@@ -65,7 +65,7 @@ module.exports = composePlugins(withNx(), (config) => {
   if (!config.resolve.alias) {
     config.resolve.alias = {};
   }
-  config.resolve.alias.zod = path.resolve(__dirname, 'node_modules/zod/v3');
+  config.resolve.alias.zod$ = path.resolve(__dirname, 'node_modules/zod/v3');
 
   return newConfig;
 });
