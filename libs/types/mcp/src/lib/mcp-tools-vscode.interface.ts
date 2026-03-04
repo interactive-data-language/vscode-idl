@@ -1,3 +1,5 @@
+import { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types';
+
 import {
   MCPTool_CreateIDLNotebook,
   MCPToolParams_CreateIDLNotebook,
@@ -110,24 +112,15 @@ export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
 /**
  * Response from tools that run in VSCode
  */
-export interface MCPToolHTTPResponse_VSCode {
-  /** Text content we return */
-  content: [
-    {
-      /** Type of content */
-      type: 'text';
-      /**
-       * Text that we return, should be JSON of MCPToolResponse_VSCode, but not always
-       *
-       * A handful of tools have error checking and validation before they run, and if
-       * there in pre-error checking and a failure, then this will have a text-based
-       * error for the LLM.
-       *
-       * If the first characters is a brace, then you should be able to parse it.
-       */
-      text: string;
-    }
-  ];
+export type MCPToolHTTPResponse_VSCode = {
+  /**
+   * Content that we return, text should be JSON of MCPToolResponse_VSCode, but not always
+   *
+   * A handful of tools have error checking and validation before they run, and if
+   * there in pre-error checking and a failure, then this will have a text-based
+   * error for the LLM.
+   */
+  content: TextContent[];
   /** If an error */
-  isError: boolean;
-}
+  isError: boolean; // make sure it is included
+} & Omit<CallToolResult, 'content'>;

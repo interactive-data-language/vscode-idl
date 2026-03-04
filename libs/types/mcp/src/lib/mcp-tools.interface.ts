@@ -52,10 +52,10 @@ export type MCPToolResponse<T extends MCPTools> = T extends MCPTools_VSCode
   : never;
 
 /** What is the data type returned from our MCP call over HTTP */
-export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_VSCode
-  ? MCPToolHTTPResponse_VSCode
-  : T extends MCPTools_HTTP
+export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_HTTP
   ? MCPToolHTTPResponse_HTTP
+  : T extends MCPTools_VSCode
+  ? MCPToolHTTPResponse_VSCode
   : never;
 
 /**
