@@ -5,22 +5,28 @@ import {
   MCPTools,
 } from '@idl/types/mcp';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
-import { McpServer, ToolCallback } from '@modelcontextprotocol/sdk/server/mcp';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp';
+import { ShapeOutput } from '@modelcontextprotocol/sdk/server/zod-compat';
+import { RequestHandlerExtra } from '@modelcontextprotocol/sdk/shared/protocol';
+import {
+  ServerNotification,
+  ServerRequest,
+} from '@modelcontextprotocol/sdk/types';
 import { ZodRawShape } from 'zod';
 
 /**
  * Callback that adds a new argument to each function so that
  * we have an ID we can send/receive progress messages on
+ *
+ * Note: We define this directly instead of inferring from ToolCallback<Args>
+ * to avoid TypeScript's recursive type detection which can be triggered
+ * when using nested conditional types with inference.
  */
-export type MCPToolCallback<
-  Args extends ZodRawShape,
-  Tool extends MCPTools
-> = ToolCallback<Args> extends (...a: infer U) => infer R
-  ? (
-      id: string,
-      ...a: U
-    ) => MCPToolHTTPResponse<Tool> | Promise<MCPToolHTTPResponse<Tool>>
-  : never;
+export type MCPToolCallback<Args extends ZodRawShape, Tool extends MCPTools> = (
+  id: string,
+  args: ShapeOutput<Args>,
+  extra: RequestHandlerExtra<ServerRequest, ServerNotification>
+) => MCPToolHTTPResponse<Tool> | Promise<MCPToolHTTPResponse<Tool>>;
 
 /**
  * Parameters for registering a new tool

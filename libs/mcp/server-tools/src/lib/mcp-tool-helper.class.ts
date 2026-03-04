@@ -99,7 +99,7 @@ export class MCPToolHelper implements IMCPHelperOptions {
 
         // run tool one at a time
         await this.toolExecutionQueue.add(async () => {
-          res = await cb(id, params, context);
+          res = await cb(id, params as any, context);
         });
 
         // cleanup
