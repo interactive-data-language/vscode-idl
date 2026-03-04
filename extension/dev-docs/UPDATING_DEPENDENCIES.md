@@ -43,7 +43,7 @@ The big honcho, takes a while and updates key components. Read through this befo
 
 6.5 Reset the NX daemon
 
-7.Do a sanity check that everything builds correctly with `npm start`
+7. Do a sanity check that everything builds correctly with `npm start`
 
 8. Verify no horrible breaking changes for Angular applications
 
@@ -53,9 +53,11 @@ The big honcho, takes a while and updates key components. Read through this befo
 
 - Change from light to dark theme to verify that theme changes are picked up
 
-9. Commit all changes to GitHub as a checkpoint
+9. Make sure test generation still works (helps catch runtime errors from lib changes) with `npm run generate-tests`
 
-10. If you need to migrate to a major version of NX, repeat steps
+10. Commit all changes to GitHub as a checkpoint
+
+11. If you need to migrate to a major version of NX, repeat steps
 
 > CRITICAL: Recommended path is to migrate to latest minor version you have before updating major versions
 >
