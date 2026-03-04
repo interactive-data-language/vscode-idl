@@ -92,7 +92,7 @@
     "vscode-languageserver-textdocument": "^1.0.12",
     "vscode-textmate": "^9.1.0",
     "vscode-uri": "^3.0.8",
-    "zod": "^3.25.76",
+    "zod": "^4.3.6",
     "zone.js": "0.16.1"
   },
   "optionalDependencies": {
