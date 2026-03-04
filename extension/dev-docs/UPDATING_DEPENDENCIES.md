@@ -2,6 +2,17 @@
 
 Document that walks through the func, exciting process of updating dependencies!
 
+## Note About Updating ZOD
+
+Ignore if you aren't updating ZOD :)
+
+Zod is a special library - it has changes at the `tsconfig.base.json` to map to V3 from zod V4.
+
+Also have aliases mapped out in the webpack files:
+
+- webpack.node.config.js
+- webpack.vscode.config.js
+
 ## Global NX
 
 First, update global NX (if updating to latest NX):
