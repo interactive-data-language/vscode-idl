@@ -9,7 +9,7 @@ import {
   IDL_EXTENSION_CONFIG_KEYS,
   IDontAskConfig,
 } from '@idl/vscode/extension-config';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import * as vscode from 'vscode';
 
 import { GetWorkspaceConfig } from './helpers/get-workspace-config';

@@ -17,7 +17,7 @@ import {
 } from '@idl/types/idl-data-types';
 import { SyntaxProblems } from '@idl/types/problem-codes';
 import { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { GetTaskDisplayName } from '../helpers/get-task-display-name';
 import { ReduceIDLDataType } from '../helpers/reduce-types';

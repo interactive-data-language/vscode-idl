@@ -1,7 +1,7 @@
 import { IDLProcess } from '@idl/idl/idl-process';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { DEFAULT_IDL_INFO, IDLInfo } from '@idl/types/idl/idl-process';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { CleanIDLOutput } from './clean-idl-output';
 

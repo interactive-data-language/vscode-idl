@@ -3,7 +3,7 @@ import {
   IDLNotebookPlot,
   IDLNotebookPlot_Properties,
 } from '@idl/types/notebooks';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Default chart configuration for plots

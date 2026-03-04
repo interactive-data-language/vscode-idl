@@ -2,7 +2,7 @@ import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   ILanguageServerConfig,
 } from '@idl/vscode/extension-config';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Default settings for our server

@@ -20,7 +20,7 @@ import {
 } from '@idl/types/idl/idl-process';
 import { ChildProcess, execSync, spawn } from 'child_process';
 import { EventEmitter } from 'events';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import { existsSync } from 'fs';
 import * as os from 'os';
 import * as path from 'path';

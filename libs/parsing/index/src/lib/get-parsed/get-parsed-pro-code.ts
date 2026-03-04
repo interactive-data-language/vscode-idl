@@ -3,7 +3,7 @@ import { CodeChecksum } from '@idl/parser';
 import { IDLFileHelper } from '@idl/shared/extension';
 import { IParsed } from '@idl/types/syntax-tree';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
 import { IDLIndex } from '../idl-index.class';

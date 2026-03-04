@@ -16,7 +16,7 @@ import {
   DEFAULT_USES_THESE_GLOBAL_TOKEN,
   IParsed,
 } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 

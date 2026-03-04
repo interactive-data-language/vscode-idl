@@ -20,7 +20,7 @@ import {
   REMOVE_COMMENT_REGEX,
 } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import {
   DIRECTION_DOCS,

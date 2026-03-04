@@ -3,12 +3,12 @@ import {
   IDL_DEF_FILE_PROBLEMS,
   SyntaxProblems,
 } from '@idl/types/problem-codes';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
-import { CAN_SEND_PROBLEMS } from '../is-initialized';
 import { SERVER_CONNECTION } from '../initialize-language-server';
+import { CAN_SEND_PROBLEMS } from '../is-initialized';
 import { CanReportProblems } from './can-report-problems';
 import { IGNORE_PROBLEM_CODES, INCLUDE_PROBLEMS_FOR } from './merge-config';
 import { SyntaxProblemsToDiagnostic } from './syntax-problem-to-diagnostic';

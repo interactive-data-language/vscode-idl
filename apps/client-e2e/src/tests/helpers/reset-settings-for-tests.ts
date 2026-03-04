@@ -2,7 +2,7 @@ import { FindIDL, GetExtensionPath } from '@idl/idl/files';
 import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IIDLWorkspaceConfig } from '@idl/vscode/config';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 import { readFileSync } from 'fs';
 

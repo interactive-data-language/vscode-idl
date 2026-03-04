@@ -2,7 +2,7 @@
 
 import { LayerContext, LayerProps } from '@deck.gl/core';
 import { BitmapLayer, BitmapLayerProps } from '@deck.gl/layers';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import {
   colorTransformUniforms,

@@ -3,7 +3,7 @@ import { CleanPath } from '@idl/shared/extension';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import { platform } from 'os';
 import * as path from 'path';
 import {

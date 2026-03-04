@@ -1,6 +1,6 @@
 import { ObjectifyError } from '@idl/error-shared';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import {
   DEFAULT_LOGGER_OPTIONS,

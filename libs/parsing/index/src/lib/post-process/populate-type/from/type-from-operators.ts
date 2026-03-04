@@ -6,7 +6,7 @@ import {
   IDLDataType,
 } from '@idl/types/idl-data-types';
 import { IParsed } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
 import { TypeFromOperatorSplit } from './type-from-operator-split';

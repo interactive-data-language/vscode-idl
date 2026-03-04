@@ -51,7 +51,7 @@ import {
   TrackGlobalTokensResponse,
 } from '@idl/workers/parsing';
 import { WorkerIOPool } from '@idl/workers/workerio';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';

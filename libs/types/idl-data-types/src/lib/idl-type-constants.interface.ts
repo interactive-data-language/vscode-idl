@@ -1,4 +1,4 @@
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import {
   IDL_TYPE_LOOKUP,

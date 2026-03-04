@@ -13,7 +13,7 @@ import {
 import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
 import { IParsed } from '@idl/types/syntax-tree';
 import { PositionArray } from '@idl/types/tokenizer';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
 

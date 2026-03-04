@@ -17,7 +17,7 @@ import {
 } from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
 import { IBranch, IDocs } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';
 import { IDL_DOCS_HEADERS } from './docs.interface';

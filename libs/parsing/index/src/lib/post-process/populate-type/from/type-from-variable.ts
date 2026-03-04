@@ -1,7 +1,7 @@
 import { VariableToken } from '@idl/tokenizer';
 import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
 import { IParsed, TreeToken } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { GetVariable } from '../../../helpers/get-variable';
 import { IDLIndex } from '../../../idl-index.class';

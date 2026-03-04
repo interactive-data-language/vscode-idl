@@ -1,7 +1,7 @@
 import { BracketToken } from '@idl/tokenizer';
 import { IDLDataType } from '@idl/types/idl-data-types';
 import { IParsed, TreeToken } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { IDLIndex } from '../../../idl-index.class';
 import { TypeFromArrayCreation } from './type-from-array-creation';

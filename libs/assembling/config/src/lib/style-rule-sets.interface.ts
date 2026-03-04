@@ -1,4 +1,4 @@
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { ICodeStyle, STYLE_FLAG_LOOKUP } from './style.interface';
 

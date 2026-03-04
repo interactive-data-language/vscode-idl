@@ -1,5 +1,5 @@
 import { SimplePromiseQueue, Sleep } from '@idl/shared/extension';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import {
   GA4_CONFIG,

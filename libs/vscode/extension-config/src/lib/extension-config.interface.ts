@@ -4,7 +4,7 @@ import {
   ICodeStyle,
   ITrueBaseAssemblerOptions,
 } from '@idl/assembling/config';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Data structure to show the paths to elements in IDL's config
@@ -22,6 +22,10 @@ export interface IDLExtensionsConfigKeys {
   readonly codeFormatting: 'code.formatting';
   /** Code-formatting style */
   readonly codeFormattingStyle: 'code.formattingStyle';
+  /** Key for GitHub Copilot preferences */
+  readonly copilot: 'copilot';
+  /** Custom instructions for GitHub Copilot */
+  readonly copilotCustomInstructions: 'copilot.customInstructions';
   /** Full debug logs for everything */
   readonly debugMode: 'debugMode';
   /** Top-level developer key */
@@ -30,6 +34,7 @@ export interface IDLExtensionsConfigKeys {
   readonly developerENVI: 'developer.ENVI';
   /** ENVI Deep Learning */
   readonly developerENVIDeepLearning: 'developer.ENVIDeepLearning';
+
   /** ENVI Machine Learning */
   readonly developerENVIMachineLearning: 'developer.ENVIMachineLearning';
   /** IDL developer */
@@ -39,27 +44,26 @@ export interface IDLExtensionsConfigKeys {
   readonly documentation: 'documentation';
   /** Do we use hosted docs? */
   readonly documentationUseOnline: 'documentation.useOnline';
-
   /** Top-level don't ask key */
   readonly dontAsk: 'dontAsk';
   /** On startup, if we dont have a formatter configured for IDL code, should we ask for it or not */
   readonly dontAskForFormatterChange: 'dontAsk.forFormatterChange';
   /** On startup, if we dont have our icon theme as default, should we ask for it or not */
   readonly dontAskForIconChange: 'dontAsk.forIconChange';
-  /** On startup, if we dont have IDL configured, should we ask for it or not */
-  readonly dontAskForIDLDir: 'dontAsk.forIDLDir';
-  /** On startup, do we ask to open docs? */
-  readonly dontAskToOpenDocs: 'dontAsk.toOpenDocs';
   /** Controls if we ask to init config for folders or not */
   // readonly dontAskToInitConfig: 'dontAsk.toInitConfig';
   /** Folders that we don't ask to initialize config for */
   // readonly dontAskToInitConfigForTheseFolders: 'dontAsk.toInitConfigForTheseFolders';
 
+  /** On startup, if we dont have IDL configured, should we ask for it or not */
+  readonly dontAskForIDLDir: 'dontAsk.forIDLDir';
+  /** On startup, do we ask to open docs? */
+  readonly dontAskToOpenDocs: 'dontAsk.toOpenDocs';
+
   /** Top-level don't show key */
   readonly dontShow: 'dontShow';
   /** Don't show the welcome page */
   readonly dontShowWelcomePage: 'dontShow.welcomePage';
-
   /** Root level IDL preferences */
   IDL: 'IDL';
   /** When we have workspace folders open, do we add them to IDL's search oath */
@@ -70,6 +74,7 @@ export interface IDLExtensionsConfigKeys {
   readonly IDLDirectory: 'IDL.directory';
   /** Top-level formatting options, excluding style */
   readonly IDLenvironment: 'IDL.environment';
+
   /** History for your IDL sessions */
   readonly IDLhistory: 'IDL.history';
   /** User configured IDL path */
@@ -77,30 +82,25 @@ export interface IDLExtensionsConfigKeys {
 
   /** Top-level formatting options, excluding style */
   readonly IDLPreferences: 'IDL.preferences';
+
   /** Does the theme of IDL and ENVI match that of VSCode */
   readonly IDLThemeMatch: 'IDL.themeMatch';
-
   /** Key for language server preferences */
   readonly languageServer: 'languageServer';
-
   /** Do we do a full parse or not */
   readonly languageServerFullParse: 'languageServer.fullParse';
+
   /** Key for MCP preferences */
   readonly mcp: 'mcp';
   /** Do we enable the MCP server or not? */
   readonly mcpEnabled: 'mcp.enabled';
-
   /** Key for notebook preferences */
   readonly notebooks: 'notebooks';
+
   /** Do we embed graphics or not */
   readonly notebooksEmbedGraphics: 'notebooks.embedGraphics';
   /** Do we make IDL quiet? */
   readonly notebooksQuietMode: 'notebooks.quietMode';
-
-  /** Key for GitHub Copilot preferences */
-  readonly copilot: 'copilot';
-  /** Custom instructions for GitHub Copilot */
-  readonly copilotCustomInstructions: 'copilot.customInstructions';
 
   /** Key for problem preferences */
   readonly problems: 'problems';
@@ -244,6 +244,11 @@ export interface IDLExtensionConfig {
    */
   readonly code: ICodeConfig;
 
+  /**
+   * Configuration for GitHub Copilot
+   */
+  readonly copilot: ICopilotConfig;
+
   /** Full debug logs for everything */
   readonly debugMode: boolean;
 
@@ -277,11 +282,6 @@ export interface IDLExtensionConfig {
    * Configuration for the MCP server
    */
   readonly mcp: IMCPConfig;
-
-  /**
-   * Configuration for GitHub Copilot
-   */
-  readonly copilot: ICopilotConfig;
 
   /**
    * Configuration for notebooks

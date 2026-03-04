@@ -15,7 +15,7 @@ import {
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
 import { IParsed, TreeToken } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';

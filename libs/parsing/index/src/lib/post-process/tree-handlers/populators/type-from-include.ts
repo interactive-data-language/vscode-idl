@@ -3,7 +3,7 @@ import { BasicCallback } from '@idl/parsing/syntax-tree';
 import { IncludeToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { IParsed } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { GetVariables } from '../../../helpers/get-variables';
 import { IncludeCache } from '../helpers/include-cache';

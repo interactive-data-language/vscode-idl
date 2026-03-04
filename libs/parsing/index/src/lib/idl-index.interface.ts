@@ -1,5 +1,5 @@
 import { DEFAULT_PARSER_OPTIONS, IParserOptions } from '@idl/parser';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Options for controlling behavior of the IDL Index

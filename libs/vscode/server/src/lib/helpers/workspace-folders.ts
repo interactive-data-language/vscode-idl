@@ -1,5 +1,5 @@
 import { CleanPath } from '@idl/shared/extension';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Track workspace folders

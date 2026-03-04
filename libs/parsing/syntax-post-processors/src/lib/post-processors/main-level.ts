@@ -1,7 +1,7 @@
 import { IDL_SYNTAX_TREE_POST_PROCESSOR } from '@idl/parsing/syntax-tree';
 import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { BRANCH_TYPES, IBranch } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Tokens that indicate we end our main level program

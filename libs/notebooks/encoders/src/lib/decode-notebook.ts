@@ -3,7 +3,7 @@ import {
   IDLRawNotebook,
   IDLRawNotebookVersion,
 } from '@idl/types/notebooks';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Decodes byte data for a notebook and restores it as a raw notebook

@@ -1,5 +1,5 @@
 import { IParsedIDLNotebook } from '@idl/notebooks/shared';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * If we have a notebook (from our file pattern) determines if we

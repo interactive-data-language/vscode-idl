@@ -3,7 +3,7 @@ import {
   IDL_TYPE_LOOKUP,
   IDLDataType,
 } from '@idl/types/idl-data-types';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * For each known IDL data type, specify which types are allowed to have type arguments

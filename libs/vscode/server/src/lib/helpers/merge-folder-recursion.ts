@@ -1,5 +1,5 @@
 import { IFolderRecursion } from '@idl/idl/files';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Smartly combines two folder recursion entries together

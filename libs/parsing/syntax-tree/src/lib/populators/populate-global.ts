@@ -22,7 +22,7 @@ import {
   IRoutineMetadata,
 } from '@idl/types/idl-data-types';
 import { IBranch, IParsed, LOCAL_TOKEN_LOOKUP } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { GenerateRoutineDocsAndMetadata } from '../docs/generate-routine-docs-and-metadata';
 import { GenerateRoutineMetadataFast } from '../docs/generate-routine-metadata-fast';

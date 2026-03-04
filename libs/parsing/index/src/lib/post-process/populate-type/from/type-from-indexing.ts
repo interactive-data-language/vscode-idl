@@ -14,7 +14,7 @@ import {
 } from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { IParsed, TreeToken } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { GetTypeBefore } from '../../../helpers/get-type-before';
 import { IDLIndex } from '../../../idl-index.class';

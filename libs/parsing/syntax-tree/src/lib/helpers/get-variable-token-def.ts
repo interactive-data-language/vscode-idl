@@ -6,7 +6,7 @@ import {
   LocalTokenTypes,
   TreeToken,
 } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { IParentInformation } from './selected-token.interface';
 

@@ -7,7 +7,7 @@ import {
 } from '@idl/tokenizer';
 import { IDLDataType } from '@idl/types/idl-data-types';
 import { IParsed, SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { GetVariable } from '../../../helpers/get-variable';
 import { ITokenCache } from '../../../helpers/token-cache.interface';

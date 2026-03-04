@@ -8,7 +8,7 @@ import {
   TOKEN_NAMES,
   VariableToken,
 } from '@idl/tokenizer';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';

@@ -16,7 +16,7 @@ import { Deck, FlyToInterpolator, WebMercatorViewport } from '@deck.gl/core';
 import { TileLayer } from '@deck.gl/geo-layers';
 import { BitmapLayer } from '@deck.gl/layers';
 import { IDLNotebookMap } from '@idl/types/notebooks';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';

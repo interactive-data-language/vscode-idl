@@ -23,7 +23,7 @@ import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 import GlobToRegExp = require('glob-to-regexp');
 import { IsProblemDisabled } from '@idl/parser';
 import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import * as fuzzysort from 'fuzzysort';
 
 import { ShouldExportItem } from './helpers/should-export-item';

@@ -27,7 +27,7 @@ import { RegisterIDLMachineRequestHandlers } from '@idl/vscode/idl-machine';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { compareVersions } from 'compare-versions';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import * as vscode from 'vscode';
 import { URI } from 'vscode-uri';
 

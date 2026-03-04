@@ -6,7 +6,7 @@ import {
   IDLDataType,
 } from '@idl/types/idl-data-types';
 import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { ITokenCache } from '../../../helpers/token-cache.interface';
 import { IDLIndex } from '../../../idl-index.class';

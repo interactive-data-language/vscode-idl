@@ -27,7 +27,7 @@ import {
   ULONG_REGEX,
   ULONG64_REGEX,
 } from '@idl/types/tokenizer';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Attempts to determine the type from numbers

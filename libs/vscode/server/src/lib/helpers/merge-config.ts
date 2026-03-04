@@ -6,7 +6,7 @@ import {
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
 } from '@idl/types/problem-codes';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { GLOBAL_SERVER_SETTINGS } from '../initialize-language-server';
 import {

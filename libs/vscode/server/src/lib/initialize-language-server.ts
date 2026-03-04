@@ -10,7 +10,7 @@ import { ILanguageServerInitializationOptions } from '@idl/types/vscode';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { ILanguageServerConfig } from '@idl/vscode/extension-config';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import {
   CodeActionKind,
   createConnection,

@@ -15,7 +15,7 @@ import {
   LEGACY_PARAMETER_TYPE,
   REMOVE_COMMENT_REGEX,
 } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 
 import { CleanComment } from '../helpers/clean-comment';

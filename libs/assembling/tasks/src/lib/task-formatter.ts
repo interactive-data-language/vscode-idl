@@ -9,7 +9,7 @@ import {
   IDLTaskSchemaVersion,
   ParsedTask,
 } from '@idl/types/tasks';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import { ENVITaskFormatter } from './formatters/envitask-formatter';
 import { ENVITaskLegacyFormatter } from './formatters/envitask-legacy-formatter';

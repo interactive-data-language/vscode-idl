@@ -7,7 +7,7 @@ import {
   START_COMMENT_BLOCK,
   SyntaxTree,
 } from '@idl/types/syntax-tree';
-import copy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 /**
  * Recurses our syntax tree and turns comments into comment blocks
