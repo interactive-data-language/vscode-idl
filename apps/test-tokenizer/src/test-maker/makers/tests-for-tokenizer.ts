@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { TOKEN_NAMES, Tokenizer } from '@idl/tokenizer';
 import { TOKEN_TYPES } from '@idl/tokenizer/common';
-import deepCopy from 'fast-copy';
+import { copy } from 'fast-copy';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -63,7 +63,7 @@ export function TestsForTokenizer(
     strings.push(`    const expected: IBaseToken<TokenName>[] = [`);
 
     // copy our tokens
-    const testTokens = deepCopy(tokenized.tokens);
+    const testTokens = copy(tokenized.tokens);
 
     // get token type lookup
     const typeKeys = Object.keys(TOKEN_TYPES);

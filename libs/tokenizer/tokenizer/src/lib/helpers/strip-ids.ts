@@ -1,4 +1,4 @@
-import deepCopy from 'fast-copy';
+import { copy } from 'fast-copy';
 
 import {
   IBaseTokenWithoutMatches,
@@ -16,7 +16,7 @@ export function StripIDs(
   removeMatches = false
 ) {
   // copy our tokens
-  const copied = deepCopy(tokens);
+  const copied = copy(tokens);
 
   // strip unrelated fields
   for (let i = 0; i < copied.length; i++) {
