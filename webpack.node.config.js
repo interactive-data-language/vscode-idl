@@ -15,16 +15,16 @@ const path = require('path');
 // Nx plugins for webpack.
 module.exports = composePlugins(withNx(), (config) => {
   // Find the ForkTsCheckerWebpackPlugin instance
-  const tsCheckerPlugin = config.plugins.find(
-    (p) => p.constructor.name === 'ForkTsCheckerWebpackPlugin'
-  );
+  // const tsCheckerPlugin = config.plugins.find(
+  //   (p) => p.constructor.name === 'ForkTsCheckerWebpackPlugin'
+  // );
 
-  if (tsCheckerPlugin) {
-    // Increase memory to 4GB (4096) or 8GB (8192)
-    // tsCheckerPlugin.options.typescript.memoryLimit = 8192;
-    // tsCheckerPlugin.options.typescript.mode = 'write-references';
-    // tsCheckerPlugin.options.async = false;
-  }
+  // if (tsCheckerPlugin) {
+  // Increase memory to 4GB (4096) or 8GB (8192)
+  // tsCheckerPlugin.options.typescript.memoryLimit = 8192;
+  // tsCheckerPlugin.options.typescript.mode = 'write-references';
+  // tsCheckerPlugin.options.async = false;
+  // }
 
   if (!config.resolve) {
     config.resolve = {};
