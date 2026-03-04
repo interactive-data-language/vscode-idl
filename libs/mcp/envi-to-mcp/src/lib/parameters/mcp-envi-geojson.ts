@@ -47,7 +47,7 @@ const Geometry = z.union([
 const Feature = z.object({
   type: z.literal('Feature'),
   geometry: Geometry,
-  properties: z.record(z.any()),
+  properties: z.record(z.string(), z.any()),
   id: z.union([z.string(), z.number()]).optional(),
 });
 
