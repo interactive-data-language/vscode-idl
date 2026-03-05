@@ -1,5 +1,8 @@
-import { FindIDL, GetExtensionPath } from '@idl/idl/files';
-import { EXTENSION_FULL_NAME } from '@idl/shared/extension';
+import { FindFiles, FindIDL, GetExtensionPath } from '@idl/idl/files';
+import {
+  EXTENSION_FULL_NAME,
+  SAVE_FILE_GLOB_PATTERN,
+} from '@idl/shared/extension';
 import { Sleep } from '@idl/tests/helpers';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
@@ -55,6 +58,25 @@ export async function run(): Promise<void> {
     // alert user which IDL we are using
     console.log(` `);
     console.log(`Test are using this IDL: "${IDL_DIR}"`);
+
+    // wait for language server to start
+    console.log(` `);
+    console.log('Verifying compiled MCP tools');
+
+    /** Get folder */
+    const mcp = GetExtensionPath('idl/vscode/mcp/src');
+
+    /** Verify we have SAVE files in folder */
+    const files = await FindFiles(mcp, SAVE_FILE_GLOB_PATTERN);
+
+    // make sure we found files
+    if (files.length === 0) {
+      console.log(
+        ` ERROR: MCP tools not found where expected, build with "npm run build-mcp-tools"`
+      );
+      await Sleep(500);
+      process.exit(1);
+    }
 
     // get extension
     const ext = vscode.extensions.getExtension(EXTENSION_FULL_NAME);
