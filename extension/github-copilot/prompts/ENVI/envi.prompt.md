@@ -70,4 +70,8 @@ CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop wo
 
 - If problems occur when processing runs, don't retry more than two times without reporting to the user and alerting them. The user may be able to point you in the right direction.
 
-- After processing has finished, open input data and final products, not all intermediate outputs unless a user asked.
+### Step 5:
+
+- After processing has finished, open input data and final products using "IDL for VSCode/open-datasets-in-envi"
+
+- Only open other data products when a user asks
