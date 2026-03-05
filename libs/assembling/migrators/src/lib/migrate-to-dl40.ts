@@ -37,8 +37,6 @@ export async function MigrateToDL40(
     'ENVI'
   );
 
-  console.log(trainType1, trainType2, trainType3);
-
   /**
    * Track the variable names that we try to migrate properties for
    */
@@ -65,7 +63,6 @@ export async function MigrateToDL40(
      * Process all variables
      */
     for (let i = 0; i < vars.length; i++) {
-      console.log(vars[i].meta.type);
       switch (true) {
         /**
          * Check if we have a training task to update
@@ -105,8 +102,6 @@ export async function MigrateToDL40(
    */
   const propDefLines: IPropertiesByVarsByLines = {};
 
-  console.log(initPropertyCheck);
-
   /**
    * Check if we have init properties that we want to try and retrieve
    */
@@ -143,8 +138,6 @@ export async function MigrateToDL40(
 
   /** Get the first set of model init parameters that we have */
   const initParams = Object.values(propDefLines)[0] || {};
-
-  console.log(propDefLines);
 
   // copy over and add any text
   for (let i = 0; i < strings.length; i++) {
