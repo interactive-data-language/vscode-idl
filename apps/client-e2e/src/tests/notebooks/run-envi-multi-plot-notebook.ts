@@ -33,9 +33,11 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
     idx: 4,
     success: true,
     /**
-     * This may have changed for ENVI 6.2 - used to not work, now it does
+     * This may have changed for ENVI 6.2 - used to not work, now it does, and now it doesn't
+     *
+     * Keep an eye on it :)
      */
-    mimeTypes: [IDL_NOTEBOOK_MIME_TYPE],
+    mimeTypes: [],
   },
 ];
 
