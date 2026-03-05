@@ -5,6 +5,7 @@ import { OpenFileInVSCode, ReplaceDocumentContent } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -41,7 +42,7 @@ export const SyntaxErrorTracking: RunnerFunction = async (init) => {
   const orig = doc.getText();
 
   // short pause to make sure we open and parse
-  await Sleep(100);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PARSE_PAUSE);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(0);
@@ -55,7 +56,7 @@ export const SyntaxErrorTracking: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.COMPILE);
 
   // short pause to make sure we open and parse
-  await Sleep(100);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PARSE_PAUSE);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(1);
@@ -72,7 +73,7 @@ export const SyntaxErrorTracking: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.COMPILE);
 
   // short pause to make sure we open and parse
-  await Sleep(100);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PARSE_PAUSE);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(0);
@@ -89,7 +90,7 @@ export const SyntaxErrorTracking: RunnerFunction = async (init) => {
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.COMPILE);
 
   // short pause to make sure we open and parse
-  await Sleep(100);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.PARSE_PAUSE);
 
   // verify problems
   expect(vscode.languages.getDiagnostics(doc.uri).length).toEqual(1);

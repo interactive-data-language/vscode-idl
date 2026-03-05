@@ -24,7 +24,7 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause to make sure we open and parse
-    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.SETTINGS);
 
     /** Get notebook cells */
     const cells = nb
@@ -46,7 +46,7 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause
-    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.SETTINGS);
 
     // verify problems
     expect(
@@ -63,7 +63,7 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause to make sure we open and parse
-    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.SETTINGS);
 
     // verify problems
     expect(

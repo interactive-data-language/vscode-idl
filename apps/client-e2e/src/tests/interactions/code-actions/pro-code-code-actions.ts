@@ -140,7 +140,7 @@ export const ProCodeCodeActionsExisting: RunnerFunction = async (init) => {
   );
 
   // short pause to make sure we open and parse
-  await Sleep(1000);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
 
   // get diagnostics
   const diags = GetRealDiagnostic(vscode.languages.getDiagnostics(doc.uri));

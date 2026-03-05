@@ -4,6 +4,7 @@ import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
+import { CLIENT_E2E_CONFIG } from '../client-e2e-config.interface';
 import { RunnerFunction } from '../runner.interface';
 
 /**
@@ -58,7 +59,7 @@ export const TimerStop: RunnerFunction = async (init) => {
   await init.debug.adapter.evaluate('retall');
 
   // sleep and wait for our timer callback to get hit
-  await Sleep(500);
+  await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEBUG);
 
   // return again to work around windows bug
   await init.debug.adapter.evaluate('retall');

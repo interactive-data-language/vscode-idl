@@ -22,7 +22,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause to make sure we open and parse
-    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.SETTINGS);
 
     /** Get notebook cells */
     const cells = nb
@@ -49,7 +49,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause
-    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.SETTINGS);
 
     // make sure it ran fine
     expect(ok).toBeTruthy();
@@ -81,7 +81,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     );
 
     // short pause to make sure we have updates
-    await Sleep(CLIENT_E2E_CONFIG.DELAYS.PROBLEMS_NOTEBOOK);
+    await Sleep(CLIENT_E2E_CONFIG.DELAYS.SETTINGS);
 
     // verify problems
     expect(

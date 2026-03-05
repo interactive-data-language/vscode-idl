@@ -220,7 +220,7 @@ export class Runner {
 
     // alert users
     this.logger.info([
-      `Finished running tests in ${Math.ceil(
+      `Finished running ${nTests} tests in ${Math.ceil(
         (performance.now() - t0) / 1000
       )} seconds with ${failures} failed tests`,
       '',
