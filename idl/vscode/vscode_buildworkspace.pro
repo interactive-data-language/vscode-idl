@@ -324,14 +324,18 @@ pro vscode_BuildWorkspace, workspace, $
   bdg.execute, 'pref_set, "IDL_PATH", path, /commit & path_cache, /rebuild'
 
   ; compile and save all of our PRO files
+  print, 'Compiling code...'
   foreach file, files do begin
     bdg.execute, '.reset'
-    bdg.execute, '.compile "' + file + '"'
-    bdg.execute, 'save, /routines, /compress, filename = "' + file.replace('.pro', '.sav') + '"'
+    bdg.execute, `.compile '${file}'`
+    bdg.execute, `save, /routines, /compress, filename = '${file.replace('.pro', '.sav')}'`
   endforeach
+  print, 'Done'
 
   ; reset bridge
   bdg.execute, '.reset'
+
+  print, 'Geting first pass of dependencies'
 
   ; compile all routines that we are aware of
   foreach file, files do begin
@@ -361,6 +365,7 @@ pro vscode_BuildWorkspace, workspace, $
   unresolved = hash(/fold_case)
 
   ; recurse
+  print, 'Resolving all dependencies'
   vscode_BuildWorkspace_resolve, bdg, toProcess, processed, unresolved
 
   ; add object classes for resolving
@@ -383,7 +388,7 @@ pro vscode_BuildWorkspace, workspace, $
     endif
 
     ; attempt to resolve our routine
-    bdg.execute, 'resolve_routine, "' + routine + '", /compile_full_file, /either'
+    bdg.execute, `resolve_routine, '${routine}', /compile_full_file, /either`
 
     ; dont catch
     catch, /cancel
