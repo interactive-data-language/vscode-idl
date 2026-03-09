@@ -141,6 +141,9 @@ export class MCPTaskRegistry {
     /** Get task display name */
     const taskDisplay = TASK_REGEX.exec(taskStructure.meta.display)[1];
 
+    /** Determine the type of task */
+    const toolType = taskStructure.name.startsWith('envi') ? 'ENVI' : 'IDL';
+
     /** Get the task name */
     const taskName = taskDisplay.toLowerCase();
 
@@ -150,16 +153,14 @@ export class MCPTaskRegistry {
     /** Get full description */
     const fullDescription = GetCleanDescription(taskFunction.meta.docs, false);
 
+    /** Tool errors */
+    const toolError: string[] = [];
+
     /**
      * If there is no description, return since we need one to run tools
      */
     if (!description.trim()) {
-      this.logger.log({
-        log: IDL_MCP_LOG,
-        type: 'warn',
-        content: `ENVI Tool "${taskDisplay}" is missing description and will be skipped`,
-      });
-      return;
+      toolError.push(`Tool is missing top-level description which is required`);
     }
 
     /**
@@ -167,14 +168,9 @@ export class MCPTaskRegistry {
      */
     if (this.strict) {
       if (StrictCheck(taskName, description)) {
-        this.logger.log({
-          log: IDL_MCP_LOG,
-          type: 'warn',
-          content: [
-            `ENVI Tool "${taskDisplay}" has a description which is the same as the tool name and will be skipped`,
-          ],
-        });
-        return;
+        toolError.push(
+          `Tool description is the same as the tool name which is not allowed`
+        );
       }
     }
 
@@ -216,14 +212,10 @@ export class MCPTaskRegistry {
        */
       if (this.strict) {
         if (StrictCheck(names[i], prop.docs)) {
-          this.logger.log({
-            log: IDL_MCP_LOG,
-            type: 'warn',
-            content: [
-              `The parameter "${names[i]}" for the ENVI Tool "${taskDisplay}" has a description that is the same name of the parameter and the tool will be skipped`,
-            ],
-          });
-          return;
+          toolError.push(
+            `The parameter "${names[i]}" has a description that is the same name of the parameter`
+          );
+          continue;
         }
       }
 
@@ -235,20 +227,31 @@ export class MCPTaskRegistry {
 
       // check if unknown parameter
       if (!param) {
-        this.logger.log({
-          log: IDL_MCP_LOG,
-          type: 'warn',
-          content: [
-            `ENVI Tool "${taskDisplay}" has an unhandled ENVI Task data type for property "${
-              names[i]
-            }" with type "${IDLTypeHelper.serializeIDLType(prop.type)}"`,
-          ],
-        });
-        return;
+        toolError.push(
+          `The parameter "${
+            names[i]
+          }" has an unhandled ENVI Task data type of "${IDLTypeHelper.serializeIDLType(
+            prop.type
+          )}"`
+        );
+        continue;
       }
 
       // save parameter
       addToArgs[names[i]] = param;
+    }
+
+    // check for tool errors
+    if (toolError.length > 0) {
+      this.logger.log({
+        log: IDL_MCP_LOG,
+        type: 'warn',
+        content: [
+          `Detected problems with ${toolType} Tool "${taskDisplay}" which will not be registered, issues:`,
+          ...toolError,
+        ],
+      });
+      return;
     }
 
     // create input parameters schema
