@@ -18,26 +18,43 @@ Document some advanced types so users may try them out and provide feedback. The
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
-### Unreleased
+## 6.0.0 - March 2026
 
-All MCP servers are now configured with the name of our extension instead of "IDL for VSCode". This means we use "idl.idl-for-vscode" as the name. This change was made because that name should be constant and would allow GitHub Copilot organizations to whitelist our MCP server when used locally.
+Introducing IDL Agent and ENVI Agent! This marks our first initiative to enable LLMs to more effectively use ENVI and IDL. Here's what they can do:
 
-Added a formal parser for type notations which is much more robust and offers some added benefits:
+- Write and run IDL code like a modern developer
+
+- IDL instructions are automatically configured for you and, through our extension settings, you can add your own instructions too
+
+- Plan and execute remove sensing workflows with ENVI (requires ENVI to be installed)
+
+- Open data in ENVI, run tools interactively, and summarize workflows as notebooks or code
+
+Important note: These agents are auto-configured through VSCode and are based on MCP tools. Note that they are agents in name and not the VSCode agents that you can select in new chats.
+
+### Other Changes
+
+Migrated support for our MCP server to use the formal VSCode API instead of setting configuration.
+
+The MCP server will automatically find a port and be accessible when creating a nee chat.
+
+You need to have ENVI installed to run the ENVI MCP tools.
+
+The IDL type parsing logic uses a formal parser which addressed some issues and bugs. This new parser is more robust and offers some added benefits:
 
 - Full support for literal types (numbers, strings, etc.)
 
-- Track the value for types, which you will see in hover help
+- Track the literal value for types, which you will see in hover help
 
 - Reworked hover help for types that uses our IDL syntax highlighting and is aware of variables, keywords, properties, and more.
 
 - Our hover-help for properties from task files now uses choice lists and gives more insight into what valid parameters can be.
 
-> This is just a first implementation of changing type parsing/handling. More to come!
->
-> And, if there's something weird or hard to understand about the new hover help, let us know and we
-> are happy to improve the extension!
+- Another benefit of the new type parser is much richer type information about parameters and their literal values
 
 Syntax highlighting for types has been updated to match the new type parser which resolved some issues with types not being highlighted in docs blocks.
+
+Revamped hover help for variables, arguments, keywords, and properties to support new type changes.
 
 Fixed a typo in one of the paths we check to find IDL on Mac when you have ENVI + IDL installed
 
@@ -47,7 +64,7 @@ Change the way that we detect the types from ENVI and IDL tasks in your code. If
 
 Fixed an issue with task generation not correctly adjusting the names of paired parameters.
 
-Fixed a bug with IDL Notebooks embedding odd graphics from the ENVI UI when running cells with the ENVI UI open
+Fixed a bug with IDL Notebooks embedding odd graphics from the ENVI UI when running cells with the ENVI UI open.
 
 Fixed an issue where empty paths could be added to the IDL search path through VSCode settings.
 
