@@ -22,7 +22,7 @@ Introducing IDL Agent and ENVI Agent! This marks our first initiative to enable 
 
 - Open data in ENVI, run tools interactively, and summarize workflows as notebooks or code
 
-Important note: These agents are auto-configured through VSCode and are based on MCP tools. Note that they are agents in name and not the VSCode agents that you can select in new chats.
+Important note: These agents are auto-configured through VSCode and are based on MCP tools and instructions. Note that they are agents in name and not the VSCode agents that you can select in new chats.
 
 ### Other Changes
 

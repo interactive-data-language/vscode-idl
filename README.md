@@ -34,7 +34,7 @@
 
 - **IDL Agent** is a set of dedicated MCP tools and instructions so Github Copilot automatically writes better IDL code.
 
-- **ENVI Agent** enables Github copilot to interact with ENVI, run processing, and access custom image processing tools
+- **ENVI Agent** enables Github copilot to interact with ENVI, run processing, and access custom image processing tools.
 
 See the [changelog](./CHANGELOG.md) for full details.
 
