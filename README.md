@@ -32,7 +32,7 @@
 
 **Version 6.0 is here!** This milestone features several enhancements focused on integration with GitHub Copilot to help our extension be AI-ready.
 
-- **IDL Agent+** is a set of dedicated MCP tools and instructions so Github Copilot automatically writes better IDL code.
+- **IDL Agent** is a set of dedicated MCP tools and instructions so Github Copilot automatically writes better IDL code.
 
 - **ENVI Agent** enables Github copilot to interact with ENVI, run processing, and access custom image processing tools
 
