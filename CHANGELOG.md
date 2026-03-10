@@ -8,14 +8,6 @@ For much more detail on incremental work for large features, see our [developer 
 
 This section of the CHANGELOG documents features that have been added to the extension, but are still in an experimental phase. Feel free to try them out and provide feedback via discussions or issues on our GitHub page.
 
-Document some advanced types so users may try them out and provide feedback. The following types are exclusive to functions and are:
-
-- `TypeOfArg<idx>` to indicate the function returns a matching data type for the zero-based index of the indicated argument
-
-- `ArrayPromotion<type>` will have the function return an array of the indicated type if any argument is an array. Otherwise it returns a scalar
-
-- Read more in the extension documentation
-
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
 ## 6.0.0 - March 2026
