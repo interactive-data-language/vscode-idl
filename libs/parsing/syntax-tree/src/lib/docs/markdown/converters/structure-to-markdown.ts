@@ -1,5 +1,3 @@
-import { IDLTypeHelper } from '@idl/parsing/type-parser';
-
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
 import {
   RoutineMarkdownInfo,
@@ -7,6 +5,7 @@ import {
 } from '../docs-to-markdown.interface';
 import { CapitalizeWord } from '../helpers/capitalize-word';
 import { NormalizeIndent } from '../helpers/normalize-indent';
+import { SerializeTypeForDocs } from '../helpers/serialize-type-for-docs';
 
 /**
  * Specify docs tags that we should skip because they are manually handled or
@@ -64,7 +63,7 @@ export function StructureToMarkdown(
       // check if private or not - ignore for now since this is for developers
       // if (!arg.private) {
       markdown.push(
-        `- **${prop.display}**: ${IDLTypeHelper.serializeIDLType(prop.type)}`
+        `- **${prop.display}**: ${SerializeTypeForDocs(prop.type)}`
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(prop.docs, '  '));
