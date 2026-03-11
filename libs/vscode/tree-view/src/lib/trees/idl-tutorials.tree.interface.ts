@@ -30,6 +30,13 @@ export const IDLTUTORIAL_ACTIONS: IChild[] = [
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
   },
   {
+    name: IDL_TRANSLATION.idl.tree.children.idlTutorials.advancedTopics.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.advancedTopics.description,
+    icon: 'post.svg',
+    commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+  },
+  {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.name,
     description:
       IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.description,
@@ -257,5 +264,31 @@ export const IDLTUTORIAL_NOTEBOOKS: IChild[] = [
     icon: 'enviicon.svg',
     commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
     commandArgs: ['hello-world-envi.idlnb'],
+  },
+];
+
+/**
+ * Additional topics notebooks
+ */
+export const IDLTUTORIAL_ADVANCEDTOPICS: IChild[] = [
+  {
+    name: IDL_TRANSLATION.idl.tree.children.idlTutorials.advancedTopics.children
+      .pythonBridge.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.advancedTopics.children
+        .pythonBridge.description,
+    icon: 'open-new.svg',
+    commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+    commandArgs: ['IDL Tutorials/Specific Topics/IDL - Python Bridge.idlnb'],
+  },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.idlTutorials.advancedTopics.children
+      .objects3D.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.advancedTopics.children
+        .objects3D.description,
+    icon: 'open-new.svg',
+    commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+    commandArgs: ['IDL Tutorials/Specific Topics/3D - Objects.idlnb'],
   },
 ];

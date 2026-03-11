@@ -11,6 +11,7 @@ import { CODE_ACTIONS } from './trees/code-actions.tree.interface';
 import { DEBUGGING_BUTTONS } from './trees/debugging.tree.interface';
 import {
   IDLTUTORIAL_ACTIONS,
+  IDLTUTORIAL_ADVANCEDTOPICS,
   IDLTUTORIAL_FILEOPERATIONS,
   IDLTUTORIAL_GETTINGSTARTED,
   IDLTUTORIAL_IDLBASICS,
@@ -276,6 +277,11 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
     this.addBranch(
       IDL_TRANSLATION.idl.tree.children.idlTutorials.fileOperations.name,
       IDLTUTORIAL_FILEOPERATIONS,
+      vscode.TreeItemCollapsibleState.None
+    );
+    this.addBranch(
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.advancedTopics.name,
+      IDLTUTORIAL_ADVANCEDTOPICS,
       vscode.TreeItemCollapsibleState.None
     );
     this.addBranch(

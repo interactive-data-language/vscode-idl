@@ -773,6 +773,20 @@ export const EN: ITranslation = {
               },
             },
           },
+          advancedTopics: {
+            name: 'Additional Topics',
+            description: '',
+            children: {
+              pythonBridge: {
+                name: 'IDL - Python Bridge',
+                description: '',
+              },
+              objects3D: {
+                name: '3D - Objects',
+                description: '',
+              },
+            },
+          },
           notebooks: {
             name: 'Example Notebooks',
             description: '',

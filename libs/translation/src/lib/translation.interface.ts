@@ -578,6 +578,15 @@ export interface ITranslation {
               writeFiles: ITreeInformation;
             };
           };
+          /** Additional topics */
+          advancedTopics: {
+            name: string;
+            description: string;
+            children: {
+              pythonBridge: ITreeInformation;
+              objects3D: ITreeInformation;
+            };
+          };
           /** Example/quick start notebooks */
           notebooks: {
             name: string;
