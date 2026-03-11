@@ -108,7 +108,7 @@ describe(`[auto generated] Find them in`, () => {
           method: 'method',
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = define_these_structures.method()\n```\n',
+          docs: '\n```idl\n;+\n; :Returns: 1\n;-\nresult = define_these_structures.method()\n```\n',
           docsLookup: {},
           display: 'define_these_structures::method',
           kws: {},

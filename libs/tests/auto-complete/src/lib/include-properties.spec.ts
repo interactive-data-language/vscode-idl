@@ -671,11 +671,7 @@ describe(`[auto generated] Include properties`, () => {
         kind: 5,
         sortText: '30',
         detail: 'Property of ENVI',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This property retrieves a semantic version number for the ENVI API. This version number is also displayed in the **Help > About** dialog in the ENVI application. Semantic versioning provides a quick way to extract information about a new software release using a convention of _X_._Y_._Z_, where:\n\n* _X_ represents the major version. An incremented value indicates that API additions and updates are _not_ backward-compatible.\n* _Y_ represents the minor version. An incremented value indicates that API additions and updates are backward-compatible.\n* _Z_ represents the patch number. An incremented value indicates bug fixes that do not affect the API.\n\nFor example, suppose that your current ENVI API version is 3.1\\. If version 3.1.125 is available, you can tell that this version only contains bug fixes and you are safe to upgrade without breaking any API scripts. However, if version 4.0 becomes available, upgrading to the new version may break your API scripts because the new API is not backward-compatible.\n\n_Note:_ The API version number is the same value displayed in the `schema` key in [ENVITask templates](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVITasks/TaskTemplates/TaskTemplatesMain.htm%22%7D).',
-        },
+        documentation: '',
       },
       {
         label: 'current',
@@ -746,7 +742,7 @@ describe(`[auto generated] Include properties`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a two-element array specifying the layout of [ENVIViews](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIView/enviView.htm%22%7D). The number of views is limited to 16\\. The options are as follows:\n\n* \\[1, 1\\]: One view (default)\n* \\[2, 1\\]: Two vertical views\n* \\[1, 2\\]: Two horizontal views\n* \\[3, 1\\]: Three vertical views\n* \\[1, 3\\]: Three horizontal views\n* \\[4,1\\]: Four vertical views\n* \\[1, 4\\]: Four horizontal views\n* \\[2, 2\\]: Four views, 2 x 2 layout\n* \\[3, 3\\]: Nine views, 3 x 3 layout\n* \\[4, 4\\]: Sixteen views, 4 x 4 layout\n\nFor other layout options (for example, three views) that were created using [ENVI::CreateView](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVI%20Routine/ENVI%255F%255FCreateView.htm%22%7D), retrieving this property returns the scalar 0\\. If LAYOUT is set to an invalid value, it defaults to one view.',
+            'Set this property to a two-element array specifying the layout of [ENVIViews](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIView/enviView.htm%22%7D). The number of views is limited to 16\\. The options are as follows:\n\n* \\[1,1\\]: One view (default)\n* \\[2,1\\]: Two vertical views\n* \\[1,2\\]: Two horizontal views\n* \\[3,1\\]: Three vertical views\n* \\[1,3\\]: Three horizontal views\n* \\[4,1\\]: Four vertical views\n* \\[1,4\\]: Four horizontal views\n* \\[2,2\\]: Four views, 2 x 2 layout\n* \\[3,3\\]: Nine views, 3 x 3 layout\n* \\[4,4\\]: Sixteen views, 4 x 4 layout\n\nFor other layout options (for example, three views) that were created using [ENVI::CreateView](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVI%20Routine/ENVI%255F%255FCreateView.htm%22%7D), retrieving this property returns the scalar 0\\. If LAYOUT is set to an invalid value, it defaults to one view.',
         },
       },
       {
@@ -835,8 +831,7 @@ describe(`[auto generated] Include properties`, () => {
         detail: 'Property of ENVI',
         documentation: {
           kind: 'markdown',
-          value:
-            'This property retrieves the current ENVI version number. This version number is for marketing purposes and is different from the API version.',
+          value: 'This property retrieves the current ENVI version number.',
         },
       },
       {
@@ -884,8 +879,32 @@ describe(`[auto generated] Include properties`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'ENVI::downloadFromRepository()',
+        insertText: 'downloadFromRepository()',
+        kind: 2,
+        sortText: '40',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'ENVI::editRepositoryPackage()',
+        insertText: 'editRepositoryPackage()',
+        kind: 2,
+        sortText: '40',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: 'ENVI::getBroadcastChannel()',
         insertText: 'getBroadcastChannel()',
+        kind: 2,
+        sortText: '40',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'ENVI::getLocalPackageInfo()',
+        insertText: 'getLocalPackageInfo()',
         kind: 2,
         sortText: '40',
         detail: 'Function Method',
@@ -964,8 +983,32 @@ describe(`[auto generated] Include properties`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
+        label: 'ENVI::pingRepository()',
+        insertText: 'pingRepository()',
+        kind: 2,
+        sortText: '40',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'ENVI::publishToRepository()',
+        insertText: 'publishToRepository()',
+        kind: 2,
+        sortText: '40',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
         label: 'ENVI::queryPointCloud()',
         insertText: 'queryPointCloud()',
+        kind: 2,
+        sortText: '40',
+        detail: 'Function Method',
+        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
+      },
+      {
+        label: 'ENVI::registerRepository()',
+        insertText: 'registerRepository()',
         kind: 2,
         sortText: '40',
         detail: 'Function Method',

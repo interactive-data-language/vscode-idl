@@ -80,7 +80,7 @@ describe(`[auto generated] Cases to make sure we always merge literal types and 
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: Number\n;+\nresult = testMergeNumber3()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: Number\n;-\nresult = testMergeNumber3()\n```\n\n\n',
           docsLookup: { default: '', returns: 'Number | 1 | 2' },
           display: 'testMergeNumber3',
           kws: {},
@@ -106,7 +106,7 @@ describe(`[auto generated] Cases to make sure we always merge literal types and 
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: Number\n;+\nresult = testMergeNumber2()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: Number\n;-\nresult = testMergeNumber2()\n```\n\n\n',
           docsLookup: { default: '', returns: '1 | Number | 2' },
           display: 'testMergeNumber2',
           kws: {},
@@ -132,7 +132,7 @@ describe(`[auto generated] Cases to make sure we always merge literal types and 
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: Number\n;+\nresult = testMergeNumber1()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: Number\n;-\nresult = testMergeNumber1()\n```\n\n\n',
           docsLookup: { default: '', returns: '1 | 2 | Number' },
           display: 'testMergeNumber1',
           kws: {},

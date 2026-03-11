@@ -1,8 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GlobalTokens } from '@idl/types/idl-data-types';
-import { TaskToGlobalToken } from '@idl/types/tasks';
+import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
@@ -16,8 +15,42 @@ describe(`[auto generated] Correctly parse task file`, () => {
     const task = await LoadTask(filepath);
 
     // define expected local variables
-    const expected: GlobalTokens = [
-      {
+    const expected: IGlobalsToTrack = {
+      function: {
+        type: 'f',
+        name: 'idlquerytasktask',
+        pos: [0, 0, 0],
+        meta: {
+          display: 'IDLQueryTaskTask',
+          source: 'user',
+          docs: "\nThis task returns a hash that describes the properties of an IDL task.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<QueryTask>\n;-\nmyTask = IDLTask('QueryTask')\n\n; set input parameters\nmyTask.task_name = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\ndefinition = myTask.definition\n\n```\n\n\n### Input Parameters\n\n- **task_name**: String\n\n  The name of a task that will be queried for its definition.\n\n\n\n### Output Parameters\n\n- **definition**: IDLTASKINFO\n\n  An IDLTaskInfo hash that describes the properties of an IDL task.\n\n",
+          private: false,
+          returns: [
+            {
+              name: 'idlquerytasktask',
+              display: 'IDLTask<querytask>',
+              serialized: 'IDLTask<querytask>',
+              args: [
+                [
+                  {
+                    name: 'querytask',
+                    display: 'querytask',
+                    serialized: 'querytask',
+                    args: [],
+                    meta: {},
+                  },
+                ],
+              ],
+              meta: {},
+            },
+          ],
+          args: {},
+          kws: {},
+          docsLookup: {},
+          struct: [],
+        },
+      },
+      structure: {
         type: 's',
         name: 'idlquerytasktask',
         pos: [0, 0, 0],
@@ -70,41 +103,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
           },
         },
       },
-      {
-        type: 'f',
-        name: 'idlquerytasktask',
-        pos: [0, 0, 0],
-        meta: {
-          display: 'IDLQueryTaskTask',
-          source: 'user',
-          docs: "\nThis task returns a hash that describes the properties of an IDL task.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<QueryTask>\n;-\nmyTask = IDLTask('QueryTask')\n\n; set input parameters\nmyTask.task_name = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\ndefinition = myTask.definition\n\n```\n\n\n### Input Parameters\n\n- **task_name**: String\n\n  The name of a task that will be queried for its definition.\n\n\n\n### Output Parameters\n\n- **definition**: IDLTASKINFO\n\n  An IDLTaskInfo hash that describes the properties of an IDL task.\n\n",
-          private: false,
-          returns: [
-            {
-              name: 'idlquerytasktask',
-              display: 'IDLTask<querytask>',
-              serialized: 'IDLTask<querytask>',
-              args: [
-                [
-                  {
-                    name: 'querytask',
-                    display: 'querytask',
-                    serialized: 'querytask',
-                    args: [],
-                    meta: {},
-                  },
-                ],
-              ],
-              meta: {},
-            },
-          ],
-          args: {},
-          kws: {},
-          docsLookup: {},
-          struct: [],
-        },
-      },
-    ];
+    };
 
     // verify results
     expect(expected).toEqual(TaskToGlobalToken(task));

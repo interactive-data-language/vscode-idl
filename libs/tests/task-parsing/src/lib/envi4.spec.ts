@@ -1,8 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { LoadTask } from '@idl/schemas/tasks';
-import { GlobalTokens } from '@idl/types/idl-data-types';
-import { TaskToGlobalToken } from '@idl/types/tasks';
+import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] envi`, async () => {
@@ -18,15 +17,49 @@ describe(`[auto generated] Correctly parse task file`, () => {
     const task = await LoadTask(filepath);
 
     // define expected local variables
-    const expected: GlobalTokens = [
-      {
+    const expected: IGlobalsToTrack = {
+      function: {
+        type: 'f',
+        name: 'envisetrastermetadatatask',
+        pos: [0, 0, 0],
+        meta: {
+          display: 'ENVISetRasterMetadataTask',
+          source: 'user',
+          docs: "\nThis task sets metadata for a raster file.\n\n### Syntax\n\n```idl\n;+\n; :Returns: ENVITask<SetRasterMetadata>\n;-\nmyTask = ENVITask('SetRasterMetadata')\n\n; set input parameters\nmyTask.input_raster = value\nmyTask.raster_filename = value\nmyTask.header_location = value\nmyTask.ncolumns = value\nmyTask.nrows = value\nmyTask.nbands = value\nmyTask.interleave = value\nmyTask.byte_order = value\nmyTask.data_type = value\nmyTask.file_type = value\nmyTask.header_offset = value\nmyTask.x_start = value\nmyTask.y_start = value\nmyTask.default_stretch = value\nmyTask.acquisition_time = value\nmyTask.band_names = value\nmyTask.classes = value\nmyTask.class_names = value\nmyTask.class_lookup = value\nmyTask.cloud_cover = value\nmyTask.complex_function = value\nmyTask.data_ignore_value = value\nmyTask._description = value\nmyTask.data_gain_values = value\nmyTask.data_offset_values = value\nmyTask.data_reflectance_gain_values = value\nmyTask.data_reflectance_offset_values = value\nmyTask.fwhm = value\nmyTask.bbl = value\nmyTask.default_bands = value\nmyTask.spatialref = value\nmyTask.auxiliary_rpc_spatialref = value\nmyTask.read_procedures = value\nmyTask.z_plot_titles = value\nmyTask.z_plot_range = value\nmyTask.reflectance_scale_factor = value\nmyTask.security_tag = value\nmyTask.sensor_type = value\nmyTask.dem_file = value\nmyTask.dem_band = value\nmyTask.wavelength = value\nmyTask.wavelength_units = value\nmyTask.sun_elevation = value\nmyTask.sun_azimuth = value\nmyTask.solar_irradiance = value\nmyTask.timestamp = value\nmyTask.custom_metadata = value\nmyTask.output_raster_uri = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\noutput_raster = myTask.output_raster\n\n```\n\n\n### Input Parameters\n\n- **input_raster**: ENVIRaster\n\n  Specify a raster on which to perform the metadata edition.\n\n- **raster_filename**: String\n\n  Filename string of the input raster.\n\n- **header_location**: 'Same as raster file' | 'Auxiliary File Directory'\n\n  Directory where the file's header, which contains the new metadata, will be saved.\n\n- **ncolumns**: ULong\n\n  The number of column or samples per image for each band.\n\n- **nrows**: ULong\n\n  The number of lines or rows per image for each band.\n\n- **nbands**: ULong\n\n  The number of bands per image file.\n\n- **interleave**: 'BSQ' | 'BIL' | 'BIP'\n\n  Specifies the data interleave of the raster.\n\n- **byte_order**: 'Host (Intel)' | 'Network (IEEE)'\n\n  The order of the bytes in integer, long integer, 64-bit integer, unsigned 64-bit integer, floating point, double precision, and complex data types. Byte order=0 (Host (Intel) in the Header Info dialog) is least significant byte first (LSF) data (DEC and MS-DOS systems). Byte order=1 (Network (IEEE) in the Header Info dialog) is most significant byte first (MSF) data (all other platforms).\n\n- **data_type**: 'Byte' | 'Integer' | 'Long Integer' | 'Float' | 'Double' | 'Complex' | 'Double-precision Complex' | 'Unsigned Integer' | 'Unsigned Long Integer' | '64-bit Long Integer' | '64-bit Unsigned Long Integer'\n\n  The data type of the raster pixel data.\n\n- **file_type**: String\n\n  File type in which the raster is stored.\n\n- **header_offset**: ULong64\n\n  The number of bytes of embedded header information present in the file (for example, 128 bytes for ERDAS 7.5 .lan files). ENVI skips these bytes when reading the file.\n\n- **x_start**: ULong\n\n  Defines the X image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.\n\n- **y_start**: ULong\n\n  Defines the Y image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.\n\n- **default_stretch**: String\n\n  Determines what type of stretch (% linear, linear range, Gaussian, equalization, square root) to use when ENVI displays the image.\n\n- **acquisition_time**: String\n\n  Data acquisition time string that conforms to the ISO-8601 standard..\n\n- **band_names**: Array\\<String\\>\n\n  The names of image bands.\n\n- **classes**: UInt\n\n  The number of classes in the image.\n\n- **class_names**: Array\\<String\\>\n\n  Lists class names for classification files.\n\n- **class_lookup**: Array\\<Byte\\>\n\n  Lists class colors using RGB color definitions for classification files.\n\n- **cloud_cover**: Float\n\n  Percentage of cloud cover within the raster.\n\n- **complex_function**: 'Power' | 'Magnitude' | 'Real' | 'Imaginary' | 'Phase'\n\n  Specifies the values to calculate from a complex image and to use when displaying the image, calculating statistics for the image, or writing the image to a new file.\n\n- **data_ignore_value**: Double\n\n  Pixel value that should be ignored in image processing.\n\n- **_description**: Array\\<String\\>\n\n  A string describing the image or the processing performed.\n\n- **data_gain_values**: Array\\<Double\\>\n\n  Gain values for each band. Units are W/(m2 * um * sr).\n\n- **data_offset_values**: Array\\<Double\\>\n\n  Offset values for each band.\n\n- **data_reflectance_gain_values**: Array\\<Double\\>\n\n  An array of reflectance gain values.\n\n- **data_reflectance_offset_values**: Array\\<Double\\>\n\n  An array of reflectance offset values.\n\n- **fwhm**: Array\\<Double\\>\n\n  Lists full-width-half-maximum (FWHM) values of each band in an image.\n\n- **bbl**: Array\\<Int\\>\n\n  List of bad bands in an image.\n\n- **default_bands**: Array\\<ULong\\>\n\n  Indicates which band numbers to automatically load into the current view every time the file is opened.\n\n- **spatialref**: _ENVISpatialRef\n\n  Specifies a spatial reference for the raster.\n\n- **auxiliary_rpc_spatialref**: ENVIRPCRasterSpatialRef\n\n  Specifies rational polynomial coefficient (RPC) geolocation information for the raster that can be used in addition to standard map information.\n\n- **read_procedures**: Array\\<String\\>\n\n  Spatial and spectral read routines that define custom file readers.\n\n- **z_plot_titles**: Array\\<String\\>\n\n  The x and y axis titles for Z plots.\n\n- **z_plot_range**: Array\\<Double\\>\n\n  The default minimum and maximum values for Z plots.\n\n- **reflectance_scale_factor**: Double\n\n  The value that, when divided into your data, would scale it from 0-1 reflectance. For example, if the value of 10,000 in your data represents a reflectance value of 1.0, enter a reflectance scale factor of 10,000.\n\n- **security_tag**: String\n\n  A string with security information inherited from formats that typically contain security classification levels (such as NITF).\n\n- **sensor_type**: ENVISensorName\n\n  Instrument types, such as Landsat TM, SPOT, RADARSAT, etc.\n\n- **dem_file**: String\n\n  Path and filename of a DEM associated with the image.\n\n- **dem_band**: UInt\n\n  Index (starting at 1) of a selected DEM band associated with the image.\n\n- **wavelength**: Array\\<Double\\>\n\n  Lists the center wavelength values of each band in an image. Units should be the same as those used for the fwhm field and set in the wavelength units parameter.\n\n- **wavelength_units**: 'Micrometers' | 'Nanometers' | 'Wavenumber' | 'GHz' | 'MHz' | 'Index' | 'Unknown'\n\n  Specifies the units of the wavelength information.\n\n- **sun_elevation**: Double\n\n  Angle of the sun (in degrees) above the horizon.\n\n- **sun_azimuth**: Double\n\n  Angle of the sun (in degrees) from due north in a clockwise direction.\n\n- **solar_irradiance**: Array\\<Double\\>\n\n  Top of the atmosphere solar irradiance per band. Units are W/(m2 * um).\n\n- **timestamp**: Array\\<String\\>\n\n  Temporal Cube Timestamps.\n\n- **custom_metadata**: Hash\\<any\\>\n\n  A hash of key-value pairs indicating user-defined custom metadata items not defined in the ENVI header file format.\n\n- **output_raster_uri**: String\n\n  Specify a string with the fully-qualified path and filename for output_raster.\n\n\n\n### Output Parameters\n\n- **output_raster**: ENVIRaster\n\n  Updating the header file requires closing the raster. Use this parameter to reopen the file a return a reference to the new raster.\n\n",
+          private: false,
+          returns: [
+            {
+              name: 'envisetrastermetadatatask',
+              display: 'ENVITask<setrastermetadata>',
+              serialized: 'ENVITask<setrastermetadata>',
+              args: [
+                [
+                  {
+                    name: 'setrastermetadata',
+                    display: 'setrastermetadata',
+                    serialized: 'setrastermetadata',
+                    args: [],
+                    meta: {},
+                  },
+                ],
+              ],
+              meta: {},
+            },
+          ],
+          args: {},
+          kws: {},
+          docsLookup: {},
+          struct: [],
+        },
+      },
+      structure: {
         type: 's',
         name: 'envisetrastermetadatatask',
         pos: [0, 0, 0],
         meta: {
           display: 'ENVISetRasterMetadataTask',
           source: 'user',
-          docs: "This task sets metadata for a raster file.\n\n\n### Properties\n\n- **input_raster**: ENVIRaster\n\n  Specify a raster on which to perform the metadata edition.\n\n- **raster_filename**: String\n\n  Filename string of the input raster.\n\n- **header_location**: 'Same as raster file' | 'Auxiliary File Directory'\n\n  Directory where the file's header, which contains the new metadata, will be saved.\n\n- **ncolumns**: ULong\n\n  The number of column or samples per image for each band.\n\n- **nrows**: ULong\n\n  The number of lines or rows per image for each band.\n\n- **nbands**: ULong\n\n  The number of bands per image file.\n\n- **interleave**: 'BSQ' | 'BIL' | 'BIP'\n\n  Specifies the data interleave of the raster.\n\n- **byte_order**: 'Host (Intel)' | 'Network (IEEE)'\n\n  The order of the bytes in integer, long integer, 64-bit integer, unsigned 64-bit integer, floating point, double precision, and complex data types. Byte order=0 (Host (Intel) in the Header Info dialog) is least significant byte first (LSF) data (DEC and MS-DOS systems). Byte order=1 (Network (IEEE) in the Header Info dialog) is most significant byte first (MSF) data (all other platforms).\n\n- **data_type**: 'Byte' | 'Integer' | 'Long Integer' | 'Float' | 'Double' | 'Complex' | 'Double-precision Complex' | 'Unsigned Integer' | 'Unsigned Long Integer' | '64-bit Long Integer' | '64-bit Unsigned Long Integer'\n\n  The data type of the raster pixel data.\n\n- **file_type**: String\n\n  File type in which the raster is stored.\n\n- **header_offset**: ULong64\n\n  The number of bytes of embedded header information present in the file (for example, 128 bytes for ERDAS 7.5 .lan files). ENVI skips these bytes when reading the file.\n\n- **x_start**: ULong\n\n  Defines the X image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.\n\n- **y_start**: ULong\n\n  Defines the Y image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.\n\n- **default_stretch**: String\n\n  Determines what type of stretch (% linear, linear range, Gaussian, equalization, square root) to use when ENVI displays the image.\n\n- **acquisition_time**: String\n\n  Data acquisition time string that conforms to the ISO-8601 standard..\n\n- **band_names**: Array<String>\n\n  The names of image bands.\n\n- **classes**: UInt\n\n  The number of classes in the image.\n\n- **class_names**: Array<String>\n\n  Lists class names for classification files.\n\n- **class_lookup**: Array<Byte>\n\n  Lists class colors using RGB color definitions for classification files.\n\n- **cloud_cover**: Float\n\n  Percentage of cloud cover within the raster.\n\n- **complex_function**: 'Power' | 'Magnitude' | 'Real' | 'Imaginary' | 'Phase'\n\n  Specifies the values to calculate from a complex image and to use when displaying the image, calculating statistics for the image, or writing the image to a new file.\n\n- **data_ignore_value**: Double\n\n  Pixel value that should be ignored in image processing.\n\n- **_description**: Array<String>\n\n  A string describing the image or the processing performed.\n\n- **data_gain_values**: Array<Double>\n\n  Gain values for each band. Units are W/(m2 * um * sr).\n\n- **data_offset_values**: Array<Double>\n\n  Offset values for each band.\n\n- **data_reflectance_gain_values**: Array<Double>\n\n  An array of reflectance gain values.\n\n- **data_reflectance_offset_values**: Array<Double>\n\n  An array of reflectance offset values.\n\n- **fwhm**: Array<Double>\n\n  Lists full-width-half-maximum (FWHM) values of each band in an image.\n\n- **bbl**: Array<Int>\n\n  List of bad bands in an image.\n\n- **default_bands**: Array<ULong>\n\n  Indicates which band numbers to automatically load into the current view every time the file is opened.\n\n- **spatialref**: _ENVISpatialRef\n\n  Specifies a spatial reference for the raster.\n\n- **auxiliary_rpc_spatialref**: ENVIRPCRasterSpatialRef\n\n  Specifies rational polynomial coefficient (RPC) geolocation information for the raster that can be used in addition to standard map information.\n\n- **read_procedures**: Array<String>\n\n  Spatial and spectral read routines that define custom file readers.\n\n- **z_plot_titles**: Array<String>\n\n  The x and y axis titles for Z plots.\n\n- **z_plot_range**: Array<Double>\n\n  The default minimum and maximum values for Z plots.\n\n- **reflectance_scale_factor**: Double\n\n  The value that, when divided into your data, would scale it from 0-1 reflectance. For example, if the value of 10,000 in your data represents a reflectance value of 1.0, enter a reflectance scale factor of 10,000.\n\n- **security_tag**: String\n\n  A string with security information inherited from formats that typically contain security classification levels (such as NITF).\n\n- **sensor_type**: ENVISensorName\n\n  Instrument types, such as Landsat TM, SPOT, RADARSAT, etc.\n\n- **dem_file**: String\n\n  Path and filename of a DEM associated with the image.\n\n- **dem_band**: UInt\n\n  Index (starting at 1) of a selected DEM band associated with the image.\n\n- **wavelength**: Array<Double>\n\n  Lists the center wavelength values of each band in an image. Units should be the same as those used for the fwhm field and set in the wavelength units parameter.\n\n- **wavelength_units**: 'Micrometers' | 'Nanometers' | 'Wavenumber' | 'GHz' | 'MHz' | 'Index' | 'Unknown'\n\n  Specifies the units of the wavelength information.\n\n- **sun_elevation**: Double\n\n  Angle of the sun (in degrees) above the horizon.\n\n- **sun_azimuth**: Double\n\n  Angle of the sun (in degrees) from due north in a clockwise direction.\n\n- **solar_irradiance**: Array<Double>\n\n  Top of the atmosphere solar irradiance per band. Units are W/(m2 * um).\n\n- **timestamp**: Array<String>\n\n  Temporal Cube Timestamps.\n\n- **custom_metadata**: Hash<any>\n\n  A hash of key-value pairs indicating user-defined custom metadata items not defined in the ENVI header file format.\n\n- **output_raster_uri**: String\n\n  Specify a string with the fully-qualified path and filename for output_raster.\n\n- **output_raster**: ENVIRaster\n\n  Updating the header file requires closing the raster. Use this parameter to reopen the file a return a reference to the new raster.\n\n",
+          docs: "This task sets metadata for a raster file.\n\n\n### Properties\n\n- **input_raster**: ENVIRaster\n\n  Specify a raster on which to perform the metadata edition.\n\n- **raster_filename**: String\n\n  Filename string of the input raster.\n\n- **header_location**: 'Same as raster file' | 'Auxiliary File Directory'\n\n  Directory where the file's header, which contains the new metadata, will be saved.\n\n- **ncolumns**: ULong\n\n  The number of column or samples per image for each band.\n\n- **nrows**: ULong\n\n  The number of lines or rows per image for each band.\n\n- **nbands**: ULong\n\n  The number of bands per image file.\n\n- **interleave**: 'BSQ' | 'BIL' | 'BIP'\n\n  Specifies the data interleave of the raster.\n\n- **byte_order**: 'Host (Intel)' | 'Network (IEEE)'\n\n  The order of the bytes in integer, long integer, 64-bit integer, unsigned 64-bit integer, floating point, double precision, and complex data types. Byte order=0 (Host (Intel) in the Header Info dialog) is least significant byte first (LSF) data (DEC and MS-DOS systems). Byte order=1 (Network (IEEE) in the Header Info dialog) is most significant byte first (MSF) data (all other platforms).\n\n- **data_type**: 'Byte' | 'Integer' | 'Long Integer' | 'Float' | 'Double' | 'Complex' | 'Double-precision Complex' | 'Unsigned Integer' | 'Unsigned Long Integer' | '64-bit Long Integer' | '64-bit Unsigned Long Integer'\n\n  The data type of the raster pixel data.\n\n- **file_type**: String\n\n  File type in which the raster is stored.\n\n- **header_offset**: ULong64\n\n  The number of bytes of embedded header information present in the file (for example, 128 bytes for ERDAS 7.5 .lan files). ENVI skips these bytes when reading the file.\n\n- **x_start**: ULong\n\n  Defines the X image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.\n\n- **y_start**: ULong\n\n  Defines the Y image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.\n\n- **default_stretch**: String\n\n  Determines what type of stretch (% linear, linear range, Gaussian, equalization, square root) to use when ENVI displays the image.\n\n- **acquisition_time**: String\n\n  Data acquisition time string that conforms to the ISO-8601 standard..\n\n- **band_names**: Array\\<String\\>\n\n  The names of image bands.\n\n- **classes**: UInt\n\n  The number of classes in the image.\n\n- **class_names**: Array\\<String\\>\n\n  Lists class names for classification files.\n\n- **class_lookup**: Array\\<Byte\\>\n\n  Lists class colors using RGB color definitions for classification files.\n\n- **cloud_cover**: Float\n\n  Percentage of cloud cover within the raster.\n\n- **complex_function**: 'Power' | 'Magnitude' | 'Real' | 'Imaginary' | 'Phase'\n\n  Specifies the values to calculate from a complex image and to use when displaying the image, calculating statistics for the image, or writing the image to a new file.\n\n- **data_ignore_value**: Double\n\n  Pixel value that should be ignored in image processing.\n\n- **_description**: Array\\<String\\>\n\n  A string describing the image or the processing performed.\n\n- **data_gain_values**: Array\\<Double\\>\n\n  Gain values for each band. Units are W/(m2 * um * sr).\n\n- **data_offset_values**: Array\\<Double\\>\n\n  Offset values for each band.\n\n- **data_reflectance_gain_values**: Array\\<Double\\>\n\n  An array of reflectance gain values.\n\n- **data_reflectance_offset_values**: Array\\<Double\\>\n\n  An array of reflectance offset values.\n\n- **fwhm**: Array\\<Double\\>\n\n  Lists full-width-half-maximum (FWHM) values of each band in an image.\n\n- **bbl**: Array\\<Int\\>\n\n  List of bad bands in an image.\n\n- **default_bands**: Array\\<ULong\\>\n\n  Indicates which band numbers to automatically load into the current view every time the file is opened.\n\n- **spatialref**: _ENVISpatialRef\n\n  Specifies a spatial reference for the raster.\n\n- **auxiliary_rpc_spatialref**: ENVIRPCRasterSpatialRef\n\n  Specifies rational polynomial coefficient (RPC) geolocation information for the raster that can be used in addition to standard map information.\n\n- **read_procedures**: Array\\<String\\>\n\n  Spatial and spectral read routines that define custom file readers.\n\n- **z_plot_titles**: Array\\<String\\>\n\n  The x and y axis titles for Z plots.\n\n- **z_plot_range**: Array\\<Double\\>\n\n  The default minimum and maximum values for Z plots.\n\n- **reflectance_scale_factor**: Double\n\n  The value that, when divided into your data, would scale it from 0-1 reflectance. For example, if the value of 10,000 in your data represents a reflectance value of 1.0, enter a reflectance scale factor of 10,000.\n\n- **security_tag**: String\n\n  A string with security information inherited from formats that typically contain security classification levels (such as NITF).\n\n- **sensor_type**: ENVISensorName\n\n  Instrument types, such as Landsat TM, SPOT, RADARSAT, etc.\n\n- **dem_file**: String\n\n  Path and filename of a DEM associated with the image.\n\n- **dem_band**: UInt\n\n  Index (starting at 1) of a selected DEM band associated with the image.\n\n- **wavelength**: Array\\<Double\\>\n\n  Lists the center wavelength values of each band in an image. Units should be the same as those used for the fwhm field and set in the wavelength units parameter.\n\n- **wavelength_units**: 'Micrometers' | 'Nanometers' | 'Wavenumber' | 'GHz' | 'MHz' | 'Index' | 'Unknown'\n\n  Specifies the units of the wavelength information.\n\n- **sun_elevation**: Double\n\n  Angle of the sun (in degrees) above the horizon.\n\n- **sun_azimuth**: Double\n\n  Angle of the sun (in degrees) from due north in a clockwise direction.\n\n- **solar_irradiance**: Array\\<Double\\>\n\n  Top of the atmosphere solar irradiance per band. Units are W/(m2 * um).\n\n- **timestamp**: Array\\<String\\>\n\n  Temporal Cube Timestamps.\n\n- **custom_metadata**: Hash\\<any\\>\n\n  A hash of key-value pairs indicating user-defined custom metadata items not defined in the ENVI header file format.\n\n- **output_raster_uri**: String\n\n  Specify a string with the fully-qualified path and filename for output_raster.\n\n- **output_raster**: ENVIRaster\n\n  Updating the header file requires closing the raster. Use this parameter to reopen the file a return a reference to the new raster.\n\n",
           private: false,
           inherits: ['envitask'],
           docsLookup: {},
@@ -84,7 +117,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   serialized:
                     "'Same as raster file' | 'Auxiliary File Directory'",
                   args: [],
-                  meta: {},
+                  meta: { default: 'Same as raster file' },
                   value: ['Same as raster file', 'Auxiliary File Directory'],
                 },
               ],
@@ -104,7 +137,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   display: 'ULong',
                   serialized: 'ULong',
                   args: [],
-                  meta: {},
+                  meta: { min: 1 },
                 },
               ],
               req: true,
@@ -123,7 +156,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   display: 'ULong',
                   serialized: 'ULong',
                   args: [],
-                  meta: {},
+                  meta: { min: 1 },
                 },
               ],
               req: true,
@@ -142,7 +175,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   display: 'ULong',
                   serialized: 'ULong',
                   args: [],
-                  meta: {},
+                  meta: { min: 1 },
                 },
               ],
               req: true,
@@ -234,7 +267,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   display: 'String',
                   serialized: 'String',
                   args: [],
-                  meta: {},
+                  meta: { default: 'ENVI' },
                 },
               ],
               req: false,
@@ -253,7 +286,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   display: 'ULong64',
                   serialized: 'ULong64',
                   args: [],
-                  meta: {},
+                  meta: { default: 0 },
                 },
               ],
               req: false,
@@ -272,7 +305,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   display: 'ULong',
                   serialized: 'ULong',
                   args: [],
-                  meta: {},
+                  meta: { default: 0 },
                 },
               ],
               req: false,
@@ -291,7 +324,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   display: 'ULong',
                   serialized: 'ULong',
                   args: [],
-                  meta: {},
+                  meta: { default: 0 },
                 },
               ],
               req: false,
@@ -358,7 +391,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -377,7 +410,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   display: 'UInt',
                   serialized: 'UInt',
                   args: [],
-                  meta: {},
+                  meta: { min: 1 },
                 },
               ],
               req: false,
@@ -406,7 +439,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -435,7 +468,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: [3, '*'] },
                 },
               ],
               req: false,
@@ -523,7 +556,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -552,7 +585,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -581,7 +614,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -610,7 +643,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -639,7 +672,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -668,7 +701,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -697,7 +730,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -726,7 +759,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -793,7 +826,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: [2] },
                 },
               ],
               req: false,
@@ -822,7 +855,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: [2] },
                 },
               ],
               req: false,
@@ -851,7 +884,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: [2] },
                 },
               ],
               req: false,
@@ -975,7 +1008,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -995,7 +1028,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   serialized:
                     "'Micrometers' | 'Nanometers' | 'Wavenumber' | 'GHz' | 'MHz' | 'Index' | 'Unknown'",
                   args: [],
-                  meta: {},
+                  meta: { default: 'Nanometers' },
                   value: [
                     'Micrometers',
                     'Nanometers',
@@ -1071,7 +1104,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -1100,7 +1133,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                       },
                     ],
                   ],
-                  meta: {},
+                  meta: { dimensions: ['*'] },
                 },
               ],
               req: false,
@@ -1175,41 +1208,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
           },
         },
       },
-      {
-        type: 'f',
-        name: 'envisetrastermetadatatask',
-        pos: [0, 0, 0],
-        meta: {
-          display: 'ENVISetRasterMetadataTask',
-          source: 'user',
-          docs: "\nThis task sets metadata for a raster file.\n\n### Syntax\n\n```idl\n;+\n; :Returns: ENVITask<SetRasterMetadata>\n;-\nmyTask = ENVITask('SetRasterMetadata')\n\n; set input parameters\nmyTask.input_raster = value\nmyTask.raster_filename = value\nmyTask.header_location = value\nmyTask.ncolumns = value\nmyTask.nrows = value\nmyTask.nbands = value\nmyTask.interleave = value\nmyTask.byte_order = value\nmyTask.data_type = value\nmyTask.file_type = value\nmyTask.header_offset = value\nmyTask.x_start = value\nmyTask.y_start = value\nmyTask.default_stretch = value\nmyTask.acquisition_time = value\nmyTask.band_names = value\nmyTask.classes = value\nmyTask.class_names = value\nmyTask.class_lookup = value\nmyTask.cloud_cover = value\nmyTask.complex_function = value\nmyTask.data_ignore_value = value\nmyTask._description = value\nmyTask.data_gain_values = value\nmyTask.data_offset_values = value\nmyTask.data_reflectance_gain_values = value\nmyTask.data_reflectance_offset_values = value\nmyTask.fwhm = value\nmyTask.bbl = value\nmyTask.default_bands = value\nmyTask.spatialref = value\nmyTask.auxiliary_rpc_spatialref = value\nmyTask.read_procedures = value\nmyTask.z_plot_titles = value\nmyTask.z_plot_range = value\nmyTask.reflectance_scale_factor = value\nmyTask.security_tag = value\nmyTask.sensor_type = value\nmyTask.dem_file = value\nmyTask.dem_band = value\nmyTask.wavelength = value\nmyTask.wavelength_units = value\nmyTask.sun_elevation = value\nmyTask.sun_azimuth = value\nmyTask.solar_irradiance = value\nmyTask.timestamp = value\nmyTask.custom_metadata = value\nmyTask.output_raster_uri = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\noutput_raster = myTask.output_raster\n\n```\n\n\n### Input Parameters\n\n- **input_raster**: ENVIRaster\n\n  Specify a raster on which to perform the metadata edition.\n\n- **raster_filename**: String\n\n  Filename string of the input raster.\n\n- **header_location**: 'Same as raster file' | 'Auxiliary File Directory'\n\n  Directory where the file's header, which contains the new metadata, will be saved.\n\n- **ncolumns**: ULong\n\n  The number of column or samples per image for each band.\n\n- **nrows**: ULong\n\n  The number of lines or rows per image for each band.\n\n- **nbands**: ULong\n\n  The number of bands per image file.\n\n- **interleave**: 'BSQ' | 'BIL' | 'BIP'\n\n  Specifies the data interleave of the raster.\n\n- **byte_order**: 'Host (Intel)' | 'Network (IEEE)'\n\n  The order of the bytes in integer, long integer, 64-bit integer, unsigned 64-bit integer, floating point, double precision, and complex data types. Byte order=0 (Host (Intel) in the Header Info dialog) is least significant byte first (LSF) data (DEC and MS-DOS systems). Byte order=1 (Network (IEEE) in the Header Info dialog) is most significant byte first (MSF) data (all other platforms).\n\n- **data_type**: 'Byte' | 'Integer' | 'Long Integer' | 'Float' | 'Double' | 'Complex' | 'Double-precision Complex' | 'Unsigned Integer' | 'Unsigned Long Integer' | '64-bit Long Integer' | '64-bit Unsigned Long Integer'\n\n  The data type of the raster pixel data.\n\n- **file_type**: String\n\n  File type in which the raster is stored.\n\n- **header_offset**: ULong64\n\n  The number of bytes of embedded header information present in the file (for example, 128 bytes for ERDAS 7.5 .lan files). ENVI skips these bytes when reading the file.\n\n- **x_start**: ULong\n\n  Defines the X image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.\n\n- **y_start**: ULong\n\n  Defines the Y image coordinate for the upper-left pixel in the image. Images that are spatial subsets of larger images often use an image coordinate system that references the parent (or larger) image so that you can link and dynamically overlay the two images.\n\n- **default_stretch**: String\n\n  Determines what type of stretch (% linear, linear range, Gaussian, equalization, square root) to use when ENVI displays the image.\n\n- **acquisition_time**: String\n\n  Data acquisition time string that conforms to the ISO-8601 standard..\n\n- **band_names**: Array<String>\n\n  The names of image bands.\n\n- **classes**: UInt\n\n  The number of classes in the image.\n\n- **class_names**: Array<String>\n\n  Lists class names for classification files.\n\n- **class_lookup**: Array<Byte>\n\n  Lists class colors using RGB color definitions for classification files.\n\n- **cloud_cover**: Float\n\n  Percentage of cloud cover within the raster.\n\n- **complex_function**: 'Power' | 'Magnitude' | 'Real' | 'Imaginary' | 'Phase'\n\n  Specifies the values to calculate from a complex image and to use when displaying the image, calculating statistics for the image, or writing the image to a new file.\n\n- **data_ignore_value**: Double\n\n  Pixel value that should be ignored in image processing.\n\n- **_description**: Array<String>\n\n  A string describing the image or the processing performed.\n\n- **data_gain_values**: Array<Double>\n\n  Gain values for each band. Units are W/(m2 * um * sr).\n\n- **data_offset_values**: Array<Double>\n\n  Offset values for each band.\n\n- **data_reflectance_gain_values**: Array<Double>\n\n  An array of reflectance gain values.\n\n- **data_reflectance_offset_values**: Array<Double>\n\n  An array of reflectance offset values.\n\n- **fwhm**: Array<Double>\n\n  Lists full-width-half-maximum (FWHM) values of each band in an image.\n\n- **bbl**: Array<Int>\n\n  List of bad bands in an image.\n\n- **default_bands**: Array<ULong>\n\n  Indicates which band numbers to automatically load into the current view every time the file is opened.\n\n- **spatialref**: _ENVISpatialRef\n\n  Specifies a spatial reference for the raster.\n\n- **auxiliary_rpc_spatialref**: ENVIRPCRasterSpatialRef\n\n  Specifies rational polynomial coefficient (RPC) geolocation information for the raster that can be used in addition to standard map information.\n\n- **read_procedures**: Array<String>\n\n  Spatial and spectral read routines that define custom file readers.\n\n- **z_plot_titles**: Array<String>\n\n  The x and y axis titles for Z plots.\n\n- **z_plot_range**: Array<Double>\n\n  The default minimum and maximum values for Z plots.\n\n- **reflectance_scale_factor**: Double\n\n  The value that, when divided into your data, would scale it from 0-1 reflectance. For example, if the value of 10,000 in your data represents a reflectance value of 1.0, enter a reflectance scale factor of 10,000.\n\n- **security_tag**: String\n\n  A string with security information inherited from formats that typically contain security classification levels (such as NITF).\n\n- **sensor_type**: ENVISensorName\n\n  Instrument types, such as Landsat TM, SPOT, RADARSAT, etc.\n\n- **dem_file**: String\n\n  Path and filename of a DEM associated with the image.\n\n- **dem_band**: UInt\n\n  Index (starting at 1) of a selected DEM band associated with the image.\n\n- **wavelength**: Array<Double>\n\n  Lists the center wavelength values of each band in an image. Units should be the same as those used for the fwhm field and set in the wavelength units parameter.\n\n- **wavelength_units**: 'Micrometers' | 'Nanometers' | 'Wavenumber' | 'GHz' | 'MHz' | 'Index' | 'Unknown'\n\n  Specifies the units of the wavelength information.\n\n- **sun_elevation**: Double\n\n  Angle of the sun (in degrees) above the horizon.\n\n- **sun_azimuth**: Double\n\n  Angle of the sun (in degrees) from due north in a clockwise direction.\n\n- **solar_irradiance**: Array<Double>\n\n  Top of the atmosphere solar irradiance per band. Units are W/(m2 * um).\n\n- **timestamp**: Array<String>\n\n  Temporal Cube Timestamps.\n\n- **custom_metadata**: Hash<any>\n\n  A hash of key-value pairs indicating user-defined custom metadata items not defined in the ENVI header file format.\n\n- **output_raster_uri**: String\n\n  Specify a string with the fully-qualified path and filename for output_raster.\n\n\n\n### Output Parameters\n\n- **output_raster**: ENVIRaster\n\n  Updating the header file requires closing the raster. Use this parameter to reopen the file a return a reference to the new raster.\n\n",
-          private: false,
-          returns: [
-            {
-              name: 'envisetrastermetadatatask',
-              display: 'ENVITask<setrastermetadata>',
-              serialized: 'ENVITask<setrastermetadata>',
-              args: [
-                [
-                  {
-                    name: 'setrastermetadata',
-                    display: 'setrastermetadata',
-                    serialized: 'setrastermetadata',
-                    args: [],
-                    meta: {},
-                  },
-                ],
-              ],
-              meta: {},
-            },
-          ],
-          args: {},
-          kws: {},
-          docsLookup: {},
-          struct: [],
-        },
-      },
-    ];
+    };
 
     // verify results
     expect(expected).toEqual(TaskToGlobalToken(task));

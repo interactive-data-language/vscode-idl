@@ -424,7 +424,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = parse_docs_below( $\n  input_raster = value $\n  output_raster_uri = value $\n $\n  third2 = value)\n```\n\n\n\n\n### Keywords\n\n- **input_raster**: in, optional, ENVIRaster\n\n    Thing 1\n\n- **output_raster_uri**: in, optional, String\n\n    Thing 2\n\n- **third2**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;-\nresult = parse_docs_below( $\n  input_raster = value $\n  output_raster_uri = value $\n $\n  third2 = value)\n```\n\n\n\n\n### Keywords\n\n- **input_raster**: in, optional, ENVIRaster\n\n    Thing 1\n\n- **output_raster_uri**: in, optional, String\n\n    Thing 2\n\n- **third2**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: { default: '' },
           display: 'parse_docs_below',
           kws: {
@@ -788,7 +788,7 @@ describe(`[auto generated] Extract docs below routines`, () => {
               pos: [8, 0, 45],
             },
           },
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = parse_docs_below(, , , , $\n, $\n, $\n  input_raster = value, $\n  output_raster_uri = value, $\n  third2 = value)\n```\n\n\n\n\n### Arguments\n\n\n\n### Keywords\n\n- **input_raster**: bidirectional, optional, any\n\n    \n\n- **output_raster_uri**: bidirectional, optional, any\n\n    \n\n- **third2**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;-\nresult = parse_docs_below(, , , , $\n, $\n, $\n  input_raster = value, $\n  output_raster_uri = value, $\n  third2 = value)\n```\n\n\n\n\n### Arguments\n\n\n\n### Keywords\n\n- **input_raster**: bidirectional, optional, any\n\n    \n\n- **output_raster_uri**: bidirectional, optional, any\n\n    \n\n- **third2**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: { default: '' },
           display: 'parse_docs_below',
           kws: {

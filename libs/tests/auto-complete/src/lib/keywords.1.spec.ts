@@ -581,6 +581,18 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         },
       },
       {
+        label: 'drag_quality = ',
+        insertText: '/drag_quality',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 0, 1, or 2 to control the rendering quality and performance during moves, transformations, and rotations initiated with the mouse. The default value is 2, which maintains full rendering quality during mouse interactions. Set to 1 to reduce the drawing quality, or to 0 to further reduce or in some cases disable drawing during dragging or resizing.',
+        },
+      },
+      {
         label: 'layout = ',
         insertText: 'layout = ',
         kind: 20,
@@ -767,7 +779,6 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         sortText: '90',
         detail: 'System Variable',
       },
-      { label: '!dir', kind: 21, sortText: '90', detail: 'System Variable' },
     ];
 
     // verify results
@@ -854,6 +865,18 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
           kind: 'markdown',
           value:
             'Set this keyword to a two-element vector of the form \\[_width_, _height_\\] to specify the window dimensions in pixels. If you do not specify a value for DIMENSIONS, IDL by default uses the values of the IDL\\_GR\\_WIN\\_HEIGHT and IDL\\_GR\\_WIN\\_WIDTH preferences for Windows platforms or the IDL\\_GR\\_X\\_HEIGHT and IDL\\_GR\\_X\\_WIDTH preferences for X Windows systems on UNIX.\n\n_Tip:_ The minimum _width_ is set by the toolbar in the window, usually around 400 pixels. To create a smaller graphics window, use the NO\\_TOOLBAR keyword.',
+        },
+      },
+      {
+        label: 'drag_quality = ',
+        insertText: 'drag_quality',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword to 0, 1, or 2 to control the rendering quality and performance during moves, transformations, and rotations initiated with the mouse. The default value is 2, which maintains full rendering quality during mouse interactions. Set to 1 to reduce the drawing quality, or to 0 to further reduce or in some cases disable drawing during dragging or resizing.',
         },
       },
       {
@@ -995,11 +1018,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'Set this property to 1 to start the application without creating the user interface. The WIDGET\\_ID property is 0 when running ENVI in headless mode.',
-        },
+        documentation: '',
       },
       {
         label: 'language = ',
@@ -1007,11 +1026,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            "_Note:_ Windows only\n\nSet this property to a string specifying the name of the language to use for the user interface. This property affects components such as menus, buttons and messages. You can also specify the three-character [ISO 639-3 language code](https://iso639-3.sil.org/code%5Ftables/639/data) (for example, jpn for Japanese).\n\nThe following example shows how to set the interface language to Japanese:\n\n```idl\n  e = envi(language = 'jpn')\n```",
-        },
+        documentation: '',
       },
       {
         label: 'layout = ',
@@ -1028,18 +1043,6 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         sortText: '10',
         detail: 'Keyword',
         documentation: '',
-      },
-      {
-        label: 'preferences = ',
-        insertText: 'preferences',
-        kind: 20,
-        sortText: '10',
-        detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This property retrieves the [ENVIPreferences](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPreferences/ENVIPreferences.htm%22%7D) class associated with the ENVI application. At application start-up, set the PREFERENCES keyword to the URI of a JSON file in which ENVI will load and save preferences.',
-        },
       },
     ];
 

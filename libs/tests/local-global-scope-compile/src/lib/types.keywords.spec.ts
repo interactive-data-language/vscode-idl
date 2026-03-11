@@ -519,7 +519,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myfunc( $\n  kw = value)\n```\n\n\n\n\n### Keywords\n\n- **kw**: out, optional, Long\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;-\nresult = myfunc( $\n  kw = value)\n```\n\n\n\n\n### Keywords\n\n- **kw**: out, optional, Long\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'myfunc',
           kws: {
@@ -650,7 +650,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'method',
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myclass.method( $\n  kw = value)\n```\n\n\n\n\n### Keywords\n\n- **kw**: out, optional, Array<Number>\n\n    Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;-\nresult = myclass.method( $\n  kw = value)\n```\n\n\n\n\n### Keywords\n\n- **kw**: out, optional, Array\\<Number\\>\n\n    Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '', returns: 'any' },
           display: 'myclass::method',
           kws: {
@@ -708,7 +708,7 @@ describe(`[auto generated] Types from`, () => {
           method: 'init',
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: myclass\n;+\nresult = myclass()\n```\n\nConstructor\n',
+          docs: '\n```idl\n;+\n; :Returns: myclass\n;-\nresult = myclass()\n```\n\nConstructor\n',
           docsLookup: { default: 'Constructor', returns: 'myclass' },
           display: 'myclass::Init',
           kws: {},
@@ -734,7 +734,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: myclass\n;+\nresult = myclass()\n```\n\nConstructor\n',
+          docs: '\n```idl\n;+\n; :Returns: myclass\n;-\nresult = myclass()\n```\n\nConstructor\n',
           docsLookup: { default: 'Constructor', returns: 'myclass' },
           display: 'myclass',
           kws: {},

@@ -55,7 +55,7 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
       meta: {
         source: 'user',
         args: {},
-        docs: '\n```idl\n;+\n; :Returns: Plot\n;+\nresult = leap4()\n```\n',
+        docs: '\n```idl\n;+\n; :Returns: Plot\n;-\nresult = leap4()\n```\n',
         docsLookup: {},
         display: 'leap4',
         kws: {},
