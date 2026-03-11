@@ -19,6 +19,7 @@ import { ProcessMainPackageJSON } from './contributes/contributes-package-json';
 import { ProcessSnippets } from './contributes/contributes-snippets';
 import { ProcessThemes } from './contributes/contributes-themes';
 import { ProcessTreeView } from './contributes/contributes-tree-view';
+import { ProcessWalkthroughs } from './contributes/contributes-walkthroughs';
 import { ProcessWebView } from './contributes/contributes-web-view';
 import { IPackageJSON, IPackageNLS } from './package.interface';
 
@@ -91,6 +92,9 @@ export async function ProcessPackage(
 
   // add MCP
   ProcessMCP(packageJSON, nls);
+
+  // add walkthroughs
+  ProcessWalkthroughs(packageJSON, nls);
 
   // set the name for our language to match our config file
   packageJSON['name'] = EXTENSION_NAME;

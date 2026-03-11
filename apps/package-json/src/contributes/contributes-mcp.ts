@@ -17,6 +17,8 @@ export function ProcessMCP(packageJSON: IPackageJSON, nls: IPackageNLS) {
     {
       id: EXTENSION_FULL_NAME,
       label: IDL_TRANSLATION.packageJSON.displayName,
+      description:
+        'Provides MCP tools for IDL code analysis, documentation, and ENVI integration',
     },
   ];
 }

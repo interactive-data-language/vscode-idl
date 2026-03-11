@@ -20,6 +20,7 @@ import { InitializeWebView } from '@idl/vscode/webview';
 import { ExtensionContext } from 'vscode';
 
 import { environment } from './environments/environment';
+import { InitializeWalkthrough } from './initialize-walkthrough';
 
 MEASUREMENT.ID = environment.measurement;
 
@@ -72,6 +73,9 @@ export async function activate(
 
   // initialize out tutorials
   InitializeIDLTutorials(ctx);
+
+  // initialize walkthrough
+  InitializeWalkthrough(ctx);
 
   // return result
   return {
