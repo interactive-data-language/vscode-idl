@@ -429,7 +429,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = testfunction2( $\n  kw1 = value)\n```\n\n\n### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: 1\n;-\nresult = testfunction2( $\n  kw1 = value)\n```\n\n\n### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'testfunction2',
           kws: {
@@ -534,7 +534,7 @@ describe(`[auto generated] Correctly generate syntax for routine signatures`, ()
               pos: [0, 29, 1],
             },
           },
-          docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = testfunction(a, b, c, $\n  kw1 = value)\n```\n\n\n### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n\n### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\n;+\n; :Returns: 1\n;-\nresult = testfunction(a, b, c, $\n  kw1 = value)\n```\n\n\n### Arguments\n\n- **a**: bidirectional, required, any\n\n  \n\n- **b**: bidirectional, required, any\n\n  \n\n- **c**: bidirectional, required, any\n\n  \n\n\n\n### Keywords\n\n- **kw1**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: {},
           display: 'testfunction',
           kws: {

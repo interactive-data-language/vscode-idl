@@ -52,7 +52,8 @@ const sharedPaths = Object.keys(base);
 
 // add any missing libraries
 for (let i = 0; i < sharedPaths.length; i++) {
-  if (!(sharedPaths[i] in toExtend)) {
+  // check for new lib or for one we are already saving
+  if (!(sharedPaths[i] in toExtend) && !(sharedPaths[i] in saveThese)) {
     toExtend[sharedPaths[i]] = base[sharedPaths[i]];
     changes = true;
   }

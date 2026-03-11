@@ -102,7 +102,7 @@ describe(`[auto generated] Types from`, () => {
               pos: [0, 18, 3],
             },
           },
-          docs: "\n```idl\n;+\n; :Returns: 'NSEW' | 0\n;+\nresult = get_dir(arg)\n```\n\n\n### Arguments\n\n- **arg**: bidirectional, required, any\n\n  \n\n",
+          docs: "\n```idl\n;+\n; :Returns: 'NSEW' | 0\n;-\nresult = get_dir(arg)\n```\n\n\n### Arguments\n\n- **arg**: bidirectional, required, any\n\n  \n\n",
           docsLookup: {},
           display: 'get_dir',
           kws: {},
@@ -193,7 +193,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myFunc()\n```\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;-\nresult = myFunc()\n```\n',
           docsLookup: {},
           display: 'myFunc',
           kws: {},
@@ -300,7 +300,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myFunc()\n```\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;-\nresult = myFunc()\n```\n',
           docsLookup: {},
           display: 'myFunc',
           kws: {},
@@ -382,7 +382,7 @@ describe(`[auto generated] Types from`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: any\n;+\nresult = myPro()\n```\n',
+          docs: '\n```idl\n;+\n; :Returns: any\n;-\nresult = myPro()\n```\n',
           docsLookup: {},
           display: 'myPro',
           kws: {},

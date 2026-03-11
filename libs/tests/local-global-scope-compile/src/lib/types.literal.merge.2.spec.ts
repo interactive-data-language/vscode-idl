@@ -81,7 +81,7 @@ describe(`[auto generated] Cases to make sure we always merge literal types and 
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: String\n;+\nresult = testMergeString3()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: String\n;-\nresult = testMergeString3()\n```\n\n\n',
           docsLookup: { default: '', returns: 'String | \'1\' | "2"' },
           display: 'testMergeString3',
           kws: {},
@@ -107,7 +107,7 @@ describe(`[auto generated] Cases to make sure we always merge literal types and 
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: String\n;+\nresult = testMergeString2()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: String\n;-\nresult = testMergeString2()\n```\n\n\n',
           docsLookup: { default: '', returns: '\'1\' | String | "2"' },
           display: 'testMergeString2',
           kws: {},
@@ -133,7 +133,7 @@ describe(`[auto generated] Cases to make sure we always merge literal types and 
         meta: {
           source: 'user',
           args: {},
-          docs: '\n```idl\n;+\n; :Returns: String\n;+\nresult = testMergeString1()\n```\n\n\n',
+          docs: '\n```idl\n;+\n; :Returns: String\n;-\nresult = testMergeString1()\n```\n\n\n',
           docsLookup: { default: '', returns: '\'1\' | "2" | String' },
           display: 'testMergeString1',
           kws: {},

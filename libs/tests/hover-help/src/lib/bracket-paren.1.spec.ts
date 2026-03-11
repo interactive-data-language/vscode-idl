@@ -82,7 +82,7 @@ describe(`[auto generated] Correctly provides hover help for`, () => {
       '```idl',
       ';+',
       '; :Returns: any',
-      ';+',
+      ';-',
       'result = IDL_String.contains(substring, $',
       '  /fold_case)',
       '```',

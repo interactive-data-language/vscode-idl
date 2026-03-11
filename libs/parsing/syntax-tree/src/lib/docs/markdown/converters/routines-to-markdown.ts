@@ -1,10 +1,9 @@
-import { IDLTypeHelper } from '@idl/parsing/type-parser';
-
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
 import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
 import { CapitalizeWord } from '../helpers/capitalize-word';
 import { CreateRoutineSyntax } from '../helpers/create-routine-syntax';
 import { NormalizeIndent } from '../helpers/normalize-indent';
+import { SerializeTypeForDocs } from '../helpers/serialize-type-for-docs';
 
 /**
  * Specify docs tags that we should skip because they are manually handled or
@@ -80,7 +79,7 @@ export function RoutinesToMarkdown(
       markdown.push(
         `- **${arg.display}**: ${arg.direction || 'in'}, ${
           arg.req ? 'required' : 'optional'
-        }, ${IDLTypeHelper.serializeIDLType(arg.type)}`
+        }, ${SerializeTypeForDocs(arg.type)}`
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(arg.docs, '  '));
@@ -109,7 +108,7 @@ export function RoutinesToMarkdown(
       markdown.push(
         `- **${kw.display}**: ${kw.direction || 'in'}, ${
           kw.req ? 'required' : 'optional'
-        }, ${IDLTypeHelper.serializeIDLType(kw.type)}`
+        }, ${SerializeTypeForDocs(kw.type)}`
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(kw.docs, '    '));

@@ -30,13 +30,11 @@
 
 ---
 
-**Version 5.0 is here!** This release introduces major new features and improvements. Here are the highlights:
+**Version 6.0 is here!** This milestone features several enhancements focused on integration with GitHub Copilot to help our extension be AI-ready.
 
-- **New native integration with IDL 9.2+** powered by the _IDL Machine_ for a faster, more responsive experience in VSCode
+- **IDL Agent** is a set of dedicated MCP tools and instructions so Github Copilot automatically writes better IDL code.
 
-- **Initial GitHub Copilot integration** to let AI start IDL, run code, and automate common development tasks
-
-- **First version of a web extension** allowing you to view IDL code and notebooks directly in the browser — lightweight for now, but a step toward full desktop/browser parity
+- **ENVI Agent** enables Github copilot to interact with ENVI, run processing, and access custom image processing tools.
 
 See the [changelog](./CHANGELOG.md) for full details.
 

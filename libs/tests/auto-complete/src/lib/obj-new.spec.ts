@@ -138,8 +138,8 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('InitializeENVINet5MultiModel')",
-        insertText: "ENVITask('InitializeENVINet5MultiModel')",
+        label: "ENVITask('DeepLearningPixelClassification')",
+        insertText: "ENVITask('DeepLearningPixelClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -152,15 +152,15 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         detail: 'Function',
       },
       {
-        label: "ENVITask('ClassActivationToPixelROI')",
-        insertText: "ENVITask('ClassActivationToPixelROI')",
+        label: "ENVITask('ClassActivationToPolylineShapefile')",
+        insertText: "ENVITask('ClassActivationToPolylineShapefile')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
       },
       {
-        label: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
-        insertText: "ENVITask('RandomizeTrainTensorFlowMaskModel')",
+        label: "ENVITask('ClassActivationToPixelROI')",
+        insertText: "ENVITask('ClassActivationToPixelROI')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -174,20 +174,18 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
-        label: 'ENVITensorFlowGridModel()',
-        insertText: 'ENVITensorFlowGridModel()',
+        label: "ENVITask('ConfigureOnnxModel')",
+        insertText: "ENVITask('ConfigureOnnxModel')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
       {
-        label: 'ENVITensorFlowModel()',
-        insertText: 'ENVITensorFlowModel()',
+        label: "ENVITask('TrainDeepLearningGridModel')",
+        insertText: "ENVITask('TrainDeepLearningGridModel')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
     ];
 
@@ -242,6 +240,18 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         documentation: '',
       },
       {
+        label: 'colormap = ',
+        insertText: 'colormap = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this keyword as a placeholder for a color table that will be used when you display a single band from a raster. The color table is a two-dimensional byte array of 3 x _n_Colors, where _n_Colors is typically 256\\. The default color table scale ramp is from 0 to 255\\. See [ENVIColorMap](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIColorMap.htm%22%7D) for details.\n\nThe color table is not applicable when displaying an RGB three-band image or a classification image. ',
+        },
+      },
+      {
         label: 'coord_sys = ',
         insertText: 'coord_sys = ',
         kind: 20,
@@ -267,11 +277,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'An integer or string specifying the raster data type (strings are not case-sensitive). When retrieving the property, a string is returned.\n\n| String | Value | Data Type                                 |\n| ------ | ----- | ----------------------------------------- |\n| byte   | 1     | Byte (8 bits)                             |\n| double | 5     | Double-precision floating point (64 bits) |\n| float  | 4     | Floating point (32 bits)                  |\n| int    | 2     | Integer (16 bits)                         |\n| long   | 3     | Long integer (32 bits)                    |\n| uint   | 12    | Unsigned integer (16 bits)                |\n| ulong  | 13    | Unsigned long integer (32 bits)           |\n\nYou cannot create or modify an ENVIRaster that contains complex data.',
-        },
+        documentation: '',
       },
       {
         label: 'error = ',
@@ -303,11 +309,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string specifying the interleave of the raster.\n\n| String | Interleave                | Data Array                        |\n| ------ | ------------------------- | --------------------------------- |\n| bil    | Band interleaved by line  | \\[_ncolumns_, _nbands_, _nrows_\\] |\n| bip    | Band interleaved by pixel | \\[_nbands_, _ncolumns_, _nrows_\\] |\n| bsq    | Band sequential           | \\[_ncolumns_, _nrows_, _nbands_\\] |',
-        },
+        documentation: '',
       },
       {
         label: 'metadata = ',
@@ -315,11 +317,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This property retrieves a reference to the [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
-        },
+        documentation: '',
       },
       {
         label: 'nbands = ',
@@ -327,10 +325,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value: 'The number of bands in the raster.',
-        },
+        documentation: '',
       },
       {
         label: 'ncolumns = ',
@@ -338,10 +333,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value: 'The number of columns in the raster.',
-        },
+        documentation: '',
       },
       {
         label: 'nrows = ',
@@ -349,10 +341,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value: 'The number of rows in the raster.',
-        },
+        documentation: '',
       },
       {
         label: 'pyramid_exists = ',
@@ -376,11 +365,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIGLTRasterSpatialRef/ENVIGLTRasterSpatialRef.htm%22%7D), [ENVIPseudoRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPseudoRasterSpatialRef/ENVIPseudoRasterSpatialRef.htm%22%7D), [ENVIRPCRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRPCRasterSpatialRef/ENVIRPCRasterSpatialRef.htm%22%7D), or [ENVIStandardRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIStandardRasterSpatialRef/ENVIStandardRasterSpatialRef.htm%22%7D) object.',
-        },
+        documentation: '',
       },
       {
         label: 'time = ',
@@ -388,11 +373,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'This property retrieves a reference to the [ENVITime](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVITime/ENVITime.htm%22%7D) object.',
-        },
+        documentation: '',
       },
       {
         label: 'uri = ',
@@ -400,11 +381,7 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string that is a fully qualified raster file path. If not set on initialization, a temporary file will be generated.',
-        },
+        documentation: '',
       },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },
@@ -469,12 +446,6 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
       { label: '!dir', kind: 21, sortText: '90', detail: 'System Variable' },
       {
         label: '!dlm_path',
-        kind: 21,
-        sortText: '90',
-        detail: 'System Variable',
-      },
-      {
-        label: '!edit_input',
         kind: 21,
         sortText: '90',
         detail: 'System Variable',

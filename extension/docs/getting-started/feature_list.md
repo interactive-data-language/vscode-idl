@@ -4,19 +4,21 @@ This page lists the many features as a part of this extension!
 
 ## Features
 
-- IDL Notebooks for a new, modern, and ad-hoc way to develop IDL code! Check out the examples to learn about how they work (accessible through the sidebar of the extension).
+- Full, native integration with GitHub Copilot. This includes an MCP (Model Context Protocol) server that enables IDL Agent and ENVI Agent within VSCode.
 
-- Before compiling any code, more than 100 syntax errors/problems/hints are detected and reported to users.
+- IDL Notebooks for a new, modern, and ad-hoc way to develop IDL code! Check out the examples to learn about how they work (accessible through the IDL sidebar).
 
-- Syntax errors you encounter while writing code offer information/details on why they are problems to help you learn the in's and out's of IDL better.
+- Detects more than 100 syntax errors, problems, or hints before compiling and running any code.
+
+- Reported errors describe the issue and link to documentation to make it easy to understand how to resolve the issue.
 
 - Syntax-based highlighting to make it easy to visually catch errors. This new-and-improved highlighting experience also accentuates keywords and operators like never before. Actual colors will depend on your theme and there is a guide for how you can customize token colors/appearances for IDL.
 
-- Ability to format your code on save and have control over key formatting preferences. The default matches what we think of as a modern approach and styling to IDL code that will be welcoming to new users.
+- Ability to format your code on save and have control over key formatting preferences. The default formatting preferences match what we think of as a modern approach and styling to IDL code that will be welcoming to new users.
 
 - AutoDoc which, if enabled, automatically adds/updates documentation for user routines as you save your files. Works for routines and structure definitions found within "\_\_define" named procedures
 
-- **Debugging!** A preview release of debugging has been implemented and is stable enough for use. **Note**: this is going to be re-worked over the course of the next 3-6 months
+- **Debugging!** IDL is natively integrated with VSCode. You can launch a session of IDL in the lower-left corner or through the IDL sidebar. A toolbar appears when IDL has started with controls just like the IDL Workbench.
 
 - Hover help for user-defined variables, functions, procedures, arguments, and keywords.
 
@@ -70,7 +72,7 @@ If you want to see our command API, you can:
 
 2. Search for `IDL:`
 
-3. See all of our commands! They are prefixed with `IDL` to make them easy to use
+3. See all of our commands! They are prefixed with `IDL:` to make them easy to find and use
 
 ::: tip
 Most commands will work from the command palette, but some require additional input to function. If you see a command that you want to be able to run, let us know on GitHub and we can try to figure something out!

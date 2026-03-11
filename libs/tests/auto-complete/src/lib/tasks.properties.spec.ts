@@ -176,30 +176,6 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
-        label: 'commute_on_downsample',
-        insertText: 'commute_on_downsample',
-        kind: 5,
-        sortText: '30',
-        detail: 'Property of ENVITask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string that defines whether the result of running the ENVITask first, then down-sampling the output raster, matches the result of down-sampling the input raster(s) first before running the ENVITask.\n\nAn ENVITask developer can use the scripts provided in More Examples below to determine the COMMUTE\\_ON\\_DOWNSAMPLE property value when creating an ENVITask.\n\nValid values are:\n\n`Yes:` Downsample the input raster(s) first, and then run the task. The resulting output raster matches the result if the task is run first, then downsample the output raster.\n\n`Approximate:` The two results look close to each other, but do not exactly match.\n\n`No:` The two results are significantly different.\n\n`Unknown:` The property value is unknown.',
-        },
-      },
-      {
-        label: 'commute_on_subset',
-        insertText: 'commute_on_subset',
-        kind: 5,
-        sortText: '30',
-        detail: 'Property of ENVITask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string that defines whether the result of running the ENVITask first, then subsetting the output raster, matches the result of subsetting the input raster(s) first before running the ENVITask.\n\nAn ENVITask developer can use the scripts provided in More Examples below to determine the COMMUTE\\_ON\\_SUBSET property value when creating an ENVITask.\n\nValid values are:\n\n* `Yes:` Subset the input raster(s) first, and then run the task. The resulting output raster matches the result if the task is run first, then subset the output raster.\n* `Approximate:` The two results look close to each other, but do not exactly match.\n* `No:` The two results are significantly different.\n* `Unknown:` The property value is unknown.',
-        },
-      },
-      {
         label: 'description',
         insertText: 'description',
         kind: 5,
@@ -235,7 +211,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented, according to [semantic versioning](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVI%20Routine/ENVI.htm#API%255FVERS%22%7D) rules.',
+            'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented.',
         },
       },
       {
@@ -361,7 +337,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this property to an array of strings that indicates how each element of the INPUT\\_RASTERS array should be treated with regard to color matching: as a reference image, an adjusted image, or no color matching. The number of elements in this array must match the number of input scenes in the INPUT\\_RASTERS array. Valid strings are as follows; these are not case-sensitive.\n\nBy default, the first scene in the INPUT\\_RASTERS array is set to the reference image. All other images are set to `Adjust`.\n\n* `Adjust`: Scenes that will be color-matched to the scene marked as `Reference`.\n* `None`: Scenes that will not be color-matched.\n* `Reference`: The scene whose statistics form the basis of color matching for all scenes marked as `Adjust`. You must set one, and only one, scene to `Reference`.\n\nSuppose that you define an array of input scenes as follows:\n\n```idl\n  scenes = [raster1, raster2, raster3, raster4]\n```\n\nIf you want `raster2` to be the reference image, set this property as follows:\n\n```idl\n  Task.color_matching_actions = ['Adjust', 'Reference', 'Adjust', 'Adjust']\n```",
+            "Set this parameter to an array of strings that indicates how each element of the INPUT\\_RASTERS array should be treated with regard to color matching: as a reference image, an adjusted image, or no color matching. The number of elements in this array must match the number of input scenes in the INPUT\\_RASTERS array. Valid strings are as follows; these are not case-sensitive.\n\nBy default, the first scene in the INPUT\\_RASTERS array is set to the reference image. All other images are set to `Adjust`.\n\n* `Adjust`: Scenes that will be color-matched to the scene marked as `Reference`.\n* `None`: Scenes that will not be color-matched.\n* `Reference`: The scene whose statistics form the basis of color matching for all scenes marked as `Adjust`. You must set one, and only one, scene to `Reference`.\n\nSuppose that you define an array of input scenes as follows:\n\n```idl\n  scenes = [raster1, raster2, raster3, raster4]\n```\n\nIf you want `raster2` to be the reference image, set this parameter as follows:\n\n```idl\n  Task.color_matching_actions = ['Adjust', 'Reference', 'Adjust', 'Adjust']\n```",
         },
       },
       {
@@ -373,7 +349,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a string that indicates the color matching method to perform.\n\n* `Histogram Matching`: Map discrete grayscale levels from the histogram of the adjusted scenes to the corresponding grayscale levels in the reference scene. This helps to minimize the tonal differences across multiple scenes.\n* `None` (default): Do not perform color matching.',
+            'Set this parameter to a string that indicates the color matching method to perform.\n\n* `Histogram Matching`: Map discrete grayscale levels from the histogram of the adjusted scenes to the corresponding grayscale levels in the reference scene. This helps to minimize the tonal differences across multiple scenes.\n* `None` (default): Do not perform color matching.',
         },
       },
       {
@@ -385,31 +361,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to one of the following strings indicating what parts of the reference and adjusted images are used to compute statistics for color matching, if COLOR\\_MATCHING\\_METHOD is set to `Histogram Matching`. \n\n* `Overlapping Area` (default): Compute statistics from areas where the reference image overlaps with adjusted images. If there is at least 10% overlap between scenes, histogram matching based on statistics from overlapping areas performs better than statistics from the entire scene. If there are no overlapping regions, then this property will be set to `Entire Scene`.\n* `Entire Scene`: Compute statistics from the entire image.',
-        },
-      },
-      {
-        label: 'commute_on_downsample',
-        insertText: 'commute_on_downsample',
-        kind: 5,
-        sortText: '30',
-        detail: 'Property of ENVITask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string that defines whether the result of running the ENVITask first, then down-sampling the output raster, matches the result of down-sampling the input raster(s) first before running the ENVITask.\n\nAn ENVITask developer can use the scripts provided in More Examples below to determine the COMMUTE\\_ON\\_DOWNSAMPLE property value when creating an ENVITask.\n\nValid values are:\n\n`Yes:` Downsample the input raster(s) first, and then run the task. The resulting output raster matches the result if the task is run first, then downsample the output raster.\n\n`Approximate:` The two results look close to each other, but do not exactly match.\n\n`No:` The two results are significantly different.\n\n`Unknown:` The property value is unknown.',
-        },
-      },
-      {
-        label: 'commute_on_subset',
-        insertText: 'commute_on_subset',
-        kind: 5,
-        sortText: '30',
-        detail: 'Property of ENVITask',
-        documentation: {
-          kind: 'markdown',
-          value:
-            'A string that defines whether the result of running the ENVITask first, then subsetting the output raster, matches the result of subsetting the input raster(s) first before running the ENVITask.\n\nAn ENVITask developer can use the scripts provided in More Examples below to determine the COMMUTE\\_ON\\_SUBSET property value when creating an ENVITask.\n\nValid values are:\n\n* `Yes:` Subset the input raster(s) first, and then run the task. The resulting output raster matches the result if the task is run first, then subset the output raster.\n* `Approximate:` The two results look close to each other, but do not exactly match.\n* `No:` The two results are significantly different.\n* `Unknown:` The property value is unknown.',
+            'Set this parameter to one of the following strings indicating what parts of the reference and adjusted images are used to compute statistics for color matching, if COLOR\\_MATCHING\\_METHOD is set to `Histogram Matching`. \n\n* `Overlapping Area` (default): Compute statistics from areas where the reference image overlaps with adjusted images. If there is at least 10% overlap between scenes, histogram matching based on statistics from overlapping areas performs better than statistics from the entire scene. If there are no overlapping regions, then this parameter will be set to `Entire Scene`.\n* `Entire Scene`: Compute statistics from the entire image.',
         },
       },
       {
@@ -421,7 +373,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            "Set this property to a pixel value that will be used to fill areas where no valid data appear in the output raster. The following rules apply:\n\n* The value must be within the range of the input scenes' data type (e.g., floating-point, byte, integer, etc.)\n* For scenes that are in [ENVI raster format](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExploreImagery/ENVIImageFiles.htm%22%7D): if all scenes have the same data ignore value defined in their associated headers, that value will be the default output data ignore value.\n* For mosaics exported to ENVI raster format, the data ignore value is written to the `data ignore value` field in the associated header file. If you do not set a data ignore value, this field will not be added to the header file.\n* When the input scenes have a floating-point or double-precision floating-point data type, be sure to specify a double-precision value (for example, 100D).\n\nYou can set the data ignore value to an NaN (not a number) value as follows:\n\n```idl\n  Task.data_ignore_value = !values.f_nan\n```",
+            "Set this parameter to a pixel value that will be used to fill areas where no valid data appear in the output raster. The following rules apply:\n\n* The value must be within the range of the input scenes' data type (e.g., floating-point, byte, integer, etc.)\n* For scenes that are in [ENVI raster format](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExploreImagery/ENVIImageFiles.htm%22%7D): if all scenes have the same data ignore value defined in their associated headers, that value will be the default output data ignore value.\n* For mosaics exported to ENVI raster format, the data ignore value is written to the `data ignore value` field in the associated header file. If you do not set a data ignore value, this field will not be added to the header file.\n* When the input scenes have a floating-point or double-precision floating-point data type, be sure to specify a double-precision value (for example, 100D).\n\nYou can set the data ignore value to an NaN (not a number) value as follows:\n\n```idl\n  Task.data_ignore_value = !values.f_nan\n```",
         },
       },
       {
@@ -452,7 +404,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to an array of integers indicating the number of pixels used for edge or seamline feathering for each INPUT\\_RASTER. The number of elements in this array must match the number of input scenes in the INPUT\\_RASTER array. Set values to 1 or greater.',
+            'Set this parameter to an array of integers indicating the number of pixels used for edge or seamline feathering for each INPUT\\_RASTER. The number of elements in this array must match the number of input scenes in the INPUT\\_RASTER array. Set values to 1 or greater.',
         },
       },
       {
@@ -464,7 +416,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to one of the following strings that indicates the feathering method to use:\n\n* `None`: (default) No feathering.\n* `Edge`: Edge feathering blends the pixels inside of each footprint boundary with underlying scenes that are within the FEATHERING\\_DISTANCE value that you set.\n* `Seamline`: Seamline feathering blends the pixels on both sides of an auto-generated seamline with the underlying scenes.\n\nIf you set this property to a value other than `None`, you must also specify FEATHERING\\_DISTANCE. If you set this property to `Seamline`, you must also set the SEAMLINE\\_METHOD property.',
+            'Set this parameter to one of the following strings that indicates the feathering method to use:\n\n* `None`: (default) No feathering.\n* `Edge`: Edge feathering blends the pixels inside of each footprint boundary with underlying scenes that are within the FEATHERING\\_DISTANCE value that you set.\n* `Seamline`: Seamline feathering blends the pixels on both sides of an auto-generated seamline with the underlying scenes.\n\nIf you set this parameter to a value other than `None`, you must also specify FEATHERING\\_DISTANCE. If you set this parameter to `Seamline`, you must also set the SEAMLINE\\_METHOD parameter.',
         },
       },
       {
@@ -507,7 +459,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Specify a string with the fully qualified filename and path to export the associated OUTPUT\\_RASTER.\n\n* If you set this property to an asterisk symbol (\\*), the output raster will be virtual and not written to disk.\n* If you do not specify this property, or set it to an exclamation symbol (!), a temporary file will be created.',
+            'Specify a string with the fully qualified filename and path to export the associated OUTPUT\\_RASTER.\n\n* If you set this parameter to an asterisk symbol (\\*), the output raster will be virtual and not written to disk.\n* If you do not specify this parameter, or set it to an exclamation symbol (!), a temporary file will be created.\n* If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes.',
         },
       },
       {
@@ -519,7 +471,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Specify the resampling method:\n\n* `Nearest Neighbor`: (default) Uses the nearest pixel without any interpolation to create the image.\n* `Bilinear`: Performs a linear interpolation using four pixels to resample the image.\n* `Cubic`: Uses 16 pixels to approximate the sinc function using cubic polynomials to resample the image. Cubic convolution resampling is significantly slower than the other methods.',
+            'Specify the resampling method to use when creating the spatial grid:\n\n* `Nearest Neighbor` (default): Uses the nearest pixel without any interpolation.\n* `Bilinear`: Performs a linear interpolation using four pixels to resample.\n* `Cubic Convolution`: Uses 16 pixels to approximate the sinc function using cubic polynomials to resample the image.\n\nCubic convolution resampling is significantly slower than the other methods.',
         },
       },
       {
@@ -531,7 +483,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented, according to [semantic versioning](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVI%20Routine/ENVI.htm#API%255FVERS%22%7D) rules.',
+            'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented.',
         },
       },
       {
@@ -543,7 +495,7 @@ describe(`[auto generated] Task auto complete`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'Set this property to a string that indicates the method used to automatically generate seamlines:\n\n* `Geometry`: Seamline generation that is based on the use of seamline networks by area Voroni diagrams with overlap (Pan et al., 2009). See [Add Seamlines](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/PreprocessImagery/CreateMosaics/MosaicSeamless.htm#Add%22%7D) for more information.\n* `None`: (default) No seamline generation.\n\nIf SEAMLINE\\_METHOD is set to `Geometry`, then FEATHERING\\_METHOD must be set to `Seamline`.\n\n**Reference**: Pan, J., M. Wang, D. Li, and J. Li. "Automatic Generation of Seamline Network Using the Area Voronoi Diagram with Overlap." _IEEE Transactions on Geoscience and Remote Sensing_ 47, No. 6 (2009): 1737-174.',
+            'Set this parameter to a string that indicates the method used to automatically generate seamlines:\n\n* `Geometry`: Seamline generation that is based on the use of seamline networks by area Voroni diagrams with overlap (Pan et al., 2009). See [Add Seamlines](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/PreprocessImagery/CreateMosaics/MosaicSeamless.htm#Add%22%7D) for more information.\n* `None`: (default) No seamline generation.\n\nIf SEAMLINE\\_METHOD is set to `Geometry`, then FEATHERING\\_METHOD must be set to `Seamline`.\n\n**Reference:** Pan, J., M. Wang, D. Li, and J. Li. "Automatic Generation of Seamline Network Using the Area Voronoi Diagram with Overlap." _IEEE Transactions on Geoscience and Remote Sensing_ 47, No. 6 (2009): 1737-174.',
         },
       },
       {

@@ -59,7 +59,7 @@ describe(`[auto generated] Cases to make sure we parse literal types`, () => {
         meta: {
           source: 'user',
           args: {},
-          docs: "\n```idl\n;+\n; :Returns: '1' | '2'\n;+\nresult = testString1()\n```\n\n\n",
+          docs: "\n```idl\n;+\n; :Returns: '1' | '2'\n;-\nresult = testString1()\n```\n\n\n",
           docsLookup: { default: '', returns: '\'1\' | "2"' },
           display: 'testString1',
           kws: {},

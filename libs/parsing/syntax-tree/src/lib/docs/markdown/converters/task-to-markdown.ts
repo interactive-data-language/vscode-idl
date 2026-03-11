@@ -1,4 +1,3 @@
-import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IPropertyLookup } from '@idl/types/idl-data-types';
 
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
@@ -6,6 +5,7 @@ import { MarkdownInfo, TaskMarkdown } from '../docs-to-markdown.interface';
 import { CapitalizeWord } from '../helpers/capitalize-word';
 import { CreateTaskSyntax } from '../helpers/create-task-syntax';
 import { NormalizeIndent } from '../helpers/normalize-indent';
+import { SerializeTypeForDocs } from '../helpers/serialize-type-for-docs';
 
 /**
  * Specify docs tags that we should skip because they are manually handled or
@@ -52,7 +52,7 @@ export function TaskToMarkdownDocumentProperties(
       // check if private or not - ignore for now since this is for developers
       // if (!arg.private) {
       markdown.push(
-        `- **${prop.display}**: ${IDLTypeHelper.serializeIDLType(prop.type)}`
+        `- **${prop.display}**: ${SerializeTypeForDocs(prop.type)}`
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(prop.docs, '  '));
@@ -84,8 +84,9 @@ export function TaskToMarkdownDocumentProperties(
       // check if private or not - ignore for now since this is for developers
       // if (!arg.private) {
       markdown.push(
-        `- **${prop.display}**: ${IDLTypeHelper.serializeIDLType(prop.type)}`
+        `- **${prop.display}**: ${SerializeTypeForDocs(prop.type)}`
       );
+
       markdown.push(``);
       markdown.push(NormalizeIndent(prop.docs, '  '));
       markdown.push(``);

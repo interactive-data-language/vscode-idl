@@ -32,8 +32,10 @@ With the extension, there are a few key areas that we have improved the IDL Deve
 
 First and foremost, this extension is free, and does not require a license of IDL or ENVI in order to run.
 
-The only time an IDL license is required is when you start a session of IDL or run a cell in an IDL Notebook.
+Licenses of IDL or ENVI are only required when:
 
-Everything else, including writing code, hover help, and auto complete, works without even having IDL installed on your machine.
+- You launch IDL or run an IDL Notebook
+- You call ENVI from your IDL code
+- GitHub Copilot runs IDL or ENVI
 
-This is the intended design to make it easier for people to write and interact with IDL code without the need to have our software to get some work done.
+All other features, including writing code, hover help, and auto complete, works without even having IDL installed on your machine.

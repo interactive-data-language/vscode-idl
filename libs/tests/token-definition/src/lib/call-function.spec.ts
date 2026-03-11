@@ -38,7 +38,7 @@ describe(`[auto generated] Correctly find function definitions`, () => {
       meta: {
         source: 'user',
         args: {},
-        docs: '\n```idl\n;+\n; :Returns: 1\n;+\nresult = go_to_def_call_function()\n```\n',
+        docs: '\n```idl\n;+\n; :Returns: 1\n;-\nresult = go_to_def_call_function()\n```\n',
         docsLookup: {},
         display: 'go_to_def_call_function',
         kws: {},

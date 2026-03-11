@@ -36,7 +36,7 @@ describe(`[auto generated] Correctly does not provide hover help`, () => {
       '```idl',
       ';+',
       '; :Returns: Plot',
-      ';+',
+      ';-',
       'result = plot(x, y, format, equation, $',
       '  _extra = value, $',
       '  axis_style = value, $',

@@ -1,11 +1,5 @@
-;+
-; :Arguments:
-;   a: in, required, 'a' | 'b'
-;     Test
-;
-;-
-pro test, a
-  compile_opt idl2, hidden
+compile_opt idl2
 
-  b = a
+task = ENVITask('envitasktest')
+
 end
