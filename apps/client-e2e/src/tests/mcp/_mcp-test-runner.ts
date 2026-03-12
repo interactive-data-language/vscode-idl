@@ -225,11 +225,13 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestListENVITools,
   name: 'Verify we can list ENVI tools via MCP (at least 200 returned)',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestENVIToolNotesLoad,
   name: 'Verify ENVI tool notes are loaded (will always fail until SAVE files bundled)',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
 MCP_TEST_RUNNER.addTest({
