@@ -1,5 +1,5 @@
 import { ObjectifyError } from '@idl/error-shared';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 import { LogInterceptor } from './log-manager.interface';
 import {
@@ -12,7 +12,7 @@ import {
 import { StringifyData, StringifyDataForLog } from './stringify-data';
 
 // force chalk to be enabled
-chalk.level = 2;
+(chalk as any).level = 2;
 
 /**
  * Simply class that emulates the library Minilog which doesn't have types. Since we can use the library

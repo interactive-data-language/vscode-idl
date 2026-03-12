@@ -90,17 +90,11 @@ See list below of libs to skip
 
 ### DO NOT UPDATE THESE LIBS
 
-> SCRATCH THIS - You can update these, but there is a cost.
->
-> We use commonjs for our VSCode extension compile targets. When we do this, we can't
-> strictly check imports from ESM libraries. You will see errors in the editor, but
-> not at compile time.
->
-> For active dev, this isn't an issue, but for upgrading ESM libraries to newer APIs, we need
-> to be most stringent and thoroughly check.
+> Jest doesn't offer full support for ESM, so this is a big problem when running tests
 
 There's a few libraries that we _CANNOT_ update because new versions are ESM which does not play well with TypeScript and the NX configuration.
 
+- ansi-styles
 - chalk
 - case-anything
 - json-stringify-pretty-compact
