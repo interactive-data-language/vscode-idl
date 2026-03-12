@@ -2,20 +2,26 @@
 
 ## Key Takeaways
 
-GitHub Copilot becomes an expert IDL programmer through specialized root-level instructions that automatically apply when you work with IDL code or notebooks.
+IDL's GitHub Copilot integration enables GitHub Copilot to become an expert IDL programmer through specialized root-level instructions. These instructions are automatically applied when you work with IDL code or IDL Notebooks.
 
 **Requirements:**
 
 - IDL 9.2 or newer
 - Instructions automatically load when IDL code or notebooks are open or attached
 
-**What to Look For:** "GitHub Copilot: IDL" message in your chat when instructions load
+**What to Look For:** "IDl Agent" message in your chat when instructions load
+
+## Helpful Tips
+
+**Automatic Startup:** IDL starts automatically when needed—no manual intervention required.
+
+**Creating IDL Notebooks:** Explicitly request an "IDL Notebook" to ensure you get the native VSCode implementation rather than a Python/Jupyter notebook. Native IDL Notebooks require no additional setup or configuration.
 
 ## How It Works
 
 GitHub Copilot is already an expert programmer across many languages. We've enhanced this expertise with specialized instructions that help it write better IDL code and understand your existing routines. These instructions apply automatically when you work with IDL files or notebooks, no manual setup required.
 
-## Example Prompts
+## Example Requests
 
 GitHub Copilot has access to many tools and can handle a wide range of IDL-related tasks or requests. Here are some examples to get you started:
 
@@ -45,12 +51,6 @@ that goes through the bounding boxes one time (so it is more linear for performa
 ```
 
 :::
-
-## Helpful Tips
-
-**Automatic Startup:** IDL starts automatically when needed—no manual intervention required.
-
-**Creating IDL Notebooks:** Explicitly request an "IDL Notebook" to ensure you get the native VSCode implementation rather than a Python/Jupyter notebook. Native IDL Notebooks require no additional setup or configuration.
 
 ## Attaching Context
 

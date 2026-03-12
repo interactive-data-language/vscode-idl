@@ -7,7 +7,7 @@ Use agent mode with Claude Sonnet 4.5 for the best experience with IDL and ENVI.
 **Requirements:**
 
 - Agent mode enabled (hexagon icon)
-- Claude Sonnet 4.5 recommended
+- Claude Sonnet recommended (4.5 at the time of writing this)
 - MCP tools visible in tool list
 
 ## Creating a New Chat
