@@ -1201,22 +1201,22 @@ export const EN: ITranslation = {
         createNotebook: {
           title: 'Create an IDL Notebook',
           description:
-            'Get started with interactive IDL development using notebooks.\n[Create New IDL Notebook](command:idl.notebooks.newNotebook)',
+            'Get started with interactive IDL development using notebooks.\n\n[Create New IDL Notebook](command:idl.notebooks.newNotebook)',
         },
         startIdl: {
           title: 'Start an IDL Session',
           description:
-            'Launch an interactive Console to run and debug IDL commands.\n[Start IDL](command:idl.debug.startIDL)',
+            'Launch an interactive Console to run and debug IDL commands.\n\n[Start IDL](command:idl.debug.startIDL)',
         },
         configure: {
           title: 'Configure IDL Extension',
           description:
-            'Set up your IDL installation path and preferences.\n[Open Settings](command:idl.client.viewSettings)',
+            'Set up your IDL installation path and preferences.\n\n[Open Settings](command:idl.client.viewSettings)',
         },
         viewDocs: {
           title: 'View IDL Documentation',
           description:
-            'Access IDL language documentation and routine references.\n[Open Documentation](command:idl.docs.open)',
+            'Access IDL language documentation and routine references.\n\n[Open Documentation](command:idl.docs.open)',
         },
       },
     },

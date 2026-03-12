@@ -25,6 +25,7 @@ export const WALKTHROUGHS = [
         media: {
           markdown: 'extension/walkthrough/ask-copilot.md',
         },
+        completionEvents: ['onCommand:workbench.action.chat.open'],
       },
       {
         id: 'create-notebook',
@@ -33,6 +34,7 @@ export const WALKTHROUGHS = [
         media: {
           markdown: 'extension/walkthrough/create-notebook.md',
         },
+        completionEvents: ['onCommand:idl.notebooks.newNotebook'],
       },
       {
         id: 'start-idl',
@@ -41,6 +43,7 @@ export const WALKTHROUGHS = [
         media: {
           markdown: 'extension/walkthrough/start-idl-session.md',
         },
+        completionEvents: ['onCommand:idl.debug.startIDL'],
       },
       {
         id: 'configure',
@@ -49,6 +52,7 @@ export const WALKTHROUGHS = [
         media: {
           markdown: 'extension/walkthrough/configure-idl.md',
         },
+        completionEvents: ['onCommand:idl.client.viewSettings'],
       },
       {
         id: 'view-docs',
@@ -57,6 +61,7 @@ export const WALKTHROUGHS = [
         media: {
           markdown: 'extension/walkthrough/view-docs.md',
         },
+        completionEvents: ['onCommand:idl.docs.open'],
       },
     ],
   },
@@ -67,7 +72,7 @@ export const WALKTHROUGHS = [
  */
 export function ProcessWalkthroughs(
   packageJSON: IPackageJSON,
-  nls: IPackageNLS
+  nls: IPackageNLS,
 ) {
   // get all of our contribution points
   const contrib = packageJSON['contributes'];
@@ -79,12 +84,12 @@ export function ProcessWalkthroughs(
     // make sure that our translation is correct for walkthrough title and description
     if (!VerifyNLS(walkthrough.title, nls)) {
       throw new Error(
-        `Walkthrough at index ${i} has an invalid title of "${walkthrough.title}"`
+        `Walkthrough at index ${i} has an invalid title of "${walkthrough.title}"`,
       );
     }
     if (!VerifyNLS(walkthrough.description, nls)) {
       throw new Error(
-        `Walkthrough at index ${i} has an invalid description of "${walkthrough.description}"`
+        `Walkthrough at index ${i} has an invalid description of "${walkthrough.description}"`,
       );
     }
 
@@ -95,12 +100,12 @@ export function ProcessWalkthroughs(
       // verify NLS keys for step title and description
       if (!VerifyNLS(step.title, nls)) {
         throw new Error(
-          `Walkthrough "${walkthrough.id}" step "${step.id}" has an invalid title of "${step.title}"`
+          `Walkthrough "${walkthrough.id}" step "${step.id}" has an invalid title of "${step.title}"`,
         );
       }
       if (!VerifyNLS(step.description, nls)) {
         throw new Error(
-          `Walkthrough "${walkthrough.id}" step "${step.id}" has an invalid description of "${step.description}"`
+          `Walkthrough "${walkthrough.id}" step "${step.id}" has an invalid description of "${step.description}"`,
         );
       }
 
@@ -108,7 +113,7 @@ export function ProcessWalkthroughs(
         const url = join(process.cwd(), `${step.media.image}`);
         if (!existsSync(url)) {
           throw new Error(
-            `walkthrough "${walkthrough.id}" step "${step.id}" missing image file where expected "${step.media.image}"`
+            `walkthrough "${walkthrough.id}" step "${step.id}" missing image file where expected "${step.media.image}"`,
           );
         }
       }
@@ -116,7 +121,7 @@ export function ProcessWalkthroughs(
         const url = join(process.cwd(), `${step.media.markdown}`);
         if (!existsSync(url)) {
           throw new Error(
-            `walkthrough "${walkthrough.id}" step "${step.id}" missing markdown file where expected "${step.media.markdown}"`
+            `walkthrough "${walkthrough.id}" step "${step.id}" missing markdown file where expected "${step.media.markdown}"`,
           );
         }
       }

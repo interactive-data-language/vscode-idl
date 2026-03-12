@@ -45,6 +45,9 @@ export const BASE_COPILOT = `${BASE_COMMAND}copilot.`;
  *
  * This is also used to build/check our package.json and make sure it
  * is kosher.
+ *
+ * If you make any changes make sure to update the walkthroughs translations
+ *
  */
 export const IDL_COMMANDS = {
   /** Commands for our extension client (generic) */

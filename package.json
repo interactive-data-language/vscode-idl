@@ -1783,7 +1783,10 @@
             "description": "%walkthrough.idl.steps.askCopilot.description%",
             "media": {
               "markdown": "extension/walkthrough/ask-copilot.md"
-            }
+            },
+            "completionEvents": [
+              "onCommand:workbench.action.chat.open"
+            ]
           },
           {
             "id": "create-notebook",
@@ -1791,7 +1794,10 @@
             "description": "%walkthrough.idl.steps.createNotebook.description%",
             "media": {
               "markdown": "extension/walkthrough/create-notebook.md"
-            }
+            },
+            "completionEvents": [
+              "onCommand:idl.notebooks.newNotebook"
+            ]
           },
           {
             "id": "start-idl",
@@ -1799,7 +1805,10 @@
             "description": "%walkthrough.idl.steps.startIdl.description%",
             "media": {
               "markdown": "extension/walkthrough/start-idl-session.md"
-            }
+            },
+            "completionEvents": [
+              "onCommand:idl.debug.startIDL"
+            ]
           },
           {
             "id": "configure",
@@ -1807,7 +1816,10 @@
             "description": "%walkthrough.idl.steps.configure.description%",
             "media": {
               "markdown": "extension/walkthrough/configure-idl.md"
-            }
+            },
+            "completionEvents": [
+              "onCommand:idl.client.viewSettings"
+            ]
           },
           {
             "id": "view-docs",
@@ -1815,7 +1827,10 @@
             "description": "%walkthrough.idl.steps.viewDocs.description%",
             "media": {
               "markdown": "extension/walkthrough/view-docs.md"
-            }
+            },
+            "completionEvents": [
+              "onCommand:idl.docs.open"
+            ]
           }
         ]
       }

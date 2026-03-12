@@ -16,11 +16,11 @@ import { InitializeMCPVSCode } from '@idl/vscode/mcp';
 import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { InitializeIDLTerminal } from '@idl/vscode/terminal';
 import { InitializeTree } from '@idl/vscode/tree-view';
+import { InitializeWalkthroughs } from '@idl/vscode/walkthroughs';
 import { InitializeWebView } from '@idl/vscode/webview';
 import { ExtensionContext } from 'vscode';
 
 import { environment } from './environments/environment';
-import { InitializeWalkthrough } from './initialize-walkthrough';
 
 MEASUREMENT.ID = environment.measurement;
 
@@ -28,7 +28,7 @@ MEASUREMENT.ID = environment.measurement;
  * Function that activates our extension
  */
 export async function activate(
-  ctx: ExtensionContext
+  ctx: ExtensionContext,
 ): Promise<IInitializeType> {
   // initialize our extension client
   const client = await InitializeClient(ctx);
@@ -75,7 +75,7 @@ export async function activate(
   InitializeIDLTutorials(ctx);
 
   // initialize walkthrough
-  InitializeWalkthrough(ctx);
+  InitializeWalkthroughs(ctx);
 
   // return result
   return {
