@@ -61,7 +61,7 @@ export async function ProcessChangeDetectionResults(
     for (let i = 0; i < changedFiles.length; i++) {
       changedGlobals = changedGlobals.concat(
         GetChangedGlobals(
-          index.globalIndex.globalTokensByFile[changedFiles[i]],
+          index.globalIndex.globalTokensByFile[changedFiles[i]] || [],
           changed[changedFiles[i]]
         )
       );
