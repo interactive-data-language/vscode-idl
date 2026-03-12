@@ -1026,6 +1026,38 @@ export interface ITranslation {
     /** Logging info about our session */
     sendingUsageMetric: string;
   };
+  walkthrough: {
+    idl: {
+      title: string;
+      description: string;
+      steps: {
+        intro: {
+          title: string;
+          description: string;
+        };
+        askCopilot: {
+          title: string;
+          description: string;
+        };
+        createNotebook: {
+          title: string;
+          description: string;
+        };
+        startIdl: {
+          title: string;
+          description: string;
+        };
+        configure: {
+          title: string;
+          description: string;
+        };
+        viewDocs: {
+          title: string;
+          description: string;
+        };
+      };
+    };
+  };
   /** Translations related to the webview */
   webview: {
     content: {

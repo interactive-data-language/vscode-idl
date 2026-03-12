@@ -1183,6 +1183,44 @@ export const EN: ITranslation = {
     learnMore: 'Learn more',
     sendingUsageMetric: 'Sending usage metric',
   },
+  walkthrough: {
+    idl: {
+      title: 'Welcome to IDL for VS Code!',
+      description: 'Get started with IDL in VS Code',
+      steps: {
+        intro: {
+          title: 'About IDL for VS Code',
+          description:
+            'Welcome to the IDL extension for Visual Studio Code! This extension provides comprehensive support for IDL development, including AI support, syntax highlighting, debugging, notebooks, and more.',
+        },
+        askCopilot: {
+          title: 'Ask IDL Agent',
+          description:
+            'Get AI-powered assistance for your IDL code and questions.\n[Open Copilot Chat](command:workbench.action.chat.open)',
+        },
+        createNotebook: {
+          title: 'Create an IDL Notebook',
+          description:
+            'Get started with interactive IDL development using notebooks.\n[Create New IDL Notebook](command:idl.notebooks.newNotebook)',
+        },
+        startIdl: {
+          title: 'Start an IDL Session',
+          description:
+            'Launch an interactive Console to run and debug IDL commands.\n[Start IDL](command:idl.debug.startIDL)',
+        },
+        configure: {
+          title: 'Configure IDL Extension',
+          description:
+            'Set up your IDL installation path and preferences.\n[Open Settings](command:idl.client.viewSettings)',
+        },
+        viewDocs: {
+          title: 'View IDL Documentation',
+          description:
+            'Access IDL language documentation and routine references.\n[Open Documentation](command:idl.docs.open)',
+        },
+      },
+    },
+  },
   webview: {
     content: {
       notFound: 'IDL webview content not found',
