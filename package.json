@@ -213,15 +213,6 @@
     "npm": "^10.0 || ^11.0",
     "node": ">=22.22.0"
   },
-  "keywords": [
-    "mcp",
-    "mcp-server",
-    "ai",
-    "copilot",
-    "idl",
-    "envi",
-    "data-science"
-  ],
   "activationEvents": [
     "*",
     "onWebviewPanel:idlPanel",
