@@ -1748,7 +1748,8 @@
       "idl-view": [
         {
           "id": "idl-tree",
-          "name": "%idl.tree.name%"
+          "name": "%idl.tree.name%",
+          "icon": "extension/images/idlicon.svg"
         }
       ]
     },

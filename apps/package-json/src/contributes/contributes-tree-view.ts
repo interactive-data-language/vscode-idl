@@ -6,6 +6,7 @@ import { VerifyNLS } from './helpers/verify-nls';
 export const IDL_TREE_VIEW = {
   id: IDL_TREE_VIEW_ID,
   name: '%idl.tree.name%',
+  icon: 'extension/images/idlicon.svg',
 };
 
 /**
