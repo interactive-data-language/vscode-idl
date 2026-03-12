@@ -155,6 +155,9 @@ export async function ChangeDetectionMainThread(
     // wait for it to finish
     await Promise.all(proms);
 
+    // throw cancel error if we canceled
+    cancel.throwIfCancelled();
+
     /**
      * Get additional changes
      */
