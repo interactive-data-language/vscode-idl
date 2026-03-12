@@ -1477,8 +1477,7 @@
     "mcpServerDefinitionProviders": [
       {
         "id": "idl.idl-for-vscode",
-        "label": "IDL for VSCode",
-        "description": "Provides MCP tools for IDL code analysis, documentation, and ENVI integration"
+        "label": "IDL for VSCode"
       }
     ],
     "menus": {
