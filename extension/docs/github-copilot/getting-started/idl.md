@@ -1,29 +1,42 @@
 # Quick Start: IDL
 
-## Key Takeaways
+IDL Agent empowers you to autonomously write, run, and troubleshoot IDL code, simplifying developer workflows and accelerating discovery.
 
-IDL's GitHub Copilot integration enables GitHub Copilot to become an expert IDL programmer through specialized root-level instructions. These instructions are automatically applied when you work with IDL code or IDL Notebooks.
+IDL Agent works by providing a set of Model Context Protocol (MCP) tools and instructions for GitHub Copilot.
+
+## Setup
+
+::: info
+
+IDL Agent setup is the same as ENVI Agent.
+
+:::
+
+<div  align="center" style="margin-bottom:2rem;margin-top:2rem;">
+  <video controls style="max-width: 1920px; width: 100%">
+    <source src="https://vis-mktg.s3.us-east-1.amazonaws.com/web-content/vscode-idl/idl-agent-setup.mp4" type="video/mp4">
+  </video>
+</div>
 
 **Requirements:**
 
-- IDL 9.2 or newer
-- Instructions automatically load when IDL code or notebooks are open or attached
+- Install [IDL 9.2 or ENVI 6.2](https://portal.nv5geospatialsoftware.com/)
 
-**What to Look For:** "IDl Agent" message in your chat when instructions load
+- [Install Visual Studio Code](https://code.visualstudio.com/download) or update to the latest version
+
+- Install [IDL for VSCode](https://marketplace.visualstudio.com/items?itemName=IDL.idl-for-vscode)
+
+- A paid [GitHub Copilot](https://github.com/features/copilot/plans) account
 
 ## Helpful Tips
 
-**Automatic Startup:** IDL starts automatically when needed—no manual intervention required.
+**Automatic Startup:** IDL starts automatically when needed, no manual intervention required.
 
 **Creating IDL Notebooks:** Explicitly request an "IDL Notebook" to ensure you get the native VSCode implementation rather than a Python/Jupyter notebook. Native IDL Notebooks require no additional setup or configuration.
 
-## How It Works
+## Example Questions
 
-GitHub Copilot is already an expert programmer across many languages. We've enhanced this expertise with specialized instructions that help it write better IDL code and understand your existing routines. These instructions apply automatically when you work with IDL files or notebooks, no manual setup required.
-
-## Example Requests
-
-GitHub Copilot has access to many tools and can handle a wide range of IDL-related tasks or requests. Here are some examples to get you started:
+Here's some requests for what kinds of questions IDL Agent can help with:
 
 ::: code-group
 

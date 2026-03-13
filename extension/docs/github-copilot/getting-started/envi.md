@@ -1,14 +1,32 @@
 # Quick Start: ENVI
 
-## Key Takeaways
+ENVI Agent is a partner for building and running geospatial processing workflows, enabling you to focus on intent and results rather than managing manual mechanics.
 
-ENVI's GitHub Copilot integration uses specialized MCP tools to run processing workflows, understand datasets, and solve remote sensing problems.
+ENVI Agent works by providing a set of Model Context Protocol (MCP) tools and instructions for GitHub Copilot.
+
+## Setup
+
+::: info
+
+ENVI Agent setup is the same as IDL Agent, but requires ENVI + IDL
+
+:::
+
+<div  align="center" style="margin-bottom:2rem;margin-top:2rem;">
+  <video controls style="max-width: 1920px; width: 100%">
+    <source src="https://vis-mktg.s3.us-east-1.amazonaws.com/web-content/vscode-idl/envi-agent-setup.mp4" type="video/mp4">
+  </video>
+</div>
 
 **Requirements:**
 
-- IDL 9.2 and ENVI 6.2 or newer
-- ENVI Agent license feature
-- Works alongside IDL Agent capabilities
+- Install [ENVI 6.2](https://portal.nv5geospatialsoftware.com/) and have the ENVI Agent license feature
+
+- [Install Visual Studio Code](https://code.visualstudio.com/download) or update to the latest version
+
+- Install [IDL for VSCode](https://marketplace.visualstudio.com/items?itemName=IDL.idl-for-vscode)
+
+- A paid [GitHub Copilot](https://github.com/features/copilot/plans) account
 
 ## Helpful Tips
 
@@ -21,7 +39,7 @@ To guide the LLM to use ENVI, make sure to add "ENVI" to your requests. Here's s
 
 :::
 
-**Automatic Startup:** ENVI and IDL start automatically when needed—no manual intervention required.
+**Automatic Startup:** ENVI and IDL start automatically when needed, no manual intervention required.
 
 **Built-in Prompts:** Start your chat with "/envi" to access pre-configured prompts designed for common remote sensing problems.
 
@@ -49,9 +67,9 @@ Generate IDL routines and IDL Notebooks for repeatable workflows.
 
 ## Example Requests
 
-Guide GitHub Copilot to use ENVI by adding phrases like "Using ENVI", "With ENVI", or "Can ENVI" to your requests.
+For ENVI, make sure to include text like "Using ENVI", "With ENVI", or "Can ENVI" to your requests.
 
-Here are some examples to get started:
+Here's some requests for what kinds of questions IDL Agent can help with:
 
 ::: code-group
 
