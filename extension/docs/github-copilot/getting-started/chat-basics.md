@@ -2,12 +2,14 @@
 
 ## Key Takeaways
 
-Use agent mode with Claude Sonnet 4.5 for the best experience with IDL and ENVI. Agent mode enables GitHub Copilot to access specialized tools and take actions on your behalf.
+Use agent mode to enable GitHub Copilot to access specialized tools and take actions on your behalf with ENVI and IDL.
 
 **Requirements:**
 
 - Agent mode enabled (hexagon icon)
-- Claude Sonnet recommended (4.5 at the time of writing this)
+
+- Claude Sonnet recommended (4.5 or 4.6 at the time of writing this)
+
 - MCP tools visible in tool list
 
 ## Creating a New Chat
