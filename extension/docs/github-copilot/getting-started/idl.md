@@ -1,4 +1,4 @@
-# Quick Start: IDL
+# Quick Start: IDL Agent
 
 IDL Agent empowers you to autonomously write, run, and troubleshoot IDL code, simplifying developer workflows and accelerating discovery.
 

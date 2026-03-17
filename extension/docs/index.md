@@ -23,7 +23,7 @@ features:
     details: Syntax-based highlighting, in-depth code analysis, type-detection
   - title: AI Ready
     icon: 🤖
-    details: Native integration of IDL and ENVI with GitHub Copilot
+    details: Native integration of IDL and ENVI with GitHub Copilot through IDL Agent and ENVI Agent
   - title: Notebooks
     icon: 📒
     details: Natively create notebooks using IDL and ENVI Notebooks with no additional setup

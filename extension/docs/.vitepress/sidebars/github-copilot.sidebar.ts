@@ -17,11 +17,11 @@ export const GITHUB_COPILOT_SIDEBAR: SidebarEntry[] = [
         link: '/github-copilot/getting-started/chat-basics',
       },
       {
-        text: 'Quick Start: IDL',
+        text: 'Quick Start: IDL Agent',
         link: '/github-copilot/getting-started/idl',
       },
       {
-        text: 'Quick Start: ENVI',
+        text: 'Quick Start: ENVI Agent',
         link: '/github-copilot/getting-started/envi',
       },
     ],

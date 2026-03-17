@@ -1,4 +1,4 @@
-# GitHub Copilot Integration
+# IDL and ENVI Agent
 
 IDL for VSCode integrates seamlessly with GitHub Copilot, giving you AI-powered assistants for IDL programming and ENVI workflows. This integration is completely optional for you to use and designed to enhance your productivity and help understand IDL and ENVI, not replace users.
 
