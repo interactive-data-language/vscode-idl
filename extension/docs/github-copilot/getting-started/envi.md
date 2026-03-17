@@ -1,4 +1,4 @@
-# Quick Start: ENVI
+# Quick Start: ENVI Agent
 
 ENVI Agent is a partner for building and running geospatial processing workflows, enabling you to focus on intent and results rather than managing manual mechanics.
 

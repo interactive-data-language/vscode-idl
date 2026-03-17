@@ -90,7 +90,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Getting Started', link: '/getting-started/' },
-      { text: 'GitHub Copilot', link: '/github-copilot/' },
+      { text: 'IDL and ENVI Agent', link: '/github-copilot/' },
       { text: 'Notebooks', link: '/notebooks/' },
       { text: 'Types', link: '/types/' },
       {
@@ -106,7 +106,7 @@ export default defineConfig({
         // link: '/getting-started/',
       },
       {
-        text: 'GitHub Copilot',
+        text: 'IDL and ENVI Agent',
         items: GITHUB_COPILOT_SIDEBAR,
         // link: '/getting-started/',
       },
