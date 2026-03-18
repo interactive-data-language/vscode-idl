@@ -24,10 +24,8 @@ Here are some helpful links!
 
 ## IDL and ENVI Universe
 
-[What's New in ENVI 6.0 and IDL 9.0](https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24390/Redefining-Image-Analysis-with-ENVI-60-IDL-90-and-the-ENVI-Ecosystem)
+[What's New in ENVI](https://www.nv5geospatialsoftware.com/docs/using_envi_WhatsNew.html)
 
-[What's New in ENVI 5.7 and IDL 8.9](https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24304/What%e2%80%99s-New-in-ENVI-57-and-IDL-89)
+[What's New in IDL](https://www.nv5geospatialsoftware.com/docs/WhatsNew.html)
 
-[Introducing ENVI Connect](https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24300/Introducing-ENVI-Connect)
-
-[Taking ENVI to the Next Level with Machine Learning](https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24231/Taking-ENVI-to-the-Next-Level-via-Machine-Learning)
+[What's New in Deep Learning](https://www.nv5geospatialsoftware.com/docs/deep_learning_WhatsNew.html)
