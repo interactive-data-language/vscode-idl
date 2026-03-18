@@ -1,1 +1,1 @@
-export * from './lib/mcp-analytics-repository';
+export * from './lib/analytics-repository-registry.class';
