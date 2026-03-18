@@ -108,7 +108,7 @@ export class AnalyticsRepositoryRegistry {
     const initialPage = filter.page ?? 0;
 
     /** Start limit for response */
-    const limit = filter.limit ?? 10;
+    const limit = filter.limit ?? 100;
 
     /** Track packages we return */
     const packages: IAnalyticsRepositoryPackage[] = [];
