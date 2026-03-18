@@ -4,9 +4,7 @@
 export interface IAnalyticsRepositoryInfo {
   /** Password for authentication */
   password?: string;
-  /** Server port */
-  port?: number;
-  /** URL for the server */
+  /** URL for the server (ex: http://localhost:9194) */
   url: string;
   /** Username for accessing */
   username?: string;
@@ -106,13 +104,13 @@ export interface IAnalyticsRepositorySearchResponse {
 }
 
 /**
- * Aggregated search result for a single server
+ * Data structure for found packages that bundles the server information in
+ * the package so that we always keep them to get them
  */
-export interface IAnalyticsRepositorySearchServerResult {
-  /** Filter used for the search */
-  filter: IAnalyticsRepositorySearchFilter;
-  /** All packages found across every requested page */
-  packages: IAnalyticsRepositoryPackage[];
-  /** Server that produced the package list */
+export interface IAnalyticRepositoryServerPackage
+  extends IAnalyticsRepositoryPackage {
+  /**
+   * Access information for the server that the package comes from
+   */
   server: IAnalyticsRepositoryInfo;
 }

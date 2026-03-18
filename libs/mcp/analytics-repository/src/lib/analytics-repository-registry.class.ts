@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 
 import {
+  IAnalyticRepositoryServerPackage,
   IAnalyticsRepositoryAccessInfo,
   IAnalyticsRepositoryInfo,
   IAnalyticsRepositoryPackage,
   IAnalyticsRepositorySearchFilter,
   IAnalyticsRepositorySearchResponse,
-  IAnalyticsRepositorySearchServerResult,
 } from './analytics-repository-registry.interface';
 
 export class AnalyticsRepositoryRegistry {
@@ -41,7 +41,7 @@ export class AnalyticsRepositoryRegistry {
    */
   async getENVITaskPackages() {
     return await this.searchRepositories({
-      tags: ['envitasks'],
+      tags: ['ENVI Task'],
     });
   }
 
@@ -50,7 +50,7 @@ export class AnalyticsRepositoryRegistry {
    */
   async getENVIToolWorkflowPackages() {
     return await this.searchRepositories({
-      tags: ['envitoolworkflows'],
+      tags: ['ENVI Tool Workflow'],
     });
   }
 
@@ -59,7 +59,7 @@ export class AnalyticsRepositoryRegistry {
    */
   async getIDLTaskPackages() {
     return await this.searchRepositories({
-      tags: ['idltasks'],
+      tags: ['IDL Task'],
     });
   }
 
@@ -68,7 +68,7 @@ export class AnalyticsRepositoryRegistry {
    */
   async getIDLToolWorkflowPackages() {
     return await this.searchRepositories({
-      tags: ['idltoolworkflows'],
+      tags: ['IDL Tool Workflow'],
     });
   }
 
@@ -80,12 +80,14 @@ export class AnalyticsRepositoryRegistry {
    */
   async searchRepositories(
     filter: IAnalyticsRepositorySearchFilter = {}
-  ): Promise<IAnalyticsRepositorySearchServerResult[]> {
-    return Promise.all(
-      this.servers.map((server) =>
-        this.searchServerRepositories(server, filter)
+  ): Promise<IAnalyticRepositoryServerPackage[]> {
+    return (
+      await Promise.all(
+        this.servers.map((server) =>
+          this.searchServerRepositories(server, filter)
+        )
       )
-    );
+    ).flat();
   }
 
   /**
@@ -94,18 +96,12 @@ export class AnalyticsRepositoryRegistry {
   private async searchServerRepositories(
     server: IAnalyticsRepositoryInfo,
     filter: IAnalyticsRepositorySearchFilter
-  ): Promise<IAnalyticsRepositorySearchServerResult> {
+  ): Promise<IAnalyticRepositoryServerPackage[]> {
     /** Clean URL */
     const baseUrl = server.url.replace(/\/$/, '');
 
     /** Get search endpoint */
-    const endpoint =
-      server.port !== undefined
-        ? `${baseUrl}:${server.port}/api/search/packages`
-        : `${baseUrl}/api/search/packages`;
-
-    /** Start page */
-    const initialPage = filter.page ?? 0;
+    const endpoint = `${baseUrl}/api/search/packages`;
 
     /** Start limit for response */
     const limit = filter.limit ?? 100;
@@ -116,13 +112,11 @@ export class AnalyticsRepositoryRegistry {
     /** Page we are on */
     let page = filter.page ?? 0;
 
-    /** Flag that we have more pages to search */
-    let hasMorePages = true;
-
     /**
      * Search recursively for packages
      */
-    while (hasMorePages) {
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
       /** Build filter for our request */
       const requestFilter: IAnalyticsRepositorySearchFilter = {
         ...filter,
@@ -131,11 +125,11 @@ export class AnalyticsRepositoryRegistry {
       };
 
       /** Search for packages */
-      const response = await axios.get<
+      const response = await axios.post<
         IAnalyticsRepositorySearchResponse,
         AxiosResponse<IAnalyticsRepositorySearchResponse>,
         IAnalyticsRepositorySearchFilter
-      >(endpoint, {
+      >(endpoint, requestFilter, {
         auth:
           server.username !== undefined || server.password !== undefined
             ? {
@@ -143,28 +137,25 @@ export class AnalyticsRepositoryRegistry {
                 username: server.username ?? '',
               }
             : undefined,
-        data: requestFilter,
+        responseType: 'json',
       });
       const responsePackages = response.data.packages ?? [];
 
       // save packages that we get back
-      packages.push(...response.data.packages);
+      packages.push(...responsePackages);
 
       // if we have more pages, increment our page and recurse
-      if (responsePackages.length > 0) {
-        hasMorePages = true;
-        page += 1;
+      if (responsePackages.length === 0) {
+        break;
       }
+
+      // increment page
+      page += 1;
     }
 
-    return {
-      filter: {
-        ...filter,
-        limit,
-        page: initialPage,
-      },
-      packages,
-      server,
-    };
+    // embed server information and return
+    return packages.map((pkg) => {
+      return { ...pkg, server };
+    });
   }
 }
