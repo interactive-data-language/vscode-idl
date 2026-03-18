@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 
 import {
-  IAnalyticRepositoryServerPackage,
+  IAnalyticRepository_ServerPackage,
+  IAnalyticsRepository_Package,
+  IAnalyticsRepository_SearchFilter,
+  IAnalyticsRepository_SearchResponse,
+  IAnalyticsRepository_ServerInfo,
   IAnalyticsRepositoryAccessInfo,
-  IAnalyticsRepositoryInfo,
-  IAnalyticsRepositoryPackage,
-  IAnalyticsRepositorySearchFilter,
-  IAnalyticsRepositorySearchResponse,
 } from './analytics-repository-registry.interface';
 
 export class AnalyticsRepositoryRegistry {
@@ -21,9 +21,9 @@ export class AnalyticsRepositoryRegistry {
   /**
    * Track servers
    */
-  private servers: IAnalyticsRepositoryInfo[] = [];
+  private servers: IAnalyticsRepository_ServerInfo[] = [];
 
-  constructor(servers: IAnalyticsRepositoryInfo[] = []) {
+  constructor(servers: IAnalyticsRepository_ServerInfo[] = []) {
     this.servers = servers;
     this.accessInfo = servers.map(() => undefined);
   }
@@ -31,7 +31,7 @@ export class AnalyticsRepositoryRegistry {
   /**
    *
    */
-  addServer(server: IAnalyticsRepositoryInfo) {
+  addServer(server: IAnalyticsRepository_ServerInfo) {
     this.servers.push(server);
     this.accessInfo.push(undefined);
   }
@@ -79,8 +79,8 @@ export class AnalyticsRepositoryRegistry {
    * Returns all pages
    */
   async searchRepositories(
-    filter: IAnalyticsRepositorySearchFilter = {}
-  ): Promise<IAnalyticRepositoryServerPackage[]> {
+    filter: IAnalyticsRepository_SearchFilter = {}
+  ): Promise<IAnalyticRepository_ServerPackage[]> {
     return (
       await Promise.all(
         this.servers.map((server) =>
@@ -94,9 +94,9 @@ export class AnalyticsRepositoryRegistry {
    * Searches all configured analytics repository servers
    */
   private async searchServerRepositories(
-    server: IAnalyticsRepositoryInfo,
-    filter: IAnalyticsRepositorySearchFilter
-  ): Promise<IAnalyticRepositoryServerPackage[]> {
+    server: IAnalyticsRepository_ServerInfo,
+    filter: IAnalyticsRepository_SearchFilter
+  ): Promise<IAnalyticRepository_ServerPackage[]> {
     /** Clean URL */
     const baseUrl = server.url.replace(/\/$/, '');
 
@@ -107,7 +107,7 @@ export class AnalyticsRepositoryRegistry {
     const limit = filter.limit ?? 100;
 
     /** Track packages we return */
-    const packages: IAnalyticsRepositoryPackage[] = [];
+    const packages: IAnalyticsRepository_Package[] = [];
 
     /** Page we are on */
     let page = filter.page ?? 0;
@@ -118,7 +118,7 @@ export class AnalyticsRepositoryRegistry {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       /** Build filter for our request */
-      const requestFilter: IAnalyticsRepositorySearchFilter = {
+      const requestFilter: IAnalyticsRepository_SearchFilter = {
         ...filter,
         limit,
         page,
@@ -126,9 +126,9 @@ export class AnalyticsRepositoryRegistry {
 
       /** Search for packages */
       const response = await axios.post<
-        IAnalyticsRepositorySearchResponse,
-        AxiosResponse<IAnalyticsRepositorySearchResponse>,
-        IAnalyticsRepositorySearchFilter
+        IAnalyticsRepository_SearchResponse,
+        AxiosResponse<IAnalyticsRepository_SearchResponse>,
+        IAnalyticsRepository_SearchFilter
       >(endpoint, requestFilter, {
         auth:
           server.username !== undefined || server.password !== undefined

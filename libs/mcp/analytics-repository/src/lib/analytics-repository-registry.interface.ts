@@ -1,7 +1,7 @@
 /**
  * Information for an analytics repository server
  */
-export interface IAnalyticsRepositoryInfo {
+export interface IAnalyticsRepository_ServerInfo {
   /** Password for authentication */
   password?: string;
   /** URL for the server (ex: http://localhost:9194) */
@@ -25,7 +25,7 @@ export interface IAnalyticsRepositoryAccessInfo {
 /**
  * Filter options when searching repository packages
  */
-export interface IAnalyticsRepositorySearchFilter {
+export interface IAnalyticsRepository_SearchFilter {
   /** Author of the package */
   author?: string;
   /** Description of the package */
@@ -49,7 +49,7 @@ export interface IAnalyticsRepositorySearchFilter {
 /**
  * Package metadata
  */
-export interface IPackageMetadata {
+export interface IAnalyticsRepository_PackageMetadata {
   [key: string]: any;
   /** Nested object: first key is filepath in package with task JSON as the value */
   envitasks?: { [key: string]: { [key: string]: any } };
@@ -66,7 +66,7 @@ export interface IPackageMetadata {
 /**
  * Package returned by the analytics repository
  */
-export interface IAnalyticsRepositoryPackage {
+export interface IAnalyticsRepository_Package {
   /** Author of the package */
   author: string;
   /** Date the package was created or published */
@@ -78,7 +78,7 @@ export interface IAnalyticsRepositoryPackage {
   /** Filename to download */
   filename: string;
   /** Arbitrary package metadata */
-  metadata: IPackageMetadata;
+  metadata: IAnalyticsRepository_PackageMetadata;
   /** Internal package name */
   name: string;
   /** Size of the package in bytes */
@@ -96,21 +96,21 @@ export interface IAnalyticsRepositoryPackage {
 /**
  * Response from the repository search endpoint
  */
-export interface IAnalyticsRepositorySearchResponse {
+export interface IAnalyticsRepository_SearchResponse {
   /** Search filter echoed back from the server */
-  filter: IAnalyticsRepositorySearchFilter;
+  filter: IAnalyticsRepository_SearchFilter;
   /** Packages returned for the current page */
-  packages: IAnalyticsRepositoryPackage[];
+  packages: IAnalyticsRepository_Package[];
 }
 
 /**
  * Data structure for found packages that bundles the server information in
  * the package so that we always keep them to get them
  */
-export interface IAnalyticRepositoryServerPackage
-  extends IAnalyticsRepositoryPackage {
+export interface IAnalyticRepository_ServerPackage
+  extends IAnalyticsRepository_Package {
   /**
    * Access information for the server that the package comes from
    */
-  server: IAnalyticsRepositoryInfo;
+  server: IAnalyticsRepository_ServerInfo;
 }
