@@ -25,15 +25,15 @@ export interface TaskLocationMetadata_Repository {
   /**
    * Name of the package
    */
-  name: string;
+  packageName: string;
+  /**
+   * The version of the package to download
+   */
+  packageVersion: string;
   /**
    * The URL for the analytics repository that we download from
    */
   url: string;
-  /**
-   * The version of the package to download
-   */
-  version: string;
 }
 
 /**
