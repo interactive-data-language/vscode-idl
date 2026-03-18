@@ -10,6 +10,12 @@ This section of the CHANGELOG documents features that have been added to the ext
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
+## 6.0.1 - March 2026
+
+Add special instructions back in for ENVI like we have for IDL. These were disabled as a release in February broke the functionality, but it works again now.
+
+This means that you don't need to type "/envi" to have workflow planning happen.
+
 ## 6.0.0 - March 2026
 
 Introducing IDL Agent and ENVI Agent! This marks our first initiative to enable LLMs to more effectively use ENVI and IDL. Here's what they can do:

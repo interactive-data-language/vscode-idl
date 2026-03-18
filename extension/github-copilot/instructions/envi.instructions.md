@@ -75,4 +75,4 @@ If you do not load a prompt, here's additional steps to take:
 4. Review processing steps with user and ask for confirmation
 5. Run processing
 6. (Optional) Open relevant results in ENVI
-7. (Optional) Create an IDL Notebook or IDL file with code that automates the processing you walked through
+7. (Optional) Create an IDL Notebook or IDL file with code that automates the processing you walked through, based on user reqeust
