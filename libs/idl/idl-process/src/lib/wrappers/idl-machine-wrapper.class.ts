@@ -267,10 +267,13 @@ export class IDLMachineWrapper {
        */
     });
 
+    /**
+     * When we get a server exit event, call "stop" on our process
+     *
+     * If we don't do this, then we don't always detect that IDL has stopped.
+     */
     this.machine.onNotification('serverExit', () => {
-      /**
-       * Nothing to do here
-       */
+      this.stop();
     });
 
     /**
