@@ -172,6 +172,13 @@ export class IDLProcess extends EventEmitter {
   }
 
   /**
+   * Retrieves the current output from an IDL session
+   */
+  getCurrentOutput() {
+    return this.capturedOutput;
+  }
+
+  /**
    * Let's us know if we are the IDL Machine or not
    */
   isIDLMachine() {

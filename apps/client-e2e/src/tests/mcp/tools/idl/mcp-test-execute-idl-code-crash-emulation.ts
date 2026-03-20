@@ -34,4 +34,10 @@ export const RunMCPTestExecuteIDLCode_CrashEmulation: RunnerFunction = async (
 
   // verify we stopped
   expect(init.debug.adapter.isStarted()).toBeFalsy();
+
+  // verify that there was a reported
+  expect(init.client.logger.tracker.errors).toBe(1);
+
+  // reset the tracker
+  init.client.logger.resetTracker();
 };

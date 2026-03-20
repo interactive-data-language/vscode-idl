@@ -1,3 +1,4 @@
+import { ObjectifyError } from '@idl/error-shared';
 import { IDL_MCP_LOG } from '@idl/logger';
 import {
   MCPToolParams,
@@ -84,10 +85,26 @@ export async function RunMCPToolMessageHandler(
         ],
       });
 
+      /** Error string */
+      let asString = '';
+
+      // check the reported error reason
+      switch (true) {
+        case typeof err === 'string':
+          asString = err;
+          break;
+        case Array.isArray(err):
+          asString = JSON.stringify(err);
+          break;
+        default:
+          asString = JSON.stringify(ObjectifyError(err));
+          break;
+      }
+
       // return that we failed
       return {
         success: false,
-        err: 'There was an unhandled error during the execution of the tool',
+        err: `There was an unhandled error during the execution of the tool: "${asString}"`,
       };
     }
   } else {

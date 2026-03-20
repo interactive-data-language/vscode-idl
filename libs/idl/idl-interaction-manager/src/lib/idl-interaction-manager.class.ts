@@ -56,6 +56,13 @@ export class IDLInteractionManager {
    */
   constructor(log: Logger, vscodeProDir: string, startupMessage: string) {
     this.idl = new IDLProcess(log, vscodeProDir, startupMessage);
+
+    this.idl.on(IDL_EVENT_LOOKUP.FAILED_START, (reason) =>
+      this.handleErrors(`IDL failed to start: ${reason}`)
+    );
+    this.idl.on(IDL_EVENT_LOOKUP.CRASHED, (reason) =>
+      this.handleErrors('IDL crashed or was stopped by the user')
+    );
   }
 
   /**
@@ -509,5 +516,17 @@ export class IDLInteractionManager {
 
     // run again!
     this._next();
+  }
+
+  /**
+   * Handles errors with processing to make sure any currently
+   * running/pending promises are exited properly
+   */
+  private handleErrors(reason: string) {
+    if (this._processing !== undefined) {
+      this._processing.reject(
+        `${reason}. Current IDL output: ${this.idl.capturedOutput}`
+      );
+    }
   }
 }

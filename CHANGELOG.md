@@ -10,6 +10,10 @@ This section of the CHANGELOG documents features that have been added to the ext
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
+## 6.0.2 - March 2026
+
+Fixed an issue where, if IDL crashed or was stopped by the user, GitHub Copilot would not be notified and get in a bad state.
+
 ## 6.0.1 - March 2026
 
 Add special instructions back in for ENVI like we have for IDL. These were disabled as a release in February broke the functionality, but it works again now.
