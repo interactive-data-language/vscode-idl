@@ -172,6 +172,13 @@ export class IDLProcess extends EventEmitter {
   }
 
   /**
+   * Retrieves the current output from an IDL session
+   */
+  getCurrentOutput() {
+    return this.capturedOutput;
+  }
+
+  /**
    * Let's us know if we are the IDL Machine or not
    */
   isIDLMachine() {
@@ -394,7 +401,7 @@ export class IDLProcess extends EventEmitter {
       args.env.IDL_PROMPT = 'IDL> ';
     }
 
-    // set variabe that we are in VSCode
+    // set variable that we are in VSCode
     args.env.IDL_FOR_VSCODE = 'true';
 
     // build the command for starting IDL

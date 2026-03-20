@@ -182,6 +182,9 @@
       ],
       "@idl/mcp/prompts": ["libs/mcp/prompts/src/index.ts"],
       "@idl/vscode/walkthroughs": ["libs/vscode/walkthroughs/src/index.ts"],
+      "@idl/mcp/analytics-repository": [
+        "libs/mcp/analytics-repository/src/index.ts"
+      ],
       "zod": ["node_modules/zod/v3"],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],

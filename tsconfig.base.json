@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "zod": ["node_modules/zod/v3"],
       "@idl/assembler": ["libs/assembling/assembler/src/index.ts"],
       "@idl/assembling/code-actions": [
         "libs/assembling/code-actions/src/index.ts"
@@ -192,7 +193,9 @@
       "@idl/workers/parsing": ["libs/workers/parsing/src/index.ts"],
       "@idl/workers/workerio": ["libs/workers/workerio/src/index.ts"],
       "@idl/vscode/walkthroughs": ["libs/vscode/walkthroughs/src/index.ts"],
-      "zod": ["node_modules/zod/v3"]
+      "@idl/mcp/analytics-repository": [
+        "libs/mcp/analytics-repository/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -43,6 +43,7 @@ import { RunMCPTestSearchForFiles_RecursionAll } from './tools/general/search-fo
 import { RunMCPTestSearchForFiles_Single } from './tools/general/search-for-files/mcp-test-search-for-files-single';
 import { RunMCPTestCreateIDLNotebook } from './tools/idl/mcp-test-create-idl-notebook';
 import { RunMCPTestExecuteIDLCode } from './tools/idl/mcp-test-execute-idl-code';
+import { RunMCPTestExecuteIDLCode_CrashEmulation } from './tools/idl/mcp-test-execute-idl-code-crash-emulation';
 import { RunMCPTestExecuteIDLFile } from './tools/idl/mcp-test-execute-idl-file';
 import { RunMCPTestStartIDL } from './tools/idl/mcp-test-start-idl';
 import { RunMCPTestListGetPrompts } from './tools/mcp-test-list-get-prompt';
@@ -197,6 +198,12 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestExecuteIDLCode,
   name: 'Execute snippet of IDL code',
+  critical: true,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestExecuteIDLCode_CrashEmulation,
+  name: 'Execute snippet of IDL code that shuts down IDL',
   critical: true,
 });
 
