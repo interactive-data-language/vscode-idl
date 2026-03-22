@@ -1,0 +1,15 @@
+<mat-toolbar color="primary" class="chat-header-toolbar">
+  <span class="header-title">Desktop Agent</span>
+  <span class="spacer"></span>
+  <button
+    mat-icon-button
+    [matTooltip]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+    (click)="toggleTheme()"
+  >
+    @if (isDarkMode()) {
+      <mat-icon>light_mode</mat-icon>
+    } @else {
+      <mat-icon>dark_mode</mat-icon>
+    }
+  </button>
+</mat-toolbar>

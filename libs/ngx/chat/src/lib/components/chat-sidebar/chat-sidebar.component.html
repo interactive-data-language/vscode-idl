@@ -1,0 +1,43 @@
+<div class="sidebar-container">
+  <div class="sidebar-header">
+    <button
+      mat-raised-button
+      color="primary"
+      class="new-chat-button"
+      (click)="createNewChat()"
+    >
+      <mat-icon>add</mat-icon>
+      New Chat
+    </button>
+  </div>
+
+  <mat-divider />
+
+  @if (loading()) {
+    <div>
+      <mat-icon>sync</mat-icon>
+      <p>Loading chats...</p>
+    </div>
+  } @else if (sessions().length === 0) {
+    <div>
+      <p>No chats yet</p>
+    </div>
+  } @else {
+    <mat-nav-list>
+      @for (session of sessions(); track session) {
+        <mat-list-item
+          (click)="selectSession(session.id)"
+          [activated]="selectedSessionId() === session.id"
+        >
+          <mat-icon matListItemIcon>chat</mat-icon>
+          <div matListItemTitle>
+            {{ session.title }}
+          </div>
+          <div matListItemLine>
+            {{ formatTime(session.lastMessageAt) }}
+          </div>
+        </mat-list-item>
+      }
+    </mat-nav-list>
+  }
+</div>

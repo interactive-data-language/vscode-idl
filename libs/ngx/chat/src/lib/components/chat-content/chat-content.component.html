@@ -1,0 +1,52 @@
+<div class="content-container">
+  @if (selectedSession()) {
+    <div class="chat-messages">
+      <div class="session-header">
+        <h2>{{ selectedSession()?.title }}</h2>
+        <p class="session-info">
+          {{ selectedSession()?.messageCount }} messages • Created
+          {{ selectedSession()?.createdAt | date: 'short' }}
+        </p>
+      </div>
+
+      <div class="messages-area">
+        <mat-card class="message-card placeholder-message">
+          <mat-card-content>
+            <p>
+              <strong>Chat session selected:</strong>
+              {{ selectedSession()?.title }}
+            </p>
+            <p>
+              This is a placeholder for chat messages. In a real application,
+              messages would be displayed here.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  } @else {
+    <div class="welcome-message">
+      <mat-icon class="welcome-icon">chat</mat-icon>
+      <h1>Welcome to Desktop Agent</h1>
+      <p>Select a chat from the sidebar or create a new one to get started.</p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <mat-icon>check_circle</mat-icon>
+          <span>Modern Angular architecture with standalone components</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>check_circle</mat-icon>
+          <span>NGXS state management for reactive updates</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>check_circle</mat-icon>
+          <span>Material Design components and theming</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>check_circle</mat-icon>
+          <span>OnPush change detection for performance</span>
+        </div>
+      </div>
+    </div>
+  }
+</div>
