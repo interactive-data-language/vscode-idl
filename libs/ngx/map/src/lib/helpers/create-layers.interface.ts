@@ -24,8 +24,8 @@ export type NotebookMapLayerProps<T extends NotebookMapLayerType> =
   T extends 'image'
     ? AwesomeImageProps
     : T extends 'geojson'
-    ? GeoJSONProps
-    : { [key: string]: any };
+      ? GeoJSONProps
+      : { [key: string]: any };
 
 /** Properties for a notebook layer */
 export type NotebookMapDeckLayer<T extends NotebookMapLayerType> =
@@ -36,8 +36,8 @@ export type NotebookMapEmbedItem<T extends NotebookMapLayerType> =
   T extends 'image'
     ? IDLNotebookEmbeddedItem<IDLNotebookMap_Image>
     : T extends 'geojson'
-    ? IDLNotebookEmbeddedItem<IDLNotebookMap_GeoJSON>
-    : never;
+      ? IDLNotebookEmbeddedItem<IDLNotebookMap_GeoJSON>
+      : never;
 
 /**
  * Stored content for the layer

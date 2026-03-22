@@ -11,7 +11,7 @@ import {
  * Regenerates layers
  */
 export function RecreateLayers(
-  layers: NotebookMapLayer<NotebookMapLayerType>[]
+  layers: NotebookMapLayer<NotebookMapLayerType>[],
 ): Layer[] {
   /** Layers for deck.gl */
   const deckLayers: Layer[] = [];
@@ -30,7 +30,7 @@ export function RecreateLayers(
             data: typed.layer.props.data,
             pickable: typed.layer.props.pickable,
             ...typed.props,
-          })
+          }),
         );
         break;
       }

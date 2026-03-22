@@ -8,7 +8,7 @@ import { AwesomeImage } from './awesome-image.class';
 
 export function CreateImage(
   embed: IDLNotebookEmbeddedItem<IDLNotebookMap_Image>,
-  props = {}
+  props = {},
 ) {
   /** Get image extents */
   const extent = embed.item.extents;
@@ -22,9 +22,6 @@ export function CreateImage(
   //   })
   // );
 
-  console.log('Create image');
-  console.log(props);
-
   return new AwesomeImage(
     {
       id: nanoid(),
@@ -32,6 +29,6 @@ export function CreateImage(
       bounds: [extent.xmin, extent.ymin, extent.xmax, extent.ymax],
       pickable: false,
     },
-    props
+    props,
   );
 }

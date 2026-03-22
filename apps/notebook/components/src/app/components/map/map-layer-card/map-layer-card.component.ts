@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   NotebookMapLayer,
   NotebookMapLayerType,
-} from '../helpers/create-layers.interface';
+} from '@idl/ngx/map';
 
 @Component({
   selector: 'idl-map-layer-card',

@@ -20,7 +20,7 @@ import {
  * Creates the deck.gl layers for the map
  */
 export function CreateLayers(
-  embed: IDLNotebookEmbeddedItem<IDLNotebookMap>
+  embed: IDLNotebookEmbeddedItem<IDLNotebookMap>,
 ): NotebookMapLayers<NotebookMapLayerType> {
   /**
    * Create layers that we want to embed
