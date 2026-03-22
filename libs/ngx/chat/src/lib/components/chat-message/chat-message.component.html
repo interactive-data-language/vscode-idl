@@ -7,7 +7,7 @@
     <mat-card-content>
       @for (content of message().content; track $index) {
         @if (content.type === 'text') {
-          <markdown [data]="content.payload"></markdown>
+          <markdown [data]="content.payload" class="custom-markdown"></markdown>
         } @else if (content.type === 'result') {
           <div>
             <pre>{{ content.payload }}</pre>
