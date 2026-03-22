@@ -152,6 +152,16 @@ export class ChatState {
               },
             ],
           },
+          {
+            id: nanoid(),
+            role: 'user',
+            content: [
+              {
+                type: 'text',
+                payload: '[link](https://www.google.com)',
+              },
+            ],
+          },
         ],
       },
       {
