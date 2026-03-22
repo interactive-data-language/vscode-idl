@@ -6,7 +6,7 @@ import {
   IDLNotebookMap_Image,
 } from '@idl/types/notebooks';
 
-import { AwesomeImage, AwesomeImageProps } from './awesome-image.class';
+import { AwesomeImage, AwesomeImageProps } from './layers/awesome-image.class';
 
 /** [xmin, ymin, xmax, ymax] */
 export type LayerBounds = [number, number, number, number];

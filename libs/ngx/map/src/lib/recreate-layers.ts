@@ -1,11 +1,11 @@
 import { Layer } from '@deck.gl/core';
 import { GeoJsonLayer } from '@deck.gl/layers';
 
-import { CreateImage } from './create-image';
 import {
   NotebookMapLayer,
   NotebookMapLayerType,
 } from './create-layers.interface';
+import { CreateImage } from './layers/create-image';
 
 /**
  * Regenerates layers

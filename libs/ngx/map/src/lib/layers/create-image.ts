@@ -6,6 +6,9 @@ import { nanoid } from 'nanoid';
 
 import { AwesomeImage } from './awesome-image.class';
 
+/**
+ *  Helper that creates an image for display
+ */
 export function CreateImage(
   embed: IDLNotebookEmbeddedItem<IDLNotebookMap_Image>,
   props = {},
