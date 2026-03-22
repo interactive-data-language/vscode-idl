@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { nanoid } from 'nanoid';
 
 import {
   AddChatSession,
@@ -96,18 +97,20 @@ export class ChatState {
     // Placeholder: Create some demo sessions
     const demoSessions: ChatSession[] = [
       {
-        id: '1',
+        id: nanoid(),
         title: 'Welcome Chat',
         createdAt: new Date(),
         lastMessageAt: new Date(),
         messageCount: 3,
+        status: 'ready',
       },
       {
-        id: '2',
+        id: nanoid(),
         title: 'Project Discussion',
         createdAt: new Date(Date.now() - 86400000),
         lastMessageAt: new Date(Date.now() - 3600000),
         messageCount: 15,
+        status: 'in-progress',
       },
     ];
 

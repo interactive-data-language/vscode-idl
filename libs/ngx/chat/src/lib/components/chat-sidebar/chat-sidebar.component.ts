@@ -72,6 +72,7 @@ export class ChatSidebarComponent implements OnInit {
       createdAt: new Date(),
       lastMessageAt: new Date(),
       messageCount: 0,
+      status: 'ready',
     };
     this.store.dispatch(new AddChatSession(newSession));
     this.store.dispatch(new SelectChatSession(newSession.id));
