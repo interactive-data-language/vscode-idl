@@ -71,6 +71,14 @@ export class AppModule implements DoBootstrap {
         );
       }
 
+      /**
+       * Register our notebook property sheet
+       *
+       * This is ot used right now, was for popups showing properties for
+       * deck.gl objects on the map.
+       *
+       * If you search for the property sheet selector, you will find it
+       */
       if (!customElements.get(IDL_NB_MAP_PROPERTY_SHEET_SELECTOR)) {
         customElements.define(
           IDL_NB_MAP_PROPERTY_SHEET_SELECTOR,
