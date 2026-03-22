@@ -13,9 +13,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Deck, FlyToInterpolator, WebMercatorViewport } from '@deck.gl/core';
-import { TileLayer } from '@deck.gl/geo-layers';
-import { BitmapLayer } from '@deck.gl/layers';
 import {
+  CreateBaseMapLayer,
   CreateLayers,
   NotebookMapLayer,
   NotebookMapLayers,
@@ -133,30 +132,7 @@ export class MapComponent
    * Creates our basemap layer
    */
   createBaseMapLayer() {
-    return new TileLayer({
-      data: this.messenger.darkTheme
-        ? `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`
-        : `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`,
-
-      minZoom: 0,
-      maxZoom: 16,
-      tileSize: 256,
-
-      renderSubLayers: (props) => {
-        const { boundingBox } = props.tile;
-
-        return new BitmapLayer(props, {
-          data: undefined,
-          image: props.data,
-          bounds: [
-            boundingBox[0][0],
-            boundingBox[0][1],
-            boundingBox[1][0],
-            boundingBox[1][1],
-          ],
-        });
-      },
-    });
+    return CreateBaseMapLayer(this.messenger.darkTheme);
   }
 
   /**

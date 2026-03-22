@@ -1,3 +1,4 @@
+export * from './lib/helpers/create-basemap-layer';
 export * from './lib/helpers/create-image';
 export * from './lib/helpers/create-layers';
 export * from './lib/helpers/create-layers.interface';
