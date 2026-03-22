@@ -148,7 +148,7 @@ export class ChatState {
             content: [
               {
                 type: 'text',
-                payload: 'Can you help me do XYZ?',
+                payload: 'Can you help me do XYZ?\n- Thing\n- Also',
               },
             ],
           },
