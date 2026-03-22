@@ -44,20 +44,3 @@ $dark-theme: mat.m2-define-dark-theme(
 .dark-theme {
   @include mat.all-component-colors($dark-theme);
 }
-
-// Optional: Add custom theme variables
-:root {
-  --mat-divider-color: rgba(0, 0, 0, 0.12);
-  --mat-text-primary: rgba(0, 0, 0, 0.87);
-  --mat-text-secondary: rgba(0, 0, 0, 0.6);
-  --mat-app-background-color: #fafafa;
-  --mat-app-surface: #ffffff;
-}
-
-.dark-theme {
-  --mat-divider-color: rgba(255, 255, 255, 0.12);
-  --mat-text-primary: rgba(255, 255, 255, 0.87);
-  --mat-text-secondary: rgba(255, 255, 255, 0.6);
-  --mat-app-background-color: #303030;
-  --mat-app-surface: #424242;
-}
