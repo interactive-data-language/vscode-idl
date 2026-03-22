@@ -119,15 +119,6 @@ export function CreateLayers(
         /** Get image extents */
         const extent = typed.item.extents;
 
-        // embedLayers.push(
-        //   new BitmapLayer({
-        //     id: 'bitmap-layer',
-        //     image: `data:image/png;base64,${typed.item.data}`,
-        //     bounds: [extent.xmin, extent.ymin, extent.xmax, extent.ymax],
-        //     parameters: {},
-        //   })
-        // );
-
         /**
          * Check if we need to set some bounds
          */
