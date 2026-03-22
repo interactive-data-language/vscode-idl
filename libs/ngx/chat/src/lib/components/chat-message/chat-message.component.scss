@@ -1,14 +1,13 @@
 .message-wrapper {
   display: flex;
+
+  // space between messages
   margin-bottom: 12px;
-  // width: 100%;
 
   &.user-message {
     justify-content: flex-end;
 
     .message-card {
-      background-color: var(--mat-app-surface);
-      color: var(--mat-app-on-primary);
       max-width: 55%;
     }
   }
@@ -17,43 +16,18 @@
     justify-content: flex-start;
 
     .message-card {
-      background-color: var(--mat-app-surface);
-      color: var(--mat-app-on-surface);
       max-width: 55%;
     }
   }
 }
 
 .message-card {
+  // round edges
   border-radius: 12px;
-  padding: 8px;
 
   mat-card-content {
-    padding: 8px;
-
-    &:last-child {
-      padding-bottom: 8px;
-    }
-  }
-}
-
-.message-text {
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.message-result {
-  margin-top: 8px;
-  padding: 8px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-
-  pre {
-    margin: 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-    font-family: monospace;
-    font-size: 0.9em;
+    // compact messages
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 }
