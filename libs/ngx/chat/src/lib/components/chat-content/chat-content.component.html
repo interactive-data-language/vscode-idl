@@ -9,20 +9,13 @@
         </p>
       </div>
 
-      <div class="messages-area">
-        <mat-card class="message-card placeholder-message">
-          <mat-card-content>
-            <p>
-              <strong>Chat session selected:</strong>
-              {{ selectedSession()?.title }}
-            </p>
-            <p>
-              This is a placeholder for chat messages. In a real application,
-              messages would be displayed here.
-            </p>
-          </mat-card-content>
-        </mat-card>
+      <div class="messages-area" #messagesArea>
+        @for (message of selectedSession()?.messages; track message.id) {
+          <ngx-chat-message [message]="message" />
+        }
       </div>
+
+      <ngx-chat-input [sessionId]="selectedSession()?.id ?? null" />
     </div>
   } @else {
     <div class="welcome-message">

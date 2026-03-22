@@ -1,4 +1,4 @@
-import { ChatSession } from './chat.model';
+import { ChatMessage, ChatSession } from './chat.model';
 
 /**
  * Load all chat sessions
@@ -37,4 +37,15 @@ export class AddChatSession {
 export class DeleteChatSession {
   static readonly type = '[Chat] Delete Session';
   constructor(public sessionId: string) {}
+}
+
+/**
+ * Add a message to an existing chat session
+ */
+export class AddMessageToSession {
+  static readonly type = '[Chat] Add Message';
+  constructor(
+    public sessionId: string,
+    public message: ChatMessage,
+  ) {}
 }

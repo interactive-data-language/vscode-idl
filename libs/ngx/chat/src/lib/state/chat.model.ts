@@ -53,6 +53,11 @@ export interface ChatSession {
   messageCount: number;
 
   /**
+   * Chat messages
+   */
+  messages: ChatMessage[];
+
+  /**
    * Status of the chat
    */
   status: 'error' | 'in-progress' | 'ready';

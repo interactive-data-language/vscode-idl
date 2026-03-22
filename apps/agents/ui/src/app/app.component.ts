@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ChatLandingComponent } from '@idl/ngx/chat';
 import { ThemeService } from '@idl/ngx/theme';
 
 @Component({
-  imports: [ChatLandingComponent, RouterModule],
+  imports: [RouterModule],
   selector: 'agents-ui-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

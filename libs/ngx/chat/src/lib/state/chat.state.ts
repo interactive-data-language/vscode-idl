@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 
 import {
   AddChatSession,
+  AddMessageToSession,
   DeleteChatSession,
   LoadChatSessions,
   SelectChatSession,
@@ -62,6 +63,32 @@ export class ChatState {
   }
 
   /**
+   * Add a message to an existing chat session
+   */
+  @Action(AddMessageToSession)
+  addMessageToSession(
+    ctx: StateContext<ChatStateModel>,
+    action: AddMessageToSession,
+  ) {
+    const state = ctx.getState();
+    const updatedSessions = state.sessions.map((session) => {
+      if (session.id === action.sessionId) {
+        return {
+          ...session,
+          messages: [...session.messages, action.message],
+          messageCount: session.messageCount + 1,
+          lastMessageAt: new Date(),
+        };
+      }
+      return session;
+    });
+
+    ctx.patchState({
+      sessions: updatedSessions,
+    });
+  }
+
+  /**
    * Add a new chat session
    */
   @Action(AddChatSession)
@@ -103,6 +130,29 @@ export class ChatState {
         lastMessageAt: new Date(),
         messageCount: 3,
         status: 'ready',
+        messages: [
+          {
+            id: nanoid(),
+            role: 'user',
+            content: [
+              {
+                type: 'text',
+                payload:
+                  'Can you help me do XYZ? with some other really long text and blah blah blah blah blah thingajshdlfkjhaslkhdflkjashdflkj ksjhdflkhfas lashdflkj alkdsjhflkja lkajshdfk lkahdslkfha lkajhdslfkj alkdjhsflkjahs',
+              },
+            ],
+          },
+          {
+            id: nanoid(),
+            role: 'system',
+            content: [
+              {
+                type: 'text',
+                payload: 'Can you help me do XYZ?',
+              },
+            ],
+          },
+        ],
       },
       {
         id: nanoid(),
@@ -111,6 +161,28 @@ export class ChatState {
         lastMessageAt: new Date(Date.now() - 3600000),
         messageCount: 15,
         status: 'in-progress',
+        messages: [
+          {
+            id: nanoid(),
+            role: 'user',
+            content: [
+              {
+                type: 'text',
+                payload: 'Can you help me do XYZ?',
+              },
+            ],
+          },
+          {
+            id: nanoid(),
+            role: 'system',
+            content: [
+              {
+                type: 'text',
+                payload: 'Can you help me do XYZ?',
+              },
+            ],
+          },
+        ],
       },
     ];
 

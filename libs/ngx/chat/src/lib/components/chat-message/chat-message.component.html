@@ -1,0 +1,19 @@
+<div
+  class="message-wrapper"
+  [class.user-message]="message().role === 'user'"
+  [class.system-message]="message().role === 'system'"
+>
+  <mat-card class="message-card">
+    <mat-card-content>
+      @for (content of message().content; track $index) {
+        @if (content.type === 'text') {
+          <p class="message-text">{{ content.payload }}</p>
+        } @else if (content.type === 'result') {
+          <div class="message-result">
+            <pre>{{ content.payload }}</pre>
+          </div>
+        }
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
