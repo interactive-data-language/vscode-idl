@@ -195,7 +195,8 @@
       "@idl/vscode/walkthroughs": ["libs/vscode/walkthroughs/src/index.ts"],
       "@idl/mcp/analytics-repository": [
         "libs/mcp/analytics-repository/src/index.ts"
-      ]
+      ],
+      "@idl/ngx/material": ["libs/ngx/material/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

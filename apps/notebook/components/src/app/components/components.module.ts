@@ -4,8 +4,8 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgxMaterialModule } from '@idl/ngx/material';
 
-import { MaterialModule } from '../material.module';
 import { AnimationControlsComponent } from './animation-controls/animation-controls.component';
 import { EntryComponent } from './entry/entry.component';
 import { ImageComponent } from './image/image.component';
@@ -37,7 +37,7 @@ import { PlotComponent } from './plot/plot.component';
     MapLayerCardComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, NgxMaterialModule],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class ComponentsModule {}

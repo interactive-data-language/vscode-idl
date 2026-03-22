@@ -18,4 +18,4 @@ const modules = [
   exports: modules,
   providers: [],
 })
-export class MaterialModule {}
+export class NgxMaterialModule {}
