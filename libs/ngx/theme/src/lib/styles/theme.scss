@@ -37,10 +37,27 @@ $dark-theme: mat.m2-define-dark-theme(
   )
 );
 
-// Apply the light theme by default
+// Apply the light theme by default - also loads other styles
 @include mat.all-component-themes($light-theme);
+
+// Dedicated styles for light theme
+.light-theme {
+  @include mat.all-component-themes($light-theme);
+  --accent-color: #{mat.m2-get-color-from-palette($light-accent, default)};
+  --accent-color-lighter: #{mat.m2-get-color-from-palette(
+      $light-accent,
+      lighter
+    )};
+  --accent-color-darker: #{mat.m2-get-color-from-palette($light-accent, darker)};
+}
 
 // Apply the dark theme when the dark-theme class is present
 .dark-theme {
   @include mat.all-component-colors($dark-theme);
+  --accent-color: #{mat.m2-get-color-from-palette($dark-accent, default)};
+  --accent-color-lighter: #{mat.m2-get-color-from-palette(
+      $dark-accent,
+      lighter
+    )};
+  --accent-color-darker: #{mat.m2-get-color-from-palette($dark-accent, darker)};
 }
