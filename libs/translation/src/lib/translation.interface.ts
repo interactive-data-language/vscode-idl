@@ -52,6 +52,8 @@ export interface ICommandTranslation {
   copilot: {
     /** Setup GitHub Copilot instructions file */
     setupInstructions: string;
+    /** Run Copilot QC tests (dev-only) */
+    runQCTests: string;
   };
   /** Debug commands */
   debug: {

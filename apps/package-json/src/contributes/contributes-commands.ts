@@ -86,6 +86,12 @@ HIDDEN_COMMAND[IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK] = true;
 HIDDEN_COMMAND[IDL_COMMANDS.WEBVIEW.START] = true;
 
 /**
+ * Commands only visible in the Extension Development Host
+ */
+const DEV_ONLY_COMMAND: { [key: string]: any } = {};
+DEV_ONLY_COMMAND[IDL_COMMANDS.COPILOT.RUN_QC_TESTS] = true;
+
+/**
  * Map our command name to the translation which should match
  * exactly our command name
  */
@@ -196,6 +202,12 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
        */
       case command in HIDDEN_COMMAND:
         commandMenus.push({ command, when: 'false' });
+        break;
+      /**
+       * Dev-only commands, visible only in Extension Development Host
+       */
+      case command in DEV_ONLY_COMMAND:
+        commandMenus.push({ command, when: 'idl.devMode' });
         break;
       /**
        * Commands not for web
