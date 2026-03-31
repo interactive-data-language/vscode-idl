@@ -1,16 +1,15 @@
 import { IDL_MCP_LOG } from '@idl/logger';
+import { MCPServer } from '@idl/mcp/server';
 import { MCPResourceIndex } from '@idl/mcp/server-resources';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolHelper } from '../mcp-tool-helper.class';
-
 /**
  * Search through registered resources
  */
-export function RegisterMCPTool_SearchResources(helper: MCPToolHelper) {
-  helper.registerTool(
+export function RegisterMCPTool_SearchResources(server: MCPServer) {
+  server.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_RESOURCES,
     {
       title:
@@ -22,7 +21,7 @@ export function RegisterMCPTool_SearchResources(helper: MCPToolHelper) {
         queries: z
           .array(z.string())
           .describe(
-            'The queries to search for, uses fuzzy-style searching so queries should be shorter.'
+            'The queries to search for, uses fuzzy-style searching so queries should be shorter.',
           ),
       },
     },
@@ -38,7 +37,7 @@ export function RegisterMCPTool_SearchResources(helper: MCPToolHelper) {
         results = results.concat(MCPResourceIndex.search(queries[i]));
       }
 
-      helper.logManager.log({
+      server.logManager.log({
         log: IDL_MCP_LOG,
         type: 'debug',
         content: [
@@ -59,6 +58,6 @@ export function RegisterMCPTool_SearchResources(helper: MCPToolHelper) {
           },
         ],
       };
-    }
+    },
   );
 }

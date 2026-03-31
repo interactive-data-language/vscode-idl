@@ -1,8 +1,8 @@
+import { MCPServer } from '@idl/mcp/server';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
-import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-install-message.interface';
 import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
@@ -11,11 +11,11 @@ import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
  * Registers a tool that can run an ENVI Task
  */
 export function RegisterMCPTool_ListENVITools(
-  helper: MCPToolHelper,
-  registry: MCPTaskRegistry
+  server: MCPServer,
+  registry: MCPTaskRegistry,
 ) {
   // register tool
-  helper.registerTool(
+  server.registerTool(
     MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS,
     {
       title:
@@ -52,6 +52,6 @@ export function RegisterMCPTool_ListENVITools(
           },
         ],
       };
-    }
+    },
   );
 }

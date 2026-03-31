@@ -1,9 +1,9 @@
+import { MCPServer } from '@idl/mcp/server';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-install-message.interface';
 import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
@@ -17,10 +17,10 @@ let LOADED_NOTES = false;
  * Registers a tool that can run an ENVI Task
  */
 export function RegisterMCPTool_GetENVIToolParameters(
-  helper: MCPToolHelper,
-  registry: MCPTaskRegistry
+  server: MCPServer,
+  registry: MCPTaskRegistry,
 ) {
-  helper.registerTool(
+  server.registerTool(
     MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS,
     {
       title:
@@ -63,10 +63,10 @@ export function RegisterMCPTool_GetENVIToolParameters(
 
       // load notes if we havent yet
       if (!LOADED_NOTES) {
-        const resp = await helper.sendRequestToVSCode(
+        const resp = await server.sendRequestToVSCode(
           id,
           MCP_TOOL_LOOKUP.RETURN_NOTES,
-          {}
+          {},
         );
 
         // mark as loaded, even if we have an error
@@ -106,6 +106,6 @@ export function RegisterMCPTool_GetENVIToolParameters(
         isError: false,
         content: content as any,
       };
-    }
+    },
   );
 }

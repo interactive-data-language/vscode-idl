@@ -6,11 +6,11 @@ import {
   MCP_ENVISpectralLibrary,
   MCP_ENVIVector,
 } from '@idl/mcp/envi-to-mcp';
+import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-install-message.interface';
 import { QUERY_DATASET_WITH_ENVI_DESCRIPTION } from './register-mcp-tool-query-dataset-with-envi.interface';
@@ -18,8 +18,8 @@ import { QUERY_DATASET_WITH_ENVI_DESCRIPTION } from './register-mcp-tool-query-d
 /**
  * Registers a tool that allows an agent to get additional information about a dataset
  */
-export function RegisterMCPTool_QueryDatasetWithENVI(helper: MCPToolHelper) {
-  helper.registerTool(
+export function RegisterMCPTool_QueryDatasetWithENVI(server: MCPServer) {
+  server.registerTool(
     MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
     {
       title:
@@ -31,22 +31,22 @@ export function RegisterMCPTool_QueryDatasetWithENVI(helper: MCPToolHelper) {
         dataset: z
           .union([
             MCP_ENVIDeepLearningONNXModel().describe(
-              'An ENVI Deep Learning ONNX model to query'
+              'An ENVI Deep Learning ONNX model to query',
             ),
             MCP_ENVIMachineLearningModel().describe(
-              'An ENVI Machine learning model to query'
+              'An ENVI Machine learning model to query',
             ),
             MCP_ENVIRaster().describe('An ENVI Raster to query'),
             MCP_ENVIROI().describe('An ENVI ROI to query'),
             MCP_ENVISpectralLibrary().describe(
-              'An ENVI spectral library to query'
+              'An ENVI spectral library to query',
             ),
             MCP_ENVIVector().describe(
-              'An ENVI vector file (shapefile) to query'
+              'An ENVI vector file (shapefile) to query',
             ),
           ])
           .describe(
-            'The dataset that you want to query, one of the above types'
+            'The dataset that you want to query, one of the above types',
           ),
       },
     },
@@ -64,12 +64,12 @@ export function RegisterMCPTool_QueryDatasetWithENVI(helper: MCPToolHelper) {
         };
       }
 
-      const resp = await helper.sendRequestToVSCode(
+      const resp = await server.sendRequestToVSCode(
         id,
         MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
         {
           dataset,
-        }
+        },
       );
 
       return {
@@ -81,6 +81,6 @@ export function RegisterMCPTool_QueryDatasetWithENVI(helper: MCPToolHelper) {
           },
         ],
       };
-    }
+    },
   );
 }

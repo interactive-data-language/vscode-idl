@@ -3,19 +3,19 @@ import {
   MCP_ENVIRasterSeries,
   MCP_ENVIVector,
 } from '@idl/mcp/envi-to-mcp';
+import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-install-message.interface';
 
 /**
  * Registers a tool that allows us to open an image in ENVI
  */
-export function RegisterMCPTool_OpenDatasetsInENVI(helper: MCPToolHelper) {
-  helper.registerTool(
+export function RegisterMCPTool_OpenDatasetsInENVI(server: MCPServer) {
+  server.registerTool(
     MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
     {
       title:
@@ -31,22 +31,22 @@ export function RegisterMCPTool_OpenDatasetsInENVI(helper: MCPToolHelper) {
               MCP_ENVIRaster().describe('An ENVI Raster'),
               MCP_ENVIVector().describe('An ENVI vector file (shapefile)'),
               MCP_ENVIRasterSeries().describe('An ENVI Raster series file'),
-            ])
+            ]),
           )
           .describe(
-            'The datasets to open in ENVI. The order of the array is the order in which items are displayed in ENVI, so the first item is the bottom-most layer.'
+            'The datasets to open in ENVI. The order of the array is the order in which items are displayed in ENVI, so the first item is the bottom-most layer.',
           ),
         automaticZoom: z
           .enum(['all-layers', 'last-layer', 'none'])
           .default('last-layer')
           .describe(
-            'Automatic zoom strategy when we add a layer. "all-layers" uses the extent of all displayed layers. "last-layer" zooms to the last layer added. "none" means no automatic zooming.'
+            'Automatic zoom strategy when we add a layer. "all-layers" uses the extent of all displayed layers. "last-layer" zooms to the last layer added. "none" means no automatic zooming.',
           ),
         resetView: z
           .boolean()
           .default(false)
           .describe(
-            'If true, the ENVI view is reset and all datasets are removed before displaying datasets. Recommended to set this the first time you call this tool.'
+            'If true, the ENVI view is reset and all datasets are removed before displaying datasets. Recommended to set this the first time you call this tool.',
           ),
       },
     },
@@ -64,14 +64,14 @@ export function RegisterMCPTool_OpenDatasetsInENVI(helper: MCPToolHelper) {
         };
       }
 
-      const resp = await helper.sendRequestToVSCode(
+      const resp = await server.sendRequestToVSCode(
         id,
         MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
         {
           datasets,
           resetView,
           automaticZoom,
-        }
+        },
       );
 
       return {
@@ -83,6 +83,6 @@ export function RegisterMCPTool_OpenDatasetsInENVI(helper: MCPToolHelper) {
           },
         ],
       };
-    }
+    },
   );
 }

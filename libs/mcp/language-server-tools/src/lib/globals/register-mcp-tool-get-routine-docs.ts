@@ -1,4 +1,4 @@
-import { MCPToolHelper } from '@idl/mcp/server-tools';
+import { MCPServer } from '@idl/mcp/server';
 import { IDLIndex } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
@@ -17,10 +17,10 @@ import { reverseMap } from './register-mcp-tool-search-for-routine.interface';
  * to remove excess string/tokens that the LLM has to process
  */
 export function RegisterMCPTool_GetRoutineDocs(
-  helper: MCPToolHelper,
-  index: IDLIndex
+  server: MCPServer,
+  index: IDLIndex,
 ) {
-  helper.registerTool(
+  server.registerTool(
     MCP_TOOL_LOOKUP.GET_ROUTINE_DOCS,
     {
       title:
@@ -35,7 +35,7 @@ export function RegisterMCPTool_GetRoutineDocs(
               name: z
                 .string()
                 .describe(
-                  'The name to return docs for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
+                  'The name to return docs for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"',
                 ),
               type: z
                 .enum([
@@ -47,10 +47,10 @@ export function RegisterMCPTool_GetRoutineDocs(
                   'SystemVariable',
                 ])
                 .describe('The type of routine to search for.'),
-            })
+            }),
           )
           .describe(
-            'The routines to return docs for, returns the first match or an empty array for no matches.'
+            'The routines to return docs for, returns the first match or an empty array for no matches.',
           ),
       },
     },
@@ -80,7 +80,7 @@ export function RegisterMCPTool_GetRoutineDocs(
                 routineSource: g.meta.source,
                 docs: g.meta.docs,
               };
-            })
+            }),
         );
       }
 
@@ -96,11 +96,11 @@ export function RegisterMCPTool_GetRoutineDocs(
                 } else {
                   return items[0];
                 }
-              })
+              }),
             ),
           },
         ],
       };
-    }
+    },
   );
 }

@@ -1,8 +1,8 @@
+import { MCPServer } from '@idl/mcp/server';
 import { MCPToolWorkflowRegistry } from '@idl/mcp/tool-workflows';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
-import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-install-message.interface';
 import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructions.interface';
@@ -25,9 +25,9 @@ let LOAD_FAILURE: string;
 /**
  * Registers a tool that can run an ENVI Task
  */
-export function RegisterMCPTool_ListENVIToolWorkflows(helper: MCPToolHelper) {
+export function RegisterMCPTool_ListENVIToolWorkflows(server: MCPServer) {
   // register tool
-  helper.registerTool(
+  server.registerTool(
     MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
     {
       title:
@@ -66,10 +66,10 @@ export function RegisterMCPTool_ListENVIToolWorkflows(helper: MCPToolHelper) {
 
       // load notes if we havent
       if (!LOADED_NOTES) {
-        const resp = await helper.sendRequestToVSCode(
+        const resp = await server.sendRequestToVSCode(
           id,
           MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
-          {}
+          {},
         );
 
         // try to load based on the response
@@ -91,11 +91,11 @@ export function RegisterMCPTool_ListENVIToolWorkflows(helper: MCPToolHelper) {
           {
             type: 'text',
             text: JSON.stringify(
-              ENVI_TOOL_WORKFLOW_REGISTRY.getWorkflowNames()
+              ENVI_TOOL_WORKFLOW_REGISTRY.getWorkflowNames(),
             ),
           },
         ],
       };
-    }
+    },
   );
 }

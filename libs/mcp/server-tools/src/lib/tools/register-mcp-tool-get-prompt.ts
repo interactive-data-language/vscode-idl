@@ -1,18 +1,17 @@
 import { MCPPromptRegistry } from '@idl/mcp/prompts';
+import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
-
-import { MCPToolHelper } from '../mcp-tool-helper.class';
 
 /**
  * Get a prompt from the server
  */
 export function RegisterMCPTool_GetPrompt(
-  helper: MCPToolHelper,
-  registry: MCPPromptRegistry
+  server: MCPServer,
+  registry: MCPPromptRegistry,
 ) {
-  helper.registerTool(
+  server.registerTool(
     MCP_TOOL_LOOKUP.GET_PROMPT,
     {
       title: IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_PROMPT],
@@ -44,6 +43,6 @@ export function RegisterMCPTool_GetPrompt(
           },
         ],
       };
-    }
+    },
   );
 }
