@@ -31,7 +31,7 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.DEBUG.START, async () => {
       try {
-        LogCommandInfo('Opening IDL');
+        LogCommandInfo('Starting IDL');
         VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
           idl_command: IDL_COMMANDS.DEBUG.START,
         });
@@ -41,11 +41,11 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while opening IDL',
           err,
-          cmdErrors.debug.startIDL
+          cmdErrors.debug.startIDL,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -65,11 +65,11 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while opening ENVI IDL',
           err,
-          cmdErrors.debug.startENVI
+          cmdErrors.debug.startENVI,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -81,11 +81,11 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while compiling file for IDL',
           err,
-          cmdErrors.debug.compileFile
+          cmdErrors.debug.compileFile,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -98,12 +98,12 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while running file for IDL',
             err,
-            cmdErrors.debug.runFile
+            cmdErrors.debug.runFile,
           );
         }
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -124,12 +124,12 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while executing batch file',
             err,
-            cmdErrors.debug.executeBatchFile
+            cmdErrors.debug.executeBatchFile,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -145,11 +145,11 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while resetting IDL',
           err,
-          cmdErrors.debug.resetIDL
+          cmdErrors.debug.resetIDL,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -161,7 +161,6 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
             return false;
           }
           LogCommandInfo('Start Profiling');
-          LogCommandInfo('Opening IDL');
           VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
             idl_command: IDL_COMMANDS.DEBUG.PROFILER_START,
           });
@@ -171,12 +170,12 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while starting profiling',
             err,
-            cmdErrors.debug.startProfiling
+            cmdErrors.debug.startProfiling,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -200,11 +199,11 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while stopping profiling',
             err,
-            cmdErrors.debug.stopProfiling
+            cmdErrors.debug.stopProfiling,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 }
