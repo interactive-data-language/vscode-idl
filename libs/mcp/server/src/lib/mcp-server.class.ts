@@ -325,6 +325,11 @@ export class MCPServer {
 
     // Clean up when transport closes (client disconnect, DELETE, errors)
     transport.onclose = () => {
+      this.logManager.log({
+        log: IDL_MCP_LOG,
+        type: 'error',
+        content: `MCP transport closed with ID ${transport}`,
+      });
       this.removeConnection(sessionId);
     };
 
@@ -548,11 +553,6 @@ export class MCPServer {
     this.app.get(
       '/health-check',
       async (req: express.Request, res: express.Response) => {
-        this.logManager.log({
-          log: IDL_MCP_LOG,
-          type: 'debug',
-          content: 'Received health check request',
-        });
         res.status(200).json({
           message: 'Server is up and running',
         });
