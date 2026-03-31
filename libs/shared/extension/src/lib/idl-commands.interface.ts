@@ -167,6 +167,11 @@ export const IDL_COMMANDS = {
     /** Opens tutorial "what is IDL" */
     OPEN_IDL_TUTORIAL: `${BASE_IDL_TUTORIAL}openIDLTutorial`,
   },
+  /** Commands for GitHub Copilot integration (dev-only) */
+  COPILOT: {
+    /** Run Copilot QC tests in Extension Development Host */
+    RUN_QC_TESTS: `${BASE_COPILOT}runQCTests`,
+  },
 };
 
 /**

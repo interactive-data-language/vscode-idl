@@ -164,6 +164,19 @@ export async function run(): Promise<void> {
   }
 
   // sleep before exit, otherwise console output does not always get returned
+  console.log('');
+  console.log('-----------------------------------------');
+  console.log('  LLM QA Tests still need to be run.');
+  console.log('');
+  console.log('  1. Open this repo in VS Code');
+  console.log('  2. Make sure you are signed into GitHub Copilot');
+  console.log('  3. Press F5 to launch the Extension Development Host');
+  console.log('  4. Open the Command Palette (Ctrl+Shift+P)');
+  console.log('  5. Run: "IDL: Run Copilot QC Tests"');
+  console.log('  6. Click "Allow" when the LM consent dialog appears');
+  console.log('  7. Check the Output panel for results');
+  console.log('-----------------------------------------');
+
   await Sleep(500);
 
   // nonzero exit to indicate we failed

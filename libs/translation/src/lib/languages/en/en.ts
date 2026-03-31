@@ -101,6 +101,7 @@ export const EN: ITranslation = {
       },
       copilot: {
         setupInstructions: 'IDL: Setup GitHub Copilot Instructions',
+        runQCTests: 'IDL: Run Copilot QC Tests',
       },
       webview: {
         start: 'IDL: Start Webview',
@@ -175,6 +176,7 @@ export const EN: ITranslation = {
       },
       copilot: {
         setupInstructions: 'Error while setting up Copilot instructions',
+        runQCTests: 'Error while running Copilot QC tests',
       },
       webview: {
         start: 'Error while starting webview',
