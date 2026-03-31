@@ -34,6 +34,14 @@ export class ChatService {
   }
 
   /**
+   * Disconnect the MCP client
+   */
+  async disconnect(): Promise<void> {
+    await this.mcpClient.disconnect();
+    this.mcpReady = false;
+  }
+
+  /**
    * Stream a chat completion from OpenAI with agentic tool calling
    *
    * @param request - The chat message request with history and model selection
