@@ -101,6 +101,9 @@ export class MCPServer {
   /** Port server runs on */
   private mcpPort: number;
 
+  /** Interval handle for idle session cleanup */
+  private sessionCleanupInterval?: ReturnType<typeof setInterval>;
+
   /** Queue to throttle MCP server requests - only one tool runs at a time */
   private toolExecutionQueue = new SimplePromiseQueue();
 
@@ -119,6 +122,7 @@ export class MCPServer {
     this.mcpPort = options.port ?? MCP_SERVER_CONFIG.PORT;
 
     this.startHttpServer();
+    this.startSessionCleanup();
   }
 
   /**
@@ -341,7 +345,11 @@ export class MCPServer {
       });
     };
 
-    const connection: IMCPConnection = { mcpServer, transport };
+    const connection: IMCPConnection = {
+      lastActivity: Date.now(),
+      mcpServer,
+      transport,
+    };
     this.connections.set(sessionId, connection);
 
     this.logManager.log({
@@ -367,7 +375,7 @@ export class MCPServer {
   /**
    * Remove and clean up a connection by session ID
    */
-  private removeConnection(sessionId: string) {
+  private removeConnection(sessionId: string, wasIdle = false) {
     const conn = this.connections.get(sessionId);
     if (conn) {
       // Remove from map first to prevent re-entrant cleanup from onclose
@@ -391,7 +399,7 @@ export class MCPServer {
       this.logManager.log({
         log: IDL_MCP_LOG,
         type: 'info',
-        content: `MCP connection closed (session: ${sessionId})`,
+        content: `MCP connection closed (session: ${sessionId})${wasIdle ? ' because it was idle' : ''}`,
       });
     }
   }
@@ -409,6 +417,12 @@ export class MCPServer {
    * Shut down the server and all connections
    */
   private shutdown() {
+    // Stop the idle session cleanup interval
+    if (this.sessionCleanupInterval) {
+      clearInterval(this.sessionCleanupInterval);
+      this.sessionCleanupInterval = undefined;
+    }
+
     // Close all connections
     for (const sessionId of this.connections.keys()) {
       this.removeConnection(sessionId);
@@ -472,6 +486,9 @@ export class MCPServer {
             const created = await this.createConnection();
             conn = created.connection;
           }
+
+          // Update last activity timestamp
+          conn.lastActivity = Date.now();
 
           // Delegate to the transport to handle the MCP protocol message
           await conn.transport.handleRequest(req, res, req.body);
@@ -588,5 +605,20 @@ export class MCPServer {
     } catch (error) {
       this.failCallback(error);
     }
+  }
+
+  /**
+   * Periodically checks for idle sessions and removes them
+   */
+  private startSessionCleanup() {
+    this.sessionCleanupInterval = setInterval(() => {
+      const now = Date.now();
+      for (const [sessionId, conn] of this.connections.entries()) {
+        const idle = now - conn.lastActivity;
+        if (idle >= MCP_SERVER_CONFIG.SESSION_IDLE_TIMEOUT) {
+          this.removeConnection(sessionId, true);
+        }
+      }
+    }, MCP_SERVER_CONFIG.SESSION_CLEANUP_INTERVAL);
   }
 }
