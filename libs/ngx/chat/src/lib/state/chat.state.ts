@@ -116,7 +116,9 @@ export class ChatState {
       content: [{ type: 'text', payload: '' }],
     };
 
-    updatedSessions = state.sessions.map((session) => {
+    // Get the latest state after adding user message
+    const stateAfterUserMessage = ctx.getState();
+    updatedSessions = stateAfterUserMessage.sessions.map((session) => {
       if (session.id === action.sessionId) {
         return {
           ...session,
