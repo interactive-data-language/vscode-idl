@@ -88,7 +88,7 @@ export class GlobalIndex {
   export(
     globs: string[] = [],
     filters: string[] = [],
-    everything = false
+    everything = false,
   ): ExportedGlobalTokensByType {
     /**
      * Exported tokens
@@ -161,7 +161,7 @@ export class GlobalIndex {
 
       /** Get tokens by name */
       const forFile = this.globalTokensByFile[files[i]].filter((item) =>
-        ShouldExportItem(item)
+        ShouldExportItem(item),
       );
 
       // process all tokens
@@ -179,7 +179,7 @@ export class GlobalIndex {
   findMatchingGlobalToken<T extends GlobalTokenType>(
     type: T,
     name: string,
-    inOptions: Partial<IFindGlobalTokenOptions> = {}
+    inOptions: Partial<IFindGlobalTokenOptions> = {},
   ): IGlobalIndexedToken<T>[] {
     /** Merge options */
     const options = Object.assign(DEFAULT_FIND_OPTIONS, inOptions);
@@ -229,8 +229,8 @@ export class GlobalIndex {
               .filter((result) => result.target.includes(useName))
               .slice(0, Math.min(options.fuzzyLimit, matches.length))
               .map(
-                (result) => toCheck[result.target][0] as IGlobalIndexedToken<T>
-              ) as IGlobalIndexedToken<T>[]
+                (result) => toCheck[result.target][0] as IGlobalIndexedToken<T>,
+              ) as IGlobalIndexedToken<T>[],
           );
 
           break;
@@ -254,6 +254,11 @@ export class GlobalIndex {
 
       // filter items
       res = res.filter((item) => {
+        // skip undefined entries
+        if (!item) {
+          return false;
+        }
+
         // if no file or not private, keep
         if (!item.file || !item.meta.private) {
           return true;
@@ -412,7 +417,7 @@ export class GlobalIndex {
   trackGlobalTokens(
     tokens: GlobalTokens,
     file?: string,
-    disabled?: IDisabledProblems
+    disabled?: IDisabledProblems,
   ) {
     // check if we need to clean up first
     if (file) {
@@ -477,7 +482,7 @@ export class GlobalIndex {
         this.getProblemDetail(token),
         token.pos,
         token.pos,
-        token.file
+        token.file,
       );
 
       // check if we have information about disabled problems
@@ -485,7 +490,7 @@ export class GlobalIndex {
         prob.canReport = !IsProblemDisabled(
           prob.code,
           prob.start[0],
-          this.disabledProblemsByFile[token.file]
+          this.disabledProblemsByFile[token.file],
         );
       }
 
@@ -511,7 +516,7 @@ export class GlobalIndex {
           break;
         case this.globalTokensByTypeByName[token.type][token.name].length === 1:
           this.addDuplicateTokenProblem(
-            this.globalTokensByTypeByName[token.type][token.name][0]
+            this.globalTokensByTypeByName[token.type][token.name][0],
           );
           this.addDuplicateTokenProblem(token);
           break;
@@ -543,7 +548,7 @@ export class GlobalIndex {
    */
   private removeDuplicateTokenProblems(
     token: GlobalIndexedToken,
-    clear = true
+    clear = true,
   ) {
     // sting we match at the beginning
     const problemCode = PROBLEM_MAP[token.type];
