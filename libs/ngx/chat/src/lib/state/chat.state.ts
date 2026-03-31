@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { ChatMessage, ChatSession, ChatStateModel } from '@idl/types/chat';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { nanoid } from 'nanoid';
 
+import { ChatApiService } from '../services/chat-api.service';
 import {
   AddChatSession,
   AddMessageToSession,
@@ -9,8 +11,8 @@ import {
   LoadChatSessions,
   SelectChatSession,
   SetChatSessions,
+  SetSelectedModel,
 } from './chat.actions';
-import { ChatSession, ChatStateModel } from './chat.model';
 
 /**
  * Default state for the chat feature
@@ -19,6 +21,7 @@ const defaultState: ChatStateModel = {
   sessions: [],
   selectedSessionId: null,
   loading: false,
+  selectedModel: 'gpt-4o-mini', // Default to cheapest model
 };
 
 @State<ChatStateModel>({
@@ -27,12 +30,22 @@ const defaultState: ChatStateModel = {
 })
 @Injectable()
 export class ChatState {
+  private readonly chatApiService = inject(ChatApiService);
+
   /**
    * Get loading state
    */
   @Selector()
   static loading(state: ChatStateModel): boolean {
     return state.loading;
+  }
+
+  /**
+   * Get the currently selected model
+   */
+  @Selector()
+  static selectedModel(state: ChatStateModel): string {
+    return state.selectedModel;
   }
 
   /**
@@ -63,7 +76,7 @@ export class ChatState {
   }
 
   /**
-   * Add a message to an existing chat session
+   * Add a message to an existing chat session and get AI response
    */
   @Action(AddMessageToSession)
   addMessageToSession(
@@ -71,21 +84,163 @@ export class ChatState {
     action: AddMessageToSession,
   ) {
     const state = ctx.getState();
-    const updatedSessions = state.sessions.map((session) => {
+
+    // Find the target session
+    const targetSession = state.sessions.find((s) => s.id === action.sessionId);
+    if (!targetSession) {
+      console.error(`Session ${action.sessionId} not found`);
+      return;
+    }
+
+    // 1. Add user message immediately
+    let updatedSessions = state.sessions.map((session) => {
       if (session.id === action.sessionId) {
         return {
           ...session,
           messages: [...session.messages, action.message],
           messageCount: session.messageCount + 1,
           lastMessageAt: new Date(),
+          status: 'in-progress' as const,
         };
       }
       return session;
     });
 
-    ctx.patchState({
-      sessions: updatedSessions,
+    ctx.patchState({ sessions: updatedSessions });
+
+    // 2. Create empty system message with in-progress status
+    const systemMessageId = nanoid();
+    const systemMessage: ChatMessage = {
+      id: systemMessageId,
+      role: 'system',
+      content: [{ type: 'text', payload: '' }],
+    };
+
+    updatedSessions = state.sessions.map((session) => {
+      if (session.id === action.sessionId) {
+        return {
+          ...session,
+          messages: [...session.messages, systemMessage],
+          messageCount: session.messageCount + 1,
+        };
+      }
+      return session;
     });
+
+    ctx.patchState({ sessions: updatedSessions });
+
+    // 3. Call API with streaming
+    const conversationHistory = targetSession.messages;
+
+    this.chatApiService
+      .sendMessage({
+        sessionId: action.sessionId,
+        message: action.message.content.map((c) => c.payload).join('\n'),
+        model: state.selectedModel,
+        conversationHistory,
+      })
+      .subscribe({
+        next: (chunk) => {
+          if (chunk.type === 'token') {
+            // Append token to system message
+            const currentState = ctx.getState();
+            const sessions = currentState.sessions.map((session) => {
+              if (session.id === action.sessionId) {
+                const updatedMessages = session.messages.map((msg) => {
+                  if (msg.id === systemMessageId) {
+                    const currentContent = msg.content[0]?.payload || '';
+                    return {
+                      ...msg,
+                      content: [
+                        {
+                          type: 'text' as const,
+                          payload: currentContent + chunk.content,
+                        },
+                      ],
+                    };
+                  }
+                  return msg;
+                });
+                return { ...session, messages: updatedMessages };
+              }
+              return session;
+            });
+            ctx.patchState({ sessions });
+          } else if (chunk.type === 'done') {
+            // Mark session as ready
+            const currentState = ctx.getState();
+            const sessions = currentState.sessions.map((session) => {
+              if (session.id === action.sessionId) {
+                return {
+                  ...session,
+                  status: 'ready' as const,
+                  lastMessageAt: new Date(),
+                };
+              }
+              return session;
+            });
+            ctx.patchState({ sessions });
+          } else if (chunk.type === 'error') {
+            // Mark session as error and show error message
+            console.error('Streaming error:', chunk.error);
+            const currentState = ctx.getState();
+            const sessions = currentState.sessions.map((session) => {
+              if (session.id === action.sessionId) {
+                const updatedMessages = session.messages.map((msg) => {
+                  if (msg.id === systemMessageId) {
+                    return {
+                      ...msg,
+                      content: [
+                        {
+                          type: 'text' as const,
+                          payload: `❌ Error: ${chunk.error || 'Unknown error occurred'}`,
+                        },
+                      ],
+                    };
+                  }
+                  return msg;
+                });
+                return {
+                  ...session,
+                  messages: updatedMessages,
+                  status: 'error' as const,
+                };
+              }
+              return session;
+            });
+            ctx.patchState({ sessions });
+          }
+        },
+        error: (error) => {
+          console.error('API call error:', error);
+          const currentState = ctx.getState();
+          const sessions = currentState.sessions.map((session) => {
+            if (session.id === action.sessionId) {
+              const updatedMessages = session.messages.map((msg) => {
+                if (msg.id === systemMessageId) {
+                  return {
+                    ...msg,
+                    content: [
+                      {
+                        type: 'text' as const,
+                        payload: `❌ Network error: ${error.message || 'Failed to connect to API'}`,
+                      },
+                    ],
+                  };
+                }
+                return msg;
+              });
+              return {
+                ...session,
+                messages: updatedMessages,
+                status: 'error' as const,
+              };
+            }
+            return session;
+          });
+          ctx.patchState({ sessions });
+        },
+      });
   }
 
   /**
@@ -206,6 +361,19 @@ export class ChatState {
   selectSession(ctx: StateContext<ChatStateModel>, action: SelectChatSession) {
     ctx.patchState({
       selectedSessionId: action.sessionId,
+    });
+  }
+
+  /**
+   * Set the selected model for chat completions
+   */
+  @Action(SetSelectedModel)
+  setSelectedModel(
+    ctx: StateContext<ChatStateModel>,
+    action: SetSelectedModel,
+  ) {
+    ctx.patchState({
+      selectedModel: action.model,
     });
   }
 

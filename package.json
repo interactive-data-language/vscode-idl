@@ -60,6 +60,8 @@
     "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/performance/main.js"
   },
   "dependencies": {
+    "@langchain/core": "^1.1.38",
+    "@langchain/openai": "^1.4.1",
     "@modelcontextprotocol/sdk": "^1.21.1",
     "@vscode/debugadapter": "^1.66.0",
     "@vscode/debugprotocol": "^1.66.0",
@@ -71,6 +73,7 @@
     "compare-versions": "^6.1.1",
     "cors": "^2.8.5",
     "deepmerge": "^4.2.2",
+    "eventsource-parser": "^3.0.6",
     "express": "^5.1.0",
     "fast-copy": "^4.0.2",
     "fast-equals": "^6.0.0",
@@ -81,6 +84,7 @@
     "json-schema-resolver": "^3.0.0",
     "markdown-to-txt": "^2.0.1",
     "nanoid": "^3.3.7",
+    "openai": "^6.33.0",
     "rxjs": "^7.8.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",

@@ -6,9 +6,8 @@ import {
   input,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { ChatMessage } from '@idl/types/chat';
 import { MarkdownModule } from 'ngx-markdown';
-
-import { ChatMessage } from '../../state/chat.model';
 
 /**
  * Component for displaying a single chat message.

@@ -1,4 +1,8 @@
 import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
   ApplicationConfig,
   importProvidersFrom,
   provideBrowserGlobalErrorListeners,
@@ -19,6 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
     provideAnimationsAsync(),
+    provideHttpClient(withInterceptorsFromDi()),
     provideStore(
       [ChatState, ThemeState],
       withNgxsLoggerPlugin(),

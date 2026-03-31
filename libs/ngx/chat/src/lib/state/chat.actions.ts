@@ -1,4 +1,4 @@
-import { ChatMessage, ChatSession } from './chat.model';
+import { ChatMessage, ChatSession } from '@idl/types/chat';
 
 /**
  * Load all chat sessions
@@ -48,4 +48,12 @@ export class AddMessageToSession {
     public sessionId: string,
     public message: ChatMessage,
   ) {}
+}
+
+/**
+ * Set the selected model for chat completions
+ */
+export class SetSelectedModel {
+  static readonly type = '[Chat] Set Selected Model';
+  constructor(public model: string) {}
 }

@@ -1,0 +1,17 @@
+<mat-form-field appearance="outline" class="model-selector">
+  <mat-label>Model</mat-label>
+  <mat-select
+    [value]="selectedModel()"
+    (selectionChange)="onModelChange($event.value)"
+    [disabled]="loading()"
+  >
+    @for (model of availableModels(); track model.id) {
+      <mat-option [value]="model.id">
+        <div class="model-option">
+          <span class="model-name">{{ model.name }}</span>
+          <span class="model-description">{{ model.description }}</span>
+        </div>
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

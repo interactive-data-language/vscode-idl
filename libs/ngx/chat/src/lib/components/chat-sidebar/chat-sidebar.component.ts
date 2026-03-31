@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { ChatSession } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
 
 import {
@@ -16,7 +17,6 @@ import {
   LoadChatSessions,
   SelectChatSession,
 } from '../../state/chat.actions';
-import { ChatSession } from '../../state/chat.model';
 import { ChatState } from '../../state/chat.state';
 
 /**
