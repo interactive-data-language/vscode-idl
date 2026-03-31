@@ -5,13 +5,16 @@ import type {
 } from '@idl/types/chat';
 import {
   AIMessage,
+  AIMessageChunk,
   type BaseMessage,
   HumanMessage,
+  SystemMessage,
   ToolMessage,
 } from '@langchain/core/messages';
+import type { DynamicStructuredTool } from '@langchain/core/tools';
+import { loadMcpTools } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
 
-import { convertMCPToolsToOpenAI } from '../utils/convert-mcp-tools';
 import { MCPClient } from './mcp-client.service';
 
 /**
@@ -25,6 +28,7 @@ const MAX_ITERATIONS = 10;
 export class ChatService {
   private mcpClient: MCPClient;
   private mcpReady = false;
+  private mcpTools: DynamicStructuredTool[] = [];
   private openaiApiKey: string;
 
   constructor(openaiApiKey: string, mcpPort?: number) {
@@ -57,10 +61,14 @@ export class ChatService {
       // Initialize ChatOpenAI with streaming enabled
       const model = new ChatOpenAI({
         apiKey: this.openaiApiKey,
-        modelName: request.model,
+        model: request.model,
         streaming: true,
         temperature: 0.7,
       });
+
+      // Bind MCP tools to the model if available
+      const modelWithTools =
+        this.mcpTools.length > 0 ? model.bindTools(this.mcpTools) : model;
 
       // Convert conversation history to LangChain format
       const messages: BaseMessage[] = this.convertToLangChainMessages(
@@ -72,11 +80,6 @@ export class ChatService {
         new HumanMessage(this.extractMessageContent(request.message)),
       );
 
-      // Get tools from MCP if available
-      const tools = this.mcpReady
-        ? convertMCPToolsToOpenAI(this.mcpClient.getTools())
-        : [];
-
       // Agentic loop: keep calling the model until it stops using tools
       let iteration = 0;
       let continueLoop = true;
@@ -84,83 +87,35 @@ export class ChatService {
       while (continueLoop && iteration < MAX_ITERATIONS) {
         iteration++;
 
-        // Stream options with tools
-        const streamOptions =
-          tools.length > 0
-            ? {
-                tools,
-                tool_choice: 'auto' as const,
-                parallel_tool_calls: true,
-              }
-            : {};
-
         // Stream the completion
-        const stream = await model.stream(messages, streamOptions);
+        const stream = await modelWithTools.stream(messages);
 
-        // Accumulate the assistant's response and tool calls
-        let assistantMessage = '';
-        const toolCalls: Array<{
-          id: string;
-          name: string;
-          args: Record<string, unknown>;
-        }> = [];
+        // Accumulate chunks using LangChain's built-in concat
+        let accumulated: AIMessageChunk | null = null;
 
         for await (const chunk of stream) {
-          // Handle text content
+          accumulated = accumulated ? accumulated.concat(chunk) : chunk;
+
+          // Handle text content - yield tokens as they arrive
           if (typeof chunk.content === 'string' && chunk.content) {
-            assistantMessage += chunk.content;
             yield {
               type: 'token',
               content: chunk.content,
             };
           }
-
-          // Handle tool calls
-          if (chunk.tool_calls && chunk.tool_calls.length > 0) {
-            for (const toolCall of chunk.tool_calls) {
-              // Check if this is a new tool call or an update
-              const existingIndex = toolCalls.findIndex(
-                (tc) => tc.id === toolCall.id,
-              );
-
-              if (existingIndex === -1) {
-                // New tool call
-                toolCalls.push({
-                  id: toolCall.id || `tool_${Date.now()}`,
-                  name: toolCall.name || '',
-                  args: (toolCall.args as Record<string, unknown>) || {},
-                });
-              } else {
-                // Update existing tool call (streaming chunks)
-                if (toolCall.name) {
-                  toolCalls[existingIndex].name = toolCall.name;
-                }
-                if (toolCall.args) {
-                  toolCalls[existingIndex].args = {
-                    ...toolCalls[existingIndex].args,
-                    ...(toolCall.args as Record<string, unknown>),
-                  };
-                }
-              }
-            }
-          }
         }
 
-        // Add assistant message to conversation history
-        if (assistantMessage || toolCalls.length > 0) {
-          const aiMessage = new AIMessage({
-            content: assistantMessage,
-            tool_calls:
-              toolCalls.length > 0
-                ? toolCalls.map((tc) => ({
-                    id: tc.id,
-                    name: tc.name,
-                    args: tc.args,
-                  }))
-                : undefined,
-          });
-          messages.push(aiMessage);
+        // If we got no response, exit
+        if (!accumulated) {
+          continueLoop = false;
+          break;
         }
+
+        // Add the accumulated message to conversation history
+        messages.push(accumulated);
+
+        // Check for tool calls from the accumulated message
+        const toolCalls = accumulated.tool_calls ?? [];
 
         // If no tool calls, we're done
         if (toolCalls.length === 0) {
@@ -168,55 +123,68 @@ export class ChatService {
           break;
         }
 
-        // Execute tool calls and add results to conversation
-        if (this.mcpReady) {
-          for (const toolCall of toolCalls) {
-            // Notify user that we're calling a tool
+        // Execute tool calls using the LangChain tools from loadMcpTools
+        const toolsByName = new Map(this.mcpTools.map((t) => [t.name, t]));
+
+        for (const toolCall of toolCalls) {
+          // Notify user that we're calling a tool
+          yield {
+            type: 'tool_call',
+            content: `Calling tool: ${toolCall.name}`,
+            toolName: toolCall.name,
+          };
+
+          try {
+            const tool = toolsByName.get(toolCall.name);
+            if (!tool) {
+              throw new Error(`Unknown tool: ${toolCall.name}`);
+            }
+
+            // Invoke the LangChain tool (handles MCP call internally)
+            const result = await tool.invoke(toolCall.args);
+
+            // Build a ToolMessage from the result
+            const resultContent =
+              typeof result === 'string' ? result : JSON.stringify(result);
+
+            messages.push(
+              new ToolMessage({
+                content: resultContent,
+                tool_call_id: toolCall.id ?? `tool_${Date.now()}`,
+              }),
+            );
+
+            // Notify user of tool result
             yield {
-              type: 'tool_call',
-              content: `Calling tool: ${toolCall.name}`,
+              type: 'tool_result',
+              content: `Tool ${toolCall.name} completed`,
               toolName: toolCall.name,
             };
+          } catch (error) {
+            // Handle tool execution errors
+            const errorMessage =
+              error instanceof Error ? error.message : 'Unknown error';
 
-            try {
-              const toolMessage = await this.executeToolCall(toolCall);
-              messages.push(toolMessage);
+            console.error(
+              `[ChatService] Tool execution failed for ${toolCall.name}:`,
+              error,
+            );
 
-              // Notify user of tool result
-              yield {
-                type: 'tool_result',
-                content: `Tool ${toolCall.name} completed`,
-                toolName: toolCall.name,
-              };
-            } catch (error) {
-              // Handle tool execution errors
-              const errorMessage =
-                error instanceof Error ? error.message : 'Unknown error';
+            // Add error as tool result so the model can handle it
+            messages.push(
+              new ToolMessage({
+                content: `Error executing tool: ${errorMessage}`,
+                tool_call_id: toolCall.id ?? `tool_${Date.now()}`,
+              }),
+            );
 
-              console.error(
-                `[ChatService] Tool execution failed for ${toolCall.name}:`,
-                error,
-              );
-
-              // Add error as tool result so the model can handle it
-              messages.push(
-                new ToolMessage({
-                  content: `Error executing tool: ${errorMessage}`,
-                  tool_call_id: toolCall.id,
-                }),
-              );
-
-              // Notify user of error
-              yield {
-                type: 'tool_result',
-                content: `Tool ${toolCall.name} failed: ${errorMessage}`,
-                toolName: toolCall.name,
-              };
-            }
+            // Notify user of error
+            yield {
+              type: 'tool_result',
+              content: `Tool ${toolCall.name} failed: ${errorMessage}`,
+              toolName: toolCall.name,
+            };
           }
-        } else {
-          // MCP not ready, can't execute tools - exit loop
-          continueLoop = false;
         }
       }
 
@@ -256,49 +224,12 @@ export class ChatService {
       );
 
       if (msg.role === 'system') {
-        return new AIMessage(content);
+        return new SystemMessage(content);
       } else if (msg.role === 'user') {
         return new HumanMessage(content);
       } else {
-        // Fallback
-        return new HumanMessage(content);
+        return new AIMessage(content);
       }
-    });
-  }
-
-  /**
-   * Execute a tool call via MCP and return the result as a ToolMessage
-   *
-   * @param toolCall - Tool call information (id, name, args)
-   * @returns ToolMessage containing the tool execution result
-   * @throws Error if tool execution fails
-   */
-  private async executeToolCall(toolCall: {
-    id: string;
-    name: string;
-    args: Record<string, unknown>;
-  }): Promise<ToolMessage> {
-    console.log('Calling tool');
-    console.log(toolCall.name);
-    console.log(toolCall.args);
-
-    // Call the tool via MCP
-    const result = await this.mcpClient.callTool(toolCall.name, toolCall.args);
-
-    // Extract text content from MCP response
-    const resultText = result.content
-      .map((c) => {
-        if (c.type === 'text') {
-          return c.text;
-        }
-        return JSON.stringify(c);
-      })
-      .join('\n');
-
-    // Return tool result as ToolMessage
-    return new ToolMessage({
-      content: resultText,
-      tool_call_id: toolCall.id,
     });
   }
 
@@ -315,8 +246,20 @@ export class ChatService {
   private async initializeMCP(): Promise<void> {
     try {
       await this.mcpClient.connect();
+
+      // Load MCP tools as LangChain tools
+      this.mcpTools = await loadMcpTools(
+        'idl-mcp',
+        this.mcpClient.getClient(),
+        {
+          throwOnLoadError: false,
+        },
+      );
+
       this.mcpReady = true;
-      console.log('[ChatService] MCP client ready');
+      console.log(
+        `[ChatService] MCP client ready with ${this.mcpTools.length} tools`,
+      );
     } catch (error) {
       console.error('[ChatService] Failed to initialize MCP client:', error);
       console.warn('[ChatService] Chat will continue without tools');

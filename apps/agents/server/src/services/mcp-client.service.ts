@@ -139,6 +139,13 @@ export class MCPClient {
   }
 
   /**
+   * Get the underlying MCP SDK Client instance
+   */
+  getClient(): Client {
+    return this.client;
+  }
+
+  /**
    * Get the current list of available tools
    */
   getTools(): Tool[] {
