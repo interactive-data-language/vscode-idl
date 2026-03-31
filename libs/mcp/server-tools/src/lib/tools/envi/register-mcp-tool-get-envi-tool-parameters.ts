@@ -63,7 +63,7 @@ export function RegisterMCPTool_GetENVIToolParameters(
 
       // load notes if we havent yet
       if (!LOADED_NOTES) {
-        const resp = await server.sendRequestToVSCode(
+        const resp = await server.sendIDLRequest(
           id,
           MCP_TOOL_LOOKUP.RETURN_NOTES,
           {},

@@ -4,15 +4,14 @@ import { SimplePromiseQueue, VERSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IMCPToolProgress,
+  MCPSendRequestCallback,
   MCPToolHTTPResponse,
   MCPToolInvokedCallback,
-  MCPToolParams,
+  MCPToolParams_VSCode,
   MCPToolResponse_VSCode,
   MCPTools,
   MCPTools_VSCode,
 } from '@idl/types/mcp';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import {
   McpServer,
   ToolCallback,
@@ -73,9 +72,6 @@ export class MCPServer {
   /** Log manager */
   logManager: LogManager;
 
-  /** Client messenger to talk to VSCode */
-  messenger: VSCodeLanguageServerMessenger;
-
   /** Callback when a tool is invoked */
   toolInvokedCallback: MCPToolInvokedCallback<MCPTools>;
 
@@ -99,6 +95,9 @@ export class MCPServer {
   /** Callback for error failures */
   private failCallback: (err: any) => void;
 
+  /** Callback for when IDL or ENVI should be invoked */
+  private idlExecutionCallback: MCPSendRequestCallback;
+
   /** Port server runs on */
   private mcpPort: number;
 
@@ -114,7 +113,7 @@ export class MCPServer {
 
   private constructor(options: IMCPServerOptions) {
     this.logManager = options.logManager;
-    this.messenger = options.messenger;
+    this.idlExecutionCallback = options.idlExecutionCallback;
     this.toolInvokedCallback = options.toolInvokedCallback;
     this.failCallback = options.failCallback;
     this.mcpPort = options.port ?? MCP_SERVER_CONFIG.PORT;
@@ -228,18 +227,14 @@ export class MCPServer {
   }
 
   /**
-   * Sends a request to VSCode to run a tool
+   * Sends a request run MCP tools that require IDL or ENVI
    */
-  async sendRequestToVSCode<T extends MCPTools_VSCode>(
+  async sendIDLRequest<T extends MCPTools_VSCode>(
     executionId: string,
     tool: T,
-    params: MCPToolParams<T>,
+    params: MCPToolParams_VSCode<T>,
   ): Promise<MCPToolResponse_VSCode<T>> {
-    return this.messenger.sendRequest(LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP, {
-      id: executionId,
-      tool,
-      params,
-    }) as MCPToolResponse_VSCode<T>;
+    return this.idlExecutionCallback(executionId, tool, params);
   }
 
   /**

@@ -114,7 +114,7 @@ export function RegisterMCPTool_RunENVITool(
         }
       }
 
-      const resp = (await server.sendRequestToVSCode(
+      const resp = (await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
         params,

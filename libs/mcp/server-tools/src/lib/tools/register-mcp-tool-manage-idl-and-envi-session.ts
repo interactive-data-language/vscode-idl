@@ -55,7 +55,7 @@ export function RegisterMCPTool_ManageIDLAndENVISession(server: MCPServer) {
         };
       }
 
-      const resp = await server.sendRequestToVSCode(
+      const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
         {

@@ -64,7 +64,7 @@ export function RegisterMCPTool_OpenDatasetsInENVI(server: MCPServer) {
         };
       }
 
-      const resp = await server.sendRequestToVSCode(
+      const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
         {

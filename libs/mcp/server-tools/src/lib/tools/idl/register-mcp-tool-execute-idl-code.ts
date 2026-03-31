@@ -27,7 +27,7 @@ export function RegisterMCPTool_ExecuteIDLCode(server: MCPServer) {
     },
     async (id, { code }) => {
       // send request
-      const resp = await server.sendRequestToVSCode(
+      const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
         { code },

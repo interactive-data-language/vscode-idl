@@ -47,7 +47,16 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
     MCPServer.start({
       port,
       logManager: IDL_LANGUAGE_SERVER_LOGGER,
-      messenger: SERVER_MESSENGER,
+      idlExecutionCallback: (executionId, tool, params) => {
+        return SERVER_MESSENGER.sendRequest(
+          LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
+          {
+            id: executionId,
+            tool,
+            params,
+          },
+        ) as any;
+      },
       toolInvokedCallback: (tool, params) => {
         SERVER_MESSENGER.sendNotification(
           LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP_HISTORY,

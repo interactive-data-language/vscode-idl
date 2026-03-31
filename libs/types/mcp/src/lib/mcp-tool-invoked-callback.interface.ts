@@ -7,5 +7,5 @@ import { MCPToolParams, MCPTools } from './mcp-tools.interface';
  */
 export type MCPToolInvokedCallback<T extends MCPTools> = (
   tool: T,
-  params: MCPToolParams<T>
+  params: MCPToolParams<T>,
 ) => Promise<void> | void;

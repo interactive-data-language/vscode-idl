@@ -1,10 +1,10 @@
 import { LogManager } from '@idl/logger';
 import {
+  MCPSendRequestCallback,
   MCPToolHTTPResponse,
   MCPToolInvokedCallback,
   MCPTools,
 } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import {
   McpServer,
   ToolCallback,
@@ -46,10 +46,10 @@ export type MCPRegistryToolInfo<Args extends ZodRawShape> = {
 export interface IMCPServerOptions {
   /** Callback when the server encounters a fatal error */
   failCallback: (err: any) => void;
+  /** Callback when IDL/ENVI tools need to run */
+  idlExecutionCallback: MCPSendRequestCallback;
   /** Log manager instance */
   logManager: LogManager;
-  /** Messenger for communicating with VSCode client */
-  messenger: VSCodeLanguageServerMessenger;
   /** Port to listen on */
   port?: number;
   /** Callback when a tool is invoked */

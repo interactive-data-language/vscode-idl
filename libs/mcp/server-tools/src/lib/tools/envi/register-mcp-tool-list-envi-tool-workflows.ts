@@ -66,7 +66,7 @@ export function RegisterMCPTool_ListENVIToolWorkflows(server: MCPServer) {
 
       // load notes if we havent
       if (!LOADED_NOTES) {
-        const resp = await server.sendRequestToVSCode(
+        const resp = await server.sendIDLRequest(
           id,
           MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
           {},

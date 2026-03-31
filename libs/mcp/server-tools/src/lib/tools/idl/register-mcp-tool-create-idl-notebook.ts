@@ -43,7 +43,7 @@ export function RegisterMCPTool_CreateIDLNotebook(server: MCPServer) {
       },
     },
     async (id, { uri, cells }) => {
-      const resp = await server.sendRequestToVSCode(
+      const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK,
         {
