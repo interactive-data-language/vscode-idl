@@ -11,10 +11,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngxs/store';
 import { nanoid } from 'nanoid';
 
 import { AddMessageToSession } from '../../state/chat.actions';
+import { ChatState } from '../../state/chat.state';
 
 /**
  * Input component for typing and sending chat messages.
@@ -46,6 +48,7 @@ export class ChatInputComponent {
    */
   protected readonly inputText = signal('');
 
+  private readonly snackBar = inject(MatSnackBar);
   private readonly store = inject(Store);
 
   /**
@@ -66,6 +69,21 @@ export class ChatInputComponent {
     const currentSessionId = this.sessionId();
 
     if (!text || !currentSessionId) {
+      return;
+    }
+
+    // Check if there's already a message in progress
+    const currentSession = this.store.selectSnapshot(ChatState.selectedSession);
+    if (currentSession?.status === 'in-progress') {
+      this.snackBar.open(
+        'Please wait for the current response to complete',
+        'OK',
+        {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        },
+      );
       return;
     }
 

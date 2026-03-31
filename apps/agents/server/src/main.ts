@@ -23,7 +23,7 @@ app.use(
 app.use(express.json());
 
 // Initialize services
-const chatService = new ChatService(env.OPENAI_API_KEY);
+const chatService = new ChatService(env.OPENAI_API_KEY, env.MCP_PORT);
 
 // Routes
 app.get('/', (_req, res) => {

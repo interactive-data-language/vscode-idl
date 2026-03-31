@@ -144,103 +144,35 @@ export class ChatState {
       .subscribe({
         next: (chunk) => {
           if (chunk.type === 'token') {
-            // Append token to system message
-            const currentState = ctx.getState();
-            const sessions = currentState.sessions.map((session) => {
-              if (session.id === action.sessionId) {
-                const updatedMessages = session.messages.map((msg) => {
-                  if (msg.id === systemMessageId) {
-                    const currentContent = msg.content[0]?.payload || '';
-                    return {
-                      ...msg,
-                      content: [
-                        {
-                          type: 'text' as const,
-                          payload: currentContent + chunk.content,
-                        },
-                      ],
-                    };
-                  }
-                  return msg;
-                });
-                return { ...session, messages: updatedMessages };
-              }
-              return session;
-            });
-            ctx.patchState({ sessions });
+            this.appendToMessage(
+              ctx,
+              action.sessionId,
+              systemMessageId,
+              chunk.content,
+            );
           } else if (chunk.type === 'done') {
-            // Mark session as ready
-            const currentState = ctx.getState();
-            const sessions = currentState.sessions.map((session) => {
-              if (session.id === action.sessionId) {
-                return {
-                  ...session,
-                  status: 'ready' as const,
-                  lastMessageAt: new Date(),
-                };
-              }
-              return session;
+            this.updateSession(ctx, action.sessionId, {
+              status: 'ready',
+              lastMessageAt: new Date(),
             });
-            ctx.patchState({ sessions });
           } else if (chunk.type === 'error') {
-            // Mark session as error and show error message
             console.error('Streaming error:', chunk.error);
-            const currentState = ctx.getState();
-            const sessions = currentState.sessions.map((session) => {
-              if (session.id === action.sessionId) {
-                const updatedMessages = session.messages.map((msg) => {
-                  if (msg.id === systemMessageId) {
-                    return {
-                      ...msg,
-                      content: [
-                        {
-                          type: 'text' as const,
-                          payload: `❌ Error: ${chunk.error || 'Unknown error occurred'}`,
-                        },
-                      ],
-                    };
-                  }
-                  return msg;
-                });
-                return {
-                  ...session,
-                  messages: updatedMessages,
-                  status: 'error' as const,
-                };
-              }
-              return session;
-            });
-            ctx.patchState({ sessions });
+            this.setMessageError(
+              ctx,
+              action.sessionId,
+              systemMessageId,
+              chunk.error || 'Unknown error occurred',
+            );
           }
         },
         error: (error) => {
           console.error('API call error:', error);
-          const currentState = ctx.getState();
-          const sessions = currentState.sessions.map((session) => {
-            if (session.id === action.sessionId) {
-              const updatedMessages = session.messages.map((msg) => {
-                if (msg.id === systemMessageId) {
-                  return {
-                    ...msg,
-                    content: [
-                      {
-                        type: 'text' as const,
-                        payload: `❌ Network error: ${error.message || 'Failed to connect to API'}`,
-                      },
-                    ],
-                  };
-                }
-                return msg;
-              });
-              return {
-                ...session,
-                messages: updatedMessages,
-                status: 'error' as const,
-              };
-            }
-            return session;
-          });
-          ctx.patchState({ sessions });
+          this.setMessageError(
+            ctx,
+            action.sessionId,
+            systemMessageId,
+            error.message || 'Failed to connect to API',
+          );
         },
       });
   }
@@ -388,5 +320,88 @@ export class ChatState {
       sessions: action.sessions,
       loading: false,
     });
+  }
+
+  /**
+   * Helper: Append content to a message
+   */
+  private appendToMessage(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    messageId: string,
+    content: string,
+  ): void {
+    const state = ctx.getState();
+    const session = state.sessions.find((s) => s.id === sessionId);
+    const message = session?.messages.find((m) => m.id === messageId);
+
+    if (!message) return;
+
+    const currentContent = message.content[0]?.payload || '';
+    this.updateMessage(ctx, sessionId, messageId, {
+      content: [
+        {
+          type: 'text' as const,
+          payload: currentContent + content,
+        },
+      ],
+    });
+  }
+
+  /**
+   * Helper: Set message content to an error message
+   */
+  private setMessageError(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    messageId: string,
+    errorMessage: string,
+  ): void {
+    this.updateMessage(ctx, sessionId, messageId, {
+      content: [
+        {
+          type: 'text' as const,
+          payload: `❌ Error: ${errorMessage}`,
+        },
+      ],
+    });
+    this.updateSession(ctx, sessionId, { status: 'error' });
+  }
+
+  /**
+   * Helper: Update a specific message within a session
+   */
+  private updateMessage(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    messageId: string,
+    updates: Partial<ChatMessage>,
+  ): void {
+    const state = ctx.getState();
+    const sessions = state.sessions.map((session) => {
+      if (session.id === sessionId) {
+        const messages = session.messages.map((msg) =>
+          msg.id === messageId ? { ...msg, ...updates } : msg,
+        );
+        return { ...session, messages };
+      }
+      return session;
+    });
+    ctx.patchState({ sessions });
+  }
+
+  /**
+   * Helper: Update a specific session
+   */
+  private updateSession(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    updates: Partial<ChatSession>,
+  ): void {
+    const state = ctx.getState();
+    const sessions = state.sessions.map((session) =>
+      session.id === sessionId ? { ...session, ...updates } : session,
+    );
+    ctx.patchState({ sessions });
   }
 }

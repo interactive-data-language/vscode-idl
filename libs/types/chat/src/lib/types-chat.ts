@@ -119,8 +119,10 @@ export interface ChatStreamChunk {
   content: string;
   /** Optional error message if type is 'error' */
   error?: string;
+  /** Tool name when type is 'tool_call' or 'tool_result' */
+  toolName?: string;
   /** Type of chunk */
-  type: 'done' | 'error' | 'token';
+  type: 'done' | 'error' | 'token' | 'tool_call' | 'tool_result';
 }
 
 /**

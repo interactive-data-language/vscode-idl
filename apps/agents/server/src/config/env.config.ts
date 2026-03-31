@@ -20,6 +20,15 @@ const envSchema = z.object({
    * Server port (optional, defaults to 3000)
    */
   PORT: z.string().optional().default('3000'),
+
+  /**
+   * MCP server port (optional, defaults to 9194)
+   */
+  MCP_PORT: z
+    .string()
+    .optional()
+    .default('51025')
+    .transform((val) => Number(val)),
 });
 
 /**
