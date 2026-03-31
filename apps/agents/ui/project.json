@@ -57,7 +57,11 @@
           "buildTarget": "agents-ui:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "dependsOn": ["agents-server:serve"],
+      "options": {
+        "proxyConfig": "apps/agents/ui/proxy.conf.json"
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint"
