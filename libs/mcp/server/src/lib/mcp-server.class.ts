@@ -178,6 +178,13 @@ export class MCPServer {
       /** Track context */
       const id = this.registerToolExecutionContext(context);
 
+      // write to logs
+      this.logManager.log({
+        log: IDL_MCP_LOG,
+        type: 'info',
+        content: [`Run MCP tool: "${name}" with ID "${id}"`, params],
+      });
+
       try {
         // init result
         let res: MCPToolHTTPResponse<Tool>;
