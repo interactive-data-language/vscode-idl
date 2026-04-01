@@ -80,6 +80,19 @@ export class ChatService {
         new HumanMessage(this.extractMessageContent(request.message)),
       );
 
+      // On the first message, generate a session title in the background
+      // and yield it after done so the UI can update the session name.
+      if (request.conversationHistory.length === 0) {
+        const generatedTitle = await this.generateTitle(request.message);
+        if (generatedTitle) {
+          yield {
+            type: 'title',
+            content: '',
+            title: generatedTitle,
+          };
+        }
+      }
+
       // Agentic loop: keep calling the model until it stops using tools
       let iteration = 0;
       let continueLoop = true;
@@ -96,10 +109,10 @@ export class ChatService {
         for await (const chunk of stream) {
           accumulated = accumulated ? accumulated.concat(chunk) : chunk;
 
-          // Handle text content - yield tokens as they arrive
+          // Handle text content - yield chunks as they arrive
           if (typeof chunk.content === 'string' && chunk.content) {
             yield {
-              type: 'token',
+              type: 'text_chunk',
               content: chunk.content,
             };
           }
@@ -243,7 +256,7 @@ export class ChatService {
       if (iteration >= MAX_ITERATIONS) {
         console.warn('[ChatService] Max iterations reached in agentic loop');
         yield {
-          type: 'token',
+          type: 'text_chunk',
           content: '\n\n[Maximum reasoning steps reached]',
         };
       }
@@ -289,6 +302,32 @@ export class ChatService {
    */
   private extractMessageContent(content: string): string {
     return content.trim();
+  }
+
+  /**
+   * Generate a short session title from the first user message
+   */
+  private async generateTitle(firstMessage: string): Promise<null | string> {
+    try {
+      const model = new ChatOpenAI({
+        apiKey: this.openaiApiKey,
+        model: 'gpt-4o-mini',
+        streaming: false,
+        temperature: 0,
+      });
+      const response = await model.invoke([
+        new HumanMessage(
+          `Create a concise 4-6 word title for a chat session that starts with this message. ` +
+            `Reply with only the title, no quotes, no punctuation at the end:\n\n${firstMessage}`,
+        ),
+      ]);
+      console.log(response);
+      const text =
+        typeof response.content === 'string' ? response.content.trim() : null;
+      return text || null;
+    } catch {
+      return null;
+    }
   }
 
   /**

@@ -153,64 +153,86 @@ export class ChatState {
       })
       .subscribe({
         next: (chunk) => {
-          if (chunk.type === 'token') {
-            this.appendToMessage(
-              ctx,
-              action.sessionId,
-              systemMessageId,
-              chunk.content,
-            );
-          } else if (chunk.type === 'tool_call') {
-            // Insert a tool message before the system response
-            currentToolMessageId = nanoid();
-            const toolMessage: ChatMessage = {
-              id: currentToolMessageId,
-              role: 'tool',
-              content: [
-                {
-                  type: 'tool_call',
-                  payload: JSON.stringify({
-                    name: chunk.toolName,
-                    args: chunk.toolArgs ?? {},
-                  }),
-                },
-              ],
-            };
-            this.insertMessageBefore(
-              ctx,
-              action.sessionId,
-              systemMessageId,
-              toolMessage,
-            );
-          } else if (chunk.type === 'tool_result') {
-            if (currentToolMessageId) {
-              const contentType = chunk.toolError
-                ? 'tool_error'
-                : 'tool_result';
-              this.appendContentToMessage(
+          switch (chunk.type) {
+            case 'done':
+              this.updateSession(ctx, action.sessionId, {
+                status: 'ready',
+                lastMessageAt: new Date(),
+              });
+              break;
+
+            case 'error':
+              console.error('Streaming error:', chunk.error);
+              this.setMessageError(
                 ctx,
                 action.sessionId,
-                currentToolMessageId,
-                {
-                  type: contentType,
-                  payload: chunk.toolOutput ?? chunk.content,
-                },
+                systemMessageId,
+                chunk.error || 'Unknown error occurred',
               );
-              currentToolMessageId = null;
+              break;
+
+            case 'text_chunk':
+              this.appendToMessage(
+                ctx,
+                action.sessionId,
+                systemMessageId,
+                chunk.content,
+              );
+              break;
+
+            case 'title':
+              if (chunk.title) {
+                this.updateSession(ctx, action.sessionId, {
+                  title: chunk.title,
+                });
+              }
+              break;
+
+            case 'tool_call': {
+              // Insert a tool message before the system response
+              currentToolMessageId = nanoid();
+              const toolMessage: ChatMessage = {
+                id: currentToolMessageId,
+                role: 'tool',
+                content: [
+                  {
+                    type: 'tool_call',
+                    payload: JSON.stringify({
+                      name: chunk.toolName,
+                      args: chunk.toolArgs ?? {},
+                    }),
+                  },
+                ],
+              };
+              this.insertMessageBefore(
+                ctx,
+                action.sessionId,
+                systemMessageId,
+                toolMessage,
+              );
+              break;
             }
-          } else if (chunk.type === 'done') {
-            this.updateSession(ctx, action.sessionId, {
-              status: 'ready',
-              lastMessageAt: new Date(),
-            });
-          } else if (chunk.type === 'error') {
-            console.error('Streaming error:', chunk.error);
-            this.setMessageError(
-              ctx,
-              action.sessionId,
-              systemMessageId,
-              chunk.error || 'Unknown error occurred',
-            );
+
+            case 'tool_result':
+              if (currentToolMessageId) {
+                const contentType = chunk.toolError
+                  ? 'tool_error'
+                  : 'tool_result';
+                this.appendContentToMessage(
+                  ctx,
+                  action.sessionId,
+                  currentToolMessageId,
+                  {
+                    type: contentType,
+                    payload: chunk.toolOutput ?? chunk.content,
+                  },
+                );
+                currentToolMessageId = null;
+              }
+              break;
+
+            default:
+              break;
           }
         },
         error: (error) => {

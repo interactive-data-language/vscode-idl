@@ -119,6 +119,8 @@ export interface ChatStreamChunk {
   content: string;
   /** Optional error message if type is 'error' or tool_result with failure */
   error?: string;
+  /** Generated session title when type is 'title' */
+  title?: string;
   /** Tool arguments when type is 'tool_call' */
   toolArgs?: Record<string, unknown>;
   /** Whether the tool call resulted in an error (type 'tool_result') */
@@ -128,7 +130,7 @@ export interface ChatStreamChunk {
   /** Tool output content when type is 'tool_result' */
   toolOutput?: string;
   /** Type of chunk */
-  type: 'done' | 'error' | 'token' | 'tool_call' | 'tool_result';
+  type: 'done' | 'error' | 'text_chunk' | 'title' | 'tool_call' | 'tool_result';
 }
 
 /**
