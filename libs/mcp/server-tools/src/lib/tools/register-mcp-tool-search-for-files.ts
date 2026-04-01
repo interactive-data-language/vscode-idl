@@ -25,9 +25,9 @@ export function RegisterMCPTool_SearchForFiles(server: MCPServer) {
           ),
         extensions: z
           .array(z.string())
-          .optional()
+          .default(['*'])
           .describe(
-            'Optionally specify one or more file extensions to search for. All files are returned unless this parameter is specified.',
+            'Specify one or more file extensions to search for. Asterisk indicates all files are returned (recommended).',
           ),
         recursive: z
           .boolean()
@@ -52,11 +52,13 @@ export function RegisterMCPTool_SearchForFiles(server: MCPServer) {
           ],
         };
       }
+ 
+       
 
       /**
        * Map extensions to recursive glob patterns
        */
-      const useExtensions = !extensions
+      const useExtensions = extensions.findIndex(val => val === '*') !== -1
         ? [`**/*`]
         : extensions.map((ext) => `**/*${ext}`);
 
