@@ -249,7 +249,8 @@ export class ChatService {
               if (unexpected.length > 0)
                 lines.push(`  Unexpected fields: [${unexpected.join(', ')}]`);
               lines.push(`  Received fields: [${received.join(', ')}]`);
-              errorMessage = `${lines.join('\n')}\n${errorMessage}`;
+              const schemaExpected = JSON.stringify(jsonSchema, null, 2);
+              errorMessage = `${lines.join('\n')}\n${errorMessage}\n\nExpected parameter schema: ${schemaExpected}`;
             }
 
             // Add error as tool result so the model can handle it
