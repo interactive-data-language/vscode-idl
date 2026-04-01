@@ -1,7 +1,20 @@
-# mcp-idl-machine
+# MCP: IDL Machine
 
-This library was generated with [Nx](https://nx.dev).
+Library to launch and interact with the IDL through MCP.
 
-## Running unit tests
+```typescript
+import { IDLMCPExecutionManager } from '@idl/mcp/idl-machine';
 
-Run `nx test mcp-idl-machine` to execute the unit tests via [Jest](https://jestjs.io).
+const manager = new IDLMCPExecutionManager(myLogger, '/path/to/pro', {
+  onReadIOLine: async (prompt) => { /* return user input */ return ''; }
+});
+
+const started = await manager.launch('Starting IDL', {
+  config: { IDL: { directory: '/path/to/idl/bin' }, ... },
+  env: process.env,
+});
+
+if (started) {
+  const output = await manager.evaluate('print, 42');
+}
+```
