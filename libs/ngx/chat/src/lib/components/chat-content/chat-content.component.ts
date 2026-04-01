@@ -73,11 +73,16 @@ export class ChatContentComponent {
   }
 
   /**
-   * Scroll the messages area to the bottom
+   * Scroll the messages area to the bottom, but only if already at the bottom
    */
   private scrollToBottom(): void {
     const element = this.messagesArea()?.nativeElement;
-    if (element) {
+    if (!element) {
+      return;
+    }
+    const distanceFromBottom =
+      element.scrollHeight - element.scrollTop - element.clientHeight;
+    if (distanceFromBottom <= 50) {
       element.scrollTop = element.scrollHeight;
     }
   }
