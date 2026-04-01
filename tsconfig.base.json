@@ -200,7 +200,8 @@
       "@idl/ngx/theme": ["libs/ngx/theme/src/index.ts"],
       "@idl/ngx/chat": ["libs/ngx/chat/src/index.ts"],
       "@idl/ngx/map": ["libs/ngx/map/src/index.ts"],
-      "@idl/types/chat": ["libs/types/chat/src/index.ts"]
+      "@idl/types/chat": ["libs/types/chat/src/index.ts"],
+      "@idl/mcp/idl-machine": ["libs/mcp/idl-machine/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
