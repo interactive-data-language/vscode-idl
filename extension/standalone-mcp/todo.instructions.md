@@ -20,11 +20,13 @@ You have access to four tools for managing a persistent task list that is visibl
 
 ## Workflow
 
-1. **At the start of a multi-step task**, call `todo-create` once per step to populate the list before doing any work.
+1. **At the start of a multi-step task**, call `todo-create` to populate the list with what work you need to do and reset the list
 2. **Before beginning each step**, call `todo-update` with `status: "in-progress"`.
 3. **Immediately after a step succeeds**, call `todo-update` with `status: "done"`.
 4. **If a step is intentionally skipped**, call `todo-update` with `status: "skipped"`.
 5. **At the start of a new turn** during a long workflow, call `todo-list` to re-read the current state before continuing.
+6. **When finished**, call `todo-list` to make sure your list is done, iterate if not.
+7. **Cleanup when finished** and mark all items as done or skipped using `todo-update`.
 
 ## Guidelines
 

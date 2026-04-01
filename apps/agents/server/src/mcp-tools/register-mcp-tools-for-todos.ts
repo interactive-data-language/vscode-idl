@@ -28,15 +28,23 @@ export function RegisterMCPToolsForToDos(
   const todoCreate = new DynamicStructuredTool({
     name: 'todo-create',
     description:
-      'Add a new to-do item to the task list. Call this for each step at the start of a multi-step workflow. Returns the full updated list.',
+      'Add a new to-do item to the task list. Call this once at the start of a multi-step workflow. Returns the full list.',
     schema: z.object({
-      text: z
-        .string()
-        .describe('Short description of the task step (one action per item).'),
+      items: z
+        .array(z.string())
+        .describe('Short description of the to-do items to track.'),
     }),
-    func: async ({ text }) => {
-      const item: TodoItem = { id: nanoid(), text, status: 'pending' };
-      todos.push(item);
+    func: async (newToDos) => {
+      const items: TodoItem[] = newToDos.items.map((item) => {
+        return { id: nanoid(), text: item, status: 'pending' };
+      });
+
+      // empty
+      todos.splice(0, todos.length);
+
+      // populate
+      todos.push(...items);
+
       return JSON.stringify(todos);
     },
   });
