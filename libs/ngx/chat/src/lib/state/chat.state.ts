@@ -154,6 +154,12 @@ export class ChatState {
     // Track the latest tool message ID so tool_result can update it
     let currentToolMessageId: null | string = null;
 
+    // Track the current system message accumulating LLM text. After each
+    // tool_result a new system message is created so text and tool calls
+    // interleave naturally in the message list.
+    let currentSystemMessageId = systemMessageId;
+    let needsNewSystemMessage = false;
+
     this.chatApiService
       .sendMessage({
         sessionId: action.sessionId,
@@ -165,28 +171,69 @@ export class ChatState {
       .subscribe({
         next: (chunk) => {
           switch (chunk.type) {
-            case 'done':
+            case 'done': {
+              // Remove the trailing system message if it has no text content
+              // (happens when the last LLM iteration ended with a tool call)
+              const doneState = ctx.getState();
+              const doneSession = doneState.sessions.find(
+                (s) => s.id === action.sessionId,
+              );
+              if (doneSession) {
+                const lastMsg =
+                  doneSession.messages[doneSession.messages.length - 1];
+                if (
+                  lastMsg?.type === 'system' &&
+                  lastMsg.id === currentSystemMessageId &&
+                  (lastMsg.content[0]?.payload ?? '') === ''
+                ) {
+                  const trimmedSessions = doneState.sessions.map((session) => {
+                    if (session.id !== action.sessionId) return session;
+                    return {
+                      ...session,
+                      messages: session.messages.slice(0, -1),
+                      messageCount: session.messageCount - 1,
+                    };
+                  });
+                  ctx.patchState({ sessions: trimmedSessions });
+                }
+              }
               this.updateSession(ctx, action.sessionId, {
                 status: 'ready',
                 lastMessageAt: new Date(),
               });
               break;
+            }
 
             case 'error':
               console.error('Streaming error:', chunk.error);
               this.setMessageError(
                 ctx,
                 action.sessionId,
-                systemMessageId,
+                currentSystemMessageId,
                 chunk.error || 'Unknown error occurred',
               );
               break;
 
             case 'text_chunk':
+              if (needsNewSystemMessage) {
+                // Start a fresh system message after a tool call/result pair
+                currentSystemMessageId = nanoid();
+                const newSystemMessage: ChatMessage = {
+                  id: currentSystemMessageId,
+                  type: 'system',
+                  content: [{ type: 'text', payload: '' }],
+                };
+                this.appendMessageToSession(
+                  ctx,
+                  action.sessionId,
+                  newSystemMessage,
+                );
+                needsNewSystemMessage = false;
+              }
               this.appendToMessage(
                 ctx,
                 action.sessionId,
-                systemMessageId,
+                currentSystemMessageId,
                 chunk.content,
               );
               break;
@@ -200,7 +247,7 @@ export class ChatState {
               break;
 
             case 'tool_call': {
-              // Insert a tool message before the system response
+              // Append the tool message after whatever text has accumulated
               currentToolMessageId = nanoid();
               const toolMessage: ChatMessage = {
                 id: currentToolMessageId,
@@ -215,12 +262,7 @@ export class ChatState {
                   },
                 ],
               };
-              this.insertMessageBefore(
-                ctx,
-                action.sessionId,
-                systemMessageId,
-                toolMessage,
-              );
+              this.appendMessageToSession(ctx, action.sessionId, toolMessage);
               break;
             }
 
@@ -239,6 +281,8 @@ export class ChatState {
                   },
                 );
                 currentToolMessageId = null;
+                // Next text_chunk should open a new system message
+                needsNewSystemMessage = true;
               }
               break;
 
@@ -251,7 +295,7 @@ export class ChatState {
           this.setMessageError(
             ctx,
             action.sessionId,
-            systemMessageId,
+            currentSystemMessageId,
             error.message || 'Failed to connect to API',
           );
         },
@@ -457,6 +501,26 @@ export class ChatState {
   }
 
   /**
+   * Helper: Append a message to the end of a session's message list
+   */
+  private appendMessageToSession(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    newMessage: ChatMessage,
+  ): void {
+    const state = ctx.getState();
+    const sessions = state.sessions.map((session) => {
+      if (session.id !== sessionId) return session;
+      return {
+        ...session,
+        messages: [...session.messages, newMessage],
+        messageCount: session.messageCount + 1,
+      };
+    });
+    ctx.patchState({ sessions });
+  }
+
+  /**
    * Helper: Append content to a message
    */
   private appendToMessage(
@@ -480,36 +544,6 @@ export class ChatState {
         },
       ],
     });
-  }
-
-  /**
-   * Helper: Insert a message before another message in a session
-   */
-  private insertMessageBefore(
-    ctx: StateContext<ChatStateModel>,
-    sessionId: string,
-    beforeMessageId: string,
-    newMessage: ChatMessage,
-  ): void {
-    const state = ctx.getState();
-    const sessions = state.sessions.map((session) => {
-      if (session.id === sessionId) {
-        const idx = session.messages.findIndex((m) => m.id === beforeMessageId);
-        const messages = [...session.messages];
-        if (idx !== -1) {
-          messages.splice(idx, 0, newMessage);
-        } else {
-          messages.push(newMessage);
-        }
-        return {
-          ...session,
-          messages,
-          messageCount: session.messageCount + 1,
-        };
-      }
-      return session;
-    });
-    ctx.patchState({ sessions });
   }
 
   /**
