@@ -163,8 +163,36 @@ export class ChatService {
               throw new Error(`Unknown tool: ${toolCall.name}`);
             }
 
-            // Invoke the LangChain tool (handles MCP call internally)
-            const result = await tool.invoke(toolCall.args);
+            /** init tool result */
+            let result: string;
+
+            // try to run
+            try {
+              result = await tool.invoke(toolCall.args);
+            } catch (invokeError) {
+              // if we fail, see if it is because of a connection error
+              if (this.isSessionExpiredError(invokeError)) {
+                // reconnect
+                await this.reinitializeMCP();
+
+                // fetch tool again
+                const freshTool = new Map(
+                  this.mcpTools.map((t) => [t.name, t]),
+                ).get(toolCall.name);
+
+                // verify tool still exists
+                if (!freshTool) {
+                  throw new Error(
+                    `Tool "${toolCall.name}" not found after reconnect`,
+                  );
+                }
+
+                // run with new connection
+                result = await freshTool.invoke(toolCall.args);
+              } else {
+                throw invokeError;
+              }
+            }
 
             // Build a ToolMessage from the result
             const resultContent =
@@ -264,7 +292,7 @@ export class ChatService {
   }
 
   /**
-   * Initialize MCP client connection
+   * Initialize our MCP connection
    */
   private async initializeMCP(): Promise<void> {
     try {
@@ -288,6 +316,34 @@ export class ChatService {
       console.warn('[ChatService] Chat will continue without tools');
       this.mcpReady = false;
     }
+  }
+
+  /**
+   * Detect errors caused by an expired or missing MCP session
+   */
+  private isSessionExpiredError(error: unknown): boolean {
+    const msg = error instanceof Error ? error.message : String(error);
+    return (
+      msg.includes('404') ||
+      msg.includes('Session not found') ||
+      msg.includes('not initialized') ||
+      msg.includes('Not connected')
+    );
+  }
+
+  /**
+   * Disconnect and reconnect the MCP client, reloading all tools.
+   * Called when a tool invocation fails due to session expiry.
+   */
+  private async reinitializeMCP(): Promise<void> {
+    this.mcpReady = false;
+    this.mcpTools = [];
+    try {
+      await this.mcpClient.disconnect();
+    } catch {
+      // ignore — we're tearing down anyway
+    }
+    await this.initializeMCP();
   }
 
   /**

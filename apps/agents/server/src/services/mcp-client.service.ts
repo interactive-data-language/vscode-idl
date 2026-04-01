@@ -33,9 +33,6 @@ export class MCPClient {
       port: config.port || 9194,
     };
 
-    const url = `http://${this.config.host}:${this.config.port}/mcp`;
-    this.transport = new StreamableHTTPClientTransport(new URL(url));
-
     this.client = new Client(
       {
         name: 'idl-chat-agent',
@@ -102,6 +99,13 @@ export class MCPClient {
       return;
     }
 
+    /**
+     * Always create a new transport so that we re-establish connections
+     */
+    this.transport = new StreamableHTTPClientTransport(
+      new URL(`http://${this.config.host}:${this.config.port}/mcp`),
+    );
+
     try {
       await this.client.connect(this.transport);
       this.connected = true;
@@ -129,10 +133,11 @@ export class MCPClient {
 
     try {
       await this.client.close();
-      this.connected = false;
-      console.log('[MCPClient] Disconnected from MCP server');
     } catch (error) {
       console.error('[MCPClient] Error during disconnect:', error);
+    } finally {
+      this.connected = false;
+      console.log('[MCPClient] Disconnected from MCP server');
     }
   }
 

@@ -318,6 +318,9 @@ export class MCPServer {
       },
     );
 
+    // Generate a new session ID
+    const sessionId = nanoid();
+
     // Register all known tools on this new server instance
     const toolNames = Object.keys(this.tools);
     for (let i = 0; i < toolNames.length; i++) {
@@ -326,7 +329,6 @@ export class MCPServer {
     }
 
     // Create transport with session management
-    const sessionId = nanoid();
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: () => sessionId,
     });
@@ -485,13 +487,34 @@ export class MCPServer {
           const sessionId = req.headers['mcp-session-id'] as string;
           let conn: IMCPConnection;
 
-          if (sessionId && this.connections.has(sessionId)) {
-            // Existing session — route to its transport
-            conn = this.connections.get(sessionId);
-          } else {
-            // New session — create a fresh McpServer + transport
-            const created = await this.createConnection();
-            conn = created.connection;
+          switch (true) {
+            /**
+             * Get existing session
+             */
+            case sessionId && this.connections.has(sessionId):
+              conn = this.connections.get(sessionId);
+              break;
+            /**
+             * Session was cleaned up, let the client know that session
+             * has been closed - needs a reconnect to work again from the
+             * client
+             */
+            case !!sessionId:
+              clearInterval(keepAliveInterval);
+              res.status(404).json({
+                jsonrpc: '2.0',
+                error: { code: -32000, message: 'Session not found' },
+                id: null,
+              });
+              return;
+            /**
+             * Create new session
+             */
+            default: {
+              const created = await this.createConnection();
+              conn = created.connection;
+              break;
+            }
           }
 
           // Update last activity timestamp
