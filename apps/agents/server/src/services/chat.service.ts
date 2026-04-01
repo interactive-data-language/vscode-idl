@@ -167,8 +167,8 @@ export class ChatService {
             toolArgs: toolCall.args as Record<string, unknown>,
           };
 
+          const tool = toolsByName.get(toolCall.name);
           try {
-            const tool = toolsByName.get(toolCall.name);
             if (!tool) {
               throw new Error(`Unknown tool: ${toolCall.name}`);
             }
@@ -224,14 +224,39 @@ export class ChatService {
             };
           } catch (error) {
             // Handle tool execution errors
-            const errorMessage =
+            let errorMessage =
               error instanceof Error ? error.message : 'Unknown error';
+
+            // Augment schema validation errors with a human-readable field diff
+            if (errorMessage.includes('did not match expected schema')) {
+              const jsonSchema = tool?.schema as {
+                properties?: Record<string, unknown>;
+                required?: string[];
+              };
+              const required = jsonSchema?.required ?? [];
+              const received = Object.keys(toolCall.args as object);
+              const missing = required.filter(
+                (k) => !(k in (toolCall.args as object)),
+              );
+              const unexpected = received.filter(
+                (k) => !jsonSchema?.properties?.[k],
+              );
+              const lines: string[] = [
+                `Schema mismatch for tool '${toolCall.name}':`,
+              ];
+              if (missing.length > 0)
+                lines.push(`  Missing required: [${missing.join(', ')}]`);
+              if (unexpected.length > 0)
+                lines.push(`  Unexpected fields: [${unexpected.join(', ')}]`);
+              lines.push(`  Received fields: [${received.join(', ')}]`);
+              errorMessage = `${lines.join('\n')}\n${errorMessage}`;
+            }
 
             // Add error as tool result so the model can handle it
             messages.push(
               new ToolMessage({
                 content: `Error executing tool: ${errorMessage}`,
-                tool_call_id: toolCall.id,
+                tool_call_id: toolCall.id ?? '',
               }),
             );
 
@@ -335,6 +360,12 @@ export class ChatService {
         },
       );
 
+      // Enable detailed schema validation errors on each tool so failures
+      // report which fields are missing/invalid instead of a generic message
+      for (const tool of this.mcpTools) {
+        tool.verboseParsingErrors = true;
+      }
+
       this.mcpReady = true;
       console.log(
         `[ChatService] MCP client ready with ${this.mcpTools.length} tools`,
@@ -387,6 +418,8 @@ export class ChatService {
             'utf-8',
           ),
         ].join('\n\n---\n\n');
+      default:
+        return '';
     }
   }
 
