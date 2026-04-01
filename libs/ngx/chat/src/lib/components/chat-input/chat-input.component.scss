@@ -2,6 +2,12 @@
   position: sticky;
   bottom: 0;
   padding: 16px 24px;
+
+  .selectors-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
   // background-color: var(--mat-app-surface);
   // border-top: 1px solid var(--mat-app-outline-variant);
   z-index: 10;

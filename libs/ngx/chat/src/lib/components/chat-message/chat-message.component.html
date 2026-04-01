@@ -51,8 +51,8 @@
 } @else {
   <div
     class="message-wrapper"
-    [class.user-message]="message().role === 'user'"
-    [class.system-message]="message().role === 'system'"
+    [class.user-message]="message().type === 'user'"
+    [class.system-message]="message().type === 'system'"
   >
     <mat-card class="message-card">
       <mat-card-content>

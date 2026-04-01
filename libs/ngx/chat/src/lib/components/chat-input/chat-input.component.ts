@@ -23,6 +23,8 @@ import {
   SelectChatSession,
 } from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
+import { ChatModelSelectorComponent } from '../chat-model-selector/chat-model-selector.component';
+import { ChatPromptSelectorComponent } from '../chat-prompt-selector/chat-prompt-selector.component';
 
 /**
  * Input component for typing and sending chat messages.
@@ -37,6 +39,8 @@ import { ChatState } from '../../state/chat.state';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    ChatPromptSelectorComponent,
+    ChatModelSelectorComponent,
   ],
   templateUrl: './chat-input.component.html',
   styleUrl: './chat-input.component.scss',
@@ -95,6 +99,7 @@ export class ChatInputComponent {
         title: 'New Chat',
         createdAt: new Date(),
         lastMessageAt: new Date(),
+        prompt: 'envi',
         messageCount: 0,
         status: 'ready',
         messages: [],
@@ -123,7 +128,7 @@ export class ChatInputComponent {
     this.store.dispatch(
       new AddMessageToSession(currentSessionId, {
         id: nanoid(),
-        role: 'user',
+        type: 'user',
         content: [
           {
             type: 'text',

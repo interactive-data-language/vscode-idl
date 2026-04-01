@@ -42,7 +42,7 @@ export class ChatMessageComponent {
    */
   protected readonly toolCallData = computed(() => {
     const msg = this.message();
-    if (msg.role !== 'tool') return null;
+    if (msg.type !== 'tool') return null;
     const callBlock = msg.content.find((c) => c.type === 'tool_call');
     if (!callBlock) return null;
     try {
@@ -69,7 +69,7 @@ export class ChatMessageComponent {
    */
   protected readonly toolResult = computed(() => {
     const msg = this.message();
-    if (msg.role !== 'tool') return null;
+    if (msg.type !== 'tool') return null;
     return (
       msg.content.find(
         (c) => c.type === 'tool_result' || c.type === 'tool_error',
@@ -95,13 +95,13 @@ export class ChatMessageComponent {
    * Check if message is from system
    */
   protected readonly isSystemMessage = computed(
-    () => this.message().role === 'system',
+    () => this.message().type === 'system',
   );
 
   /**
    * Check if message is a tool status message
    */
   protected readonly isToolMessage = computed(
-    () => this.message().role === 'tool',
+    () => this.message().type === 'tool',
   );
 }

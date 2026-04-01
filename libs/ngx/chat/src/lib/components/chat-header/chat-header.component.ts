@@ -5,8 +5,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from '@idl/ngx/theme';
 
-import { ChatModelSelectorComponent } from '../chat-model-selector/chat-model-selector.component';
-
 /**
  * Header component for the chat interface.
 
@@ -14,13 +12,7 @@ import { ChatModelSelectorComponent } from '../chat-model-selector/chat-model-se
  */
 @Component({
   selector: 'ngx-chat-header',
-  imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    ChatModelSelectorComponent,
-  ],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatTooltipModule],
   templateUrl: './chat-header.component.html',
   styleUrl: './chat-header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

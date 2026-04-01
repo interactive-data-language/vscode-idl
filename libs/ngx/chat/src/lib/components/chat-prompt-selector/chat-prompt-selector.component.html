@@ -1,0 +1,18 @@
+<mat-form-field appearance="outline" class="prompt-selector">
+  <mat-label>Prompt</mat-label>
+  <mat-select
+    [value]="selectedPrompt()"
+    (selectionChange)="onPromptChange($event.value)"
+    [disabled]="isDisabled()"
+  >
+    @for (option of promptOptions; track option.id) {
+      <mat-option [value]="option.id"
+        >{{ option.name }}
+        <!-- <div class="prompt-option">
+          <span class="prompt-name">{{ option.name }}</span>
+          <span class="prompt-description">{{ option.description }}</span>
+        </div> -->
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

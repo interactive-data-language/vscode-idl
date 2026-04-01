@@ -1,6 +1,8 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import type {
   ChatMessage,
   ChatMessageRequest,
+  ChatPromptType,
   ChatStreamChunk,
 } from '@idl/types/chat';
 import {
@@ -14,6 +16,8 @@ import {
 import type { DynamicStructuredTool } from '@langchain/core/tools';
 import { loadMcpTools } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 import { MCPClient } from './mcp-client.service';
 
@@ -75,22 +79,17 @@ export class ChatService {
         request.conversationHistory,
       );
 
+      // Prepend system instructions if a prompt type is specified
+      if (request.prompt !== 'none') {
+        messages.unshift(
+          new SystemMessage(this.loadInstructions(request.prompt)),
+        );
+      }
+
       // Add the new user message
       messages.push(
         new HumanMessage(this.extractMessageContent(request.message)),
       );
-
-      // On the first message, generate a session title in the background
-      // and yield it after done so the UI can update the session name.
-      if (request.conversationHistory.length === 0) {
-        const generatedTitle = await this.generateTitle(request.message);
-        if (generatedTitle) {
-          yield {
-            type: 'title',
-            title: generatedTitle,
-          };
-        }
-      }
 
       // Agentic loop: keep calling the model until it stops using tools
       let iteration = 0;
@@ -278,9 +277,9 @@ export class ChatService {
         msg.content.map((c) => c.payload).join('\n'),
       );
 
-      if (msg.role === 'system') {
+      if (msg.type === 'system') {
         return new SystemMessage(content);
-      } else if (msg.role === 'user') {
+      } else if (msg.type === 'user') {
         return new HumanMessage(content);
       } else {
         return new AIMessage(content);
@@ -358,6 +357,37 @@ export class ChatService {
       msg.includes('not initialized') ||
       msg.includes('Not connected')
     );
+  }
+
+  /**
+   * Load instruction file content for the given prompt type.
+   * For 'idl-envi', both files are concatenated with a separator.
+   */
+  private loadInstructions(prompt: ChatPromptType): string {
+    const base = 'extension/github-copilot/instructions';
+    switch (prompt) {
+      case 'envi':
+        return readFileSync(
+          GetExtensionPath(join(base, 'envi.instructions.md')),
+          'utf-8',
+        );
+      case 'idl':
+        return readFileSync(
+          GetExtensionPath(join(base, 'idl.instructions.md')),
+          'utf-8',
+        );
+      case 'idl-envi':
+        return [
+          readFileSync(
+            GetExtensionPath(join(base, 'idl.instructions.md')),
+            'utf-8',
+          ),
+          readFileSync(
+            GetExtensionPath(join(base, 'envi.instructions.md')),
+            'utf-8',
+          ),
+        ].join('\n\n---\n\n');
+    }
   }
 
   /**

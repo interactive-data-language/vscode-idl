@@ -1,4 +1,9 @@
 /**
+ * Prompt type controlling which instruction file is injected as a system message
+ */
+export type ChatPromptType = 'envi' | 'idl-envi' | 'idl' | 'none';
+
+/**
  * Content for a chat message
  *
  * Typed so that we can have specific types of content to display:
@@ -24,8 +29,8 @@ export interface ChatMessage {
   content: ChatMessageContent[];
   /** ID of the chat message */
   id: string;
-  /** Role of the message (system, tool, or user) */
-  role: 'system' | 'tool' | 'user';
+  /** Type of the message */
+  type: 'system' | 'tool' | 'user';
 }
 
 /**
@@ -58,6 +63,11 @@ export interface ChatSession {
   messages: ChatMessage[];
 
   /**
+   * Prompt type selected for this session
+   */
+  prompt: ChatPromptType;
+
+  /**
    * Status of the chat
    */
   status: 'error' | 'in-progress' | 'ready';
@@ -78,6 +88,11 @@ export interface ChatStateModel {
   loading: boolean;
 
   /**
+   * Prompt type selected before a session is created
+   */
+  pendingPrompt?: ChatPromptType;
+
+  /**
    * Currently selected model for chat completions
    */
   selectedModel: string;
@@ -85,7 +100,7 @@ export interface ChatStateModel {
   /**
    * ID of the currently selected chat session
    */
-  selectedSessionId: null | string;
+  selectedSessionId?: string;
 
   /**
    * All available chat sessions
@@ -107,6 +122,8 @@ export interface ChatMessageRequest {
   message: string;
   /** The model to use for completion (e.g., 'gpt-4o-mini') */
   model: string;
+  /** Prompt type to load as a system instruction */
+  prompt: ChatPromptType;
   /** Unique identifier for the chat session */
   sessionId: string;
 }

@@ -16,7 +16,9 @@ import {
   LoadChatSessions,
   SelectChatSession,
   SetChatSessions,
+  SetPendingPrompt,
   SetSelectedModel,
+  SetSessionPrompt,
 } from './chat.actions';
 
 /**
@@ -24,7 +26,7 @@ import {
  */
 const defaultState: ChatStateModel = {
   sessions: [],
-  selectedSessionId: null,
+  pendingPrompt: 'envi',
   loading: false,
   selectedModel: 'gpt-4o-mini', // Default to cheapest model
 };
@@ -43,6 +45,14 @@ export class ChatState {
   @Selector()
   static loading(state: ChatStateModel): boolean {
     return state.loading;
+  }
+
+  /**
+   * Get the pending prompt (selected before any session exists)
+   */
+  @Selector()
+  static pendingPrompt(state: ChatStateModel) {
+    return state.pendingPrompt;
   }
 
   /**
@@ -68,7 +78,7 @@ export class ChatState {
    * Get the currently selected session ID
    */
   @Selector()
-  static selectedSessionId(state: ChatStateModel): null | string {
+  static selectedSessionId(state: ChatStateModel): string | undefined {
     return state.selectedSessionId;
   }
 
@@ -117,7 +127,7 @@ export class ChatState {
     const systemMessageId = nanoid();
     const systemMessage: ChatMessage = {
       id: systemMessageId,
-      role: 'system',
+      type: 'system',
       content: [{ type: 'text', payload: '' }],
     };
 
@@ -138,7 +148,7 @@ export class ChatState {
 
     // 3. Call API with streaming
     const conversationHistory = targetSession.messages.filter(
-      (m) => m.role !== 'tool',
+      (m) => m.type !== 'tool',
     );
 
     // Track the latest tool message ID so tool_result can update it
@@ -149,6 +159,7 @@ export class ChatState {
         sessionId: action.sessionId,
         message: action.message.content.map((c) => c.payload).join('\n'),
         model: state.selectedModel,
+        prompt: targetSession.prompt,
         conversationHistory,
       })
       .subscribe({
@@ -193,7 +204,7 @@ export class ChatState {
               currentToolMessageId = nanoid();
               const toolMessage: ChatMessage = {
                 id: currentToolMessageId,
-                role: 'tool',
+                type: 'tool',
                 content: [
                   {
                     type: 'tool_call',
@@ -253,8 +264,12 @@ export class ChatState {
   @Action(AddChatSession)
   addSession(ctx: StateContext<ChatStateModel>, action: AddChatSession) {
     const state = ctx.getState();
+    const session = state.pendingPrompt
+      ? { ...action.session, prompt: state.pendingPrompt }
+      : action.session;
     ctx.patchState({
-      sessions: [...state.sessions, action.session],
+      sessions: [...state.sessions, session],
+      pendingPrompt: undefined,
     });
   }
 
@@ -268,7 +283,7 @@ export class ChatState {
       sessions: state.sessions.filter((s) => s.id !== action.sessionId),
       selectedSessionId:
         state.selectedSessionId === action.sessionId
-          ? null
+          ? undefined
           : state.selectedSessionId,
     });
   }
@@ -284,6 +299,7 @@ export class ChatState {
     const demoSessions: ChatSession[] = [
       {
         id: nanoid(),
+        prompt: 'envi',
         title: 'Welcome Chat',
         createdAt: new Date(),
         lastMessageAt: new Date(),
@@ -292,7 +308,7 @@ export class ChatState {
         messages: [
           {
             id: nanoid(),
-            role: 'user',
+            type: 'user',
             content: [
               {
                 type: 'text',
@@ -303,7 +319,7 @@ export class ChatState {
           },
           {
             id: nanoid(),
-            role: 'system',
+            type: 'system',
             content: [
               {
                 type: 'text',
@@ -313,7 +329,7 @@ export class ChatState {
           },
           {
             id: nanoid(),
-            role: 'user',
+            type: 'user',
             content: [
               {
                 type: 'text',
@@ -325,6 +341,7 @@ export class ChatState {
       },
       {
         id: nanoid(),
+        prompt: 'envi',
         title: 'Project Discussion',
         createdAt: new Date(Date.now() - 86400000),
         lastMessageAt: new Date(Date.now() - 3600000),
@@ -333,7 +350,7 @@ export class ChatState {
         messages: [
           {
             id: nanoid(),
-            role: 'user',
+            type: 'user',
             content: [
               {
                 type: 'text',
@@ -343,7 +360,7 @@ export class ChatState {
           },
           {
             id: nanoid(),
-            role: 'system',
+            type: 'system',
             content: [
               {
                 type: 'text',
@@ -369,6 +386,17 @@ export class ChatState {
   }
 
   /**
+   * Set pending prompt before a session exists
+   */
+  @Action(SetPendingPrompt)
+  setPendingPrompt(
+    ctx: StateContext<ChatStateModel>,
+    action: SetPendingPrompt,
+  ) {
+    ctx.patchState({ pendingPrompt: action.prompt });
+  }
+
+  /**
    * Set the selected model for chat completions
    */
   @Action(SetSelectedModel)
@@ -378,6 +406,22 @@ export class ChatState {
   ) {
     ctx.patchState({
       selectedModel: action.model,
+    });
+  }
+
+  /**
+   * Set the prompt type for a specific chat session
+   */
+  @Action(SetSessionPrompt)
+  setSessionPrompt(
+    ctx: StateContext<ChatStateModel>,
+    action: SetSessionPrompt,
+  ) {
+    const state = ctx.getState();
+    ctx.patchState({
+      sessions: state.sessions.map((s) =>
+        s.id === action.sessionId ? { ...s, prompt: action.prompt } : s,
+      ),
     });
   }
 

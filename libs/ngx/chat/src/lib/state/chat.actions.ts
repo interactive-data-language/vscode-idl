@@ -1,4 +1,4 @@
-import { ChatMessage, ChatSession } from '@idl/types/chat';
+import { ChatMessage, ChatPromptType, ChatSession } from '@idl/types/chat';
 
 /**
  * Load all chat sessions
@@ -56,4 +56,23 @@ export class AddMessageToSession {
 export class SetSelectedModel {
   static readonly type = '[Chat] Set Selected Model';
   constructor(public model: string) {}
+}
+
+/**
+ * Set the prompt type for a specific chat session
+ */
+export class SetSessionPrompt {
+  static readonly type = '[Chat] Set Session Prompt';
+  constructor(
+    public sessionId: string,
+    public prompt: ChatPromptType,
+  ) {}
+}
+
+/**
+ * Set the pending prompt type before a session is created
+ */
+export class SetPendingPrompt {
+  static readonly type = '[Chat] Set Pending Prompt';
+  constructor(public prompt: ChatPromptType) {}
 }
