@@ -224,7 +224,7 @@ export class ChatState {
                   currentToolMessageId,
                   {
                     type: contentType,
-                    payload: chunk.toolOutput ?? chunk.content,
+                    payload: chunk.toolOutput,
                   },
                 );
                 currentToolMessageId = null;

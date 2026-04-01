@@ -87,7 +87,6 @@ export class ChatService {
         if (generatedTitle) {
           yield {
             type: 'title',
-            content: '',
             title: generatedTitle,
           };
         }
@@ -165,7 +164,6 @@ export class ChatService {
           // Notify user that we're calling a tool
           yield {
             type: 'tool_call',
-            content: `Calling tool: ${toolCall.name}`,
             toolName: toolCall.name,
             toolArgs: toolCall.args as Record<string, unknown>,
           };
@@ -221,7 +219,6 @@ export class ChatService {
             // Notify user of tool result
             yield {
               type: 'tool_result',
-              content: `Tool ${toolCall.name} completed`,
               toolName: toolCall.name,
               toolError: false,
               toolOutput: resultContent,
@@ -242,10 +239,8 @@ export class ChatService {
             // Notify user of error
             yield {
               type: 'tool_result',
-              content: `Tool ${toolCall.name} failed: ${errorMessage}`,
               toolName: toolCall.name,
               toolError: true,
-              error: errorMessage,
               toolOutput: errorMessage,
             };
           }
@@ -262,16 +257,12 @@ export class ChatService {
       }
 
       // Signal completion
-      yield {
-        type: 'done',
-        content: '',
-      };
+      yield { type: 'done' };
     } catch (error) {
       // Handle errors gracefully
       console.error('Chat completion error:', error);
       yield {
         type: 'error',
-        content: '',
         error:
           error instanceof Error ? error.message : 'Unknown error occurred',
       };

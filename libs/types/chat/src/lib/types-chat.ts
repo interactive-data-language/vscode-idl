@@ -111,27 +111,62 @@ export interface ChatMessageRequest {
   sessionId: string;
 }
 
-/**
- * Chunk of data streamed from the chat API via SSE
- */
-export interface ChatStreamChunk {
-  /** The streamed content (token text, empty for done, or error message) */
-  content: string;
-  /** Optional error message if type is 'error' or tool_result with failure */
-  error?: string;
-  /** Generated session title when type is 'title' */
-  title?: string;
-  /** Tool arguments when type is 'tool_call' */
-  toolArgs?: Record<string, unknown>;
-  /** Whether the tool call resulted in an error (type 'tool_result') */
-  toolError?: boolean;
-  /** Tool name when type is 'tool_call' or 'tool_result' */
-  toolName?: string;
-  /** Tool output content when type is 'tool_result' */
-  toolOutput?: string;
-  /** Type of chunk */
-  type: 'done' | 'error' | 'text_chunk' | 'title' | 'tool_call' | 'tool_result';
+/** Streaming ended successfully */
+export interface ChatStreamChunk_Done {
+  type: 'done';
 }
+
+/** A fatal streaming error occurred */
+export interface ChatStreamChunk_Error {
+  /** Error message */
+  error: string;
+  type: 'error';
+}
+
+/** A chunk of assistant text to append to the current message */
+export interface ChatStreamChunk_TextChunk {
+  /** Text content to append */
+  content: string;
+  type: 'text_chunk';
+}
+
+/** LLM-generated title for the session (sent once, after the first turn) */
+export interface ChatStreamChunk_Title {
+  /** The generated session title */
+  title: string;
+  type: 'title';
+}
+
+/** The model is invoking a tool */
+export interface ChatStreamChunk_ToolCall {
+  /** Arguments passed to the tool */
+  toolArgs: Record<string, unknown>;
+  /** Name of the tool being called */
+  toolName: string;
+  type: 'tool_call';
+}
+
+/** Result (or error) returned from a tool invocation */
+export interface ChatStreamChunk_ToolResult {
+  /** Whether the tool returned an error */
+  toolError: boolean;
+  /** Tool name that was called */
+  toolName: string;
+  /** Tool output or error message */
+  toolOutput: string;
+  type: 'tool_result';
+}
+
+/**
+ * Discriminated union of all chunk types streamed from the chat API via SSE
+ */
+export type ChatStreamChunk =
+  | ChatStreamChunk_Done
+  | ChatStreamChunk_Error
+  | ChatStreamChunk_TextChunk
+  | ChatStreamChunk_Title
+  | ChatStreamChunk_ToolCall
+  | ChatStreamChunk_ToolResult;
 
 /**
  * Available OpenAI models for chat completions
