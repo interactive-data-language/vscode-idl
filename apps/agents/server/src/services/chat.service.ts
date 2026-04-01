@@ -312,7 +312,6 @@ export class ChatService {
             `Reply with only the title, no quotes, no punctuation at the end:\n\n${firstMessage}`,
         ),
       ]);
-      console.log(response);
       const text =
         typeof response.content === 'string' ? response.content.trim() : null;
       return text || null;
