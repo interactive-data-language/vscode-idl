@@ -9,6 +9,10 @@
         </p>
       </div>
 
+      @if (todos().length > 0) {
+        <ngx-chat-todo-list [todos]="todos()" />
+      }
+
       <div class="messages-area" #messagesArea>
         @for (message of selectedSession()?.messages; track message.id) {
           <ngx-chat-message [message]="message" />

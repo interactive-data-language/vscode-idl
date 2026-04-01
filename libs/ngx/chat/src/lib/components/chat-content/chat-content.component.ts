@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   ElementRef,
   inject,
@@ -16,6 +17,7 @@ import { Store } from '@ngxs/store';
 import { ChatState } from '../../state/chat.state';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
+import { ChatTodoListComponent } from '../chat-todo-list/chat-todo-list.component';
 
 /**
  * Content component displaying the chat messages.
@@ -30,6 +32,7 @@ import { ChatMessageComponent } from '../chat-message/chat-message.component';
     MatProgressBarModule,
     ChatMessageComponent,
     ChatInputComponent,
+    ChatTodoListComponent,
   ],
   templateUrl: './chat-content.component.html',
   styleUrl: './chat-content.component.scss',
@@ -42,6 +45,10 @@ export class ChatContentComponent {
    */
   protected readonly selectedSession = inject(Store).selectSignal(
     ChatState.selectedSession,
+  );
+
+  protected readonly todos = computed(
+    () => this.selectedSession()?.todos ?? [],
   );
 
   private readonly injector = inject(Injector);

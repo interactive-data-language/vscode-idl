@@ -4,6 +4,23 @@
 export type ChatPromptType = 'envi' | 'idl-envi' | 'idl' | 'none';
 
 /**
+ * Status of a to-do item in the LLM task list
+ */
+export type TodoItemStatus = 'done' | 'in-progress' | 'pending' | 'skipped';
+
+/**
+ * A single to-do item tracked by the LLM during a workflow
+ */
+export interface TodoItem {
+  /** Unique identifier */
+  id: string;
+  /** Status of the item */
+  status: TodoItemStatus;
+  /** Short description of the task step */
+  text: string;
+}
+
+/**
  * Content for a chat message
  *
  * Typed so that we can have specific types of content to display:
@@ -76,6 +93,11 @@ export interface ChatSession {
    * Display name/title of the chat session
    */
   title: string;
+
+  /**
+   * Current to-do list for this session, managed by the LLM during workflows
+   */
+  todos?: TodoItem[];
 }
 
 /**
@@ -118,6 +140,8 @@ export interface ChatStateModel {
 export interface ChatMessageRequest {
   /** Conversation history to provide context */
   conversationHistory: ChatMessage[];
+  /** Current to-do list state, sent from the frontend so the server remains stateless */
+  currentTodos?: TodoItem[];
   /** The user's message content */
   message: string;
   /** The model to use for completion (e.g., 'gpt-4o-mini') */
@@ -174,6 +198,13 @@ export interface ChatStreamChunk_ToolResult {
   type: 'tool_result';
 }
 
+/** The LLM updated the to-do list; carries the full current list */
+export interface ChatStreamChunk_TodoUpdate {
+  /** Full current to-do list after the update */
+  todos: TodoItem[];
+  type: 'todo_update';
+}
+
 /**
  * Discriminated union of all chunk types streamed from the chat API via SSE
  */
@@ -182,6 +213,7 @@ export type ChatStreamChunk =
   | ChatStreamChunk_Error
   | ChatStreamChunk_TextChunk
   | ChatStreamChunk_Title
+  | ChatStreamChunk_TodoUpdate
   | ChatStreamChunk_ToolCall
   | ChatStreamChunk_ToolResult;
 

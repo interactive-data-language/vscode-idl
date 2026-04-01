@@ -4,6 +4,7 @@ import type {
   ChatMessageRequest,
   ChatPromptType,
   ChatStreamChunk,
+  TodoItem,
 } from '@idl/types/chat';
 import {
   AIMessage,
@@ -19,6 +20,10 @@ import { ChatOpenAI } from '@langchain/openai';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+import {
+  RegisterMCPToolsForToDos,
+  TODO_TOOL_NAMES,
+} from '../mcp-tools/register-mcp-tools-for-todos';
 import { MCPClient } from './mcp-client.service';
 
 /**
@@ -70,14 +75,22 @@ export class ChatService {
         temperature: 0.7,
       });
 
-      // Bind MCP tools to the model if available
+      // Initialize per-request to-do list from frontend state (stateless pattern)
+      const todos: TodoItem[] = [...(request.currentTodos ?? [])];
+      const todoTools = RegisterMCPToolsForToDos(todos);
+
+      // Bind MCP tools + todo tools to the model
+      const allTools = [...this.mcpTools, ...todoTools];
       const modelWithTools =
-        this.mcpTools.length > 0 ? model.bindTools(this.mcpTools) : model;
+        allTools.length > 0 ? model.bindTools(allTools) : model;
 
       // Convert conversation history to LangChain format
       const messages: BaseMessage[] = this.convertToLangChainMessages(
         request.conversationHistory,
       );
+
+      // add instructions for our ToDo list
+      messages.unshift(new SystemMessage(this.loadInstructions('todo')));
 
       // Prepend system instructions if a prompt type is specified
       if (request.prompt !== 'none') {
@@ -157,7 +170,9 @@ export class ChatService {
         const resolvedToolCalls = aiMsg.tool_calls ?? [];
 
         // Execute tool calls using the LangChain tools from loadMcpTools
-        const toolsByName = new Map(this.mcpTools.map((t) => [t.name, t]));
+        const toolsByName = new Map(
+          [...this.mcpTools, ...todoTools].map((t) => [t.name, t]),
+        );
 
         for (const toolCall of resolvedToolCalls) {
           // Notify user that we're calling a tool
@@ -222,6 +237,11 @@ export class ChatService {
               toolError: false,
               toolOutput: resultContent,
             };
+
+            // If a todo tool ran, stream the updated list to the frontend
+            if (TODO_TOOL_NAMES.has(toolCall.name)) {
+              yield { type: 'todo_update', todos: [...todos] };
+            }
           } catch (error) {
             // Handle tool execution errors
             let errorMessage =
@@ -395,7 +415,7 @@ export class ChatService {
    * Load instruction file content for the given prompt type.
    * For 'idl-envi', both files are concatenated with a separator.
    */
-  private loadInstructions(prompt: ChatPromptType): string {
+  private loadInstructions(prompt: 'todo' | ChatPromptType): string {
     const base = 'extension/github-copilot/instructions';
     switch (prompt) {
       case 'envi':
@@ -419,6 +439,13 @@ export class ChatService {
             'utf-8',
           ),
         ].join('\n\n---\n\n');
+      case 'todo':
+        return readFileSync(
+          GetExtensionPath(
+            join('extension/standalone-mcp', 'todo.instructions.md'),
+          ),
+          'utf-8',
+        );
       default:
         return '';
     }

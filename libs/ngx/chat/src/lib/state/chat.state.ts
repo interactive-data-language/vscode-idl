@@ -167,6 +167,7 @@ export class ChatState {
         model: state.selectedModel,
         prompt: targetSession.prompt,
         conversationHistory,
+        currentTodos: targetSession.todos ?? [],
       })
       .subscribe({
         next: (chunk) => {
@@ -244,6 +245,12 @@ export class ChatState {
                   title: chunk.title,
                 });
               }
+              break;
+
+            case 'todo_update':
+              this.updateSession(ctx, action.sessionId, {
+                todos: chunk.todos,
+              });
               break;
 
             case 'tool_call': {
