@@ -37,18 +37,13 @@
   }
 }
 
-// Tool status messages
-.tool-status {
-  display: inline-flex;
+// Tool status messages — mat-card provides the themed surface background
+.tool-card-content {
+  display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 6px 14px;
-  border-radius: 16px;
-  background: rgba(128, 128, 128, 0.1);
-  border: 1px solid rgba(128, 128, 128, 0.2);
+  padding: 8px 12px !important;
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 80%;
 }
 
 .tool-call-header {
@@ -77,26 +72,11 @@
   &.tool-success {
     color: #4caf50;
   }
-
-  &.tool-error {
-    color: #f44336;
-  }
 }
 
-.tool-spinner {
+.tool-spinner-mat {
+  // mat-progress-spinner uses primary color by default — inherits from theme
   display: inline-block;
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-top-color: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  animation: tool-spin 0.8s linear infinite;
-}
-
-@keyframes tool-spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .tool-args {
@@ -116,7 +96,7 @@
   pre {
     margin: 4px 0 0;
     padding: 6px 8px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(128, 128, 128, 0.12);
     border-radius: 6px;
     font-size: 0.7rem;
     overflow-x: auto;
@@ -124,12 +104,18 @@
     white-space: pre-wrap;
     word-break: break-word;
   }
-}
 
-.tool-error-message {
-  margin-top: 4px;
-  color: #f44336;
-  font-size: 0.75rem;
+  &.tool-args-error {
+    summary {
+      color: #f44336;
+      opacity: 0.85;
+    }
+
+    pre {
+      background: rgba(244, 67, 54, 0.1);
+      color: #f44336;
+    }
+  }
 }
 
 // custom link styles - variables are from theme file

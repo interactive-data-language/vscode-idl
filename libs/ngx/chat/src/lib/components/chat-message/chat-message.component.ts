@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChatMessage } from '@idl/types/chat';
 import { MarkdownModule } from 'ngx-markdown';
 
@@ -18,7 +19,13 @@ import { MarkdownModule } from 'ngx-markdown';
  */
 @Component({
   selector: 'ngx-chat-message',
-  imports: [CommonModule, MatCardModule, MatIconModule, MarkdownModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MarkdownModule,
+  ],
   templateUrl: './chat-message.component.html',
   styleUrl: './chat-message.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
