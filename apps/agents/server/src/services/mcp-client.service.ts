@@ -33,8 +33,6 @@ export class MCPClient {
       port: config.port || 9194,
     };
 
-    console.log(this.config);
-
     const url = `http://${this.config.host}:${this.config.port}/mcp`;
     this.transport = new StreamableHTTPClientTransport(new URL(url));
 
@@ -173,7 +171,6 @@ export class MCPClient {
       console.log(
         `[MCPClient] Loaded ${this.toolCache.length} tools from MCP server`,
       );
-      console.log(result);
     } catch (error) {
       console.error('[MCPClient] Failed to refresh tools:', error);
       throw error;

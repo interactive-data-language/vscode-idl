@@ -11,7 +11,7 @@ export interface ChatMessageContent {
   /** Payload content based on the type of chat message */
   payload: string;
   /** Type of chat message */
-  type: 'result' | 'text';
+  type: 'result' | 'text' | 'tool_call' | 'tool_error' | 'tool_result';
 }
 
 /**
@@ -24,8 +24,8 @@ export interface ChatMessage {
   content: ChatMessageContent[];
   /** ID of the chat message */
   id: string;
-  /** Role of the message (system or user) */
-  role: 'system' | 'user';
+  /** Role of the message (system, tool, or user) */
+  role: 'system' | 'tool' | 'user';
 }
 
 /**
@@ -117,10 +117,16 @@ export interface ChatMessageRequest {
 export interface ChatStreamChunk {
   /** The streamed content (token text, empty for done, or error message) */
   content: string;
-  /** Optional error message if type is 'error' */
+  /** Optional error message if type is 'error' or tool_result with failure */
   error?: string;
+  /** Tool arguments when type is 'tool_call' */
+  toolArgs?: Record<string, unknown>;
+  /** Whether the tool call resulted in an error (type 'tool_result') */
+  toolError?: boolean;
   /** Tool name when type is 'tool_call' or 'tool_result' */
   toolName?: string;
+  /** Tool output content when type is 'tool_result' */
+  toolOutput?: string;
   /** Type of chunk */
   type: 'done' | 'error' | 'token' | 'tool_call' | 'tool_result';
 }

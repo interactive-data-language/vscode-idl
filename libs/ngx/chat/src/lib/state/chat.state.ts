@@ -1,5 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { ChatMessage, ChatSession, ChatStateModel } from '@idl/types/chat';
+import {
+  ChatMessage,
+  ChatMessageContent,
+  ChatSession,
+  ChatStateModel,
+} from '@idl/types/chat';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { nanoid } from 'nanoid';
 
@@ -132,7 +137,12 @@ export class ChatState {
     ctx.patchState({ sessions: updatedSessions });
 
     // 3. Call API with streaming
-    const conversationHistory = targetSession.messages;
+    const conversationHistory = targetSession.messages.filter(
+      (m) => m.role !== 'tool',
+    );
+
+    // Track the latest tool message ID so tool_result can update it
+    let currentToolMessageId: null | string = null;
 
     this.chatApiService
       .sendMessage({
@@ -150,6 +160,44 @@ export class ChatState {
               systemMessageId,
               chunk.content,
             );
+          } else if (chunk.type === 'tool_call') {
+            // Insert a tool message before the system response
+            currentToolMessageId = nanoid();
+            const toolMessage: ChatMessage = {
+              id: currentToolMessageId,
+              role: 'tool',
+              content: [
+                {
+                  type: 'tool_call',
+                  payload: JSON.stringify({
+                    name: chunk.toolName,
+                    args: chunk.toolArgs ?? {},
+                  }),
+                },
+              ],
+            };
+            this.insertMessageBefore(
+              ctx,
+              action.sessionId,
+              systemMessageId,
+              toolMessage,
+            );
+          } else if (chunk.type === 'tool_result') {
+            if (currentToolMessageId) {
+              const contentType = chunk.toolError
+                ? 'tool_error'
+                : 'tool_result';
+              this.appendContentToMessage(
+                ctx,
+                action.sessionId,
+                currentToolMessageId,
+                {
+                  type: contentType,
+                  payload: chunk.toolOutput ?? chunk.content,
+                },
+              );
+              currentToolMessageId = null;
+            }
           } else if (chunk.type === 'done') {
             this.updateSession(ctx, action.sessionId, {
               status: 'ready',
@@ -323,6 +371,26 @@ export class ChatState {
   }
 
   /**
+   * Helper: Append a new content block to an existing message
+   */
+  private appendContentToMessage(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    messageId: string,
+    newContent: ChatMessageContent,
+  ): void {
+    const state = ctx.getState();
+    const session = state.sessions.find((s) => s.id === sessionId);
+    const message = session?.messages.find((m) => m.id === messageId);
+
+    if (!message) return;
+
+    this.updateMessage(ctx, sessionId, messageId, {
+      content: [...message.content, newContent],
+    });
+  }
+
+  /**
    * Helper: Append content to a message
    */
   private appendToMessage(
@@ -346,6 +414,36 @@ export class ChatState {
         },
       ],
     });
+  }
+
+  /**
+   * Helper: Insert a message before another message in a session
+   */
+  private insertMessageBefore(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    beforeMessageId: string,
+    newMessage: ChatMessage,
+  ): void {
+    const state = ctx.getState();
+    const sessions = state.sessions.map((session) => {
+      if (session.id === sessionId) {
+        const idx = session.messages.findIndex((m) => m.id === beforeMessageId);
+        const messages = [...session.messages];
+        if (idx !== -1) {
+          messages.splice(idx, 0, newMessage);
+        } else {
+          messages.push(newMessage);
+        }
+        return {
+          ...session,
+          messages,
+          messageCount: session.messageCount + 1,
+        };
+      }
+      return session;
+    });
+    ctx.patchState({ sessions });
   }
 
   /**

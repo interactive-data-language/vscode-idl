@@ -20,7 +20,7 @@ import { MCPClient } from './mcp-client.service';
 /**
  * Maximum number of agentic loop iterations to prevent infinite loops
  */
-const MAX_ITERATIONS = 10;
+const MAX_ITERATIONS = 20;
 
 /**
  * Service for handling chat completions using LangChain and OpenAI
@@ -111,11 +111,29 @@ export class ChatService {
           break;
         }
 
-        // Add the accumulated message to conversation history
-        messages.push(accumulated);
-
         // Check for tool calls from the accumulated message
         const toolCalls = accumulated.tool_calls ?? [];
+
+        // Convert AIMessageChunk to a proper AIMessage before adding to history.
+        // AIMessageChunk may not serialize tool_calls correctly for the API on
+        // subsequent iterations, causing the model to miss tool call context.
+        if (toolCalls.length > 0) {
+          messages.push(
+            new AIMessage({
+              content:
+                typeof accumulated.content === 'string'
+                  ? accumulated.content
+                  : '',
+              tool_calls: toolCalls.map((tc) => ({
+                id: tc.id ?? `tool_${Date.now()}_${Math.random()}`,
+                name: tc.name,
+                args: tc.args,
+              })),
+            }),
+          );
+        } else {
+          messages.push(accumulated);
+        }
 
         // If no tool calls, we're done
         if (toolCalls.length === 0) {
@@ -123,15 +141,20 @@ export class ChatService {
           break;
         }
 
+        // Use the tool call IDs from the message we just pushed
+        const aiMsg = messages[messages.length - 1] as AIMessage;
+        const resolvedToolCalls = aiMsg.tool_calls ?? [];
+
         // Execute tool calls using the LangChain tools from loadMcpTools
         const toolsByName = new Map(this.mcpTools.map((t) => [t.name, t]));
 
-        for (const toolCall of toolCalls) {
+        for (const toolCall of resolvedToolCalls) {
           // Notify user that we're calling a tool
           yield {
             type: 'tool_call',
             content: `Calling tool: ${toolCall.name}`,
             toolName: toolCall.name,
+            toolArgs: toolCall.args as Record<string, unknown>,
           };
 
           try {
@@ -150,7 +173,7 @@ export class ChatService {
             messages.push(
               new ToolMessage({
                 content: resultContent,
-                tool_call_id: toolCall.id ?? `tool_${Date.now()}`,
+                tool_call_id: toolCall.id ?? '',
               }),
             );
 
@@ -159,22 +182,19 @@ export class ChatService {
               type: 'tool_result',
               content: `Tool ${toolCall.name} completed`,
               toolName: toolCall.name,
+              toolError: false,
+              toolOutput: resultContent,
             };
           } catch (error) {
             // Handle tool execution errors
             const errorMessage =
               error instanceof Error ? error.message : 'Unknown error';
 
-            console.error(
-              `[ChatService] Tool execution failed for ${toolCall.name}:`,
-              error,
-            );
-
             // Add error as tool result so the model can handle it
             messages.push(
               new ToolMessage({
                 content: `Error executing tool: ${errorMessage}`,
-                tool_call_id: toolCall.id ?? `tool_${Date.now()}`,
+                tool_call_id: toolCall.id,
               }),
             );
 
@@ -183,6 +203,9 @@ export class ChatService {
               type: 'tool_result',
               content: `Tool ${toolCall.name} failed: ${errorMessage}`,
               toolName: toolCall.name,
+              toolError: true,
+              error: errorMessage,
+              toolOutput: errorMessage,
             };
           }
         }
