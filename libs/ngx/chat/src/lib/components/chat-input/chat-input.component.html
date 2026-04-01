@@ -7,7 +7,7 @@
       (keypress)="onKeyPress($event)"
       placeholder="Type your message here (Enter to send, Shift+Enter for new line)"
       rows="3"
-      [disabled]="!sessionId()"
+      [disabled]="isDisabled()"
     ></textarea>
 
     <!-- <button

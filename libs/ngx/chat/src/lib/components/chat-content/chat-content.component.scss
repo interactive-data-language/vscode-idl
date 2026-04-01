@@ -14,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  flex: 1;
   padding: 48px;
   text-align: center;
 
@@ -33,35 +33,31 @@
   }
 
   p {
-    margin: 0 0 32px 0;
+    margin: 0;
     font-size: 16px;
     max-width: 500px;
   }
 }
 
 .feature-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 600px;
-  margin-top: 24px;
+  display: none;
 }
 
 .feature-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 8px;
-  text-align: left;
+  display: none;
+}
 
-  mat-icon {
-    flex-shrink: 0;
-  }
+.input-footer {
+  flex-shrink: 0;
+  position: relative;
+}
 
-  span {
-    font-size: 14px;
-  }
+.processing-bar {
+  // Sits flush above the input, full width
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .chat-messages {

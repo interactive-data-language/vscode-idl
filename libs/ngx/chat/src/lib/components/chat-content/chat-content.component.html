@@ -14,32 +14,19 @@
           <ngx-chat-message [message]="message" />
         }
       </div>
-
-      <ngx-chat-input [sessionId]="selectedSession()?.id ?? null" />
     </div>
   } @else {
     <div class="welcome-message">
       <mat-icon class="welcome-icon">chat</mat-icon>
       <h1>Welcome to Desktop Agent</h1>
-      <p>Select a chat from the sidebar or create a new one to get started.</p>
-      <div class="feature-list">
-        <div class="feature-item">
-          <mat-icon>check_circle</mat-icon>
-          <span>Modern Angular architecture with standalone components</span>
-        </div>
-        <div class="feature-item">
-          <mat-icon>check_circle</mat-icon>
-          <span>NGXS state management for reactive updates</span>
-        </div>
-        <div class="feature-item">
-          <mat-icon>check_circle</mat-icon>
-          <span>Material Design components and theming</span>
-        </div>
-        <div class="feature-item">
-          <mat-icon>check_circle</mat-icon>
-          <span>OnPush change detection for performance</span>
-        </div>
-      </div>
+      <p>Ask anything to start a new conversation.</p>
     </div>
   }
+
+  <div class="input-footer">
+    @if (selectedSession()?.status === 'in-progress') {
+      <mat-progress-bar mode="indeterminate" class="processing-bar" />
+    }
+    <ngx-chat-input [sessionId]="selectedSession()?.id ?? null" />
+  </div>
 </div>

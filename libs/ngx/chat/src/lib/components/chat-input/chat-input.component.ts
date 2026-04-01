@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   input,
   signal,
@@ -12,10 +13,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ChatSession } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
 import { nanoid } from 'nanoid';
 
-import { AddMessageToSession } from '../../state/chat.actions';
+import {
+  AddChatSession,
+  AddMessageToSession,
+  SelectChatSession,
+} from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
 
 /**
@@ -48,8 +54,18 @@ export class ChatInputComponent {
    */
   protected readonly inputText = signal('');
 
-  private readonly snackBar = inject(MatSnackBar);
   private readonly store = inject(Store);
+
+  /**
+   * Disabled when a response is already in progress
+   */
+  protected readonly isDisabled = computed(
+    () =>
+      this.store.selectSnapshot(ChatState.selectedSession)?.status ===
+      'in-progress',
+  );
+
+  private readonly snackBar = inject(MatSnackBar);
 
   /**
    * Handle keyboard events (Enter to send, Shift+Enter for new line)
@@ -66,10 +82,26 @@ export class ChatInputComponent {
    */
   protected sendMessage(): void {
     const text = this.inputText().trim();
-    const currentSessionId = this.sessionId();
-
-    if (!text || !currentSessionId) {
+    if (!text) {
       return;
+    }
+
+    let currentSessionId = this.sessionId();
+
+    // If no session exists, create one before sending
+    if (!currentSessionId) {
+      const newSession: ChatSession = {
+        id: nanoid(),
+        title: 'New Chat',
+        createdAt: new Date(),
+        lastMessageAt: new Date(),
+        messageCount: 0,
+        status: 'ready',
+        messages: [],
+      };
+      this.store.dispatch(new AddChatSession(newSession));
+      this.store.dispatch(new SelectChatSession(newSession.id));
+      currentSessionId = newSession.id;
     }
 
     // Check if there's already a message in progress
