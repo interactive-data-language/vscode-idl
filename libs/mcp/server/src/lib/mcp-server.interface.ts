@@ -10,6 +10,7 @@ import {
   ToolCallback,
 } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+import type { ShapeOutput } from '@modelcontextprotocol/sdk/server/zod-compat';
 import { RequestHandlerExtra } from '@modelcontextprotocol/sdk/shared/protocol';
 import {
   ServerNotification,
@@ -27,7 +28,7 @@ import { ZodRawShape } from 'zod';
  */
 export type MCPToolCallback<Args extends ZodRawShape, Tool extends MCPTools> = (
   id: string,
-  args: import('@modelcontextprotocol/sdk/server/zod-compat').ShapeOutput<Args>,
+  args: ShapeOutput<Args>,
   extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
 ) => MCPToolHTTPResponse<Tool> | Promise<MCPToolHTTPResponse<Tool>>;
 
