@@ -1,53 +1,5 @@
 @if (isToolMessage()) {
-  <div class="message-wrapper tool-message">
-    <mat-card class="message-card">
-      <mat-card-content class="tool-card-content">
-        @if (toolCallData(); as data) {
-          <div class="tool-call-header">
-            <mat-icon class="tool-icon">build</mat-icon>
-            <span class="tool-name">{{ data.name }}</span>
-
-            @if (toolResult(); as result) {
-              @if (result.type === 'tool_error') {
-                <mat-icon class="tool-status-icon" color="warn">error</mat-icon>
-              } @else {
-                <mat-icon class="tool-status-icon tool-success"
-                  >check_circle</mat-icon
-                >
-              }
-            } @else {
-              <mat-progress-spinner
-                mode="indeterminate"
-                [diameter]="18"
-                class="tool-spinner-mat"
-              ></mat-progress-spinner>
-            }
-          </div>
-
-          @if (formattedArgs()) {
-            <details class="tool-args">
-              <summary>Parameters</summary>
-              <pre>{{ formattedArgs() }}</pre>
-            </details>
-          }
-
-          @if (toolResult(); as result) {
-            @if (result.type === 'tool_error') {
-              <details class="tool-args tool-args-error">
-                <summary>Error</summary>
-                <pre>{{ result.payload }}</pre>
-              </details>
-            } @else if (formattedOutput()) {
-              <details class="tool-args">
-                <summary>Output</summary>
-                <pre>{{ formattedOutput() }}</pre>
-              </details>
-            }
-          }
-        }
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <ngx-chat-tool-message [message]="message()" />
 } @else {
   <div
     class="message-wrapper"
