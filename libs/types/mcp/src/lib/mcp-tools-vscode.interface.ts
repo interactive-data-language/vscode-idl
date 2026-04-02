@@ -1,6 +1,11 @@
 import { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types';
 
 import {
+  MCPTool_AddDataToMap,
+  MCPToolParams_AddDataToMap,
+  MCPToolResponse_AddDataToMap,
+} from './vscode/mcp-tool-add-data-to-map.interface';
+import {
   MCPTool_CreateIDLNotebook,
   MCPToolParams_CreateIDLNotebook,
   MCPToolResponse_CreateIDLNotebook,
@@ -50,6 +55,7 @@ import {
  * MCP Tools that run in VSCode
  */
 export type MCPTools_VSCode =
+  | MCPTool_AddDataToMap
   | MCPTool_CreateIDLNotebook
   | MCPTool_ExecuteIDLCode
   | MCPTool_ExecuteIDLFile
@@ -65,49 +71,53 @@ export type MCPTools_VSCode =
  * that requires ENVI or IDL
  */
 export type MCPToolParams_VSCode<T extends MCPTools_VSCode> =
-  T extends MCPTool_CreateIDLNotebook
-    ? MCPToolParams_CreateIDLNotebook
-    : T extends MCPTool_ExecuteIDLCode
-    ? MCPToolParams_ExecuteIDLCode
-    : T extends MCPTool_ExecuteIDLFile
-    ? MCPToolParams_ExecuteIDLFile
-    : T extends MCPTool_ListENVIToolWorkflows
-    ? MCPToolParams_ListENVIToolWorkflows
-    : T extends MCPTool_ManageIDLAndENVISession
-    ? MCPToolParams_ManageIDLAndENVISession
-    : T extends MCPTool_OpenDatasetsInENVI
-    ? MCPToolParams_OpenDatasetsInENVI
-    : T extends MCPTool_QueryDatasetWithENVI
-    ? MCPToolParams_QueryDatasetWithENVI
-    : T extends MCPTool_ReturnNotes
-    ? MCPToolParams_ReturnNotes
-    : T extends MCPTool_RunENVITool
-    ? MCPToolParams_RunENVITool
-    : never;
+  T extends MCPTool_AddDataToMap
+    ? MCPToolParams_AddDataToMap
+    : T extends MCPTool_CreateIDLNotebook
+      ? MCPToolParams_CreateIDLNotebook
+      : T extends MCPTool_ExecuteIDLCode
+        ? MCPToolParams_ExecuteIDLCode
+        : T extends MCPTool_ExecuteIDLFile
+          ? MCPToolParams_ExecuteIDLFile
+          : T extends MCPTool_ListENVIToolWorkflows
+            ? MCPToolParams_ListENVIToolWorkflows
+            : T extends MCPTool_ManageIDLAndENVISession
+              ? MCPToolParams_ManageIDLAndENVISession
+              : T extends MCPTool_OpenDatasetsInENVI
+                ? MCPToolParams_OpenDatasetsInENVI
+                : T extends MCPTool_QueryDatasetWithENVI
+                  ? MCPToolParams_QueryDatasetWithENVI
+                  : T extends MCPTool_ReturnNotes
+                    ? MCPToolParams_ReturnNotes
+                    : T extends MCPTool_RunENVITool
+                      ? MCPToolParams_RunENVITool
+                      : never;
 
 /**
  * Responses from MCP tools that run in VSCode for ENVI and IDL
  */
 export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
-  T extends MCPTool_CreateIDLNotebook
-    ? MCPToolResponse_CreateIDLNotebook
-    : T extends MCPTool_ExecuteIDLCode
-    ? MCPToolResponse_ExecuteIDLCode
-    : T extends MCPTool_ExecuteIDLFile
-    ? MCPToolResponse_ExecuteIDLFile
-    : T extends MCPTool_ListENVIToolWorkflows
-    ? MCPToolResponse_ListENVIToolWorkflows
-    : T extends MCPTool_ManageIDLAndENVISession
-    ? MCPToolResponse_ManageIDLAndENVISession
-    : T extends MCPTool_OpenDatasetsInENVI
-    ? MCPToolResponse_OpenDatasetsInENVI
-    : T extends MCPTool_QueryDatasetWithENVI
-    ? MCPToolResponse_QueryDatasetWithENVI
-    : T extends MCPTool_ReturnNotes
-    ? MCPToolResponse_ReturnNotes
-    : T extends MCPTool_RunENVITool
-    ? MCPToolResponse_RunENVITool
-    : never;
+  T extends MCPTool_AddDataToMap
+    ? MCPToolResponse_AddDataToMap
+    : T extends MCPTool_CreateIDLNotebook
+      ? MCPToolResponse_CreateIDLNotebook
+      : T extends MCPTool_ExecuteIDLCode
+        ? MCPToolResponse_ExecuteIDLCode
+        : T extends MCPTool_ExecuteIDLFile
+          ? MCPToolResponse_ExecuteIDLFile
+          : T extends MCPTool_ListENVIToolWorkflows
+            ? MCPToolResponse_ListENVIToolWorkflows
+            : T extends MCPTool_ManageIDLAndENVISession
+              ? MCPToolResponse_ManageIDLAndENVISession
+              : T extends MCPTool_OpenDatasetsInENVI
+                ? MCPToolResponse_OpenDatasetsInENVI
+                : T extends MCPTool_QueryDatasetWithENVI
+                  ? MCPToolResponse_QueryDatasetWithENVI
+                  : T extends MCPTool_ReturnNotes
+                    ? MCPToolResponse_ReturnNotes
+                    : T extends MCPTool_RunENVITool
+                      ? MCPToolResponse_RunENVITool
+                      : never;
 
 /**
  * Response from tools that run in VSCode

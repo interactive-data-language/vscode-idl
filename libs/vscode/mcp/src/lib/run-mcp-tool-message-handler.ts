@@ -15,6 +15,7 @@ import { RunMCPTool_ListENVIToolWorkflows } from './tools/envi/run-mcp-tool-list
 import { RunMCPTool_OpenDatasetsInENVI } from './tools/envi/run-mcp-tool-open-datasets-in-envi';
 import { RunMCPTool_QueryDatasetWithENVI } from './tools/envi/run-mcp-tool-query-dataset-with-envi';
 import { RunMCPTool_RunENVITool } from './tools/envi/run-mcp-tool-run-envi-tool';
+import { RunMCPTool_AddDataToMap } from './tools/idl/run-mcp-tool-add-data-to-map';
 import { RunMCPTool_CreateIDLNotebook } from './tools/idl/run-mcp-tool-create-idl-notebook';
 import { RunMCPTool_ExecuteIDLCode } from './tools/idl/run-mcp-tool-execute-idl-code';
 import { RunMCPTool_ExecuteIDLFile } from './tools/idl/run-mcp-tool-execute-idl-file';
@@ -30,6 +31,7 @@ export const RUN_MCP_TOOL_LOOKUP: {
     params: MCPToolParams<key>,
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
 } = {
+  'add-data-to-map': RunMCPTool_AddDataToMap,
   'create-idl-notebook': RunMCPTool_CreateIDLNotebook,
   'execute-idl-code': RunMCPTool_ExecuteIDLCode,
   'execute-idl-file': RunMCPTool_ExecuteIDLFile,

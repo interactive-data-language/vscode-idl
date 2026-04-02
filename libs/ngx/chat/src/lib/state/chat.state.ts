@@ -163,7 +163,9 @@ export class ChatState {
     this.chatApiService
       .sendMessage({
         sessionId: action.sessionId,
-        message: action.message.content.map((c) => c.payload).join('\n'),
+        message: action.message.content
+          .flatMap((c) => ('payload' in c ? [c.payload] : []))
+          .join('\n'),
         model: state.selectedModel,
         prompt: targetSession.prompt,
         conversationHistory,
@@ -185,7 +187,8 @@ export class ChatState {
                 if (
                   lastMsg?.type === 'system' &&
                   lastMsg.id === currentSystemMessageId &&
-                  (lastMsg.content[0]?.payload ?? '') === ''
+                  lastMsg.content[0]?.type === 'text' &&
+                  (lastMsg.content[0].payload ?? '') === ''
                 ) {
                   const trimmedSessions = doneState.sessions.map((session) => {
                     if (session.id !== action.sessionId) return session;
@@ -214,6 +217,20 @@ export class ChatState {
                 chunk.error || 'Unknown error occurred',
               );
               break;
+
+            case 'map_data': {
+              // Each map gets its own system message so it renders cleanly
+              const mapMessageId = nanoid();
+              const mapMessage: ChatMessage = {
+                id: mapMessageId,
+                type: 'system',
+                content: [{ type: 'map', mapData: chunk.mapData }],
+              };
+              this.appendMessageToSession(ctx, action.sessionId, mapMessage);
+              // Keep needsNewSystemMessage true so subsequent text opens a fresh message
+              needsNewSystemMessage = true;
+              break;
+            }
 
             case 'text_chunk':
               if (needsNewSystemMessage) {
@@ -542,7 +559,9 @@ export class ChatState {
 
     if (!message) return;
 
-    const currentContent = message.content[0]?.payload || '';
+    const firstBlock = message.content[0];
+    const currentContent =
+      firstBlock?.type === 'text' ? firstBlock.payload : '';
     this.updateMessage(ctx, sessionId, messageId, {
       content: [
         {

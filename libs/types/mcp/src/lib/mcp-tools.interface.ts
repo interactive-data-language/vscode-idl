@@ -20,6 +20,7 @@ import {
   MCPToolResponse_VSCode,
   MCPTools_VSCode,
 } from './mcp-tools-vscode.interface';
+import { MCPTool_AddDataToMap } from './vscode/mcp-tool-add-data-to-map.interface';
 import { MCPTool_CreateIDLNotebook } from './vscode/mcp-tool-create-idl-notebook.interface';
 import { MCPTool_ExecuteIDLCode } from './vscode/mcp-tool-execute-idl-code.interface';
 import { MCPTool_ExecuteIDLFile } from './vscode/mcp-tool-execute-idl-file.interface';
@@ -41,8 +42,8 @@ export type MCPTools = MCPTools_HTTP | MCPTools_VSCode;
 export type MCPToolParams<T extends MCPTools> = T extends MCPTools_HTTP
   ? MCPToolParams_HTTP<T>
   : T extends MCPTools_VSCode
-  ? MCPToolParams_VSCode<T>
-  : never;
+    ? MCPToolParams_VSCode<T>
+    : never;
 
 /**
  * Payloads for all MCP messages
@@ -55,13 +56,15 @@ export type MCPToolResponse<T extends MCPTools> = T extends MCPTools_VSCode
 export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_HTTP
   ? MCPToolHTTPResponse_HTTP
   : T extends MCPTools_VSCode
-  ? MCPToolHTTPResponse_VSCode
-  : never;
+    ? MCPToolHTTPResponse_VSCode
+    : never;
 
 /**
  * Strictly typed messages that we can send back and forth
  */
 interface IMCPToolLookup {
+  /** Add geo data to a map in the chat */
+  ADD_DATA_TO_MAP: MCPTool_AddDataToMap;
   /** Create an IDL Notebook */
   CREATE_IDL_NOTEBOOK: MCPTool_CreateIDLNotebook;
   /** Run code in IDL */
@@ -108,6 +111,7 @@ interface IMCPToolLookup {
  * Lookup with types of messages
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
+  ADD_DATA_TO_MAP: 'add-data-to-map',
   CREATE_IDL_NOTEBOOK: 'create-idl-notebook',
   EXECUTE_IDL_CODE: 'execute-idl-code',
   EXECUTE_IDL_FILE: 'execute-idl-file',

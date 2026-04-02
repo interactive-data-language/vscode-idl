@@ -6,6 +6,7 @@ import type {
   ChatStreamChunk,
   TodoItem,
 } from '@idl/types/chat';
+import type { MCPToolResponse_AddDataToMap } from '@idl/types/mcp';
 import {
   AIMessage,
   AIMessageChunk,
@@ -25,6 +26,11 @@ import {
   TODO_TOOL_NAMES,
 } from '../mcp-tools/register-mcp-tools-for-todos';
 import { MCPClient } from './mcp-client.service';
+
+/**
+ * Tool names whose results should emit a map_data stream chunk
+ */
+const MAP_TOOL_NAMES = new Set(['add-data-to-map']);
 
 /**
  * Maximum number of agentic loop iterations to prevent infinite loops
@@ -241,6 +247,20 @@ export class ChatService {
             // If a todo tool ran, stream the updated list to the frontend
             if (TODO_TOOL_NAMES.has(toolCall.name)) {
               yield { type: 'todo_update', todos: [...todos] };
+            }
+
+            // If a map tool ran and returned map data, stream it to the frontend
+            if (MAP_TOOL_NAMES.has(toolCall.name)) {
+              try {
+                const mapResp = JSON.parse(
+                  resultContent,
+                ) as MCPToolResponse_AddDataToMap;
+                if (mapResp.success && mapResp.mapData) {
+                  yield { type: 'map_data', mapData: mapResp.mapData };
+                }
+              } catch {
+                // Ignore parse errors — the tool result will still be shown as text
+              }
             }
           } catch (error) {
             // Handle tool execution errors

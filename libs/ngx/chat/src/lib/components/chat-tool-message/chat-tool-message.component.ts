@@ -38,7 +38,8 @@ export class ChatToolMessageComponent {
    */
   protected readonly toolCallData = computed(() => {
     const callBlock = this.message().content.find(
-      (c) => c.type === 'tool_call',
+      (c): c is Extract<typeof c, { type: 'tool_call' }> =>
+        c.type === 'tool_call',
     );
     if (!callBlock) return null;
     try {
@@ -66,7 +67,8 @@ export class ChatToolMessageComponent {
   protected readonly toolResult = computed(() => {
     return (
       this.message().content.find(
-        (c) => c.type === 'tool_result' || c.type === 'tool_error',
+        (c): c is Extract<typeof c, { type: 'tool_error' | 'tool_result' }> =>
+          c.type === 'tool_result' || c.type === 'tool_error',
       ) ?? null
     );
   });

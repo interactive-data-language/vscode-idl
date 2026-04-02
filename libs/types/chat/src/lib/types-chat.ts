@@ -1,3 +1,5 @@
+import { IDLNotebookEmbeddedItem, IDLNotebookMap } from '@idl/types/notebooks';
+
 /**
  * Prompt type controlling which instruction file is injected as a system message
  */
@@ -21,20 +23,72 @@ export interface TodoItem {
 }
 
 /**
- * Content for a chat message
- *
- * Typed so that we can have specific types of content to display:
- *
- * - Markdown
- * - Maps
- * - Etc.
+ * Content for a chat message: plain text (markdown)
  */
-export interface ChatMessageContent {
-  /** Payload content based on the type of chat message */
+export interface ChatMessageContent_Text {
+  /** Payload content */
   payload: string;
-  /** Type of chat message */
-  type: 'result' | 'text' | 'tool_call' | 'tool_error' | 'tool_result';
+  type: 'text';
 }
+
+/**
+ * Content for a chat message: pre-formatted result output
+ */
+export interface ChatMessageContent_Result {
+  /** Payload content */
+  payload: string;
+  type: 'result';
+}
+
+/**
+ * Content for a chat message: serialised tool-call metadata
+ */
+export interface ChatMessageContent_ToolCall {
+  /** Payload content */
+  payload: string;
+  type: 'tool_call';
+}
+
+/**
+ * Content for a chat message: tool error output
+ */
+export interface ChatMessageContent_ToolError {
+  /** Payload content */
+  payload: string;
+  type: 'tool_error';
+}
+
+/**
+ * Content for a chat message: tool result output
+ */
+export interface ChatMessageContent_ToolResult {
+  /** Payload content */
+  payload: string;
+  type: 'tool_result';
+}
+
+/**
+ * Content for a chat message: an interactive map
+ *
+ * Uses the same data structure as IDLNotebookEmbeddedItem<IDLNotebookMap>
+ * so that layers can be created with the existing @idl/ngx/map utilities.
+ */
+export interface ChatMessageContent_Map {
+  /** Structured map data — no plain-text payload */
+  mapData: IDLNotebookEmbeddedItem<IDLNotebookMap>;
+  type: 'map';
+}
+
+/**
+ * Discriminated union of all chat message content types
+ */
+export type ChatMessageContent =
+  | ChatMessageContent_Map
+  | ChatMessageContent_Result
+  | ChatMessageContent_Text
+  | ChatMessageContent_ToolCall
+  | ChatMessageContent_ToolError
+  | ChatMessageContent_ToolResult;
 
 /**
  * Chat message
@@ -205,12 +259,20 @@ export interface ChatStreamChunk_TodoUpdate {
   type: 'todo_update';
 }
 
+/** Map data to display in the chat — mirrors IDLNotebookEmbeddedItem<IDLNotebookMap> */
+export interface ChatStreamChunk_MapData {
+  /** Structured map data to render */
+  mapData: IDLNotebookEmbeddedItem<IDLNotebookMap>;
+  type: 'map_data';
+}
+
 /**
  * Discriminated union of all chunk types streamed from the chat API via SSE
  */
 export type ChatStreamChunk =
   | ChatStreamChunk_Done
   | ChatStreamChunk_Error
+  | ChatStreamChunk_MapData
   | ChatStreamChunk_TextChunk
   | ChatStreamChunk_Title
   | ChatStreamChunk_TodoUpdate

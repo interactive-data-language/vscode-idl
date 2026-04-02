@@ -4,6 +4,7 @@ import { RegisterMCPTool_GetENVIToolWorkflow } from './tools/envi/register-mcp-t
 import { RegisterMCPTool_ListENVIToolWorkflows } from './tools/envi/register-mcp-tool-list-envi-tool-workflows';
 import { RegisterMCPTool_OpenDatasetsInENVI } from './tools/envi/register-mcp-tool-open-datasets-in-envi';
 import { RegisterMCPTool_QueryDatasetWithENVI } from './tools/envi/register-mcp-tool-query-dataset-with-envi';
+import { RegisterMCPTool_AddDataToMap } from './tools/idl/register-mcp-tool-add-data-to-map';
 import { RegisterMCPTool_CreateIDLNotebook } from './tools/idl/register-mcp-tool-create-idl-notebook';
 import { RegisterMCPTool_ExecuteIDLCode } from './tools/idl/register-mcp-tool-execute-idl-code';
 import { RegisterMCPTool_ExecuteIDLFile } from './tools/idl/register-mcp-tool-execute-idl-file';
@@ -53,6 +54,7 @@ export function RegisterAllMCPTools(isEnviInstalled: boolean) {
   /**
    * Register IDL tools
    */
+  RegisterMCPTool_AddDataToMap(server);
   RegisterMCPTool_CreateIDLNotebook(server);
   RegisterMCPTool_ExecuteIDLCode(server);
   RegisterMCPTool_ExecuteIDLFile(server);

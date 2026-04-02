@@ -18,6 +18,8 @@
             <div>
               <pre>{{ content.payload }}</pre>
             </div>
+          } @else if (content.type === 'map') {
+            <ngx-chat-map [mapData]="content.mapData" />
           }
         }
       </mat-card-content>

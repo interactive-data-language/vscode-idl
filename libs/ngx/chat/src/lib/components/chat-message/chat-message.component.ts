@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ChatMessage } from '@idl/types/chat';
 import { MarkdownModule } from 'ngx-markdown';
 
+import { ChatMapComponent } from '../chat-map/chat-map.component';
 import { ChatToolMessageComponent } from '../chat-tool-message/chat-tool-message.component';
 
 /**
@@ -24,6 +25,7 @@ import { ChatToolMessageComponent } from '../chat-tool-message/chat-tool-message
     CommonModule,
     MatCardModule,
     MarkdownModule,
+    ChatMapComponent,
     ChatToolMessageComponent,
   ],
   templateUrl: './chat-message.component.html',

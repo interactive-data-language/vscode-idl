@@ -12,10 +12,11 @@ import {
   SkipSelf,
   ViewChild,
 } from '@angular/core';
-import { Deck, FlyToInterpolator, WebMercatorViewport } from '@deck.gl/core';
+import { Deck, FlyToInterpolator } from '@deck.gl/core';
 import {
   CreateBaseMapLayer,
   CreateLayers,
+  FitViewToLayers,
   NotebookMapLayer,
   NotebookMapLayers,
   NotebookMapLayerType,
@@ -276,28 +277,13 @@ export class MapComponent
    */
   updateInitialViewState() {
     if (this.layers) {
-      // check if we have bounds from our layers
-      if (this.layers.bounds) {
-        /**
-         * Get viewport
-         */
-        const { longitude, latitude, zoom } = new WebMercatorViewport({
-          width: this.el.nativeElement.offsetWidth,
-          height: this.el.nativeElement.offsetHeight,
-        }).fitBounds(
-          [
-            [this.layers.bounds[0], this.layers.bounds[1]],
-            [this.layers.bounds[2], this.layers.bounds[3]],
-          ],
-          {
-            padding: 100,
-          },
-        );
-
-        /**
-         * Update view state
-         */
-        Object.assign(INITIAL_VIEW_STATE, { longitude, latitude, zoom });
+      const fit = FitViewToLayers(
+        this.layers,
+        this.el.nativeElement.offsetWidth,
+        this.el.nativeElement.offsetHeight,
+      );
+      if (fit) {
+        Object.assign(INITIAL_VIEW_STATE, fit);
       }
     }
   }

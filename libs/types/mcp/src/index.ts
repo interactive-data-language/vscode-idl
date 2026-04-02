@@ -16,6 +16,7 @@ export * from './lib/mcp-tool-progress.interface';
 export * from './lib/mcp-tools.interface';
 export * from './lib/mcp-tools-http.interface';
 export * from './lib/mcp-tools-vscode.interface';
+export * from './lib/vscode/mcp-tool-add-data-to-map.interface';
 export * from './lib/vscode/mcp-tool-create-idl-notebook.interface';
 export * from './lib/vscode/mcp-tool-execute-idl-code.interface';
 export * from './lib/vscode/mcp-tool-execute-idl-file.interface';
