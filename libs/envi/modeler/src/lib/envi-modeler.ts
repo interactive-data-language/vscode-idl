@@ -1,0 +1,239 @@
+import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
+
+import {
+  FIXED_DISPLAY_NAMES,
+  LAYOUT_BASE_X,
+  LAYOUT_BASE_Y,
+  LAYOUT_COMMENT_Y_OFFSET,
+  LAYOUT_STEP_X,
+} from './envi-modeler.interface';
+
+// ---------------------------------------------------------------------------
+// Internal helpers
+// ---------------------------------------------------------------------------
+
+/** Counter map so we can produce task_1, view_2 etc. */
+type NameCounters = Record<string, number>;
+
+function nextName(counters: NameCounters, prefix: string): string {
+  counters[prefix] = (counters[prefix] ?? 0) + 1;
+  return `${prefix}_${counters[prefix]}`;
+}
+
+/**
+ * Compute a simple left-to-right auto-layout for nodes.
+ * Comment nodes are placed at y - 90 relative to their sequence position.
+ * Other nodes share the same base y.
+ */
+function computeLayout(
+  nodes: ENVIModelerNode[],
+): Map<string, [number, number]> {
+  const layout = new Map<string, [number, number]>();
+  let col = 0;
+
+  for (const node of nodes) {
+    const x = LAYOUT_BASE_X + col * LAYOUT_STEP_X;
+    const y =
+      node.type === 'comment'
+        ? LAYOUT_BASE_Y + LAYOUT_COMMENT_Y_OFFSET
+        : LAYOUT_BASE_Y;
+    layout.set(node.id, [x, y]);
+    if (node.type !== 'comment') {
+      col++;
+    }
+  }
+
+  return layout;
+}
+
+/** Map each user id to the canonical Modeler node name */
+function buildIdMap(nodes: ENVIModelerNode[]): Map<string, string> {
+  const map = new Map<string, string>();
+  const counters: NameCounters = {};
+
+  for (const node of nodes) {
+    let prefix: string;
+    switch (node.type) {
+      case 'aggregator':
+        prefix = 'aggregator';
+        break;
+      case 'arrayextractor':
+        prefix = 'elementExtractor';
+        break;
+      case 'arrayvalues':
+        prefix = 'values';
+        break;
+      case 'comment':
+        prefix = 'comment';
+        break;
+      case 'datamanager':
+        prefix = 'dataManager';
+        break;
+      case 'inputparameters':
+        prefix = 'parameters';
+        break;
+      case 'iterator':
+        prefix = 'iterator';
+        break;
+      case 'outputparameters':
+        prefix = 'parameters';
+        break;
+      case 'propertyextractor':
+        prefix = 'propertyExtractor';
+        break;
+      case 'task':
+        prefix = 'task';
+        break;
+      case 'view':
+        prefix = 'view';
+        break;
+      default:
+        prefix = 'node';
+    }
+    map.set(node.id, nextName(counters, prefix));
+  }
+
+  return map;
+}
+
+/** Convert a single ENVIModelerNode to its JSON representation */
+function buildNodeJSON(
+  node: ENVIModelerNode,
+  modelName: string,
+  location: [number, number],
+): Record<string, unknown> {
+  const base: Record<string, unknown> = {
+    display_name:
+      FIXED_DISPLAY_NAMES[node.type] ??
+      node.display_name ??
+      node.task_name ??
+      node.type,
+    location,
+    name: modelName,
+    type: node.type,
+  };
+
+  switch (node.type) {
+    case 'aggregator':
+      base['revision'] = node.revision ?? '1.0.0';
+      base['extract'] = node.extract ?? 1;
+      break;
+
+    case 'arrayextractor': {
+      const extTask: Record<string, unknown> = {
+        name: node.task_name ?? 'ExtractElementFromArray',
+      };
+      if (node.static_input && Object.keys(node.static_input).length > 0) {
+        extTask['static_input'] = node.static_input;
+      } else if (node.indices) {
+        extTask['static_input'] = { indices: node.indices };
+      }
+      if (node.revision) {
+        extTask['revision'] = node.revision;
+      }
+      base['envitask'] = extTask;
+      if (node.indices) {
+        base['indices'] = node.indices;
+      }
+      break;
+    }
+
+    case 'arrayvalues':
+      base['value'] = node.value ?? [];
+      base['data_type'] = node.data_type ?? 'String';
+      break;
+
+    case 'comment':
+      // comment nodes carry only display_name, location, name, type — already set
+      break;
+
+    case 'datamanager':
+      base['revision'] = node.revision ?? '1.0.0';
+      break;
+
+    case 'inputparameters': {
+      const params = (node.parameters ?? []).map((p) => {
+        const entry: Record<string, string> = { name: p.name };
+        if (p.display_name) entry['display_name'] = p.display_name;
+        if (p.description) entry['description'] = p.description;
+        entry['type'] = p.type;
+        return entry;
+      });
+      base['parameters'] = params;
+      break;
+    }
+
+    case 'iterator':
+      base['revision'] = node.revision ?? '1.0.0';
+      break;
+
+    case 'outputparameters':
+      // no extra fields needed
+      break;
+
+    case 'propertyextractor':
+      base['revision'] = node.revision ?? '1.0.0';
+      break;
+
+    case 'task': {
+      const envitask: Record<string, unknown> = {
+        name: node.task_name,
+      };
+      if (node.static_input && Object.keys(node.static_input).length > 0) {
+        envitask['static_input'] = node.static_input;
+      }
+      if (node.revision) {
+        envitask['revision'] = node.revision;
+      }
+      base['envitask'] = envitask;
+      break;
+    }
+
+    case 'view':
+      base['revision'] = node.revision ?? '1.0.0';
+      break;
+
+    default:
+      break;
+  }
+
+  return base;
+}
+
+// ---------------------------------------------------------------------------
+// Public API
+// ---------------------------------------------------------------------------
+
+/** Build the full model JSON object from nodes and edges */
+export function buildModelJSON(
+  nodes: ENVIModelerNode[],
+  edges: ENVIModelerEdge[],
+): Record<string, unknown> {
+  const layout = computeLayout(nodes);
+  const idMap = buildIdMap(nodes);
+
+  // Build nodes array
+  const modelNodes = nodes.map((node) => {
+    const modelName = idMap.get(node.id) ?? node.id;
+    const rawLocation = layout.get(node.id);
+    const location: [number, number] = rawLocation ?? [
+      LAYOUT_BASE_X,
+      LAYOUT_BASE_Y,
+    ];
+    return buildNodeJSON(node, modelName, location);
+  });
+
+  // Build edges array
+  const modelEdges = edges.map((edge) => ({
+    from_node: idMap.get(edge.from) ?? edge.from,
+    from_parameters: edge.from_parameters,
+    to_node: idMap.get(edge.to) ?? edge.to,
+    to_parameters: edge.to_parameters,
+  }));
+
+  return {
+    schema: 'envimodel_1.0',
+    nodes: modelNodes,
+    edges: modelEdges,
+  };
+}
