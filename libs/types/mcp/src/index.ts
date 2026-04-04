@@ -1,3 +1,4 @@
+export * from './lib/http/mcp-tool-create-envi-modeler-workflow.interface';
 export * from './lib/http/mcp-tool-get-envi-tool-parameters.interface';
 export * from './lib/http/mcp-tool-get-envi-tool-workflow.interface';
 export * from './lib/http/mcp-tool-get-prompt.interface';

@@ -49,6 +49,16 @@ export function RegisterMCPPromptTools(server: MCPServer) {
     ),
     type: 'envi',
   });
+  registry.addPrompt({
+    name: 'enviModelerWorkflow',
+    description:
+      'Describes how to design and create an ENVI Modeler workflow file (.model) that automates a chain of ENVI Tasks. Use when a user wants to save a processing pipeline as a reusable, graphical ENVI Modeler workflow.',
+    prompt: readFileSync(
+      join(enviDir, 'enviModelerWorkflow.prompt.md'),
+      'utf-8',
+    ),
+    type: 'envi',
+  });
 
   /** IDL prompt dir */
   const idlDir = GetExtensionPath('extension/github-copilot/prompts/IDL');

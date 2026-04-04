@@ -1,3 +1,4 @@
+import { MCPTool_CreateENVIModelerWorkflow } from './http/mcp-tool-create-envi-modeler-workflow.interface';
 import { MCPTool_GetENVIToolParameters } from './http/mcp-tool-get-envi-tool-parameters.interface';
 import { MCPTool_GetENVIToolWorkflow } from './http/mcp-tool-get-envi-tool-workflow.interface';
 import { MCPTool_GetPrompt } from './http/mcp-tool-get-prompt.interface';
@@ -41,8 +42,8 @@ export type MCPTools = MCPTools_HTTP | MCPTools_VSCode;
 export type MCPToolParams<T extends MCPTools> = T extends MCPTools_HTTP
   ? MCPToolParams_HTTP<T>
   : T extends MCPTools_VSCode
-  ? MCPToolParams_VSCode<T>
-  : never;
+    ? MCPToolParams_VSCode<T>
+    : never;
 
 /**
  * Payloads for all MCP messages
@@ -55,13 +56,15 @@ export type MCPToolResponse<T extends MCPTools> = T extends MCPTools_VSCode
 export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_HTTP
   ? MCPToolHTTPResponse_HTTP
   : T extends MCPTools_VSCode
-  ? MCPToolHTTPResponse_VSCode
-  : never;
+    ? MCPToolHTTPResponse_VSCode
+    : never;
 
 /**
  * Strictly typed messages that we can send back and forth
  */
 interface IMCPToolLookup {
+  /** Create an ENVI Modeler workflow file */
+  CREATE_ENVI_MODELER_WORKFLOW: MCPTool_CreateENVIModelerWorkflow;
   /** Create an IDL Notebook */
   CREATE_IDL_NOTEBOOK: MCPTool_CreateIDLNotebook;
   /** Run code in IDL */
@@ -108,6 +111,7 @@ interface IMCPToolLookup {
  * Lookup with types of messages
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
+  CREATE_ENVI_MODELER_WORKFLOW: 'create-envi-modeler-workflow',
   CREATE_IDL_NOTEBOOK: 'create-idl-notebook',
   EXECUTE_IDL_CODE: 'execute-idl-code',
   EXECUTE_IDL_FILE: 'execute-idl-file',
