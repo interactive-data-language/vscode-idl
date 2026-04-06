@@ -8,10 +8,6 @@ import {
   LAYOUT_STEP_X,
 } from './envi-modeler.interface';
 
-// ---------------------------------------------------------------------------
-// Internal helpers
-// ---------------------------------------------------------------------------
-
 /** Counter map so we can produce task_1, view_2 etc. */
 type NameCounters = Record<string, number>;
 
