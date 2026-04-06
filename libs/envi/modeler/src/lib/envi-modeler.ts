@@ -15,6 +15,7 @@ import {
 /** Counter map so we can produce task_1, view_2 etc. */
 type NameCounters = Record<string, number>;
 
+/** Get's next name for a node */
 function NextName(counters: NameCounters, prefix: string): string {
   counters[prefix] = (counters[prefix] ?? 0) + 1;
   return `${prefix}_${counters[prefix]}`;
@@ -201,11 +202,7 @@ function BuildNodeJSON(
   return base;
 }
 
-// ---------------------------------------------------------------------------
-// Public API
-// ---------------------------------------------------------------------------
-
-/** Build the full model JSON object from nodes and edges */
+/** Creates an ENVI Modeler Workflow (JSON) from nodes and edges */
 export function BuildENVIModelerWorkflow(
   nodes: ENVIModelerNode[],
   edges: ENVIModelerEdge[],
