@@ -156,6 +156,7 @@ function BuildNodeJSON(
         const entry: Record<string, string> = { name: p.name };
         if (p.display_name) entry['display_name'] = p.display_name;
         if (p.description) entry['description'] = p.description;
+        entry['name'] = p.name.toLowerCase();
         entry['type'] = p.type;
         return entry;
       });
@@ -226,9 +227,9 @@ export function BuildENVIModelerWorkflow(
   // Build edges array
   const modelEdges = edges.map((edge) => ({
     from_node: idMap.get(edge.from) ?? edge.from,
-    from_parameters: edge.from_parameters,
+    from_parameters: edge.from_parameters.map((param) => param.toLowerCase()),
     to_node: idMap.get(edge.to) ?? edge.to,
-    to_parameters: edge.to_parameters,
+    to_parameters: edge.to_parameters.map((param) => param.toLowerCase()),
   }));
 
   return {
