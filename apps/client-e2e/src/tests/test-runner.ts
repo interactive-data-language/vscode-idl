@@ -1,6 +1,6 @@
 import { Logger } from '@idl/logger';
 
-import { DEBUGGING_RUNNER } from './debugging/_debugging-runner';  
+import { DEBUGGING_RUNNER } from './debugging/_debugging-runner';
 import { INTERACTIONS_RUNNER } from './interactions/_interactions-runner';
 import { MCP_TEST_RUNNER } from './mcp/_mcp-test-runner';
 import { NOTEBOOK_RUNNER } from './notebooks/_notebook-runner';

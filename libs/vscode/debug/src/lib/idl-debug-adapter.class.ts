@@ -132,7 +132,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_LOG),
       VSCODE_PRO_DIR,
-      `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`
+      `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`,
     );
 
     // create breakpoint manager
@@ -165,7 +165,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    */
   async evaluate(
     command: string,
-    inOptions?: IDebugEvaluateOptions
+    inOptions?: IDebugEvaluateOptions,
   ): Promise<string> {
     // make sure we wait until IDL has started to execute anything
     if (!inOptions?.noWait) {
@@ -306,16 +306,16 @@ export class IDLDebugAdapter extends LoggingDebugSession {
           // test full filepath
           case new RegExp(
             `^\\s*\\.(com|comp|compi|compil|compile)\\s+(-v\\s*)?('|")?${scopeFile}('|")?`,
-            'gim'
+            'gim',
           ).test(useCommand):
             shouldReturn = true;
             break;
           // test base name
           case new RegExp(
             `^\\s*\\.(com|comp|compi|compil|compile)\\s+(-v\\s*)?('|")?${basename(
-              scopeFile
+              scopeFile,
             )}('|")?`,
-            'gim'
+            'gim',
           ).test(useCommand):
             shouldReturn = true;
             break;
@@ -339,7 +339,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
         // alert vscode
         this.sendEvent(
-          new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.returning}\n`)
+          new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.returning}\n`),
         );
         this._eventHelper.resetStopAndContinue();
       }
@@ -451,7 +451,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // sync decorators
       IDL_DECORATIONS_MANAGER.syncSyntaxErrorDecorations(
-        this.getSyntaxProblems()
+        this.getSyntaxProblems(),
       );
     }
 
@@ -470,7 +470,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     if (decorate) {
       IDL_DECORATIONS_MANAGER.addCodeCoverageDecorations(
         vscode.Uri.file(file),
-        coverage
+        coverage,
       );
     }
 
@@ -534,7 +534,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this._runtime = new IDLInteractionManager(
         IDL_LOGGER.getLog(IDL_DEBUG_LOG),
         VSCODE_PRO_DIR,
-        `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`
+        `${IDL_TRANSLATION.debugger.adapter.previewWarning}\n`,
       );
 
       // listen to events
@@ -561,7 +561,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
             silent: true,
             idlInfo: false,
             noWait: true,
-          })
+          }),
         );
 
         try {
@@ -730,7 +730,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    */
   terminate() {
     this.sendEvent(
-      new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.stop}\n`)
+      new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.stop}\n`),
     );
 
     // stop
@@ -760,7 +760,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.BreakpointLocationsResponse,
     args: DebugProtocol.BreakpointLocationsArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     this._eventHelper.trackStopBlocker();
 
@@ -810,7 +810,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.CancelResponse,
     args: DebugProtocol.CancelArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     try {
       IDL_LOGGER.log({
@@ -843,7 +843,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    */
   protected configurationDoneRequest(
     response: DebugProtocol.ConfigurationDoneResponse,
-    args: DebugProtocol.ConfigurationDoneArguments
+    args: DebugProtocol.ConfigurationDoneArguments,
   ) {
     IDL_LOGGER.log({
       log: IDL_DEBUG_ADAPTER_LOG,
@@ -876,7 +876,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.ContinueResponse,
     args: DebugProtocol.ContinueArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     try {
       IDL_LOGGER.log({
@@ -929,7 +929,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       await this.evaluate(cmd, {
         silent: true,
         echo: false,
-      })
+      }),
     );
 
     // attempt to open if we found a file
@@ -942,8 +942,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       this.sendEvent(
         new OutputEvent(
           `${IDL_TRANSLATION.debugger.adapter.nothingToEdit}\n`,
-          'stderr'
-        )
+          'stderr',
+        ),
       );
     }
   }
@@ -955,7 +955,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.EvaluateResponse,
     args: DebugProtocol.EvaluateArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.EvaluateRequest
+    request?: DebugProtocol.EvaluateRequest,
   ) {
     try {
       IDL_LOGGER.log({
@@ -1015,7 +1015,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   protected initializeRequest(
     response: DebugProtocol.InitializeResponse,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    args: DebugProtocol.InitializeRequestArguments
+    args: DebugProtocol.InitializeRequestArguments,
   ) {
     // build and return the capabilities of this debug adapter:
     response.body = response.body || {};
@@ -1059,11 +1059,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    */
   protected async launchRequest(
     response: DebugProtocol.LaunchResponse,
-    args: IDLDebugConfiguration
+    args: IDLDebugConfiguration,
   ) {
     try {
       this.sendEvent(
-        new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.start}\n`)
+        new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.start}\n`),
       );
 
       // make sure to 'Stop' the buffered logging if 'trace' is not set
@@ -1134,7 +1134,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.NextResponse,
     args: DebugProtocol.NextArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     try {
       IDL_LOGGER.log({
@@ -1171,7 +1171,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     args: DebugProtocol.PauseArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.PauseRequest
+    request?: DebugProtocol.PauseRequest,
   ) {
     try {
       IDL_LOGGER.log({
@@ -1185,7 +1185,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         this._runtime.pause();
       } else {
         vscode.window.showWarningMessage(
-          IDL_TRANSLATION.debugger.adapter.noPauseOnWindows
+          IDL_TRANSLATION.debugger.adapter.noPauseOnWindows,
         );
       }
 
@@ -1208,33 +1208,47 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   }
 
   /**
-   * Restart debugging session
+   * Restart debugging session by stopping IDL and starting a fresh instance
    */
   protected async restartRequest(
     response: DebugProtocol.RestartResponse,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     args: DebugProtocol.RestartArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     try {
       IDL_LOGGER.log({
         log: IDL_DEBUG_ADAPTER_LOG,
         type: ADAPTER_METHOD_LOG_LEVEL,
-        content: 'Restart (i.e. reset) request',
+        content: 'Restart request: stopping IDL and starting fresh instance',
       });
 
-      // reset the session
-      await this.evaluate('.reset');
+      // notify user we are restarting
+      this.sendEvent(
+        new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.stop}\n`),
+      );
+
+      // stop the current IDL instance
+      this._runtime.stop();
+
+      // log session stop
+      LogSessionStop('stopped');
 
       // reset syntax problems
       IDL_DECORATIONS_MANAGER.reset('pro');
 
+      // reset status bar like Terminate
+      IDL_STATUS_BAR.resetPrompt();
+
+      // init promise for startup and resolver callback
+      this._setStartupPromise(true);
+
+      // start a fresh IDL instance
+      await this.launch();
+
       // let vscode know we finished
       this.sendResponse(response);
-
-      // send text to console since it gets cleared
-      this.sendEvent(new OutputEvent(`.reset\n`));
 
       // reset stop events and alert VScode
       this._eventHelper.resetStopAndContinue();
@@ -1262,7 +1276,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.ScopesResponse,
     args: DebugProtocol.ScopesArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     this._eventHelper.trackStopBlocker();
 
@@ -1302,7 +1316,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
    */
   protected async setBreakPointsRequest(
     response: DebugProtocol.SetBreakpointsResponse,
-    args: DebugProtocol.SetBreakpointsArguments
+    args: DebugProtocol.SetBreakpointsArguments,
   ) {
     this._eventHelper.trackStopBlocker();
 
@@ -1349,7 +1363,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.StackTraceResponse,
     args: DebugProtocol.StackTraceArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     this._eventHelper.trackStopBlocker();
 
@@ -1380,8 +1394,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
               frame.index,
               frame.name,
               this.fileToSource(frame.file),
-              this.convertDebuggerLineToClient(frame.line)
-            )
+              this.convertDebuggerLineToClient(frame.line),
+            ),
         ),
         totalFrames: stack.count,
       };
@@ -1421,7 +1435,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.StepInResponse,
     args: DebugProtocol.StepInArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     try {
       IDL_LOGGER.log({
@@ -1457,7 +1471,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.StepOutResponse,
     args: DebugProtocol.StepOutArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     try {
       IDL_LOGGER.log({
@@ -1493,7 +1507,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response: DebugProtocol.TerminateResponse,
     args: DebugProtocol.TerminateArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     try {
       IDL_LOGGER.log({
@@ -1556,7 +1570,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     args: DebugProtocol.VariablesArguments,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    request?: DebugProtocol.Request
+    request?: DebugProtocol.Request,
   ) {
     this._eventHelper.trackStopBlocker();
 
@@ -1573,7 +1587,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
       // populate body
       response.body = {
         variables: MapVariables(
-          await this._runtime.getVariables(this.lastFrameId)
+          await this._runtime.getVariables(this.lastFrameId),
         ),
       };
 
@@ -1622,12 +1636,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
         break;
       case 'failed-start':
         IDL_STATUS_BAR.setStoppedStatus(
-          IDL_TRANSLATION.statusBar.problemStarting
+          IDL_TRANSLATION.statusBar.problemStarting,
         );
         break;
       case 'lost-connection':
         vscode.window.showErrorMessage(
-          IDL_TRANSLATION.notifications.lostIDLConnection
+          IDL_TRANSLATION.notifications.lostIDLConnection,
         );
         break;
       default:
@@ -1661,7 +1675,7 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   private fileToSource(filePath: string): Source {
     return new Source(
       basename(filePath),
-      this.convertDebuggerPathToClient(filePath)
+      this.convertDebuggerPathToClient(filePath),
     );
   }
 }
