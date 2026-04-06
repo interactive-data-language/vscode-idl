@@ -1,1 +1,1 @@
-export * from './lib/types-envi-modeler';
+export * from './lib/envi-modeler.interface';

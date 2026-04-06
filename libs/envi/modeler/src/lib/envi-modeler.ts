@@ -15,7 +15,7 @@ import {
 /** Counter map so we can produce task_1, view_2 etc. */
 type NameCounters = Record<string, number>;
 
-function nextName(counters: NameCounters, prefix: string): string {
+function NextName(counters: NameCounters, prefix: string): string {
   counters[prefix] = (counters[prefix] ?? 0) + 1;
   return `${prefix}_${counters[prefix]}`;
 }
@@ -25,7 +25,7 @@ function nextName(counters: NameCounters, prefix: string): string {
  * Comment nodes are placed at y - 90 relative to their sequence position.
  * Other nodes share the same base y.
  */
-function computeLayout(
+function ComputeLayout(
   nodes: ENVIModelerNode[],
 ): Map<string, [number, number]> {
   const layout = new Map<string, [number, number]>();
@@ -47,7 +47,7 @@ function computeLayout(
 }
 
 /** Map each user id to the canonical Modeler node name */
-function buildIdMap(nodes: ENVIModelerNode[]): Map<string, string> {
+function BuildIdMap(nodes: ENVIModelerNode[]): Map<string, string> {
   const map = new Map<string, string>();
   const counters: NameCounters = {};
 
@@ -90,14 +90,14 @@ function buildIdMap(nodes: ENVIModelerNode[]): Map<string, string> {
       default:
         prefix = 'node';
     }
-    map.set(node.id, nextName(counters, prefix));
+    map.set(node.id, NextName(counters, prefix));
   }
 
   return map;
 }
 
 /** Convert a single ENVIModelerNode to its JSON representation */
-function buildNodeJSON(
+function BuildNodeJSON(
   node: ENVIModelerNode,
   modelName: string,
   location: [number, number],
@@ -205,12 +205,12 @@ function buildNodeJSON(
 // ---------------------------------------------------------------------------
 
 /** Build the full model JSON object from nodes and edges */
-export function buildModelJSON(
+export function BuildENVIModelerWorkflow(
   nodes: ENVIModelerNode[],
   edges: ENVIModelerEdge[],
 ): Record<string, unknown> {
-  const layout = computeLayout(nodes);
-  const idMap = buildIdMap(nodes);
+  const layout = ComputeLayout(nodes);
+  const idMap = BuildIdMap(nodes);
 
   // Build nodes array
   const modelNodes = nodes.map((node) => {
@@ -220,7 +220,7 @@ export function buildModelJSON(
       LAYOUT_BASE_X,
       LAYOUT_BASE_Y,
     ];
-    return buildNodeJSON(node, modelName, location);
+    return BuildNodeJSON(node, modelName, location);
   });
 
   // Build edges array

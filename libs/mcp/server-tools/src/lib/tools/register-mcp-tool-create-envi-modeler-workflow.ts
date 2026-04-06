@@ -1,4 +1,4 @@
-import { buildModelJSON } from '@idl/envi/modeler';
+import { BuildENVIModelerWorkflow } from '@idl/envi/modeler';
 import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
@@ -236,7 +236,7 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(server: MCPServer) {
       }
 
       // ---- build the model JSON
-      const modelJSON = buildModelJSON(
+      const modelJSON = BuildENVIModelerWorkflow(
         nodes as ENVIModelerNode[],
         edges as ENVIModelerEdge[],
       );
