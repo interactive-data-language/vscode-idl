@@ -11,7 +11,7 @@ export const LAYOUT_BASE_X = 1200;
 export const LAYOUT_BASE_Y = 1490;
 
 /** Horizontal step between columns in auto-layout */
-export const LAYOUT_STEP_X = 175;
+export const LAYOUT_STEP_X = 200;
 
 /** Y offset applied to comment nodes relative to the base Y */
 export const LAYOUT_COMMENT_Y_OFFSET = -90;
