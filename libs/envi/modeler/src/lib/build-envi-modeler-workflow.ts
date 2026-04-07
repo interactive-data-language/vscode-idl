@@ -8,7 +8,7 @@ import {
   LAYOUT_RIGHT_STEP_Y,
   LAYOUT_STEP_X,
   RIGHT_SIDE_TYPES,
-} from './envi-modeler.interface';
+} from './build-envi-modeler-workflow.interface';
 
 /** Counter map so we can produce task_1, view_2 etc. */
 type NameCounters = Record<string, number>;

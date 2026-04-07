@@ -1,2 +1,2 @@
-export * from './lib/envi-modeler';
-export * from './lib/envi-modeler.interface';
+export * from './lib/build-envi-modeler-workflow';
+export * from './lib/build-envi-modeler-workflow.interface';
