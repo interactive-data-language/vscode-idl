@@ -10,6 +10,10 @@ This section of the CHANGELOG documents features that have been added to the ext
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
+## Unreleased
+
+Fixed an issue where the "Restart" debug toolbar item only reset IDL and did not, in fact, restart IDL. It now stops and launches a new session.
+
 ## 6.0.2 - March 2026
 
 Fixed an issue where, if IDL crashed or was stopped by the user, GitHub Copilot would not be notified and get in a bad state.
@@ -144,7 +148,6 @@ With IDL 9.2, IDL now offers **native integration with VSCode**, bringing substa
 - Support for the `read` procedure (interactive user input) in the VSCode Debug Console and IDL Notebooks
 
 - Enhanced progress reporting:
-
   - Native integration with IDL Notebooks
 
   - Cleaner output in the VSCode Debug Console
@@ -210,7 +213,6 @@ Let us know if you'd like to see more features supported in the web version.
 - **Outline now enables sticky headers:** The outline has been updated to provide a sticky header showing you what routine you are working inside of
 
 - **CLI progress handling:**
-
   - IDL Notebooks now mimic terminal output
 
   - VSCode Debug Console shows progress updates on new lines (due to inherent limitations)
@@ -610,7 +612,6 @@ Code style revamp! We reworked how routines, routine methods, properties, and st
 - Routine formatting now gives you the benefit-of-the-doubt when formatting routines and routine methods. In the past, if we encountered an unknown routine, we would not change the appearance. Now, even if we don't know the class method or routine, we apply styling. Milage may vary here based on the style you use when we can't get the source information.
 
 - New defaults:
-
   - Properties: camelCase
 
   - Routines: match definition
@@ -714,7 +715,6 @@ The official release of IDL Notebooks! This is a first pass at adding notebook s
 Here are some of the features that notebooks bring:
 
 - Notebook files should end with the extension ".idlnb" which are managed and rendered by the IDL extension.
-
   - Notebooks support highlighting, problem reporting, hover help, auto-complete, go-to-definition, formatting, and semantic token highlighting.
 
     > Pro tip: See the FORMATTING.md doc for information regarding how to format notebooks on save.
@@ -722,7 +722,6 @@ Here are some of the features that notebooks bring:
   - Basic notebook functionality for saving (including outputs and images) and restoring all works as expected
 
   - Notebooks embed images. If you use function or object graphics, all windows will be embedded.
-
     - At this time, there may be some graphics that shouldn't be grabbed (like when you run ENVI processing with the ENVI UI open)
 
   - Notebooks do not embed widgets.
@@ -730,13 +729,11 @@ Here are some of the features that notebooks bring:
   - Notebooks only support Markdown and IDL cell types
 
 - When running cells, notebooks automatically start an IDL process. Notebooks provide two custom buttons for managing IDL: Reset and Stop.
-
   - Reset will stop and restart IDL so that it is fresh (this way you can interrupt cell execution)
 
   - Stop will stop the IDL process and interrupt cell execution. A new IDL session won't be launched until you run a new cell.
 
 - Ability to run cells:
-
   - Cells are executed as-is and don't support debugging or interactive processes.
 
   - See the "Hello World" notebook for details on how cell execution works and how you can write code
@@ -1010,7 +1007,6 @@ Add new preferences for tracking session history! This includes several new feat
 - A new output channel that captures the input and output from your IDL sessions (i.e. `print, 42` and the text `42`). This output channel is called "IDL: Session History"
 
 - A system to also write all input and output to a file on disk. You can control:
-
   - If we write a file on disk or not
 
   - The folder (default value is `${.idl}` which is the path to your `.idl` folder in your home location with a `vscode` subdirectory)
@@ -1060,17 +1056,14 @@ Fix badge URLs now that the extension is live
 - Outline for PRO code has been updated to include different icons based on methods vs standard routines and also captures the main level program start.
 
 - Completely revamped syntax highlighting that highlights based on your syntax. It is a great visual way to see where you have syntax problems as highlighting will dramatically change based on what expressions are allowed to be found or not.
-
   - Additionally, see the file `extension/docs/CUSTOMIZING_THEMES.md` for the TextMate scopes used for IDL which you can customize to look how you want in any theme.
 
 - Added a new file icon theme that adds a new IDL icon for light and dark modes.
-
   - Supports .pro and .sav files
 
   - This icon theme is an extension of the default file icon theme that ships with VSCode.
 
   - On startup, IDL will ask if you want to switch to this if not the default theme.
-
     - A new preference has also been added to not ask about this again
 
   - Every time the extension is built, we automatically fetch the latest version of the default icon theme to stay up-to-date
@@ -1086,7 +1079,6 @@ Fix badge URLs now that the extension is live
 - Revamped auto-complete that is now context aware of your current cursor location and the code around it. This helps provide streamlined and smaller lists of auto-complete items.
 
 - The results from auto-complete now have smart sorting text applied. There general order is:
-
   - Variables
 
   - Properties
@@ -1100,7 +1092,6 @@ Fix badge URLs now that the extension is live
 - Updated the out-of-the-box routine lookup for IDL 8.8.2 and ENVI 5.6.2 and updated them to follow the new patterns for internal routine storage/docs
 
 - Full support for user documentation using the IDL Doc style
-
   - This provides complete feedback for your documentation and help guide you to creating consistent and correct docs to make your code easier for others to understand
 
   - These docs follow through to hover help for user-defined routines and variables
@@ -1118,7 +1109,6 @@ Fix badge URLs now that the extension is live
 - Go-to definition not supports variables inside of routines
 
 - Enhanced features for debugging:
-
   - Each time a debug session of IDL starts, it sets the `IDL_PROMPT` environment variable to reset the prompt back to `IDL> `. This is to help ensure stability because the extension does not support prompts other than `IDL> ` or `ENVI> `. If your prompt does change, then you can stop and restart the debug session of IDL which will update the preference back to default.
 
   - No extra spaces for every command that runs
@@ -1138,13 +1128,11 @@ Fix badge URLs now that the extension is live
 - Cleaned up extension configuration to remove unused preferences
 
 - Alert configuration uses callbacks to make it easy to get additional information or help with problems that appear. Specifically:
-
   - Problem files can be opened from the dialogs that appear
 
   - If IDL is not found, and you try to start a session, you can click a button on the dialog to pick the folder where IDL lives.
 
 - Developer changes:
-
   - Migrated source code to NX for nice, monorepo management and reorganized most of the code. A majority of the features/functionality live in the "libs" folder for easier addition of unit tests and it allows for sharing code between client and server applications.
 
   - Updated all dependencies to the latest major versions (as of 4/30/2022), including the latest VSCode extension API which is mostly new/separate packages for functionality.
@@ -1162,13 +1150,11 @@ Fix badge URLs now that the extension is live
 - Properly handle multiple commands that are executed in the debug console and join all statements with "&" (IDL's line separator character). This still limits you to executing single-line statements (i.e. no block statements with "begin" or "end"), but handles cases where you can write statements with line continuations all at once.
 
 - VSCode now will attempt to automatically indent your code using expressions like "pro", "function", and "begin".
-
   - Note that this functionality is limited because of VSCode. For this to work, your control statements need to be all upper case or all lower case. No mix and match.
 
   - The rules also attempt to be helpful and indent inside of arrays, parentheses, and structures.
 
 - New and improved syntax highlighting following some patterns that VSCode uses for languages. It now:
-
   - Uses YAML as the source which makes it 1/3 to 1/2 the original size as plist XML
 
   - Allows for comments to elaborate on why an expression might be the way that it is
@@ -1180,7 +1166,6 @@ Fix badge URLs now that the extension is live
   - Takes the modern, and correct, approach of using recursion to attempt to define what tokens/children are or are not allowed
 
   - This means that, as a developer, you should see or not see syntax highlighting based on your code being correct or not
-
     - For example, nested routine definitions are not allowed and now not highlighted
 
 - Properly include licenses, copyrights, and credits for third party dependencies used in the source code of the extension.
@@ -1188,7 +1173,6 @@ Fix badge URLs now that the extension is live
 - For developers, syntax tree tokens have overloads for hover help to allow for custom experiences outside of the global (i.e. routine defs) and local (i.e. variables) hover help.
 
 - Two entry points for automatically initializing "idl.json" files for users.
-
   - First, we will check each workspace that you open and, if there is no "idl.json" file, then you will get an automated message asking you if you want to create one. On a workspace-by-workspace level, you can disable these messages if they get annoying.
 
   - There is an entry in the IDL tab of the sidebar that will let you manually create an "idl.json" file for any open workspace, provided it does not already have one in it.
@@ -1198,7 +1182,6 @@ Fix badge URLs now that the extension is live
 Lots of exciting changes!
 
 - DEBUGGING!
-
   - (Mostly) Full debugging just like in the IDL workbench
 
   - Pausing doesn't work, but breakpoints, stops, and all of the other commands that you expect from the IDL Workbench are here.
@@ -1206,23 +1189,18 @@ Lots of exciting changes!
   - Custom buttons to compile files, reset the IDL session, and "Run" a file (just like the "Run" button in the IDL Workbench).
 
 - Terminal Commands
-
   - Separate from debugging, these allow you to run IDL in the VSCode terminal window without interactive debugging functionality
 
 - Profiling!
-
   - Not as slick as the IDL Workbench, but the same style of functionality. Use the IDL View or commands to start and stop profiling.
 
 - Preferences
-
   - Basic preferences to help out with debugging
 
 - Themes! Feeling retro? Check out the `Retro IDL` theme. In the mood for a modern, dark theme? Experience IDL syntax highlighting with the `Novus IDL` color theme. See the **Credits** section of the readme for the original source of the themes.
-
   - If you feel like customizing the IDL themes, check out the theme JSON files. The IDL tokens are all at the top and it is pretty easy to customize the way PRO code appears. Pro tip: if you do this, VSCode does a live-reload so you can see your changes instantly!
 
 - Code refactor. Not as exciting, but we have a good number of _major_ changes to the way the code in the repository is written:
-
   - TSLint (although it will soon be deprecated) and steps for getting able to contribute
 
   - Prettier and TSLint integrated into the node scripts prior to packaging to force the code to have the same style
@@ -1230,37 +1208,31 @@ Lots of exciting changes!
   - All files have been adjusted according to prettier and TSLint
 
 - Syntax highlighting
-
   - When pairing the themes with this extension, there were a few bugs fixed with the colors not appearing right based on your color theme.
 
   - There is separation in color between functions, procedures, function methods, and procedure methods. There is no delineation between user defined and internal routines at this point. The highlighting also extends to where they are defined in PRO code.
 
 - Tree view
-
   - New tabs and buttons for executing additional commands by clicking n buttons
 
   - Some updated icons as well
 
 - Webview
-
   - A custom view that can be used to display any information we need.
 
   - Follows most of the best practices for the webview, including state management. It will remember where it last left off, even between closing and opening sessions.
 
 - Support for internationalization (i18n)
-
   - For client (ext) and webview as well. All new code should be written to support i18n so that we will always be covered.
 
   - Custom workflow for generating the files needed for i18n which is simple, used for the whole extension, and error-proofs users from having missing JSON key/value pairs or typos with JSON keys.
 
 - Logging
-
   - Proper extension logging when not in debug mode.
 
   - Error messages prompt the user by default to view logs.
 
 - Additional Development Updates:
-
   - Migration to webpack for the extension client
 
   - Total extension size is about 1.2 MB with 73 files, most of which are images and necessary files for the language!
@@ -1268,13 +1240,11 @@ Lots of exciting changes!
   - As new folders have been added, migrated all content specific for the language to the `language` folder to keep things more organized.
 
 - Workspaces:
-
   - Properly listen for files being added and removed from workspace
 
   - Fixed a _major_ bug where the glob library used for file searching would exceed the call stack and we wouldn't have our true intellisense.
 
 - Support for `todo` statements if they follow the form of:
-
   - `; TODO: some note here` where the actual `TODO` can be upper or lower case
 
 ## [1.7.0] - 2019
