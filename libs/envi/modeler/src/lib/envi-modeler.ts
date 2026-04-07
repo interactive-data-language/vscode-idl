@@ -5,7 +5,9 @@ import {
   LAYOUT_BASE_X,
   LAYOUT_BASE_Y,
   LAYOUT_COMMENT_Y_OFFSET,
+  LAYOUT_RIGHT_STEP_Y,
   LAYOUT_STEP_X,
+  RIGHT_SIDE_TYPES,
 } from './envi-modeler.interface';
 
 /** Counter map so we can produce task_1, view_2 etc. */
@@ -20,6 +22,8 @@ function NextName(counters: NameCounters, prefix: string): string {
 /**
  * Compute a simple left-to-right auto-layout for nodes.
  * Comment nodes are placed at y - 90 relative to their sequence position.
+ * Right-side nodes (view, outputparameters, datamanager) are stacked vertically
+ * one column to the right of all other nodes.
  * Other nodes share the same base y.
  */
 function ComputeLayout(
@@ -28,7 +32,11 @@ function ComputeLayout(
   const layout = new Map<string, [number, number]>();
   let col = 0;
 
+  // First pass: place all non-right-side nodes left-to-right
   for (const node of nodes) {
+    if (RIGHT_SIDE_TYPES.has(node.type)) {
+      continue;
+    }
     const x = LAYOUT_BASE_X + col * LAYOUT_STEP_X;
     const y =
       node.type === 'comment'
@@ -38,6 +46,20 @@ function ComputeLayout(
     if (node.type !== 'comment') {
       col++;
     }
+  }
+
+  // Second pass: stack right-side nodes vertically one column to the right
+  const rightX = LAYOUT_BASE_X + col * LAYOUT_STEP_X;
+  let rightRow = 0;
+  for (const node of nodes) {
+    if (!RIGHT_SIDE_TYPES.has(node.type)) {
+      continue;
+    }
+    layout.set(node.id, [
+      rightX,
+      LAYOUT_BASE_Y + rightRow * LAYOUT_RIGHT_STEP_Y,
+    ]);
+    rightRow++;
   }
 
   return layout;
