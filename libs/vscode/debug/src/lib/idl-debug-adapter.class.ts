@@ -728,10 +728,12 @@ export class IDLDebugAdapter extends LoggingDebugSession {
   /**
    * Wrapper method to stop our current IDL session
    */
-  terminate() {
-    this.sendEvent(
-      new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.stop}\n`),
-    );
+  terminate(alert = true) {
+    if (alert) {
+      this.sendEvent(
+        new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.stop}\n`),
+      );
+    }
 
     // stop
     this._runtime.stop();
@@ -750,7 +752,9 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this._setStartupPromise(true);
 
     // alert vscode we have stopped
-    this.sendEvent(new TerminatedEvent());
+    if (alert) {
+      this.sendEvent(new TerminatedEvent());
+    }
   }
 
   /**
@@ -1226,23 +1230,11 @@ export class IDLDebugAdapter extends LoggingDebugSession {
 
       // notify user we are restarting
       this.sendEvent(
-        new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.stop}\n`),
+        new OutputEvent(`${IDL_TRANSLATION.debugger.adapter.restart}\n`),
       );
 
       // stop the current IDL instance
-      this._runtime.stop();
-
-      // log session stop
-      LogSessionStop('stopped');
-
-      // reset syntax problems
-      IDL_DECORATIONS_MANAGER.reset('pro');
-
-      // reset status bar like Terminate
-      IDL_STATUS_BAR.resetPrompt();
-
-      // init promise for startup and resolver callback
-      this._setStartupPromise(true);
+      this.terminate(false);
 
       // start a fresh IDL instance
       await this.launch();
