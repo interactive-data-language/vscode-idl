@@ -1,6 +1,7 @@
 import { IDL_LSP_LOG, IDL_MCP_LOG } from '@idl/logger';
 import { MCPServer } from '@idl/mcp/server';
 import {
+  RegisterMCPTool_CreateENVIModelerWorkflow,
   RegisterMCPTool_GetENVIToolParameters,
   RegisterMCPTool_ListENVITools,
   RegisterMCPTool_RunENVITool,
@@ -43,6 +44,7 @@ export async function RegisterMCPTaskTools(server: MCPServer, index: IDLIndex) {
   RegisterMCPTool_ListENVITools(server, registry);
   RegisterMCPTool_GetENVIToolParameters(server, registry);
   RegisterMCPTool_RunENVITool(server, registry);
+  RegisterMCPTool_CreateENVIModelerWorkflow(server, registry);
 
   /** Get all functions that we know about */
   const functions =

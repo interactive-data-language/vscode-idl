@@ -38,10 +38,20 @@ function ComputeLayout(
       continue;
     }
     const x = LAYOUT_BASE_X + col * LAYOUT_STEP_X;
-    const y =
-      node.type === 'comment'
-        ? LAYOUT_BASE_Y + LAYOUT_COMMENT_Y_OFFSET
-        : LAYOUT_BASE_Y;
+
+    // init y value
+    let y = LAYOUT_BASE_Y;
+
+    // check for special y value cases
+    switch (node.type) {
+      case 'comment':
+        y += LAYOUT_COMMENT_Y_OFFSET;
+        break;
+      case 'inputparameters':
+        y += LAYOUT_RIGHT_STEP_Y;
+        break;
+    }
+
     layout.set(node.id, [x, y]);
     if (node.type !== 'comment') {
       col++;
