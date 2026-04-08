@@ -267,7 +267,7 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
       }
 
       // report MCP tool failure if bad node
-      if (errors.length > 0 || badNodes.length > 0) {
+      if (errors.length > 0) {
         return {
           isError: true,
           content: [
