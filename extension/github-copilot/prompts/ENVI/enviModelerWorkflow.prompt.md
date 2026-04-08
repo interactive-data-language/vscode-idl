@@ -58,6 +58,8 @@ Use `create-envi-modeler-workflow` with:
 **nodes** — ordered left-to-right:
 
 1. `inputparameters` node first — lists every runtime parameter given to the user.
+   - Runtime parameters also include the locations of relevant output products
+     Ex: If a raster is an output parameter, the URI/filepath for the location of the raster should be an input parameter. Same for others such as vectors, machine learning models, deep learning models, or output directories.
 2. One `task` node per ENVI Task, in processing order.
    - `task_name`: exact name from `list-envi-tools`.
    - `static_input`: ONLY parameters whose value differs from the task default.

@@ -1,5 +1,6 @@
 import { BuildENVIModelerWorkflow } from '@idl/envi/modeler';
 import { MCPServer } from '@idl/mcp/server';
+import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
@@ -15,7 +16,7 @@ const inputParameterSchema = z.object({
   name: z
     .string()
     .describe(
-      'Parameter identifier (uppercase recommended, e.g. INPUT_RASTER)',
+      'Parameter identifier (lowercase recommended, e.g. input_raster)',
     ),
   display_name: z.string().optional().describe('Human-readable display name'),
   description: z
@@ -25,7 +26,7 @@ const inputParameterSchema = z.object({
   type: z
     .string()
     .describe(
-      'ENVI parameter type (e.g. ENVIRASTER, ENVIRASTERARRAY, STRING, DOUBLE, ENVIROIARRAY, ENVIVIRTUALIZABLEURI)',
+      'ENVI parameter type (e.g. ENVIRaster, ENVIRasterArray, String, Double, ENVIROIArray, ENVIVIRTUALIZABLEURI)',
     ),
 });
 
@@ -60,7 +61,7 @@ const nodeSchema = z.object({
     .string()
     .optional()
     .describe(
-      "ENVI Task name for type='task' or type='arrayextractor'. Must come from the 'list-envi-tools' MCP tool.",
+      `ENVI Task name for type='task' or type='arrayextractor'. Must come from the '${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}' MCP tool.`,
     ),
   revision: z
     .string()
@@ -70,7 +71,7 @@ const nodeSchema = z.object({
     .record(z.unknown())
     .optional()
     .describe(
-      "Hardcoded task parameters NOT exposed to the user. Only include values that differ from task defaults – use 'get-envi-tool-parameters' to check defaults.",
+      `Hardcoded task parameters NOT exposed to the user. Only include values that differ from task defaults, use '${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS}' to check defaults.`,
     ),
   parameters: z
     .array(inputParameterSchema)
@@ -127,7 +128,10 @@ const edgeSchema = z.object({
  * This tool does not require IDL or ENVI — it is a pure file-creation tool
  * that generates a `.model` file from a simple node/edge description.
  */
-export function RegisterMCPTool_CreateENVIModelerWorkflow(server: MCPServer) {
+export function RegisterMCPTool_CreateENVIModelerWorkflow(
+  server: MCPServer,
+  registry: MCPTaskRegistry,
+) {
   server.registerTool(
     MCP_TOOL_LOOKUP.CREATE_ENVI_MODELER_WORKFLOW,
     {
@@ -195,20 +199,58 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(server: MCPServer) {
       /** Node types that are sources — may only appear as edge origins */
       const SOURCE_TYPES = new Set(['inputparameters']);
 
-      const badEdges: string[] = [];
+      /** Track validation errors */
+      const errors: string[] = [];
+
+      // validate task nodes
+      for (const node of nodes) {
+        // validate based on type
+        switch (node.type) {
+          case 'task':
+            // make sure there is a name
+            if (node.task_name) {
+              // make sure it is a known task
+              if (!registry.hasTask(node.task_name)) {
+                errors.push(
+                  `Node "${node.id}" references an unknown task "${node.task_name}"`,
+                );
+              }
+
+              /** Get task information and validate a bit */
+              const info = registry.getTaskDetail(node.task_name);
+
+              // validate input parameters
+              for (const param of Object.keys(node.static_input || {})) {
+                if (!(param.toLowerCase() in info.structure.meta.props)) {
+                  errors.push(
+                    `Node "${node.id}" has an unknown input parameter of "${param}"`,
+                  );
+                }
+              }
+            } else {
+              errors.push(
+                `Node "${node.id}" is a task but is missing a task name`,
+              );
+            }
+            break;
+
+          default:
+            break;
+        }
+      }
+
+      // check each edge
       for (const edge of edges) {
         if (!nodeIds.has(edge.from)) {
-          badEdges.push(
-            `Edge references unknown source node id "${edge.from}"`,
-          );
+          errors.push(`Edge references unknown source node id "${edge.from}"`);
         }
         if (!nodeIds.has(edge.to)) {
-          badEdges.push(`Edge references unknown target node id "${edge.to}"`);
+          errors.push(`Edge references unknown target node id "${edge.to}"`);
         }
 
         const fromType = nodeTypeById.get(edge.from);
         if (fromType && SINK_TYPES.has(fromType)) {
-          badEdges.push(
+          errors.push(
             `Node "${edge.from}" (type "${fromType}") is a sink-only node and cannot be an edge source`,
           );
         }
@@ -218,24 +260,26 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(server: MCPServer) {
 
         const toType = nodeTypeById.get(edge.to);
         if (toType && SOURCE_TYPES.has(toType)) {
-          badEdges.push(
+          errors.push(
             `Node "${edge.to}" (type "${toType}") is a source-only node and cannot be an edge target`,
           );
         }
       }
-      if (badEdges.length > 0) {
+
+      // report MCP tool failure if bad node
+      if (errors.length > 0) {
         return {
           isError: true,
           content: [
             {
               type: 'text',
-              text: `Invalid workflow: ${badEdges.join('; ')}`,
+              text: `Invalid workflow: ${errors.join('; ')}`,
             },
           ],
         };
       }
 
-      // ---- build the model JSON
+      /** Make JSON content */
       const modelJSON = BuildENVIModelerWorkflow(
         nodes as ENVIModelerNode[],
         edges as ENVIModelerEdge[],

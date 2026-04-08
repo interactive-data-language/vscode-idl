@@ -136,7 +136,7 @@ export class MCPTaskRegistry {
    */
   registerTask(
     taskFunction: IGlobalIndexedToken<GlobalFunctionToken>,
-    taskStructure: IGlobalIndexedToken<GlobalStructureToken>
+    taskStructure: IGlobalIndexedToken<GlobalStructureToken>,
   ) {
     /** Get task display name */
     const taskDisplay = TASK_REGEX.exec(taskStructure.meta.display)[1];
@@ -169,7 +169,7 @@ export class MCPTaskRegistry {
     if (this.strict) {
       if (StrictCheck(taskName, description)) {
         toolError.push(
-          `Tool description is the same as the tool name which is not allowed`
+          `Tool description is the same as the tool name which is not allowed`,
         );
       }
     }
@@ -213,7 +213,7 @@ export class MCPTaskRegistry {
       if (this.strict) {
         if (StrictCheck(names[i], prop.docs)) {
           toolError.push(
-            `The parameter "${names[i]}" has a description that is the same name of the parameter`
+            `The parameter "${names[i]}" has a description that is the same name of the parameter`,
           );
           continue;
         }
@@ -231,8 +231,8 @@ export class MCPTaskRegistry {
           `The parameter "${
             names[i]
           }" has an unhandled ENVI Task data type of "${IDLTypeHelper.serializeIDLType(
-            prop.type
-          )}"`
+            prop.type,
+          )}"`,
         );
         continue;
       }
@@ -259,8 +259,8 @@ export class MCPTaskRegistry {
       z
         .object(inputArgs)
         .describe(
-          `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${fullDescription}`
-        )
+          `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${fullDescription}`,
+        ),
     );
 
     // create output parameters schema
@@ -268,8 +268,8 @@ export class MCPTaskRegistry {
       z
         .object(outputArgs)
         .describe(
-          'Outputs from running the tool. These should *NEVER* be specified and are returned.'
-        )
+          'Outputs from running the tool. These should *NEVER* be specified and are returned.',
+        ),
     );
 
     // create location metadata if we have a file
@@ -292,6 +292,7 @@ export class MCPTaskRegistry {
       inputValidator: this.ajv.compile(inputParameters),
       outputParameters,
       location,
+      structure: taskStructure,
     };
   }
 
@@ -360,7 +361,7 @@ export class MCPTaskRegistry {
             (err) =>
               `- ${err.instancePath || 'root'}: ${err.message}${
                 err.params ? ` (${JSON.stringify(err.params)})` : ''
-              }`
+              }`,
           )
           .join('\n');
 

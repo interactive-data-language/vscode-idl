@@ -16,9 +16,15 @@ export const LAYOUT_STEP_X = 200;
 /** Y offset applied to comment nodes relative to the base Y */
 export const LAYOUT_COMMENT_Y_OFFSET = -90;
 
-// ---------------------------------------------------------------------------
-// Display name constants
-// ---------------------------------------------------------------------------
+/** Vertical step between stacked right-side nodes (view, outputparameters, datamanager) */
+export const LAYOUT_RIGHT_STEP_Y = 150;
+
+/** Node types that are always placed in a vertical column on the right side of the layout */
+export const RIGHT_SIDE_TYPES = new Set<ENVIModelerNode['type']>([
+  'datamanager',
+  'outputparameters',
+  'view',
+]);
 
 /**
  * Fixed display names for structural node types.
