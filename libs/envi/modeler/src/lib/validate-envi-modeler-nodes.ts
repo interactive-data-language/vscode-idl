@@ -1,5 +1,7 @@
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
+import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
+import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 
 import {
   SINK_TYPES,
@@ -79,6 +81,56 @@ export function ValidateENVIModelerNodes(
     if (toType && SOURCE_TYPES.has(toType)) {
       errors.push(
         `Node "${edge.to}" (type "${toType}") is a source-only node and cannot be an edge target`,
+      );
+    }
+  }
+
+  // Validate that task input parameters receiving multiple edges are array-typed.
+  // When a parameter has 2+ incoming edges, InjectAggregatorNodes will insert an
+  // aggregator — but only if the target parameter actually accepts an array.
+  const inputEdgeCount = new Map<string, number>();
+
+  for (const edge of edges) {
+    if (nodeTypeById.get(edge.to) !== 'task') {
+      continue;
+    }
+
+    if (edge.to_parameters.length === 0 || edge.to_parameters[0] === '') {
+      continue;
+    }
+
+    const key = `${edge.to}::${edge.to_parameters.join(',')}`;
+    inputEdgeCount.set(key, (inputEdgeCount.get(key) ?? 0) + 1);
+  }
+
+  for (const [key, count] of inputEdgeCount) {
+    if (count <= 1) {
+      continue;
+    }
+
+    const separatorIdx = key.indexOf('::');
+    const toId = key.slice(0, separatorIdx);
+    const paramName = key.slice(separatorIdx + 2);
+
+    const toNode = nodes.find((n) => n.id === toId);
+    if (!toNode || toNode.type !== 'task' || !toNode.task_name) {
+      continue;
+    }
+
+    if (!registry.hasTask(toNode.task_name)) {
+      continue;
+    }
+
+    const info = registry.getTaskDetail(toNode.task_name);
+    const prop = info.structure.meta.props[paramName.toLowerCase()];
+
+    if (!prop) {
+      continue;
+    }
+
+    if (!IDLTypeHelper.isType(prop.type, IDL_TYPE_LOOKUP.ARRAY)) {
+      errors.push(
+        `Node "${toId}" parameter "${paramName}" receives ${count} edges but is not an array type; aggregator injection is not valid`,
       );
     }
   }
