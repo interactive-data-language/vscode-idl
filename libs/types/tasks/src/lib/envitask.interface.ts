@@ -105,6 +105,8 @@ export interface ENVITaskSchema30Properties {
   name: string;
   /** Name of our routine */
   routine: string;
+  /** Tags for the task */
+  tags?: string[];
 }
 
 /**

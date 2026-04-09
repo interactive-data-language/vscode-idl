@@ -118,6 +118,8 @@ export interface IBaseTokenMetadata {
   private?: boolean;
   /** Source information for a routine */
   source: GlobalTokenSource;
+  /** Tags for the token */
+  tags?: string[];
 }
 
 /**

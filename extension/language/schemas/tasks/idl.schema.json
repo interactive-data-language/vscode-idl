@@ -73,6 +73,14 @@
           "title": "Schema",
           "description": "A string listing the version of ENVITask JSON schema that was used to write this task.\nThe valid values are \"envitask_3.3\" \"envitask_3.2\", \"envitask_3.1\" or \"envitask_3.0\"."
         },
+        "tags": {
+          "type": "array",
+          "title": "Tags",
+          "description": "An array of tags that represents the categories a task is for.",
+          "items": {
+            "type": "string"
+          }
+        },
         "parameters": {
           "type": "array",
           "title": "Parameters",

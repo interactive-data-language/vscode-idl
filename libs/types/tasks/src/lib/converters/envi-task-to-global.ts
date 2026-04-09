@@ -49,6 +49,11 @@ export function ENVITaskToGlobal(
     },
   };
 
+  // check if we have tags
+  if (Array.isArray(task.tags)) {
+    struct.meta.tags = task.tags;
+  }
+
   // create properties
   const props: IPropertyLookup = {};
   for (let i = 0; i < task.parameters.length; i++) {
