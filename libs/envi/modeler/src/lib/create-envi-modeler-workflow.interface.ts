@@ -40,3 +40,12 @@ export const FIXED_DISPLAY_NAMES: Partial<
   outputparameters: 'Output Parameters',
   view: 'View',
 };
+
+/**
+ * Order nodes on the right side
+ */
+export const RIGHT_SIDE_ORDER: ENVIModelerNode['type'][] = [
+  'view',
+  'datamanager',
+  'outputparameters',
+];

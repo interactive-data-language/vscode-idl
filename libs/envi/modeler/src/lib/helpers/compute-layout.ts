@@ -6,6 +6,7 @@ import {
   LAYOUT_COMMENT_Y_OFFSET,
   LAYOUT_RIGHT_STEP_Y,
   LAYOUT_STEP_X,
+  RIGHT_SIDE_ORDER,
   RIGHT_SIDE_TYPES,
 } from '../create-envi-modeler-workflow.interface';
 
@@ -48,18 +49,21 @@ export function ComputeLayout(
     }
   }
 
-  // Second pass: stack right-side nodes vertically one column to the right
+  // Second pass: stack right-side nodes vertically one column to the right,
+  // always in the fixed order: view → datamanager → outputparameters
   const rightX = LAYOUT_BASE_X + col * LAYOUT_STEP_X;
-  let rightRow = 0;
-  for (const node of nodes) {
-    if (!RIGHT_SIDE_TYPES.has(node.type)) {
-      continue;
-    }
-    layout.set(node.id, [
+  const rightSideNodes = nodes.filter((n) => RIGHT_SIDE_TYPES.has(n.type));
+  const sortedRightSide = rightSideNodes
+    .slice()
+    .sort(
+      (a, b) =>
+        RIGHT_SIDE_ORDER.indexOf(b.type) - RIGHT_SIDE_ORDER.indexOf(a.type),
+    );
+  for (let i = 0; i < sortedRightSide.length; i++) {
+    layout.set(sortedRightSide[i].id, [
       rightX,
-      LAYOUT_BASE_Y + rightRow * LAYOUT_RIGHT_STEP_Y,
+      LAYOUT_BASE_Y + i * LAYOUT_RIGHT_STEP_Y,
     ]);
-    rightRow++;
   }
 
   return layout;
