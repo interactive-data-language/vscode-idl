@@ -1,4 +1,4 @@
-import { BuildENVIModelerWorkflow } from '@idl/envi/modeler';
+import { CreateENVIModelerWorkflow } from '@idl/envi/modeler';
 import { MCPServer } from '@idl/mcp/server';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -280,7 +280,7 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
       }
 
       /** Make JSON content */
-      const modelJSON = BuildENVIModelerWorkflow(
+      const modelJSON = CreateENVIModelerWorkflow(
         nodes as ENVIModelerNode[],
         edges as ENVIModelerEdge[],
       );

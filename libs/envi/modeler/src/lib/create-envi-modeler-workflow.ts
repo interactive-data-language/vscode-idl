@@ -8,7 +8,7 @@ import {
   LAYOUT_RIGHT_STEP_Y,
   LAYOUT_STEP_X,
   RIGHT_SIDE_TYPES,
-} from './build-envi-modeler-workflow.interface';
+} from './create-envi-modeler-workflow.interface';
 
 /** Counter map so we can produce task_1, view_2 etc. */
 type NameCounters = Record<string, number>;
@@ -231,7 +231,7 @@ function BuildNodeJSON(
 }
 
 /** Creates an ENVI Modeler Workflow (JSON) from nodes and edges */
-export function BuildENVIModelerWorkflow(
+export function CreateENVIModelerWorkflow(
   nodes: ENVIModelerNode[],
   edges: ENVIModelerEdge[],
 ): Record<string, unknown> {
