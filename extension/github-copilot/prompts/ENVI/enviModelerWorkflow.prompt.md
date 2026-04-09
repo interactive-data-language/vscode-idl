@@ -116,6 +116,7 @@ iterator → task_1 → aggregator → task_2 → view
 ## Rules
 
 - **Do not** include task parameters in `static_input` if they match the task default.
+- **Do not** add more than one `view`, `datamanager`, or `outputparameters` node — only a single instance of each is valid in a workflow.
 - **Do** add `comment` nodes to explain non-obvious design decisions (see official examples).
 - **Do** add a `view` and `datamanager` node for final raster outputs so the workflow is usable interactively.
 - **Do** expose parameters in `inputparameters` that users will realistically vary between runs.
