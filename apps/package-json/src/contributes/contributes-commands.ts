@@ -137,7 +137,7 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
   const keys = Object.keys(IDL_COMMANDS);
   for (let i = 0; i < keys.length; i++) {
     allCommands = allCommands.concat(
-      Object.values(Object.values(IDL_COMMANDS[keys[i]]))
+      Object.values(Object.values(IDL_COMMANDS[keys[i]])),
     );
   }
 
@@ -160,12 +160,12 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
     // verify our translation
     if (!VerifyNLS(tKey, nls)) {
       throw new Error(
-        `Command "${command}" is missing a translation key of "${tKey}"`
+        `Command "${command}" is missing a translation key of "${tKey}"`,
       );
     }
     if (!VerifyNLS(eKey, nls)) {
       throw new Error(
-        `Command "${command}" is missing a translation key of "${eKey}"`
+        `Command "${command}" is missing a translation key of "${eKey}"`,
       );
     }
 
@@ -180,12 +180,12 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
       // make sure icons exist
       if (!existsSync(join(process.cwd(), icon.light))) {
         throw new Error(
-          `Command "${command}" is missing the "light" icon from COMMAND_ICONS`
+          `Command "${command}" is missing the "light" icon from COMMAND_ICONS`,
         );
       }
       if (!existsSync(join(process.cwd(), icon.dark))) {
         throw new Error(
-          `Command "${command}" is missing the "light" icon from COMMAND_ICONS`
+          `Command "${command}" is missing the "light" icon from COMMAND_ICONS`,
         );
       }
 

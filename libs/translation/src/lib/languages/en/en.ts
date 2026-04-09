@@ -570,8 +570,8 @@ export const EN: ITranslation = {
             name: 'Run',
           },
           start: {
-            description: 'a session of IDL',
-            name: 'Start',
+            description: '',
+            name: 'Start IDL',
           },
           startENVI: {
             description: 'and IDL',

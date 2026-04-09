@@ -10,7 +10,7 @@ export const DEBUGGING_BUTTONS: IChild[] = [
   {
     name: IDL_TRANSLATION.idl.tree.children.debugging.start.name,
     description: IDL_TRANSLATION.idl.tree.children.debugging.start.description,
-    icon: 'open-new.svg',
+    icon: 'idlicon.svg',
     commandName: IDL_COMMANDS.DEBUG.START,
   },
   {
