@@ -39,7 +39,7 @@ export type SplitOperatorToken = TreeToken<
  */
 export function SplitTreeOnOperators(
   tree: SyntaxTree,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ): ISplitTreeOnOperators {
   /** Commas we split by */
   const operators: SplitOperatorToken[] = [];

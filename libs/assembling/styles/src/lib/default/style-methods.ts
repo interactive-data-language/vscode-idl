@@ -29,6 +29,6 @@ for (let i = 0; i < METHODS.length; i++) {
         default:
         // do nothing
       }
-    }
+    },
   );
 }

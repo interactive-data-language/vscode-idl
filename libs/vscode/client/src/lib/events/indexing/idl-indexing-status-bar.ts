@@ -31,7 +31,7 @@ export class IDLIndexingStatusBar {
     // create the bar - right-most on the left
     const bar = vscode.window.createStatusBarItem(
       vscode.StatusBarAlignment.Left,
-      -10
+      -10,
     );
 
     // set our text

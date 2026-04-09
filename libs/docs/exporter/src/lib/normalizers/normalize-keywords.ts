@@ -16,7 +16,7 @@ export async function NormalizeKeywords(lookup: IParameterLookup) {
   for (let i = 0; i < kws.length; i++) {
     kws[i].display = TransformCase(
       kws[i].display,
-      CURRENT_CONFIG.style.keywords
+      CURRENT_CONFIG.style.keywords,
     );
   }
 }

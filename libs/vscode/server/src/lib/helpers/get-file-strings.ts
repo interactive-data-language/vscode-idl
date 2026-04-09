@@ -15,7 +15,7 @@ import { URIFromFSPath } from './uri-from-fspath';
  */
 export async function GetFileStrings(
   uri: string,
-  fsPath: string
+  fsPath: string,
 ): Promise<string> {
   // init return value
   let strings = '';

@@ -32,7 +32,7 @@ const FILE_EXTENSIONS = [
  */
 export function ProcessCustomEditors(
   packageJSON: IPackageJSON,
-  nls: IPackageNLS
+  nls: IPackageNLS,
 ) {
   // get all of our contribution points
   const contrib = packageJSON['contributes'];
@@ -40,7 +40,7 @@ export function ProcessCustomEditors(
   // make sure that our translation is correct
   if (!VerifyNLS(ENVI_OPENER_CONFIG.displayName, nls)) {
     throw new Error(
-      `ENVI file opener invalid displayName of "${ENVI_OPENER_CONFIG.displayName}"`
+      `ENVI file opener invalid displayName of "${ENVI_OPENER_CONFIG.displayName}"`,
     );
   }
 

@@ -9,7 +9,7 @@ import { CallMCPTool } from '../../../helpers/call-mcp-tool';
  * Tests for the search for files MCP tool that fails with an invalid folder
  */
 export const RunMCPTestSearchForFiles_FailRight: RunnerFunction = async (
-  init
+  init,
 ) => {
   /** IDL folder for searching */
   const basicDir = GetExtensionPath('idl/helpers');

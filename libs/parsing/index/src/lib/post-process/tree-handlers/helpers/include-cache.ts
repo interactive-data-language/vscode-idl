@@ -19,7 +19,7 @@ const CACHE: { [key: string]: IParsed } = {};
 export function IncludeCache(
   index: IDLIndex,
   file: string,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ) {
   const strings = readFileSync(file, 'utf-8');
 

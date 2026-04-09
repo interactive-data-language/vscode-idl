@@ -31,7 +31,7 @@ export function IDLProblemCodeEnumAndTranslations(config: {
   // populate descriptions
   for (let i = 0; i < codes.length; i++) {
     descriptions.push(
-      `%parsing.errors.${IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP[enums[i]]}%`
+      `%parsing.errors.${IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP[enums[i]]}%`,
     );
   }
 

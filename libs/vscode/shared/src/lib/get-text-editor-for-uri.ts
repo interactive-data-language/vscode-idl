@@ -6,11 +6,11 @@ import * as vscode from 'vscode';
  * Returns undefined if no editor is found (i.e. file not open)
  */
 export function GetTextEditorForURIString(
-  uriString: string
+  uriString: string,
 ): undefined | vscode.TextEditor {
   // return current editor
   return vscode.window.visibleTextEditors.filter(
-    (editor) => editor.document.uri.toString() === uriString
+    (editor) => editor.document.uri.toString() === uriString,
   )[0];
 }
 
@@ -20,7 +20,7 @@ export function GetTextEditorForURIString(
  * Returns undefined if no editor is found (i.e. file not open)
  */
 export function GetTextEditorForURI(
-  uri: vscode.Uri
+  uri: vscode.Uri,
 ): undefined | vscode.TextEditor {
   // return current editor
   return GetTextEditorForURIString(uri.toString());

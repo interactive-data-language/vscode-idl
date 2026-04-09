@@ -78,7 +78,7 @@ export class AnimationControlsComponent implements OnInit {
   multiplierText() {
     return `${RoundToNearest(
       1 / this.multiplier,
-      this.multiplier > 1 ? 0.1 : 1
+      this.multiplier > 1 ? 0.1 : 1,
     )}x`;
   }
 

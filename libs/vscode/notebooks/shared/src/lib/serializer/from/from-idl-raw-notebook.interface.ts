@@ -6,5 +6,5 @@ import * as vscode from 'vscode';
  */
 export type FromIDLRawNotebook<T extends IDLRawNotebookVersion> = (
   notebook: IDLRawNotebook<T>,
-  _token: vscode.CancellationToken
+  _token: vscode.CancellationToken,
 ) => Promise<vscode.NotebookData>;

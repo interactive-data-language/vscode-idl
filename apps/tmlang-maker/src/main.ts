@@ -58,7 +58,7 @@ function MakeTMLanguageFile(
   source: string,
   dest: string,
   langName = IDL_LANGUAGE_NAME,
-  scopeName = LANGUAGE_TOKEN_SCOPE_NAME
+  scopeName = LANGUAGE_TOKEN_SCOPE_NAME,
 ) {
   /** YAML file as strings for easier manipulation of the variables */
   let strings = readFileSync(source, { encoding: 'utf-8' });
@@ -78,7 +78,7 @@ function MakeTMLanguageFile(
     for (let i = 0; i < names.length; i++) {
       strings = strings.replace(
         new RegExp(`{\\s*{\\s*${names[i]}\\s*}\\s*}`, 'gim'),
-        vars[names[i]]
+        vars[names[i]],
       );
     }
 
@@ -152,7 +152,7 @@ const OUT_DIR = join(process.cwd(), 'extension', 'language', 'syntaxes');
  */
 MakeTMLanguageFile(
   join(IN_DIR, 'idl.tmLanguage.yaml'),
-  join(OUT_DIR, 'idl.tmLanguage')
+  join(OUT_DIR, 'idl.tmLanguage'),
 );
 
 /**
@@ -162,5 +162,5 @@ MakeTMLanguageFile(
   join(IN_DIR, 'idl-log.tmLanguage.yaml'),
   join(OUT_DIR, 'idl-log.tmLanguage'),
   LOG_LANGUAGE_NAME,
-  LOG_LANGUAGE_TOKEN_SCOPE_NAME
+  LOG_LANGUAGE_TOKEN_SCOPE_NAME,
 );

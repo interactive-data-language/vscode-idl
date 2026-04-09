@@ -5,7 +5,6 @@ Following the styles of popular formatters, such as prettier, we also adjust the
 Here's what we do:
 
 - Automatically adjust indentation of lines of code based on blocks, procedures, line continuations, etc.
-
   - This also means that we automatically indent code for you, so you don't need to manually adjust the indentation and can write messy code that we will format for you when you save!
 
 - Main level programs are have no indentation applied by default and are snapped to the start of lines.

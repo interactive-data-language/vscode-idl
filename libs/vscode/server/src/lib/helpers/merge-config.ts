@@ -53,7 +53,7 @@ export const MCP_CONFIG = { ...DEFAULT_IDL_EXTENSION_CONFIG.mcp };
 export function MergeConfig() {
   // get all configs
   const configs = Object.values(WORKSPACE_FOLDER_CONFIGS).concat(
-    IDL_CLIENT_CONFIG
+    IDL_CLIENT_CONFIG,
   );
 
   // copy existing folders
@@ -132,12 +132,12 @@ export function MergeConfig() {
       // replace plus sign
       const pathEntry = el.problems.excludeProblemsForPath[j].replace(
         RECURSIVE_REGEX,
-        ''
+        '',
       );
 
       // check if recursive
       const isRecursive = RECURSIVE_REGEX.test(
-        el.problems.excludeProblemsForPath[j]
+        el.problems.excludeProblemsForPath[j],
       );
 
       // if not in, then save

@@ -62,27 +62,21 @@ The testing for the extension is VSCode is primarily automated: meaning the test
 There are (at the time of writing this) 6 main components that have automated tests written for them. Here is a description of each and where you can find the files which actually have the tests.
 
 - Assembler to verify code formatting and create checkpoints for behavior
-
   - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-default-assembler-tests.interface.ts`
 
 - Local scope extraction to verify we get variables and docs associated with them
-
   - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-local-scope-tests.interface.ts`
 
 - Selected token to make sure we correctly identify the token at a given position in code
-
   - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-selected-token-search.ts`
 
 - Syntax post-processors to verify they correctly post-process our raw tokens
-
   - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-syntax-post-processor-tests.interface.ts`
 
 - Syntax validators to verify we correct identify (or don't identify) problems in code
-
   - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-syntax-validator-tests.interface.ts`
 
 - Token test, which are the most critical, to make sure we always initially parse code the right way
-
   - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-token-tests.interface.ts`
 
 ### Adding Tests

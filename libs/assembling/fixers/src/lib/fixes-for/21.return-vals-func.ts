@@ -24,7 +24,7 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
     HasProblem(
       token,
       IDL_PROBLEM_CODES.RETURN_VALUES_FUNCTIONS,
-      parsed.disabledProblems
+      parsed.disabledProblems,
     ) &&
     token.match[0].toLowerCase() === 'return'
   ) {

@@ -14,7 +14,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -25,7 +25,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -41,7 +41,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -53,7 +53,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -64,7 +64,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -87,7 +87,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -99,7 +99,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -110,7 +110,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -147,7 +147,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -159,7 +159,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -170,7 +170,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -207,7 +207,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -219,7 +219,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -230,7 +230,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -246,7 +246,7 @@ describe(`[auto generated] Detects illegal colon`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

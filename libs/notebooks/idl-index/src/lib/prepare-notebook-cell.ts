@@ -13,7 +13,7 @@ import { BATCH_CELL_TOKENS } from './prepare-notebook-cell.interface';
  */
 export async function PrepareNotebookCell(
   parsed: IParsed,
-  text: string
+  text: string,
 ): Promise<PrepareNotebookCellResponse> {
   /** Get array of strings */
   const strings = text.split(LINE_SEPARATOR);
@@ -97,7 +97,7 @@ export async function PrepareNotebookCell(
 
   // update lines for implied print
   const update = parsed.parseProblems.filter(
-    (prob) => prob.code === IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
+    (prob) => prob.code === IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK,
   );
 
   // manipulate lines

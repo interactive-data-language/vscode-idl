@@ -42,7 +42,6 @@ Here's a helpful place to start with tools you can run. You are not limited to t
 ### Step 4:
 
 - Before you process data, create a To-Do list of:
-
   - Each image that needs to be processed
 
   - Eachs step that needs to run against each image to help track progress

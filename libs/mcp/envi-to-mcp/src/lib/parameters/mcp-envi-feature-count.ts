@@ -15,7 +15,7 @@ export function MCP_ENVIFeatureCount() {
         message: 'url must end with ".efc"',
       })
       .describe(
-        `Provide a fully-qualified filepath to the feature count file disk. Should end with a ".efc" extension.`
+        `Provide a fully-qualified filepath to the feature count file disk. Should end with a ".efc" extension.`,
       ),
   });
 }

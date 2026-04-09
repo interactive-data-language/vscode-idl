@@ -16,7 +16,7 @@ describe(`[auto generated] Line separators (&)`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -37,7 +37,7 @@ describe(`[auto generated] Line separators (&)`, () => {
       'my_file.pro',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // extract token names
@@ -79,7 +79,7 @@ describe(`[auto generated] Line separators (&)`, () => {
         'my_file.pro',
         formatted,
         new CancellationToken(),
-        { postProcess: true }
+        { postProcess: true },
       );
 
       // make sure the syntax trees are the same as they were before if not def files
@@ -199,7 +199,7 @@ describe(`[auto generated] Line separators (&)`, () => {
 
     // verify problems
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 });

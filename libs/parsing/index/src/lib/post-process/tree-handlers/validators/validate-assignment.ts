@@ -27,7 +27,7 @@ const cb: BranchCallback<AssignmentToken, ValidateTypeHandlerMeta> = (
   token,
   parsed,
   current,
-  meta
+  meta,
 ) => {
   // check if we have assignment next to validate
   const before = GetBeforeInBranch(token);

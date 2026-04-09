@@ -14,7 +14,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -25,7 +25,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -48,7 +48,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -60,7 +60,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -71,7 +71,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -94,7 +94,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -106,7 +106,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -122,7 +122,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -152,7 +152,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -164,7 +164,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -175,7 +175,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -183,7 +183,7 @@ describe(`[auto generated] Check for args and keywords in procedure class defini
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

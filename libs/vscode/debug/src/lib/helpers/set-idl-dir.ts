@@ -22,7 +22,7 @@ export function SetIDLDir() {
       IDL_EXTENSION_CONFIG.update(
         IDL_EXTENSION_CONFIG_KEYS.IDLDirectory,
         CleanPath(dir),
-        true
+        true,
       );
     }
   }

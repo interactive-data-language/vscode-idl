@@ -101,7 +101,7 @@ export function GetSemanticTokens(parsed: IParsed) {
       tokens[i][1],
       tokens[i][2],
       tokens[i][3],
-      tokens[i][4]
+      tokens[i][4],
     );
   }
 

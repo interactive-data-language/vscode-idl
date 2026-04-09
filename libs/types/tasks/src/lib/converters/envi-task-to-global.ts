@@ -22,7 +22,7 @@ import { TaskTypeToIDLType } from './task-type-to-idl-type';
  * Converts an ENVI Task to global tokens for auto-complete
  */
 export function ENVITaskToGlobal(
-  task: ENVITask<ENVITaskSchemaVersion>
+  task: ENVITask<ENVITaskSchemaVersion>,
 ): IGlobalsToTrack {
   // make sure we have description
   task.description = task.description || '';
@@ -102,7 +102,7 @@ export function ENVITaskToGlobal(
         param.type,
         meta,
         param.choice_list,
-        param.dimensions
+        param.dimensions,
       ),
       req: param.required,
     };

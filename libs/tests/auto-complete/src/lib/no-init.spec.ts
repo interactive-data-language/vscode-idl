@@ -15,7 +15,7 @@ describe(`[auto generated] Exclude init method`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -77,9 +77,9 @@ describe(`[auto generated] Exclude init method`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

@@ -15,7 +15,7 @@ describe(`[auto generated] Find them in`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -36,7 +36,7 @@ describe(`[auto generated] Find them in`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

@@ -61,7 +61,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     // save docs for properties if public
     if (!structs[i].meta.private) {
       classes[structs[i].name].properties = Object.values(
-        structs[i].meta.props
+        structs[i].meta.props,
       ).map((prop) => DocsForProperty(prop));
     }
   }
@@ -86,7 +86,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     }
 
     classes[className].functions.push(
-      `[${GetDisplayName(fm)}](${GetDocsLink(fm)})`
+      `[${GetDisplayName(fm)}](${GetDocsLink(fm)})`,
     );
 
     // update sidebar
@@ -116,7 +116,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
     }
 
     classes[className].procedures.push(
-      `[${GetDisplayName(pm)}](${GetDocsLink(pm)})`
+      `[${GetDisplayName(pm)}](${GetDocsLink(pm)})`,
     );
 
     // update sidebar
@@ -180,8 +180,8 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
       case init !== undefined:
         strings.push(
           `See the function [${init.meta.display}()](${GetDocsLink(
-            init
-          )}) for creation details`
+            init,
+          )}) for creation details`,
         );
         strings.push('');
         strings.push('```idl:no-line-numbers');
@@ -191,8 +191,8 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
               name: init.meta.display,
               meta: init.meta,
             },
-            true
-          )
+            true,
+          ),
         );
         strings.push('```');
         strings.push('');
@@ -200,7 +200,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
         if (init.meta.docsLookup) {
           if (IDL_DOCS_HEADERS.DEFAULT in init.meta.docsLookup) {
             strings.push(
-              CleanDocs(init.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT])
+              CleanDocs(init.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT]),
             );
             strings.push('\n');
           }
@@ -220,7 +220,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
         if (struct.meta.docsLookup) {
           if (IDL_DOCS_HEADERS.DEFAULT in struct.meta.docsLookup) {
             strings.push(
-              CleanDocs(struct.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT])
+              CleanDocs(struct.meta.docsLookup[IDL_DOCS_HEADERS.DEFAULT]),
             );
             strings.push('\n');
           }
@@ -241,8 +241,8 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
         if (info.inherits[z] in classes) {
           strings.push(
             `[${classes[info.inherits[z]].display}](${GetClassLink(
-              info.inherits[z]
-            )})`
+              info.inherits[z],
+            )})`,
           );
 
           // inherit
@@ -294,7 +294,7 @@ export function GenerateClassSummaries(exported: ExportedGlobalTokensByType) {
       display: info.display,
       summary: strings.join('\n'),
       sidebar: info.sidebar.sort((a, b) =>
-        a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+        a.text > b.text ? 1 : b.text > a.text ? -1 : 0,
       ),
     };
   }

@@ -14,7 +14,7 @@ export interface ILSPWorkerThreadClient<_Message extends LSPWorkerThreadMessage>
   extends IWorkerIOClient<_Message> {
   on<T extends _Message>(
     message: T,
-    promiseGenerator: LSPMessageHandler<T>
+    promiseGenerator: LSPMessageHandler<T>,
   ): void;
 
   postMessage<T extends _Message>(type: T, payload: PayloadFromLSPWorker<T>);

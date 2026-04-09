@@ -14,7 +14,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -25,7 +25,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'notebook' }
+      { postProcess: true, type: 'notebook' },
     );
 
     // define expected tokens
@@ -33,7 +33,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -45,7 +45,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -56,7 +56,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'notebook' }
+      { postProcess: true, type: 'notebook' },
     );
 
     // define expected tokens
@@ -72,7 +72,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -84,7 +84,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -95,7 +95,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'notebook' }
+      { postProcess: true, type: 'notebook' },
     );
 
     // define expected tokens
@@ -103,7 +103,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -115,7 +115,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -126,7 +126,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'notebook' }
+      { postProcess: true, type: 'notebook' },
     );
 
     // define expected tokens
@@ -142,7 +142,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -154,7 +154,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -165,7 +165,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'notebook' }
+      { postProcess: true, type: 'notebook' },
     );
 
     // define expected tokens
@@ -181,7 +181,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -193,7 +193,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -204,7 +204,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'notebook' }
+      { postProcess: true, type: 'notebook' },
     );
 
     // define expected tokens
@@ -220,7 +220,7 @@ describe(`[auto generated] Detects missing compile options`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

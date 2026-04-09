@@ -57,7 +57,7 @@ import { MCP_String } from './types/mcp-string';
 function IDLParameterToMCPParameter_Recurser(
   param: IParameterOrPropertyDetails,
   cleanDocs: string,
-  type?: IDLDataType
+  type?: IDLDataType,
 ) {
   // default type if it wasn't specified
   if (!type) {
@@ -85,7 +85,7 @@ function IDLParameterToMCPParameter_Recurser(
       const arrayType = IDLParameterToMCPParameter_Recurser(
         param,
         '',
-        typeArgs
+        typeArgs,
       );
 
       // see if we mapped a parameter or not
@@ -453,7 +453,7 @@ function IDLParameterToMCPParameter_Recurser(
 export function IDLParameterToMCPParameter(
   param: IParameterOrPropertyDetails,
   cleanDocs: string,
-  type?: IDLDataType
+  type?: IDLDataType,
 ): z.ZodType {
   /**
    * Recurse into the data type and populate

@@ -25,7 +25,7 @@ import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface'
 export function GetBlockCompletionOptions(
   token: TreeToken<TokenName> | undefined,
   pos: Position,
-  recipes: AutoCompleteRecipe<AutoCompleteType>[]
+  recipes: AutoCompleteRecipe<AutoCompleteType>[],
 ) {
   // return if no token
   if (!token) {
@@ -294,7 +294,7 @@ export function GetBlockCompletionOptions(
  * Generates completion items from our options
  */
 export function BuildBlockCompletionItems(
-  arg: BuildCompletionItemsArg<BlockCompletion>
+  arg: BuildCompletionItemsArg<BlockCompletion>,
 ) {
   arg.complete.push({
     label: arg.options.label,

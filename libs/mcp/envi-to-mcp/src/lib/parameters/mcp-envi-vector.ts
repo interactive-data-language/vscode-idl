@@ -16,12 +16,12 @@ export function MCP_ENVIVector() {
         message: 'url must end with ".shp"',
       })
       .describe(
-        `Provide a fully-qualified filepath to the shapefile. Should end with a ".shp" extension.`
+        `Provide a fully-qualified filepath to the shapefile. Should end with a ".shp" extension.`,
       ),
     auxiliary_url: z
       .array(z.string())
       .describe(
-        'If a shapefile has any auxiliary files, specify them here. This can include .dbf, .ebb, .ed1, .eq1, .prj, .shp.qtr, .shp.sml and .shx files that are adjacent to the URL file. Only include files that exist.'
+        'If a shapefile has any auxiliary files, specify them here. This can include .dbf, .ebb, .ed1, .eq1, .prj, .shp.qtr, .shp.sml and .shx files that are adjacent to the URL file. Only include files that exist.',
       )
       .optional(),
   });

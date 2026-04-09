@@ -47,13 +47,13 @@ export const STACK_TRACE_DECORATION_WITH_GUTTER =
     dark: {
       backgroundColor: 'rgba(163, 149, 0, 0.4)',
       gutterIconPath: GetExtensionPath(
-        'extension/images/dark/debug-stackframe.svg'
+        'extension/images/dark/debug-stackframe.svg',
       ),
     },
     light: {
       backgroundColor: 'rgba(255, 235, 0, 0.2)',
       gutterIconPath: GetExtensionPath(
-        'extension/images/light/debug-stackframe.svg'
+        'extension/images/light/debug-stackframe.svg',
       ),
     },
   });

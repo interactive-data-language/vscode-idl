@@ -15,7 +15,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -72,7 +72,7 @@ describe(`[auto generated] Get types correctly from pointer de-reference`, () =>
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

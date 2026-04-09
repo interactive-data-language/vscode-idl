@@ -11,7 +11,7 @@ export let NOTEBOOK_RENDERER_MESSENGER: vscode.NotebookRendererMessaging;
  */
 export function InitializeNotebookRendererMessenger() {
   NOTEBOOK_RENDERER_MESSENGER = vscode.notebooks.createRendererMessaging(
-    IDL_NOTEBOOK_RENDERER_NAME
+    IDL_NOTEBOOK_RENDERER_NAME,
   );
 
   NOTEBOOK_RENDERER_MESSENGER.onDidReceiveMessage((e) => {

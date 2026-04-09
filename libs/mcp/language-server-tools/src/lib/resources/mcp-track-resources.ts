@@ -24,7 +24,7 @@ export function MCPTrackResources(logger: LogManager) {
     GetExtensionPath('extension/example-notebooks'),
     false,
     'ex-notebooks',
-    {}
+    {},
   );
 
   // track additional AI resources folder
@@ -35,7 +35,7 @@ export function MCPTrackResources(logger: LogManager) {
     'resource',
     {
       'readme.md': true,
-    }
+    },
   );
 
   MCPTrackHoverHelpResources();

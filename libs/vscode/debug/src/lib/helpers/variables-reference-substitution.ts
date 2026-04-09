@@ -19,7 +19,7 @@ export function VariablesReferenceSubstitution(input: string) {
     case VARIABLES_REFERENCE_REGEX.DOT_IDL.test(input):
       return input.replace(
         VARIABLES_REFERENCE_REGEX.DOT_IDL,
-        VSCODE_DOT_IDL_FOLDER
+        VSCODE_DOT_IDL_FOLDER,
       );
 
     /**
@@ -41,12 +41,12 @@ export function VariablesReferenceSubstitution(input: string) {
       if (workspaces === undefined || workspaces?.length === 0) {
         return input.replace(
           VARIABLES_REFERENCE_REGEX.WORKSPACE,
-          VSCODE_DOT_IDL_FOLDER
+          VSCODE_DOT_IDL_FOLDER,
         );
       } else {
         return input.replace(
           VARIABLES_REFERENCE_REGEX.WORKSPACE,
-          GetFSPath(workspaces[0].uri.toString())
+          GetFSPath(workspaces[0].uri.toString()),
         );
       }
     }

@@ -9,7 +9,7 @@ import { copy } from 'fast-copy';
  * Decodes byte data for a notebook and restores it as a raw notebook
  */
 export function DecodeNotebook(
-  content: Uint8Array
+  content: Uint8Array,
 ): IDLRawNotebook<IDLRawNotebookVersion> {
   if (content.length > 0) {
     return JSON.parse(new TextDecoder().decode(content));

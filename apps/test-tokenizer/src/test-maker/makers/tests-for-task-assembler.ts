@@ -16,7 +16,7 @@ import { StringifyCode } from './stringify-code';
 export async function TestsForTaskAssembler(
   name: string,
   tests: ITaskAssemblerTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -59,20 +59,20 @@ export async function TestsForTaskAssembler(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const parsed = await LoadTask('my_file.task', code.join(''));`
+      `    const parsed = await LoadTask('my_file.task', code.join(''));`,
     );
     strings.push(``);
     strings.push(`    // format code`);
     if (test.config !== undefined) {
       strings.push(
         `    const formatted = TaskAssembler(parsed, ${JSON.stringify(
-          test.config
-        )});`
+          test.config,
+        )});`,
       );
       strings.push(``);
     } else {
       strings.push(
-        `    const formatted = TaskAssembler(parsed, { formatter: 'fiddle' });`
+        `    const formatted = TaskAssembler(parsed, { formatter: 'fiddle' });`,
       );
       strings.push(``);
     }
@@ -95,14 +95,14 @@ export async function TestsForTaskAssembler(
     // add the start to  our tokens
     strings.push(`      // define expected problems`);
     strings.push(
-      `      const expectedFormatting: string[] = ${expectedString}`
+      `      const expectedFormatting: string[] = ${expectedString}`,
     );
     strings.push('');
 
     // verify results
     strings.push('      // verify formatting');
     strings.push(
-      '      expect(formatted.split(`\\n`)).toEqual(expectedFormatting)'
+      '      expect(formatted.split(`\\n`)).toEqual(expectedFormatting)',
     );
     strings.push('    }');
     strings.push('  })');

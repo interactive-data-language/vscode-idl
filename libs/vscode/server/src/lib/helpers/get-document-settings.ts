@@ -12,7 +12,7 @@ import { IServerSettings } from '../settings.interface';
  */
 export function GetDocumentSettings(
   connection: _Connection,
-  uri: string
+  uri: string,
 ): Thenable<IServerSettings> {
   if (!CAPABILITIES.configuration) {
     return Promise.resolve(GLOBAL_SERVER_SETTINGS);

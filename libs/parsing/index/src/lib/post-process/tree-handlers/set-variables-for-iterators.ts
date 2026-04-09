@@ -34,7 +34,7 @@ SET_VARIABLE_TOKENS[TOKEN_NAMES.MAIN_LEVEL] = true;
 export function SetVariablesForIterators(
   token: TreeToken<TokenName>,
   parsed: IParsed,
-  variables: ILocalTokenLookup
+  variables: ILocalTokenLookup,
 ) {
   // empty
   const current = Object.keys(variables);

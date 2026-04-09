@@ -124,7 +124,7 @@ export class IDlWebSocketServer {
             this.process = new IDLProcess(
               this.log,
               GetExtensionPath(join('idl', 'vscode')),
-              payload.startupMessage
+              payload.startupMessage,
             );
 
             /**
@@ -179,7 +179,7 @@ export class IDlWebSocketServer {
           default:
             break;
         }
-      }
+      },
     );
   }
 
@@ -188,7 +188,7 @@ export class IDlWebSocketServer {
    */
   send<T extends FromIDLWebSocketMessageTypes>(
     type: T,
-    payload: FromIDLWebSocketPayload<T>
+    payload: FromIDLWebSocketPayload<T>,
   ) {
     this._emit({
       type,
@@ -200,7 +200,7 @@ export class IDlWebSocketServer {
    * Emits messages to the client- normalizes and enforces type checking
    */
   private _emit<T extends FromIDLWebSocketMessageTypes>(
-    message: FromIDLWebSocketMessage<T>
+    message: FromIDLWebSocketMessage<T>,
   ) {
     this.socket.emit(IDL_WS_MESSAGE, message);
   }

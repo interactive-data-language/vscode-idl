@@ -14,7 +14,7 @@ describe(`[auto generated] Use variable before it is defined`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -42,7 +42,7 @@ describe(`[auto generated] Use variable before it is defined`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -86,7 +86,7 @@ describe(`[auto generated] Use variable before it is defined`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

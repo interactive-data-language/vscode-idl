@@ -13,7 +13,7 @@ import { OrderObject } from './order-object';
  */
 export function ENVITaskFormatter<T extends FormatterType>(
   task: ENVITask<ENVITaskSchemaVersion>,
-  options: IAssemblerOptions<T>
+  options: IAssemblerOptions<T>,
 ): ENVITask<ENVITaskSchemaVersion> {
   // get parameters
   const params = task.parameters;
@@ -26,7 +26,7 @@ export function ENVITaskFormatter<T extends FormatterType>(
     if (param.keyword !== undefined) {
       param.keyword = AdjustCase(
         param.keyword.replace(/\s/g, ''),
-        options.style.keywords
+        options.style.keywords,
       );
     }
 
@@ -34,14 +34,14 @@ export function ENVITaskFormatter<T extends FormatterType>(
     if (param.name !== undefined) {
       param.name = AdjustCase(
         param.name.replace(/\s/g, ''),
-        options.style.keywords
+        options.style.keywords,
       );
     }
 
     if (param.direction !== undefined) {
       param.direction = AdjustCase(
         param.direction.replace(/\s/g, ''),
-        options.style.control
+        options.style.control,
       );
     }
 

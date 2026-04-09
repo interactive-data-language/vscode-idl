@@ -11,7 +11,7 @@ import { DOCS_SERVER_CONFIG } from './docs-server.interface';
  */
 export async function StartNodeDocsServer(
   port: number,
-  dir = DOCS_SERVER_CONFIG.FOLDER
+  dir = DOCS_SERVER_CONFIG.FOLDER,
 ) {
   /**
    * Start our server

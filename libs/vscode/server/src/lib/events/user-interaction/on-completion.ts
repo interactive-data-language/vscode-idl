@@ -21,7 +21,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * Wrapper to handle auto-completion requests
  */
 export async function GetAutoCompleteWrapper(
-  params: TextDocumentPositionParams
+  params: TextDocumentPositionParams,
 ): Promise<CompletionItem[]> {
   /**
    * Resolve the fspath to our cell and retrieve code
@@ -65,7 +65,7 @@ export async function GetAutoCompleteWrapper(
     info.code,
     params.position,
     IDL_CLIENT_CONFIG,
-    idlJson
+    idlJson,
   );
 
   // return completion
@@ -76,7 +76,7 @@ export async function GetAutoCompleteWrapper(
  * Event handler for completion requests
  */
 export const ON_COMPLETION = async (
-  position: TextDocumentPositionParams
+  position: TextDocumentPositionParams,
 ): Promise<CompletionItem[]> => {
   await SERVER_INITIALIZED;
   try {

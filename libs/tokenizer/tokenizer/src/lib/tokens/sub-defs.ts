@@ -7,7 +7,7 @@ import { ISubTokenDefs } from './full/sub-defs-full.interface';
  */
 export function GetSubDefs(
   token: TokenName,
-  subDefs: ISubTokenDefs
+  subDefs: ISubTokenDefs,
 ): ITokenDef<TokenName>[] {
   // check if we have a value, otherwise return our default
   if (token in subDefs) {

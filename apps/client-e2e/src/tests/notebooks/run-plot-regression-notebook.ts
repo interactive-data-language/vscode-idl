@@ -29,6 +29,6 @@ export const RunPlotRegressionNotebook: RunnerFunction = async (init) => {
   await RunNotebookAndCompareCells(
     GetExtensionPath('idl/test/client-e2e/notebooks/plot-regression.idlnb'),
     CELL_OUTPUT,
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 };

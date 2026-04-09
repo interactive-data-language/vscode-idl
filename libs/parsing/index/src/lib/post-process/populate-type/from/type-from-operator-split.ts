@@ -13,7 +13,7 @@ import { TypeFromSingleToken } from './type-from-single-token';
 export function TypeFromOperatorSplit(
   index: IDLIndex,
   parsed: IParsed,
-  children: SyntaxTree
+  children: SyntaxTree,
 ): IDLDataType {
   /** Track the last entry in our access chain */
   let chain: TreeToken<TokenName> = undefined;

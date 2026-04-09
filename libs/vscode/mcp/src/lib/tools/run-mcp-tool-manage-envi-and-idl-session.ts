@@ -15,7 +15,7 @@ import { RunMCPTool_StartIDL } from './idl/run-mcp-tool-start-idl';
  */
 export async function RunMCPTool_ManageENVIAndIDLSession(
   id: string,
-  params: MCPToolParams<MCPTool_ManageIDLAndENVISession>
+  params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
 ): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {
   /**
    * Check if we are starting

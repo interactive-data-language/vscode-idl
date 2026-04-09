@@ -57,7 +57,6 @@ This extension includes:
 - Create routine-definition documentation for routines within SAVE files or DLMs
 
 - Support for internationalization
-
   - Submit a bug/feature for adding languages. Hopefully they are for a language that you speak, so you could also help with the translation :)
 
 Check out our [official docs site](https://interactive-data-language.github.io/vscode-idl/) to learn more about these features and what else is included in the extension.
@@ -85,7 +84,6 @@ IDL Notebooks have specific version requirements for IDL and ENVI:
   To install node.js, get the latest v20 release from https://nodejs.org/en/download/releases.
 
 - The debugger is back and has some improvements. However, this is still a pre-release version of the ability to interactively run IDL code. Here's a few important things to know:
-
   - Pausing is not supported on Windows, this will hopefully be resolved in the near future. Currently it kills the IDL process and is being worked on.
 
   - If you find reproduce cases where syntax errors are not appearing, or are not going away, please file a bug report.
@@ -103,11 +101,9 @@ See [CHANGELOG](CHANGELOG.md).
 - For the licenses and copyrights of 3rd party dependencies for extension components, see [3rdpartylicenses.md](./compliance/3rdpartylicenses.md).
 
 - Icon theme:
-
   - The icon theme is directly from [VSCode](https://github.com/microsoft/vscode/tree/main/extensions/theme-seti) and only modified to use a different icon for PRO files (use our own instead of the prolog owl icon). Credits and auxiliary files can be found in `./extension/icon-theme`.
 
 - Themes
-
   - Original source licenses for the VSCode themes can be found in: `extension/language/themes`
 
   - Retro IDL: Licensed under MIT. Copyright (c) 2015 Mahmoud Ali, [Atom One Light Theme](https://github.com/akamud/vscode-theme-onedark)
@@ -115,23 +111,19 @@ See [CHANGELOG](CHANGELOG.md).
   - Novus IDL: Licensed under MIT. Copyright (c) 2015 Mahmoud Ali, [Atom One Dark Theme](https://github.com/akamud/vscode-theme-onelight)
 
   - Neon IDL:
-
     - Based on: Licensed under MIT. Copyright (c) 2015 Mahmoud Ali, [Atom One Dark Theme](https://github.com/akamud/vscode-theme-onelight)
 
     - Some workbench colors from from: Copyright (c) ssmi, [After Dark](https://github.com/sssmi/after-dark)
 
 - Syntax highlighting
-
   - Legacy highlighting theme based on Mike Galloy's [idl.tmbundle](https://github.com/mgalloy/idl.tmbundle). Has since been completely rewritten as YAML and following other patterns/different regular expressions, but some roots are still there.
 
 - Icons
-
   - The icons used in VSCode either come from Material Icons (Google via npm "material-icons") or Material Design (Templarian via npm "@mdi/js")
 
   - PDF icon is from "Material Icon Theme"
 
 - PDF Generation
-
   - We use a 3rd party extension called "Markdown PDF" to create PDFs
 
   - Credit goes to [yzane](https://github.com/yzane/vscode-markdown-pdf/tree/master) as the creator of this extension

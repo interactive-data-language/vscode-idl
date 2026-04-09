@@ -7,46 +7,7 @@ Typescript does some great, but horrendous syntax for return types where you nee
 Take an example from the extension to have the best user experience possible:
 
 ```typescript
-export type TokenStartMatches<T extends TokenName> =
-  T extends AccessPropertyToken
-    ? AccessPropertyMatches
-    : T extends CallFunctionToken
-    ? CallFunctionMatches
-    : T extends CallFunctionMethodToken
-    ? CallFunctionMethodMatches
-    : T extends CallProcedureToken
-    ? CallProcedureMatches
-    : T extends CallProcedureMethodToken
-    ? CallProcedureMethodMatches
-    : T extends CommentToken
-    ? CommentMatches | CommentWithToDoMatches
-    : T extends CommentBlockToken
-    ? CommentBlockMatches
-    : T extends KeywordBinaryToken
-    ? KeywordBinaryMatches
-    : T extends KeywordDefinitionToken
-    ? KeywordDefinitionMatches
-    : T extends OperatorToken
-    ? OperatorMatches
-    : T extends QuoteDoubleToken
-    ? QuoteMatches
-    : T extends QuoteSingleToken
-    ? QuoteMatches
-    : T extends RoutineMethodNameToken
-    ? RoutineMethodNameMatches
-    : T extends RoutineNameToken
-    ? RoutineNameMatches
-    : T extends StructureInheritanceToken
-    ? StructureInheritanceMatches
-    : T extends StructurePropertyToken
-    ? StructurePropertyMatches
-    : T extends SystemVariableToken
-    ? VariableMatches
-    : T extends VariableToken
-    ? VariableMatches
-    : T extends UnknownToken
-    ? UnknownMatches
-    : string[];
+export type TokenStartMatches<T extends TokenName> = T extends AccessPropertyToken ? AccessPropertyMatches : T extends CallFunctionToken ? CallFunctionMatches : T extends CallFunctionMethodToken ? CallFunctionMethodMatches : T extends CallProcedureToken ? CallProcedureMatches : T extends CallProcedureMethodToken ? CallProcedureMethodMatches : T extends CommentToken ? CommentMatches | CommentWithToDoMatches : T extends CommentBlockToken ? CommentBlockMatches : T extends KeywordBinaryToken ? KeywordBinaryMatches : T extends KeywordDefinitionToken ? KeywordDefinitionMatches : T extends OperatorToken ? OperatorMatches : T extends QuoteDoubleToken ? QuoteMatches : T extends QuoteSingleToken ? QuoteMatches : T extends RoutineMethodNameToken ? RoutineMethodNameMatches : T extends RoutineNameToken ? RoutineNameMatches : T extends StructureInheritanceToken ? StructureInheritanceMatches : T extends StructurePropertyToken ? StructurePropertyMatches : T extends SystemVariableToken ? VariableMatches : T extends VariableToken ? VariableMatches : T extends UnknownToken ? UnknownMatches : string[];
 ```
 
 Now, IDL has a few key differences with languages:

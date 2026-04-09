@@ -17,7 +17,7 @@ import {
 export function PopulateSyntaxTree(
   parsed: IParsed,
   cancel: CancellationToken,
-  full: boolean
+  full: boolean,
 ) {
   // set tree index
   PopulateIndex(parsed.tree);
@@ -29,7 +29,7 @@ export function PopulateSyntaxTree(
   IDL_SYNTAX_TREE_POST_PROCESSOR.processTree(
     parsed.tree,
     parsed,
-    DEFAULT_CURRENT
+    DEFAULT_CURRENT,
   );
 
   /**

@@ -24,5 +24,5 @@ export const EXECUTIVE_COMMAND: ExecutiveCommandTokenDef = {
 export type ExecutiveCommandMatches = [
   match: string,
   args: string,
-  after: string
+  after: string,
 ];

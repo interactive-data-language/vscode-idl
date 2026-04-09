@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly exclude keywords`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -457,9 +457,9 @@ describe(`[auto generated] Correctly exclude keywords`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 23, character: 11 };
@@ -631,9 +631,9 @@ describe(`[auto generated] Correctly exclude keywords`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_2: Position = { line: 24, character: 9 };
@@ -647,9 +647,9 @@ describe(`[auto generated] Correctly exclude keywords`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_2
+          position_2,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

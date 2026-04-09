@@ -6,7 +6,7 @@ import { IParsedHTML } from './parser.interface';
 export function ElementsToTextRecurser(
   els: IParsedHTML[],
   strings: string[],
-  after = false
+  after = false,
 ) {
   // determine how to proceed
   for (let i = 0; i < els.length; i++) {

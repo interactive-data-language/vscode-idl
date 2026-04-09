@@ -13,7 +13,7 @@ describe(`[auto generated] Parse invalid config files`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath

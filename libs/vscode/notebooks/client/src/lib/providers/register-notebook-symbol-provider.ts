@@ -36,7 +36,7 @@ export function RegisterNotebookSymbolProvider() {
       const symbols: DocumentSymbol[] =
         await LANGUAGE_SERVER_CLIENT.sendRequest(
           'textDocument/documentSymbol',
-          params
+          params,
         );
 
       // return if nothing to do
@@ -53,21 +53,24 @@ export function RegisterNotebookSymbolProvider() {
             new vscode.Range(
               new vscode.Position(
                 item.range.start.line,
-                item.range.start.character
+                item.range.start.character,
               ),
-              new vscode.Position(item.range.end.line, item.range.end.character)
+              new vscode.Position(
+                item.range.end.line,
+                item.range.end.character,
+              ),
             ),
             new vscode.Range(
               new vscode.Position(
                 item.selectionRange.start.line,
-                item.selectionRange.start.character
+                item.selectionRange.start.character,
               ),
               new vscode.Position(
                 item.selectionRange.end.line,
-                item.selectionRange.end.character
-              )
-            )
-          )
+                item.selectionRange.end.character,
+              ),
+            ),
+          ),
       );
     },
   });

@@ -38,7 +38,7 @@ import { PopulateVariables } from './populate-variables';
 export function PopulateGlobalLocalCompileOpts(
   parsed: IParsed,
   cancel: CancellationToken,
-  full: boolean
+  full: boolean,
 ) {
   // get global placeholder
   const global = parsed.global;
@@ -144,7 +144,7 @@ export function PopulateGlobalLocalCompileOpts(
                 first,
                 parsed.parseProblems,
                 structures,
-                docs
+                docs,
               )
             : GenerateRoutineMetadataFast('function');
 
@@ -209,7 +209,7 @@ export function PopulateGlobalLocalCompileOpts(
                     branch as IBranch<RoutineFunctionToken>,
                     parsed,
                     parsed.compile.func[name],
-                    add
+                    add,
                   )
                 : {};
 
@@ -249,7 +249,7 @@ export function PopulateGlobalLocalCompileOpts(
                     branch as IBranch<RoutineFunctionToken>,
                     parsed,
                     parsed.compile.func[name],
-                    add
+                    add,
                   )
                 : {};
               break;
@@ -297,7 +297,7 @@ export function PopulateGlobalLocalCompileOpts(
                 first,
                 parsed.parseProblems,
                 structures,
-                docs
+                docs,
               )
             : GenerateRoutineMetadataFast('procedure');
 
@@ -335,7 +335,7 @@ export function PopulateGlobalLocalCompileOpts(
                     branch as IBranch<RoutineProcedureToken>,
                     parsed,
                     parsed.compile.pro[name],
-                    add
+                    add,
                   )
                 : {};
 
@@ -375,7 +375,7 @@ export function PopulateGlobalLocalCompileOpts(
                     branch as IBranch<RoutineProcedureToken>,
                     parsed,
                     parsed.compile.pro[name],
-                    add
+                    add,
                   )
                 : {};
               break;

@@ -17,11 +17,11 @@ function GetOutputs(data: IDLRawNotebook<IDLRawNotebookVersion_2_0_0>) {
             .map((item) =>
               Array.isArray(item.content)
                 ? item.content.join('\n').trimEnd().split(/\n/gim)
-                : [item.content.trimEnd()]
+                : [item.content.trimEnd()],
             )
-            .flat()
+            .flat(),
         )
-        .flat()
+        .flat(),
     )
     .flat();
 }
@@ -31,20 +31,20 @@ function GetOutputs(data: IDLRawNotebook<IDLRawNotebookVersion_2_0_0>) {
  */
 export async function CompareNotebookJSONOutputs(
   referenceUri: string,
-  actualUri: string
+  actualUri: string,
 ) {
   /**
    * Get reference notebook
    */
   const refData: IDLRawNotebook<IDLRawNotebookVersion_2_0_0> = JSON.parse(
-    readFileSync(referenceUri, 'utf-8')
+    readFileSync(referenceUri, 'utf-8'),
   );
 
   /**
    * Get actual notebook
    */
   const actualData: IDLRawNotebook<IDLRawNotebookVersion_2_0_0> = JSON.parse(
-    readFileSync(actualUri, 'utf-8')
+    readFileSync(actualUri, 'utf-8'),
   );
 
   // compare

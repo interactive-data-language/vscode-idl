@@ -36,7 +36,7 @@ METHODS[TOKEN_NAMES.CALL_PROCEDURE_METHOD] = true;
 export function GetTypeBefore(
   index: IDLIndex,
   cursor: ISelectedToken,
-  parsed: IParsed
+  parsed: IParsed,
 ): IDLDataType {
   // specify the access tokens to use
   let access: TreeToken<TokenName>[] = [];

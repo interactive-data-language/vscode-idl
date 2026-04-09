@@ -397,7 +397,7 @@ export async function ParseDocsHTML(docsFile: string) {
  */
 export async function DocsParser(
   file: string,
-  lookup: GlobalDisplayNameLookup
+  lookup: GlobalDisplayNameLookup,
 ) {
   // convert all to HTML and return
   return HTMLToDocs(await ParseDocsHTML(file), file, lookup);

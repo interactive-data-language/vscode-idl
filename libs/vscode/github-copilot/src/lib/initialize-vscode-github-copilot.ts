@@ -16,7 +16,7 @@ import {
  * Initializes our GitHub Copilot VSCode integration
  */
 export async function InitializeVSCodeGitHubCopilot(
-  ctx: vscode.ExtensionContext
+  ctx: vscode.ExtensionContext,
 ) {
   IDL_LOGGER.log({
     log: IDL_COPILOT_VSCODE_LOG,

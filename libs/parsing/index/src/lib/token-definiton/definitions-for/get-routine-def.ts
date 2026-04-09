@@ -15,7 +15,7 @@ import { IDLIndex } from '../../idl-index.class';
 export function GetRoutineDef(
   index: IDLIndex,
   type: GlobalTokenType,
-  name: string
+  name: string,
 ): GlobalIndexedToken[] {
   // check for global token first
   let global = index.findMatchingGlobalToken(type, name);
@@ -24,7 +24,7 @@ export function GetRoutineDef(
   if (global.length === 0 && type === GLOBAL_TOKEN_TYPES.FUNCTION) {
     global = index.findMatchingGlobalToken(
       GLOBAL_TOKEN_TYPES.FUNCTION_METHOD,
-      `${name}::init`
+      `${name}::init`,
     );
   }
 

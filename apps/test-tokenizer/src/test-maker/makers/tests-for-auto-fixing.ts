@@ -15,7 +15,7 @@ import { StringifyCode } from './stringify-code';
 export async function TestForAutoFixing(
   name: string,
   tests: IAssemblerTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -25,7 +25,7 @@ export async function TestForAutoFixing(
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { SyntaxProblems } from '@idl/types/problem-codes';`);
   strings.push(``);
@@ -55,7 +55,7 @@ export async function TestForAutoFixing(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     /**
@@ -63,7 +63,7 @@ export async function TestForAutoFixing(
      */
     const parseConfig = Object.assign(
       { postProcess: true },
-      test.parseConfig !== undefined ? test.parseConfig : {}
+      test.parseConfig !== undefined ? test.parseConfig : {},
     );
 
     // tokenize
@@ -71,7 +71,7 @@ export async function TestForAutoFixing(
       'my_file.pro',
       code,
       new CancellationToken(),
-      parseConfig
+      parseConfig,
     );
 
     // update test config
@@ -85,7 +85,7 @@ export async function TestForAutoFixing(
     const formatted = Assembler(
       tokenized,
       new CancellationToken(),
-      test.config
+      test.config,
     );
 
     // add our tokens
@@ -106,21 +106,21 @@ export async function TestForAutoFixing(
     strings.push(`    // extract tokens`);
     strings.push(
       `    const tokenized = await index.getParsedProCode('not-real', code, new CancellationToken(), ${JSON.stringify(
-        parseConfig
-      )});`
+        parseConfig,
+      )});`,
     );
     strings.push(``);
     strings.push(`    // format code`);
     if (test.config !== undefined) {
       strings.push(
         `    const formatted = Assembler(tokenized, new CancellationToken(), ${JSON.stringify(
-          test.config
-        )});`
+          test.config,
+        )});`,
       );
       strings.push(``);
     } else {
       strings.push(
-        `    const formatted = Assembler(tokenized, new CancellationToken(), { formatter: 'fiddle' });`
+        `    const formatted = Assembler(tokenized, new CancellationToken(), { formatter: 'fiddle' });`,
       );
       strings.push(``);
     }
@@ -141,14 +141,14 @@ export async function TestForAutoFixing(
       // add the start to  our tokens
       strings.push(`    // define expected problems`);
       strings.push(
-        `    const expectedFormatting: string[] = ${expectedString}`
+        `    const expectedFormatting: string[] = ${expectedString}`,
       );
       strings.push('');
 
       // verify results
       strings.push('    // verify formatting');
       strings.push(
-        '    expect(formatted !== undefined ? formatted.split(`\\n`): formatted).toEqual(expectedFormatting)'
+        '    expect(formatted !== undefined ? formatted.split(`\\n`): formatted).toEqual(expectedFormatting)',
       );
       strings.push('');
     }
@@ -157,15 +157,15 @@ export async function TestForAutoFixing(
     strings.push(`    // define expected problems`);
     strings.push(
       `    const expectedProblems: SyntaxProblems = ${JSON.stringify(
-        tokenized.parseProblems.concat(tokenized.postProcessProblems)
-      )}`
+        tokenized.parseProblems.concat(tokenized.postProcessProblems),
+      )}`,
     );
     strings.push('');
 
     // verify results
     strings.push('    // verify problems');
     strings.push(
-      '    expect(tokenized.parseProblems.concat(tokenized.postProcessProblems)).toEqual(expectedProblems)'
+      '    expect(tokenized.parseProblems.concat(tokenized.postProcessProblems)).toEqual(expectedProblems)',
     );
 
     strings.push('  })');

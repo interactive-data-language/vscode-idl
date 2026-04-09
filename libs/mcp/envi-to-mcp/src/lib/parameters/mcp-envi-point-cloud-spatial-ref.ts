@@ -21,7 +21,7 @@ export function MCP_ENVIPointCloudSpatialRef() {
       .boolean()
       .optional()
       .describe(
-        'A boolean value that specifies if the coordinate system is Geocentric.'
+        'A boolean value that specifies if the coordinate system is Geocentric.',
       ),
   });
 }

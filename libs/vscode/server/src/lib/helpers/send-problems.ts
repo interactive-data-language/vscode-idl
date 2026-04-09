@@ -81,7 +81,7 @@ export function SendProblems(inFiles: string[]) {
       SERVER_CONNECTION.sendDiagnostics({
         uri: URIFromIDLIndexFile(files[i]),
         diagnostics: SyntaxProblemsToDiagnostic(
-          INCLUDE_PROBLEMS_FOR.ALL ? problems : []
+          INCLUDE_PROBLEMS_FOR.ALL ? problems : [],
         ),
       });
       continue;
@@ -108,12 +108,12 @@ export function SendProblems(inFiles: string[]) {
           (problem) =>
             problem.code in IDL_DEF_FILE_PROBLEMS &&
             !(problem.code in IGNORE_PROBLEM_CODES) &&
-            problem.canReport
+            problem.canReport,
         );
       } else {
         problems = problems.filter(
           (problem) =>
-            !(problem.code in IGNORE_PROBLEM_CODES) && problem.canReport
+            !(problem.code in IGNORE_PROBLEM_CODES) && problem.canReport,
         );
       }
     }
@@ -122,7 +122,7 @@ export function SendProblems(inFiles: string[]) {
     SERVER_CONNECTION.sendDiagnostics({
       uri: URIFromIDLIndexFile(files[i]),
       diagnostics: SyntaxProblemsToDiagnostic(
-        INCLUDE_PROBLEMS_FOR.ALL ? problems : []
+        INCLUDE_PROBLEMS_FOR.ALL ? problems : [],
       ),
     });
   }

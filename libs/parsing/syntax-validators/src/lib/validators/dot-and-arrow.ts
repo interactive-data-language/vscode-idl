@@ -12,8 +12,8 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(TOKEN_NAMES.ARROW, (token, parsed) => {
     SyntaxProblemWithTranslation(
       IDL_PROBLEM_CODES.ILLEGAL_ARROW,
       token.pos,
-      token.pos
-    )
+      token.pos,
+    ),
   );
 });
 
@@ -26,7 +26,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(TOKEN_NAMES.DOT, (token, parsed) => {
     SyntaxProblemWithTranslation(
       IDL_PROBLEM_CODES.STANDALONE_DOT,
       token.pos,
-      token.pos
-    )
+      token.pos,
+    ),
   );
 });

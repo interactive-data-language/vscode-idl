@@ -137,7 +137,7 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
         vscode.TreeItemCollapsibleState.Expanded,
         'idlicon.svg',
         '',
-        this.extensionFolder
+        this.extensionFolder,
       );
       this.tree[IDL_TRANSLATION.idl.tree.parents.debugging] = (
         this.web ? FilterWebCommands(DEBUGGING_BUTTONS) : DEBUGGING_BUTTONS
@@ -149,8 +149,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             vscode.TreeItemCollapsibleState.None,
             child.icon,
             child.commandName,
-            this.extensionFolder
-          )
+            this.extensionFolder,
+          ),
       );
     }
 
@@ -163,7 +163,7 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
         vscode.TreeItemCollapsibleState.Collapsed,
         'terminal.svg',
         '',
-        this.extensionFolder
+        this.extensionFolder,
       );
       this.tree[IDL_TRANSLATION.idl.tree.parents.terminal] = (
         this.web ? FilterWebCommands(TERMINAL_BUTTONS) : TERMINAL_BUTTONS
@@ -175,8 +175,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             vscode.TreeItemCollapsibleState.None,
             child.icon,
             child.commandName,
-            this.extensionFolder
-          )
+            this.extensionFolder,
+          ),
       );
     }
 
@@ -192,7 +192,7 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
           vscode.TreeItemCollapsibleState.Expanded,
           'code.svg',
           '',
-          this.extensionFolder
+          this.extensionFolder,
         );
       this.tree[IDL_TRANSLATION.idl.tree.parents.codeActions] = (
         this.web ? FilterWebCommands(CODE_ACTIONS) : CODE_ACTIONS
@@ -204,8 +204,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             vscode.TreeItemCollapsibleState.None,
             child.icon,
             child.commandName,
-            this.extensionFolder
-          )
+            this.extensionFolder,
+          ),
       );
     }
 
@@ -220,7 +220,7 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
         vscode.TreeItemCollapsibleState.Expanded,
         'post.svg',
         '',
-        this.extensionFolder
+        this.extensionFolder,
       );
       this.tree[IDL_TRANSLATION.idl.tree.parents.notebooks] = (
         this.web ? FilterWebCommands(NOTEBOOK_ACTIONS) : NOTEBOOK_ACTIONS
@@ -232,8 +232,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             vscode.TreeItemCollapsibleState.None,
             child.icon,
             child.commandName,
-            this.extensionFolder
-          )
+            this.extensionFolder,
+          ),
       );
     }
 
@@ -247,7 +247,7 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
       vscode.TreeItemCollapsibleState.Collapsed,
       'idlicon.svg',
       '',
-      this.extensionFolder
+      this.extensionFolder,
     );
 
     this.tree[IDL_TRANSLATION.idl.tree.parents.idlTutorials] =
@@ -260,34 +260,34 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             child.icon,
             child.commandName,
             this.extensionFolder,
-            child.commandArgs
-          )
+            child.commandArgs,
+          ),
       );
 
     this.addBranch(
       IDL_TRANSLATION.idl.tree.children.idlTutorials.gettingStarted.name,
       IDLTUTORIAL_GETTINGSTARTED,
-      vscode.TreeItemCollapsibleState.None
+      vscode.TreeItemCollapsibleState.None,
     );
     this.addBranch(
       IDL_TRANSLATION.idl.tree.children.idlTutorials.idlBasics.name,
       IDLTUTORIAL_IDLBASICS,
-      vscode.TreeItemCollapsibleState.None
+      vscode.TreeItemCollapsibleState.None,
     );
     this.addBranch(
       IDL_TRANSLATION.idl.tree.children.idlTutorials.fileOperations.name,
       IDLTUTORIAL_FILEOPERATIONS,
-      vscode.TreeItemCollapsibleState.None
+      vscode.TreeItemCollapsibleState.None,
     );
     this.addBranch(
       IDL_TRANSLATION.idl.tree.children.idlTutorials.advancedTopics.name,
       IDLTUTORIAL_ADVANCEDTOPICS,
-      vscode.TreeItemCollapsibleState.None
+      vscode.TreeItemCollapsibleState.None,
     );
     this.addBranch(
       IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.name,
       IDLTUTORIAL_NOTEBOOKS,
-      vscode.TreeItemCollapsibleState.None
+      vscode.TreeItemCollapsibleState.None,
     );
 
     /**
@@ -302,7 +302,7 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
           vscode.TreeItemCollapsibleState.Expanded,
           'quick-reference-all.svg',
           '',
-          this.extensionFolder
+          this.extensionFolder,
         );
       this.tree[IDL_TRANSLATION.idl.tree.parents.quickAccess] = (
         this.web ? FilterWebCommands(ADDITIONAL_ACTIONS) : ADDITIONAL_ACTIONS
@@ -314,8 +314,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
             vscode.TreeItemCollapsibleState.None,
             child.icon,
             child.commandName,
-            this.extensionFolder
-          )
+            this.extensionFolder,
+          ),
       );
     }
   }
@@ -324,7 +324,7 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
     branchName: string,
     leafNodes: IChild[],
     collapsibleState: vscode.TreeItemCollapsibleState = vscode
-      .TreeItemCollapsibleState.None
+      .TreeItemCollapsibleState.None,
   ) {
     this.tree[branchName] = leafNodes.map(
       (child) =>
@@ -335,8 +335,8 @@ export class IDLTreeViewProvider implements vscode.TreeDataProvider<IDLAction> {
           child.icon,
           child.commandName,
           this.extensionFolder,
-          child.commandArgs
-        )
+          child.commandArgs,
+        ),
     );
   }
 }

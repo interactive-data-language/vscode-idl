@@ -16,7 +16,7 @@ import { IDLNotebookController } from '../idl-notebook-controller.class';
  */
 function ReplaceSyntaxErrorPaths(
   controller: IDLNotebookController,
-  content: string
+  content: string,
 ) {
   return content.replace(REGEX_IDL_LOCATION, (full, first, file, line) => {
     if (file.includes(`_${NOTEBOOK_CELL_BASE_NAME}_`)) {
@@ -89,19 +89,19 @@ function ReplaceLivePaths(controller: IDLNotebookController, content: string) {
 
           if (cellIdx !== -1) {
             return `${reason}: ${routine}, Notebook: ${basename(
-              fsPath
+              fsPath,
             )}, Cell ${cellIdx + 1}, Line ${line}`;
           }
         }
 
         // default answer
         return `${reason}: ${routine}, Notebook: ${basename(
-          fsPath
+          fsPath,
         )}, Line ${line}`;
       } else {
         return full;
       }
-    }
+    },
   );
 }
 
@@ -115,7 +115,7 @@ function ReplaceLivePaths(controller: IDLNotebookController, content: string) {
  */
 export function ReplaceNotebookPaths(
   controller: IDLNotebookController,
-  content: string
+  content: string,
 ) {
   content = ReplaceSyntaxErrorPaths(controller, content);
   content = ReplaceLivePaths(controller, content);

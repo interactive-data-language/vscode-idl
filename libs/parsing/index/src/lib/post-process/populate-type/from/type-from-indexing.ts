@@ -30,7 +30,7 @@ import { TypeFromTokens } from './type-from-tokens';
 export function TypeFromIndexing(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<BracketToken>
+  token: TreeToken<BracketToken>,
 ): IDLDataType {
   // get the type before
   const type = GetTypeBefore(
@@ -47,7 +47,7 @@ export function TypeFromIndexing(
       },
       cancel: new CancellationToken(),
     },
-    parsed
+    parsed,
   );
 
   // return if we have any
@@ -141,8 +141,8 @@ export function TypeFromIndexing(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.ILLEGAL_SUBSCRIPT,
             token.pos,
-            token?.end ? token.end.pos : token.pos
-          )
+            token?.end ? token.end.pos : token.pos,
+          ),
         );
         return copy(IDL_ANY_TYPE);
     }
@@ -177,8 +177,8 @@ export function TypeFromIndexing(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.ILLEGAL_INDEX_TYPE,
             token.pos,
-            token?.end ? token.end.pos : token.pos
-          )
+            token?.end ? token.end.pos : token.pos,
+          ),
         );
         return copy(IDL_ANY_TYPE);
       }

@@ -47,8 +47,8 @@ export const RunMCPTestCreateIDLNotebook: RunnerFunction = async (init) => {
   // compare output notebooks
   await CompareNotebookJSONCells(
     GetExtensionPath(
-      'idl/test/client-e2e/copilot/mcp/idl-create-notebook.idlnb'
+      'idl/test/client-e2e/copilot/mcp/idl-create-notebook.idlnb',
     ),
-    nbUri
+    nbUri,
   );
 };

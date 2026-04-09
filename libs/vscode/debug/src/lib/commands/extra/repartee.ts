@@ -30,8 +30,8 @@ export async function Repartee() {
       IDL_DEBUG_ADAPTER.sendEvent(
         new OutputEvent(
           i === statement.length - 1 ? `${statement[i]}\n` : statement[i],
-          'stderr'
-        )
+          'stderr',
+        ),
       );
       await Sleep(DELAY);
     }

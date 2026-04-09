@@ -14,7 +14,7 @@ import { LogWhenExpectSuccess } from '../../../helpers/test-loggers';
  * Makes sure we can query a dataset
  */
 export const RunMCPTestQueryDatasetWithENVI_Vector: RunnerFunction = async (
-  init
+  init,
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI, {

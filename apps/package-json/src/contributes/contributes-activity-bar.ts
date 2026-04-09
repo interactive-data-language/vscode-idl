@@ -17,7 +17,7 @@ export const ACTIVITY_BAR_ICONS = [
  */
 export function ProcessActivityBar(
   packageJSON: IPackageJSON,
-  nls: IPackageNLS
+  nls: IPackageNLS,
 ) {
   // get all of our contribution points
   const contrib = packageJSON['contributes'];
@@ -30,7 +30,7 @@ export function ProcessActivityBar(
     const url = join(process.cwd(), icon.icon);
     if (!existsSync(url)) {
       throw new Error(
-        `activity bar icon at index ${i} missing path file where expected "${icon.icon}"`
+        `activity bar icon at index ${i} missing path file where expected "${icon.icon}"`,
       );
     }
   }

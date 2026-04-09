@@ -44,7 +44,7 @@ export function RegisterNotebookDefinitionProvider() {
       const definition: LanguageServerLocation =
         await LANGUAGE_SERVER_CLIENT.sendRequest(
           'textDocument/definition',
-          params
+          params,
         );
 
       // return if nothing
@@ -60,12 +60,12 @@ export function RegisterNotebookDefinitionProvider() {
         range: new vscode.Range(
           new vscode.Position(
             definition.range.start.line,
-            definition.range.start.character
+            definition.range.start.character,
           ),
           new vscode.Position(
             definition.range.end.line,
-            definition.range.end.character
-          )
+            definition.range.end.character,
+          ),
         ),
       };
 

@@ -28,13 +28,13 @@ export type ToIDLMachineNotifications =
  * Parameters for notifications we send to the IDL machine
  */
 export type ToIDLMachineNotificationParams<
-  T extends ToIDLMachineNotifications
+  T extends ToIDLMachineNotifications,
 > = T extends AbortNotification
   ? AbortParams
   : T extends ExecuteStringNotification
-  ? ExecuteStringParams
-  : T extends ExitNotification
-  ? ExitParams
-  : T extends SetTTYSizeNotification
-  ? SetTTYSizeParams
-  : never;
+    ? ExecuteStringParams
+    : T extends ExitNotification
+      ? ExitParams
+      : T extends SetTTYSizeNotification
+        ? SetTTYSizeParams
+        : never;

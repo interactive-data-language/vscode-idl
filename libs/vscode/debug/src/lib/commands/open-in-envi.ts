@@ -18,7 +18,7 @@ export async function OpenInENVI(uri: string): Promise<boolean> {
     // run our command to open in ENVI
     const res = await IDL_DEBUG_ADAPTER.evaluate(
       `vscode_openData, '${CleanPath(uri)}'`,
-      { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: true }
+      { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: true },
     );
 
     return (await HandleENVISuccess(res)).succeeded;

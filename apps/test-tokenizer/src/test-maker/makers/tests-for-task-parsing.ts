@@ -16,7 +16,7 @@ import { ITaskParsingTest } from '../tests.interface';
 export async function TestsForTaskParsing(
   name: string,
   tests: ITaskParsingTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -26,7 +26,7 @@ export async function TestsForTaskParsing(
   strings.push(`import { ResetGlobalDisplayNames } from '@idl/parsing/index';`);
   strings.push(`import { LoadTask } from '@idl/schemas/tasks';`);
   strings.push(
-    `import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';`
+    `import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';`,
   );
   strings.push(``);
 
@@ -68,7 +68,7 @@ export async function TestsForTaskParsing(
     // add the start to  our tokens
     strings.push(`    // define expected local variables`);
     strings.push(
-      `    const expected: IGlobalsToTrack = ${JSON.stringify(global)}`
+      `    const expected: IGlobalsToTrack = ${JSON.stringify(global)}`,
     );
     strings.push('');
 

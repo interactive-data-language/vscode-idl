@@ -12,7 +12,7 @@ export async function AssembleWithIndex<T extends FormatterType>(
   file: string,
   code: string | string[],
   cancel: CancellationToken,
-  formatting?: Partial<IAssemblerInputOptions<T>>
+  formatting?: Partial<IAssemblerInputOptions<T>>,
 ): Promise<string | undefined> {
   // get the tokens for our file
   const parsed = await GetParsedPROCode(index, file, code, cancel);

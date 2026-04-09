@@ -10,7 +10,7 @@ import { TokenName } from '../tokens.interface';
  * This helps reduce data we store/pass around.
  */
 export function GetMatchesArray<T extends TokenName>(
-  match: RegExpExecArray
+  match: RegExpExecArray,
 ): TokenStartMatches<T> {
   const res: string[] = [];
   for (let i = 0; i < match.length; i++) {

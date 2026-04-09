@@ -21,7 +21,7 @@ import { NAME_TOKENS } from './return-functions';
  */
 function CheckForCompileOpt(
   token: IBranch<MainLevelToken | RoutineFunctionToken | RoutineProcedureToken>,
-  syntax: SyntaxProblems
+  syntax: SyntaxProblems,
 ) {
   // look for compile opt statements
   const kids = FindAllBranchChildren(token, TOKEN_NAMES.CONTROL_COMPILE_OPT);
@@ -46,8 +46,8 @@ function CheckForCompileOpt(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.NO_COMPILE_OPT,
             token.pos,
-            endPos
-          )
+            endPos,
+          ),
         );
       }
       break;
@@ -59,8 +59,8 @@ function CheckForCompileOpt(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.MULTIPLE_COMPILE_OPT,
             kids[i].pos,
-            kids[i].end ? kids[i].end.pos : kids[i].pos
-          )
+            kids[i].end ? kids[i].end.pos : kids[i].pos,
+          ),
         );
       }
       break;
@@ -76,7 +76,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.ROUTINE_FUNCTION,
   (token, parsed) => {
     CheckForCompileOpt(token, parsed.parseProblems);
-  }
+  },
 );
 
 /**
@@ -86,7 +86,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.ROUTINE_PROCEDURE,
   (token, parsed) => {
     CheckForCompileOpt(token, parsed.parseProblems);
-  }
+  },
 );
 
 /**
@@ -100,7 +100,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
     }
 
     CheckForCompileOpt(token, parsed.parseProblems);
-  }
+  },
 );
 
 /**
@@ -144,8 +144,8 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.MISSING_COMPILE_OPTIONS,
           token.pos,
-          token.end ? token.end.pos : token.pos
-        )
+          token.end ? token.end.pos : token.pos,
+        ),
       );
 
       // return because there is nothing else to do
@@ -172,8 +172,8 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.ILLEGAL_COMPILE_OPT,
             vars[i].pos,
-            vars[i].pos
-          )
+            vars[i].pos,
+          ),
         );
       } else {
         // check if they should be told to use compile opt idl2 instead
@@ -183,8 +183,8 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
             SyntaxProblemWithTranslation(
               IDL_PROBLEM_CODES.USE_IDL2_COMPILE_OPT,
               vars[i].pos,
-              vars[i].pos
-            )
+              vars[i].pos,
+            ),
           );
         }
       }
@@ -197,9 +197,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.NO_COMPILE_OPT_IDL2,
           token.pos,
-          token.end ? token.end.pos : token.pos
-        )
+          token.end ? token.end.pos : token.pos,
+        ),
       );
     }
-  }
+  },
 );

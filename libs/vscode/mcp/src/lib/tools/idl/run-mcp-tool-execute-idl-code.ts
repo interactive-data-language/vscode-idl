@@ -20,7 +20,7 @@ import { join } from 'path';
  */
 export async function RunMCPTool_ExecuteIDLCode(
   id: string,
-  params: MCPToolParams<MCPTool_ExecuteIDLCode>
+  params: MCPToolParams<MCPTool_ExecuteIDLCode>,
 ): Promise<MCPToolResponse<MCPTool_ExecuteIDLCode>> {
   /**
    * Start IDL
@@ -49,7 +49,7 @@ export async function RunMCPTool_ExecuteIDLCode(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
     {
       code: params.code,
-    }
+    },
   );
 
   // see if theres a problem, user should be alerted
@@ -83,7 +83,7 @@ export async function RunMCPTool_ExecuteIDLCode(
 
   // set compile option and make sure we are at the main level
   await IDL_DEBUG_ADAPTER.evaluate(
-    `compile_opt idl2 & message, /reset & retall`
+    `compile_opt idl2 & message, /reset & retall`,
   );
 
   // reset main with ".run"
@@ -112,7 +112,7 @@ export async function RunMCPTool_ExecuteIDLCode(
     {
       silent: false,
       echo: true,
-    }
+    },
   );
 
   // get syntax errors
@@ -144,7 +144,7 @@ export async function RunMCPTool_ExecuteIDLCode(
     return {
       success: false,
       err: `Detected syntax errors in IDL code. Details: ${JSON.stringify(
-        errsWithPrint
+        errsWithPrint,
       )}`,
     };
   }
@@ -172,7 +172,7 @@ export async function RunMCPTool_ExecuteIDLCode(
       const lastMessage = CleanIDLOutput(
         await IDL_DEBUG_ADAPTER.evaluate(`help, /last_message`, {
           silent: true,
-        })
+        }),
       );
 
       /**

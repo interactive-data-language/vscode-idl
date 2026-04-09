@@ -35,7 +35,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
         mimeTypes: [],
       },
     ],
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 
   /**
@@ -51,7 +51,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
         mimeTypes: [],
       },
     ],
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 
   /**
@@ -59,7 +59,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
    */
   await RunNotebookAndCompareCells(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/problems/syntax-err1.idlnb'
+      'idl/test/client-e2e/notebooks/problems/syntax-err1.idlnb',
     ),
     [
       {
@@ -73,7 +73,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
         mimeTypes: [],
       },
     ],
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 
   /**
@@ -82,7 +82,7 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
 
   await RunNotebookAndCompareCells(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/problems/syntax-err2.idlnb'
+      'idl/test/client-e2e/notebooks/problems/syntax-err2.idlnb',
     ),
     [
       {
@@ -96,6 +96,6 @@ export const RunProblemNotebooks: RunnerFunction = async (init) => {
         mimeTypes: [],
       },
     ],
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 };

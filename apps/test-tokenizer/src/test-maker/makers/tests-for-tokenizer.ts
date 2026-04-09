@@ -15,7 +15,7 @@ import { PrepareString, StringifyCode } from './stringify-code';
 export function TestsForTokenizer(
   name: string,
   tests: ITokenTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -23,7 +23,7 @@ export function TestsForTokenizer(
   // add imports
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(
-    `import { IBaseToken, StripIDs, TOKEN_NAMES, Tokenizer,TokenName } from '@idl/tokenizer';`
+    `import { IBaseToken, StripIDs, TOKEN_NAMES, Tokenizer,TokenName } from '@idl/tokenizer';`,
   );
   strings.push(`import { TOKEN_TYPES } from '@idl/tokenizer/common';`);
   strings.push(``);
@@ -54,7 +54,7 @@ export function TestsForTokenizer(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = Tokenizer(code, new CancellationToken())`
+      `    const tokenized = Tokenizer(code, new CancellationToken())`,
     );
     strings.push(``);
 
@@ -113,7 +113,7 @@ export function TestsForTokenizer(
 
       // add remaining properties
       strings.push(
-        `        pos: ${JSON.stringify(token.pos).replace(/"/gim, '')},`
+        `        pos: ${JSON.stringify(token.pos).replace(/"/gim, '')},`,
       );
       strings.push(`        matches: ${matchesStr}`);
 

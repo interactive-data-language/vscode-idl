@@ -7,7 +7,7 @@ import { basename, join } from 'path';
  */
 export function MoveAndUpdateCopilotFile(
   sourceFile: string,
-  destinationFolder: string
+  destinationFolder: string,
 ) {
   // make sure the destination folder exists
   if (!existsSync(destinationFolder)) {

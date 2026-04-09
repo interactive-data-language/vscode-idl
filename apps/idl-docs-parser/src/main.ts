@@ -19,7 +19,7 @@ async function Main() {
 
   console.log();
   console.log(
-    'Running this app requires ENVI, IDL, and ENVI Deep Learning be installed in order to run'
+    'Running this app requires ENVI, IDL, and ENVI Deep Learning be installed in order to run',
   );
 
   /** Get our global tokens to store in the language server */
@@ -37,7 +37,7 @@ async function Main() {
   // write to disk
   writeFileSync(
     join(process.cwd(), 'idl/routines/global.json'),
-    JSON.stringify(global)
+    JSON.stringify(global),
   );
 
   /**
@@ -70,7 +70,7 @@ async function Main() {
   console.log('Done!');
   console.log('');
   console.log(
-    'See "parse-test/unknowns.json" for a list of descriptions that have no data types for them'
+    'See "parse-test/unknowns.json" for a list of descriptions that have no data types for them',
   );
 }
 

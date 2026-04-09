@@ -35,9 +35,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.EMPTY_MAIN,
           token.pos,
-          token.end !== undefined ? token.end.pos : token.pos
-        )
+          token.end !== undefined ? token.end.pos : token.pos,
+        ),
       );
     }
-  }
+  },
 );

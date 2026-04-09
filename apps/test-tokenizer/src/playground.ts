@@ -119,75 +119,75 @@ export async function Playground() {
     // save outputs to disk
     writeFileSync(
       join(process.cwd(), 'parse-test', 'code.js'),
-      forTests.join(`\n`)
+      forTests.join(`\n`),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'tokens.json'),
-      Stringify(parsed.tokens)
+      Stringify(parsed.tokens),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'textmate.json'),
-      Stringify(tmParsed)
+      Stringify(tmParsed),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'tree.json'),
-      Stringify(parsed.tree)
+      Stringify(parsed.tree),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'tree-assembled.json'),
-      Stringify(formattedTokenized.tree)
+      Stringify(formattedTokenized.tree),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'problems.json'),
-      Stringify(parsed.parseProblems)
+      Stringify(parsed.parseProblems),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'global.json'),
-      Stringify(parsed.global)
+      Stringify(parsed.global),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'local.json'),
-      Stringify(parsed.local)
+      Stringify(parsed.local),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'compile.json'),
-      Stringify(parsed.compile)
+      Stringify(parsed.compile),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'formatted.pro'),
       formatted !== undefined
         ? formatted
-        : '; Syntax error prevents formatting, check closing statements'
+        : '; Syntax error prevents formatting, check closing statements',
     );
     // log some useful information
     console.log();
     console.log(`Output folder: "${join(process.cwd(), 'parse-test')}"`);
     console.log(`Helpful files in destination:`);
     console.log(
-      `  "code.js"              contains version of processed code for using in tests`
+      `  "code.js"              contains version of processed code for using in tests`,
     );
     console.log(
-      `  "formatted.pro"        contains the formatted version of source code`
+      `  "formatted.pro"        contains the formatted version of source code`,
     );
     console.log(
-      `  "global.json"          contains globally available tokens from code`
+      `  "global.json"          contains globally available tokens from code`,
     );
     console.log(
-      `  "local.json"           contains local tokens within routines`
+      `  "local.json"           contains local tokens within routines`,
     );
     console.log(`  "compile.json"         contains compile options by routine`);
     console.log(`  "problems.json"        contains detected syntax problems`);
     console.log(
-      `  "tokens.json"          contains raw tokens extracted from code`
+      `  "tokens.json"          contains raw tokens extracted from code`,
     );
     console.log(
-      `  "textmate.json"        contains raw tokens extracted from code using tmLanguage grammar`
+      `  "textmate.json"        contains raw tokens extracted from code using tmLanguage grammar`,
     );
     console.log(
-      `  "tree.json"            contains AST version of tokens with post-processing applied`
+      `  "tree.json"            contains AST version of tokens with post-processing applied`,
     );
     console.log(
-      `  "tree-assembled.json"  contains AST version of tokens after formatting`
+      `  "tree-assembled.json"  contains AST version of tokens after formatting`,
     );
     console.log();
 

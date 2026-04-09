@@ -22,7 +22,7 @@ import { TaskTypeToIDLType } from './task-type-to-idl-type';
  * Converts an IDL Task to global tokens for auto-complete
  */
 export function IDLTaskToGlobal(
-  task: IDLTask<IDLTaskSchemaVersion>
+  task: IDLTask<IDLTaskSchemaVersion>,
 ): IGlobalsToTrack {
   // make sure we have description
   task.description = task.description || '';
@@ -87,7 +87,7 @@ export function IDLTaskToGlobal(
         param.type,
         meta,
         param.choice_list,
-        param.dimensions
+        param.dimensions,
       ),
       req: param.required,
     };

@@ -13,7 +13,7 @@ import { TypeFromFirstArg } from '../../helpers/type-from-first-arg';
 export function TypeFromCallFunction(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallFunctionToken>
+  token: TreeToken<CallFunctionToken>,
 ): string {
   const type = TypeFromFirstArg(index, parsed, token);
   return type && type !== IDL_TYPE_LOOKUP.ANY ? type : undefined;

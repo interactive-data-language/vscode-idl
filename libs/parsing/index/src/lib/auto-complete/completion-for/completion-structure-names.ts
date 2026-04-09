@@ -11,7 +11,7 @@ import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface'
  * Adds variables to our completion items
  */
 export function BuildCompletionStructureNameItems(
-  arg: BuildCompletionItemsArg<StructureNameCompletion>
+  arg: BuildCompletionItemsArg<StructureNameCompletion>,
 ) {
   // add user procedures first
   const displayNames = Object.values(CUSTOM_TYPE_DISPLAY_NAMES);

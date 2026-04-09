@@ -20,7 +20,7 @@ import { IDLIndex } from '../idl-index.class';
 export function PopulateUsesThese(
   index: IDLIndex,
   parsed: IParsed,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ) {
   // populate scope detail
   PopulateScopeDetail(parsed, cancel);
@@ -66,7 +66,7 @@ export function PopulateUsesThese(
         case TOKEN_NAMES.STRUCTURE: {
           const names = FindDirectBranchChildren(
             token,
-            TOKEN_NAMES.STRUCTURE_NAME
+            TOKEN_NAMES.STRUCTURE_NAME,
           );
           if (names.length > 0) {
             parsed.uses[GLOBAL_TOKEN_TYPES.STRUCTURE][

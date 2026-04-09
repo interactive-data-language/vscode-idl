@@ -12,7 +12,7 @@ import { TreeRecurser } from './recursion-and-callbacks/tree-recurser';
  */
 export function PopulateScopeDetail(
   parsed: IParsed,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ): void {
   // only process if we dont have scope detail
   if (!parsed.hasDetail) {

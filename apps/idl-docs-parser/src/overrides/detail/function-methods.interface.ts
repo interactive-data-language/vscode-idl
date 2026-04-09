@@ -344,7 +344,7 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
       interpolation: {
         direction: 'in',
         type: IDLTypeHelper.parseIDLType(
-          "'nearest neighbor' | 'pixel aggregate'"
+          "'nearest neighbor' | 'pixel aggregate'",
         ),
       },
       pixel_state: {
@@ -359,13 +359,13 @@ export const FUNCTION_METHOD_OVERRIDE: IFunctionMethodOverride = {
   },
   'enviview::createlayer': {
     returns: IDLTypeHelper.parseIDLType(
-      'ENVIAnnotationLayer | ENVIRasterLayer | ENVIRasterSeriesLayer | ENVIVectorLayer'
+      'ENVIAnnotationLayer | ENVIRasterLayer | ENVIRasterSeriesLayer | ENVIVectorLayer',
     ),
     args: {
       data: {
         direction: 'in',
         type: IDLTypeHelper.parseIDLType(
-          'ENVIAnnotationSet | ENVIRaster | ENVIRasterSeries | ENVIVector'
+          'ENVIAnnotationSet | ENVIRaster | ENVIRasterSeries | ENVIVector',
         ),
       },
     },

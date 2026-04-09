@@ -15,7 +15,7 @@ import { UnescapeMarkdown } from './unescape-markdown';
 export async function ResolveProperties(
   routineDocs: IRoutineDocs,
   methodHTML: IParsedHTML[],
-  dir: string
+  dir: string,
 ) {
   // track the links to process
   const toProcess: [string, string][] = [];
@@ -44,7 +44,7 @@ export async function ResolveProperties(
     const className = UnescapeMarkdown(
       toProcess[i][0].includes('::')
         ? toProcess[i][0].split('::')[1]
-        : toProcess[i][0]
+        : toProcess[i][0],
     ).toLowerCase();
     const docsLink = toProcess[i][1];
 
@@ -54,7 +54,7 @@ export async function ResolveProperties(
       const docsUri = decodeURI(
         docsLink
           .split('#')[0]
-          .replace('IDL_DOCS/..', `${IDL_DIR}/help/online_help`)
+          .replace('IDL_DOCS/..', `${IDL_DIR}/help/online_help`),
       );
 
       // skip if we already processed this file

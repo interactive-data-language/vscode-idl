@@ -8,7 +8,7 @@ ASSEMBLER_PRE_PROCESSOR.onBasicToken(
   TOKEN_NAMES.LINE_SEPARATION_BASIC,
   (token) => {
     token.matches[0] = '';
-  }
+  },
 );
 
 /**

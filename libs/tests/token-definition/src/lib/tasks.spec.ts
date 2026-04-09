@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly find definitions for task files`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify reference filepath
@@ -26,7 +26,7 @@ describe(`[auto generated] Correctly find definitions for task files`, () => {
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/token-def/atanomalydetection.task')
+      GetExtensionPath('idl/test/token-def/atanomalydetection.task'),
     );
 
     // define position
@@ -72,7 +72,7 @@ describe(`[auto generated] Correctly find definitions for task files`, () => {
     const found_0 = await index.getTokenDef(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
     if (found_0 !== undefined) {
       delete found_0.file;

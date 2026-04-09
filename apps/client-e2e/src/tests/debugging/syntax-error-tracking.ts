@@ -27,7 +27,7 @@ export const SyntaxErrorTracking: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -35,7 +35,7 @@ export const SyntaxErrorTracking: RunnerFunction = async (init) => {
 
   // open file
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/debug/compile_error.pro')
+    GetExtensionPath('idl/test/client-e2e/debug/compile_error.pro'),
   );
 
   /** Get original text */

@@ -25,7 +25,7 @@ export interface IWorkerIO<_Message extends string> {
     workerId: string,
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
-    timeout?: number
+    timeout?: number,
   ): IPostAndReceiveMessageResult<T>;
 
   /**
@@ -34,14 +34,14 @@ export interface IWorkerIO<_Message extends string> {
   postMessage<T extends _Message>(
     workerId: string,
     type: T,
-    payload: PayloadToWorkerBaseMessage<T>
+    payload: PayloadToWorkerBaseMessage<T>,
   ): string;
 
   /**
    * Subscribe to all messages with the same ID from any worker
    */
   subscribeToGlobalMessages<T extends _Message>(
-    type: T
+    type: T,
   ): Subject<PayloadFromWorkerBaseMessage<T>>;
 
   /**
@@ -49,7 +49,7 @@ export interface IWorkerIO<_Message extends string> {
    */
   subscribeToWorkerMessages<T extends _Message>(
     workerId: string,
-    type: T
+    type: T,
   ): Subject<PayloadFromWorkerBaseMessage<T>>;
 
   /**

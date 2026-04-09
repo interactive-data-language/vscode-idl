@@ -15,7 +15,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -49,7 +49,7 @@ describe(`[auto generated] Cases to make sure we always parse our types correctl
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

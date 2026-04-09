@@ -14,7 +14,7 @@ import { SaveNotebookImage } from './save-notebook-image';
  */
 export async function HandleRendererMessage(
   notebook: vscode.NotebookDocument,
-  message: IDLNotebookFromRendererMessage<IDLNotebookFromRendererMessageType>
+  message: IDLNotebookFromRendererMessage<IDLNotebookFromRendererMessageType>,
 ) {
   IDL_LOGGER.log({
     log: IDL_NOTEBOOK_LOG,

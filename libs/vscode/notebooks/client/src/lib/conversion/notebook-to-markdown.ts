@@ -15,7 +15,7 @@ import { CreateOutputText } from './create-output-text';
  * Converts a notebook to a markdown file
  */
 export async function NotebookToMarkdown(
-  nb: NotebookDocument
+  nb: NotebookDocument,
 ): Promise<string[]> {
   /**
    * Array of strings for markdown
@@ -44,7 +44,7 @@ export async function NotebookToMarkdown(
       case cell.kind === NotebookCellKind.Markup:
         // add markdown directly
         markdown = markdown.concat(
-          cell.document.getText().split(LINE_SEPARATOR)
+          cell.document.getText().split(LINE_SEPARATOR),
         );
 
         // add new line
@@ -58,7 +58,7 @@ export async function NotebookToMarkdown(
         // add code cell for IDL
         markdown.push('```idl');
         markdown = markdown.concat(
-          cell.document.getText().split(LINE_SEPARATOR)
+          cell.document.getText().split(LINE_SEPARATOR),
         );
         markdown.push('```');
 
@@ -112,8 +112,8 @@ export async function NotebookToMarkdown(
                       (
                         embedded as IDLNotebookEmbeddedItem<IDLNotebookImage_PNG>
                       ).item.data,
-                      'image'
-                    )
+                      'image',
+                    ),
                   );
                   // markdown.push(`![](./${nImages}.png)`);
                   // writeFileSync(
@@ -133,7 +133,7 @@ export async function NotebookToMarkdown(
                    * Try to find an image
                    */
                   const firstImage = map.item.data.find(
-                    (data) => data.type === 'idlnotebookmap_image'
+                    (data) => data.type === 'idlnotebookmap_image',
                   ) as IDLNotebookEmbeddedItem<IDLNotebookMap_Image>;
 
                   // check if we found an image
@@ -148,7 +148,7 @@ export async function NotebookToMarkdown(
                     //   `![](data:image/png;base64,${firstImage.item.data})`
                     // );
                     markdown.push(
-                      CreateOutputText(nOut, firstImage.item.data, 'image')
+                      CreateOutputText(nOut, firstImage.item.data, 'image'),
                     );
                     markdown.push('');
                     nOut++;
@@ -164,8 +164,8 @@ export async function NotebookToMarkdown(
                 CreateOutputText(
                   nOut,
                   asString.split(LINE_SEPARATOR).join('\n'),
-                  'text'
-                )
+                  'text',
+                ),
               );
               // markdown.push('```');
               // markdown = markdown.concat(asString.split(/\r?\n/g));

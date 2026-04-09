@@ -28,7 +28,7 @@ import {
  */
 function _Recurser(
   tree: SyntaxTree,
-  current: ITreeRecurserRecursionOptions
+  current: ITreeRecurserRecursionOptions,
 ): void {
   // process every token
   for (let i = 0; i < tree.length; i++) {
@@ -47,7 +47,7 @@ function _Recurser(
         name: GetRoutineName(
           tree[i] as IBranch<
             MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
-          >
+          >,
         ),
         token: tree[i] as TreeBranchToken,
       };
@@ -68,7 +68,7 @@ function _Recurser(
       if (!branchLast) {
         current.exit = current.onBranchToken(
           tree[i] as TreeBranchToken,
-          current
+          current,
         );
       }
 
@@ -115,7 +115,7 @@ function _Recurser(
       if (branchLast) {
         current.exit = current.onBranchToken(
           tree[i] as TreeBranchToken,
-          current
+          current,
         );
       }
     } else {
@@ -153,7 +153,7 @@ function _Recurser(
 export function TreeRecurser(
   tree: SyntaxTree,
   cancel: CancellationToken,
-  options: Partial<ITreeRecurserOptions>
+  options: Partial<ITreeRecurserOptions>,
 ) {
   // recurse through the tree
   _Recurser(
@@ -162,7 +162,7 @@ export function TreeRecurser(
       copy(BASE_TREE_RECURSER_OPTIONS),
       copy(DEFAULT_CURRENT),
       options,
-      { cancel }
-    )
+      { cancel },
+    ),
   );
 }

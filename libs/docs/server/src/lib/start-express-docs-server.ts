@@ -12,7 +12,7 @@ let IS_EXPRESS_SERVER_STARTED = false;
  */
 export function StartExpressDocsServer(
   port: number,
-  failCallback: (err: any) => void
+  failCallback: (err: any) => void,
 ) {
   /**
    * Return if already started

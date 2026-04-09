@@ -16,7 +16,7 @@ export function MethodDisplayName(name: string) {
  */
 export function StructureDisplayName(
   name: string,
-  override: IStructureOverrideDetail
+  override: IStructureOverrideDetail,
 ) {
   if (override.display !== undefined) {
     return override.display;

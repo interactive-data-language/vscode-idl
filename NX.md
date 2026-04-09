@@ -38,7 +38,6 @@ For NX, there are two main places that code lives:
 - Making a new lib: `nx g @nx/node:lib lib-name` would make a new lib at `libs/lib-name`
 
 - `nx build project` builds a project
-
   - Add "--watch" to re-build on changes
 
 - `nx serve project` serves up an app for live reload (i.e. node + express server)

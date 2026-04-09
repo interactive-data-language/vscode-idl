@@ -16,7 +16,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const NotebookCompletionBasic: RunnerFunction = async (init) => {
   const doc = await OpenNotebookInVSCode(
-    GetExtensionPath('idl/test/client-e2e/notebooks/auto-complete-test.idlnb')
+    GetExtensionPath('idl/test/client-e2e/notebooks/auto-complete-test.idlnb'),
   );
 
   // short pause
@@ -39,7 +39,7 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
   const completion1: LanguageServerCompletionItem[] =
     await init.client.client.sendRequest(
       'textDocument/completion',
-      completionParams
+      completionParams,
     );
 
   // verify definition has return
@@ -62,7 +62,7 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
   const completion2: LanguageServerCompletionItem[] =
     await init.client.client.sendRequest(
       'textDocument/completion',
-      completionParams2
+      completionParams2,
     );
 
   // verify definition has return

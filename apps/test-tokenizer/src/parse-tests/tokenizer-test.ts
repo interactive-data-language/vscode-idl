@@ -21,7 +21,7 @@ interface IProblem {
  */
 export async function TokenizerTest(
   folder: string,
-  useIndex = false
+  useIndex = false,
 ): Promise<void> {
   const name = useIndex ? 'Index' : 'Tokenizer';
 
@@ -31,7 +31,7 @@ export async function TokenizerTest(
       alert: () => {
         // do nothing
       },
-    })
+    }),
   );
 
   const files = await FindFiles(folder, '**/**.pro');
@@ -77,7 +77,7 @@ export async function TokenizerTest(
       {
         total: files.length,
         width: 25,
-      }
+      },
     );
     for (let i = 0; i < code.length; i++) {
       const canTick = true;
@@ -89,7 +89,7 @@ export async function TokenizerTest(
           files[i],
           code[i],
           new CancellationToken(),
-          { postProcess: true }
+          { postProcess: true },
         );
       } else {
         Tokenizer(code[i], new CancellationToken());
@@ -122,11 +122,11 @@ export async function TokenizerTest(
   // write our problems to disk
   if (Object.keys(problems).length > 0) {
     console.log(
-      `Problems were detected!!! See "parse-test/parse-test-problems.json" in main repository folder`
+      `Problems were detected!!! See "parse-test/parse-test-problems.json" in main repository folder`,
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'parse-test-problems.json'),
-      JSON.stringify(problems, null, 2)
+      JSON.stringify(problems, null, 2),
     );
   }
 }

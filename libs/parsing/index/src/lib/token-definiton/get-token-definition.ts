@@ -29,7 +29,7 @@ export async function GetTokenDefinition(
   index: IDLIndex,
   file: string,
   code: string | string[],
-  position: Position
+  position: Position,
 ): Promise<GetTokenDefResponse> {
   // initialize the value of our help
   let info: IBaseIndexedToken;
@@ -42,7 +42,7 @@ export async function GetTokenDefinition(
     new CancellationToken(),
     {
       postProcess: true,
-    }
+    },
   );
   if (parsed !== undefined) {
     // determine what we have hovered over

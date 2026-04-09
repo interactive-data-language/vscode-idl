@@ -26,7 +26,7 @@ export function SanitizeProblems(problems: SyntaxProblems, workspace: string) {
  */
 export function SanitizeAllProblems(
   problems: { [key: string]: SyntaxProblems },
-  workspace: string
+  workspace: string,
 ): { [key: string]: SyntaxProblems } {
   /** initialize output */
   const out: { [key: string]: SyntaxProblems } = {};
@@ -36,7 +36,7 @@ export function SanitizeAllProblems(
   for (let z = 0; z < problemFiles.length; z++) {
     out[SanitizePath(problemFiles[z], workspace)] = SanitizeProblems(
       problems[problemFiles[z]],
-      workspace
+      workspace,
     );
   }
 

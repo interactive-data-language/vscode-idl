@@ -12,7 +12,7 @@ import { GetRoutineName } from './get-routine-name';
  */
 export function GetLocalTokenLookup(
   parsed: IParsed,
-  parent?: TreeBranchToken
+  parent?: TreeBranchToken,
 ): ILocalTokenLookup {
   // init variable lookup
   let lookup: ILocalTokenLookup = {};

@@ -80,7 +80,7 @@ const DEFAULT_DIRECTION: ParameterDirection = 'bidirectional';
  */
 function MergeHelper(
   item: IParameterOrPropertyDetails,
-  mergeThis?: Partial<IParameterOrPropertyDetails>
+  mergeThis?: Partial<IParameterOrPropertyDetails>,
 ) {
   // do we have items to merge?
   if (mergeThis !== undefined) {
@@ -111,7 +111,7 @@ function MergeEntries(
   params: IParameterDocs,
   override: { [key: string]: Partial<IParameterOrPropertyDetails> },
   jsonOverride: { [key: string]: IParameterOverride },
-  sort = false
+  sort = false,
 ) {
   // check if we have thread pool keywords
   if ('thread pool keywords' in params) {
@@ -139,8 +139,8 @@ function MergeEntries(
     new Set(
       Object.keys(params)
         .concat(Object.keys(override))
-        .concat(Object.keys(jsonOverride))
-    )
+        .concat(Object.keys(jsonOverride)),
+    ),
   );
 
   // process all properties
@@ -177,7 +177,7 @@ function MergeEntries(
         code: true,
         pos: [0, 0, 0],
       },
-      override[useName]
+      override[useName],
     );
 
     if (useName in jsonOverride) {
@@ -198,7 +198,7 @@ export async function RoutineToGlobal(
   r: IGlobalFromIDL,
   helpDir: string,
   global: GlobalTokens,
-  lookup: GlobalDisplayNameLookup
+  lookup: GlobalDisplayNameLookup,
 ) {
   /** Type of global token we got from IDL */
   let type = r.type;
@@ -283,12 +283,12 @@ export async function RoutineToGlobal(
       console.log('');
       console.log(
         `Routine name "${keyName}" is missing from parsed content for file: ${JSON.stringify(
-          path
-        )}`
+          path,
+        )}`,
       );
       console.log(Object.keys(parsed));
       console.log(
-        'See if we need a new entry around line 475 in catalog_to_json.pro, re-run that, and try this again'
+        'See if we need a new entry around line 475 in catalog_to_json.pro, re-run that, and try this again',
       );
       process.exit(1);
     }
@@ -414,18 +414,18 @@ export async function RoutineToGlobal(
                   isClass
                     ? useName
                     : FUNCTION_TYPE_OVERRIDES[useName]?.returns ||
-                        DEFAULT_DATA_TYPE
+                        DEFAULT_DATA_TYPE,
                 ),
               args: MergeEntries(
                 routine.args,
                 FUNCTION_OVERRIDE[useName]?.args || {},
-                FUNCTION_TYPE_OVERRIDES[useName]?.args || {}
+                FUNCTION_TYPE_OVERRIDES[useName]?.args || {},
               ),
               kws: MergeEntries(
                 routine.keywords,
                 FUNCTION_OVERRIDE[useName]?.kws || {},
                 FUNCTION_TYPE_OVERRIDES[useName]?.kws || {},
-                true
+                true,
               ),
               docsLookup: routine.docs,
               struct: [],
@@ -539,18 +539,18 @@ export async function RoutineToGlobal(
                   isClass
                     ? useName
                     : FUNCTION_METHOD_TYPE_OVERRIDES[useName]?.returns ||
-                        DEFAULT_DATA_TYPE
+                        DEFAULT_DATA_TYPE,
                 ),
               args: MergeEntries(
                 routine.args,
                 FUNCTION_METHOD_OVERRIDE[useName]?.args || {},
-                FUNCTION_METHOD_TYPE_OVERRIDES[useName]?.args || {}
+                FUNCTION_METHOD_TYPE_OVERRIDES[useName]?.args || {},
               ),
               kws: MergeEntries(
                 routine.keywords,
                 FUNCTION_METHOD_OVERRIDE[useName]?.kws || {},
                 FUNCTION_METHOD_TYPE_OVERRIDES[useName]?.kws || {},
-                true
+                true,
               ),
               docsLookup: routine.docs,
               struct: [],
@@ -626,13 +626,13 @@ export async function RoutineToGlobal(
             args: MergeEntries(
               routine.args,
               PROCEDURE_OVERRIDE[useName]?.args || {},
-              PROCEDURE_TYPE_OVERRIDES[useName]?.args || {}
+              PROCEDURE_TYPE_OVERRIDES[useName]?.args || {},
             ),
             kws: MergeEntries(
               routine.keywords,
               PROCEDURE_OVERRIDE[useName]?.kws || {},
               PROCEDURE_TYPE_OVERRIDES[useName]?.kws || {},
-              true
+              true,
             ),
             docsLookup: routine.docs,
             struct: [],
@@ -732,13 +732,13 @@ export async function RoutineToGlobal(
             args: MergeEntries(
               routine.args,
               PROCEDURE_METHOD_OVERRIDE[useName]?.args || {},
-              PROCEDURE_METHOD_TYPE_OVERRIDES[useName]?.args || {}
+              PROCEDURE_METHOD_TYPE_OVERRIDES[useName]?.args || {},
             ),
             kws: MergeEntries(
               routine.keywords,
               PROCEDURE_METHOD_OVERRIDE[useName]?.kws || {},
               PROCEDURE_METHOD_TYPE_OVERRIDES[useName]?.kws || {},
-              true
+              true,
             ),
             docsLookup: routine.docs,
             struct: [],
@@ -828,7 +828,7 @@ export async function RoutineToGlobal(
         meta: {
           display: StructureDisplayName(
             name,
-            STRUCTURE_OVERRIDE[useName] || {}
+            STRUCTURE_OVERRIDE[useName] || {},
           ),
           source: source,
           docs: DocsToMarkdown(MARKDOWN_TYPE_LOOKUP.GENERAL, routine.docs),
@@ -837,7 +837,7 @@ export async function RoutineToGlobal(
             routine.properties || {},
             STRUCTURE_OVERRIDE[useName]?.properties || {},
             IDL_STRUCTURE_TYPE_OVERRIDES[useName]?.properties || {},
-            true
+            true,
           ),
         },
       };
@@ -874,7 +874,7 @@ export function RoutineToGlobalAddMissingStructures(global: GlobalTokens) {
       meta: {
         display: StructureDisplayName(
           ADD_STRUCTURES[keys[i]].display,
-          STRUCTURE_OVERRIDE[keys[i]] || {}
+          STRUCTURE_OVERRIDE[keys[i]] || {},
         ),
         source: ADD_STRUCTURES[keys[i]].source,
         docs: '',
@@ -883,7 +883,7 @@ export function RoutineToGlobalAddMissingStructures(global: GlobalTokens) {
           {},
           STRUCTURE_OVERRIDE[keys[i]]?.properties || {},
           IDL_STRUCTURE_TYPE_OVERRIDES[keys[i]]?.properties || {},
-          true
+          true,
         ),
       },
     };

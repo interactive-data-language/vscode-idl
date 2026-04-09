@@ -18,12 +18,12 @@ import { EvaluateReturnType } from './helpers/evaluate-return-type';
 export function TypeFromCallFunctionMethod(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallFunctionMethodToken>
+  token: TreeToken<CallFunctionMethodToken>,
 ): IDLDataType {
   const methods: IGlobalIndexedToken<GlobalFunctionMethodToken>[] = GetMethod(
     index,
     parsed,
-    token
+    token,
   );
 
   // check if we found a method

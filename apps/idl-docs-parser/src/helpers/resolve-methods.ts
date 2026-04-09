@@ -31,7 +31,7 @@ export async function ResolveMethods(
   className: string,
   methodHTML: IParsedHTML[],
   dir: string,
-  lookup: GlobalDisplayNameLookup
+  lookup: GlobalDisplayNameLookup,
 ) {
   // get the class name we use
   const useClass = className.toLowerCase();
@@ -69,7 +69,7 @@ export async function ResolveMethods(
     const methodName = UnescapeMarkdown(
       toProcess[i][0].includes('::')
         ? toProcess[i][0].split('::')[1]
-        : toProcess[i][0]
+        : toProcess[i][0],
     );
     const useMethod = methodName.toLowerCase();
     const docsLink = toProcess[i][1];
@@ -81,7 +81,7 @@ export async function ResolveMethods(
     if (docsLink.startsWith('IDL_DOCS') && !docsLink.includes('#')) {
       // skip
       const docsUri = decodeURI(
-        docsLink.replace('IDL_DOCS/..', `${IDL_DIR}/help/online_help`)
+        docsLink.replace('IDL_DOCS/..', `${IDL_DIR}/help/online_help`),
       );
 
       /** Class and method name */
@@ -115,7 +115,7 @@ export async function ResolveMethods(
             // eslint-disable-next-line no-useless-escape
             const isFunction = new RegExp(
               `\\b_?${useMethod}_?\\s*\\(`,
-              'im'
+              'im',
             ).test(syntax);
 
             /**
@@ -137,12 +137,12 @@ export async function ResolveMethods(
                   ? GLOBAL_TOKEN_TYPES.FUNCTION_METHOD
                   : GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD,
                 name: MethodDisplayName(
-                  `${ClassDisplayName(className)}::${methodName}`
+                  `${ClassDisplayName(className)}::${methodName}`,
                 ),
                 source: 'internal',
                 link: docsUri.replace(
                   `${IDL_DIR}/help/online_help/Subsystems`,
-                  ''
+                  '',
                 ),
               });
             }

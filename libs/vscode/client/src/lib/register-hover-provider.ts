@@ -48,12 +48,12 @@ export function RegisterHoverProvider() {
         range = new vscode.Range(
           new vscode.Position(
             hovered.range.start.line,
-            hovered.range.start.character
+            hovered.range.start.character,
           ),
           new vscode.Position(
             hovered.range.end.line,
-            hovered.range.end.character
-          )
+            hovered.range.end.character,
+          ),
         );
       }
 

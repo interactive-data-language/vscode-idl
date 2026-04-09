@@ -47,10 +47,10 @@ export type IDLTaskParameter<T extends IDLTaskSchemaVersion> =
   T extends IDLTaskSchema12
     ? IDLParameterSchema12
     : T extends IDLTaskSchema11
-    ? IDLParameterSchema11
-    : T extends IDLTaskSchema10
-    ? IDLParameterSchema10
-    : IDLParameterSchema10;
+      ? IDLParameterSchema11
+      : T extends IDLTaskSchema10
+        ? IDLParameterSchema10
+        : IDLParameterSchema10;
 
 /**
  * Data structure for root task parameters for 1.0
@@ -77,10 +77,10 @@ export type IDLTaskProperties<T extends IDLTaskSchemaVersion> =
   T extends IDLTaskSchema12
     ? IDLTaskSchema12Properties
     : T extends IDLTaskSchema11
-    ? IDLTaskSchema11Properties
-    : T extends IDLTaskSchema10
-    ? IDLTaskSchema10Properties
-    : IDLTaskSchema10Properties;
+      ? IDLTaskSchema11Properties
+      : T extends IDLTaskSchema10
+        ? IDLTaskSchema10Properties
+        : IDLTaskSchema10Properties;
 
 /**
  * Data structure for IDL tasks

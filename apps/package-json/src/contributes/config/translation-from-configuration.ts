@@ -7,7 +7,7 @@ import { GetTranslationKey } from './get-translation-key';
 export function TranslationFromConfiguration(
   name: string,
   nls: IPackageNLS,
-  prefix = 'descriptions'
+  prefix = 'descriptions',
 ) {
   const key = `%configuration.${prefix}.${name}%`;
 
@@ -20,9 +20,9 @@ export function TranslationFromConfiguration(
 export function TranslationFromConfigurationChoices(
   choices: string[],
   nls: IPackageNLS,
-  prefix: string
+  prefix: string,
 ) {
   return choices.map((choice) =>
-    TranslationFromConfiguration(choice, nls, prefix)
+    TranslationFromConfiguration(choice, nls, prefix),
   );
 }

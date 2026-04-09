@@ -84,12 +84,12 @@ export type ENVITaskParameter<T extends ENVITaskSchemaVersion> =
   T extends ENVITaskSchema33
     ? ENVIParametersSchema33
     : T extends ENVITaskSchema32
-    ? ENVIParametersSchema32
-    : T extends ENVITaskSchema31
-    ? ENVIParametersSchema31
-    : T extends ENVITaskSchema30
-    ? ENVIParameterSchema30
-    : ENVIParameterSchema30;
+      ? ENVIParametersSchema32
+      : T extends ENVITaskSchema31
+        ? ENVIParametersSchema31
+        : T extends ENVITaskSchema30
+          ? ENVIParameterSchema30
+          : ENVIParameterSchema30;
 
 /**
  * Data structure for root task parameters for 3.0
@@ -137,12 +137,12 @@ export type ENVITaskProperties<T extends ENVITaskSchemaVersion> =
   T extends ENVITaskSchema33
     ? ENVITaskSchema33Properties
     : T extends ENVITaskSchema32
-    ? ENVITaskSchema32Properties
-    : T extends ENVITaskSchema31
-    ? ENVITaskSchema31Properties
-    : T extends ENVITaskSchema30
-    ? ENVITaskSchema30Properties
-    : ENVITaskSchema30Properties;
+      ? ENVITaskSchema32Properties
+      : T extends ENVITaskSchema31
+        ? ENVITaskSchema31Properties
+        : T extends ENVITaskSchema30
+          ? ENVITaskSchema30Properties
+          : ENVITaskSchema30Properties;
 
 /**
  * Data structure for ENVI Tasks

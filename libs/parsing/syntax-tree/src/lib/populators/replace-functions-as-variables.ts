@@ -23,7 +23,7 @@ import {
 function _Recursor(
   parsed: IParsed,
   tree: SyntaxTree,
-  local: ILocalTokenLookup
+  local: ILocalTokenLookup,
 ) {
   for (let i = 0; i < tree.length; i++) {
     /**
@@ -68,8 +68,8 @@ function _Recursor(
             tree[i].pos,
             (tree[i] as TreeBranchToken).end !== undefined
               ? (tree[i] as TreeBranchToken).end.pos
-              : tree[i].pos
-          )
+              : tree[i].pos,
+          ),
         );
 
         // create a variable token and insert
@@ -101,7 +101,7 @@ export function ReplaceFunctionsAsVariables(
   branch: IBranch<
     MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
   >,
-  local: ILocalTokenLookup
+  local: ILocalTokenLookup,
 ) {
   _Recursor(parsed, branch.kids, local);
 }

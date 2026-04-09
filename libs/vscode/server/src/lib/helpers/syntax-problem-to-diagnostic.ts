@@ -30,7 +30,7 @@ PROBLEM_MAP[IDL_PROBLEM_SEVERITY_LOOKUP.ERROR] = DiagnosticSeverity.Error;
  * Converts a syntax problem to a VSCode diagnostic that gets presented to the user
  */
 export function SyntaxProblemToDiagnostic(
-  problem: ISyntaxProblem
+  problem: ISyntaxProblem,
 ): IDLDiagnostic {
   // get the severity level of our problem
   const severity = GetIDLProblemSeverity(problem.code);
@@ -61,7 +61,7 @@ export function SyntaxProblemToDiagnostic(
       href: ResolveExtensionDocsURL(
         `/problem-codes/codes/${problem.code}.html`,
         IDL_CLIENT_CONFIG.documentation.useOnline,
-        SERVER_INITIALIZATION_OPTIONS.serverPorts.docs
+        SERVER_INITIALIZATION_OPTIONS.serverPorts.docs,
       ),
     },
     data: {
@@ -77,7 +77,7 @@ export function SyntaxProblemToDiagnostic(
  * Converts our syntax problems to diagnostic information
  */
 export function SyntaxProblemsToDiagnostic(
-  problems: SyntaxProblems
+  problems: SyntaxProblems,
 ): Diagnostic[] {
   // init output
   const diags: Diagnostic[] = [];

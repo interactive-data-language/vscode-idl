@@ -111,8 +111,8 @@ export interface IBranch<T extends NonBasicTokenNames> extends IBranchBase<T> {
 export type TreeToken<T extends TokenName> = T extends BasicTokenNames
   ? IBasicBranch<T>
   : T extends NonBasicTokenNames
-  ? IBranch<T>
-  : never;
+    ? IBranch<T>
+    : never;
 
 /**
  * Union type for all basic tokens

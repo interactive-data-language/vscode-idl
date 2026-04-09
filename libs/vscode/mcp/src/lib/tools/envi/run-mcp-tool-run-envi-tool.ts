@@ -19,7 +19,7 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
  */
 export async function RunMCPTool_RunENVITool(
   id: string,
-  params: MCPToolParams<MCPTool_RunENVITool>
+  params: MCPToolParams<MCPTool_RunENVITool>,
 ): Promise<MCPToolResponse<MCPTool_RunENVITool>> {
   VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
 
@@ -71,7 +71,7 @@ export async function RunMCPTool_RunENVITool(
   // run our command to open in ENVI
   const res = await MCPEvaluateENVICommand(
     `vscode_runENVITool, '${MCPSerializeJSON(params)}'`,
-    { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false }
+    { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false },
   );
 
   return {

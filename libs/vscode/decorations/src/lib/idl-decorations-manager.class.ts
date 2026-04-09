@@ -148,12 +148,12 @@ export class IDLDecorationsManager {
     this._applyDecorations(
       asString,
       CODE_COVERAGE_DECORATIONS.EXECUTED,
-      executed
+      executed,
     );
     this._applyDecorations(
       asString,
       CODE_COVERAGE_DECORATIONS.NOT_EXECUTED,
-      notExecuted
+      notExecuted,
     );
   }
 
@@ -186,14 +186,14 @@ export class IDLDecorationsManager {
       this._applyDecorations(
         asString,
         STACK_TRACE_DECORATION_WITH_GUTTER,
-        show
+        show,
       );
       this._applyDecorations(asString, STACK_TRACE_DECORATION, show);
     } else {
       this._applyDecorations(
         asString,
         gutter ? STACK_TRACE_DECORATION_WITH_GUTTER : STACK_TRACE_DECORATION,
-        show
+        show,
       );
     }
   }
@@ -204,7 +204,7 @@ export class IDLDecorationsManager {
    */
   addSyntaxErrorDecorations(
     uri: vscode.Uri,
-    decorations: vscode.DecorationOptions[]
+    decorations: vscode.DecorationOptions[],
   ) {
     /** Get string URI */
     const asString = uri.toString();
@@ -245,7 +245,7 @@ export class IDLDecorationsManager {
     if (asString in this.decorations.syntaxErrors) {
       this.addSyntaxErrorDecorations(
         uri,
-        this.decorations.syntaxErrors[asString]
+        this.decorations.syntaxErrors[asString],
       );
     }
 
@@ -376,7 +376,7 @@ export class IDLDecorationsManager {
           return {
             range: this._rangeFromLine(problem.line - 1),
           };
-        })
+        }),
       );
     }
   }
@@ -387,7 +387,7 @@ export class IDLDecorationsManager {
   private _applyDecorations(
     uriString: string,
     decorationType: vscode.TextEditorDecorationType,
-    decorations: vscode.DecorationOptions[]
+    decorations: vscode.DecorationOptions[],
   ) {
     const editor = GetTextEditorForURIString(uriString);
 
@@ -418,7 +418,7 @@ export class IDLDecorationsManager {
   private _rangeFromLine(line: number) {
     return new vscode.Range(
       new vscode.Position(line, 0),
-      new vscode.Position(line, Number.MAX_VALUE)
+      new vscode.Position(line, Number.MAX_VALUE),
     );
   }
 
@@ -427,7 +427,7 @@ export class IDLDecorationsManager {
    */
   private _resetSyntaxErrorDecorations(
     flag: IDLDecorationsResetFlag,
-    reApply = false
+    reApply = false,
   ) {
     /**
      * Get all files we track

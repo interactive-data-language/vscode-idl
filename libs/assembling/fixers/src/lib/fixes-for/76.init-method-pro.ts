@@ -35,7 +35,7 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
     HasProblem(
       token,
       IDL_PROBLEM_CODES.INIT_METHOD_NOT_FUNCTION,
-      parsed.disabledProblems
+      parsed.disabledProblems,
     )
   ) {
     // change token type
@@ -48,7 +48,7 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
     // check if we have a return procedure
     const returns = FindDirectBranchChildren(
       token,
-      TOKEN_NAMES.CALL_PROCEDURE
+      TOKEN_NAMES.CALL_PROCEDURE,
     ).filter((item) => item.match[0].toLowerCase() === 'return');
 
     // add if we dont have a returns
@@ -76,7 +76,7 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
           (
             GenerateCodeToInsert(
               `return, 1`,
-              returns[i].pos[0]
+              returns[i].pos[0],
             )[0] as TreeToken<MainLevelToken>
           ).kids[0] as TreeToken<CallProcedureToken>
         ).kids;

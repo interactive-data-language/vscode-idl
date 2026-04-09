@@ -14,7 +14,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -25,7 +25,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -55,7 +55,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -67,7 +67,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -78,7 +78,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -108,7 +108,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -120,7 +120,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -131,7 +131,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -161,7 +161,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -173,7 +173,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -184,7 +184,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -207,7 +207,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -219,7 +219,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -230,7 +230,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -260,7 +260,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -272,7 +272,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -283,7 +283,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -306,7 +306,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -318,7 +318,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -329,7 +329,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -359,7 +359,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -371,7 +371,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -382,7 +382,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -405,7 +405,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -417,7 +417,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -428,7 +428,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -451,7 +451,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -463,7 +463,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -474,7 +474,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -504,7 +504,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -516,7 +516,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -527,7 +527,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -557,7 +557,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -569,7 +569,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -580,7 +580,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -603,7 +603,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -615,7 +615,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -626,7 +626,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -656,7 +656,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -668,7 +668,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -679,7 +679,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -709,7 +709,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -721,7 +721,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -732,7 +732,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -762,7 +762,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -774,7 +774,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -785,7 +785,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -815,7 +815,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -827,7 +827,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -838,7 +838,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -868,7 +868,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -880,7 +880,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -891,7 +891,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -921,7 +921,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -933,7 +933,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -944,7 +944,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -974,7 +974,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -986,7 +986,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -997,7 +997,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1027,7 +1027,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1039,7 +1039,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1050,7 +1050,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1080,7 +1080,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1092,7 +1092,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1103,7 +1103,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1133,7 +1133,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1145,7 +1145,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1156,7 +1156,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1186,7 +1186,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1198,7 +1198,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1209,7 +1209,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1239,7 +1239,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1251,7 +1251,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1262,7 +1262,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1292,7 +1292,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1304,7 +1304,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1315,7 +1315,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1345,7 +1345,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1357,7 +1357,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1368,7 +1368,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1398,7 +1398,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1410,7 +1410,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1421,7 +1421,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1451,7 +1451,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1463,7 +1463,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1474,7 +1474,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1504,7 +1504,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1516,7 +1516,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1527,7 +1527,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1557,7 +1557,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1569,7 +1569,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1580,7 +1580,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1603,7 +1603,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1615,7 +1615,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1626,7 +1626,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1649,7 +1649,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1661,7 +1661,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1672,7 +1672,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1695,7 +1695,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1707,7 +1707,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1718,7 +1718,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1741,7 +1741,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1753,7 +1753,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1764,7 +1764,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1787,7 +1787,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1799,7 +1799,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1810,7 +1810,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1833,7 +1833,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1845,7 +1845,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1856,7 +1856,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1879,7 +1879,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1891,7 +1891,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1902,7 +1902,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1925,7 +1925,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1937,7 +1937,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1948,7 +1948,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -1971,7 +1971,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -1983,7 +1983,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -1994,7 +1994,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -2017,7 +2017,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -2029,7 +2029,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -2040,7 +2040,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -2063,7 +2063,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -2075,7 +2075,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -2086,7 +2086,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -2116,7 +2116,7 @@ describe(`[auto generated] Detects reserved variable names. Not all are detected
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

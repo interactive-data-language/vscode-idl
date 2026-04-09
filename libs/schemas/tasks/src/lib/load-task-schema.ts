@@ -30,30 +30,30 @@ export async function LoadTaskSchema(): Promise<ValidateFunction<any>> {
     const base = JSON.parse(
       await readFile(
         GetExtensionPath('extension/language/schemas/tasks/schema.json'),
-        { encoding: 'utf-8' }
-      )
+        { encoding: 'utf-8' },
+      ),
     );
 
     // load actual schema for config tags
     const idl = JSON.parse(
       await readFile(
         GetExtensionPath('extension/language/schemas/tasks/idl.schema.json'),
-        { encoding: 'utf-8' }
-      )
+        { encoding: 'utf-8' },
+      ),
     );
     const envi = JSON.parse(
       await readFile(
         GetExtensionPath('extension/language/schemas/tasks/envi.schema.json'),
-        { encoding: 'utf-8' }
-      )
+        { encoding: 'utf-8' },
+      ),
     );
     const enviLegacy = JSON.parse(
       await readFile(
         GetExtensionPath(
-          'extension/language/schemas/tasks/envi-legacy.schema.json'
+          'extension/language/schemas/tasks/envi-legacy.schema.json',
         ),
-        { encoding: 'utf-8' }
-      )
+        { encoding: 'utf-8' },
+      ),
     );
 
     // join them into a single schema file

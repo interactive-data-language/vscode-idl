@@ -14,7 +14,7 @@ export async function GetCodeSemanticTokens(
   index: IDLIndex,
   file: string,
   code: string | string[],
-  token = new CancellationToken()
+  token = new CancellationToken(),
 ): Promise<SemanticTokens> {
   switch (true) {
     /**

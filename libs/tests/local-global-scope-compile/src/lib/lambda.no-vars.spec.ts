@@ -15,7 +15,7 @@ describe(`[auto generated] With lambda functions`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -31,7 +31,7 @@ describe(`[auto generated] With lambda functions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

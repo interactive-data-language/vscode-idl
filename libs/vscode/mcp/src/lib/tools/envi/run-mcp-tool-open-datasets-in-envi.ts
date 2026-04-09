@@ -16,7 +16,7 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
  */
 export async function RunMCPTool_OpenDatasetsInENVI(
   id: string,
-  params: MCPToolParams<MCPTool_OpenDatasetsInENVI>
+  params: MCPToolParams<MCPTool_OpenDatasetsInENVI>,
 ): Promise<MCPToolResponse<MCPTool_OpenDatasetsInENVI>> {
   /**
    * Start IDL
@@ -56,11 +56,11 @@ export async function RunMCPTool_OpenDatasetsInENVI(
   const res = await MCPEvaluateENVICommand(
     // datasets are already serialized as a string
     `vscode_displayDatasets, '${MCPSerializeJSON(
-      params.datasets
+      params.datasets,
     )}', automatic_zoom = '${params.automaticZoom}', reset = ${
       params.resetView ? '!true' : '!false'
     }`,
-    { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: false }
+    { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: false },
   );
 
   return {

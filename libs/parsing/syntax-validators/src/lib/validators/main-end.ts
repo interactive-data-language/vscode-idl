@@ -37,7 +37,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
       const prob = SyntaxProblemWithTranslation(
         IDL_PROBLEM_CODES.MISSING_MAIN_END,
         [pos[0], 0, Number.MAX_VALUE],
-        [pos[0], 0, Number.MAX_VALUE]
+        [pos[0], 0, Number.MAX_VALUE],
       );
 
       // update flag for if we can report
@@ -46,5 +46,5 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
       // save
       parsed.parseProblems.push(prob);
     }
-  }
+  },
 );

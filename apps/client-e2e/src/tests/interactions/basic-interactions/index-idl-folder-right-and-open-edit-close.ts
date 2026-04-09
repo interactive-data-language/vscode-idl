@@ -19,10 +19,10 @@ import { RunnerFunction } from '../../runner.interface';
  * the problems are correctly synced after each action
  */
 export const IndexIDLFolderRightAndOpenEditClose: RunnerFunction = async (
-  init
+  init,
 ) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/vscode/vscode_notebookinit.pro')
+    GetExtensionPath('idl/vscode/vscode_notebookinit.pro'),
   );
 
   // short pause to make sure we open and parse
@@ -36,8 +36,8 @@ export const IndexIDLFolderRightAndOpenEditClose: RunnerFunction = async (
     doc,
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/index_folder_test.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // short pause

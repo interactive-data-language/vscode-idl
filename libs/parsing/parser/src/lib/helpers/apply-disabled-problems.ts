@@ -7,7 +7,7 @@ import { IParsed } from '@idl/types/syntax-tree';
 export function IsProblemDisabled(
   problemCode: IDLProblemCode,
   line: number,
-  disabled: IDisabledProblems
+  disabled: IDisabledProblems,
 ) {
   // check if all are disabled
   if (disabled.all) {
@@ -40,7 +40,7 @@ export function ApplyDisabledProblems(parsed: IParsed) {
       : !IsProblemDisabled(
           parsed.parseProblems[i].code,
           parsed.parseProblems[i].start[0],
-          parsed.disabledProblems
+          parsed.disabledProblems,
         );
   }
 
@@ -52,7 +52,7 @@ export function ApplyDisabledProblems(parsed: IParsed) {
       : !IsProblemDisabled(
           parsed.postProcessProblems[i].code,
           parsed.postProcessProblems[i].start[0],
-          parsed.disabledProblems
+          parsed.disabledProblems,
         );
   }
 }

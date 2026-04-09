@@ -35,7 +35,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(TOKEN_NAMES.UNKNOWN, (token, parsed) => {
       problem = SyntaxProblemWithTranslation(
         KNOWN_UNKNOWNS[trimmed],
         token.pos,
-        token.pos
+        token.pos,
       );
       break;
     case trimmed.startsWith('@'):
@@ -43,7 +43,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(TOKEN_NAMES.UNKNOWN, (token, parsed) => {
       problem = SyntaxProblemWithTranslation(
         IDL_PROBLEM_CODES.ILLEGAL_INCLUDE,
         token.pos,
-        token.pos
+        token.pos,
       );
       break;
     default:
@@ -51,7 +51,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(TOKEN_NAMES.UNKNOWN, (token, parsed) => {
       problem = SyntaxProblemWithTranslation(
         IDL_PROBLEM_CODES.UNKNOWN_TOKEN,
         token.pos,
-        token.pos
+        token.pos,
       );
       break;
   }

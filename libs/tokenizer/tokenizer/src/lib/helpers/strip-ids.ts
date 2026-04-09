@@ -13,7 +13,7 @@ import { TokenName } from '../tokens.interface';
  */
 export function StripIDs(
   tokens: TokenizerToken<TokenName>[],
-  removeMatches = false
+  removeMatches = false,
 ) {
   // copy our tokens
   const copied = copy(tokens);

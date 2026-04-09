@@ -72,5 +72,5 @@ export type RoutineNameMatches = [name: string];
 export type RoutineMethodNameMatches = [
   fullMatch: string,
   className: string,
-  methodName: string
+  methodName: string,
 ];

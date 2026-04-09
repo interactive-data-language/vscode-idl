@@ -17,7 +17,7 @@ import { StringifyCode } from './stringify-code';
 export async function TestsForSyntaxValidators(
   name: string,
   tests: ISyntaxValidatorTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -26,7 +26,7 @@ export async function TestsForSyntaxValidators(
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { SyntaxProblems } from '@idl/types/problem-codes';`);
   strings.push(``);
@@ -50,7 +50,7 @@ export async function TestsForSyntaxValidators(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // get the code to process
@@ -61,7 +61,7 @@ export async function TestsForSyntaxValidators(
      */
     const parseConfig = Object.assign(
       { postProcess: true },
-      test.config !== undefined ? test.config : {}
+      test.config !== undefined ? test.config : {},
     );
 
     // extract our tokens from the cleaned code
@@ -69,7 +69,7 @@ export async function TestsForSyntaxValidators(
       'not-real',
       toProcess,
       new CancellationToken(),
-      parseConfig
+      parseConfig,
     );
 
     // build our code string to insert into the automated test
@@ -93,8 +93,8 @@ export async function TestsForSyntaxValidators(
     strings.push(`    // extract tokens`);
     strings.push(
       `    const tokenized = await index.getParsedProCode('not-real', code, new CancellationToken(), ${JSON.stringify(
-        parseConfig
-      )});`
+        parseConfig,
+      )});`,
     );
     strings.push(``);
 
@@ -102,15 +102,15 @@ export async function TestsForSyntaxValidators(
     strings.push(`    // define expected tokens`);
     strings.push(
       `    const expected: SyntaxProblems = ${JSON.stringify(
-        tokenized.parseProblems.concat(tokenized.postProcessProblems)
-      )}`
+        tokenized.parseProblems.concat(tokenized.postProcessProblems),
+      )}`,
     );
     strings.push('');
 
     // verify results
     strings.push('    // verify results');
     strings.push(
-      '    expect(tokenized.parseProblems.concat(tokenized.postProcessProblems)).toEqual(expected)'
+      '    expect(tokenized.parseProblems.concat(tokenized.postProcessProblems)).toEqual(expected)',
     );
 
     strings.push('  })');

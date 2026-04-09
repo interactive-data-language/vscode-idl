@@ -15,7 +15,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -44,7 +44,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

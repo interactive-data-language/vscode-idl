@@ -15,7 +15,7 @@ export async function CreateCodeActions(
   diags: IDLDiagnostic[],
   formatting: IAssemblerOptions<FormatterType>,
   uri: string,
-  notebookCell?: number
+  notebookCell?: number,
 ): Promise<CodeAction[]> {
   /**
    * Make our code actions
@@ -33,7 +33,7 @@ export async function CreateCodeActions(
       code,
       formatting,
       actions,
-      notebookCell
+      notebookCell,
     );
 
     // add actions to disable problems with settings

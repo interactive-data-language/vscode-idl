@@ -13,7 +13,7 @@ import { EvaluateStaticReference } from './helpers/evaluate-static-reference';
 export function TypeFromVariable(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<VariableToken>
+  token: TreeToken<VariableToken>,
 ): IDLDataType {
   // get our variable source
   const source = GetVariable(token, parsed);

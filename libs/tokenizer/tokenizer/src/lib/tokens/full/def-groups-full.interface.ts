@@ -96,7 +96,7 @@ DEFAULT_EXCLUDE[TOKEN_NAMES.PROMPT] = true;
  * Tokens we look for when we are in a routine definition
  */
 export const DEFAULT_TOKENS_FULL = ALL_TOKENS.filter(
-  (token) => !(token.name in DEFAULT_EXCLUDE)
+  (token) => !(token.name in DEFAULT_EXCLUDE),
 );
 
 /**

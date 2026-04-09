@@ -17,7 +17,7 @@ export function MCP_ENVIRasterSeries() {
         message: 'url must end with ".series"',
       })
       .describe(
-        `Provide a fully-qualified filepath to raster series on disk. Should end with a ".series" extension.`
+        `Provide a fully-qualified filepath to raster series on disk. Should end with a ".series" extension.`,
       ),
   });
 }

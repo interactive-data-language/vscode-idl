@@ -13,7 +13,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const ProCodeCodeActionsNoExisting: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems/idl_code_actions_1.pro')
+    GetExtensionPath('idl/test/client-e2e/problems/idl_code_actions_1.pro'),
   );
 
   // short pause to make sure we open and parse
@@ -45,7 +45,7 @@ export const ProCodeCodeActionsNoExisting: RunnerFunction = async (init) => {
 
   const actions = await init.client.client.sendRequest(
     'textDocument/codeAction',
-    codeActionParams
+    codeActionParams,
   );
 
   // verify hover has return
@@ -136,7 +136,7 @@ export const ProCodeCodeActionsNoExisting: RunnerFunction = async (init) => {
  */
 export const ProCodeCodeActionsExisting: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems/idl_code_actions_2.pro')
+    GetExtensionPath('idl/test/client-e2e/problems/idl_code_actions_2.pro'),
   );
 
   // short pause to make sure we open and parse
@@ -168,7 +168,7 @@ export const ProCodeCodeActionsExisting: RunnerFunction = async (init) => {
 
   const actions = await init.client.client.sendRequest(
     'textDocument/codeAction',
-    codeActionParams
+    codeActionParams,
   );
 
   // verify hover has return

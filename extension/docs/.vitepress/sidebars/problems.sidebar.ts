@@ -20,7 +20,7 @@ export const PROBLEMS_SIDEBAR: SidebarEntry[] = [
   {
     text: 'Codes',
     items: PROBLEM_CODES_SIDEBAR.sort((a, b) =>
-      a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+      a.text > b.text ? 1 : b.text > a.text ? -1 : 0,
     ),
     collapsed: true,
   },

@@ -2,22 +2,16 @@
   @if (hasData) {
     @switch (embed.type) {
       @case ('idlnotebookimage_animationfrompngs') {
-        <idl-nb-image-animator
-          [embed]="embed"
-        ></idl-nb-image-animator>
+        <idl-nb-image-animator [embed]="embed"></idl-nb-image-animator>
       }
       @case ('idlnotebookimage_png') {
-        <idl-nb-image
-          [embed]="embed"
-        ></idl-nb-image>
+        <idl-nb-image [embed]="embed"></idl-nb-image>
       }
       @case ('idlnotebookmap') {
         <idl-nb-map [embed]="embed"></idl-nb-map>
       }
       @case ('idlnotebookplot') {
-        <idl-nb-plot
-          [embed]="embed"
-        ></idl-nb-plot>
+        <idl-nb-plot [embed]="embed"></idl-nb-plot>
       }
       @default {
         <div>
@@ -28,6 +22,4 @@
   } @else {
     <p>No data to render!</p>
   }
-
-
 </div>

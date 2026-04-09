@@ -47,8 +47,8 @@ function Callback(token: IBranch<CommaTokens>, syntax: SyntaxProblems) {
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.EXPECTED_COMMA,
           token.pos,
-          token.pos
-        )
+          token.pos,
+        ),
       );
     }
   }

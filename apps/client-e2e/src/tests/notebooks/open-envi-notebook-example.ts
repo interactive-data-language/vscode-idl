@@ -18,7 +18,7 @@ export const OpenENVINotebookExample: RunnerFunction = async (init) => {
   // make a new notebook
   await vscode.commands.executeCommand(
     IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
-    'hello-world-envi.idlnb'
+    'hello-world-envi.idlnb',
   );
 
   // short pause
@@ -32,6 +32,6 @@ export const OpenENVINotebookExample: RunnerFunction = async (init) => {
 
   // verify the file we open
   expect(CleanPath(editor?.notebook?.uri.fsPath) || '').toEqual(
-    join(EXAMPLE_NOTEBOOKS, 'hello-world-envi.idlnb')
+    join(EXAMPLE_NOTEBOOKS, 'hello-world-envi.idlnb'),
   );
 };

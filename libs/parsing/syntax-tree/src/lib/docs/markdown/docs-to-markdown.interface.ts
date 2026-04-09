@@ -95,11 +95,11 @@ export type RoutineMarkdownInfo<T extends RoutineType> = {
 export type MarkdownInfo<T extends MarkdownType> = T extends GeneralMarkdown
   ? { [key: string]: string }
   : T extends RoutineMarkdown
-  ? RoutineMarkdownInfo<FunctionRoutineType | ProcedureRoutineType>
-  : T extends StructureMarkdown
-  ? RoutineMarkdownInfo<StructureRoutineType>
-  : T extends TaskMarkdown
-  ? RoutineMarkdownInfo<FunctionRoutineType>
-  : T extends VariableMarkdown
-  ? IDocs
-  : never;
+    ? RoutineMarkdownInfo<FunctionRoutineType | ProcedureRoutineType>
+    : T extends StructureMarkdown
+      ? RoutineMarkdownInfo<StructureRoutineType>
+      : T extends TaskMarkdown
+        ? RoutineMarkdownInfo<FunctionRoutineType>
+        : T extends VariableMarkdown
+          ? IDocs
+          : never;

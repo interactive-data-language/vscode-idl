@@ -10,7 +10,7 @@ export function MCPTrackHoverHelpResources() {
   for (let i = 0; i < keys.length; i++) {
     MCPResourceIndex.add(
       `control-info-for-${keys[i]}`,
-      IDL_TRANSLATION.hoverHelp.control[keys[i]]
+      IDL_TRANSLATION.hoverHelp.control[keys[i]],
     );
   }
 }

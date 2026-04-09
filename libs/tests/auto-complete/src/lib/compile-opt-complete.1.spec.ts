@@ -15,12 +15,12 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/compile_opt_complete.pro'
+      'idl/test/auto-complete/compile_opt_complete.pro',
     );
 
     // add file to index
@@ -50,9 +50,9 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 3, character: 17 };
@@ -77,9 +77,9 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

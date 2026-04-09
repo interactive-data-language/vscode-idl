@@ -9,7 +9,7 @@ import { IParameterDocs, IParameterHTML } from './process-parameters.interface';
  */
 export async function ProcessParameters(
   params: IParameterHTML,
-  file: string
+  file: string,
 ): Promise<IParameterDocs> {
   // get folder our file lives in
   const dir = dirname(file);

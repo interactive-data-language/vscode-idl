@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify reference filepath
@@ -26,7 +26,7 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/hover-help/testroutine.pro.def')
+      GetExtensionPath('idl/test/hover-help/testroutine.pro.def'),
     );
 
     // define position
@@ -173,7 +173,7 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
     const found_0 = await index.getTokenDef(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
     if (found_0 !== undefined) {
       delete found_0.file;

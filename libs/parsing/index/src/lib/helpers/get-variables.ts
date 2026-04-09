@@ -16,7 +16,7 @@ IS_PARENT[TOKEN_NAMES.MAIN_LEVEL] = true;
 export function GetVariables(
   token: TreeToken<TokenName>,
   parsed: IParsed,
-  useCache = true
+  useCache = true,
 ): ILocalTokenLookup {
   if (token.cache) {
     if ('variables' in (token.cache as ITokenCache) && useCache) {

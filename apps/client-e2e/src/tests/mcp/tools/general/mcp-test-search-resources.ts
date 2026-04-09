@@ -54,7 +54,7 @@ export const RunMCPTestSearchResources: RunnerFunction = async (init) => {
   // attempt to parse
   try {
     parsedFunctionResources = JSON.parse(
-      functonResources.content[0].text as string
+      functonResources.content[0].text as string,
     );
   } catch (err) {
     // do nothing

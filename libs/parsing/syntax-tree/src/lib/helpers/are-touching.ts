@@ -6,7 +6,7 @@ import { PositionArray } from '@idl/types/tokenizer';
  */
 export function AreTokensTouching(
   pos1: PositionArray,
-  pos2: PositionArray
+  pos2: PositionArray,
 ): boolean {
   // not on the same line
   if (pos1[0] !== pos2[0]) {

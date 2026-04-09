@@ -60,7 +60,7 @@ export class IDLMachine {
       parsed = JSON.parse(msg);
     } catch (err) {
       console.log(
-        `Error while parsing message from server, partial message below`
+        `Error while parsing message from server, partial message below`,
       );
       console.log(msg.slice(0, 50));
       console.log(err);
@@ -79,7 +79,7 @@ export class IDLMachine {
       case (parsed as JSONRPCResponse).error !== undefined:
         if ((parsed as JSONRPCResponse).id in this.resolvers) {
           this.resolvers[(parsed as JSONRPCResponse).id].reject(
-            (parsed as JSONRPCResponse).error
+            (parsed as JSONRPCResponse).error,
           );
         }
         break;
@@ -90,7 +90,7 @@ export class IDLMachine {
       case (parsed as JSONRPCResponse).result !== undefined:
         if ((parsed as JSONRPCResponse).id in this.resolvers) {
           this.resolvers[(parsed as JSONRPCResponse).id].resolve(
-            (parsed as JSONRPCResponse).result
+            (parsed as JSONRPCResponse).result,
           );
         }
         break;
@@ -127,7 +127,7 @@ export class IDLMachine {
               } catch (err) {
                 console.log(
                   `Error responding to request with custom handler`,
-                  err
+                  err,
                 );
                 const resp: JSONRPCResponse = {
                   jsonrpc: '2.0',
@@ -204,7 +204,7 @@ export class IDLMachine {
           console.log(
             `Unhandled notification "${
               (parsed as JSONRPCNotification).method
-            }" from IDL Machine`
+            }" from IDL Machine`,
           );
         }
         break;
@@ -249,7 +249,7 @@ export class IDLMachine {
    */
   onNotification<T extends FromIDLMachineNotifications>(
     notification: T,
-    cb: (params: FromIDLMachineNotificationParams<T>) => Promise<void> | void
+    cb: (params: FromIDLMachineNotificationParams<T>) => Promise<void> | void,
   ) {
     this.handlers.notifications[notification] = cb;
   }
@@ -259,7 +259,7 @@ export class IDLMachine {
    */
   onRequest<T extends FromIDLMachineRequests>(
     request: T,
-    cb: FromIDLMachineRequestHandler<T>
+    cb: FromIDLMachineRequestHandler<T>,
   ) {
     this.handlers.requests[request] = cb;
   }
@@ -269,7 +269,7 @@ export class IDLMachine {
    */
   registerIDLNotifyHandler(
     idlNotifyEvent: string,
-    handler: FromIDLMachineRequestHandler<IDLNotifyRequest>
+    handler: FromIDLMachineRequestHandler<IDLNotifyRequest>,
   ) {
     this._customRequestHandlers.idlNotify[idlNotifyEvent] = handler;
   }
@@ -281,7 +281,7 @@ export class IDLMachine {
    */
   registerRequestHandler<T extends FromIDLMachineRequests>(
     event: T,
-    handler: FromIDLMachineRequestHandler<T>
+    handler: FromIDLMachineRequestHandler<T>,
   ) {
     this._customRequestHandlers.handlers[event] = handler as any;
   }
@@ -291,7 +291,7 @@ export class IDLMachine {
    */
   async sendNotification<T extends ToIDLMachineNotifications>(
     notification: T,
-    params: ToIDLMachineNotificationParams<T>
+    params: ToIDLMachineNotificationParams<T>,
   ) {
     this._writeNotification(notification, params);
   }
@@ -301,7 +301,7 @@ export class IDLMachine {
    */
   async sendRequest<T extends ToIDLMachineRequests>(
     request: T,
-    params: ToIDLMachineRequestParams<T>
+    params: ToIDLMachineRequestParams<T>,
   ): Promise<ToIDLMachineRequestResponse<T>> {
     return new Promise((resolve, reject) => {
       /**
@@ -326,7 +326,7 @@ export class IDLMachine {
         jsonrpc: '2.0',
         method,
         params,
-      })
+      }),
     );
   }
 
@@ -340,7 +340,7 @@ export class IDLMachine {
         id,
         method,
         params,
-      })
+      }),
     );
   }
 
@@ -353,7 +353,7 @@ export class IDLMachine {
         jsonrpc: '2.0',
         id,
         result,
-      })
+      }),
     );
   }
 }

@@ -8,7 +8,7 @@ import { TokenFormatter } from '../../formatter-rule-set.interface';
 export const PROPERTY_FORMATTER: TokenFormatter<TokenName> = (
   token,
   meta,
-  parsed
+  parsed,
 ) => {
   token.match[0] = token.match[0].replace(/\s*/g, '');
 

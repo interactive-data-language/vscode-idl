@@ -34,7 +34,7 @@ export function AddTopLevelConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.debugMode,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.debugMode,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };

@@ -6,7 +6,7 @@ import { Range } from 'vscode-languageserver';
  */
 export function PositionToRange(
   pos: PositionArray,
-  end?: PositionArray
+  end?: PositionArray,
 ): Range {
   // check if we have a range to range-ify
   if (end) {

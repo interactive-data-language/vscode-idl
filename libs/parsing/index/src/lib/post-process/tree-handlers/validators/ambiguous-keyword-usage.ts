@@ -47,7 +47,7 @@ const cb: BranchCallback<CallRoutineToken, PopulateTypeHandlerMeta> = (
   token,
   parsed,
   current,
-  meta
+  meta,
 ) => {
   const keywords = GetKeywords(meta.index, parsed, token);
 
@@ -62,7 +62,7 @@ const cb: BranchCallback<CallRoutineToken, PopulateTypeHandlerMeta> = (
   // get the keywords that we use
   const used: TreeToken<KeywordBinaryToken | KeywordToken>[] =
     FindDirectBranchChildren(token, TOKEN_NAMES.KEYWORD).concat(
-      FindDirectBranchChildren(token, TOKEN_NAMES.KEYWORD_BINARY) as any
+      FindDirectBranchChildren(token, TOKEN_NAMES.KEYWORD_BINARY) as any,
     );
 
   // process each used keyword
@@ -93,8 +93,8 @@ const cb: BranchCallback<CallRoutineToken, PopulateTypeHandlerMeta> = (
             IDL_PROBLEM_CODES.AMBIGUOUS_KEYWORD_ABBREVIATION
           ] + ` "${display}"`,
           used[i].pos,
-          used[i].pos
-        )
+          used[i].pos,
+        ),
       );
     }
   }

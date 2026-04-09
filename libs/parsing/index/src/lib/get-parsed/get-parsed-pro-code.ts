@@ -55,7 +55,7 @@ export async function GetParsedPROCode(
   file: string,
   code: string | string[],
   token = new CancellationToken(),
-  options: Partial<IIndexProCodeOptions> = {}
+  options: Partial<IIndexProCodeOptions> = {},
 ): Promise<IParsed> {
   /**
    * Get the checksum of our code
@@ -99,7 +99,7 @@ export async function GetParsedPROCode(
           {
             file,
             code,
-          }
+          },
         );
 
         const newPending: IGetParsedPROCodePending = {
@@ -136,7 +136,7 @@ export async function GetParsedPROCode(
           file,
           code,
           ...Object.assign(copy(DEFAULT_INDEX_PRO_CODE_OPTIONS), options),
-        }
+        },
       );
 
       const newPending: IGetParsedPROCodePending = {
@@ -166,7 +166,7 @@ export async function GetParsedPROCode(
       await index.saveGlobalTokens(
         current.global,
         file,
-        current.disabledProblems
+        current.disabledProblems,
       );
 
       // track syntax problems

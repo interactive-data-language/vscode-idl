@@ -20,7 +20,7 @@ export async function NotebookToProCode(
   notebook: IDLNotebookDocument,
   formatting: IAssemblerOptions<FormatterType>,
   cancel: CancellationToken,
-  options: Partial<INotebookToProCodeOptions> = {}
+  options: Partial<INotebookToProCodeOptions> = {},
 ): Promise<string> {
   /**
    * Merge options for notebook creation
@@ -68,7 +68,7 @@ export async function NotebookToProCode(
           mdCell.text
             .trim()
             .split(LINE_SEPARATOR)
-            .map((line) => `; ${line}`)
+            .map((line) => `; ${line}`),
         );
       }
 

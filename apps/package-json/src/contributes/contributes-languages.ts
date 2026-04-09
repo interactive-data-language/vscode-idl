@@ -98,7 +98,7 @@ export function ProcessLanguages(packageJSON: IPackageJSON, nls: IPackageNLS) {
       const languageUri = join(process.cwd(), language.configuration);
       if (!existsSync(languageUri)) {
         throw new Error(
-          `Language at index ${i} missing path file where expected "${language.configuration}"`
+          `Language at index ${i} missing path file where expected "${language.configuration}"`,
         );
       }
     }

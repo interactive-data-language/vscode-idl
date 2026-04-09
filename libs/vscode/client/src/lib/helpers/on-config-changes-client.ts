@@ -24,7 +24,7 @@ export const ON_CONFIG_CHANGES_CLIENT = () => {
       LANGUAGE_SERVER_MESSAGE_LOOKUP.WORKSPACE_CONFIG,
       {
         config: IDL_EXTENSION_CONFIG,
-      }
+      },
     );
   }
 };

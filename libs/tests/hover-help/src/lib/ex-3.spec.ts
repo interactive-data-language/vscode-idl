@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly finds no information for parameters in docs
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -34,12 +34,12 @@ describe(`[auto generated] Correctly finds no information for parameters in docs
     const hoverHelp_0 = await index.getHoverHelp(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
 
     // verify results
     expect(expectedFound_0).toEqual(
-      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim)
+      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim),
     );
 
     // define position
@@ -52,12 +52,12 @@ describe(`[auto generated] Correctly finds no information for parameters in docs
     const hoverHelp_1 = await index.getHoverHelp(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_1
+      position_1,
     );
 
     // verify results
     expect(expectedFound_1).toEqual(
-      ((hoverHelp_1?.contents as string) || '').split(/\r?\n/gim)
+      ((hoverHelp_1?.contents as string) || '').split(/\r?\n/gim),
     );
   });
 });

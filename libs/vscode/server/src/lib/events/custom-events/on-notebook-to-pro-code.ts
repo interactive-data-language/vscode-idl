@@ -21,7 +21,7 @@ import { NOTEBOOK_MANAGER } from '../initialize-notebook-manager';
  * @param event The event from VSCode
  */
 export const ON_NOTEBOOK_TO_PRO_CODE = async (
-  event: INotebookToProCodePayload
+  event: INotebookToProCodePayload,
 ): Promise<INotebookToProCodeResponse> => {
   await SERVER_INITIALIZED;
   try {
@@ -57,7 +57,7 @@ export const ON_NOTEBOOK_TO_PRO_CODE = async (
         idlNotebook,
         config,
         new CancellationToken(),
-        event.options || {}
+        event.options || {},
       ),
     };
   } catch (err) {

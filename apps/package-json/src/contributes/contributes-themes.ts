@@ -46,7 +46,7 @@ export function ProcessThemes(packageJSON: IPackageJSON, nls: IPackageNLS) {
     // make sure that our translation is correct
     if (!VerifyNLS(theme.label, nls)) {
       throw new Error(
-        `Theme at index ${i} has an invalid label of "${theme.label}"`
+        `Theme at index ${i} has an invalid label of "${theme.label}"`,
       );
     }
 
@@ -54,7 +54,7 @@ export function ProcessThemes(packageJSON: IPackageJSON, nls: IPackageNLS) {
     const themeUri = join(process.cwd(), theme.path);
     if (!existsSync(themeUri)) {
       throw new Error(
-        `Theme at index ${i} missing path file where expected "${theme.label}"`
+        `Theme at index ${i} missing path file where expected "${theme.label}"`,
       );
     }
   }

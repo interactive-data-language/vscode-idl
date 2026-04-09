@@ -12,7 +12,7 @@ export function TreeCallbackRunner<TMeta extends IHandlerCallbackMetadata>(
   handler: TreeCallbackHandler<TMeta>,
   parsed: IParsed,
   cancel: CancellationToken,
-  meta: TMeta
+  meta: TMeta,
 ) {
   // use our tree recurser to process what we parsed
   TreeRecurser(
@@ -25,7 +25,7 @@ export function TreeCallbackRunner<TMeta extends IHandlerCallbackMetadata>(
       onBranchToken: (token, current) => {
         handler.processBranchToken(token, parsed, current, meta);
       },
-    })
+    }),
   );
 
   // pre-process the tree

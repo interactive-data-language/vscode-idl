@@ -23,7 +23,7 @@ export function RegisterCopilotCommands(ctx: vscode.ExtensionContext) {
   vscode.commands.executeCommand(
     'setContext',
     'idl.devMode',
-    ctx.extensionMode === vscode.ExtensionMode.Development
+    ctx.extensionMode === vscode.ExtensionMode.Development,
   );
 
   // register QC test command
@@ -37,10 +37,10 @@ export function RegisterCopilotCommands(ctx: vscode.ExtensionContext) {
           LogCommandError(
             'Error while running Copilot QC tests',
             err,
-            cmdErrors.copilot.runQCTests
+            cmdErrors.copilot.runQCTests,
           );
         }
-      }
-    )
+      },
+    ),
   );
 }

@@ -27,7 +27,7 @@ const PROCEDURE_METHODS =
  */
 function BuildProcedureMethodCompletionItemsForType(
   arg: IProcedureMethodCompletionArg,
-  type: IDLDataTypeBase<IDLTypes>
+  type: IDLDataTypeBase<IDLTypes>,
 ) {
   /**
    * If we have any type, return everything
@@ -39,7 +39,7 @@ function BuildProcedureMethodCompletionItemsForType(
         label: displayNames[i],
         insertText: TransformCase(
           displayNames[i].split('::')[1],
-          arg.formatting.style.routineMethods
+          arg.formatting.style.routineMethods,
         ),
         kind: CompletionItemKind.Function,
         sortText: COMPLETION_SORT_PRIORITY.METHODS,
@@ -61,7 +61,7 @@ function BuildProcedureMethodCompletionItemsForType(
         label: PROCEDURE_METHODS[keysInternal[i]],
         insertText: TransformCase(
           PROCEDURE_METHODS[keysInternal[i]].split('::')[1],
-          arg.formatting.style.routineMethods
+          arg.formatting.style.routineMethods,
         ),
         kind: CompletionItemKind.Function,
         sortText: COMPLETION_SORT_PRIORITY.METHODS,
@@ -74,7 +74,7 @@ function BuildProcedureMethodCompletionItemsForType(
   // check for global token
   const global = arg.index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.STRUCTURE,
-    type.name.toLocaleLowerCase()
+    type.name.toLocaleLowerCase(),
   );
   if (global.length > 0) {
     // check if we have inheritance to consider
@@ -98,7 +98,7 @@ function BuildProcedureMethodCompletionItemsForType(
  * Creates options for creating property completion items
  */
 export function GetProcedureMethodCompletionOptions(
-  type: IDLDataType
+  type: IDLDataType,
 ): IProcedureMethodCompletionOptions {
   return {
     type,
@@ -109,7 +109,7 @@ export function GetProcedureMethodCompletionOptions(
  * Adds variables to our completion items
  */
 export function BuildProcedureMethodCompletionItems(
-  arg: IProcedureMethodCompletionArg
+  arg: IProcedureMethodCompletionArg,
 ) {
   // track found if we dont have it
   if (!arg.found) {
@@ -133,7 +133,7 @@ export function BuildProcedureMethodCompletionItems(
    * Since this is recursive based on types and inheritance, we do it at this level
    */
   const idxSorted = GetSortIndexForStrings(
-    arg.complete.map((item) => item.label)
+    arg.complete.map((item) => item.label),
   );
 
   // merge while perserving original array reference

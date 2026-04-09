@@ -14,7 +14,7 @@ import { MCPVerifyIDLVersion } from '../../helpers/mcp-verify-idl-version';
  */
 export async function RunMCPTool_ListENVIToolWorkflows(
   id: string,
-  params: MCPToolParams<MCPTool_ListENVIToolWorkflows>
+  params: MCPToolParams<MCPTool_ListENVIToolWorkflows>,
 ): Promise<MCPToolResponse<MCPTool_ListENVIToolWorkflows>> {
   /**
    * Start IDL
@@ -41,7 +41,7 @@ export async function RunMCPTool_ListENVIToolWorkflows(
 
   // start ENVI/make sure it is started
   const workflows = await MCPEvaluateENVICommand(
-    `vscode_retrieveENVITaskWorkflows`
+    `vscode_retrieveENVITaskWorkflows`,
   );
 
   // if we didnt succeed, then return

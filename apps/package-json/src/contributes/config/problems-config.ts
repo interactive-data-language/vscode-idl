@@ -36,7 +36,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
     default: [],
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.problemsExcludeProblemsForPath,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
     items: {
@@ -53,7 +53,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.problems.includeProblemsFromIDLPath,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.problemsIncludeProblemsFromIDLPath,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -67,7 +67,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
       DEFAULT_IDL_EXTENSION_CONFIG.problems.includeProblemsFromIDLPackages,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.problemsIncludeProblemsFromIDLPackages,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -80,7 +80,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.problems.reportProblems,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -93,7 +93,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.problems.reportDocsProblems,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.problemsReportDocsProblems,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -106,7 +106,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
     default: [],
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
     uniqueItems: true,
@@ -118,7 +118,7 @@ export function AddProblemsConfig(nls: IPackageNLS) {
   IDLProblemCodeEnumAndTranslations(
     ourConfig.properties[
       `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems}`
-    ]
+    ],
   );
 
   EXTENSION_CONFIG.push(ourConfig);

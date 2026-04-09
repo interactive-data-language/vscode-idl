@@ -84,7 +84,7 @@ export function ProcessDebugging(packageJSON: IPackageJSON, nls: IPackageNLS) {
       // verify label
       if (!VerifyNLS(config.name, nls)) {
         throw new Error(
-          'Initial debug configuration at index ${j} has "name" missing from translation'
+          'Initial debug configuration at index ${j} has "name" missing from translation',
         );
       }
     }
@@ -96,21 +96,21 @@ export function ProcessDebugging(packageJSON: IPackageJSON, nls: IPackageNLS) {
       // verify label
       if (!VerifyNLS(snippet.label, nls)) {
         throw new Error(
-          'Config snippet at index ${j} has "label" missing from translation'
+          'Config snippet at index ${j} has "label" missing from translation',
         );
       }
 
       // verify label
       if (!VerifyNLS(snippet.description, nls)) {
         throw new Error(
-          'Config snippet at index ${j} has "description" missing from translation'
+          'Config snippet at index ${j} has "description" missing from translation',
         );
       }
 
       // verify label
       if (!VerifyNLS(snippet.body.name, nls)) {
         throw new Error(
-          'Config snippet at index ${j} has "body.name" missing from translation'
+          'Config snippet at index ${j} has "body.name" missing from translation',
         );
       }
     }
@@ -132,14 +132,14 @@ export function ProcessDebugging(packageJSON: IPackageJSON, nls: IPackageNLS) {
     // stop if no matching command found
     if (match === undefined) {
       throw new Error(
-        'debug icon at index ${i} has no matching command in package.json'
+        'debug icon at index ${i} has no matching command in package.json',
       );
     }
 
     // make sure we have icon information
     if (match.icon === undefined) {
       throw new Error(
-        'command for debug icon at index ${i} has no icon information in package.json'
+        'command for debug icon at index ${i} has no icon information in package.json',
       );
     }
   }

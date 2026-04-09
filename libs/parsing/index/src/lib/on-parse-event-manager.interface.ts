@@ -85,5 +85,5 @@ export type ParseEventPayloadMap = {
  * Type-safe event listener callback
  */
 export type ParseEventListener<T extends IDLFileType> = (
-  payload: ParseEventPayloadMap[T]
+  payload: ParseEventPayloadMap[T],
 ) => void;

@@ -25,7 +25,7 @@ import { TypeFromTokens } from './type-from-tokens';
 export function TypeFromStructure(
   index: IDLIndex,
   token: TreeToken<StructureToken>,
-  parsed: IParsed
+  parsed: IParsed,
 ): IDLDataType {
   // get the name of the routine we are in
   const routineName = GetRoutineNameFromScope(token);
@@ -38,7 +38,7 @@ export function TypeFromStructure(
     // search for global structure definition
     const global = index.findMatchingGlobalToken(
       GLOBAL_TOKEN_TYPES.STRUCTURE,
-      name[0].match[0]
+      name[0].match[0],
     );
 
     // check if we have a  match or not
@@ -54,8 +54,8 @@ export function TypeFromStructure(
               IDL_PROBLEM_CODES.UNKNOWN_STRUCTURE
             ].replace('#SNAME', `"${name[0].match[0].trim()}"`),
             name[0].pos,
-            name[0].pos
-          )
+            name[0].pos,
+          ),
         );
       }
 
@@ -70,7 +70,7 @@ export function TypeFromStructure(
   // get our properties
   const properties = FindDirectBranchChildren(
     token,
-    TOKEN_NAMES.STRUCTURE_PROPERTY
+    TOKEN_NAMES.STRUCTURE_PROPERTY,
   );
 
   // init properties

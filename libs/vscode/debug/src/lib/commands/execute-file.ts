@@ -23,7 +23,7 @@ export async function ExecuteFile() {
         echo: true,
         newLine: true,
         errorCheck: true,
-      }
+      },
     );
   }
 }

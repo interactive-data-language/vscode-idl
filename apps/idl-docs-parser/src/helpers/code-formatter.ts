@@ -34,7 +34,7 @@ const INDEX = new IDLIndex(
     },
   }),
   0,
-  true
+  true,
 );
 
 /**
@@ -50,7 +50,7 @@ async function ParseAndFormatCode(code: string) {
     {
       postProcess: true,
       type: 'notebook',
-    }
+    },
   );
 
   // check for missing main level end
@@ -73,7 +73,7 @@ async function ParseAndFormatCode(code: string) {
       {
         postProcess: true,
         type: 'notebook',
-      }
+      },
     );
   }
 

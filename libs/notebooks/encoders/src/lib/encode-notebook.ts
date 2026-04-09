@@ -4,7 +4,7 @@ import { IDLRawNotebook, IDLRawNotebookVersion } from '@idl/types/notebooks';
  * Encodes a raw notebook and data that can be written to disk
  */
 export function EncodeNotebook(
-  notebook: IDLRawNotebook<IDLRawNotebookVersion>
+  notebook: IDLRawNotebook<IDLRawNotebookVersion>,
 ): Uint8Array {
   return new TextEncoder().encode(JSON.stringify(notebook, null, 2));
 }

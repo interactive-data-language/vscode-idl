@@ -41,7 +41,7 @@ module.exports = composePlugins(withNx(), (config) => {
     // Make `Buffer` globally available
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
-    })
+    }),
   );
 
   return config;

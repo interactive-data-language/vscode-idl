@@ -70,7 +70,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           await Sleep(100);
           await IDL_NOTEBOOK_CONTROLLER.launchIDL(
             nb,
-            IDL_TRANSLATION.notebooks.notifications.resettingIDL
+            IDL_TRANSLATION.notebooks.notifications.resettingIDL,
           );
         } else {
           IDL_LOGGER.log({
@@ -86,11 +86,11 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error resetting notebook',
           err,
-          cmdErrors.notebooks.resetIDLKernel
+          cmdErrors.notebooks.resetIDLKernel,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -124,7 +124,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             },
             () => {
               return prom;
-            }
+            },
           );
 
           // wait for finish
@@ -143,11 +143,11 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error stopping notebook',
           err,
-          cmdErrors.notebooks.stopIDLKernel
+          cmdErrors.notebooks.stopIDLKernel,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -169,12 +169,12 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error stopping notebook',
             err,
-            cmdErrors.notebooks.stopIDLKernel
+            cmdErrors.notebooks.stopIDLKernel,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -196,7 +196,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             DOCS_NOTEBOOK_FOLDER,
             `docs.${arg.name.toLowerCase().replace(/!|:/gim, '_')}.${
               arg.type
-            }${IDL_NOTEBOOK_EXTENSION}`
+            }${IDL_NOTEBOOK_EXTENSION}`,
           );
 
           /**
@@ -204,7 +204,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
            */
           const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
             'retrieve-docs',
-            arg
+            arg,
           );
 
           const converted = await ConvertDocsToNotebook(arg, resp.docs);
@@ -212,7 +212,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           // check if we have no examples
           if (converted === undefined) {
             vscode.window.showInformationMessage(
-              IDL_TRANSLATION.notebooks.notifications.noExamplesFoundInDocs
+              IDL_TRANSLATION.notebooks.notifications.noExamplesFoundInDocs,
             );
             return false;
           }
@@ -229,12 +229,12 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error stopping notebook',
             err,
-            cmdErrors.notebooks.helpAsNotebook
+            cmdErrors.notebooks.helpAsNotebook,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -243,7 +243,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
       async (dontSave?: boolean) => {
         try {
           const doc = await vscode.workspace.openNotebookDocument(
-            IDL_NOTEBOOK_LANGUAGE_NAME
+            IDL_NOTEBOOK_LANGUAGE_NAME,
           );
 
           await vscode.window.showNotebookDocument(doc);
@@ -259,12 +259,12 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error creating a new IDL Notebook',
             err,
-            cmdErrors.notebooks.newNotebook
+            cmdErrors.notebooks.newNotebook,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -294,7 +294,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
               ...[
                 { title: IDL_TRANSLATION.notifications.yes },
                 { title: IDL_TRANSLATION.notifications.no },
-              ]
+              ],
             );
 
             if (includeAll === undefined) {
@@ -324,7 +324,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           // if we couldnt get stats on the file, it hasnt been saved
           if (!isFile) {
             vscode.window.showWarningMessage(
-              IDL_TRANSLATION.notebooks.notifications.saveNotebookFirst
+              IDL_TRANSLATION.notebooks.notifications.saveNotebookFirst,
             );
             return false;
           }
@@ -334,7 +334,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
             {
               uri: notebook.uri.toString(),
               options: useOptions,
-            }
+            },
           );
 
           // make sure we didnt have an error
@@ -356,12 +356,12 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error converting notebook to PRO code',
             err,
-            cmdErrors.notebooks.notebookToProCode
+            cmdErrors.notebooks.notebookToProCode,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -381,7 +381,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
               IDL_TRANSLATION.notebooks.notifications.needMarkdownPDF,
               () => {
                 shouldReturn = false;
-              }
+              },
             );
 
             // return if didnt confirm
@@ -394,11 +394,11 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
              */
             await vscode.commands.executeCommand(
               'workbench.extensions.installExtension',
-              'yzane.markdown-pdf'
+              'yzane.markdown-pdf',
             );
 
             vscode.window.showWarningMessage(
-              IDL_TRANSLATION.notebooks.notifications.markdownPDFWaitForInstall
+              IDL_TRANSLATION.notebooks.notifications.markdownPDFWaitForInstall,
             );
             return false;
           }
@@ -424,7 +424,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           // if we couldnt get stats on the file, it hasnt been saved
           if (!isFile) {
             vscode.window.showWarningMessage(
-              IDL_TRANSLATION.notebooks.notifications.saveNotebookFirst
+              IDL_TRANSLATION.notebooks.notifications.saveNotebookFirst,
             );
             return false;
           }
@@ -439,7 +439,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
            */
           const mdUri = CleanPath(notebook.uri.fsPath).replace(
             IDL_NOTEBOOK_EXTENSION,
-            '.md'
+            '.md',
           );
           writeFileSync(mdUri, md.join('\n'));
 
@@ -452,7 +452,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
            * Convert to PDF
            */
           const prom = vscode.commands.executeCommand(
-            'extension.markdown-pdf.pdf'
+            'extension.markdown-pdf.pdf',
           );
 
           // close markdown file
@@ -469,7 +469,7 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           // show PDF in explorer
           await vscode.commands.executeCommand(
             'revealFileInOS',
-            vscode.Uri.file(pdfUri)
+            vscode.Uri.file(pdfUri),
           );
 
           return true;
@@ -477,11 +477,11 @@ export function RegisterNotebookCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while converting notebook to pdf',
             err,
-            cmdErrors.notebooks.convertToPDF
+            cmdErrors.notebooks.convertToPDF,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 }

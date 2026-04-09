@@ -51,7 +51,6 @@ Once you have your command implemented, minimally the translation and package.js
 2. Add your entry to the proper parent group file within the folder `libs/vscode/tree-view/src/lib/trees`
 
 3. As part of adding to the tree, we show an SVG icon next to the entry. You may need to fetch additional icons. Here's some links where you can find ok-to-use icons:
-
    - Finding new icons from google: https://fonts.google.com/icons
 
    - Finding new icons from a huge material library: https://pictogrammers.com/library/mdi/

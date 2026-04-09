@@ -5,7 +5,7 @@ import { IDLMachineReadIOLineRequestHandler } from './from-machine-requests/idl-
  * Register IDL Machine request handlers for special user interaction
  */
 export function RegisterIDLMachineRequestHandlers(
-  manager: IDLInteractionManager
+  manager: IDLInteractionManager,
 ) {
   // i fnot machine, return
   if (!manager.isIDLMachine()) {
@@ -17,7 +17,7 @@ export function RegisterIDLMachineRequestHandlers(
    */
   manager.registerRequestHandler(
     'readIOLine',
-    IDLMachineReadIOLineRequestHandler
+    IDLMachineReadIOLineRequestHandler,
   );
 
   // manager.registerIDLNotifyHandler('cli_progressNotification', params => {

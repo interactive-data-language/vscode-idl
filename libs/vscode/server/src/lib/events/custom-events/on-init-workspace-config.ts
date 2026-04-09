@@ -21,7 +21,7 @@ import { SERVER_INITIALIZED } from '../../is-initialized';
  * @param event The event sent from VSCode
  */
 export const ON_INIT_WORKSPACE_CONFIG = async (
-  payload: LanguageServerPayload<InitWorkspaceConfigMessage>
+  payload: LanguageServerPayload<InitWorkspaceConfigMessage>,
 ) => {
   await SERVER_INITIALIZED;
   try {

@@ -7,45 +7,45 @@ import { RunNotebookAndCheckCallStackDecorations } from './helpers/run-notebook-
  * Function that verifies decorations do the right things for notebooks
  */
 export const NotebookCallStackDecorationsNoDecorations: RunnerFunction = async (
-  init
+  init,
 ) => {
   // make sure the call stack is correct
   await RunNotebookAndCheckCallStackDecorations(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/decorations/no-decorations.1.idlnb'
+      'idl/test/client-e2e/notebooks/decorations/no-decorations.1.idlnb',
     ),
     {},
     init.notebooks.controller,
-    init.decorations
+    init.decorations,
   );
 
   // make sure the call stack is correct
   await RunNotebookAndCheckCallStackDecorations(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/decorations/no-decorations.2.idlnb'
+      'idl/test/client-e2e/notebooks/decorations/no-decorations.2.idlnb',
     ),
     {},
     init.notebooks.controller,
-    init.decorations
+    init.decorations,
   );
 
   // make sure the call stack is correct
   await RunNotebookAndCheckCallStackDecorations(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/decorations/no-decorations.3.idlnb'
+      'idl/test/client-e2e/notebooks/decorations/no-decorations.3.idlnb',
     ),
     {},
     init.notebooks.controller,
-    init.decorations
+    init.decorations,
   );
 
   // make sure the call stack is correct
   await RunNotebookAndCheckCallStackDecorations(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/decorations/no-decorations.4.idlnb'
+      'idl/test/client-e2e/notebooks/decorations/no-decorations.4.idlnb',
     ),
     {},
     init.notebooks.controller,
-    init.decorations
+    init.decorations,
   );
 };

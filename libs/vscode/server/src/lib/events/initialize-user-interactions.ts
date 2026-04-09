@@ -35,7 +35,7 @@ export function InitializeUserInteractions() {
    * Set as server functionality, so we need to leave it for now
    */
   SERVER_CONNECTION.onCompletionResolve(
-    (item: CompletionItem): CompletionItem => undefined
+    (item: CompletionItem): CompletionItem => undefined,
     // (item: CompletionItem): CompletionItem => idl.postCompletion(item)
   );
 
@@ -52,6 +52,6 @@ export function InitializeUserInteractions() {
    */
   SERVER_CONNECTION.onRequest(
     'textDocument/semanticTokens/full',
-    ON_SEMANTIC_HIGHLIGHTING
+    ON_SEMANTIC_HIGHLIGHTING,
   );
 }

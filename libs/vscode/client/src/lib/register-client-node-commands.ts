@@ -56,17 +56,17 @@ export function RegisterClientNodeCommands(ctx: ExtensionContext) {
           IDL_EXTENSION_CONFIG.update(
             IDL_EXTENSION_CONFIG_KEYS.IDLDirectory,
             CleanPath(parsed.fsPath),
-            true
+            true,
           );
         } catch (err) {
           LogCommandError(
             'Error while setting IDL directory (User)',
             err,
-            cmdErrors.config.specifyIDLDirectory
+            cmdErrors.config.specifyIDLDirectory,
           );
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -102,16 +102,16 @@ export function RegisterClientNodeCommands(ctx: ExtensionContext) {
           IDL_EXTENSION_CONFIG.update(
             IDL_EXTENSION_CONFIG_KEYS.IDLDirectory,
             CleanPath(parsed.fsPath),
-            false
+            false,
           );
         } catch (err) {
           LogCommandError(
             'Error while setting IDL directory (Workspace)',
             err,
-            cmdErrors.config.specifyIDLDirectoryWorkspace
+            cmdErrors.config.specifyIDLDirectoryWorkspace,
           );
         }
-      }
-    )
+      },
+    ),
   );
 }

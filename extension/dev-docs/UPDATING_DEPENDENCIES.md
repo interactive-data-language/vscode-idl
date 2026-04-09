@@ -76,6 +76,10 @@ The big honcho, takes a while and updates key components. Read through this befo
 >
 > Sometimes you have to jump right to latest 22.X version because there's usually some issue with brand new versions
 
+12. Once NX has been updated, you _must_ run this command: `nx format:write --all`
+
+This makes sure that formatting rules are updated and match whatever version of prettier are included in the library.
+
 ## Migrating Libraries
 
 Anything not auto-managed by NX, we also need to try to update to resolve vulnerabilities and more.

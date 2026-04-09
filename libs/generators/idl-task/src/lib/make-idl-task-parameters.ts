@@ -11,7 +11,7 @@ import { IDLTaskParameter, IDLTaskSchema12 } from '@idl/types/tasks';
  * Makes the ENVI Task parameters from our procedure definition
  */
 export function MakeIDLTaskParameters(
-  pro: IGlobalIndexedToken<GlobalProcedureToken>
+  pro: IGlobalIndexedToken<GlobalProcedureToken>,
 ): IDLTaskParameter<IDLTaskSchema12>[] {
   /**
    * Create parameters
@@ -45,7 +45,7 @@ export function MakeIDLTaskParameters(
       /** Get only array types */
       const arrays = IDLTypeHelper.getMatchingTypes(
         type,
-        IDL_TYPE_LOOKUP.ARRAY
+        IDL_TYPE_LOOKUP.ARRAY,
       );
 
       /** Get types for array */

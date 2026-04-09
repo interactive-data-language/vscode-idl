@@ -30,16 +30,16 @@ export async function LoadSchema(): Promise<ValidateFunction<any>> {
     const base = JSON.parse(
       await readFile(
         GetExtensionPath('extension/language/schemas/config/schema.json'),
-        { encoding: 'utf-8' }
-      )
+        { encoding: 'utf-8' },
+      ),
     );
 
     // load actual schema for config tags
     const details = JSON.parse(
       await readFile(
         GetExtensionPath('extension/language/schemas/config/v1.schema.json'),
-        { encoding: 'utf-8' }
-      )
+        { encoding: 'utf-8' },
+      ),
     );
 
     // join them into a single schema file

@@ -15,7 +15,7 @@ import { TypeFromVariable } from '../type-from-variable';
 export function EvaluateVariableOrToken(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
 ): string | undefined {
   // check what our kid is
   switch (token.name) {

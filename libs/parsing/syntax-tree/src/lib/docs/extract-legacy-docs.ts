@@ -30,7 +30,7 @@ import { IDL_HEADER_MAP } from './header-map.interface';
  */
 export function ExtractLegacyDocs(
   comments: IBasicBranch<CommentToken>[],
-  blocks: IDocs
+  blocks: IDocs,
 ): IDocs {
   /**
    * Check if we actually parsed the docs
@@ -208,7 +208,7 @@ export function ExtractLegacyDocs(
 
           // put official RST docs
           lastFound.docs.push(
-            `   ${split[0]}: ${direction}, ${required}, ${type}`
+            `   ${split[0]}: ${direction}, ${required}, ${type}`,
           );
           lastFound.comments.push(comments[i]);
 
@@ -217,7 +217,7 @@ export function ExtractLegacyDocs(
             after
               .substring(name.length)
               .replace(LEGACY_PARAMETER_INFO, '')
-              .trim()
+              .trim(),
           );
 
           // make sure we have text to save
@@ -248,8 +248,8 @@ export function ExtractLegacyDocs(
         CleanComment(
           key === IDL_DOCS_HEADERS.ARGS || key === IDL_DOCS_HEADERS.KEYWORDS
             ? `    ${line}`
-            : line
-        )
+            : line,
+        ),
       );
       lastFound.comments.push(comments[i]);
     }
@@ -269,7 +269,7 @@ export function ExtractLegacyDocs(
       // update first match
       merge[i].docs[0] = merge[i].docs[0].replace(
         ARG_KW_PROPERTY_TAG,
-        `   ${keys[i]}:`
+        `   ${keys[i]}:`,
       );
 
       // determine how we save
@@ -307,7 +307,7 @@ export function ExtractLegacyDocs(
       // update first match
       merge[i].docs[0] = merge[i].docs[0].replace(
         ARG_KW_PROPERTY_TAG,
-        `   ${keys[i]}:`
+        `   ${keys[i]}:`,
       );
 
       // determine how we save

@@ -8,7 +8,7 @@ import * as vscode from 'vscode';
  * Returns undefined if no file is found
  */
 export function GetActiveIDLNotebookWindow(
-  alert = true
+  alert = true,
 ): undefined | vscode.NotebookDocument {
   // get active editor
   const editor = vscode.window.activeNotebookEditor;
@@ -19,7 +19,7 @@ export function GetActiveIDLNotebookWindow(
     case !editor:
       if (alert) {
         vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noIDLNotebook
+          IDL_TRANSLATION.notifications.noIDLNotebook,
         );
       }
       return undefined;
@@ -32,7 +32,7 @@ export function GetActiveIDLNotebookWindow(
     default:
       if (alert) {
         vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noProCode
+          IDL_TRANSLATION.notifications.noProCode,
         );
       }
       return undefined;

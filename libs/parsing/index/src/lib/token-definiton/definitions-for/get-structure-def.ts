@@ -10,12 +10,12 @@ import { IDLIndex } from '../../idl-index.class';
  */
 export function GetStructureDef(
   index: IDLIndex,
-  token: TreeToken<StructureNameToken>
+  token: TreeToken<StructureNameToken>,
 ): GlobalIndexedToken | undefined {
   // find match
   const global = index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.STRUCTURE,
-    token.match[0]
+    token.match[0],
   );
 
   // return

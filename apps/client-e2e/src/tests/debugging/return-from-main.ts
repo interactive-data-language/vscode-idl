@@ -15,7 +15,7 @@ export const ReturnFromMain: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -26,7 +26,7 @@ export const ReturnFromMain: RunnerFunction = async (init) => {
 
   /** Get the file with timer callback */
   const file = GetExtensionPath(
-    'idl/test/client-e2e/debug/return_from_main.pro'
+    'idl/test/client-e2e/debug/return_from_main.pro',
   );
 
   // open file
@@ -45,7 +45,7 @@ export const ReturnFromMain: RunnerFunction = async (init) => {
   const stack = (await init.debug.adapter._runtime.getCallStack()).frames.map(
     (item) => {
       return { line: item.line, file: item.file };
-    }
+    },
   );
 
   // make sure our call stack matches
@@ -53,7 +53,7 @@ export const ReturnFromMain: RunnerFunction = async (init) => {
 
   // compile
   const recompile: IRunIDLCommandResult = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.COMPILE
+    IDL_COMMANDS.DEBUG.COMPILE,
   );
 
   // make sure that we could run
@@ -63,7 +63,7 @@ export const ReturnFromMain: RunnerFunction = async (init) => {
   const stack2 = (await init.debug.adapter._runtime.getCallStack()).frames.map(
     (item) => {
       return { line: item.line, file: item.file };
-    }
+    },
   );
 
   // make sure our call stack matches

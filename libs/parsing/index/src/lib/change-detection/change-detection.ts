@@ -26,7 +26,7 @@ import { ProcessChangeDetectionResults } from './process-change-detection-result
 export async function ChangeDetectionWorkerThread(
   index: IDLIndex,
   token: CancellationToken,
-  changed: GlobalTokens
+  changed: GlobalTokens,
 ): Promise<IChangeDetection> {
   /** Files that we will post-process again */
   const postProcessThese: string[] = [];
@@ -86,7 +86,7 @@ export async function ChangeDetectionWorkerThread(
 export async function ChangeDetectionMainThread(
   index: IDLIndex,
   cancel: CancellationToken,
-  changed: GlobalTokens
+  changed: GlobalTokens,
 ) {
   /**
    * Get uniquely sorted names
@@ -147,8 +147,8 @@ export async function ChangeDetectionMainThread(
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.CHANGE_DETECTION,
           { changed },
           undefined,
-          cancel
-        ).response
+          cancel,
+        ).response,
       );
     }
 
@@ -194,7 +194,7 @@ export async function ChangeDetectionMainThread(
     type: 'info',
     content: [
       `Finished change detection after updating ${totalChanges} global(s) with ${recursion} step(s) over ${Math.floor(
-        performance.now() - t0
+        performance.now() - t0,
       )} ms, exit conditions:`,
       {
         noChanges,
@@ -213,7 +213,7 @@ export async function ChangeDetection(
   index: IDLIndex,
   token: CancellationToken,
   changesOrNewGlobals: GlobalTokens,
-  oldGlobals?: GlobalTokens
+  oldGlobals?: GlobalTokens,
 ) {
   const changed = Array.isArray(oldGlobals)
     ? GetChangedGlobals(changesOrNewGlobals, oldGlobals)

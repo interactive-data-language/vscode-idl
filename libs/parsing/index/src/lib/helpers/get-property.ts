@@ -33,7 +33,7 @@ function GetPropertyForType(
   token: TreeToken<AccessPropertyToken | StructurePropertyToken>,
   prop: string,
   useCache: boolean,
-  type: IDLDataTypeBase<IDLTypes>
+  type: IDLDataTypeBase<IDLTypes>,
 ): IFoundProperty | undefined {
   if (type.name === IDL_TYPE_LOOKUP.ANY) {
     return undefined;
@@ -58,7 +58,7 @@ function GetPropertyForType(
     // check for global token first
     const global = index.findMatchingGlobalToken(
       GLOBAL_TOKEN_TYPES.STRUCTURE,
-      type.name
+      type.name,
     );
 
     // check if we found a match
@@ -84,7 +84,7 @@ function GetPropertyForType(
             parsed,
             token,
             useCache,
-            IDLTypeHelper.parseIDLType(alsoCheck[i])
+            IDLTypeHelper.parseIDLType(alsoCheck[i]),
           );
           if (match !== undefined) {
             return match;
@@ -121,7 +121,7 @@ export function GetProperty(
   parsed: IParsed,
   token: TreeToken<AccessPropertyToken | StructurePropertyToken>,
   useCache = true,
-  type?: IDLDataType
+  type?: IDLDataType,
 ): IFoundProperty | undefined {
   if ('property' in (token.cache as ITokenCache) && useCache) {
     return (token.cache as ITokenCache).property;
@@ -183,7 +183,7 @@ export function GetProperty(
       token,
       propName,
       useCache,
-      type[i]
+      type[i],
     );
     if (found !== undefined) {
       (token.cache as ITokenCache).property = found;

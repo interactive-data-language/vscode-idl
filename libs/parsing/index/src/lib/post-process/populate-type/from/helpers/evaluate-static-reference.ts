@@ -27,7 +27,7 @@ NEXT_TOKENS[TOKEN_NAMES.ACCESS_PROPERTY] = true;
 export function EvaluateStaticReference(
   index: IDLIndex,
   source: ILocalIndexedToken<LocalVariableToken>,
-  token: TreeToken<VariableToken>
+  token: TreeToken<VariableToken>,
 ) {
   /**
    * Get the next token
@@ -49,7 +49,7 @@ export function EvaluateStaticReference(
    */
   const structs = index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.STRUCTURE,
-    source.name
+    source.name,
   );
 
   // save if we have one

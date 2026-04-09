@@ -19,7 +19,7 @@ export async function FormatDocsCode(index: IDLIndex, code: string) {
       postProcess: true,
       changeDetection: false,
       full: true,
-    }
+    },
   );
 
   // attempt to format

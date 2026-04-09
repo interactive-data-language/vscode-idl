@@ -60,7 +60,7 @@ const double = false;
  */
 export function UpdateNumberBaseType(
   type: IDLDataTypeBase<string>,
-  match: string
+  match: string,
 ) {
   // set type value
   type.value = [match.toLowerCase()];

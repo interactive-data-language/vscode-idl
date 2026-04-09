@@ -13,7 +13,7 @@ import { UnescapeMarkdown } from './unescape-markdown';
 export function ResolveSuperclasses(
   className: string,
   superHTML: IParsedHTML[],
-  dir: string
+  dir: string,
 ) {
   // get the class name that we use
   const useClass = className.toLowerCase();

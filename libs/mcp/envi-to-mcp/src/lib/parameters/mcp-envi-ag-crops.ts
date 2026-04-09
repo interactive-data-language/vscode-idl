@@ -16,7 +16,7 @@ export function MCP_ENVIAgCrops() {
         message: 'url must end with ".json"',
       })
       .describe(
-        `Provide a fully-qualified filepath to the ag crops on disk. Should end with a ".json" extension.`
+        `Provide a fully-qualified filepath to the ag crops on disk. Should end with a ".json" extension.`,
       ),
   });
 }

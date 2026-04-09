@@ -109,7 +109,7 @@ export class GA4Client<Event extends string = string> {
     if (config.user_id) {
       this.payloadData.user_id = config.user_id.substring(
         0,
-        GA4_CONFIG.USER_ID_LENGTH
+        GA4_CONFIG.USER_ID_LENGTH,
       );
     }
     if (config.user_ip_address) {
@@ -203,7 +203,7 @@ export class GA4Client<Event extends string = string> {
    */
   private buildPayload(
     event: Event,
-    parameters: IGA4EventParameters
+    parameters: IGA4EventParameters,
   ): IGA4EventParameters {
     // set flag if we have started our session or not
     if (this.payloadData.hit_count === 1) this.payloadData.session_engaged = 1;
@@ -213,7 +213,7 @@ export class GA4Client<Event extends string = string> {
      */
     const payload: IGA4EventParameters = Object.assign(
       {} as IGA4EventParameters,
-      copy(this.payloadData)
+      copy(this.payloadData),
     );
 
     /**
@@ -236,7 +236,7 @@ export class GA4Client<Event extends string = string> {
      */
     const eventParameters = Object.assign(
       copy(this.persistentEventParameters),
-      copy(parameters)
+      copy(parameters),
     );
 
     /**

@@ -13,7 +13,7 @@ import { OrderObject } from './order-object';
  */
 export function ENVITaskLegacyFormatter<T extends FormatterType>(
   task: ENVITaskLegacy<ENVITaskLegacyVersion>,
-  options: IAssemblerOptions<T>
+  options: IAssemblerOptions<T>,
 ): ENVITaskLegacy<ENVITaskLegacyVersion> {
   // get parameters
   const params = task.parameters;
@@ -26,7 +26,7 @@ export function ENVITaskLegacyFormatter<T extends FormatterType>(
     if (param.keyword !== undefined) {
       param.keyword = AdjustCase(
         param.keyword.replace(/\s/g, ''),
-        options.style.keywords
+        options.style.keywords,
       );
     }
 
@@ -34,21 +34,21 @@ export function ENVITaskLegacyFormatter<T extends FormatterType>(
     if (param.name !== undefined) {
       param.name = AdjustCase(
         param.name.replace(/\s/g, ''),
-        options.style.keywords
+        options.style.keywords,
       );
     }
 
     if (param.direction !== undefined) {
       param.direction = AdjustCase(
         param.direction.replace(/\s/g, ''),
-        options.style.control
+        options.style.control,
       );
     }
 
     if (param.parameterType !== undefined) {
       param.parameterType = AdjustCase(
         param.parameterType.replace(/\s/g, ''),
-        options.style.control
+        options.style.control,
       ) as any;
     }
 

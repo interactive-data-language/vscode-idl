@@ -15,7 +15,7 @@ import { existsSync } from 'fs';
  */
 export function AddAdditionalSearchPaths(
   paths: IFolderRecursion,
-  idlBin: string
+  idlBin: string,
 ) {
   // add in our IDL folder
   paths[GetExtensionPath('idl/vscode/notebooks')] = true;

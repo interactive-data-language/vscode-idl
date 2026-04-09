@@ -18,7 +18,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const TasksInteractRight: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/envitasktest.task')
+    GetExtensionPath('idl/test/client-e2e/envitasktest.task'),
   );
 
   // short pause to make sure we open and parse
@@ -34,8 +34,8 @@ export const TasksInteractRight: RunnerFunction = async (init) => {
     doc,
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/envitasktest-changes.task'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // short pause
@@ -72,6 +72,6 @@ export const TasksInteractRight: RunnerFunction = async (init) => {
   await init.client.client.sendRequest('textDocument/definition', params);
   await init.client.client.sendRequest(
     'textDocument/semanticTokens/full',
-    tokenParams
+    tokenParams,
   );
 };

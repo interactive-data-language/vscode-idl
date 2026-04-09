@@ -14,7 +14,7 @@ export function MCP_ENVIPointCloud() {
     url: z
       .array(z.string())
       .describe(
-        `Provide a fully-qualified filepath to point cloud files on disk. The file should end in ".las" or ".laz" or point to an existing ENVI LiDAR project for an ".ini" file.`
+        `Provide a fully-qualified filepath to point cloud files on disk. The file should end in ".las" or ".laz" or point to an existing ENVI LiDAR project for an ".ini" file.`,
       ),
   });
 }

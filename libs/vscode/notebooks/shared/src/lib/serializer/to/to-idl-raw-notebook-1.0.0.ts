@@ -14,7 +14,7 @@ export const ToIDLRawNotebook_1_0_0: ToIDLRawNotebook<IDLRawNotebookVersion_1_0_
   async function (
     data: vscode.NotebookData,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _token: vscode.CancellationToken
+    _token: vscode.CancellationToken,
   ) {
     /**
      * Array of raw notebook cells

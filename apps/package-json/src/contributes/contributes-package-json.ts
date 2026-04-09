@@ -6,16 +6,16 @@ import { VerifyNLS } from './helpers/verify-nls';
  */
 export function ProcessMainPackageJSON(
   packageJSON: IPackageJSON,
-  nls: IPackageNLS
+  nls: IPackageNLS,
 ) {
   if (!VerifyNLS(packageJSON['displayName'], nls)) {
     throw new Error(
-      `package.json translation for "displayName" is not in NLS file`
+      `package.json translation for "displayName" is not in NLS file`,
     );
   }
   if (!VerifyNLS(packageJSON['description'], nls)) {
     throw new Error(
-      `package.json translation for "description" is not in NLS file`
+      `package.json translation for "description" is not in NLS file`,
     );
   }
 }

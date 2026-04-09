@@ -20,7 +20,7 @@ describe('Validates quote parsing', () => {
     for (let i = 0; i < types.length; i++) {
       const tokens = Tokenizer(
         `'1001'b${types[i]}`,
-        new CancellationToken()
+        new CancellationToken(),
       ).tokens;
 
       // make sure we have two tokens
@@ -49,7 +49,7 @@ describe('Validates quote parsing', () => {
     for (let i = 0; i < types.length; i++) {
       const tokens = Tokenizer(
         `'1001'x${types[i]}`,
-        new CancellationToken()
+        new CancellationToken(),
       ).tokens;
 
       // make sure we have two tokens
@@ -78,7 +78,7 @@ describe('Validates quote parsing', () => {
     for (let i = 0; i < types.length; i++) {
       const tokens = Tokenizer(
         `'1001'o${types[i]}`,
-        new CancellationToken()
+        new CancellationToken(),
       ).tokens;
 
       // make sure we have two tokens
@@ -107,7 +107,7 @@ describe('Validates quote parsing', () => {
     for (let i = 0; i < types.length; i++) {
       const tokens = Tokenizer(
         `"1001"b${types[i]}`,
-        new CancellationToken()
+        new CancellationToken(),
       ).tokens;
 
       // make sure we have two tokens
@@ -136,7 +136,7 @@ describe('Validates quote parsing', () => {
     for (let i = 0; i < types.length; i++) {
       const tokens = Tokenizer(
         `"1001"x${types[i]}`,
-        new CancellationToken()
+        new CancellationToken(),
       ).tokens;
 
       // make sure we have two tokens
@@ -165,7 +165,7 @@ describe('Validates quote parsing', () => {
     for (let i = 0; i < types.length; i++) {
       const tokens = Tokenizer(
         `"1001"o${types[i]}`,
-        new CancellationToken()
+        new CancellationToken(),
       ).tokens;
 
       // make sure we have two tokens

@@ -32,7 +32,7 @@ export function GetRoutineNameFromScope(token: TreeToken<TokenName>): string {
       return GetRoutineName(
         scope[i] as TreeToken<
           MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
-        >
+        >,
       );
     }
   }

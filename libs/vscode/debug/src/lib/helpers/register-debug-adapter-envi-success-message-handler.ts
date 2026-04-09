@@ -10,7 +10,7 @@ export let LAST_ENVI_SUCCESS_MESSAGE: IENVISuccess;
  * Handles CLI progress notifications from the IDL Machine
  */
 export function RegisterDebugAdapterENVISuccessMessageHandler(
-  adapter: IDLDebugAdapter
+  adapter: IDLDebugAdapter,
 ) {
   // plug in progress messages
   if (adapter._runtime.isIDLMachine()) {

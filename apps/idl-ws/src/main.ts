@@ -106,7 +106,7 @@ function main() {
     try {
       idlWsServer = new IDlWebSocketServer(
         socket,
-        LOG_MANAGER.getLog(IDL_WS_SERVER)
+        LOG_MANAGER.getLog(IDL_WS_SERVER),
       );
 
       /**

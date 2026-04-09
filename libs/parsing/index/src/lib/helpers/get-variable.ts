@@ -15,7 +15,7 @@ import { GetVariables } from './get-variables';
  */
 export function GetVariable(
   token: TreeToken<VariableToken>,
-  parsed: IParsed
+  parsed: IParsed,
 ): ILocalIndexedToken<LocalVariableToken> | undefined {
   return GetVariables(token, parsed)[token.match[0].toLowerCase()];
 }

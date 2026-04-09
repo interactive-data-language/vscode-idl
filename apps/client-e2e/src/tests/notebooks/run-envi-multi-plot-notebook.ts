@@ -51,6 +51,6 @@ export const RunENVIMultiPlotNotebook: RunnerFunction = async (init) => {
   await RunNotebookAndCompareCells(
     GetExtensionPath('idl/test/client-e2e/notebooks/envi-multi-plot.idlnb'),
     CELL_OUTPUT,
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 };

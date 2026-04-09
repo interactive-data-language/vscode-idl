@@ -39,7 +39,7 @@ BINARY_TOKEN_CHECK[TOKEN_NAMES.KEYWORD_BINARY] = true;
 export function GetKeywordCompletionOptions(
   parsed: IParsed,
   index: IDLIndex,
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
 ): IKeywordCompletionOptions {
   /** Get matching global token */
   const global = GetRoutine(index, parsed, token, true);
@@ -82,8 +82,8 @@ export function GetKeywordCompletionOptions(
               FindKeyword(
                 kw.match[0].toLowerCase(),
                 defined,
-                true
-              )?.display.toLowerCase() || kw.match[0].toLowerCase()
+                true,
+              )?.display.toLowerCase() || kw.match[0].toLowerCase(),
           )
           .concat(
             FindDirectBranchChildren(local, TOKEN_NAMES.KEYWORD_BINARY).map(
@@ -91,10 +91,10 @@ export function GetKeywordCompletionOptions(
                 FindKeyword(
                   kw.match[0].toLowerCase().substring(1),
                   defined,
-                  true
+                  true,
                 )?.display.toLowerCase() ||
-                kw.match[0].toLowerCase().substring(1)
-            )
+                kw.match[0].toLowerCase().substring(1),
+            ),
           );
 
   return {
@@ -109,7 +109,7 @@ export function GetKeywordCompletionOptions(
  * Adds keyword completion keywords to functions
  */
 export function BuildKeywordCompletionItems(
-  arg: BuildCompletionItemsArg<KeywordCompletion>
+  arg: BuildCompletionItemsArg<KeywordCompletion>,
 ) {
   // get our defined keywords
   let defined: IParameterLookup = {};
@@ -124,7 +124,7 @@ export function BuildKeywordCompletionItems(
     const global: GlobalIndexedRoutineToken[] =
       arg.index.globalIndex.findMatchingGlobalToken(
         arg.options.global.type,
-        arg.options.global.name
+        arg.options.global.name,
       );
 
     if (global.length > 0) {

@@ -144,18 +144,18 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
                   insertSpaces: true,
                   tabSize: 2,
                 },
-              }
+              },
             );
           }
         } catch (err) {
           LogCommandError(
             'Error while adding docs to file',
             err,
-            cmdErrors.code.addDocsToFile
+            cmdErrors.code.addDocsToFile,
           );
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -195,7 +195,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
             current,
             info.scope === 'user'
               ? vscode.ConfigurationTarget.Global
-              : vscode.ConfigurationTarget.Workspace
+              : vscode.ConfigurationTarget.Workspace,
           );
 
           return true;
@@ -203,12 +203,12 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while disabling problem via settings',
             err,
-            cmdErrors.code.disableProblemSetting
+            cmdErrors.code.disableProblemSetting,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -263,9 +263,9 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
               editBuilder.replace(
                 new vscode.Range(
                   new vscode.Position(fix[i].line, 0),
-                  new vscode.Position(fix[i].line, Number.POSITIVE_INFINITY)
+                  new vscode.Position(fix[i].line, Number.POSITIVE_INFINITY),
                 ),
-                fix[i].text
+                fix[i].text,
               );
             }
           });
@@ -275,12 +275,12 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while disabling problem via settings',
             err,
-            cmdErrors.code.fixProblem
+            cmdErrors.code.fixProblem,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -309,18 +309,18 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
                 insertSpaces: true,
                 tabSize: 2,
               },
-            }
+            },
           );
         }
       } catch (err) {
         LogCommandError(
           'Error while formatting file',
           err,
-          cmdErrors.code.formatFile
+          cmdErrors.code.formatFile,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -338,13 +338,13 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           // make sure we have workspace folders
           if (folders === undefined) {
             vscode.window.showInformationMessage(
-              IDL_TRANSLATION.commands.notifications.initConfig.noWorkspaceOpen
+              IDL_TRANSLATION.commands.notifications.initConfig.noWorkspaceOpen,
             );
             return false;
           }
           // filter out folders that have existing idl.json
           const checkFolders = folders.map((folder) =>
-            CleanPath(folder.uri.fsPath)
+            CleanPath(folder.uri.fsPath),
           );
 
           // target is what we return
@@ -361,7 +361,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
                 IDL_TRANSLATION.commands.notifications.formatWorkspace
                   .pickWorkspace,
               canPickMany: false,
-            }
+            },
           );
 
           // make sure we have a folder
@@ -373,7 +373,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
             // format and get response
             const resp = await LANGUAGE_SERVER_MESSENGER.sendRequest(
               LANGUAGE_SERVER_MESSAGE_LOOKUP.FORMAT_WORKSPACE,
-              { folders: [res.target] }
+              { folders: [res.target] },
             );
 
             // if we have failures alert user
@@ -395,11 +395,11 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while executing command to format files in workspace',
             err,
-            cmdErrors.code.formatWorkspace
+            cmdErrors.code.formatWorkspace,
           );
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -432,7 +432,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
                 title:
                   IDL_TRANSLATION.commands.notifications.initTask.dialogTitle,
                 canPickMany: false,
-              }
+              },
             );
 
             // make sure we have a folder
@@ -445,7 +445,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
                 {
                   uri: file.uri.toString(),
                   type: res.target as 'envi' | 'idl',
-                }
+                },
               );
             }
           }
@@ -453,12 +453,12 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while generating task',
             err,
-            cmdErrors.code.formatFile
+            cmdErrors.code.formatFile,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -482,7 +482,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
               {
                 uri: doc.uri.toString(),
                 migrationType: MIGRATION_TYPE_LOOKUP.ENVI_DL_30,
-              }
+              },
             );
 
             // make sure we have a response
@@ -499,12 +499,12 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while migrating to DL 3.0 API',
             err,
-            cmdErrors.code.migrateToDL30API
+            cmdErrors.code.migrateToDL30API,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -528,7 +528,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
               {
                 uri: doc.uri.toString(),
                 migrationType: MIGRATION_TYPE_LOOKUP.ENVI_DL_40,
-              }
+              },
             );
 
             // make sure we have a response
@@ -545,11 +545,11 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while migrating to DL 4.0 API',
             err,
-            cmdErrors.code.migrateToDL40API
+            cmdErrors.code.migrateToDL40API,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 }

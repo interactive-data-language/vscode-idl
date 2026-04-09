@@ -236,16 +236,16 @@ export type GlobalTokenMetadata<T extends GlobalTokenType> =
   T extends GlobalFunctionToken
     ? IFunctionMetadata
     : T extends GlobalProcedureToken
-    ? IRoutineMetadata
-    : T extends GlobalFunctionMethodToken
-    ? IFunctionMethodMetadata
-    : T extends GlobalProcedureMethodToken
-    ? IMethodMetadata
-    : T extends GlobalStructureToken
-    ? IStructureMetadata
-    : T extends GlobalSystemVariableToken
-    ? ISystemVariableMetadata
-    : IBaseTokenMetadata;
+      ? IRoutineMetadata
+      : T extends GlobalFunctionMethodToken
+        ? IFunctionMethodMetadata
+        : T extends GlobalProcedureMethodToken
+          ? IMethodMetadata
+          : T extends GlobalStructureToken
+            ? IStructureMetadata
+            : T extends GlobalSystemVariableToken
+              ? ISystemVariableMetadata
+              : IBaseTokenMetadata;
 
 /**
  * Base data structure for global or local indexed tokens

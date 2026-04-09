@@ -20,7 +20,7 @@ import { IParentInformation } from './selected-token.interface';
 export function GetVariableTokenDef(
   parsed: IParsed,
   token: TreeToken<TokenName>,
-  parent?: IParentInformation
+  parent?: IParentInformation,
 ): ILocalIndexedToken<LocalTokenTypes> | undefined {
   // initialize our result
   let foundToken: ILocalIndexedToken<LocalTokenTypes>;

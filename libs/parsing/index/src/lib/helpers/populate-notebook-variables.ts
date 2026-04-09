@@ -8,7 +8,7 @@ import { copy } from 'fast-copy';
 export function PopulateNotebookVariables(
   file: string,
   byCell: IParsedIDLNotebook,
-  firstPass: boolean
+  firstPass: boolean,
 ) {
   /**
    * Get our notebook files, should be in order

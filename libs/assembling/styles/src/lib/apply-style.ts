@@ -16,7 +16,7 @@ export function ApplyStyle(
   cancel: CancellationToken,
   style: ICodeStyle,
   vanilla: boolean,
-  styler: AssemblerStyler = ASSEMBLER_STYLER_LOOKUP.DEFAULT
+  styler: AssemblerStyler = ASSEMBLER_STYLER_LOOKUP.DEFAULT,
 ) {
   // make sure we have scope detail
   PopulateScopeDetail(parsed, cancel);

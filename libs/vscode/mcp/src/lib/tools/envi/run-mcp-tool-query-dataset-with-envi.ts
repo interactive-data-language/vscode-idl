@@ -17,7 +17,7 @@ import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notific
  */
 export async function RunMCPTool_QueryDatasetWithENVI(
   id: string,
-  params: MCPToolParams<MCPTool_QueryDatasetWithENVI>
+  params: MCPToolParams<MCPTool_QueryDatasetWithENVI>,
 ): Promise<MCPToolResponse<MCPTool_QueryDatasetWithENVI>> {
   VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
 
@@ -60,7 +60,7 @@ export async function RunMCPTool_QueryDatasetWithENVI(
   // run our command to open in ENVI
   const res = await MCPEvaluateENVICommand(
     `vscode_queryDataset, '${MCPSerializeJSON(params.dataset)}'`,
-    { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false }
+    { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false },
   );
 
   // make sure payload has a value

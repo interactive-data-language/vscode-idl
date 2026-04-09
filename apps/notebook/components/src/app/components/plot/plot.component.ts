@@ -70,7 +70,7 @@ export class PlotComponent
   constructor(
     @SkipSelf() dataService: DataSharingService,
     messenger: VSCodeRendererMessenger,
-    private el: ElementRef<HTMLElement>
+    private el: ElementRef<HTMLElement>,
   ) {
     super(dataService, messenger);
 

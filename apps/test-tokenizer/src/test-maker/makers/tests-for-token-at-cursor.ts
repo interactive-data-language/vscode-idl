@@ -14,7 +14,7 @@ import { StringifyCode } from './stringify-code';
 export function TestsForTokenAtCursor(
   name: string,
   tests: ISelectedTests[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -23,7 +23,7 @@ export function TestsForTokenAtCursor(
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { Parser } from '@idl/parser';`);
   strings.push(
-    `import { GetTokenAtCursor, RemoveScopeDetail } from '@idl/parsing/syntax-tree';`
+    `import { GetTokenAtCursor, RemoveScopeDetail } from '@idl/parsing/syntax-tree';`,
   );
   strings.push(`import { Position } from 'vscode-languageserver/node';`);
   strings.push(``);
@@ -55,7 +55,7 @@ export function TestsForTokenAtCursor(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = Parser(code, new CancellationToken());`
+      `    const tokenized = Parser(code, new CancellationToken());`,
     );
     strings.push(``);
 
@@ -74,8 +74,8 @@ export function TestsForTokenAtCursor(
       strings.push(`    // define position`);
       strings.push(
         `    const position_${j}: Position = ${JSON.stringify(
-          test.position[j]
-        )}`
+          test.position[j],
+        )}`,
       );
       strings.push('');
 
@@ -87,7 +87,7 @@ export function TestsForTokenAtCursor(
       // get selected
       strings.push('    // get selected');
       strings.push(
-        `    const selected_${j} = GetTokenAtCursor(tokenized, position_${j})`
+        `    const selected_${j} = GetTokenAtCursor(tokenized, position_${j})`,
       );
       strings.push('');
 
@@ -99,7 +99,7 @@ export function TestsForTokenAtCursor(
       // verify results
       strings.push('    // verify results');
       strings.push(
-        `    expect(selected_${j}.token).toEqual(expectedFound_${j})`
+        `    expect(selected_${j}.token).toEqual(expectedFound_${j})`,
       );
       strings.push('');
     }

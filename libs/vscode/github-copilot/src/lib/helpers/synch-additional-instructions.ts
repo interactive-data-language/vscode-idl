@@ -65,7 +65,7 @@ export async function syncInstructionsFromFileToSetting() {
     await config.update(
       SETTING_KEY,
       existingInstructions,
-      vscode.ConfigurationTarget.Global
+      vscode.ConfigurationTarget.Global,
     );
   }
 }
@@ -92,8 +92,8 @@ export function watchCustomInstructionsFileChanges(): vscode.Disposable {
   const watcher = vscode.workspace.createFileSystemWatcher(
     new vscode.RelativePattern(
       USER_COPILOT_INSTRUCTIONS_FOLDER,
-      INSTRUCTIONS_FILE
-    )
+      INSTRUCTIONS_FILE,
+    ),
   );
 
   watcher.onDidChange(handleInstructionsFileChange);

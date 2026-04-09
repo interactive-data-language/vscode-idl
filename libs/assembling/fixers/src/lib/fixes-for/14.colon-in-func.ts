@@ -28,7 +28,7 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
     HasProblem(
       token,
       IDL_PROBLEM_CODES.COLON_IN_FUNCTION,
-      parsed.disabledProblems
+      parsed.disabledProblems,
     )
   ) {
     if (token.end === undefined) {
@@ -37,7 +37,7 @@ function Callback(token: TreeToken<RoutineTokens>, parsed: IParsed) {
 
     token.match = token.match.map((str) => str.replace('(', '[')) as any;
     token.end.match = token.end.match.map((str) =>
-      str.replace(')', ']')
+      str.replace(')', ']'),
     ) as any;
   }
 }

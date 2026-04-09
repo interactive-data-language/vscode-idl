@@ -13,13 +13,13 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const RoutineChange: RunnerFunction = async (init) => {
   const doc1 = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/change-detection/file1.pro')
+    GetExtensionPath('idl/test/client-e2e/change-detection/file1.pro'),
   );
 
   const doc2 = await OpenFileInVSCode(
     GetExtensionPath('idl/test/client-e2e/change-detection/file2.pro'),
     true,
-    true
+    true,
   );
 
   // short pause to make sure we open and parse
@@ -36,8 +36,8 @@ export const RoutineChange: RunnerFunction = async (init) => {
     doc2,
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/change-detection/file2-after.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // short pause
@@ -54,8 +54,8 @@ export const RoutineChange: RunnerFunction = async (init) => {
     doc2,
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/change-detection/file2.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // short pause

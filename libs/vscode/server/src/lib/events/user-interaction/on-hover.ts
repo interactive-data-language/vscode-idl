@@ -13,7 +13,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * Wrapper to handle hover help requests
  */
 export async function GetHoverHelpWrapper(
-  params: TextDocumentPositionParams
+  params: TextDocumentPositionParams,
 ): Promise<Hover> {
   /**
    * Resolve the fspath to our cell and retrieve code
@@ -41,7 +41,7 @@ export async function GetHoverHelpWrapper(
     info.fsPath,
     info.code,
     params.position,
-    IDL_CLIENT_CONFIG
+    IDL_CLIENT_CONFIG,
   );
 
   return hover;
@@ -51,7 +51,7 @@ export async function GetHoverHelpWrapper(
  * Event handler for hover help requests
  */
 export const ON_HOVER = async (
-  params: TextDocumentPositionParams
+  params: TextDocumentPositionParams,
 ): Promise<Hover> => {
   await SERVER_INITIALIZED;
   try {

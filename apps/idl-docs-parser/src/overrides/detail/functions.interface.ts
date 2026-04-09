@@ -734,7 +734,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
   },
   json_parse: {
     returns: IDLTypeHelper.parseIDLType(
-      'Hash<any> | Dictionary<any> | Structure'
+      'Hash<any> | Dictionary<any> | Structure',
     ),
     args: {
       string: {
@@ -767,7 +767,7 @@ export const FUNCTION_OVERRIDE: IFunctionOverride = {
       value: {
         direction: 'in',
         type: IDLTypeHelper.parseIDLType(
-          'Hash | OrderedHash | Dictionary | List | Structure'
+          'Hash | OrderedHash | Dictionary | List | Structure',
         ),
       },
     },

@@ -20,7 +20,7 @@ export async function GetParsedNotebook(
   index: IDLIndex,
   file: string,
   notebook: IDLNotebookDocument,
-  token: CancellationToken
+  token: CancellationToken,
 ): Promise<IParsedIDLNotebook> {
   // track all checksums
   const checksums: string[] = [];

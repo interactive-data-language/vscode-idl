@@ -7,7 +7,7 @@ import { VSCODE_DOT_IDL_FOLDER } from './dot-idl-folder.interface';
  */
 export const USER_COPILOT_FOLDER = join(
   VSCODE_DOT_IDL_FOLDER,
-  'github-copilot'
+  'github-copilot',
 );
 
 /**
@@ -15,7 +15,7 @@ export const USER_COPILOT_FOLDER = join(
  */
 export const USER_COPILOT_INSTRUCTIONS_FOLDER = join(
   USER_COPILOT_FOLDER,
-  'instructions'
+  'instructions',
 );
 
 /**
@@ -28,7 +28,7 @@ export const USER_COPILOT_PROMPTS_FOLDER = join(USER_COPILOT_FOLDER, 'prompts');
  */
 export const USER_CUSTOM_COPILOT_INSTRUCTIONS_FOLDER = join(
   USER_COPILOT_FOLDER,
-  'user-instructions'
+  'user-instructions',
 );
 
 /**
@@ -36,5 +36,5 @@ export const USER_CUSTOM_COPILOT_INSTRUCTIONS_FOLDER = join(
  */
 export const USER_CUSTOM_COPILOT_PROMPTS_FOLDER = join(
   USER_COPILOT_FOLDER,
-  'user-prompts'
+  'user-prompts',
 );

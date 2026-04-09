@@ -51,7 +51,7 @@ export function ExportPopularity() {
   // write out
   writeFileSync(
     join(process.cwd(), 'parse-test', 'popularity.json'),
-    JSON.stringify(POPULARITY_CONTEST, null, 2)
+    JSON.stringify(POPULARITY_CONTEST, null, 2),
   );
 }
 

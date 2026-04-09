@@ -15,12 +15,12 @@ describe(`[auto generated] Don't do auto-complete`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/dont_complete.pro'
+      'idl/test/auto-complete/dont_complete.pro',
     );
 
     // add file to index
@@ -38,9 +38,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 1, character: 19 };
@@ -54,9 +54,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_2: Position = { line: 1, character: 34 };
@@ -70,9 +70,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_2
+          position_2,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_3: Position = { line: 6, character: 9 };
@@ -86,9 +86,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_3
+          position_3,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_4: Position = { line: 6, character: 10 };
@@ -102,9 +102,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_4
+          position_4,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_5: Position = { line: 6, character: 25 };
@@ -118,9 +118,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_5
+          position_5,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_6: Position = { line: 13, character: 13 };
@@ -134,9 +134,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_6
+          position_6,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_7: Position = { line: 16, character: 2 };
@@ -150,9 +150,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_7
+          position_7,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_8: Position = { line: 17, character: 2 };
@@ -166,9 +166,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_8
+          position_8,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_9: Position = { line: 20, character: 9 };
@@ -182,9 +182,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_9
+          position_9,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_10: Position = { line: 21, character: 9 };
@@ -198,9 +198,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_10
+          position_10,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_11: Position = { line: 22, character: 9 };
@@ -214,9 +214,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_11
+          position_11,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_12: Position = { line: 25, character: 10 };
@@ -230,9 +230,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_12
+          position_12,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_13: Position = { line: 28, character: 10 };
@@ -246,9 +246,9 @@ describe(`[auto generated] Don't do auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_13
+          position_13,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

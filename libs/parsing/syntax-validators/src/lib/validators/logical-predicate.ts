@@ -49,7 +49,7 @@ function ValidateOperators(
     | LoopWhileToken
   >,
   parsed: IParsed,
-  current: ITreeRecurserCurrent
+  current: ITreeRecurserCurrent,
 ) {
   // return if no kids
   if (token.kids.length === 0) {
@@ -103,7 +103,7 @@ function ValidateOperators(
   const kids = FindAllBranchChildren(
     token,
     TOKEN_NAMES.OPERATOR_LOGICAL,
-    DONT_RECURSE
+    DONT_RECURSE,
   );
 
   // process all kids
@@ -116,7 +116,7 @@ function ValidateOperators(
       const prob = SyntaxProblemWithTranslation(
         PROBLEM_LOOKUP[match],
         kids[i].pos,
-        kids[i].pos
+        kids[i].pos,
       );
 
       // save problem information
@@ -168,6 +168,6 @@ for (let i = 0; i < BRANCHES.length; i++) {
     BRANCHES[i],
     (token, parsed, current) => {
       ValidateOperators(token, parsed, current);
-    }
+    },
   );
 }

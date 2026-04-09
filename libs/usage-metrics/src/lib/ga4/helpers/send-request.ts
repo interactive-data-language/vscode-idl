@@ -7,13 +7,13 @@ import { GA4_CONFIG, IGA4EventParameters } from '../ga4-client.interface';
  */
 export async function SendRequest(
   url: string,
-  payload: IGA4EventParameters
+  payload: IGA4EventParameters,
 ): Promise<void> {
   /**
    * Make query parameters for payload
    */
   const qs = new URLSearchParams(
-    JSON.parse(JSON.stringify(payload))
+    JSON.parse(JSON.stringify(payload)),
   ).toString();
 
   // send data

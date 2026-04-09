@@ -18,7 +18,7 @@ if (args.length > 0) {
       (err) => {
         console.log(err);
         process.exit(1);
-      }
+      },
     )
     .catch((err) => {
       console.log(err);
@@ -36,7 +36,7 @@ if (!quit) {
       (err) => {
         console.log(err);
         process.exit(1);
-      }
+      },
     )
     .catch((err) => {
       console.log(err);

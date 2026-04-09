@@ -13,7 +13,7 @@ export function AddCodeToSyntaxTree(options: IAddCodeToSyntaxTreeOptions) {
   ConditionalLineNumberIncrement(
     options.parsed.tree,
     options.lineStart,
-    options.insertCode.length
+    options.insertCode.length,
   );
 
   const add = GenerateCodeToInsert(options.insertCode, options.lineStart);
@@ -27,7 +27,7 @@ export function AddCodeToSyntaxTree(options: IAddCodeToSyntaxTreeOptions) {
  */
 export function GenerateCodeToInsert(
   code: string | string[],
-  lineStart: number
+  lineStart: number,
 ) {
   // parse code and get our syntax tree
   const add = Parser(code, new CancellationToken()).tree;

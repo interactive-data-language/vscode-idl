@@ -27,12 +27,12 @@ function ResolveProperties(
   index: IDLIndex,
   formatting: IAssemblerOptions<FormatterType>,
   structureName: string,
-  found: { [key: string]: any } = {}
+  found: { [key: string]: any } = {},
 ) {
   // find matching global tokens
   const global = index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.STRUCTURE,
-    structureName
+    structureName,
   );
 
   // check if we have a match
@@ -48,7 +48,7 @@ function ResolveProperties(
       if (!(names[i] in found)) {
         const display = TransformCase(
           properties[names[i]].display,
-          formatting.style.properties
+          formatting.style.properties,
         );
         // add to completion
         complete.push({
@@ -77,7 +77,7 @@ function ResolveProperties(
  * Get options to do auto-complete in structures
  */
 export function GetPropertyInStructureCompletionOptions(
-  token: TreeToken<StructureNameToken>
+  token: TreeToken<StructureNameToken>,
 ): IPropertyInStructureCompletionOptions {
   // get the name of of our structure
   const name = token.match[0];
@@ -101,7 +101,7 @@ export function GetPropertyInStructureCompletionOptions(
  * Adds keyword completion properties inside of structures
  */
 export function BuildPropertyInStructureCompletionItems(
-  arg: BuildCompletionItemsArg<PropertyInStructureCompletion>
+  arg: BuildCompletionItemsArg<PropertyInStructureCompletion>,
 ) {
   // resolve properties
   ResolveProperties(
@@ -109,6 +109,6 @@ export function BuildPropertyInStructureCompletionItems(
     arg.index,
     arg.formatting,
     arg.options.name,
-    arg.options.found
+    arg.options.found,
   );
 }

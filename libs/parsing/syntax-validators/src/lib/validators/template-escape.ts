@@ -11,14 +11,14 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
       // else because we didnt match known tokens
       case token.match[0] === '\\':
         token.parseProblems.push(
-          IDL_PROBLEM_CODES.UNKNOWN_TEMPLATE_LITERAL_ESCAPE
+          IDL_PROBLEM_CODES.UNKNOWN_TEMPLATE_LITERAL_ESCAPE,
         );
         parsed.parseProblems.push(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.UNKNOWN_TEMPLATE_LITERAL_ESCAPE,
             token.pos,
-            token.pos
-          )
+            token.pos,
+          ),
         );
         break;
       // invalid hex code
@@ -28,12 +28,12 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.TEMPLATE_LITERAL_HEX,
             token.pos,
-            token.pos
-          )
+            token.pos,
+          ),
         );
         break;
       default:
         break;
     }
-  }
+  },
 );

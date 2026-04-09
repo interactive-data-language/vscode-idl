@@ -12,7 +12,7 @@ import { ILocalTokenLookup, IParsed, TreeToken } from '@idl/types/syntax-tree';
 export function GetVarHoverHelp(
   parsed: IParsed,
   token: TreeToken<TokenName>,
-  parent?: IParentInformation
+  parent?: IParentInformation,
 ): string {
   let help = '';
 
@@ -57,7 +57,7 @@ export function GetVarHoverHelp(
         token.match[0],
         meta.docs,
         meta.type,
-        'var'
+        'var',
       );
     }
   }

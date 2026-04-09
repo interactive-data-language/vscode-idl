@@ -25,7 +25,7 @@ export async function RunNotebookAndCompareCells(
   file: string,
   cells: ICompareCellOutputs[],
   controller: IDLNotebookController,
-  clear = true
+  clear = true,
 ) {
   // nuke .idl folder if it exists
   if (existsSync(NOTEBOOK_FOLDER)) {
@@ -63,7 +63,7 @@ export async function RunNotebookAndCompareCells(
   if (clear) {
     // clear outputs
     await vscode.commands.executeCommand(
-      VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS
+      VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS,
     );
   }
 

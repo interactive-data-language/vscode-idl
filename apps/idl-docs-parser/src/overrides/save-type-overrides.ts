@@ -25,34 +25,34 @@ function WriteFile(uri: string, content: any) {
 export function SaveTypeOverrides() {
   WriteFile(
     GetExtensionPath('apps/idl-docs-parser/src/overrides/types/functions.json'),
-    FUNCTION_TYPE_OVERRIDES
+    FUNCTION_TYPE_OVERRIDES,
   );
 
   WriteFile(
     GetExtensionPath(
-      'apps/idl-docs-parser/src/overrides/types/function-methods.json'
+      'apps/idl-docs-parser/src/overrides/types/function-methods.json',
     ),
-    FUNCTION_METHOD_TYPE_OVERRIDES
+    FUNCTION_METHOD_TYPE_OVERRIDES,
   );
 
   WriteFile(
     GetExtensionPath(
-      'apps/idl-docs-parser/src/overrides/types/procedures.json'
+      'apps/idl-docs-parser/src/overrides/types/procedures.json',
     ),
-    PROCEDURE_TYPE_OVERRIDES
+    PROCEDURE_TYPE_OVERRIDES,
   );
 
   WriteFile(
     GetExtensionPath(
-      'apps/idl-docs-parser/src/overrides/types/procedure-methods.json'
+      'apps/idl-docs-parser/src/overrides/types/procedure-methods.json',
     ),
-    PROCEDURE_METHOD_TYPE_OVERRIDES
+    PROCEDURE_METHOD_TYPE_OVERRIDES,
   );
 
   WriteFile(
     GetExtensionPath(
-      'apps/idl-docs-parser/src/overrides/types/structures.json'
+      'apps/idl-docs-parser/src/overrides/types/structures.json',
     ),
-    IDL_STRUCTURE_TYPE_OVERRIDES
+    IDL_STRUCTURE_TYPE_OVERRIDES,
   );
 }

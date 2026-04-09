@@ -57,12 +57,12 @@ export type ENVITaskLegacyParameter<T extends ENVITaskLegacyVersion> =
   T extends ENVITaskLegacyVersion532
     ? ENVITaskParameter521
     : T extends ENVITaskLegacyVersion531
-    ? ENVITaskParameter521
-    : T extends ENVITaskLegacyVersion53
-    ? ENVITaskParameter521
-    : T extends ENVITaskLegacyVersion521
-    ? ENVITaskParameter521
-    : ENVITaskParameter521;
+      ? ENVITaskParameter521
+      : T extends ENVITaskLegacyVersion53
+        ? ENVITaskParameter521
+        : T extends ENVITaskLegacyVersion521
+          ? ENVITaskParameter521
+          : ENVITaskParameter521;
 
 /**
  * Data structure for legacy ENVI Task schemas

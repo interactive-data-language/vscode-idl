@@ -30,7 +30,7 @@ function BadBefore(
     | StructureIndexedPropertyToken
   >,
   parsed: IParsed,
-  before?: TreeToken<TokenName>
+  before?: TreeToken<TokenName>,
 ) {
   // return if no token before
   if (before === undefined) {
@@ -44,8 +44,8 @@ function BadBefore(
       SyntaxProblemWithTranslation(
         IDL_PROBLEM_CODES.ILLEGAL_CHAIN,
         before.pos,
-        (token as TreeBranchToken)?.end?.pos || token.pos
-      )
+        (token as TreeBranchToken)?.end?.pos || token.pos,
+      ),
     );
   }
 }
@@ -64,7 +64,7 @@ for (let i = 0; i < BRANCHES.length; i++) {
     BRANCHES[i],
     (token, parsed, meta) => {
       BadBefore(token, parsed, meta.before);
-    }
+    },
   );
 }
 

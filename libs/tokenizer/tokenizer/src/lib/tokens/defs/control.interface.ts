@@ -34,7 +34,7 @@ export const CONTROL_BASIC: ControlSimpleTokenDef = {
   getTokenName: (matches) => {
     if (matches.length > 2 || matches.length < 1) {
       console.log(
-        'Basic control token regex detected more than one or two matches, not expected'
+        'Basic control token regex detected more than one or two matches, not expected',
       );
       return TOKEN_NAMES.CONTROL;
     }
@@ -45,7 +45,7 @@ export const CONTROL_BASIC: ControlSimpleTokenDef = {
         return TOKEN_MAP[compare];
       } else {
         console.log(
-          'Basic control token did not detect "break" or "continue" for single match, not expected'
+          'Basic control token did not detect "break" or "continue" for single match, not expected',
         );
         return TOKEN_NAMES.CONTROL;
       }
@@ -76,7 +76,7 @@ export const CONTROL_COMPOUND: ControlCompoundTokenDef = {
   getTokenName: (matches) => {
     if (matches.length !== 1) {
       console.log(
-        'Compound control token did not detect one match as expected'
+        'Compound control token did not detect one match as expected',
       );
       return TOKEN_NAMES.CONTROL;
     }
@@ -87,7 +87,7 @@ export const CONTROL_COMPOUND: ControlCompoundTokenDef = {
       return TOKEN_MAP[compare];
     } else {
       console.log(
-        'Basic control token did not detect "common|on_ioerror|compile_opt|forward_function|goto" as expected'
+        'Basic control token did not detect "common|on_ioerror|compile_opt|forward_function|goto" as expected',
       );
       return TOKEN_NAMES.CONTROL;
     }

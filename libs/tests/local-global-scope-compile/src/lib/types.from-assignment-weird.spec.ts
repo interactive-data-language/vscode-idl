@@ -15,7 +15,7 @@ describe(`[auto generated] Types from assignment`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -36,7 +36,7 @@ describe(`[auto generated] Types from assignment`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

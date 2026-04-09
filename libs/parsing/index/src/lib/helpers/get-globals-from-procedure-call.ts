@@ -15,7 +15,7 @@ import { TypeFromFirstArg } from '../post-process/populate-type/from/helpers/typ
 export function GetGlobalsFromProcedureCall(
   index: IDLIndex,
   parsed: IParsed,
-  local: TreeToken<CallProcedureToken>
+  local: TreeToken<CallProcedureToken>,
 ): GlobalIndexedRoutineToken[] {
   // procedure name
   const proName = local.match[0].toLowerCase();
@@ -36,7 +36,7 @@ export function GetGlobalsFromProcedureCall(
       if (type !== undefined) {
         global = index.findMatchingGlobalToken(
           GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD,
-          `${type}::cleanup`
+          `${type}::cleanup`,
         );
       }
 
@@ -44,7 +44,7 @@ export function GetGlobalsFromProcedureCall(
       if (global.length === 0) {
         global = index.findMatchingGlobalToken(
           GLOBAL_TOKEN_TYPES.PROCEDURE,
-          proName
+          proName,
         );
       }
       break;
@@ -57,14 +57,14 @@ export function GetGlobalsFromProcedureCall(
 
       global = index.findMatchingGlobalToken(
         GLOBAL_TOKEN_TYPES.PROCEDURE,
-        type !== undefined ? type : proName
+        type !== undefined ? type : proName,
       );
       break;
     }
     default:
       global = index.findMatchingGlobalToken(
         GLOBAL_TOKEN_TYPES.PROCEDURE,
-        proName
+        proName,
       );
       break;
   }

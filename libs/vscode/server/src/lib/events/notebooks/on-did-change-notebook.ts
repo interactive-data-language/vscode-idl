@@ -22,7 +22,7 @@ import { SendNotebookProblems } from './send-notebook-problems';
  * @param event The event from VSCode
  */
 export const ON_DID_CHANGE_NOTEBOOK = async (
-  event: NotebookDocumentChangeEvent
+  event: NotebookDocumentChangeEvent,
 ) => {
   await SERVER_INITIALIZED;
   try {

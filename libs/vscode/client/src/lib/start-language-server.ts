@@ -93,7 +93,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       HAS_NODE = compare(
         nodeOutput,
         START_LANGUAGE_SERVER_CONFIG.NODE_MIN_VERSION,
-        '>='
+        '>=',
       );
     }
   } catch (err) {
@@ -119,7 +119,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
    * Full path to the JS file for launching in VSCode
    */
   const serverModule = ctx.asAbsolutePath(
-    path.join('dist', 'apps', 'server', 'main.js')
+    path.join('dist', 'apps', 'server', 'main.js'),
   );
 
   /**
@@ -263,12 +263,12 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     'IDLLanguageServer',
     IDL_LANGUAGE_NAME,
     HAS_NODE ? serverOptionsNode : serverOptionsInVSCode,
-    clientOptions
+    clientOptions,
   );
 
   // create our message handler
   LANGUAGE_SERVER_MESSENGER = new VSCodeClientEventManager(
-    LANGUAGE_SERVER_CLIENT
+    LANGUAGE_SERVER_CLIENT,
   );
 
   // listen for log messages from the server
@@ -276,7 +276,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     LANGUAGE_SERVER_MESSAGE_LOOKUP.LOG,
     (payload) => {
       IDL_LOGGER.log(payload);
-    }
+    },
   );
 
   // listen for log messages from the server
@@ -287,9 +287,9 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
         payload.progressId,
         payload.title,
         payload.increment,
-        payload.finished
+        payload.finished,
       );
-    }
+    },
   );
 
   // listen for usage metrics
@@ -297,7 +297,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     LANGUAGE_SERVER_MESSAGE_LOOKUP.USAGE_METRIC,
     (payload) => {
       VSCodeTelemetryLogger(payload.event, payload.payload);
-    }
+    },
   );
 
   // Start the client. This will also launch the server
@@ -322,7 +322,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
         LANGUAGE_SERVER_MESSAGE_LOOKUP.FOLDER_DELETE,
         {
           folders,
-        }
+        },
       );
     }
   });
@@ -338,7 +338,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
             newUri: GetCanonicalPath(CleanPath(item.newUri.fsPath)),
           };
         }),
-      }
+      },
     );
   });
 
@@ -347,12 +347,12 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
     LANGUAGE_SERVER_MESSAGE_LOOKUP.WORKSPACE_CONFIG,
     {
       config: IDL_EXTENSION_CONFIG,
-    }
+    },
   );
 
   // listen to indexing message
   LANGUAGE_SERVER_MESSENGER.onNotification(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-    ON_INDEX
+    ON_INDEX,
   );
 }

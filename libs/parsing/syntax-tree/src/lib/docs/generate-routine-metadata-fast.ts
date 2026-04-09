@@ -16,7 +16,7 @@ import {
  * documentation for things like hover help and auto-complete.
  */
 export function GenerateRoutineMetadataFast<T extends RoutineType>(
-  type: T
+  type: T,
 ): RoutineMetadata<T> {
   // initialize metadata
   let meta: RoutineMetadata<T>;

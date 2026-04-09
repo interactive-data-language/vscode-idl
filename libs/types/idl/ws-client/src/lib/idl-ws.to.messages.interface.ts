@@ -50,12 +50,12 @@ export type ToIDLWebSocketPayload<T extends ToIDLWebSocketMessageTypes> =
   T extends ToIDLWebSocketMessage_Evaluate
     ? ToIDLWebSocketPayload_Evaluate
     : T extends ToIDLWebSocketMessage_PauseIDL
-    ? ToIDLWebSocketPayload_PauseIDL
-    : T extends ToIDLWebSocketMessage_StartIDL
-    ? ToIDLWebSocketPayload_StartIDL
-    : T extends ToIDLWebSocketMessage_StopIDL
-    ? ToIDLWebSocketPayload_StopIDL
-    : never;
+      ? ToIDLWebSocketPayload_PauseIDL
+      : T extends ToIDLWebSocketMessage_StartIDL
+        ? ToIDLWebSocketPayload_StartIDL
+        : T extends ToIDLWebSocketMessage_StopIDL
+          ? ToIDLWebSocketPayload_StopIDL
+          : never;
 
 /**
  * Messages from the IDL Web Socket connection

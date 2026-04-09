@@ -6,7 +6,7 @@ import { IBranch, TreeToken } from '@idl/types/syntax-tree';
  */
 export function FindDirectBranchChildren<T extends TokenName>(
   branch: IBranch<NonBasicTokenNames>,
-  token: T
+  token: T,
 ) {
   // init result for recursing
   const found: TreeToken<T>[] = [];

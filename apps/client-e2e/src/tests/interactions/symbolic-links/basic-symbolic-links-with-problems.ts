@@ -12,12 +12,12 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const BasicSymbolicLinksWithProblems: RunnerFunction = async (init) => {
   const doc1 = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/links/dir1/test_with_problems.pro')
+    GetExtensionPath('idl/test/links/dir1/test_with_problems.pro'),
   );
   const nProb1 = 1;
 
   const doc2 = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/links/dir2/link/test_with_problems.pro')
+    GetExtensionPath('idl/test/links/dir2/link/test_with_problems.pro'),
   );
   const nProb2 = 0;
 

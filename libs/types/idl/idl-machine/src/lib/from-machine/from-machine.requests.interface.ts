@@ -47,16 +47,16 @@ export type FromIDLMachineRequestParams<T extends FromIDLMachineRequests> =
   T extends GetKeyboardRequest
     ? GetKeyboardParams
     : T extends IDLNotifyRequest
-    ? IDLNotifyParams
-    : T extends ReadIOLineRequest
-    ? ReadIOLineParams
-    : T extends ReadProgramLineRequest
-    ? ReadProgramLineParams
-    : T extends ResetSessionConfirmRequest
-    ? ResetSessionConfirmParams
-    : T extends SetForegroundWindowConfirmRequest
-    ? SetForegroundWindowConfirmParams
-    : never;
+      ? IDLNotifyParams
+      : T extends ReadIOLineRequest
+        ? ReadIOLineParams
+        : T extends ReadProgramLineRequest
+          ? ReadProgramLineParams
+          : T extends ResetSessionConfirmRequest
+            ? ResetSessionConfirmParams
+            : T extends SetForegroundWindowConfirmRequest
+              ? SetForegroundWindowConfirmParams
+              : never;
 
 /**
  * Response to the IDL Machine from their requests
@@ -65,22 +65,22 @@ export type FromIDLMachineRequestResponse<T extends FromIDLMachineRequests> =
   T extends GetKeyboardRequest
     ? GetKeyboardResponse
     : T extends IDLNotifyRequest
-    ? IDLNotifyResponse
-    : T extends ReadIOLineRequest
-    ? ReadIOLineResponse
-    : T extends ReadProgramLineRequest
-    ? ReadProgramLineResponse
-    : T extends ResetSessionConfirmRequest
-    ? ResetSessionConfirmResponse
-    : T extends SetForegroundWindowConfirmRequest
-    ? SetForegroundWindowConfirmResponse
-    : never;
+      ? IDLNotifyResponse
+      : T extends ReadIOLineRequest
+        ? ReadIOLineResponse
+        : T extends ReadProgramLineRequest
+          ? ReadProgramLineResponse
+          : T extends ResetSessionConfirmRequest
+            ? ResetSessionConfirmResponse
+            : T extends SetForegroundWindowConfirmRequest
+              ? SetForegroundWindowConfirmResponse
+              : never;
 
 /**
  * Typed callback for functions that handle IDL Machine requests
  */
 export type FromIDLMachineRequestHandler<T extends FromIDLMachineRequests> = (
-  params: FromIDLMachineRequestParams<T>
+  params: FromIDLMachineRequestParams<T>,
 ) =>
   | FromIDLMachineRequestResponse<T>
   | Promise<FromIDLMachineRequestResponse<T>>;

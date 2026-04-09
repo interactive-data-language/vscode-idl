@@ -55,7 +55,7 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
    */
   onBasicToken<T extends BasicTokenNames>(
     token: T,
-    callback: BasicCallback<T, TMeta>
+    callback: BasicCallback<T, TMeta>,
   ) {
     // add if we are not tracking already
     if (!(token in this.basic)) {
@@ -71,7 +71,7 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
    */
   onBranchToken<T extends NonBasicTokenNames>(
     token: T,
-    callback: BranchCallback<T, TMeta>
+    callback: BranchCallback<T, TMeta>,
   ) {
     // add if we are not tracking already
     if (!(token in this.branch)) {
@@ -96,7 +96,7 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
     token: TreeToken<T>,
     parsed: IParsed,
     current: ITreeRecurserCurrent,
-    cb: (() => TMeta) | TMeta
+    cb: (() => TMeta) | TMeta,
   ) {
     // process if we have validators
     if (token.name in this.basic) {
@@ -115,7 +115,7 @@ export class TreeCallbackHandler<TMeta extends IHandlerCallbackMetadata> {
     token: TreeToken<T>,
     parsed: IParsed,
     current: ITreeRecurserCurrent,
-    meta: TMeta
+    meta: TMeta,
   ) {
     // process if we have validators
     if (token.name in this.branch) {

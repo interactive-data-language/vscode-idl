@@ -39,7 +39,7 @@ const cb: BranchCallback<CallRoutineToken, PopulateTypeHandlerMeta> = (
   token,
   parsed,
   currrent,
-  meta
+  meta,
 ) => {
   // get our routine source
   const globals = GetRoutine(meta.index, parsed, token);

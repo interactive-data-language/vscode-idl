@@ -13,7 +13,7 @@ import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-chil
  * of our compile options
  */
 export function GetCompileOpts(
-  token: IBranch<MainLevelToken | RoutineFunctionToken | RoutineProcedureToken>
+  token: IBranch<MainLevelToken | RoutineFunctionToken | RoutineProcedureToken>,
 ): string[] {
   // initialize return value
   const opts: string[] = [];
@@ -21,7 +21,7 @@ export function GetCompileOpts(
   // find all compile opts
   const children = FindAllBranchChildren(
     token,
-    TOKEN_NAMES.CONTROL_COMPILE_OPT
+    TOKEN_NAMES.CONTROL_COMPILE_OPT,
   );
 
   // process all compile opt statements

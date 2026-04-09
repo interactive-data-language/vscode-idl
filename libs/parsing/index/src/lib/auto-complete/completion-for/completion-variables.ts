@@ -15,7 +15,7 @@ import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface'
  */
 export function GetVariableCompletionOptions(
   parsed: IParsed,
-  parent?: TreeBranchToken
+  parent?: TreeBranchToken,
 ): IVariableCompletionOptions {
   return {
     lookup: GetLocalTokenLookup(parsed, parent),
@@ -26,7 +26,7 @@ export function GetVariableCompletionOptions(
  * Adds variables to our completion items
  */
 export function BuildVariableCompletionItems(
-  arg: BuildCompletionItemsArg<VariableCompletion>
+  arg: BuildCompletionItemsArg<VariableCompletion>,
 ) {
   // get our lookup
   const lookup = arg.options.lookup;

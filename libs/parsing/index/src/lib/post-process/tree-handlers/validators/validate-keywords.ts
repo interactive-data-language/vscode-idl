@@ -62,8 +62,8 @@ const cb: BasicCallback<
         IDL_TRANSLATION.parsing.errors[IDL_PROBLEM_CODES.UNKNOWN_KEYWORD] +
           ` "${kwName}"`,
         token.pos,
-        token.pos
-      )
+        token.pos,
+      ),
     );
   }
 };

@@ -44,7 +44,7 @@ import { parentPort } from 'worker_threads';
 // create our connection client - overload MessagePort to assert that we are running in a worker thread
 const client = new WorkerIOClient<LSPWorkerThreadMessage>(
   parentPort,
-  1
+  1,
 ) as ILSPWorkerThreadClient<LSPWorkerThreadMessage>;
 
 // send all logs to the parent process
@@ -100,9 +100,9 @@ client.on(
       message.file,
       message.code,
       cancel,
-      message.formatting
+      message.formatting,
     );
-  }
+  },
 );
 
 /**
@@ -123,12 +123,12 @@ client.on(
       WORKER_INDEX,
       message.file,
       message.code,
-      cancel
+      cancel,
     );
 
     // migrate and return
     return Migrator(message.migrationType, parsed, message.formatting, cancel);
-  }
+  },
 );
 
 /**
@@ -156,7 +156,7 @@ client.on(LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL, async (message) => {
     // update global tokens we track
     WORKER_INDEX.globalIndex.trackGlobalTokens(
       ReduceGlobals(message[files[i]]),
-      files[i]
+      files[i],
     );
   }
 });
@@ -171,9 +171,9 @@ client.on(
       WORKER_INDEX,
       message.file,
       message.code,
-      message.position
+      message.position,
     );
-  }
+  },
 );
 
 /**
@@ -186,7 +186,7 @@ client.on(
     const changed = await ChangeDetectionWorkerThread(
       WORKER_INDEX,
       cancel,
-      message.changed
+      message.changed,
     );
 
     // get syntax problems
@@ -207,7 +207,7 @@ client.on(
 
     // return to our parent process
     return problemsByFile;
-  }
+  },
 );
 
 /**
@@ -237,7 +237,7 @@ client.on(
       cancel,
       {
         postProcess: true,
-      }
+      },
     );
 
     /**
@@ -254,13 +254,13 @@ client.on(
             message.fsPath,
             parsed,
             message.config,
-            WRITE_TASK
+            WRITE_TASK,
           )
         : await GenerateIDLTask(
             message.fsPath,
             parsed,
             message.config,
-            WRITE_TASK
+            WRITE_TASK,
           );
 
     /** Return value for PRO code */
@@ -273,10 +273,10 @@ client.on(
         const mainAdd =
           message.type === 'envi'
             ? GenerateENVITaskMainLevelProgram(
-                result as GenerateTaskResult<true>
+                result as GenerateTaskResult<true>,
               )
             : GenerateIDLTaskMainLevelProgram(
-                result as GenerateTaskResult<true>
+                result as GenerateTaskResult<true>,
               );
 
         // make new text
@@ -289,7 +289,7 @@ client.on(
       result,
       proCode,
     };
-  }
+  },
 );
 
 /**
@@ -302,9 +302,9 @@ client.on(
       message.file,
       message.code,
       message.position,
-      message.config
+      message.config,
     );
-  }
+  },
 );
 
 /**
@@ -317,9 +317,9 @@ client.on(
       WORKER_INDEX,
       message.file,
       message.code,
-      message.position
+      message.position,
     );
-  }
+  },
 );
 
 /**
@@ -329,7 +329,7 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_OUTLINE,
   async (message, cancel) => {
     return await WORKER_INDEX.getOutline(message.file, message.code, cancel);
-  }
+  },
 );
 
 /**
@@ -339,7 +339,7 @@ client.on(
   LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_SEMANTIC_TOKENS,
   async (message, cancel) => {
     return WORKER_INDEX.getSemanticTokens(message.file, message.code, cancel);
-  }
+  },
 );
 
 /**
@@ -361,7 +361,7 @@ client.on(
       message.file,
       WORKER_INDEX.getFileStrings(message.file),
       cancel,
-      message
+      message,
     );
 
     const lightParsed: IParsedLightWeight = {
@@ -373,7 +373,7 @@ client.on(
 
     // return
     return lightParsed;
-  }
+  },
 );
 
 /**
@@ -389,7 +389,7 @@ client.on(
       message.file,
       message.code,
       cancel,
-      message
+      message,
     );
 
     // make non-circular
@@ -404,7 +404,7 @@ client.on(
 
     // return
     return lightParsed;
-  }
+  },
 );
 
 /**
@@ -446,7 +446,7 @@ client.on(
         await WORKER_INDEX.saveGlobalTokens(
           parsed.global,
           files[i],
-          parsed.disabledProblems
+          parsed.disabledProblems,
         );
 
         // save lines
@@ -485,7 +485,7 @@ client.on(
     }
 
     return resp;
-  }
+  },
 );
 
 /**
@@ -535,7 +535,7 @@ client.on(
     }
 
     return resp;
-  }
+  },
 );
 
 /**
@@ -559,7 +559,7 @@ client.on(
     const byCell = await WORKER_INDEX.getParsedNotebook(
       message.file,
       message.notebook,
-      cancel
+      cancel,
     );
 
     /**
@@ -580,7 +580,7 @@ client.on(
 
     // return each cell
     return resp;
-  }
+  },
 );
 
 /**
@@ -594,7 +594,7 @@ client.on(
       WORKER_INDEX,
       message.file,
       message.code,
-      cancel
+      cancel,
     );
 
     const lightParsed: IParsedLightWeight = {
@@ -604,7 +604,7 @@ client.on(
       postProcessProblems: parsed.postProcessProblems,
     };
     return lightParsed;
-  }
+  },
 );
 
 /**
@@ -622,7 +622,7 @@ client.on(
     const postProcess = await WORKER_INDEX.postProcessProFiles(
       files,
       cancel,
-      false
+      false,
     );
 
     // get syntax problems
@@ -659,7 +659,7 @@ client.on(
     }
 
     return resp;
-  }
+  },
 );
 
 /**
@@ -673,12 +673,12 @@ client.on(
       WORKER_INDEX,
       'foo-file.pro',
       message.code,
-      cancel
+      cancel,
     );
 
     // prepare and return
     return PrepareNotebookCell(parsed, message.code);
-  }
+  },
 );
 
 /**
@@ -693,12 +693,12 @@ client.on(
     const parsed = await WORKER_INDEX.getParsedNotebookCell(
       message.cellUri,
       message.code,
-      cancel
+      cancel,
     );
 
     // prepare and return
     return PrepareNotebookCell(parsed, message.code);
-  }
+  },
 );
 
 /**
@@ -720,7 +720,7 @@ client.on(
     const postProcess = await WORKER_INDEX.postProcessProFiles(
       ourFiles,
       cancel,
-      false
+      false,
     );
 
     // get syntax problems
@@ -752,7 +752,7 @@ client.on(
     }
 
     return resp;
-  }
+  },
 );
 
 /**

@@ -91,36 +91,36 @@ export type AutoCompleteRecipeOptions<T extends AutoCompleteType> =
   T extends BlockCompletion
     ? IBlockCompletionOptions
     : T extends CompileOptCompletion
-    ? ICompileOptCompletionOptions
-    : T extends ExecutiveCommandCompletion
-    ? IExecutiveCommandCompletionOptions
-    : T extends FunctionMethodCompletion
-    ? IFunctionMethodCompletionOptions
-    : T extends FunctionCompletion
-    ? IFunctionCompletionOptions
-    : T extends IncludeCompletion
-    ? IIncludeCompletionOptions
-    : T extends KeywordCompletion
-    ? IKeywordCompletionOptions
-    : T extends ProcedureCompletion
-    ? IProcedureCompletionOptions
-    : T extends ProcedureMethodCompletion
-    ? IProcedureMethodCompletionOptions
-    : T extends PropertyCompletion
-    ? IPropertyCompletionOptions
-    : T extends PropertyInStructureCompletion
-    ? IPropertyInStructureCompletionOptions
-    : T extends SpecialFunctionCompletion
-    ? ISpecialFunctionCompletionOptions
-    : T extends SpecialProcedureCompletion
-    ? ISpecialProcedureCompletionOptions
-    : T extends StructureNameCompletion
-    ? IStructureNameCompletionOptions
-    : T extends SystemVariableCompletion
-    ? ISystemVariableCompletionOptions
-    : T extends VariableCompletion
-    ? IVariableCompletionOptions
-    : never;
+      ? ICompileOptCompletionOptions
+      : T extends ExecutiveCommandCompletion
+        ? IExecutiveCommandCompletionOptions
+        : T extends FunctionMethodCompletion
+          ? IFunctionMethodCompletionOptions
+          : T extends FunctionCompletion
+            ? IFunctionCompletionOptions
+            : T extends IncludeCompletion
+              ? IIncludeCompletionOptions
+              : T extends KeywordCompletion
+                ? IKeywordCompletionOptions
+                : T extends ProcedureCompletion
+                  ? IProcedureCompletionOptions
+                  : T extends ProcedureMethodCompletion
+                    ? IProcedureMethodCompletionOptions
+                    : T extends PropertyCompletion
+                      ? IPropertyCompletionOptions
+                      : T extends PropertyInStructureCompletion
+                        ? IPropertyInStructureCompletionOptions
+                        : T extends SpecialFunctionCompletion
+                          ? ISpecialFunctionCompletionOptions
+                          : T extends SpecialProcedureCompletion
+                            ? ISpecialProcedureCompletionOptions
+                            : T extends StructureNameCompletion
+                              ? IStructureNameCompletionOptions
+                              : T extends SystemVariableCompletion
+                                ? ISystemVariableCompletionOptions
+                                : T extends VariableCompletion
+                                  ? IVariableCompletionOptions
+                                  : never;
 
 /**
  * Recipe to describe auto-completion parameters

@@ -14,7 +14,7 @@ describe(`[auto generated] All the places we want to make sure we test for`, () 
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -62,7 +62,7 @@ describe(`[auto generated] All the places we want to make sure we test for`, () 
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -176,7 +176,7 @@ describe(`[auto generated] All the places we want to make sure we test for`, () 
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

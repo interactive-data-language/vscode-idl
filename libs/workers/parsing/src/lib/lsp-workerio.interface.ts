@@ -12,7 +12,7 @@ import {
  * Response when we are waiting for a message
  */
 export interface ILSPWorkerWorkerIOPostAndReceiveMessageResult<
-  _Message extends LSPWorkerThreadMessage
+  _Message extends LSPWorkerThreadMessage,
 > extends IPostAndReceiveMessageResult<_Message> {
   /**
    * Response from the server
@@ -35,7 +35,7 @@ export interface ILSPWorkerWorkerIO<_Message extends LSPWorkerThreadMessage>
     type: T,
     payload: PayloadToLSPWorker<T>,
     timeout?: number,
-    cancel?: CancellationToken
+    cancel?: CancellationToken,
   ): ILSPWorkerWorkerIOPostAndReceiveMessageResult<T>;
 
   /**
@@ -44,14 +44,14 @@ export interface ILSPWorkerWorkerIO<_Message extends LSPWorkerThreadMessage>
   postMessage<T extends _Message>(
     workerId: string,
     type: T,
-    payload: PayloadToLSPWorker<T>
+    payload: PayloadToLSPWorker<T>,
   ): string;
 
   /**
    * Subscribe to all messages with the same ID from any worker
    */
   subscribeToGlobalMessages<T extends _Message>(
-    type: T
+    type: T,
   ): Subject<PayloadFromLSPWorker<T>>;
 
   /**
@@ -59,6 +59,6 @@ export interface ILSPWorkerWorkerIO<_Message extends LSPWorkerThreadMessage>
    */
   subscribeToWorkerMessages<T extends _Message>(
     workerId: string,
-    type: T
+    type: T,
   ): Subject<PayloadFromLSPWorker<T>>;
 }

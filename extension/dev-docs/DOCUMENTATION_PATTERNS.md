@@ -7,9 +7,7 @@ Captures key logic for exporting documentation for a VSCode workspace as Markdow
 "root" is the folder that all docs go to, this is `extension/docs` for the extension
 
 - `api` is the holder of all of our docs
-
   - `class` contains class definitions (i.e. summaries) for structures and classes
-
     - `class/func` contains class function methods by name `class__method`
 
     - `class/pro` contains class procedure methods by name `class__method`
@@ -19,7 +17,6 @@ Captures key logic for exporting documentation for a VSCode workspace as Markdow
   - `pro` contains all procedures, by lower-case name
 
   - `task` contains all tasks
-
     - `task/envi` contains ENVI Tasks by lower-case task name
 
     - `task/idl` contains IDL Tasks by lower-case task name

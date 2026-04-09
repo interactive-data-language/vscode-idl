@@ -30,7 +30,7 @@ export const RunNotebookReset: RunnerFunction = async (init) => {
    * Get the file we are going to open
    */
   const file = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/stop-notebook.idlnb'
+    'idl/test/client-e2e/notebooks/stop-notebook.idlnb',
   );
 
   /**

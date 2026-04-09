@@ -15,12 +15,12 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/in_structures.pro'
+      'idl/test/auto-complete/in_structures.pro',
     );
 
     // add file to index
@@ -61,9 +61,9 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 19, character: 22 };
@@ -235,9 +235,9 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_2: Position = { line: 21, character: 47 };
@@ -652,9 +652,9 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_2
+          position_2,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_3: Position = { line: 24, character: 27 };
@@ -944,9 +944,9 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_3
+          position_3,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_4: Position = { line: 24, character: 28 };
@@ -1236,9 +1236,9 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_4
+          position_4,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

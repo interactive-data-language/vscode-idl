@@ -22,7 +22,7 @@ import { ITaskGenerationTest } from '../tests.interface';
 export async function TestsForTaskGeneration(
   name: string,
   tests: ITaskGenerationTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -30,18 +30,18 @@ export async function TestsForTaskGeneration(
   // add imports
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(
-    `import { GenerateENVITask, GenerateENVITaskMainLevelProgram, } from '@idl/generators/envi-task';`
+    `import { GenerateENVITask, GenerateENVITaskMainLevelProgram, } from '@idl/generators/envi-task';`,
   );
   strings.push(
-    `import { GenerateIDLTask, GenerateIDLTaskMainLevelProgram, } from '@idl/generators/idl-task';`
+    `import { GenerateIDLTask, GenerateIDLTaskMainLevelProgram, } from '@idl/generators/idl-task';`,
   );
   strings.push(
-    `import { GenerateTaskResult } from '@idl/generators/tasks-shared';`
+    `import { GenerateTaskResult } from '@idl/generators/tasks-shared';`,
   );
   strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { LoadTask } from '@idl/schemas/tasks';`);
   strings.push(`import { readFileSync } from 'fs';`);
@@ -65,7 +65,7 @@ export async function TestsForTaskGeneration(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // add our tokens
@@ -89,7 +89,7 @@ export async function TestsForTaskGeneration(
       filepath,
       readFileSync(filepath, 'utf-8'),
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     strings.push(`    // specify type of task`);
@@ -102,7 +102,7 @@ export async function TestsForTaskGeneration(
     strings.push(``);
     strings.push(`    // add file to index`);
     strings.push(
-      `    const parsed = await index.getParsedProCode(filepath, readFileSync(filepath, 'utf-8'), new CancellationToken(), {postProcess: true});`
+      `    const parsed = await index.getParsedProCode(filepath, readFileSync(filepath, 'utf-8'), new CancellationToken(), {postProcess: true});`,
     );
     strings.push(``);
 
@@ -116,7 +116,7 @@ export async function TestsForTaskGeneration(
 
     strings.push(`    // make our task`);
     strings.push(
-      `    const result = taskType === 'envi' ? await GenerateENVITask(filepath, parsed) : await GenerateIDLTask(filepath, parsed)`
+      `    const result = taskType === 'envi' ? await GenerateENVITask(filepath, parsed) : await GenerateIDLTask(filepath, parsed)`,
     );
     strings.push(``);
 
@@ -134,7 +134,7 @@ export async function TestsForTaskGeneration(
       strings.push(``);
       strings.push(`    // verify results`);
       strings.push(
-        `    expect((result as GenerateTaskResult<true>).task).toEqual(expectedTask)`
+        `    expect((result as GenerateTaskResult<true>).task).toEqual(expectedTask)`,
       );
       strings.push(``);
 
@@ -146,12 +146,12 @@ export async function TestsForTaskGeneration(
 
       strings.push(`    // define expected main`);
       strings.push(
-        `    const expectedMain = ${JSON.stringify(mainAdd.split('\n'))}`
+        `    const expectedMain = ${JSON.stringify(mainAdd.split('\n'))}`,
       );
       strings.push(``);
       strings.push(`    // make our main level program`);
       strings.push(
-        `    const mainAdd = taskType === 'envi' ? GenerateENVITaskMainLevelProgram(result as GenerateTaskResult<true>) : GenerateIDLTaskMainLevelProgram(result as GenerateTaskResult<true>)`
+        `    const mainAdd = taskType === 'envi' ? GenerateENVITaskMainLevelProgram(result as GenerateTaskResult<true>) : GenerateIDLTaskMainLevelProgram(result as GenerateTaskResult<true>)`,
       );
       strings.push(``);
       strings.push(`    // verify result`);
@@ -159,7 +159,7 @@ export async function TestsForTaskGeneration(
       strings.push(``);
       strings.push(`    // verify we can parse our created task`);
       strings.push(
-        `   await LoadTask('mytask.task', (result as GenerateTaskResult<true>).formattedTask)`
+        `   await LoadTask('mytask.task', (result as GenerateTaskResult<true>).formattedTask)`,
       );
     } else {
       strings.push(`    // verify failure`);
@@ -169,7 +169,7 @@ export async function TestsForTaskGeneration(
       strings.push(
         `    expect((result as GenerateTaskResult<false>).failureReason).toEqual('${
           (result as GenerateTaskResult<false>).failureReason
-        }')`
+        }')`,
       );
     }
 

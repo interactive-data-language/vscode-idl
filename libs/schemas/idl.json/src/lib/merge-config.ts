@@ -11,7 +11,7 @@ import * as merge from 'deepmerge';
  * sure all parameters are set
  */
 export function MergeConfig<T extends FormatterType>(
-  parsed: Partial<IAssemblerInputOptions<T>>
+  parsed: Partial<IAssemblerInputOptions<T>>,
 ): IAssemblerOptions<T> {
   // merge with our defaults
   // dont worry about the specific formatting options as those

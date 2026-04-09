@@ -12,7 +12,7 @@ import { SKIP_THESE_TASKS } from './filter-mcp-envi-tasks.interface';
  */
 export function FilterMCPENVITasks(
   functions: { [key: string]: any },
-  taskNames: string[]
+  taskNames: string[],
 ) {
   /**
    * Task names start with "envi" and end with "task" so we have to filter with

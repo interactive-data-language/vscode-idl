@@ -17,7 +17,7 @@ export async function GetParsedNotebookCell(
   index: IDLIndex,
   cellFile: string,
   code: string | string[],
-  token: CancellationToken
+  token: CancellationToken,
 ): Promise<IParsed> {
   /** Get file for notebook */
   const nbFile = cellFile.split('#')[0];

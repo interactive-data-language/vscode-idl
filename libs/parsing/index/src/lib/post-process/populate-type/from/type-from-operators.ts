@@ -67,13 +67,13 @@ function TypeCheck(left: IDLDataType, right: IDLDataType, reference: string) {
 export function TypeFromOperators(
   index: IDLIndex,
   parsed: IParsed,
-  split: ISplitTreeOnOperators
+  split: ISplitTreeOnOperators,
 ): IDLDataType {
   /**
    * Get data types
    */
   const types = split.children.map((tree) =>
-    TypeFromOperatorSplit(index, parsed, tree)
+    TypeFromOperatorSplit(index, parsed, tree),
   );
 
   /**
@@ -188,7 +188,7 @@ export function TypeFromOperators(
           parsed,
           [currentType, types[i + 1]],
           split.startPos,
-          split.endPos
+          split.endPos,
         );
         break;
     }

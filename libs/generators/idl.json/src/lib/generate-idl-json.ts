@@ -10,7 +10,7 @@ import { join } from 'path';
  */
 export function GenerateIDLJSON(
   folder: string,
-  config: IAssemblerOptions<FormatterType>
+  config: IAssemblerOptions<FormatterType>,
 ) {
   // remove keys that we dont need in the local file
   delete config.spaceOffset;

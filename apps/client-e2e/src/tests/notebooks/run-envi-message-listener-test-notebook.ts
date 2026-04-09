@@ -49,13 +49,13 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
  * Function that runs basic tests for ENVI message listeners
  */
 export const RunENVIMessageListenerTestNotebook: RunnerFunction = async (
-  init
+  init,
 ) => {
   await RunNotebookAndCompareCells(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/envi-message-listener.idlnb'
+      'idl/test/client-e2e/notebooks/envi-message-listener.idlnb',
     ),
     CELL_OUTPUT,
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 };

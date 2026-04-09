@@ -29,7 +29,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
             IDL_TRANSLATION.parsing.errors[IDL_PROBLEM_CODES.RESERVED_VARIABLE]
           }`,
           token.pos,
-          token.pos
+          token.pos,
         );
         break;
       default:
@@ -41,5 +41,5 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
     if (problem !== undefined) {
       parsed.parseProblems.push(problem);
     }
-  }
+  },
 );

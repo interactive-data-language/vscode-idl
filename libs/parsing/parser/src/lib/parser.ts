@@ -35,7 +35,7 @@ export function ParserTokenize(
   code: string | string[],
   tokenized: IParsed,
   cancel: CancellationToken,
-  full = true
+  full = true,
 ) {
   /** Define options for extracting tokens */
   let tokenOptions: IFindTokensOptions;
@@ -89,7 +89,7 @@ export function ParserTokenize(
 export function Parser(
   code: string | string[],
   cancel: CancellationToken,
-  inOptions: Partial<IParserOptions> = {}
+  inOptions: Partial<IParserOptions> = {},
 ): IParsed {
   /**
    * Merge with defaults
@@ -132,7 +132,7 @@ export function Parser(
   tokenized.tree = BuildSyntaxTree(
     tokenized.tokens,
     tokenized.parseProblems,
-    options.full
+    options.full,
   );
 
   // populate values in the syntax tree
@@ -176,7 +176,7 @@ export function Parser(
 export async function ParseFile(
   file: string,
   cancel: CancellationToken,
-  options: Partial<IParserOptions> = {}
+  options: Partial<IParserOptions> = {},
 ): Promise<IParsed> {
   // make sure that our file exists
   if (!existsSync(file)) {
@@ -199,7 +199,7 @@ export async function ParseFile(
 export function ParseFileSync(
   file: string,
   cancel: CancellationToken,
-  options: Partial<IParserOptions> = {}
+  options: Partial<IParserOptions> = {},
 ): IParsed {
   // make sure that our file exists
   if (!existsSync(file)) {

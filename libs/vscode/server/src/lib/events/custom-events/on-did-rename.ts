@@ -47,7 +47,7 @@ export const ON_DID_RENAME = async (message: IFileRenamePayload) => {
       await IDL_INDEX.indexFiles(
         added,
         GetFileStringsFromFSPath,
-        new CancellationToken()
+        new CancellationToken(),
       );
     }
 

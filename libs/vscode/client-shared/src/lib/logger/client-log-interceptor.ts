@@ -24,12 +24,12 @@ export const CLIENT_LOG_INTERCEPTOR: LogInterceptor = (options) => {
           `${options.log || IDL_LOG} ${options.type || 'info'}`,
           data[i],
           false,
-          false
-        )
+          false,
+        ),
       );
     } else {
       IDL_CLIENT_OUTPUT_CHANNEL.appendLine(
-        LOGGING_CONFIG.INDENT + StringifyData(data[i], false)
+        LOGGING_CONFIG.INDENT + StringifyData(data[i], false),
       );
     }
   }

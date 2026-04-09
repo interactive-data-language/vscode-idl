@@ -17,23 +17,18 @@ Pattern for how MCP tools are organized
 MCP naming paradigm detail:
 
 - MCP types in the folder "libs\types\mcp\src\lib"
-
   - Each MCP tool has it’s own type file "mcp-tool\*.interface.ts"
 
   - Split by HTTP or VSCode
-
     - VSCode indicates that the tool will invoke ENVI and IDL
 
     - HTTP means its an MCP tool that is only available via HTTP
 
 - MCP tool registration in "libs\mcp\server-tools" and "libs\mcp\language-server"
-
   - Each MCP tool that is registered for the HTTP server follows naming "register-mcp-tool\*.ts"
 
 - Running MCP tools in ENVI and IDL live in "libs\vscode\mcp"
-
   - File names map to "run-mcp-tool\*.ts"
 
 - Tests for MCP tools are in the integration test suite (client-e2e). They can be found here "apps\client-e2e\src\tests\mcp"
-
   - There’s an MCP folder that follows the naming convention of "mcp-test\*.ts" with the tool name inserted in the test itself

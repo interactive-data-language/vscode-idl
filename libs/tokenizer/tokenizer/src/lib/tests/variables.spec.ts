@@ -18,7 +18,7 @@ describe('Validates variable parsing (mostly done elsewhere)', () => {
       // get tokens
       const tokens = Tokenizer(
         `a = ${variable}`,
-        new CancellationToken()
+        new CancellationToken(),
       ).tokens;
 
       // make sure we only found one token

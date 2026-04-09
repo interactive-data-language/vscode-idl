@@ -46,7 +46,7 @@ PROCEDURE_TYPES[GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD] = true;
  */
 function GetMatchingGlobalToken(
   routine: TreeToken<RoutineFunctionToken | RoutineProcedureToken>,
-  parsed: IParsed
+  parsed: IParsed,
 ): GlobalRoutineToken | undefined {
   /** Extract the name of our routine which needs to descend the tree */
   let name: string;
@@ -264,7 +264,7 @@ export function ReplaceRoutineDocs(parsed: IParsed, style: ICodeStyle) {
           IncrementLineNumbers(
             useTree.slice(i + 1),
             // shift and do math to make bottom of docs above routine definition
-            delta - (routine.pos[0] + delta - block.end.pos[0] - 1)
+            delta - (routine.pos[0] + delta - block.end.pos[0] - 1),
           );
         } else {
           routine.end.pos[0] += delta;

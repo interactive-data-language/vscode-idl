@@ -24,7 +24,7 @@ export function SyntaxProblemWithTranslation(
   code: IDLProblemCode,
   start: PositionArray,
   end: PositionArray,
-  file?: string
+  file?: string,
 ): ISyntaxProblem {
   return {
     // _id: nanoid(),
@@ -50,7 +50,7 @@ export function SyntaxProblemWithoutTranslation(
   info: string,
   start: PositionArray,
   end: PositionArray,
-  file?: string
+  file?: string,
 ): ISyntaxProblem {
   return {
     // _id: nanoid(),

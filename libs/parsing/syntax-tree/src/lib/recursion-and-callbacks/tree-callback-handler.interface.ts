@@ -15,7 +15,7 @@ export interface IHandlerCallbackMetadata {}
  */
 export type BaseBasicCallbackArgs<T extends BasicTokenNames> = [
   token: TreeToken<T>,
-  parsed: IParsed
+  parsed: IParsed,
 ];
 
 /**
@@ -25,12 +25,12 @@ export type BaseBasicCallbackArgs<T extends BasicTokenNames> = [
  */
 export type BasicCallbackArgs<
   T extends BasicTokenNames,
-  TMeta extends IHandlerCallbackMetadata
+  TMeta extends IHandlerCallbackMetadata,
 > = [
   token: TreeToken<T>,
   parsed: IParsed,
   current: ITreeRecurserCurrent,
-  meta: TMeta
+  meta: TMeta,
 ];
 
 /**
@@ -38,7 +38,7 @@ export type BasicCallbackArgs<
  */
 export type BasicCallback<
   T extends BasicTokenNames,
-  TMeta extends IHandlerCallbackMetadata
+  TMeta extends IHandlerCallbackMetadata,
 > = (...args: BasicCallbackArgs<T, TMeta>) => void;
 
 /**
@@ -56,12 +56,12 @@ export type BasicCallbackLookup<TMeta extends IHandlerCallbackMetadata> = {
  */
 export type BranchCallbackArgs<
   T extends NonBasicTokenNames,
-  TMeta extends IHandlerCallbackMetadata
+  TMeta extends IHandlerCallbackMetadata,
 > = [
   branch: TreeToken<T>,
   parsed: IParsed,
   current: ITreeRecurserCurrent,
-  meta: TMeta
+  meta: TMeta,
 ];
 
 /**
@@ -69,7 +69,7 @@ export type BranchCallbackArgs<
  */
 export type BranchCallback<
   T extends NonBasicTokenNames,
-  TMeta extends IHandlerCallbackMetadata
+  TMeta extends IHandlerCallbackMetadata,
 > = (...args: BranchCallbackArgs<T, TMeta>) => void;
 
 /**
@@ -91,7 +91,7 @@ export type BranchCallbackLookup<TMeta extends IHandlerCallbackMetadata> = {
 export type TreeCallbackArgs<TMeta extends IHandlerCallbackMetadata> = [
   tree: SyntaxTree,
   parsed: IParsed,
-  meta: TMeta
+  meta: TMeta,
 ];
 
 /**

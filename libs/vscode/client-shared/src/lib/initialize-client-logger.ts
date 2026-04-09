@@ -15,7 +15,7 @@ import { LOG_ALERT_CALLBACK } from './logger/log-alert-callback';
  */
 export const IDL_CLIENT_OUTPUT_CHANNEL = vscode.window.createOutputChannel(
   IDL_TRANSLATION.debugger.logs.host,
-  LOG_LANGUAGE_NAME
+  LOG_LANGUAGE_NAME,
 );
 
 /**
@@ -23,7 +23,7 @@ export const IDL_CLIENT_OUTPUT_CHANNEL = vscode.window.createOutputChannel(
  */
 export const IDL_DEBUG_OUTPUT_CHANNEL = vscode.window.createOutputChannel(
   IDL_TRANSLATION.debugger.logs.debugHistory,
-  LOG_LANGUAGE_NAME
+  LOG_LANGUAGE_NAME,
 );
 
 /**
@@ -42,7 +42,7 @@ export function InitializeClientLogger() {
    */
   if (process.env.VSCODE_IDL_DEBUGGING === 'true') {
     IDL_CLIENT_OUTPUT_CHANNEL.appendLine(
-      'Debug mode detected for IDL extension, check debug console of host process'
+      'Debug mode detected for IDL extension, check debug console of host process',
     );
   } else {
     // custom logging to send everything back to the VSCode output window

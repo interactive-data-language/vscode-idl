@@ -18,7 +18,7 @@ import { ON_DOCUMENT_SYMBOL } from './documents/on-document-symbol';
  * Text document manager which handles full document syncs
  */
 export const DOCUMENT_MANAGER: TextDocuments<TextDocument> = new TextDocuments(
-  TextDocument
+  TextDocument,
 );
 
 /**

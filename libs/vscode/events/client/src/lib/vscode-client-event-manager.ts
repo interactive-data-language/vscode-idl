@@ -22,7 +22,7 @@ export class VSCodeClientEventManager {
    */
   onNotification<T extends LanguageServerMessage>(
     message: T,
-    callback: (payload: LanguageServerPayload<T>) => void
+    callback: (payload: LanguageServerPayload<T>) => void,
   ) {
     this.client.onNotification(MessageNameNormalizer(message), callback);
   }
@@ -33,8 +33,8 @@ export class VSCodeClientEventManager {
   onRequest<T extends LanguageServerMessage>(
     message: T,
     callback: (
-      payload: LanguageServerPayload<T>
-    ) => LanguageServerResponse<T> | Promise<LanguageServerResponse<T>>
+      payload: LanguageServerPayload<T>,
+    ) => LanguageServerResponse<T> | Promise<LanguageServerResponse<T>>,
   ) {
     this.client.onRequest(MessageNameNormalizer(message), callback);
   }
@@ -44,7 +44,7 @@ export class VSCodeClientEventManager {
    */
   sendNotification<T extends LanguageServerMessage>(
     message: T,
-    payload: LanguageServerPayload<T>
+    payload: LanguageServerPayload<T>,
   ) {
     this.client.sendNotification(MessageNameNormalizer(message), payload);
   }
@@ -54,7 +54,7 @@ export class VSCodeClientEventManager {
    */
   sendRequest<T extends LanguageServerMessage>(
     message: T,
-    payload: LanguageServerPayload<T>
+    payload: LanguageServerPayload<T>,
   ): Promise<LanguageServerResponse<T>> {
     return this.client.sendRequest(MessageNameNormalizer(message), payload);
   }

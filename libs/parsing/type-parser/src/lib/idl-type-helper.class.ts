@@ -26,7 +26,7 @@ export class IDLTypeHelper {
     typeInfo: IDLDataType,
     // these should be reflected in the "type_definition" regex in
     // extension\language\syntaxes\src\idl.tmLanguage.yaml
-    helpType: 'arg' | 'kw' | 'prop' | 'struct' | 'var' = 'var'
+    helpType: 'arg' | 'kw' | 'prop' | 'struct' | 'var' = 'var',
   ): string {
     /** Docs we add for hover help */
     let useDocs: string[];
@@ -133,7 +133,7 @@ export class IDLTypeHelper {
           },
           ...iType,
         };
-      })
+      }),
     );
   }
 
@@ -144,7 +144,7 @@ export class IDLTypeHelper {
    */
   static createTaskType(
     taskName: string,
-    taskType: 'ENVI' | 'IDL' = 'ENVI'
+    taskType: 'ENVI' | 'IDL' = 'ENVI',
   ): IDLDataType {
     return [
       {

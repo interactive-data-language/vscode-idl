@@ -15,7 +15,7 @@ import {
  */
 function ShouldAddSpace(
   token: TreeToken<TokenName>,
-  previousToken: TreeToken<TokenName> | undefined
+  previousToken: TreeToken<TokenName> | undefined,
 ): boolean {
   // override rules
   if (
@@ -55,7 +55,7 @@ function ShouldAddSpace(
 export function Stringify(
   token: TreeToken<TokenName>,
   previousToken: TreeToken<TokenName> | undefined,
-  first = false
+  first = false,
 ) {
   return StringifyString(token, token.match[0] || '', previousToken, first);
 }
@@ -67,7 +67,7 @@ export function StringifyString(
   token: TreeToken<TokenName>,
   str: string,
   previousToken: TreeToken<TokenName> | undefined,
-  first = false
+  first = false,
 ) {
   // get string to append
   const before = ShouldAddSpace(token, previousToken) && !first ? ' ' : '';

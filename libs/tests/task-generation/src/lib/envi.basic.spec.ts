@@ -25,7 +25,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify type of task
@@ -33,7 +33,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-generation/envitasktest.pro'
+      'idl/test/task-generation/envitasktest.pro',
     );
 
     // add file to index
@@ -41,7 +41,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
       filepath,
       readFileSync(filepath, 'utf-8'),
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // make our task
@@ -188,7 +188,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
     // verify we can parse our created task
     await LoadTask(
       'mytask.task',
-      (result as GenerateTaskResult<true>).formattedTask
+      (result as GenerateTaskResult<true>).formattedTask,
     );
   });
 });

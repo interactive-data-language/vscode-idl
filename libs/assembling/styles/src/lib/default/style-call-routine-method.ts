@@ -21,7 +21,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     if (meta.vanilla || methods === undefined || methods.length === 0) {
       token.match[0] = token.match[0].replace(
         token.match[2],
-        TransformCase(token.match[2], meta.style.routineMethods)
+        TransformCase(token.match[2], meta.style.routineMethods),
       );
       return;
     }
@@ -32,9 +32,9 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     // check if we need to transform the text
     token.match[0] = token.match[0].replace(
       token.match[2],
-      TransformCase(display.split('::')[1], meta.style.routineMethods)
+      TransformCase(display.split('::')[1], meta.style.routineMethods),
     );
-  }
+  },
 );
 
 /**
@@ -54,7 +54,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     if (meta.vanilla || methods === undefined || methods.length === 0) {
       token.match[0] = token.match[0].replace(
         token.match[2],
-        TransformCase(token.match[2], meta.style.routineMethods)
+        TransformCase(token.match[2], meta.style.routineMethods),
       );
       return;
     }
@@ -65,7 +65,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     // check if we need to transform the text
     token.match[0] = token.match[0].replace(
       token.match[2],
-      TransformCase(display.split('::')[1], meta.style.routineMethods)
+      TransformCase(display.split('::')[1], meta.style.routineMethods),
     );
-  }
+  },
 );

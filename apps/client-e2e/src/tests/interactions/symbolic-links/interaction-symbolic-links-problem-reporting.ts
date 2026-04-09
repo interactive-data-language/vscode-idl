@@ -16,15 +16,15 @@ import { RunnerFunction } from '../../runner.interface';
  * problems for a file that is a link
  */
 export const InteractionSymbolicLinkProblemReporting: RunnerFunction = async (
-  init
+  init,
 ) => {
   const doc1 = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/links/dir1/test_with_problems.pro')
+    GetExtensionPath('idl/test/links/dir1/test_with_problems.pro'),
   );
   const nProb1 = 1;
 
   const doc2 = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/links/dir2/link/test_with_problems.pro')
+    GetExtensionPath('idl/test/links/dir2/link/test_with_problems.pro'),
   );
   const nProb2 = 0;
 
@@ -101,7 +101,7 @@ export const InteractionSymbolicLinkProblemReporting: RunnerFunction = async (
    */
   await init.client.client.sendRequest(
     'textDocument/completion',
-    completionParams
+    completionParams,
   );
 
   // short pause to make sure we open and parse
@@ -127,7 +127,7 @@ export const InteractionSymbolicLinkProblemReporting: RunnerFunction = async (
    */
   await init.client.client.sendRequest(
     'textDocument/semanticTokens/full',
-    tokenParams
+    tokenParams,
   );
 
   // short pause to make sure we open and parse

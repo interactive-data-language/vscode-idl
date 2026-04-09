@@ -23,10 +23,10 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
     } else {
       token.match[0] = TransformCase(
         token.match[0].replace(/\s/g, ''),
-        meta.style.properties
+        meta.style.properties,
       );
     }
-  }
+  },
 );
 
 ASSEMBLER_DEFAULT_STYLING.onBranchToken(
@@ -40,7 +40,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
       prop !== undefined && !meta.vanilla
         ? prop.display
         : token.match[0].replace(/\s/g, ''),
-      meta.style.properties
+      meta.style.properties,
     );
-  }
+  },
 );

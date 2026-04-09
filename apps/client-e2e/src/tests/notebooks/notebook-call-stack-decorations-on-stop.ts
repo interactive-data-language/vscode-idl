@@ -9,10 +9,10 @@ import { RunNotebookAndCheckCallStackDecorations } from './helpers/run-notebook-
  * Function that verifies decorations do the right things for notebooks
  */
 export const NotebookCallStackDecorationsOnStop: RunnerFunction = async (
-  init
+  init,
 ) => {
   const nbFile = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/decorations/on-stop.idlnb'
+    'idl/test/client-e2e/notebooks/decorations/on-stop.idlnb',
   );
 
   // open our notebook
@@ -27,6 +27,6 @@ export const NotebookCallStackDecorationsOnStop: RunnerFunction = async (
     nbFile,
     stack,
     init.notebooks.controller,
-    init.decorations
+    init.decorations,
   );
 };

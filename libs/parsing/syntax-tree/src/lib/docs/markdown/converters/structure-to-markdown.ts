@@ -22,7 +22,7 @@ SKIP_THESE[IDL_DOCS_HEADERS.TOOLTIP] = true;
  * Converts routine information to markdown (procedures or functions)
  */
 export function StructureToMarkdown(
-  info: RoutineMarkdownInfo<StructureMarkdown>
+  info: RoutineMarkdownInfo<StructureMarkdown>,
 ): string {
   /** Metadata */
   const meta = info.meta;
@@ -63,7 +63,7 @@ export function StructureToMarkdown(
       // check if private or not - ignore for now since this is for developers
       // if (!arg.private) {
       markdown.push(
-        `- **${prop.display}**: ${SerializeTypeForDocs(prop.type)}`
+        `- **${prop.display}**: ${SerializeTypeForDocs(prop.type)}`,
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(prop.docs, '  '));

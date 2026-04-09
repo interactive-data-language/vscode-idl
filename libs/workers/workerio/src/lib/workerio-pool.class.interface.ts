@@ -31,7 +31,7 @@ export interface IWorkerIOPool<_Message extends string> {
   postAndReceiveMessage<T extends _Message>(
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
-    options?: IPostMessageOptions
+    options?: IPostMessageOptions,
   ): IPostAndReceiveMessageResult<T>;
 
   /**
@@ -39,7 +39,7 @@ export interface IWorkerIOPool<_Message extends string> {
    */
   postToAll<T extends _Message>(
     type: T,
-    payload: PayloadToWorkerBaseMessage<T>
+    payload: PayloadToWorkerBaseMessage<T>,
   ): void;
 
   /**
@@ -51,7 +51,7 @@ export interface IWorkerIOPool<_Message extends string> {
    * Subscribe to all messages with the same ID from any worker
    */
   subscribeToGlobalMessages<T extends _Message>(
-    type: T
+    type: T,
   ): Subject<IMessageFromWorker<T>>;
 
   /** Reference to our WorkerIO class that does the work of talking to our worker threads */

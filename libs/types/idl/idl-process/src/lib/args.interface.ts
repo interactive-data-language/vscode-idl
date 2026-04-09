@@ -94,27 +94,27 @@ type UnhandledErrorArg = [event: string, err: Error];
 export type IDLListenerArgs<T extends IDLEvent> = T extends ContinueEvent
   ? ContinuedArgs
   : T extends CrashEvent
-  ? CrashedStartArgs
-  : T extends EndEvent
-  ? EndArgs
-  : T extends FailedStartEvent
-  ? FailedStartArgs
-  : T extends IDLStartedEvent
-  ? IDLStartedArgs
-  : T extends LostConnectionEvent
-  ? LostConnectionArgs
-  : T extends OutputEvent
-  ? OutputArgs
-  : T extends PromptEvent
-  ? PromptArgs
-  : T extends PromptReadyEvent
-  ? PromptReadyArgs
-  : T extends StandardErrorEvent
-  ? StandardErrArgs
-  : T extends StandardOutEvent
-  ? StandardOutArgs
-  : T extends StopEvent
-  ? StopArgs
-  : T extends UnhandledErrorEvent
-  ? UnhandledErrorArg
-  : any[];
+    ? CrashedStartArgs
+    : T extends EndEvent
+      ? EndArgs
+      : T extends FailedStartEvent
+        ? FailedStartArgs
+        : T extends IDLStartedEvent
+          ? IDLStartedArgs
+          : T extends LostConnectionEvent
+            ? LostConnectionArgs
+            : T extends OutputEvent
+              ? OutputArgs
+              : T extends PromptEvent
+                ? PromptArgs
+                : T extends PromptReadyEvent
+                  ? PromptReadyArgs
+                  : T extends StandardErrorEvent
+                    ? StandardErrArgs
+                    : T extends StandardOutEvent
+                      ? StandardOutArgs
+                      : T extends StopEvent
+                        ? StopArgs
+                        : T extends UnhandledErrorEvent
+                          ? UnhandledErrorArg
+                          : any[];

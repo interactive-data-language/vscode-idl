@@ -9,7 +9,7 @@ import { IBasicBranch, IBranch, SyntaxTree } from '@idl/types/syntax-tree';
  */
 export type BasicValidatorArgs<T extends BasicTokenNames> = [
   token: IBasicBranch<T>,
-  syntax: SyntaxProblems
+  syntax: SyntaxProblems,
 ];
 
 /**
@@ -32,7 +32,7 @@ export type BasicValidatorLookup = {
  */
 export type BranchValidatorArgs<T extends NonBasicTokenNames> = [
   branch: IBranch<T>,
-  syntax: SyntaxProblems
+  syntax: SyntaxProblems,
 ];
 
 /**

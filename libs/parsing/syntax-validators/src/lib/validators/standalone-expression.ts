@@ -120,8 +120,8 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
               ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
               : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
             kids[i].pos,
-            (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos
-          )
+            (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos,
+          ),
         );
       }
 
@@ -159,7 +159,7 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
         case !(kids[i + 1] !== undefined) &&
           !ValidateSameLine(
             (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos,
-            kids[i + 1]?.pos
+            kids[i + 1]?.pos,
           ):
         /**
          * If the next token can't be next, then we have a problem
@@ -172,8 +172,8 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
                 ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
                 : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
               kids[orig].pos,
-              (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos
-            )
+              (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos,
+            ),
           );
           break;
         // shift
@@ -192,8 +192,8 @@ function Callback(token: TreeBranchToken, parsed: IParsed) {
           ? IDL_PROBLEM_CODES.IMPLIED_PRINT_NOTEBOOK
           : IDL_PROBLEM_CODES.STANDALONE_EXPRESSION,
         kids[i].pos,
-        (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos
-      )
+        (kids[i] as TreeBranchToken)?.end?.pos || kids[i].pos,
+      ),
     );
   }
 }

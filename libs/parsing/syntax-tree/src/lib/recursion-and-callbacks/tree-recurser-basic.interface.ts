@@ -8,7 +8,7 @@ import { TreeToken } from '@idl/types/syntax-tree';
  */
 export type BasicTokenBasicCallback<T extends BasicTokenNames> = (
   token: TreeToken<T>,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ) => boolean | void;
 
 /**
@@ -17,7 +17,7 @@ export type BasicTokenBasicCallback<T extends BasicTokenNames> = (
  */
 export type BranchTokenBasicCallback<T extends NonBasicTokenNames> = (
   token: TreeToken<T>,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ) => boolean | void;
 
 /**

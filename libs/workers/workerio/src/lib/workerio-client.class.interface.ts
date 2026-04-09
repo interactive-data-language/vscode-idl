@@ -19,7 +19,7 @@ export interface IWorkerIOClient<_Message extends string> {
     message: string,
     err: any,
     type: ErrorMessage | UnhandledError,
-    _id: string
+    _id: string,
   ): void;
 
   /**
@@ -38,7 +38,7 @@ export interface IWorkerIOClient<_Message extends string> {
    */
   on<T extends _Message>(
     message: T,
-    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>
+    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>,
   ): void;
 
   /**
@@ -46,6 +46,6 @@ export interface IWorkerIOClient<_Message extends string> {
    */
   postMessage<T extends _Message>(
     type: T,
-    payload: PayloadFromWorkerBaseMessage<T>
+    payload: PayloadFromWorkerBaseMessage<T>,
   );
 }

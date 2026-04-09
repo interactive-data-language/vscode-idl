@@ -9,7 +9,7 @@ const stringify = require('json-stringify-pretty-compact');
  */
 export function JSONFormatter<T extends FormatterType>(
   toFormat: any,
-  options: IAssemblerOptions<T>
+  options: IAssemblerOptions<T>,
 ): string {
   return stringify(toFormat, {
     indent: options.tabWidth,

@@ -34,7 +34,7 @@ export function AddCopilotConfig(nls: IPackageNLS) {
     editPresentation: 'multilineText',
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.copilotCustomInstructions,
-      nls
+      nls,
     ),
     scope: 'machine',
   };

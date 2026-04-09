@@ -89,7 +89,7 @@ export class IDLWebView {
         this.dispose();
       },
       null,
-      this._disposables
+      this._disposables,
     );
 
     // Update the content based on view changes
@@ -104,7 +104,7 @@ export class IDLWebView {
         }
       },
       null,
-      this._disposables
+      this._disposables,
     );
 
     // Handle messages from the webview
@@ -138,7 +138,7 @@ export class IDLWebView {
               IDL_EXTENSION_CONFIG_KEYS.dontShow,
               {
                 welcomePage: message.data,
-              }
+              },
             );
             return;
           case 'started':
@@ -161,7 +161,7 @@ export class IDLWebView {
         }
       },
       null,
-      this._disposables
+      this._disposables,
     );
   }
 
@@ -205,7 +205,7 @@ export class IDLWebView {
           vscode.Uri.file(viewDir),
           vscode.Uri.file(I18N_FOLDER),
         ],
-      }
+      },
     );
 
     IDLWebView.currentPanel = new IDLWebView(panel, extensionPath);
@@ -271,7 +271,7 @@ export class IDLWebView {
       this._extensionPath,
       'dist',
       'apps',
-      'idl-webview'
+      'idl-webview',
     );
     const index = path.join(webViewFolder, 'index.html');
 
@@ -307,7 +307,7 @@ export class IDLWebView {
     // update the base URI for all links and icons
     strings = strings.replace(
       '<base href="/"',
-      `<base href="${String(baseUri)}/"`
+      `<base href="${String(baseUri)}/"`,
     );
 
     // IDL_LOGGER.log({

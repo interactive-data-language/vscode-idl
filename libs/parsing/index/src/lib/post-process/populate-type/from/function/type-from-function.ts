@@ -20,7 +20,7 @@ import { TypeFromTask } from './functions/type-from-task';
 export function TypeFromFunction(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallFunctionToken>
+  token: TreeToken<CallFunctionToken>,
 ): IDLDataType {
   /** Function name */
   let name = token.match[1].toLowerCase();
@@ -59,7 +59,7 @@ export function TypeFromFunction(
   // first, check for structure
   const structure = index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.STRUCTURE,
-    name
+    name,
   );
 
   // if we have a structure with that name, mark as the type
@@ -76,12 +76,12 @@ export function TypeFromFunction(
       case wasENVITask:
         return IDLTypeHelper.createTaskType(
           GetTaskDisplayName(name).taskName,
-          'ENVI'
+          'ENVI',
         );
       case wasIDLTask:
         return IDLTypeHelper.createTaskType(
           GetTaskDisplayName(name).taskName,
-          'IDL'
+          'IDL',
         );
       default:
         return IDLTypeHelper.createIDLType([
@@ -96,7 +96,7 @@ export function TypeFromFunction(
   // check for function in our index
   const functions = index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.FUNCTION,
-    name
+    name,
   );
 
   // check if we found a function

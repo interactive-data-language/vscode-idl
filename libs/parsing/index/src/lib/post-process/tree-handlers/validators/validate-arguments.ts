@@ -37,7 +37,7 @@ const cb: BranchCallback<CallRoutineToken, PopulateTypeHandlerMeta> = (
   token,
   parsed,
   current,
-  meta
+  meta,
 ) => {
   /**
    * Trigger getting type arguments, which uses our cache and doesn't

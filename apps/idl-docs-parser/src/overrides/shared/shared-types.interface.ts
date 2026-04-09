@@ -15,7 +15,7 @@ export interface ISharedOverrides {
 export const SHARED_OVERRIDES: ISharedOverrides = {
   SPATIALREF: {
     type: IDLTypeHelper.parseIDLType(
-      `ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef `
+      `ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef `,
     ),
   },
   INTERLEAVE: { type: IDLTypeHelper.parseIDLType(`string`) },

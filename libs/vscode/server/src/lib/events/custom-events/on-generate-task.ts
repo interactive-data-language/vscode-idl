@@ -26,7 +26,7 @@ const WRITE_TASK = true;
  * @param event The event sent from VSCode
  */
 export const ON_GENERATE_TASK = async (
-  payload: LanguageServerPayload<GenerateTaskMessage>
+  payload: LanguageServerPayload<GenerateTaskMessage>,
 ) => {
   await SERVER_INITIALIZED;
   try {
@@ -65,7 +65,7 @@ export const ON_GENERATE_TASK = async (
         fsPath: info.fsPath,
         code: info.code,
         config,
-      }
+      },
     ).response;
 
     // check for error

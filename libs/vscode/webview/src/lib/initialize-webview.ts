@@ -13,7 +13,7 @@ export function InitializeWebView(ctx: ExtensionContext) {
     vscode.window.registerWebviewPanelSerializer(IDLWebView.viewType, {
       async deserializeWebviewPanel(
         webviewPanel: vscode.WebviewPanel,
-        state: any
+        state: any,
       ) {
         IDLWebView.revive(webviewPanel, ctx.extensionPath, state);
       },

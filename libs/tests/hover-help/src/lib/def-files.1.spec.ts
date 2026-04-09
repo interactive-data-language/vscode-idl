@@ -15,12 +15,12 @@ describe(`[auto generated] Correctly get hover help`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/testroutine.pro.def'
+      'idl/test/hover-help/testroutine.pro.def',
     );
 
     // add file to index
@@ -83,12 +83,12 @@ describe(`[auto generated] Correctly get hover help`, () => {
     const hoverHelp_0 = await index.getHoverHelp(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
 
     // verify results
     expect(expectedFound_0).toEqual(
-      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim)
+      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim),
     );
   });
 });

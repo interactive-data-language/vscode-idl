@@ -8,7 +8,7 @@ import * as vscode from 'vscode';
  * get what was sent via LSP
  */
 export function GetRealDiagnostic(
-  dumbDiags: vscode.Diagnostic[]
+  dumbDiags: vscode.Diagnostic[],
 ): IDLDiagnostic[] {
   const realDiags: IDLDiagnostic[] = [];
 

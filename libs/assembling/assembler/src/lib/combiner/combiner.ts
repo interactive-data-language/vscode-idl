@@ -38,7 +38,7 @@ function _Recursor<T extends FormatterType>(
   tree: SyntaxTree,
   options: IAssemblerOptions<T>,
   recurse: ICombinerRecursionOptions,
-  strings: IStringsByLine
+  strings: IStringsByLine,
 ) {
   /** String for current line */
   let line = GetNewLine(
@@ -46,7 +46,7 @@ function _Recursor<T extends FormatterType>(
     options.tabWidth,
     options.maxIndent,
     recurse.tokenParent,
-    recurse.hangingIndentStart
+    recurse.hangingIndentStart,
   );
 
   /** Store the last line from our tokens */
@@ -117,7 +117,7 @@ function _Recursor<T extends FormatterType>(
           options.tabWidth,
           options.maxIndent,
           recurse.tokenParent,
-          recurse.hangingIndentStart
+          recurse.hangingIndentStart,
         );
         strings[lastLine] = line;
       }
@@ -224,7 +224,7 @@ function _Recursor<T extends FormatterType>(
                 options.tabWidth,
                 options.maxIndent,
                 recurse.tokenParent,
-                recurse.hangingIndentStart
+                recurse.hangingIndentStart,
               );
               closeAdd.push(toAdd);
 
@@ -241,7 +241,7 @@ function _Recursor<T extends FormatterType>(
             options.tabWidth,
             options.maxIndent,
             recurse.tokenParent,
-            recurse.hangingIndentStart
+            recurse.hangingIndentStart,
           );
           line.push(toAdd);
           strings[closeLine] = line;
@@ -297,7 +297,7 @@ function _Recursor<T extends FormatterType>(
  */
 export function Combiner<T extends FormatterType>(
   tokenized: IParsed,
-  options: IAssemblerOptions<T>
+  options: IAssemblerOptions<T>,
 ): string[] {
   // initialize strings by line
   const byLine: IStringsByLine = {};
@@ -345,8 +345,8 @@ export function Combiner<T extends FormatterType>(
     if (merged !== '') {
       strings.push(
         `${MakeSpaces(
-          options.spaceOffset !== undefined ? options.spaceOffset : 0
-        )}${merged}`
+          options.spaceOffset !== undefined ? options.spaceOffset : 0,
+        )}${merged}`,
       );
 
       // save the last line

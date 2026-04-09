@@ -20,7 +20,7 @@ SKIP_THESE[IDL_DOCS_HEADERS.TOOLTIP] = true;
  * Converts routine information to markdown (procedures or functions)
  */
 export function RoutinesToMarkdown(
-  info: MarkdownInfo<RoutineMarkdown>
+  info: MarkdownInfo<RoutineMarkdown>,
 ): string {
   /** Metadata for routine */
   const meta = info.meta;
@@ -79,7 +79,7 @@ export function RoutinesToMarkdown(
       markdown.push(
         `- **${arg.display}**: ${arg.direction || 'in'}, ${
           arg.req ? 'required' : 'optional'
-        }, ${SerializeTypeForDocs(arg.type)}`
+        }, ${SerializeTypeForDocs(arg.type)}`,
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(arg.docs, '  '));
@@ -108,7 +108,7 @@ export function RoutinesToMarkdown(
       markdown.push(
         `- **${kw.display}**: ${kw.direction || 'in'}, ${
           kw.req ? 'required' : 'optional'
-        }, ${SerializeTypeForDocs(kw.type)}`
+        }, ${SerializeTypeForDocs(kw.type)}`,
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(kw.docs, '    '));

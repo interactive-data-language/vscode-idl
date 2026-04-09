@@ -14,7 +14,7 @@ export function FindProperties(
   tree: SyntaxTree,
   variables: { [key: string]: any },
   properties: { [key: string]: any },
-  lines: { [key: string]: any }
+  lines: { [key: string]: any },
 ) {
   for (let i = 0; i < tree.length; i++) {
     // recurse if needed
@@ -23,7 +23,7 @@ export function FindProperties(
         (tree[i] as TreeBranchToken).kids,
         variables,
         properties,
-        lines
+        lines,
       );
       continue;
     }

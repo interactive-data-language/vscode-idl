@@ -18,7 +18,9 @@ export const IDLDisableAllFromSettings: RunnerFunction = async () => {
 
   // open file
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems/idl_disable_all_setting.pro')
+    GetExtensionPath(
+      'idl/test/client-e2e/problems/idl_disable_all_setting.pro',
+    ),
   );
 
   // short pause to make sure we open and parse
@@ -31,7 +33,7 @@ export const IDLDisableAllFromSettings: RunnerFunction = async () => {
   await config.update(
     IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
     false,
-    true
+    true,
   );
 
   // short pause
@@ -44,7 +46,7 @@ export const IDLDisableAllFromSettings: RunnerFunction = async () => {
   await config.update(
     IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
     true,
-    true
+    true,
   );
 
   // short pause to make sure we open and parse

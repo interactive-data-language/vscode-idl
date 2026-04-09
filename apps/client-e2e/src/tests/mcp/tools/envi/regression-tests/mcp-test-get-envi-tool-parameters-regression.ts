@@ -13,11 +13,11 @@ import { REGRESSION_TEST_THESE } from './regression-test-these.interface';
  * Makes regression tests for getting parameters for an ENVI tool
  */
 export const RunMCPTestGetENVIToolParametersRegression: RunnerFunction = async (
-  init
+  init,
 ) => {
   const toolParametersDir = join(
     GetExtensionPath('idl/test/client-e2e/mcp/regression'),
-    'tool-parameters'
+    'tool-parameters',
   );
 
   // clean up
@@ -55,7 +55,7 @@ export const RunMCPTestGetENVIToolParametersRegression: RunnerFunction = async (
 
     /** Extract content, replace gets rid of invalid JSON */
     const content = result.content.map((item) =>
-      JSON.parse((item.text as string).replace(/^Additional notes: /, ''))
+      JSON.parse((item.text as string).replace(/^Additional notes: /, '')),
     );
 
     // make sure the tool runs
@@ -73,19 +73,19 @@ export const RunMCPTestGetENVIToolParametersRegression: RunnerFunction = async (
     // write input parameters to disk
     writeFileSync(
       join(inputDir, `${toolName}.json`),
-      JSON.stringify(content[0], undefined, 2)
+      JSON.stringify(content[0], undefined, 2),
     );
 
     // write output parameters
     writeFileSync(
       join(outputDir, `${toolName}.json`),
-      JSON.stringify(content[1], undefined, 2)
+      JSON.stringify(content[1], undefined, 2),
     );
 
     // write notes to disk
     writeFileSync(
       join(notesDir, `${toolName}.json`),
-      JSON.stringify(content[2] || [], undefined, 2)
+      JSON.stringify(content[2] || [], undefined, 2),
     );
   }
 };

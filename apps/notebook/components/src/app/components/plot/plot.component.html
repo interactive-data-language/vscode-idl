@@ -1,14 +1,14 @@
 <div fxLayout="column">
   <!-- toolbar row -->
   @if (plots.nFrames > 0) {
-  <idl-nb-animation-controls
-    [ngStyle]="{
-      width: (PlotCanvas.offsetWidth || 500) + 'px'
-    }"
-    [nFrames]="plots.nFrames"
-    [interval]="interval"
-    (frameChange)="setFrame($event)"
-  ></idl-nb-animation-controls>
+    <idl-nb-animation-controls
+      [ngStyle]="{
+        width: (PlotCanvas.offsetWidth || 500) + 'px',
+      }"
+      [nFrames]="plots.nFrames"
+      [interval]="interval"
+      (frameChange)="setFrame($event)"
+    ></idl-nb-animation-controls>
   }
 
   <!-- wrap in div so styles dont get goofed up by flex -->
@@ -16,6 +16,6 @@
     <canvas #PlotCanvas></canvas>
   </div>
   @if (!hasData) {
-  <p>No data to plot!</p>
+    <p>No data to plot!</p>
   }
 </div>

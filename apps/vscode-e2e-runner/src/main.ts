@@ -12,7 +12,7 @@ async function go() {
       'dist',
       'apps',
       'client-e2e',
-      'main.js'
+      'main.js',
     );
 
     // Download VSCode version we want to use

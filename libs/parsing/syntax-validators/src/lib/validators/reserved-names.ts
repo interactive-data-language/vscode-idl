@@ -28,7 +28,7 @@ import { IBranch } from '@idl/types/syntax-tree';
 function CheckName(
   token: IBranch<RoutineFunctionToken | RoutineProcedureToken>,
   syntax: SyntaxProblems,
-  procedure: boolean
+  procedure: boolean,
 ) {
   // init problem
   let problem: ISyntaxProblem;
@@ -46,7 +46,7 @@ function CheckName(
         problem = SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.RESERVED_PROCEDURE,
           token.pos,
-          name.end.pos
+          name.end.pos,
         );
       }
     } else {
@@ -55,7 +55,7 @@ function CheckName(
         problem = SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.RESERVED_FUNCTION,
           token.pos,
-          name.end.pos
+          name.end.pos,
         );
       }
     }
@@ -70,12 +70,12 @@ function CheckName(
       if (procedure) {
         if (compare in RESERVED_PROCEDURE_METHODS) {
           method.parseProblems.push(
-            IDL_PROBLEM_CODES.RESERVED_PROCEDURE_METHOD
+            IDL_PROBLEM_CODES.RESERVED_PROCEDURE_METHOD,
           );
           problem = SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.RESERVED_PROCEDURE_METHOD,
             token.pos,
-            method.end.pos
+            method.end.pos,
           );
         }
       } else {
@@ -84,7 +84,7 @@ function CheckName(
           problem = SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.RESERVED_FUNCTION_METHOD,
             token.pos,
-            method.end.pos
+            method.end.pos,
           );
         }
       }
@@ -104,7 +104,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.ROUTINE_FUNCTION,
   (token, parsed) => {
     CheckName(token, parsed.parseProblems, false);
-  }
+  },
 );
 
 /**
@@ -114,5 +114,5 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.ROUTINE_PROCEDURE,
   (token, parsed) => {
     CheckName(token, parsed.parseProblems, true);
-  }
+  },
 );

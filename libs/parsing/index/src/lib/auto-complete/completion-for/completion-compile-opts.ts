@@ -15,7 +15,7 @@ import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface'
  * Generates options for creating compile opts
  */
 export function GetCompileOptCompletionOptions(
-  token: TreeToken<ControlCompileOptToken>
+  token: TreeToken<ControlCompileOptToken>,
 ): ICompileOptCompletionOptions {
   return {
     current: token.kids
@@ -28,14 +28,14 @@ export function GetCompileOptCompletionOptions(
  * Generates completion items from our options
  */
 export function BuildCompileOptCompletionItems(
-  arg: BuildCompletionItemsArg<CompileOptCompletion>
+  arg: BuildCompletionItemsArg<CompileOptCompletion>,
 ) {
   // get current compile opts
   const opts = arg.options.current;
 
   // get compile opts we should add in
   const addOpts = Object.keys(ALLOWED_COMPILE_OPTIONS).filter(
-    (opt) => opts.indexOf(opt) === -1
+    (opt) => opts.indexOf(opt) === -1,
   );
 
   // add user procedures first

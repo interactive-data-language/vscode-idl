@@ -30,9 +30,9 @@ export type RoutineMetadata<T extends RoutineType> =
   T extends FunctionRoutineType
     ? IFunctionMetadata
     : T extends ProcedureRoutineType
-    ? IRoutineMetadata
-    : T extends StructureRoutineType
-    ? IStructureMetadata
-    : T extends TaskRoutineType
-    ? IFunctionMetadata
-    : never;
+      ? IRoutineMetadata
+      : T extends StructureRoutineType
+        ? IStructureMetadata
+        : T extends TaskRoutineType
+          ? IFunctionMetadata
+          : never;

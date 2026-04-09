@@ -16,7 +16,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * Get the location of a tokens's definition
  */
 export async function GetTokenDefinitionLocation(
-  params: TextDocumentPositionParams
+  params: TextDocumentPositionParams,
 ): Promise<Definition> {
   /**
    * Resolve the fspath to our cell and retrieve code
@@ -42,7 +42,7 @@ export async function GetTokenDefinitionLocation(
   const def = await IDL_INDEX.getTokenDef(
     info.fsPath,
     info.code,
-    params.position
+    params.position,
   );
 
   // verify defined
@@ -66,7 +66,7 @@ export async function GetTokenDefinitionLocation(
  * Event handler for going to a symbol's definition
  */
 export const ON_DEFINITION = async (
-  params: TextDocumentPositionParams
+  params: TextDocumentPositionParams,
 ): Promise<Definition> => {
   await SERVER_INITIALIZED;
   try {

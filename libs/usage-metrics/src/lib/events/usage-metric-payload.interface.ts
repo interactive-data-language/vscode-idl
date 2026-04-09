@@ -225,20 +225,20 @@ export type UsageMetricPayload<T extends UsageMetric> =
   T extends CodeFormattingUsageMetric
     ? ICodeFormattingPayload
     : T extends DisabledProblemCodesUsageMetric
-    ? IDisabledProblemCodePayload
-    : T extends IDLStartupUsageMetric
-    ? IIDLStartupPayload
-    : T extends LanguageServerStartupUsageMetric
-    ? ILanguageServerStartupPayload
-    : T extends PreferencesUsageMetric
-    ? IPreferencePayload
-    : T extends RunCommandUsageMetric
-    ? IRunCommandPayload
-    : T extends SelectContentEvent
-    ? ISelectContentUsageMetricPayload
-    : T extends ViewItemListEvent
-    ? IItemListPayload
-    : any;
+      ? IDisabledProblemCodePayload
+      : T extends IDLStartupUsageMetric
+        ? IIDLStartupPayload
+        : T extends LanguageServerStartupUsageMetric
+          ? ILanguageServerStartupPayload
+          : T extends PreferencesUsageMetric
+            ? IPreferencePayload
+            : T extends RunCommandUsageMetric
+              ? IRunCommandPayload
+              : T extends SelectContentEvent
+                ? ISelectContentUsageMetricPayload
+                : T extends ViewItemListEvent
+                  ? IItemListPayload
+                  : any;
 
 /**
  * Event and payload data structure for usage metric data

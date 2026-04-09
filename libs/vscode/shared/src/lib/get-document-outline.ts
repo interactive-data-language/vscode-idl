@@ -6,10 +6,10 @@ import * as vscode from 'vscode';
  * Returns the outline we generate in the language server
  */
 export async function GetDocumentOutline(
-  doc: vscode.TextDocument
+  doc: vscode.TextDocument,
 ): Promise<vscode.DocumentSymbol[]> {
   return await vscode.commands.executeCommand<vscode.DocumentSymbol[]>(
     'vscode.executeDocumentSymbolProvider',
-    doc.uri
+    doc.uri,
   );
 }

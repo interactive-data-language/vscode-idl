@@ -14,15 +14,15 @@ export const StartDebugging: RunnerFunction = async (init) => {
   // check status bar before running test
   expect(
     init.debug.statusBar.bar.text.endsWith(
-      IDL_TRANSLATION.statusBar.startQuestion
-    )
+      IDL_TRANSLATION.statusBar.startQuestion,
+    ),
   ).toBeTruthy();
 
   /**
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -33,14 +33,14 @@ export const StartDebugging: RunnerFunction = async (init) => {
 
   // check status bar before running test
   expect(
-    init.debug.statusBar.bar.text.endsWith(IDL_TRANSLATION.statusBar.ready)
+    init.debug.statusBar.bar.text.endsWith(IDL_TRANSLATION.statusBar.ready),
   ).toBeTruthy();
 
   /**
    * Evaluate something and get result
    */
   const res = CleanIDLOutput(
-    await init.debug.adapter.evaluate(`print, 'Hello world'`, { echo: true })
+    await init.debug.adapter.evaluate(`print, 'Hello world'`, { echo: true }),
   );
 
   // verify we get the right output
@@ -57,7 +57,7 @@ export const StartDebugging: RunnerFunction = async (init) => {
 
   // check status bar before running test
   expect(
-    init.debug.statusBar.bar.text.endsWith(IDL_TRANSLATION.statusBar.running)
+    init.debug.statusBar.bar.text.endsWith(IDL_TRANSLATION.statusBar.running),
   ).toBeTruthy();
 
   // wait for it to end

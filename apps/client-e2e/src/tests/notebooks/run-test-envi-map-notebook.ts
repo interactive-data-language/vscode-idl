@@ -62,9 +62,9 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
 export const RunTestENVIMapNotebook: RunnerFunction = async (init) => {
   await RunNotebookAndCompareCells(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/test-notebook-envi-maps.idlnb'
+      'idl/test/client-e2e/notebooks/test-notebook-envi-maps.idlnb',
     ),
     CELL_OUTPUT,
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 };

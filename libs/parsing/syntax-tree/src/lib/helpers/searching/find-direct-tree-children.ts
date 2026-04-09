@@ -6,7 +6,7 @@ import { SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
  */
 export function FindDirectTreeChildren<T extends TokenName>(
   tree: SyntaxTree,
-  token: T
+  token: T,
 ) {
   // init result for recursing
   const found: TreeToken<T>[] = [];

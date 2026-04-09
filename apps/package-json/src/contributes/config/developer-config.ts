@@ -86,7 +86,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
     type: 'object',
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.developer,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
     additionalProperties: false,
@@ -97,7 +97,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
         default: false,
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.developerIDL,
-          nls
+          nls,
         ),
       },
       ENVI: {
@@ -105,7 +105,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
         default: false,
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.developerENVI,
-          nls
+          nls,
         ),
       },
       ENVIDeepLearning: {
@@ -113,7 +113,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
         default: false,
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.developerENVIDeepLearning,
-          nls
+          nls,
         ),
       },
       ENVIMachineLearning: {
@@ -121,7 +121,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
         default: false,
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.developerENVIMachineLearning,
-          nls
+          nls,
         ),
       },
     },

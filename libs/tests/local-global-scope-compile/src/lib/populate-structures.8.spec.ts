@@ -15,7 +15,7 @@ describe(`[auto generated] Take first instance we encounter`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -38,7 +38,7 @@ describe(`[auto generated] Take first instance we encounter`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, full: false }
+      { postProcess: true, full: false },
     );
 
     // define expected local variables

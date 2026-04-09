@@ -9,7 +9,7 @@ import * as vscode from 'vscode';
  */
 export function GetActivePROCodeOrTaskWindow(
   alert = true,
-  allFiles = false
+  allFiles = false,
 ): undefined | vscode.TextDocument {
   // get active editor
   const editor = vscode.window.activeTextEditor;
@@ -20,7 +20,7 @@ export function GetActivePROCodeOrTaskWindow(
     case !editor:
       if (alert) {
         vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noProCodeOrTaskFile
+          IDL_TRANSLATION.notifications.noProCodeOrTaskFile,
         );
       }
       return undefined;
@@ -49,7 +49,7 @@ export function GetActivePROCodeOrTaskWindow(
     default:
       if (alert) {
         vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noProCodeOrTaskFile
+          IDL_TRANSLATION.notifications.noProCodeOrTaskFile,
         );
       }
       return undefined;

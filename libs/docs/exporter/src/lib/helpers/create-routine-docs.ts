@@ -21,7 +21,7 @@ import { GetClassLink } from './get-class-link';
  */
 export function CreateRoutineDocs(
   item: GlobalIndexedToken,
-  exported: ExportedGlobalTokensByType
+  exported: ExportedGlobalTokensByType,
 ) {
   /** Get the structures we are exporting */
   const structures = exported[GLOBAL_TOKEN_TYPES.STRUCTURE];
@@ -90,8 +90,8 @@ export function CreateRoutineDocs(
     case structures.find((struct) => struct.name === item.name) !== undefined:
       docs.push(
         `Returns an instance of the class [${item.meta.display}](${GetClassLink(
-          item.name
-        )})`
+          item.name,
+        )})`,
       );
       docs.push('');
       break;
@@ -113,8 +113,8 @@ export function CreateRoutineDocs(
         name: meta.display,
         meta: meta,
       },
-      true
-    )
+      true,
+    ),
   );
   docs.push('```');
   docs.push('');
@@ -180,8 +180,8 @@ export function CreateRoutineDocs(
     // add the docs
     docs.push(
       `## ${CapitalizeWord(docsKeys[i])}\n\n${CleanDocs(
-        docsLookup[docsKeys[i]]
-      )}\n\n`
+        docsLookup[docsKeys[i]],
+      )}\n\n`,
     );
   }
 

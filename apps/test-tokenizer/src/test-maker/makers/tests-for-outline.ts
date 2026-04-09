@@ -14,7 +14,7 @@ import { IOutlineTest } from '../tests.interface';
 export async function TestsForOutline(
   name: string,
   tests: IOutlineTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -24,7 +24,7 @@ export async function TestsForOutline(
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { readFile } from 'fs/promises';`);
   strings.push(`import { DocumentSymbol } from 'vscode-languageserver/node';`);
@@ -48,7 +48,7 @@ export async function TestsForOutline(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // add our tokens
@@ -74,7 +74,7 @@ export async function TestsForOutline(
     const outline = await index.getOutline(
       filepath,
       await readFile(filepath, 'utf-8'),
-      new CancellationToken()
+      new CancellationToken(),
     );
 
     // specify file and index
@@ -88,14 +88,14 @@ export async function TestsForOutline(
     // add the start to  our tokens
     strings.push(`    // define outline we expect to extract`);
     strings.push(
-      `    const expected: DocumentSymbol[] = ${JSON.stringify(outline)}`
+      `    const expected: DocumentSymbol[] = ${JSON.stringify(outline)}`,
     );
     strings.push('');
 
     // verify results
     strings.push('    // verify results');
     strings.push(
-      `    expect(expected).toEqual(await index.getOutline(filepath, await readFile(filepath, 'utf-8'), new CancellationToken()))`
+      `    expect(expected).toEqual(await index.getOutline(filepath, await readFile(filepath, 'utf-8'), new CancellationToken()))`,
     );
     strings.push('');
 

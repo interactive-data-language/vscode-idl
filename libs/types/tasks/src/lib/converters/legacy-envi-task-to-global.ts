@@ -22,7 +22,7 @@ import { TaskTypeToIDLType } from './task-type-to-idl-type';
  * Converts a legacy ENVI Task to global tokens for auto-complete
  */
 export function LegacyENVITaskToGlobal(
-  task: ENVITaskLegacy<ENVITaskLegacyVersion>
+  task: ENVITaskLegacy<ENVITaskLegacyVersion>,
 ): IGlobalsToTrack {
   /** Get the name of our task */
   const name = `ENVI${task.name}Task`;

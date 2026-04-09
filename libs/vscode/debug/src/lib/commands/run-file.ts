@@ -56,8 +56,8 @@ export async function RunFile(): Promise<IRunIDLCommandResult> {
       IDL_DEBUG_ADAPTER.sendEvent(
         new OutputEvent(
           `${IDL_TRANSLATION.debugger.adapter.noRoutineFound}\n`,
-          'stderr'
-        )
+          'stderr',
+        ),
       );
       return {
         success: false,

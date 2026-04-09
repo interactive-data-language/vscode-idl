@@ -16,7 +16,7 @@ export function CleanIDLOutput(output: string, full = true, relaxed = false) {
       .trim()
       .replace(
         relaxed ? REGEX_CLEAN_IDL_OUTPUT_RELAXED : REGEX_CLEAN_IDL_OUTPUT,
-        ''
+        '',
       )
       .replace(REGEX_NEW_LINE, '');
   } else {

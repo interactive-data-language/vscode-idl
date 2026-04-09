@@ -12,7 +12,7 @@ import { TypeFromSingleToken } from './type-from-single-token';
 export function TypeFromTokens(
   index: IDLIndex,
   parsed: IParsed,
-  tree: SyntaxTree
+  tree: SyntaxTree,
 ): IDLDataType {
   // get the number of children
   const length = tree.length;

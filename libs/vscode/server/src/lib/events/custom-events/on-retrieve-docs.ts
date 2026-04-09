@@ -18,7 +18,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * @param event The event sent from VSCode
  */
 export const ON_RETRIEVE_DOCS = async (
-  payload: LanguageServerPayload<RetrieveDocsMessage>
+  payload: LanguageServerPayload<RetrieveDocsMessage>,
 ): Promise<LanguageServerResponse<RetrieveDocsMessage>> => {
   await SERVER_INITIALIZED;
   try {
@@ -31,7 +31,7 @@ export const ON_RETRIEVE_DOCS = async (
     // find matching global tokens
     const global = IDL_INDEX.globalIndex.findMatchingGlobalToken(
       payload.type,
-      payload.name
+      payload.name,
     );
 
     // return docs

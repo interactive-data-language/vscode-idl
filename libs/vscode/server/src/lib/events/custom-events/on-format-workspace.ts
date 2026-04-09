@@ -26,7 +26,7 @@ import { SERVER_INITIALIZED } from '../../is-initialized';
  * @param event The event from VSCode
  */
 export const ON_FORMAT_WORKSPACE = async (
-  event: FormatWorkspacePayload
+  event: FormatWorkspacePayload,
 ): Promise<FormatWorkspaceResponse> => {
   await SERVER_INITIALIZED;
 
@@ -71,7 +71,7 @@ export const ON_FORMAT_WORKSPACE = async (
              * Resolve the fspath to our cell and retrieve code
              */
             const info = await ResolveFSPathAndCodeForURI(
-              URI.file(files[i]).toString()
+              URI.file(files[i]).toString(),
             );
 
             // return if nothing found
@@ -119,12 +119,12 @@ export const ON_FORMAT_WORKSPACE = async (
               progressId: id,
               increment: 100 * (1 / files.length),
               title: IDL_TRANSLATION.lsp.progress.formatWorkspace,
-            }
+            },
           );
 
           // finish promise
           res();
-        })
+        }),
       );
     }
 

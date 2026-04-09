@@ -32,12 +32,12 @@ export async function QuestionAsker(
   configKey: string,
   global: boolean,
   onDontAsk: () => void,
-  onSuccess: () => void
+  onSuccess: () => void,
 ) {
   try {
     const resp = await vscode.window.showInformationMessage(
       title,
-      ...QUESTION_OPTIONS
+      ...QUESTION_OPTIONS,
     );
 
     // handle dialog closed with "x"
@@ -75,7 +75,7 @@ export async function BasicQuestionAsker(title: string, onSuccess: () => void) {
   try {
     const resp = await vscode.window.showInformationMessage(
       title,
-      ...BASIC_QUESTION_OPTIONS
+      ...BASIC_QUESTION_OPTIONS,
     );
 
     // handle dialog closed with "x"

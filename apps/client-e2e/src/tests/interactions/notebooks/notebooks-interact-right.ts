@@ -16,8 +16,8 @@ import { RunnerFunction } from '../../runner.interface';
 export const NotebooksInteractRight: RunnerFunction = async (init) => {
   const doc = await OpenNotebookInVSCode(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/test-user-interaction.idlnb'
-    )
+      'idl/test/client-e2e/notebooks/test-user-interaction.idlnb',
+    ),
   );
 
   /**
@@ -45,12 +45,15 @@ export const NotebooksInteractRight: RunnerFunction = async (init) => {
 
   // verify hover has return
   expect(
-    await init.client.client.sendRequest('textDocument/hover', hoverParams)
+    await init.client.client.sendRequest('textDocument/hover', hoverParams),
   ).toBeTruthy();
 
   // verify definition has return
   expect(
-    await init.client.client.sendRequest('textDocument/definition', hoverParams)
+    await init.client.client.sendRequest(
+      'textDocument/definition',
+      hoverParams,
+    ),
   ).toBeTruthy();
 
   /**
@@ -70,8 +73,8 @@ export const NotebooksInteractRight: RunnerFunction = async (init) => {
   expect(
     await init.client.client.sendRequest(
       'textDocument/completion',
-      completionParams
-    )
+      completionParams,
+    ),
   ).toBeTruthy();
 
   /**
@@ -88,8 +91,8 @@ export const NotebooksInteractRight: RunnerFunction = async (init) => {
     (
       (await init.client.client.sendRequest(
         'textDocument/semanticTokens/full',
-        tokenParams
+        tokenParams,
       )) as SemanticTokens
-    ).data
+    ).data,
   ).toEqual([8, 0, 11, 0, 0]);
 };

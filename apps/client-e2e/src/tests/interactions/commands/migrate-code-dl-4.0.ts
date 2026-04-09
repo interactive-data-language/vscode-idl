@@ -13,7 +13,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const MigrateCodeDL40: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/migration/dl40_1_start.pro')
+    GetExtensionPath('idl/test/client-e2e/migration/dl40_1_start.pro'),
   );
 
   // short pause to make sure we open and parse
@@ -29,8 +29,8 @@ export const MigrateCodeDL40: RunnerFunction = async (init) => {
   expect(doc.getText()).toEqual(
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/migration/dl40_1_expected.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // add docs again
@@ -43,8 +43,8 @@ export const MigrateCodeDL40: RunnerFunction = async (init) => {
   expect(doc.getText()).toEqual(
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/migration/dl40_1_expected.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 };
 
@@ -53,7 +53,7 @@ export const MigrateCodeDL40: RunnerFunction = async (init) => {
  */
 export const MigrateCodeDL40_2: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/migration/dl40_2_start.pro')
+    GetExtensionPath('idl/test/client-e2e/migration/dl40_2_start.pro'),
   );
 
   // short pause to make sure we open and parse
@@ -69,8 +69,8 @@ export const MigrateCodeDL40_2: RunnerFunction = async (init) => {
   expect(doc.getText()).toEqual(
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/migration/dl40_2_expected.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // add docs again
@@ -83,7 +83,7 @@ export const MigrateCodeDL40_2: RunnerFunction = async (init) => {
   expect(doc.getText()).toEqual(
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/migration/dl40_2_expected.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 };

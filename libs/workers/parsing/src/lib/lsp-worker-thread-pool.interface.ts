@@ -23,7 +23,7 @@ export interface ILSPWorkerThreadPool<_Message extends LSPWorkerThreadMessage>
   postAndReceiveMessage<T extends _Message>(
     type: T,
     payload: PayloadToLSPWorker<T>,
-    options?: IPostMessageOptions
+    options?: IPostMessageOptions,
   ): ILSPWorkerWorkerIOPostAndReceiveMessageResult<T>;
 
   /**
@@ -35,7 +35,7 @@ export interface ILSPWorkerThreadPool<_Message extends LSPWorkerThreadMessage>
    * Subscribe to all messages with the same ID from any worker
    */
   subscribeToGlobalMessages<T extends _Message>(
-    type: T
+    type: T,
   ): Subject<PayloadFromLSPWorker<T>>;
 
   /** Reference to our WorkerIO class that does the work of talking to our worker threads */

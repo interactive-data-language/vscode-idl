@@ -10,7 +10,7 @@ import { IDLNotebookDocument } from './idl-notebook-document.interface';
  */
 export function NotebookToIDLNotebook(
   notebook: NotebookDocument,
-  manager: NotebookDocuments<TextDocument>
+  manager: NotebookDocuments<TextDocument>,
 ): IDLNotebookDocument {
   /** Copy so we dont muck up date */
   const copied = copy(notebook);

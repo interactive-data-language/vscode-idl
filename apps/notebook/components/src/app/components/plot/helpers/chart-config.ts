@@ -37,7 +37,7 @@ const ALWAYS_THIS_CONFIG: IDLNotebookPlot_Properties = {
  */
 export function ChartConfig(
   embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>,
-  animation: boolean
+  animation: boolean,
 ) {
   /**
    * Copy our starting point for options

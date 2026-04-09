@@ -25,26 +25,26 @@ export function MCP_ENVIStretchParameters() {
       .optional()
       .default(Number.NaN)
       .describe(
-        'Specify a double-precision floating point value indicating the minimum pixel value for the specified stretch.'
+        'Specify a double-precision floating point value indicating the minimum pixel value for the specified stretch.',
       ),
     maxValue: z
       .number()
       .optional()
       .default(Number.NaN)
       .describe(
-        'Specify a double-precision floating point value indicating the maximum pixel value for the specified stretch.'
+        'Specify a double-precision floating point value indicating the maximum pixel value for the specified stretch.',
       ),
     minPercent: z
       .number()
       .default(1)
       .describe(
-        'Specify a value from 0 to 100 indicating the maximum percentage of the histogram to include in the specified stretch.'
+        'Specify a value from 0 to 100 indicating the maximum percentage of the histogram to include in the specified stretch.',
       ),
     maxPercent: z
       .number()
       .default(99)
       .describe(
-        'Specify a double-precision floating point value indicating the maximum pixel value for the specified stretch.'
+        'Specify a double-precision floating point value indicating the maximum pixel value for the specified stretch.',
       ),
   });
 }

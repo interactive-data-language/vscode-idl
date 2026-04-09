@@ -84,14 +84,14 @@ function MakeHeader(header: string) {
 function MakeParamDocs(
   strings: string[],
   param: IParameterOrPropertyDetails,
-  isProperty: boolean
+  isProperty: boolean,
 ) {
   // add formatted line based on parameters
   if (isProperty) {
     strings.push(
       `${LINE_START}  ${param.display}: ${IDLTypeHelper.serializeIDLType(
-        param.type
-      )}`
+        param.type,
+      )}`,
     );
   } else {
     // get text to embed
@@ -101,7 +101,7 @@ function MakeParamDocs(
     strings.push(
       `${LINE_START}  ${param.display}: ${
         param.direction
-      }, ${req}, ${IDLTypeHelper.serializeIDLType(param.type)}${isPrivate}`
+      }, ${req}, ${IDLTypeHelper.serializeIDLType(param.type)}${isPrivate}`,
     );
   }
 
@@ -123,7 +123,7 @@ function MakeParameterDocs(
   header: string,
   lookup: IParameterLookup,
   isProperty: boolean,
-  sort = false
+  sort = false,
 ) {
   // init parameters
   let params: IParameterOrPropertyDetails[] = [];
@@ -171,7 +171,7 @@ function MakeParameterDocs(
  * Converts docs for a structure to strings
  */
 export function DocsToIDLForStructures(
-  info: IGlobalIndexedToken<GlobalStructureToken>
+  info: IGlobalIndexedToken<GlobalStructureToken>,
 ): string[] {
   /** String array of text for docs */
   const strings: string[] = [];
@@ -231,7 +231,7 @@ export function DocsToIDL(info: MarkdownInfo<RoutineMarkdown>): string[] {
   // check if we have a return value - i.e. we are a function
   if ('returns' in meta) {
     strings.push(
-      `${MakeHeader('Returns')} ${IDLTypeHelper.serializeIDLType(meta.returns)}`
+      `${MakeHeader('Returns')} ${IDLTypeHelper.serializeIDLType(meta.returns)}`,
     );
     AddSpace(strings);
   }

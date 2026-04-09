@@ -52,7 +52,7 @@ export function RegisterDocsCommands(ctx: ExtensionContext) {
           if (localHelp) {
             // get the base IDL install folder folder (i.e. C:\Program Files\Harris\ENVI56\IDL88)
             const idlBase = dirname(
-              dirname(IDL_EXTENSION_CONFIG.IDL.directory)
+              dirname(IDL_EXTENSION_CONFIG.IDL.directory),
             );
 
             // get the relative filepath without our placeholder
@@ -75,7 +75,7 @@ export function RegisterDocsCommands(ctx: ExtensionContext) {
               newLink =
                 pathToFileURL(`${idlBase}/help/online_help`).toString() +
                 `/help.htm#../${encodeURI(relative)}/${encodeURI(
-                  basename(back)
+                  basename(back),
                 )}`;
             } else {
               newLink = ResolveProductDocsURL(back);
@@ -98,7 +98,7 @@ export function RegisterDocsCommands(ctx: ExtensionContext) {
           LogCommandError('Error while opening link', err, cmdErrors.docs.open);
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 }

@@ -15,7 +15,7 @@ describe(`[auto generated] Send procedure tokens`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -157,9 +157,9 @@ describe(`[auto generated] Send procedure tokens`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 
@@ -171,7 +171,7 @@ describe(`[auto generated] Send procedure tokens`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -313,9 +313,9 @@ describe(`[auto generated] Send procedure tokens`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

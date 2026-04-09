@@ -17,7 +17,7 @@ import { FormatterRuleSet } from './formatter-rule-set.interface';
 export function ApplyFormatter(
   parsed: IParsed,
   cancel: CancellationToken,
-  formatter: FormatterType
+  formatter: FormatterType,
 ) {
   // init value of rule set
   let ruleSet: FormatterRuleSet;

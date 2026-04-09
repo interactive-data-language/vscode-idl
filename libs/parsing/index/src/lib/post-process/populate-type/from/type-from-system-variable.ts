@@ -16,7 +16,7 @@ import { IDLIndex } from '../../../idl-index.class';
  */
 export function TypeFromSystemVariable(
   index: IDLIndex,
-  token: TreeToken<SystemVariableToken>
+  token: TreeToken<SystemVariableToken>,
 ): IDLDataType {
   // get the name of our token
   const name = token.match[0].toLowerCase();
@@ -29,7 +29,7 @@ export function TypeFromSystemVariable(
       // search for global structure definition
       const global = index.findMatchingGlobalToken(
         GLOBAL_TOKEN_TYPES.STRUCTURE,
-        token.match[0]
+        token.match[0],
       );
 
       if (global.length > 0) {

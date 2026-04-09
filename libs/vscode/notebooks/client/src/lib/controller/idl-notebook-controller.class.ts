@@ -95,7 +95,7 @@ export class IDLNotebookController {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _notebook: vscode.NotebookDocument,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _controller: vscode.NotebookController
+    _controller: vscode.NotebookController,
   ): Promise<void> {
     /** Track known notebooks */
     this.knownNotebooks[_notebook.uri.toString()] = _notebook;
@@ -104,7 +104,7 @@ export class IDLNotebookController {
     await this.getNotebookManager(_notebook)._execute(
       cells,
       _notebook,
-      _controller
+      _controller,
     );
   }
 
@@ -116,7 +116,7 @@ export class IDLNotebookController {
     const _controller = vscode.notebooks.createNotebookController(
       this.controllerId,
       this.notebookType,
-      this.label
+      this.label,
     );
 
     // update notebook controller properties
@@ -154,7 +154,7 @@ export class IDLNotebookController {
   async evaluate(
     nb: vscode.NotebookDocument,
     command: string,
-    inOptions?: IDLEvaluateOptions
+    inOptions?: IDLEvaluateOptions,
   ) {
     return this.getNotebookManager(nb).evaluate(command, inOptions);
   }
@@ -172,7 +172,7 @@ export class IDLNotebookController {
     if (!(uri in this.notebookManagers)) {
       this.notebookManagers[uri] = new IDLNotebookExecutionManager(
         this,
-        this._controller
+        this._controller,
       );
     }
 

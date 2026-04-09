@@ -8,7 +8,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
  * Makes sure we can start IDL through MCP
  */
 export const RunMCPTestExecuteIDLCode_CrashEmulation: RunnerFunction = async (
-  init
+  init,
 ) => {
   /**
    * Run code that completes

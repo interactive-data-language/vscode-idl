@@ -17,7 +17,7 @@ import { StringifyCode } from './stringify-code';
 export async function TestsForSemanticTokens(
   name: string,
   tests: ISyntaxValidatorTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -26,7 +26,7 @@ export async function TestsForSemanticTokens(
   strings.push(`import { CancellationToken } from '@idl/cancellation-tokens';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);
@@ -49,7 +49,7 @@ export async function TestsForSemanticTokens(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // get the code to process
@@ -60,7 +60,7 @@ export async function TestsForSemanticTokens(
      */
     const parseConfig = Object.assign(
       { postProcess: true },
-      test.config !== undefined ? test.config : {}
+      test.config !== undefined ? test.config : {},
     );
 
     // extract our tokens from the cleaned code
@@ -68,7 +68,7 @@ export async function TestsForSemanticTokens(
       'not-real',
       toProcess,
       new CancellationToken(),
-      parseConfig
+      parseConfig,
     );
 
     // build our code string to insert into the automated test
@@ -92,15 +92,15 @@ export async function TestsForSemanticTokens(
     strings.push(`    // extract tokens`);
     strings.push(
       `    const tokenized = await index.getParsedProCode('not-real', code, new CancellationToken(), ${JSON.stringify(
-        parseConfig
-      )});`
+        parseConfig,
+      )});`,
     );
     strings.push(``);
 
     // add the start to  our tokens
     strings.push(`    // define expected tokens`);
     strings.push(
-      `    const expected = ${JSON.stringify(tokenized.semantic.built.data)}`
+      `    const expected = ${JSON.stringify(tokenized.semantic.built.data)}`,
     );
     strings.push('');
 

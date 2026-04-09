@@ -11,7 +11,7 @@ import { ENVITaskParameter, ENVITaskSchema33 } from '@idl/types/tasks';
  * Makes the ENVI Task parameters from our procedure definition
  */
 export function MakeENVITaskParameters(
-  pro: IGlobalIndexedToken<GlobalProcedureToken>
+  pro: IGlobalIndexedToken<GlobalProcedureToken>,
 ): ENVITaskParameter<ENVITaskSchema33>[] {
   /**
    * Create parameters
@@ -48,7 +48,7 @@ export function MakeENVITaskParameters(
       /** Get only array types */
       const arrays = IDLTypeHelper.getMatchingTypes(
         type,
-        IDL_TYPE_LOOKUP.ARRAY
+        IDL_TYPE_LOOKUP.ARRAY,
       );
 
       /** Get types for array */

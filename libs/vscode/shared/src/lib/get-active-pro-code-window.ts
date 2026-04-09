@@ -8,7 +8,7 @@ import * as vscode from 'vscode';
  * Returns undefined if no file is found
  */
 export function GetActivePROCodeWindow(
-  alert = true
+  alert = true,
 ): undefined | vscode.TextDocument {
   // get active editor
   const editor = vscode.window.activeTextEditor;
@@ -19,7 +19,7 @@ export function GetActivePROCodeWindow(
     case !editor:
       if (alert) {
         vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noProCode
+          IDL_TRANSLATION.notifications.noProCode,
         );
       }
       return undefined;
@@ -32,7 +32,7 @@ export function GetActivePROCodeWindow(
     default:
       if (alert) {
         vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noProCode
+          IDL_TRANSLATION.notifications.noProCode,
         );
       }
       return undefined;

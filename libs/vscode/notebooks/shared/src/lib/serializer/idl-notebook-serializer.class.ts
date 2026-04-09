@@ -16,7 +16,7 @@ export class IDLNotebookSerializer {
    */
   async deserializeNotebook(
     content: Uint8Array,
-    _token: vscode.CancellationToken
+    _token: vscode.CancellationToken,
   ): Promise<vscode.NotebookData> {
     /**
      * Get start time
@@ -33,7 +33,7 @@ export class IDLNotebookSerializer {
       type: 'debug',
       log: IDL_NOTEBOOK_LOG,
       content: `It took ${Math.floor(
-        Date.now() - t0
+        Date.now() - t0,
       )} ms to deserialize notebook`,
     });
 
@@ -46,7 +46,7 @@ export class IDLNotebookSerializer {
    */
   async serializeNotebook(
     data: vscode.NotebookData,
-    _token: vscode.CancellationToken
+    _token: vscode.CancellationToken,
   ): Promise<Uint8Array> {
     /**
      * Get start time
@@ -59,7 +59,7 @@ export class IDLNotebookSerializer {
     const encoded = await ToIDLRawNotebook(
       IDL_RAW_NOTEBOOK_VERSION_LOOKUP._2_0_0,
       data,
-      _token
+      _token,
     );
 
     // print some debug information about
@@ -67,7 +67,7 @@ export class IDLNotebookSerializer {
       type: 'debug',
       log: IDL_NOTEBOOK_LOG,
       content: `It took ${Math.floor(
-        Date.now() - t0
+        Date.now() - t0,
       )} ms to serialize notebook to ${Math.floor(encoded.length / 1024)} kb`,
     });
 

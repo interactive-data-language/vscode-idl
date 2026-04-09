@@ -16,7 +16,7 @@ import { ResetTokenCache } from './reset-token-cache';
  */
 export function PopulateScopeDetailAndResetTokenCache(
   parsed: IParsed,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ): void {
   switch (true) {
     case !parsed.hasDetail:

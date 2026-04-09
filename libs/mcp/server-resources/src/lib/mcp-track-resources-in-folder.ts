@@ -18,7 +18,7 @@ export function MCPTrackResourcesInFolder(
   folder: string,
   recursive = true,
   keyPrefix = nanoid(),
-  filter: { [key: string]: any } = {}
+  filter: { [key: string]: any } = {},
 ) {
   // return if no folder
   if (!existsSync(folder)) {
@@ -29,7 +29,7 @@ export function MCPTrackResourcesInFolder(
    * Recursively search for files
    */
   const items = readdirSync(folder, { recursive }).map((item) =>
-    join(folder, item)
+    join(folder, item),
   );
 
   /**
@@ -59,7 +59,7 @@ export function MCPTrackResourcesInFolder(
       case lc.endsWith('.md'):
         MCPResourceIndex.add(
           `${keyPrefix}-${basename(item).toLowerCase().replace('.md', '')}`,
-          readFileSync(item, { encoding: 'utf-8' })
+          readFileSync(item, { encoding: 'utf-8' }),
         );
         break;
 
@@ -73,7 +73,7 @@ export function MCPTrackResourcesInFolder(
            * Parse notebook
            */
           const parsed: IDLRawNotebook<IDLRawNotebookVersion> = JSON.parse(
-            readFileSync(item, 'utf-8')
+            readFileSync(item, 'utf-8'),
           );
 
           // handle version of NB file
@@ -111,7 +111,7 @@ export function MCPTrackResourcesInFolder(
                 `${keyPrefix}-${basename(item)
                   .toLowerCase()
                   .replace('.idlnb', '')}`,
-                strings.join('\n')
+                strings.join('\n'),
               );
               break;
             }

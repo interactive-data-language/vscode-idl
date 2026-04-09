@@ -34,7 +34,7 @@ export const RunUnsavedNotebook: RunnerFunction = async (init) => {
   // make new notebook
   await vscode.commands.executeCommand(
     IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
-    true
+    true,
   );
 
   // short pause

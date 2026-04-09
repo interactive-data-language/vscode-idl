@@ -14,7 +14,7 @@ describe(`[auto generated] Verify that we can parse and report problems`, () => 
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -38,7 +38,7 @@ describe(`[auto generated] Verify that we can parse and report problems`, () => 
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -103,7 +103,7 @@ describe(`[auto generated] Verify that we can parse and report problems`, () => 
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -115,7 +115,7 @@ describe(`[auto generated] Verify that we can parse and report problems`, () => 
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -139,7 +139,7 @@ describe(`[auto generated] Verify that we can parse and report problems`, () => 
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -204,7 +204,7 @@ describe(`[auto generated] Verify that we can parse and report problems`, () => 
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

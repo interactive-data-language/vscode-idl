@@ -22,7 +22,7 @@ import { ALLOWED_SPECIAL_COMPLETION } from './completion-special-functions.inter
 const PROCEDURES = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.PROCEDURE];
 
 export function GetSpecialProcedureCompletionOptions(
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
 ): ISpecialProcedureCompletionOptions {
   // init result
   const opts: ISpecialProcedureCompletionOptions = {
@@ -60,7 +60,7 @@ export function GetSpecialProcedureCompletionOptions(
  * Handles auto-complete for special functions
  */
 export function BuildSpecialProcedureCompletionItems(
-  arg: BuildCompletionItemsArg<SpecialProcedureCompletion>
+  arg: BuildCompletionItemsArg<SpecialProcedureCompletion>,
 ) {
   /**
    * Filter tokens that are not the first child or in our white list
@@ -102,7 +102,7 @@ export function BuildSpecialProcedureCompletionItems(
 
         const display = TransformCase(
           displayNames[i],
-          arg.formatting.style.routines
+          arg.formatting.style.routines,
         );
         arg.complete.push({
           label: display,

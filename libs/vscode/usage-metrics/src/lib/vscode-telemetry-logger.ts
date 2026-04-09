@@ -38,7 +38,7 @@ const VSCODE_TELEMETRY_SENDER: vscode.TelemetrySender = {
    */
   sendEventData: (
     eventName: UsageMetric,
-    data: UsageMetricPayload<UsageMetric>
+    data: UsageMetricPayload<UsageMetric>,
   ) => {
     /**
      * Check if we need to initialize our usage metrics
@@ -76,7 +76,7 @@ const VSCODE_TELEMETRY_LOGGER = vscode.env.createTelemetryLogger(
   VSCODE_TELEMETRY_SENDER,
   {
     ignoreBuiltInCommonProperties: false,
-  }
+  },
 );
 
 /**
@@ -85,7 +85,7 @@ const VSCODE_TELEMETRY_LOGGER = vscode.env.createTelemetryLogger(
  */
 export function VSCodeTelemetryLogger<T extends UsageMetric>(
   event: T,
-  payload: UsageMetricPayload<T>
+  payload: UsageMetricPayload<T>,
 ) {
   VSCODE_TELEMETRY_LOGGER.logUsage(event, payload);
 }

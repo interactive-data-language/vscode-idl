@@ -21,7 +21,7 @@ export function GetPropertyHoverHelp(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<AccessPropertyToken | StructurePropertyToken>,
-  lookup: GetHoverHelpLookupResponse
+  lookup: GetHoverHelpLookupResponse,
 ) {
   // get our property
   const prop = GetProperty(index, parsed, token, false);
@@ -33,7 +33,7 @@ export function GetPropertyHoverHelp(
         GetPropertyDisplayName(prop.display, IDL_STRUCTURE_TYPE),
         '',
         prop.type,
-        'prop'
+        'prop',
       );
     } else {
       lookup.type = GLOBAL_TOKEN_TYPES.STRUCTURE;
@@ -46,7 +46,7 @@ export function GetPropertyHoverHelp(
       GetPropertyDisplayName(GetPropertyName(token), IDL_STRUCTURE_TYPE),
       IDL_TRANSLATION.lsp.types.unknown.property,
       IDL_ANY_TYPE,
-      'prop'
+      'prop',
     );
   }
 }

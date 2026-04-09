@@ -10,7 +10,7 @@ import { TreeRecurserBasic } from './recursion-and-callbacks/tree-recurser-basic
 export function RemoveScopeDetail(
   parsed: IParsed,
   cancel: CancellationToken,
-  force = false
+  force = false,
 ): void {
   if (parsed.hasDetail || force) {
     TreeRecurserBasic(parsed.tree, cancel, {

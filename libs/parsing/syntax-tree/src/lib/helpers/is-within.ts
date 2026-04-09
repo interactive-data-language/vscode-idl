@@ -45,7 +45,7 @@ export function IsWithinToken(pos: Position, comp: PositionArray) {
 export function IsWithinBranch(
   pos: Position,
   start: PositionArray,
-  end: PositionArray
+  end: PositionArray,
 ) {
   switch (true) {
     // same line

@@ -109,7 +109,7 @@ function ReduceGlobals(globals: GlobalTokens) {
  */
 export function GetChangedGlobals(
   globals: GlobalTokens,
-  oldGlobals: GlobalTokens
+  oldGlobals: GlobalTokens,
 ): GlobalTokens {
   /** Track global tokens */
   const changed: GlobalTokens = [];

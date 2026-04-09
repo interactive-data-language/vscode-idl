@@ -18,7 +18,7 @@ export function MCP_ENVITiePointSet() {
         message: 'url must end with ".pts"',
       })
       .describe(
-        `Provide a fully-qualified filepath to the tie points. Should end with a ".pts" extension.`
+        `Provide a fully-qualified filepath to the tie points. Should end with a ".pts" extension.`,
       ),
     input_raster1: MCP_ENVIRaster()
       .optional()
@@ -26,7 +26,7 @@ export function MCP_ENVITiePointSet() {
     input_raster2: MCP_ENVIRaster()
       .optional()
       .describe(
-        'The warp image for tiepoint creation (i.e. tiepoints map from second image to the first)'
+        'The warp image for tiepoint creation (i.e. tiepoints map from second image to the first)',
       ),
   });
 }

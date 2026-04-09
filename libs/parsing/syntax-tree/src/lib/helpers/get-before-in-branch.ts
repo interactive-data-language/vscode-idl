@@ -6,7 +6,7 @@ import { TreeToken } from '@idl/types/syntax-tree';
  *
  */
 export function GetBeforeInBranch(
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
 ): TreeToken<TokenName> | undefined {
   // return if already first
   if (token.idx === 0) {

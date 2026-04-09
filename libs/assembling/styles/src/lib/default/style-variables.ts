@@ -14,7 +14,7 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
     }
 
     token.match[0] = AdjustCase(token.match[0], meta.style.systemVariables);
-  }
+  },
 );
 
 ASSEMBLER_DEFAULT_STYLING.onBasicToken(
@@ -51,5 +51,5 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
         token.match = [source.meta.display];
       }
     }
-  }
+  },
 );

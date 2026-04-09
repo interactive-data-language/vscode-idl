@@ -57,41 +57,41 @@ export type TokenStartMatches<T extends TokenName> =
   T extends AccessPropertyToken
     ? AccessPropertyMatches
     : T extends CallFunctionToken
-    ? CallFunctionMatches
-    : T extends CallFunctionMethodToken
-    ? CallFunctionMethodMatches
-    : T extends CallProcedureToken
-    ? CallProcedureMatches
-    : T extends CallProcedureMethodToken
-    ? CallProcedureMethodMatches
-    : T extends CommentToken
-    ? CommentMatches
-    : T extends CommentBlockToken
-    ? CommentBlockMatches
-    : T extends KeywordBinaryToken
-    ? KeywordBinaryMatches
-    : T extends KeywordDefinitionToken
-    ? KeywordDefinitionMatches
-    : T extends OperatorToken
-    ? OperatorMatches
-    : T extends QuoteDoubleToken
-    ? QuoteMatches
-    : T extends QuoteSingleToken
-    ? QuoteMatches
-    : T extends RoutineMethodNameToken
-    ? RoutineMethodNameMatches
-    : T extends RoutineNameToken
-    ? RoutineNameMatches
-    : T extends StructureInheritanceToken
-    ? StructureInheritanceMatches
-    : T extends StructurePropertyToken
-    ? StructurePropertyMatches
-    : T extends SystemVariableToken
-    ? VariableMatches
-    : T extends TypeFunctionToken
-    ? TypeFunctionMatches
-    : T extends VariableToken
-    ? VariableMatches
-    : T extends UnknownToken
-    ? UnknownMatches
-    : string[];
+      ? CallFunctionMatches
+      : T extends CallFunctionMethodToken
+        ? CallFunctionMethodMatches
+        : T extends CallProcedureToken
+          ? CallProcedureMatches
+          : T extends CallProcedureMethodToken
+            ? CallProcedureMethodMatches
+            : T extends CommentToken
+              ? CommentMatches
+              : T extends CommentBlockToken
+                ? CommentBlockMatches
+                : T extends KeywordBinaryToken
+                  ? KeywordBinaryMatches
+                  : T extends KeywordDefinitionToken
+                    ? KeywordDefinitionMatches
+                    : T extends OperatorToken
+                      ? OperatorMatches
+                      : T extends QuoteDoubleToken
+                        ? QuoteMatches
+                        : T extends QuoteSingleToken
+                          ? QuoteMatches
+                          : T extends RoutineMethodNameToken
+                            ? RoutineMethodNameMatches
+                            : T extends RoutineNameToken
+                              ? RoutineNameMatches
+                              : T extends StructureInheritanceToken
+                                ? StructureInheritanceMatches
+                                : T extends StructurePropertyToken
+                                  ? StructurePropertyMatches
+                                  : T extends SystemVariableToken
+                                    ? VariableMatches
+                                    : T extends TypeFunctionToken
+                                      ? TypeFunctionMatches
+                                      : T extends VariableToken
+                                        ? VariableMatches
+                                        : T extends UnknownToken
+                                          ? UnknownMatches
+                                          : string[];

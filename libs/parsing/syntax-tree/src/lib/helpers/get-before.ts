@@ -6,7 +6,7 @@ import { TreeToken } from '@idl/types/syntax-tree';
  *
  */
 export function GetBefore(
-  token?: TreeToken<TokenName>
+  token?: TreeToken<TokenName>,
 ): TreeToken<TokenName> | undefined {
   if (token === undefined) {
     return undefined;

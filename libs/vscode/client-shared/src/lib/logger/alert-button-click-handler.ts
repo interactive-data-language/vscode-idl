@@ -12,7 +12,7 @@ import { IDL_CLIENT_OUTPUT_CHANNEL } from '../initialize-client-logger';
 export async function AlertButtonClickHandler(
   res: string | undefined,
   file?: string,
-  docsUrl?: string
+  docsUrl?: string,
 ) {
   try {
     // handle the result
@@ -22,7 +22,7 @@ export async function AlertButtonClickHandler(
         break;
       case res === IDL_TRANSLATION.notifications.reportBug:
         await vscode.commands.executeCommand(
-          IDL_COMMANDS.CLIENT.REPORT_PROBLEM
+          IDL_COMMANDS.CLIENT.REPORT_PROBLEM,
         );
         break;
       case res === IDL_TRANSLATION.debugger.logs.specifyIDLLocation:

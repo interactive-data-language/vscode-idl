@@ -14,10 +14,12 @@ import { RunnerFunction } from '../../runner.interface';
  * Verifies code actions do the right thing for PRO files
  */
 export const ExecuteCodeActionsWithEditForPROFile: RunnerFunction = async (
-  init
+  init,
 ) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems/code_actions_fix_before.pro')
+    GetExtensionPath(
+      'idl/test/client-e2e/problems/code_actions_fix_before.pro',
+    ),
   );
 
   // short pause to make sure we open and parse
@@ -33,7 +35,7 @@ export const ExecuteCodeActionsWithEditForPROFile: RunnerFunction = async (
   // execute our command and make sure it returns OK
   const ok = await vscode.commands.executeCommand(
     IDL_COMMANDS.CODE.FIX_PROBLEM,
-    edit
+    edit,
   );
 
   // verify problems
@@ -43,10 +45,10 @@ export const ExecuteCodeActionsWithEditForPROFile: RunnerFunction = async (
   expect(doc.getText()).toEqual(
     readFileSync(
       GetExtensionPath(
-        'idl/test/client-e2e/problems/code_actions_fix_after.pro'
+        'idl/test/client-e2e/problems/code_actions_fix_after.pro',
       ),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 };
 
@@ -54,10 +56,10 @@ export const ExecuteCodeActionsWithEditForPROFile: RunnerFunction = async (
  * Verifies code actions do the right thing for IDL Notebooks files
  */
 export const ExecuteCodeActionsWithEditForNotebook: RunnerFunction = async (
-  init
+  init,
 ) => {
   const nb = await OpenNotebookInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems/code-actions-fix.idlnb')
+    GetExtensionPath('idl/test/client-e2e/problems/code-actions-fix.idlnb'),
   );
 
   // short pause to make sure we open and parse
@@ -74,7 +76,7 @@ export const ExecuteCodeActionsWithEditForNotebook: RunnerFunction = async (
   // execute our command and make sure it returns OK
   const ok = await vscode.commands.executeCommand(
     IDL_COMMANDS.CODE.FIX_PROBLEM,
-    edit
+    edit,
   );
 
   // verify problems
@@ -88,10 +90,10 @@ export const ExecuteCodeActionsWithEditForNotebook: RunnerFunction = async (
     SplitCode(
       readFileSync(
         GetExtensionPath(
-          'idl/test/client-e2e/problems/code_actions_fix_cell_after.pro'
+          'idl/test/client-e2e/problems/code_actions_fix_cell_after.pro',
         ),
-        'utf-8'
-      )
-    )
+        'utf-8',
+      ),
+    ),
   );
 };

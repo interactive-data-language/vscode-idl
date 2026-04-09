@@ -13,7 +13,7 @@ import { IHoverHelpTest } from '../tests.interface';
 export async function TestsForHoverHelp(
   name: string,
   tests: IHoverHelpTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -22,7 +22,7 @@ export async function TestsForHoverHelp(
   strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { readFile } from 'fs/promises';`);
   strings.push(`import { Position } from 'vscode-languageserver/node';`);
@@ -46,7 +46,7 @@ export async function TestsForHoverHelp(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // add our tokens
@@ -81,15 +81,15 @@ export async function TestsForHoverHelp(
       const found = await index.getHoverHelp(
         filepath,
         await readFile(filepath, 'utf-8'),
-        test.position[j]
+        test.position[j],
       );
 
       // specify the position to use
       strings.push(`    // define position`);
       strings.push(
         `    const position_${j}: Position = ${JSON.stringify(
-          test.position[j]
-        )}`
+          test.position[j],
+        )}`,
       );
       strings.push('');
 
@@ -97,21 +97,21 @@ export async function TestsForHoverHelp(
       strings.push(`    // define expected token we extract`);
       strings.push(
         `    const expectedFound_${j}: string[] = ${JSON.stringify(
-          ((found?.contents as string) || '').split(/\r?\n/gim)
-        )}`
+          ((found?.contents as string) || '').split(/\r?\n/gim),
+        )}`,
       );
       strings.push('');
 
       strings.push('    // get hover help');
       strings.push(
-        `    const hoverHelp_${j} = await index.getHoverHelp(filepath, await readFile(filepath, 'utf-8'), position_${j})`
+        `    const hoverHelp_${j} = await index.getHoverHelp(filepath, await readFile(filepath, 'utf-8'), position_${j})`,
       );
       strings.push('');
 
       // verify results
       strings.push('    // verify results');
       strings.push(
-        `    expect(expectedFound_${j}).toEqual(((hoverHelp_${j}?.contents as string) || '').split(/\\r?\\n/gim))`
+        `    expect(expectedFound_${j}).toEqual(((hoverHelp_${j}?.contents as string) || '').split(/\\r?\\n/gim))`,
       );
       strings.push('');
     }

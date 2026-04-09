@@ -36,13 +36,13 @@ import { MARKDOWN_TYPE_LOOKUP } from './markdown/docs-to-markdown.interface';
  * documentation for things like hover help and auto-complete.
  */
 export function GenerateRoutineMetadata<
-  T extends FunctionRoutineType | ProcedureRoutineType
+  T extends FunctionRoutineType | ProcedureRoutineType,
 >(
   nameToken: IBranch<RoutineMethodNameToken | RoutineNameToken>,
   type: T,
   docs: IDocs,
   structures: IGlobalIndexedToken<GlobalStructureToken>[],
-  problems: SyntaxProblems
+  problems: SyntaxProblems,
 ): RoutineMetadata<T> {
   // initialize metadata
   let meta: RoutineMetadata<T>;
@@ -115,7 +115,7 @@ export function GenerateRoutineMetadata<
         const argRef: { [key: string]: string } = {};
         const args = FindDirectBranchChildren(
           nameToken,
-          TOKEN_NAMES.ARG_DEFINITION
+          TOKEN_NAMES.ARG_DEFINITION,
         );
         for (let z = 0; z < args.length; z++) {
           argRef[args[z].match[0].toLowerCase()] = args[z].match[0];
@@ -126,7 +126,7 @@ export function GenerateRoutineMetadata<
           docs[keys[i]],
           argRef,
           useProblems,
-          false
+          false,
         );
         break;
       }
@@ -139,7 +139,7 @@ export function GenerateRoutineMetadata<
         const kwRef: { [key: string]: string } = {};
         const kws = FindDirectBranchChildren(
           nameToken,
-          TOKEN_NAMES.KEYWORD_DEFINITION
+          TOKEN_NAMES.KEYWORD_DEFINITION,
         );
         for (let z = 0; z < kws.length; z++) {
           kwRef[kws[z].match[0].toLowerCase()] = kws[z].match[0];
@@ -150,7 +150,7 @@ export function GenerateRoutineMetadata<
           docs[keys[i]],
           kwRef,
           useProblems,
-          true
+          true,
         );
         break;
       }
@@ -181,7 +181,7 @@ export function GenerateRoutineMetadata<
             refProps,
             useProblems,
             true,
-            true
+            true,
           );
 
           // check if we have a property missing from our docs
@@ -202,8 +202,8 @@ export function GenerateRoutineMetadata<
                     ]
                   }: "${oldProps[oldKeys[z]].display}"`,
                   oldProps[oldKeys[z]].pos,
-                  oldProps[oldKeys[z]].pos
-                )
+                  oldProps[oldKeys[z]].pos,
+                ),
               );
             } else {
               structures[sIdx].meta.props[oldKeys[z]].pos =
@@ -215,7 +215,7 @@ export function GenerateRoutineMetadata<
           docsLookup[keys[i]] = JoinDocs(
             docs[keys[i]].docs,
             docs[keys[i]].comments,
-            useProblems
+            useProblems,
           );
         }
         break;
@@ -236,8 +236,8 @@ export function GenerateRoutineMetadata<
               ]
             }: "${structures[i].meta.display}"`,
             structures[i].pos,
-            structures[i].pos
-          )
+            structures[i].pos,
+          ),
         );
       }
     }
@@ -284,8 +284,8 @@ export function GenerateRoutineMetadata<
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.RETURN_DOCS_MISSING_TYPE,
                 returns.pos,
-                returns.end
-              )
+                returns.end,
+              ),
             );
             break;
           case returnDocs.length > 1:
@@ -293,8 +293,8 @@ export function GenerateRoutineMetadata<
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.RETURN_DOCS_INVALID,
                 returns.pos,
-                returns.end
-              )
+                returns.end,
+              ),
             );
             break;
           default:

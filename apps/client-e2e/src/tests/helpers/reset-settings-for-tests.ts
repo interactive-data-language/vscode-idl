@@ -13,7 +13,7 @@ const SCOPE = true;
 
 /** read in the package.json */
 const PACKAGE = JSON.parse(
-  readFileSync(GetExtensionPath('package.json'), 'utf-8')
+  readFileSync(GetExtensionPath('package.json'), 'utf-8'),
 );
 
 /**
@@ -55,7 +55,7 @@ let IDL_DIR = FindIDL();
  */
 export async function ResetSettingsForTests(
   config: IIDLWorkspaceConfig,
-  idlDir?: string
+  idlDir?: string,
 ) {
   // reset our safe copy
   SAFE_COPY = copy(DEFAULT_IDL_EXTENSION_CONFIG);

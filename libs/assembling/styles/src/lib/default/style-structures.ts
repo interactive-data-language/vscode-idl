@@ -11,7 +11,7 @@ function StyleStructureName(name: string, flag: FullCaseStyleFlags) {
   const low = name.toLowerCase().trim();
   return TransformCase(
     low in CUSTOM_TYPE_DISPLAY_NAMES ? CUSTOM_TYPE_DISPLAY_NAMES[low] : name,
-    flag
+    flag,
   );
 }
 
@@ -39,9 +39,9 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
      */
     token.match[0] = token.match[0].replace(
       token.match[1],
-      StyleStructureName(token.match[1], meta.style.structureNames)
+      StyleStructureName(token.match[1], meta.style.structureNames),
     );
-  }
+  },
 );
 
 // handle inheritance statements
@@ -57,10 +57,10 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
       default: {
         token.match[0] = StyleStructureName(
           token.match[0],
-          meta.style.structureNames
+          meta.style.structureNames,
         );
         break;
       }
     }
-  }
+  },
 );

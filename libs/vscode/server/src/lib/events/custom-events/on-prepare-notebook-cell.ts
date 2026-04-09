@@ -17,7 +17,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * @param event The event from VSCode
  */
 export const ON_PREPARE_NOTEBOOK_CELL = async (
-  event: PrepareNotebookCellPayload
+  event: PrepareNotebookCellPayload,
 ): Promise<PrepareNotebookCellResponse> => {
   await SERVER_INITIALIZED;
   try {
@@ -41,7 +41,7 @@ export const ON_PREPARE_NOTEBOOK_CELL = async (
       return await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
         IDL_INDEX.getNextWorkerID(),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_NOTEBOOK_CELL,
-        event
+        event,
       ).response;
     } else {
       return await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
@@ -51,7 +51,7 @@ export const ON_PREPARE_NOTEBOOK_CELL = async (
           ...event,
           // update cell URI to use LSP URI
           cellUri: info.fsPath,
-        }
+        },
       ).response;
     }
   } catch (err) {

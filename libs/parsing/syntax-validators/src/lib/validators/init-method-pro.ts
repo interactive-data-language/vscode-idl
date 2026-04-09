@@ -30,9 +30,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.INIT_METHOD_NOT_FUNCTION,
           token.pos,
-          endPos
-        )
+          endPos,
+        ),
       );
     }
-  }
+  },
 );

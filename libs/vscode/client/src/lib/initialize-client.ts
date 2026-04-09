@@ -60,7 +60,7 @@ export let VSCODE_NOTEBOOK_PRO_DIR = '';
  * - Listening, and getting, configuration information
  */
 export async function InitializeClient(
-  ctx: ExtensionContext
+  ctx: ExtensionContext,
 ): Promise<IInitializeClientResult> {
   InitializeTranslation(GetVSCodeLocale());
 
@@ -74,7 +74,7 @@ export async function InitializeClient(
     EXTENSION_FOLDER,
     'idl',
     'vscode',
-    'notebooks'
+    'notebooks',
   );
 
   // set language configuration

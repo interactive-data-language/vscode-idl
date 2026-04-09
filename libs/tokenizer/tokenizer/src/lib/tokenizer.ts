@@ -41,7 +41,7 @@ import { GetSubDefs } from './tokens/sub-defs';
  */
 export function TokenizerRecurser(
   iterator: Iterator,
-  options: IFindTokensOptions
+  options: IFindTokensOptions,
 ) {
   // get the number of lines
   const n = iterator.split.length;
@@ -97,7 +97,7 @@ export function TokenizerRecurser(
       current.linePosition,
       foundDefs,
       matches,
-      options.defs
+      options.defs,
     );
 
     // recursively process the string
@@ -290,7 +290,7 @@ export function TokenizerRecurser(
         current.linePosition,
         foundDefs,
         matches,
-        options.defs
+        options.defs,
       );
 
       // // debug information
@@ -360,7 +360,7 @@ export function TokenizerRecurser(
 export function Tokenizer(
   code: string | string[],
   cancel: CancellationToken,
-  options: IFindTokensOptions = DEFAULT_FIND_TOKEN_OPTIONS
+  options: IFindTokensOptions = DEFAULT_FIND_TOKEN_OPTIONS,
 ): IFoundTokens {
   // create our iterator
   const iterator = new Iterator(code, cancel, options.full);

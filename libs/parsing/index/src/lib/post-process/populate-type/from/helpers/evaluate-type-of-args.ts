@@ -13,7 +13,7 @@ export function EvaluateTypeOfArgs(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<CallFunctionMethodToken | CallFunctionToken>,
-  argType: IDLDataType
+  argType: IDLDataType,
 ): IDLDataType {
   /**
    * Return if no kids

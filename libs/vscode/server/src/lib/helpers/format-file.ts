@@ -14,7 +14,7 @@ import { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.
  */
 export async function FormatFile(
   info: IResolvedFSPathAndCodeForURI,
-  formatting?: Partial<IAssemblerInputOptions<FormatterType>>
+  formatting?: Partial<IAssemblerInputOptions<FormatterType>>,
 ): Promise<string | undefined> {
   // return if nothing found
   if (info === undefined) {
@@ -58,7 +58,7 @@ export async function FormatFile(
       formatted = await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
         IDL_INDEX.getWorkerID(info.fsPath),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.ASSEMBLE_PRO_CODE,
-        { file: info.fsPath, code: info.code, formatting: config }
+        { file: info.fsPath, code: info.code, formatting: config },
       ).response;
       break;
     }

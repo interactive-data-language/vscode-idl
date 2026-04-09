@@ -3,7 +3,7 @@
     <!-- toolbar row -->
     <idl-nb-animation-controls
       [ngStyle]="{
-        width: (myImage.offsetWidth || _embed.item.xsize) + 'px'
+        width: (myImage.offsetWidth || _embed.item.xsize) + 'px',
       }"
       [nFrames]="this._embed.item.data.length"
       (frameChange)="setSource($event)"
@@ -16,5 +16,3 @@
 } @else {
   <p>No images to animate!</p>
 }
-
-

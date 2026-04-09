@@ -9,7 +9,7 @@ import { BuildCompletionItemsArg } from '../build-completion-items.interface';
  * Adds completion items for include
  */
 export function BuildIncludeCompletionItems(
-  arg: BuildCompletionItemsArg<IncludeCompletion>
+  arg: BuildCompletionItemsArg<IncludeCompletion>,
 ) {
   /**
    * Get all files

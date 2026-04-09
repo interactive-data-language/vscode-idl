@@ -37,7 +37,7 @@ export const NOT_QUIET_OUTPUT: ICompareCellOutputs[] = [
  */
 export const VerifyQuietNotebookSetting: RunnerFunction = async (init) => {
   const quietFile = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/quiet-preference.idlnb'
+    'idl/test/client-e2e/notebooks/quiet-preference.idlnb',
   );
   // get the current workspace config
   const config = GetWorkspaceConfig();
@@ -46,21 +46,21 @@ export const VerifyQuietNotebookSetting: RunnerFunction = async (init) => {
   (config as IIDLWorkspaceConfig).update(
     IDL_EXTENSION_CONFIG_KEYS.notebooksQuietMode,
     true,
-    true
+    true,
   );
 
   // run in quiet mode
   await RunNotebookAndCompareCells(
     quietFile,
     QUIET_OUTPUT,
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 
   // turn off
   (config as IIDLWorkspaceConfig).update(
     IDL_EXTENSION_CONFIG_KEYS.notebooksQuietMode,
     false,
-    true
+    true,
   );
 
   // reset
@@ -73,14 +73,14 @@ export const VerifyQuietNotebookSetting: RunnerFunction = async (init) => {
   await RunNotebookAndCompareCells(
     quietFile,
     NOT_QUIET_OUTPUT,
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 
   // turn on again
   (config as IIDLWorkspaceConfig).update(
     IDL_EXTENSION_CONFIG_KEYS.notebooksQuietMode,
     true,
-    true
+    true,
   );
 
   // stop execution

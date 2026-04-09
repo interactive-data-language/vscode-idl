@@ -8,7 +8,7 @@ import { TreeToken } from '@idl/types/syntax-tree';
  * Does not work at the top-level (i.e. where routines are defined)
  */
 export function GetNextInBranch(
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
 ): TreeToken<TokenName> | undefined {
   const length = token?.scopeTokens?.length || 0;
 

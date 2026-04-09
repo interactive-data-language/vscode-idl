@@ -19,7 +19,7 @@ export function GetKeywords(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<TokenName>,
-  useCache = true
+  useCache = true,
 ): IFoundKeywords {
   if ('keywords' in (token.cache as ITokenCache) && useCache) {
     return (token.cache as ITokenCache).keywords;

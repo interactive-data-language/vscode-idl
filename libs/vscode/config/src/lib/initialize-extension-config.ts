@@ -36,7 +36,7 @@ export let IDL_EXTENSION_CONFIG: IIDLWorkspaceConfig;
  */
 export async function InitializeExtensionConfig(
   ctx: vscode.ExtensionContext,
-  onConfigChanges: () => void
+  onConfigChanges: () => void,
 ) {
   // get the current workspace config
   IDL_EXTENSION_CONFIG = GetWorkspaceConfig();
@@ -45,7 +45,7 @@ export async function InitializeExtensionConfig(
    * Track previous developer settings
    */
   let OLD_DEVELOPER = copy(
-    IDL_EXTENSION_CONFIG.get(IDL_EXTENSION_CONFIG_KEYS.developer)
+    IDL_EXTENSION_CONFIG.get(IDL_EXTENSION_CONFIG_KEYS.developer),
   );
 
   // make sure our configuration is OK
@@ -111,7 +111,7 @@ export async function InitializeExtensionConfig(
           'defaultFormatter',
           EXTENSION_FULL_NAME,
           vscode.ConfigurationTarget.Global,
-          true
+          true,
         );
 
         // check if we also need to format on save
@@ -123,12 +123,12 @@ export async function InitializeExtensionConfig(
                 'formatOnSave',
                 true,
                 vscode.ConfigurationTarget.Global,
-                true
+                true,
               );
-            }
+            },
           );
         }
-      }
+      },
     );
   }
 
@@ -153,9 +153,9 @@ export async function InitializeExtensionConfig(
         config.update(
           'iconTheme',
           ICON_THEME_NAME,
-          vscode.ConfigurationTarget.Global
+          vscode.ConfigurationTarget.Global,
         );
-      }
+      },
     );
   }
 
@@ -172,7 +172,7 @@ export async function InitializeExtensionConfig(
       },
       () => {
         vscode.commands.executeCommand(IDL_COMMANDS.DOCS.OPEN);
-      }
+      },
     );
   }
 }

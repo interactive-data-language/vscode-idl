@@ -117,7 +117,7 @@ export class Indexer {
    */
   search(query: string): string[] {
     return (this.index.search(query, { limit: 20 }) as string[]).map((id) =>
-      this.get(id)
+      this.get(id),
     );
   }
 

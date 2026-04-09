@@ -26,13 +26,13 @@ import { ITokenCache } from './token-cache.interface';
  * Returns undefined if no method is found
  */
 export function GetMethodForType<
-  T extends GlobalFunctionMethodToken | GlobalProcedureMethodToken
+  T extends GlobalFunctionMethodToken | GlobalProcedureMethodToken,
 >(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<CallFunctionMethodToken | CallProcedureMethodToken>,
   useCache: boolean,
-  type: IDLDataTypeBase<IDLTypes>
+  type: IDLDataTypeBase<IDLTypes>,
 ): IGlobalIndexedToken<T>[] {
   // if no type, return
   if (type.name === IDL_TYPE_LOOKUP.ANY) {
@@ -47,7 +47,7 @@ export function GetMethodForType<
     token.name === TOKEN_NAMES.CALL_FUNCTION_METHOD
       ? GLOBAL_TOKEN_TYPES.FUNCTION_METHOD
       : GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD,
-    `${type.name}::${token.match[2]}`
+    `${type.name}::${token.match[2]}`,
   );
 
   // check if we found a match
@@ -57,7 +57,7 @@ export function GetMethodForType<
     // check for global token first
     const globalStructure = index.findMatchingGlobalToken(
       GLOBAL_TOKEN_TYPES.STRUCTURE,
-      typeName
+      typeName,
     );
 
     // check if we have a structure to check for
@@ -75,7 +75,7 @@ export function GetMethodForType<
           parsed,
           token,
           useCache,
-          IDLTypeHelper.parseIDLType(alsoCheck[i])
+          IDLTypeHelper.parseIDLType(alsoCheck[i]),
         );
         if (matches.length > 0) {
           return matches;
@@ -94,13 +94,13 @@ export function GetMethodForType<
  * Returns an empty array if no method is found
  */
 export function GetMethod<
-  T extends GlobalFunctionMethodToken | GlobalProcedureMethodToken
+  T extends GlobalFunctionMethodToken | GlobalProcedureMethodToken,
 >(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<CallFunctionMethodToken | CallProcedureMethodToken>,
   useCache = true,
-  type?: IDLDataType
+  type?: IDLDataType,
 ): IGlobalIndexedToken<T>[] {
   if ('method' in (token.cache as ITokenCache) && useCache) {
     return (token.cache as ITokenCache).method as IGlobalIndexedToken<T>[];

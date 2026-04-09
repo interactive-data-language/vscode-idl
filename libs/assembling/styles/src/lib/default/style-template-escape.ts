@@ -18,10 +18,10 @@ ASSEMBLER_DEFAULT_STYLING.onBasicToken(
         default:
           token.match[0] = `\\x${AdjustCase(
             compare.substring(2),
-            meta.style.hex
+            meta.style.hex,
           )}`;
           break;
       }
     }
-  }
+  },
 );

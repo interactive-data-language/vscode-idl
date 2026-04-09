@@ -14,7 +14,7 @@ import { StringifyCode } from './stringify-code';
 export function TestsForSyntaxPostProcessors(
   name: string,
   tests: ITokenTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -52,14 +52,14 @@ export function TestsForSyntaxPostProcessors(
     strings.push(``);
     strings.push(`    // extract tokens`);
     strings.push(
-      `    const tokenized = Parser(code, new CancellationToken());`
+      `    const tokenized = Parser(code, new CancellationToken());`,
     );
     strings.push(``);
 
     // add the start to  our tokens
     strings.push(`    // define expected syntax tree`);
     strings.push(
-      `    const expectedTree: SyntaxTree = ${JSON.stringify(tokenized.tree)}`
+      `    const expectedTree: SyntaxTree = ${JSON.stringify(tokenized.tree)}`,
     );
     strings.push('');
 
@@ -72,15 +72,15 @@ export function TestsForSyntaxPostProcessors(
     strings.push(`    // define expected problems`);
     strings.push(
       `    const expectedProblems: SyntaxProblems = ${JSON.stringify(
-        tokenized.parseProblems.concat(tokenized.postProcessProblems)
-      )}`
+        tokenized.parseProblems.concat(tokenized.postProcessProblems),
+      )}`,
     );
     strings.push('');
 
     // verify results
     strings.push('    // verify results');
     strings.push(
-      '    expect(tokenized.parseProblems.concat(tokenized.postProcessProblems)).toEqual(expectedProblems)'
+      '    expect(tokenized.parseProblems.concat(tokenized.postProcessProblems)).toEqual(expectedProblems)',
     );
 
     strings.push('  })');

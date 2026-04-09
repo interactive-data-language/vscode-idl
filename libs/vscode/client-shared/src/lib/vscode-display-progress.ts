@@ -21,7 +21,7 @@ export function VSCodeDisplayOrUpdateProgress(
   id: string,
   message: string,
   increment: number,
-  finished?: boolean
+  finished?: boolean,
 ) {
   // check for known progress
   if (id in dialogs) {
@@ -63,6 +63,6 @@ export function VSCodeDisplayOrUpdateProgress(
 
       // return overall promise
       return prom;
-    }
+    },
   );
 }

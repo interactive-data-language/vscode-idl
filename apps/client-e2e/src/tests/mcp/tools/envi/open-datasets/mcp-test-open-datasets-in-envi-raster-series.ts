@@ -14,7 +14,7 @@ import { LogWhenExpectSuccess } from '../../../helpers/test-loggers';
  * Makes sure we can open and display a dataset in ENVI
  */
 export const RunMCPTestOpenDatasetsInENVI_RasterSeries: RunnerFunction = async (
-  init
+  init,
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {

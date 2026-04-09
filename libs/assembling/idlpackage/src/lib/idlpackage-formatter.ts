@@ -8,7 +8,7 @@ import { LCProps } from './helpers/lc-props';
  */
 export function IDLPackageFormatter<T extends FormatterType>(
   jsonString: string,
-  options: IAssemblerOptions<T>
+  options: IAssemblerOptions<T>,
 ): string | undefined {
   try {
     /** Parse the file */

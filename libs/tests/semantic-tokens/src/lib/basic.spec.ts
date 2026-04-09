@@ -13,7 +13,7 @@ describe(`[auto generated] Extracts semantic tokens`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -29,7 +29,7 @@ describe(`[auto generated] Extracts semantic tokens`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens

@@ -7,7 +7,7 @@ import { IDLDebugAdapter } from '../idl-debug-adapter.class';
  * Handles CLI progress notifications from the IDL Machine
  */
 export function RegisterDebugAdapterCLIProgressHandler(
-  adapter: IDLDebugAdapter
+  adapter: IDLDebugAdapter,
 ) {
   // plug in progress messages
   if (adapter._runtime.isIDLMachine()) {
@@ -22,7 +22,7 @@ export function RegisterDebugAdapterCLIProgressHandler(
 
         // emit that we have finished
         return 1;
-      }
+      },
     );
   }
 }

@@ -28,7 +28,7 @@ export async function RunNotebookAndCheckCallStackDecorations(
   stack: IStackTraceLookup,
   controller: IDLNotebookController,
   decorations: IDLDecorationsManager,
-  clear = true
+  clear = true,
 ) {
   // nuke .idl folder if it exists
   if (existsSync(NOTEBOOK_FOLDER)) {
@@ -69,7 +69,7 @@ export async function RunNotebookAndCheckCallStackDecorations(
   if (clear) {
     // clear outputs
     await vscode.commands.executeCommand(
-      VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS
+      VSCODE_COMMANDS.NOTEBOOK_CLEAR_OUTPUTS,
     );
   }
 

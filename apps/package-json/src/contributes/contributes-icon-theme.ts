@@ -79,7 +79,7 @@ async function DownloadFiles() {
 
   // process the output file
   const json = JSON.parse(
-    readFileSync(outDir + sep + 'vs-seti-icon-theme.json', 'utf-8')
+    readFileSync(outDir + sep + 'vs-seti-icon-theme.json', 'utf-8'),
   );
 
   /** Dark IDL icon */
@@ -150,7 +150,7 @@ async function DownloadFiles() {
   // save changes to disk
   writeFileSync(
     outDir + sep + 'vs-seti-icon-theme.json',
-    JSON.stringify(json, null, 2) + '\n'
+    JSON.stringify(json, null, 2) + '\n',
   );
 }
 
@@ -159,7 +159,7 @@ async function DownloadFiles() {
  */
 export async function ProcessIconTheme(
   packageJSON: IPackageJSON,
-  nls: IPackageNLS
+  nls: IPackageNLS,
 ) {
   // get all of our contribution points
   const contrib = packageJSON['contributes'];
@@ -175,14 +175,14 @@ export async function ProcessIconTheme(
     const url = join(process.cwd(), icons.path);
     if (!existsSync(url)) {
       throw new Error(
-        `icon theme at index ${i} missing path file where expected "${icons.path}"`
+        `icon theme at index ${i} missing path file where expected "${icons.path}"`,
       );
     }
 
     // verify label
     if (!VerifyNLS(icons.label, nls)) {
       throw new Error(
-        `Config snippet at index ${i} has "body.name" missing from translation`
+        `Config snippet at index ${i} has "body.name" missing from translation`,
       );
     }
   }

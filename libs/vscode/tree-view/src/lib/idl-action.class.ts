@@ -10,7 +10,7 @@ export class IDLAction extends vscode.TreeItem {
     private iconName: string,
     readonly commandName: string,
     private extensionFolder: string,
-    readonly commandArgs?: any[]
+    readonly commandArgs?: any[],
   ) {
     super(label, collapsibleState);
 
@@ -26,10 +26,10 @@ export class IDLAction extends vscode.TreeItem {
 
     this.iconPath = {
       light: vscode.Uri.file(
-        join(extensionFolder, 'extension', 'images', 'light', iconName)
+        join(extensionFolder, 'extension', 'images', 'light', iconName),
       ),
       dark: vscode.Uri.file(
-        join(extensionFolder, 'extension', 'images', 'dark', iconName)
+        join(extensionFolder, 'extension', 'images', 'dark', iconName),
       ),
     };
   }

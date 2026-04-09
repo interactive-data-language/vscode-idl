@@ -19,7 +19,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * @param event The event from VSCode
  */
 export const ON_MIGRATE_CODE = async (
-  event: MigrateCodeLSPPayload
+  event: MigrateCodeLSPPayload,
 ): Promise<MigrateCodeLSPResponse> => {
   await SERVER_INITIALIZED;
   try {
@@ -59,7 +59,7 @@ export const ON_MIGRATE_CODE = async (
         code: info.code,
         formatting: config,
         migrationType: event.migrationType,
-      }
+      },
     ).response;
 
     // check if we couldnt format

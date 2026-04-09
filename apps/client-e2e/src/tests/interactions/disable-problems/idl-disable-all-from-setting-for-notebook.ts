@@ -20,7 +20,7 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
 
     // open notebook
     const nb = await OpenNotebookInVSCode(
-      GetExtensionPath('idl/test/client-e2e/problems/code-actions.idlnb')
+      GetExtensionPath('idl/test/client-e2e/problems/code-actions.idlnb'),
     );
 
     // short pause to make sure we open and parse
@@ -34,15 +34,15 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
     // verify problems
     expect(
       cells.map(
-        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-      )
+        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+      ),
     ).toEqual([1]);
 
     // disable reporting problems
     await config.update(
       IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
       false,
-      true
+      true,
     );
 
     // short pause
@@ -51,15 +51,15 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
     // verify problems
     expect(
       cells.map(
-        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-      )
+        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+      ),
     ).toEqual([0]);
 
     // disable reporting problems
     await config.update(
       IDL_EXTENSION_CONFIG_KEYS.problemsReportProblems,
       true,
-      true
+      true,
     );
 
     // short pause to make sure we open and parse
@@ -68,7 +68,7 @@ export const IDLDisableAllFromSettingsForNotebook: RunnerFunction =
     // verify problems
     expect(
       cells.map(
-        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-      )
+        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+      ),
     ).toEqual([1]);
   };

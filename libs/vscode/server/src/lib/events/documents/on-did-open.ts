@@ -16,7 +16,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * @param event The event from VSCode
  */
 export const ON_DID_OPEN = async (
-  event: TextDocumentChangeEvent<TextDocument>
+  event: TextDocumentChangeEvent<TextDocument>,
 ) => {
   await SERVER_INITIALIZED;
   try {

@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -104,12 +104,12 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
     const hoverHelp_0 = await index.getHoverHelp(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
 
     // verify results
     expect(expectedFound_0).toEqual(
-      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim)
+      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim),
     );
   });
 
@@ -121,7 +121,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -210,12 +210,12 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
     const hoverHelp_0 = await index.getHoverHelp(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
 
     // verify results
     expect(expectedFound_0).toEqual(
-      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim)
+      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim),
     );
   });
 });

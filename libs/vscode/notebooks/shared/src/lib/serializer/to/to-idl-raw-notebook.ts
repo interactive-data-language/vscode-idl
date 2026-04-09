@@ -16,7 +16,7 @@ export async function ToIDLRawNotebook<T extends IDLRawNotebookVersion>(
   version: T,
   data: vscode.NotebookData,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _token: vscode.CancellationToken
+  _token: vscode.CancellationToken,
 ): Promise<Uint8Array> {
   /**
    * Clean up cell output metadata so we don't save things that
@@ -58,7 +58,7 @@ export async function ToIDLRawNotebook<T extends IDLRawNotebookVersion>(
         break;
       default:
         throw new Error(
-          `Unable to save as unknown notebook version "${version}"`
+          `Unable to save as unknown notebook version "${version}"`,
         );
     }
   } catch (err) {

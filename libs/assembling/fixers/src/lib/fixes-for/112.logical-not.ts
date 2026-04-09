@@ -15,5 +15,5 @@ ASSEMBLER_PROBLEM_FIXERS.onBranchToken(
       // change name because we dont need spaces around this operator anymore
       (token as any).name = TOKEN_NAMES.OPERATOR;
     }
-  }
+  },
 );

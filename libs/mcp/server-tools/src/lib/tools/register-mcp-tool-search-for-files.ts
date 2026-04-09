@@ -52,15 +52,14 @@ export function RegisterMCPTool_SearchForFiles(server: MCPServer) {
           ],
         };
       }
- 
-       
 
       /**
        * Map extensions to recursive glob patterns
        */
-      const useExtensions = extensions.findIndex(val => val === '*') !== -1
-        ? [`**/*`]
-        : extensions.map((ext) => `**/*${ext}`);
+      const useExtensions =
+        extensions.findIndex((val) => val === '*') !== -1
+          ? [`**/*`]
+          : extensions.map((ext) => `**/*${ext}`);
 
       /** Init results */
       let results: string[] = [];

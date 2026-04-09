@@ -27,7 +27,7 @@ export function PopulateLocalForMain(parsed: IParsed) {
         local.main = PopulateVariables(
           branch as IBranch<MainLevelToken>,
           parsed,
-          parsed.compile.main
+          parsed.compile.main,
         );
         break;
       default:

@@ -13,7 +13,7 @@ import { PopulateENVIError } from './populate-envi-error';
  * Returns a boolean if we ran what we tried to or not
  */
 export async function HandleENVISuccess(
-  resOrig: string
+  resOrig: string,
 ): Promise<IENVISuccess> {
   // remove IDL print statements
   const res = CleanIDLOutput(resOrig, true, true);

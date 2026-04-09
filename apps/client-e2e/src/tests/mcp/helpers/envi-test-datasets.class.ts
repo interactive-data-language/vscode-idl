@@ -102,7 +102,7 @@ export class ENVITestDatasets {
         'resource',
         'speclib',
         'veg_lib',
-        'veg_1dry.sli'
+        'veg_1dry.sli',
       ),
     };
   }

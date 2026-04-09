@@ -13,7 +13,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const IDLDisableAllFromComments: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems/idl_disable_all_before.pro')
+    GetExtensionPath('idl/test/client-e2e/problems/idl_disable_all_before.pro'),
   );
 
   // short pause to make sure we open and parse
@@ -27,10 +27,10 @@ export const IDLDisableAllFromComments: RunnerFunction = async (init) => {
     doc,
     readFileSync(
       GetExtensionPath(
-        'idl/test/client-e2e/problems/idl_disable_all_after.pro'
+        'idl/test/client-e2e/problems/idl_disable_all_after.pro',
       ),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // short pause
@@ -46,8 +46,8 @@ export const IDLDisableAllFromComments: RunnerFunction = async (init) => {
 export const IDLDisableLinesFromComments: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
     GetExtensionPath(
-      'idl/test/client-e2e/problems/idl_disable_lines_before.pro'
-    )
+      'idl/test/client-e2e/problems/idl_disable_lines_before.pro',
+    ),
   );
 
   // short pause to make sure we open and parse
@@ -61,10 +61,10 @@ export const IDLDisableLinesFromComments: RunnerFunction = async (init) => {
     doc,
     readFileSync(
       GetExtensionPath(
-        'idl/test/client-e2e/problems/idl_disable_lines_after.pro'
+        'idl/test/client-e2e/problems/idl_disable_lines_after.pro',
       ),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // short pause
