@@ -39,6 +39,7 @@ export function LegacyENVITaskToGlobal(
       display: name,
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
+      readableName: task.displayName,
       private: false,
       inherits: ['envitask'], // lower-case
       docsLookup: {},

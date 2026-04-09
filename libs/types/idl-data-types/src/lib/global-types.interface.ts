@@ -116,6 +116,8 @@ export interface IBaseTokenMetadata {
   docs: string;
   /** Is it private? */
   private?: boolean;
+  /** HUman readable name for some values (i.e. "Spectral Index Task" vs SpectralIndexTask) */
+  readableName?: string;
   /** Source information for a routine */
   source: GlobalTokenSource;
   /** Tags for the token */

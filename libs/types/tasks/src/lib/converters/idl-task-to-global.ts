@@ -40,6 +40,7 @@ export function IDLTaskToGlobal(
     pos: [0, 0, 0],
     meta: {
       display: name,
+      readableName: task.display_name,
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
       private: false,
