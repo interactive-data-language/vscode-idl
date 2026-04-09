@@ -184,6 +184,7 @@
     "eslint-config-prettier": "10.0.0",
     "eslint-plugin-cypress": "^3.5.0",
     "eslint-plugin-perfectionist": "^4.8.0",
+    "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-typescript-sort-keys": "^3.3.0",
     "eslint-plugin-unused-imports": "^4.1.3",

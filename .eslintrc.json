@@ -1,7 +1,13 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nx", "perfectionist", "simple-import-sort", "unused-imports"],
+  "plugins": [
+    "@nx",
+    "perfectionist",
+    "simple-import-sort",
+    "unused-imports",
+    "prettier"
+  ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -40,7 +46,8 @@
             }
           }
         ],
-        "unused-imports/no-unused-imports": "error"
+        "unused-imports/no-unused-imports": "error",
+        "prettier/prettier": "error"
       }
     },
     {
