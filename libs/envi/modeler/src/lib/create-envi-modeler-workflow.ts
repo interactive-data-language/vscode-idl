@@ -1,3 +1,4 @@
+import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 
 import {
@@ -18,6 +19,7 @@ import { RemoveSingletonNodes } from './helpers/remove-singleton-nodes';
 export function CreateENVIModelerWorkflow(
   nodes: ENVIModelerNode[],
   edges: ENVIModelerEdge[],
+  registry: MCPTaskRegistry,
 ): Record<string, unknown> {
   /**
    * Preprocess nodes to simplify and automatically resolve errors
@@ -39,7 +41,7 @@ export function CreateENVIModelerWorkflow(
       LAYOUT_BASE_X,
       LAYOUT_BASE_Y,
     ];
-    return BuildNodeJSON(node, modelName, location);
+    return BuildNodeJSON(node, modelName, location, registry);
   });
 
   // Build edges array

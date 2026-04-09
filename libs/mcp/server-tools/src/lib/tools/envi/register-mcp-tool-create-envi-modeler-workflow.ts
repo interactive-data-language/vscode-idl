@@ -212,6 +212,7 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
       const modelJSON = CreateENVIModelerWorkflow(
         nodes as ENVIModelerNode[],
         edges as ENVIModelerEdge[],
+        registry,
       );
       const modelContent = JSON.stringify(modelJSON, null, 4);
 

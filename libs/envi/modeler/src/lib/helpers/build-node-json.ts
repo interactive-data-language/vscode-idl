@@ -1,3 +1,4 @@
+import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { ENVIModelerNode } from '@idl/types/mcp';
 
 import { FIXED_DISPLAY_NAMES } from '../create-envi-modeler-workflow.interface';
@@ -7,6 +8,7 @@ export function BuildNodeJSON(
   node: ENVIModelerNode,
   modelName: string,
   location: [number, number],
+  registry: MCPTaskRegistry,
 ): Record<string, unknown> {
   const base: Record<string, unknown> = {
     display_name:
@@ -93,6 +95,14 @@ export function BuildNodeJSON(
         envitask['revision'] = node.revision;
       }
       base['envitask'] = envitask;
+
+      // get display name
+      const info = registry.getTaskDetail(node.task_name as string);
+
+      // set display name of task
+      if (info.structure.meta.readableName) {
+        base['display_name'] = info.structure.meta.readableName;
+      }
       break;
     }
 
