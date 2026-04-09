@@ -189,7 +189,11 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
     },
     async (id, { output_path, nodes, edges }) => {
       /** Validate the nodes and check for errors */
-      const errors = ValidateENVIModelerNodes(nodes, edges, registry);
+      const errors = ValidateENVIModelerNodes(
+        nodes as ENVIModelerNode[],
+        edges as ENVIModelerEdge[],
+        registry,
+      );
 
       // report MCP tool failure if bad node
       if (errors.length > 0) {
