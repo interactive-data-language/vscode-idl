@@ -48,7 +48,7 @@ interface IGlobalTokenTypeLookup {
 /**
  * Names for all global tokens
  */
-export const GLOBAL_TOKEN_TYPES: IGlobalTokenTypeLookup = {
+export const GLOBAL_TOKEN_TYPES = {
   FUNCTION: 'f',
   PROCEDURE: 'p',
   FUNCTION_METHOD: 'fm',
@@ -56,7 +56,7 @@ export const GLOBAL_TOKEN_TYPES: IGlobalTokenTypeLookup = {
   STRUCTURE: 's',
   SYSTEM_VARIABLE: 'sv',
   COMMON: 'c',
-};
+} as const satisfies IGlobalTokenTypeLookup;
 
 /** Native code */
 type InternalTokenSource = 'internal';
