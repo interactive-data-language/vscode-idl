@@ -1,8 +1,9 @@
-import { MCPTaskRegistry } from '@idl/mcp/tasks';
+import { ITaskInformation, MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 
+import { BuildConnectionMap } from './helpers/build-connection-map';
 import {
   SINK_TYPES,
   SOURCE_TYPES,
@@ -16,9 +17,11 @@ export function ValidateENVIModelerNodes(
   edges: ENVIModelerEdge[],
   registry: MCPTaskRegistry,
 ): string[] {
-  // ---- validate edges reference valid node ids and obey source/sink rules
-  const nodeIds = new Set(nodes.map((n) => n.id));
-  const nodeTypeById = new Map(nodes.map((n) => [n.id, n.type]));
+  /** Create map for nodes */
+  const nodeMap: { [key: string]: ENVIModelerNode } = {};
+  for (let i = 0; i < nodes.length; i++) {
+    nodeMap[nodes[i].id] = nodes[i];
+  }
 
   /** Track validation errors */
   const errors: string[] = [];
@@ -30,15 +33,16 @@ export function ValidateENVIModelerNodes(
       case 'task':
         // make sure there is a name
         if (node.task_name) {
-          // make sure it is a known task
-          if (!registry.hasTask(node.task_name)) {
+          /** Get task information and validate a bit */
+          const info = registry.getTaskDetail(node.task_name);
+
+          // verify that we have a known task
+          if (!info) {
             errors.push(
               `Node "${node.id}" references an unknown task "${node.task_name}"`,
             );
+            continue;
           }
-
-          /** Get task information and validate a bit */
-          const info = registry.getTaskDetail(node.task_name);
 
           // validate input parameters
           for (const param of Object.keys(node.static_input || {})) {
@@ -58,80 +62,195 @@ export function ValidateENVIModelerNodes(
     }
   }
 
-  // check each edge
-  for (const edge of edges) {
-    if (!nodeIds.has(edge.from)) {
+  /**
+   * Validate all of our edges
+   */
+  for (let i = 0; i < edges.length; i++) {
+    const edge = edges[i];
+
+    // verify that we have correct IDs for connections
+    if (!(edge.from in nodeMap)) {
       errors.push(`Edge references unknown source node id "${edge.from}"`);
     }
-    if (!nodeIds.has(edge.to)) {
+    if (!(edge.to in nodeMap)) {
       errors.push(`Edge references unknown target node id "${edge.to}"`);
     }
 
-    const fromType = nodeTypeById.get(edge.from);
-    if (fromType && SINK_TYPES.has(fromType)) {
+    // extract nodes
+    const from = nodeMap[edge.from];
+    const to = nodeMap[edge.to];
+
+    // verify we arent coming from a sink
+    if (SINK_TYPES.has(from.type)) {
       errors.push(
-        `Node "${edge.from}" (type "${fromType}") is a sink-only node and cannot be an edge source`,
+        `Node "${edge.from}" (type "${from.type}") is a sink-only node and cannot be an edge source`,
       );
-    }
-    if (fromType === 'aggregator') {
-      edge.from_parameters = ['output'];
     }
 
-    const toType = nodeTypeById.get(edge.to);
-    if (toType && SOURCE_TYPES.has(toType)) {
+    // verify type we arent going to a source
+    if (SOURCE_TYPES.has(to.type)) {
       errors.push(
-        `Node "${edge.to}" (type "${toType}") is a source-only node and cannot be an edge target`,
+        `Node "${edge.to}" (type "${to.type}") is a source-only node and cannot be an edge target`,
       );
     }
+
+    /** Task info for our from node */
+    let fromInfo: ITaskInformation | undefined;
+
+    /** Errors for from parameters */
+    const fromErrs: string[] = [];
+
+    /**
+     * Validate from task parameters
+     */
+    if (from.type === 'task') {
+      // make sure we have a task name
+      if (from.task_name) {
+        fromInfo = registry.getTaskDetail(from.task_name);
+      }
+
+      // make sure we have info
+      if (fromInfo) {
+        // validate from parameters
+        for (let j = 0; j < edge.from_parameters.length; j++) {
+          const fromParam = edge.from_parameters[j];
+          const fromProp =
+            fromInfo.structure.meta.props[fromParam.toLowerCase()];
+
+          // make sure it is a real parameter we are coming from
+          if (!fromProp) {
+            fromErrs.push(
+              `  "${fromParam}" is not a known parameter of "${from.task_name}"`,
+            );
+            continue;
+          }
+
+          // make sure output
+          if (!(fromProp.direction === 'out')) {
+            fromErrs.push(
+              `  "${fromParam}" is not an output parameter and cannot be connected`,
+            );
+          }
+        }
+      }
+    }
+
+    /** Task info for our to node */
+    let toInfo: ITaskInformation | undefined;
+
+    // track to errors
+    const toErrors: string[] = [];
+
+    /**
+     * Validate to task parameters
+     */
+    if (to.type === 'task') {
+      // make sure we have a task name
+      if (to.task_name) {
+        toInfo = registry.getTaskDetail(to.task_name);
+      }
+
+      // make sure we have info
+      if (toInfo) {
+        // validate ti parameters
+        for (let j = 0; j < edge.to_parameters.length; j++) {
+          const toParam = edge.to_parameters[j];
+          const toProp = toInfo.structure.meta.props[toParam.toLowerCase()];
+
+          // make sure it is a real parameter we are coming from
+          if (!toProp) {
+            toErrors.push(
+              `  "${toParam}" is not a known parameter of "${to.task_name}"`,
+            );
+            continue;
+          }
+
+          // make sure output
+          if (!(toProp.direction === 'in')) {
+            toErrors.push(
+              `  "${toParam}" is not an input parameter and cannot be connected`,
+            );
+          }
+        }
+      }
+    }
+
+    // format errors
+    if (fromErrs.length > 0) {
+      errors.push(
+        `The "from_parameters" property on edge node ${i} has problems that need resolved:`,
+      );
+      errors.push(...fromErrs);
+    }
+
+    // format errors
+    if (toErrors.length > 0) {
+      errors.push(
+        `The "to_parameters" property on edge node ${i} has problems that need resolved:`,
+      );
+      errors.push(...toErrors);
+    }
+
+    /**
+     * @TODO add in logic to validate compatibility of parameters
+     *
+     * Maybe leave this to ENVI, but without this feedback the LLM may
+     * get things wrong
+     */
+    // if (fromInfo && toInfo) {
+    // }
   }
 
-  // Validate that task input parameters receiving multiple edges are array-typed.
-  // When a parameter has 2+ incoming edges, InjectAggregatorNodes will insert an
-  // aggregator — but only if the target parameter actually accepts an array.
-  const inputEdgeCount = new Map<string, number>();
+  /**
+   * Build connection map to validate array-based input parameters
+   */
+  const map = BuildConnectionMap(nodes, edges);
 
-  for (const edge of edges) {
-    if (nodeTypeById.get(edge.to) !== 'task') {
+  // get IDs
+  const ids = Object.keys(map);
+
+  /**
+   * Validate array connections that we will automatically add aggregators to so
+   * so that we actually have arrays
+   */
+  for (let i = 0; i < ids.length; i++) {
+    // skip if not a task
+    if (nodeMap[ids[i]]?.type !== 'task') {
       continue;
     }
 
-    if (edge.to_parameters.length === 0 || edge.to_parameters[0] === '') {
-      continue;
-    }
+    // get parameter names to verify
+    const byParam = map[ids[i]];
 
-    const key = `${edge.to}::${edge.to_parameters.join(',')}`;
-    inputEdgeCount.set(key, (inputEdgeCount.get(key) ?? 0) + 1);
-  }
+    // get parameters
+    const params = Object.keys(byParam);
 
-  for (const [key, count] of inputEdgeCount) {
-    if (count <= 1) {
-      continue;
-    }
+    // process each parameter
+    for (let j = 0; j < params.length; j++) {
+      const param = params[j];
+      const connections = byParam[param];
 
-    const separatorIdx = key.indexOf('::');
-    const toId = key.slice(0, separatorIdx);
-    const paramName = key.slice(separatorIdx + 2);
+      // check for multiple connections
+      if (connections.length > 1) {
+        const info = registry.getTaskDetail(nodeMap[ids[i]]?.task_name || '');
+        if (info) {
+          // check if unknown parameter
+          if (!(param in info.structure.meta.props)) {
+            continue;
+          }
 
-    const toNode = nodes.find((n) => n.id === toId);
-    if (!toNode || toNode.type !== 'task' || !toNode.task_name) {
-      continue;
-    }
-
-    if (!registry.hasTask(toNode.task_name)) {
-      continue;
-    }
-
-    const info = registry.getTaskDetail(toNode.task_name);
-    const prop = info.structure.meta.props[paramName.toLowerCase()];
-
-    if (!prop) {
-      continue;
-    }
-
-    if (!IDLTypeHelper.isType(prop.type, IDL_TYPE_LOOKUP.ARRAY)) {
-      errors.push(
-        `Node "${toId}" parameter "${paramName}" receives ${count} edges but is not an array type; aggregator injection is not valid`,
-      );
+          if (
+            !IDLTypeHelper.isType(
+              info.structure.meta.props[param].type,
+              IDL_TYPE_LOOKUP.ARRAY,
+            )
+          ) {
+            errors.push(
+              `The node "${ids[i]}" has multiple inputs for the task the parameter "${param}", but this parameter is not an array type and does not accept multiple inputs`,
+            );
+          }
+        }
+      }
     }
   }
 
