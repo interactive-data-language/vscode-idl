@@ -64,6 +64,7 @@ export class GlobalIndex {
    */
   constructor() {
     const types = Object.values(GLOBAL_TOKEN_TYPES);
+    this.globalTokensByTypeByName = {} as any;
     for (let i = 0; i < types.length; i++) {
       this.globalTokensByTypeByName[types[i]] = {};
     }
