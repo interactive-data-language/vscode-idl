@@ -445,7 +445,7 @@ export class IDLIndex {
     // check if we have the file in our lookup
     if (this.parsedCache.has(file)) {
       const text = this.parsedCache.text(file);
-      if (text.length > 0) {
+      if (Array.isArray(text)) {
         return text.join('\n');
       }
     }
@@ -473,7 +473,7 @@ export class IDLIndex {
        * Check if local
        */
       case this.parsedCache.has(file):
-        globals = this.parsedCache.get(file).global;
+        globals = (this.parsedCache.get(file) as IParsed).global;
         break;
 
       default:
@@ -554,7 +554,7 @@ export class IDLIndex {
         IDLFileHelper.isPRODef(file)
       )
     ) {
-      return undefined;
+      return [];
     }
 
     // if we are multi threaded, then
@@ -881,14 +881,14 @@ export class IDLIndex {
       // post process cell
       await this.postProcessProFile(
         files[i],
-        byCell[files[i]],
+        byCell[files[i]] as IParsed,
         token,
         [],
         false,
       );
 
       // update stored token
-      this.parsedCache.add(files[i], byCell[files[i]]);
+      this.parsedCache.add(files[i], byCell[files[i]] as IParsed);
     }
 
     return byCell;
@@ -1292,6 +1292,8 @@ export class IDLIndex {
         },
       });
     }
+
+    return false;
   }
 
   /**
@@ -1328,7 +1330,7 @@ export class IDLIndex {
 
       try {
         /** Get file from cache */
-        const parsed = this.parsedCache.get(files[i]);
+        const parsed = this.parsedCache.get(files[i]) as IParsed;
 
         /** Post-process and check for global changes */
         const didChange = await this.postProcessProFile(
@@ -1842,10 +1844,7 @@ export class IDLIndex {
     this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
       files,
     });
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined,
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     // track that we have PRO files
     if (files.length > 0) {
@@ -1946,10 +1945,7 @@ export class IDLIndex {
     await Promise.all(parsing);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined,
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     /**
      * Messages for global token synchronization
@@ -2008,10 +2004,7 @@ export class IDLIndex {
     await Promise.all(synchronize);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined,
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     // save stats
     this.lastWorkspaceIndexStats.timePro = Math.floor(performance.now() - t0);
@@ -2084,10 +2077,7 @@ export class IDLIndex {
     await Promise.all(parsing);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined,
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     /**
      * Messages for global token synchronization
@@ -2198,10 +2188,7 @@ export class IDLIndex {
     await Promise.all(postProcessing);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined,
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     /**
      * Process our results
@@ -2233,10 +2220,7 @@ export class IDLIndex {
     this.lastWorkspaceIndexStats.linesPro = lines;
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined,
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
   }
 
   /**
