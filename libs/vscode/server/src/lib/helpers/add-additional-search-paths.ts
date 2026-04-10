@@ -15,14 +15,19 @@ import { existsSync } from 'fs';
  */
 export function AddAdditionalSearchPaths(
   paths: IFolderRecursion,
-  idlBin: string,
-) {
+  idlBin?: string,
+): boolean {
   // add in our IDL folder
   paths[GetExtensionPath('idl/vscode/notebooks')] = true;
 
   // check for .idl package folder and auto-add if it exists
   if (existsSync(IDL_PACKAGE_DIR)) {
     paths[IDL_PACKAGE_DIR] = true;
+  }
+
+  // return if we don't have a folder
+  if (!idlBin) {
+    return false;
   }
 
   /** Load folders where custom content for ENVI lives */
