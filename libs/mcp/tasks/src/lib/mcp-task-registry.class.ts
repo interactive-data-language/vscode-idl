@@ -139,8 +139,14 @@ export class MCPTaskRegistry {
     taskFunction: IGlobalIndexedToken<GlobalFunctionToken>,
     taskStructure: IGlobalIndexedToken<GlobalStructureToken>,
   ) {
+    const match = TASK_REGEX.exec(taskStructure.meta.display);
+
+    if (match === null) {
+      return;
+    }
+
     /** Get task display name */
-    const taskDisplay = TASK_REGEX.exec(taskStructure.meta.display)[1];
+    const taskDisplay = match[1];
 
     /** Determine the type of task */
     const toolType = taskStructure.name.startsWith('envi') ? 'ENVI' : 'IDL';
