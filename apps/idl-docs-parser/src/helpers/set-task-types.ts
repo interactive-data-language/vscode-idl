@@ -84,6 +84,9 @@ export async function SetTaskTypes(global: GlobalTokens) {
           // get first global, always structure from our routines
           const struct = taskGlobals.structure;
 
+          // set human readable name
+          globali.meta.readableName = struct.meta.readableName;
+
           // get properties
           const props = struct.meta?.props || {};
 
