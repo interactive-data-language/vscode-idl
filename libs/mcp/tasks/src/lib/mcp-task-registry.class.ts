@@ -12,6 +12,7 @@ import Ajv from 'ajv';
 import { z, ZodRawShape } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
+import { FilterMCPENVITasks } from './helpers/filter-mcp-envi-tasks';
 import { GetCleanDescription } from './helpers/get-clean-description';
 import { StrictCheck } from './helpers/strict-check';
 import {
@@ -104,7 +105,7 @@ export class MCPTaskRegistry {
   /**
    * Gets information about a task
    */
-  getTaskDetail(taskName: string): ITaskInformation {
+  getTaskDetail(taskName: string): ITaskInformation | undefined {
     /** Get lower case name */
     const lc = taskName.toLowerCase();
 
@@ -138,8 +139,16 @@ export class MCPTaskRegistry {
     taskFunction: IGlobalIndexedToken<GlobalFunctionToken>,
     taskStructure: IGlobalIndexedToken<GlobalStructureToken>,
   ) {
+    // extract task name
+    const match = TASK_REGEX.exec(taskStructure.meta.display);
+
+    // return if no match - prevent errors when we don't really have a task
+    if (match === null) {
+      return;
+    }
+
     /** Get task display name */
-    const taskDisplay = TASK_REGEX.exec(taskStructure.meta.display)[1];
+    const taskDisplay = match[1];
 
     /** Determine the type of task */
     const toolType = taskStructure.name.startsWith('envi') ? 'ENVI' : 'IDL';
@@ -297,6 +306,32 @@ export class MCPTaskRegistry {
   }
 
   /**
+   * Loads tasks from global tokens (i.e. after we index a location)
+   */
+  registerTasksFromGlobalTokens(
+    functions: {
+      [key: string]: IGlobalIndexedToken<GlobalFunctionToken>[];
+    },
+    structures: {
+      [key: string]: IGlobalIndexedToken<GlobalStructureToken>[];
+    },
+  ) {
+    /** Find names of ENVI Tasks and exclude those we dont need to expose  */
+    const keys = FilterMCPENVITasks(functions, Object.keys(structures)).sort();
+
+    this.logger.log({
+      log: IDL_MCP_LOG,
+      type: 'info',
+      content: `Attempting to register ${keys.length} ENVI Tools`,
+    });
+
+    // add all ENVI Tasks
+    for (let i = 0; i < keys.length; i++) {
+      this.registerTask(functions[keys[i]][0], structures[keys[i]][0]);
+    }
+  }
+
+  /**
    * Remove a task from the registry
    *
    * Deletes entry from the unified registry
@@ -356,7 +391,7 @@ export class MCPTaskRegistry {
       // check if we have JSON schema problems
       if (!valid) {
         // Format validation errors for the response
-        const errors = validate.errors
+        const errors = (validate.errors || [])
           .map(
             (err) =>
               `- ${err.instancePath || 'root'}: ${err.message}${

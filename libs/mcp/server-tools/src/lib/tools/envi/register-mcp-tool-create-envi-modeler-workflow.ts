@@ -214,7 +214,7 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
         edges as ENVIModelerEdge[],
         registry,
       );
-      const modelContent = JSON.stringify(modelJSON, null, 4);
+      const modelContent = JSON.stringify(modelJSON, null, 2);
 
       // ---- write to disk
       try {

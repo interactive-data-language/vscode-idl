@@ -1,10 +1,7 @@
 import { Subject } from 'rxjs';
 import { Worker } from 'worker_threads';
 
-import {
-  PayloadFromWorkerBaseMessage,
-  PayloadToWorkerBaseMessage,
-} from './messages/workerio.payloads.interface';
+import { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
 import { IPostAndReceiveMessageResult } from './workerio.interface';
 
 /**
@@ -40,17 +37,17 @@ export interface IWorkerIO<_Message extends string> {
   /**
    * Subscribe to all messages with the same ID from any worker
    */
-  subscribeToGlobalMessages<T extends _Message>(
-    type: T,
-  ): Subject<PayloadFromWorkerBaseMessage<T>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  subscribeToGlobalMessages<T extends _Message>(type: T): Subject<any>;
 
   /**
    * Subscribe to messages from a specific worker
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subscribeToWorkerMessages<T extends _Message>(
     workerId: string,
     type: T,
-  ): Subject<PayloadFromWorkerBaseMessage<T>>;
+  ): Subject<any>;
 
   /**
    * Stop subscribing to global messages - cleans up internal subscription references

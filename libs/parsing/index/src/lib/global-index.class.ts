@@ -56,7 +56,7 @@ export class GlobalIndex {
   /**
    * Tokens categorized by type to reduce number of checks for global conflicts
    */
-  globalTokensByTypeByName: GlobalTokensByTypeByName = {};
+  globalTokensByTypeByName!: GlobalTokensByTypeByName;
 
   /**
    * Constructor which initializes properties in our constants so that they
@@ -111,7 +111,7 @@ export class GlobalIndex {
         const byNameForType = this.globalTokensByTypeByName[types[i]];
         const names = Object.keys(byNameForType);
         for (let j = 0; j < names.length; j++) {
-          exported[types[i]].push(byNameForType[names[j]][0]);
+          exported[types[i]].push(byNameForType[names[j]][0] as any);
         }
       }
       return exported;
@@ -332,7 +332,9 @@ export class GlobalIndex {
                 break;
               case byName.length === 1:
                 // remove display name
-                delete IDL_DISPLAY_NAMES[tokens[i].type][tokens[i].name];
+                delete (IDL_DISPLAY_NAMES[tokens[i].type] || {})[
+                  tokens[i].name
+                ];
 
                 // remove structure/type names
                 if (tokens[i].type === GLOBAL_TOKEN_TYPES.STRUCTURE) {
@@ -355,7 +357,7 @@ export class GlobalIndex {
 
       // mark as changed if we had problems
       if (file in this.globalSyntaxProblemsByFile) {
-        this.changedFiles[file] = undefined;
+        this.changedFiles[file] = false;
       }
 
       // reset problems for our file as well
@@ -456,9 +458,11 @@ export class GlobalIndex {
 
       // save by type
       if (token.name in this.globalTokensByTypeByName[token.type]) {
-        this.globalTokensByTypeByName[token.type][token.name].push(token);
+        this.globalTokensByTypeByName[token.type][token.name].push(
+          token as any,
+        );
       } else {
-        this.globalTokensByTypeByName[token.type][token.name] = [token];
+        this.globalTokensByTypeByName[token.type][token.name] = [token as any];
       }
     }
   }
@@ -558,8 +562,8 @@ export class GlobalIndex {
 
     // check all files that we need to process
     const files = this.globalTokensByTypeByName[token.type][token.name]
-      .filter((item) => item.file !== undefined)
-      .map((item) => item.file);
+      .map((item) => item.file)
+      .filter((item) => item !== undefined);
 
     // process each file
     for (let z = 0; z < files.length; z++) {
@@ -576,6 +580,11 @@ export class GlobalIndex {
 
         // extract the problem
         const problem = problems[j];
+
+        // skip if no file
+        if (!problem.file) {
+          continue;
+        }
 
         // check if our file matches
         if (

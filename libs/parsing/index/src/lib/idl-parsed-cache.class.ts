@@ -239,7 +239,9 @@ export class IDLParsedCache {
 
     // compress the keys
     for (let i = 0; i < COMPRESS_THESE.length; i++) {
-      parsed[COMPRESS_THESE[i]] = JSON.stringify(parsed[COMPRESS_THESE[i]]);
+      (parsed as any)[COMPRESS_THESE[i]] = JSON.stringify(
+        (parsed as any)[COMPRESS_THESE[i]],
+      );
     }
 
     // return
@@ -267,7 +269,9 @@ export class IDLParsedCache {
 
     // unpack the keys
     for (let i = 0; i < COMPRESS_THESE.length; i++) {
-      parsed[COMPRESS_THESE[i]] = JSON.parse(parsed[COMPRESS_THESE[i]]);
+      (parsed as any)[COMPRESS_THESE[i]] = JSON.parse(
+        (parsed as any)[COMPRESS_THESE[i]],
+      );
     }
 
     // return
