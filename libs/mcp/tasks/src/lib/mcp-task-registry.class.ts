@@ -139,8 +139,10 @@ export class MCPTaskRegistry {
     taskFunction: IGlobalIndexedToken<GlobalFunctionToken>,
     taskStructure: IGlobalIndexedToken<GlobalStructureToken>,
   ) {
+    // extract task name
     const match = TASK_REGEX.exec(taskStructure.meta.display);
 
+    // return if no match - prevent errors when we don't really have a task
     if (match === null) {
       return;
     }
