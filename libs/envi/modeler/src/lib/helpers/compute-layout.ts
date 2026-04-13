@@ -3,7 +3,6 @@ import { ENVIModelerNode } from '@idl/types/mcp';
 import {
   LAYOUT_BASE_X,
   LAYOUT_BASE_Y,
-  LAYOUT_COMMENT_Y_OFFSET,
   LAYOUT_RIGHT_STEP_Y,
   LAYOUT_STEP_X,
   RIGHT_SIDE_ORDER,
@@ -12,7 +11,6 @@ import {
 
 /**
  * Compute a simple left-to-right auto-layout for nodes.
- * Comment nodes are placed at y - 90 relative to their sequence position.
  * Right-side nodes (view, outputparameters, datamanager) are stacked vertically
  * one column to the right of all other nodes.
  * Other nodes share the same base y.
@@ -34,19 +32,12 @@ export function ComputeLayout(
     let y = LAYOUT_BASE_Y;
 
     // check for special y value cases
-    switch (node.type) {
-      case 'comment':
-        y += LAYOUT_COMMENT_Y_OFFSET;
-        break;
-      case 'inputparameters':
-        y += LAYOUT_RIGHT_STEP_Y;
-        break;
+    if (node.type === 'inputparameters') {
+      y += LAYOUT_RIGHT_STEP_Y;
     }
 
     layout.set(node.id, [x, y]);
-    if (node.type !== 'comment') {
-      col++;
-    }
+    col++;
   }
 
   // Second pass: stack right-side nodes vertically one column to the right,

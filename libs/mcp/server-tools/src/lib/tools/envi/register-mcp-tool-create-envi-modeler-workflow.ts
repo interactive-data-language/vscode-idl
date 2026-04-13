@@ -45,7 +45,6 @@ const nodeSchema = z.object({
       'arrayvalues',
       'view',
       'datamanager',
-      'comment',
       'propertyextractor',
       'arrayextractor',
     ])
@@ -99,6 +98,12 @@ const nodeSchema = z.object({
     .optional()
     .describe(
       "For type='arrayextractor': zero-based indices of elements to extract.",
+    ),
+  comment: z
+    .string()
+    .optional()
+    .describe(
+      'Optional annotation text for this node. When set, a comment node is automatically placed above this node on the canvas and moves with it if layout shifts.',
     ),
 });
 
@@ -157,9 +162,14 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
         '- arrayvalues: A static array of literal values. Requires value[]. Optional: data_type.',
         '- view: SINK node. Displays a raster or value in ENVI. Only appears as edge target, never source. Accepts input_raster or input_string in to_parameters.',
         '- datamanager: SINK node. Adds a raster to the ENVI Data Manager. Only appears as edge target, never source. Accepts input_raster in to_parameters.',
-        '- comment: A text annotation on the canvas. Requires display_name. Not connected by edges.',
         '- propertyextractor: Extracts named properties from an ENVI object.',
         '- arrayextractor: Extracts elements from an array by index. Requires indices[].',
+        '',
+        '## Annotating nodes',
+        'Any node can carry an optional `comment` string property.',
+        'When set, a comment annotation is automatically placed above that node on the canvas.',
+        'Comments follow their node if layout or preprocessing shifts its position.',
+        'Do not use a separate comment node type — set the comment property on the node you want to annotate instead.',
         '',
         '## Edge source/sink rules',
         '- inputparameters: SOURCE only — always from_node, never to_node.',

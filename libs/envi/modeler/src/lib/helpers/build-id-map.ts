@@ -26,9 +26,6 @@ export function BuildIdMap(nodes: ENVIModelerNode[]): Map<string, string> {
       case 'arrayvalues':
         prefix = 'values';
         break;
-      case 'comment':
-        prefix = 'comment';
-        break;
       case 'datamanager':
         prefix = 'dataManager';
         break;

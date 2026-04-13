@@ -24,11 +24,17 @@ export interface ENVIModelerInputParameter {
  * - arrayvalues     → value (required), data_type? (default "String")
  * - view            → (no extra fields)
  * - datamanager     → (no extra fields)
- * - comment         → display_name (required)
  * - propertyextractor → (no extra fields)
  * - arrayextractor  → indices (required)
  */
 export interface ENVIModelerNode {
+  /**
+   * Optional annotation text for this node.
+   * When set, a comment node is automatically placed above this node on the
+   * canvas in the generated workflow. The comment follows the node if layout
+   * or preprocessing (e.g. aggregator injection) shifts its position.
+   */
+  comment?: string;
   /**
    * For type='arrayvalues': data type of the values.
    * Examples: "String", "Integer", "Unsigned Integer", "Float", "Double"
@@ -78,7 +84,6 @@ export interface ENVIModelerNode {
     | 'aggregator'
     | 'arrayextractor'
     | 'arrayvalues'
-    | 'comment'
     | 'datamanager'
     | 'inputparameters'
     | 'iterator'

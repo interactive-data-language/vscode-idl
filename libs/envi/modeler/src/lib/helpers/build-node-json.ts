@@ -51,10 +51,6 @@ export function BuildNodeJSON(
       base['data_type'] = node.data_type ?? 'String';
       break;
 
-    case 'comment':
-      // comment nodes carry only display_name, location, name, type — already set
-      break;
-
     case 'datamanager':
       base['revision'] = node.revision ?? '1.0.0';
       break;
@@ -96,11 +92,11 @@ export function BuildNodeJSON(
       }
       base['envitask'] = envitask;
 
-      // check if we have a display name
-      if (registry.hasTask(node.task_name as string)) {
-        // get display name
-        const info = registry.getTaskDetail(node.task_name as string);
+      // get task information
+      const info = registry.getTaskDetail(node.task_name as string);
 
+      // verify we have the task
+      if (info) {
         // set display name of task
         if (info.structure.meta.readableName) {
           base['display_name'] = info.structure.meta.readableName;

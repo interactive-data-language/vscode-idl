@@ -67,7 +67,8 @@ Use `create-envi-modeler-workflow` with:
 3. Optionally `iterator` + `aggregator` nodes for batch/loop processing.
 4. Optionally `arrayvalues` nodes for iterating over literal value lists.
 5. `view` and/or `datamanager` nodes at the end.
-6. `comment` nodes scattered throughout to document the workflow for future readers.
+6. `comment` property on any node — set `comment: "..."` to place an annotation above that node on the canvas.
+   Comments are auto-positioned and follow the node if layout shifts.
 
 **edges** — connect outputs to inputs:
 
@@ -117,7 +118,7 @@ iterator → task_1 → aggregator → task_2 → view
 
 - **Do not** include task parameters in `static_input` if they match the task default.
 - **Do not** add more than one `view`, `datamanager`, or `outputparameters` node — only a single instance of each is valid in a workflow.
-- **Do** add `comment` nodes to explain non-obvious design decisions (see official examples).
+- **Do** add a `comment` property to nodes that need annotation to explain non-obvious design decisions.
 - **Do** add a `view` and `datamanager` node for final raster outputs so the workflow is usable interactively.
 - **Do** expose parameters in `inputparameters` that users will realistically vary between runs.
 - Parameter `name` values in `inputparameters.parameters[]` should be UPPERCASE.
