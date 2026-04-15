@@ -17,7 +17,7 @@ import { PLAYGROUND_CODE } from './playground-code';
 /**
  * Nicely format any object as JSON so that it matches the default prettier formatting
  */
-function Stringify(object: any): string {
+async function Stringify(object: any): Promise<string> {
   return prettier.format(JSON.stringify(object, null, 2), { parser: 'json' });
 }
 
@@ -42,7 +42,7 @@ export async function Playground() {
     /**
      * Parse our code to get all the gory details for what we have
      */
-    let parsed: IParsed;
+    let parsed!: IParsed;
     const t1 = TimeIt(() => {
       parsed = Parser(PLAYGROUND_CODE, new CancellationToken(), {
         cleanup: false,
@@ -123,35 +123,35 @@ export async function Playground() {
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'tokens.json'),
-      Stringify(parsed.tokens),
+      await Stringify(parsed.tokens),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'textmate.json'),
-      Stringify(tmParsed),
+      await Stringify(tmParsed),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'tree.json'),
-      Stringify(parsed.tree),
+      await Stringify(parsed.tree),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'tree-assembled.json'),
-      Stringify(formattedTokenized.tree),
+      await Stringify(formattedTokenized.tree),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'problems.json'),
-      Stringify(parsed.parseProblems),
+      await Stringify(parsed.parseProblems),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'global.json'),
-      Stringify(parsed.global),
+      await Stringify(parsed.global),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'local.json'),
-      Stringify(parsed.local),
+      await Stringify(parsed.local),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'compile.json'),
-      Stringify(parsed.compile),
+      await Stringify(parsed.compile),
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'formatted.pro'),

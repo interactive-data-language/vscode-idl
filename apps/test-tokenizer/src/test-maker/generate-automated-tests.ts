@@ -6,6 +6,7 @@ import { TestsForAssembler } from './makers/tests-for-assembler';
 import { TestsForAutoComplete } from './makers/tests-for-auto-complete';
 import { TestForAutoFixing } from './makers/tests-for-auto-fixing';
 import { TestsForConfigFileResolving } from './makers/tests-for-config-file-resolving';
+import { TestsForENVIModeler } from './makers/tests-for-envi-modeler';
 import { TestsForGlobalProblems } from './makers/tests-for-global-problems';
 import { TestsForHoverHelp } from './makers/tests-for-hover-help';
 import { TestsForLocalGlobalScopeAndCompile } from './makers/tests-for-local-global-scope-compile-and-types';
@@ -23,6 +24,7 @@ import { TestsForTokenizer } from './makers/tests-for-tokenizer';
 import { AUTO_ASSEMBLER_TESTS } from './tests/auto-assembler-tests.interface';
 import { AUTO_AUTO_COMPLETE_TESTS } from './tests/auto-auto-complete-tests.interface';
 import { AUTO_CONFIG_FILE_RESOLVING } from './tests/auto-config-file-resolving-tests.interface';
+import { AUTO_ENVI_MODELER_TESTS } from './tests/auto-envi-modeler-tests.interface';
 import { AUTO_GLOBAL_PROBLEM_TESTS } from './tests/auto-global-problem-tests.interface';
 import { AUTO_HOVER_HELP_TESTS } from './tests/auto-hover-help-tests.interface';
 import { AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS } from './tests/auto-local-global-scope-compile-and-types-tests.interface';
@@ -33,7 +35,7 @@ import { AUTO_SEMANTIC_TOKEN_TESTS } from './tests/auto-semantic-token-tests.int
 import { AUTO_POST_PROCESSOR_TESTS } from './tests/auto-syntax-post-processor-tests.interface';
 import { AUTO_SYNTAX_TESTS } from './tests/auto-syntax-validator-tests.interface';
 import { AUTO_TASK_ASSEMBLER_TESTS } from './tests/auto-task-assembler-tests.interface';
-import { AUTO_TASK_GENERATION_TESTS } from './tests/auto-task-generationtests.interface';
+import { AUTO_TASK_GENERATION_TESTS } from './tests/auto-task-generation-tests.interface';
 import { AUTO_TASK_PARSING_TESTS } from './tests/auto-task-parsing-tests.interface';
 import { AUTO_TOKEN_DEFINITION_TESTS } from './tests/auto-token-definition-tests.interface';
 import { AUTO_TOKEN_TESTS } from './tests/auto-token-tests.interface';
@@ -427,6 +429,27 @@ export async function GenerateAutomatedTests() {
       AUTO_TASK_GENERATION_TESTS[i].suiteName,
       AUTO_TASK_GENERATION_TESTS[i].tests,
       join(outDirTaskGeneration, AUTO_TASK_GENERATION_TESTS[i].fileName),
+    );
+  }
+  console.log();
+
+  // specify the output folder
+  const outDirENVIModeler = join(
+    process.cwd(),
+    'libs/tests/envi-modeler/src/lib',
+  );
+
+  // clean test directory
+  CleanTestDir(outDirENVIModeler);
+
+  // process each test
+  console.log('Generating tests for ENVI Modeler');
+  for (let i = 0; i < AUTO_ENVI_MODELER_TESTS.length; i++) {
+    console.log(`  Suite (${i}): ${AUTO_ENVI_MODELER_TESTS[i].suiteName}`);
+    await TestsForENVIModeler(
+      AUTO_ENVI_MODELER_TESTS[i].suiteName,
+      AUTO_ENVI_MODELER_TESTS[i].tests,
+      join(outDirENVIModeler, AUTO_ENVI_MODELER_TESTS[i].fileName),
     );
   }
   console.log();

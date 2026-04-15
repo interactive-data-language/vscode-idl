@@ -1,5 +1,6 @@
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { IIndexProCodeOptions } from '@idl/parsing/index';
+import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { Position } from 'vscode-languageserver/node';
 
 /**
@@ -288,4 +289,24 @@ export interface IConfigTest {
 export interface IConfigTests extends IBaseAutoTest {
   /** Tests to generate */
   tests: IConfigTest[];
+}
+
+/**
+ * A single test case for ENVI Modeler validation and workflow creation
+ */
+export interface IENVIModelerTest {
+  /** Edges for the workflow graph */
+  edges: ENVIModelerEdge[];
+  /** Name of the test */
+  name: string;
+  /** Nodes for the workflow graph */
+  nodes: ENVIModelerNode[];
+}
+
+/**
+ * Data structure for automated ENVI Modeler tests
+ */
+export interface IAutoENVIModelerTest extends IBaseAutoTest {
+  /** Tests to generate */
+  tests: IENVIModelerTest[];
 }
