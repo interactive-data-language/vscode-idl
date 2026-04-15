@@ -4,9 +4,9 @@ import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import {
   LAYOUT_BASE_X,
   LAYOUT_BASE_Y,
-  LAYOUT_COMMENT_Y_OFFSET,
 } from './create-envi-modeler-workflow.interface';
 import { InjectAggregatorNodes } from './helpers/add-aggregator-nodes';
+import { AddCommentNodes } from './helpers/add-comment-nodes';
 import { BuildIdMap } from './helpers/build-id-map';
 import { BuildNodeJSON } from './helpers/build-node-json';
 import { ComputeLayout } from './helpers/compute-layout';
@@ -45,22 +45,8 @@ export function CreateENVIModelerWorkflow(
     return BuildNodeJSON(node, modelName, location, registry);
   });
 
-  // Synthesize comment nodes from node.comment properties
-  let commentCounter = 0;
-  for (const node of injected.nodes) {
-    if (node.comment) {
-      const rawLocation = layout.get(node.id);
-      const parentX = rawLocation ? rawLocation[0] : LAYOUT_BASE_X;
-      const parentY = rawLocation ? rawLocation[1] : LAYOUT_BASE_Y;
-      commentCounter++;
-      modelNodes.push({
-        display_name: node.comment,
-        location: [parentX, parentY + LAYOUT_COMMENT_Y_OFFSET],
-        name: `comment_${commentCounter}`,
-        type: 'comment',
-      });
-    }
-  }
+  // automatically add in comment nodes
+  AddCommentNodes(injected.nodes, modelNodes, layout);
 
   // Build edges array
   const modelEdges = injected.edges.map((edge) => ({
