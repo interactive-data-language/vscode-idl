@@ -154,14 +154,14 @@ export class IDLMachineWrapper {
           this.process.licensed = false;
           this.process.emit(
             IDL_EVENT_LOOKUP.STANDARD_ERR,
-            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
+            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL,
           );
           break;
         case 'InitializeFailure':
           this.process.licensed = false;
           this.process.emit(
             IDL_EVENT_LOOKUP.STANDARD_ERR,
-            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
+            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL,
           );
           break;
         default:
@@ -215,7 +215,7 @@ export class IDLMachineWrapper {
         this.process.emit(
           IDL_EVENT_LOOKUP.STOP,
           res.stopped.reason,
-          res.stopped.stack
+          res.stopped.stack,
         );
       }
     });
@@ -299,12 +299,12 @@ export class IDLMachineWrapper {
 
       switch (true) {
         case this.process.capturedOutput.indexOf(
-          '% Procedure was compiled while active:'
+          '% Procedure was compiled while active:',
         ) !== -1:
           this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
           break;
         case this.process.capturedOutput.indexOf(
-          '% You compiled a main program while inside a procedure.  Returning.'
+          '% You compiled a main program while inside a procedure.  Returning.',
         ) !== -1:
           this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);
           break;
@@ -342,7 +342,7 @@ export class IDLMachineWrapper {
       if (params.id in this.machine._customRequestHandlers.idlNotify) {
         try {
           return await this.machine._customRequestHandlers.idlNotify[params.id](
-            params
+            params,
           );
         } catch (err) {
           this.process.log.log({
@@ -448,7 +448,7 @@ export class IDLMachineWrapper {
     // if we have an object, return
     if (match !== null) {
       variable.type = IDLTypeHelper.serializeIDLType(
-        IDLTypeHelper.parseIDLType(match[1])
+        IDLTypeHelper.parseIDLType(match[1]),
       );
       variable.description = '';
       return;
@@ -458,7 +458,7 @@ export class IDLMachineWrapper {
     const typeString =
       variable.type in IDL_DATA_TYPE_MAP
         ? IDLTypeHelper.serializeIDLType(
-            IDLTypeHelper.parseIDLType(IDL_DATA_TYPE_MAP[variable.type])
+            IDLTypeHelper.parseIDLType(IDL_DATA_TYPE_MAP[variable.type]),
           )
         : `${variable.type}`;
 
@@ -572,7 +572,7 @@ export class IDLMachineWrapper {
    */
   registerIDLNotifyHandler(
     idlNotifyEvent: string,
-    handler: FromIDLMachineRequestHandler<'idlNotify'>
+    handler: FromIDLMachineRequestHandler<'idlNotify'>,
   ) {
     this.machine.registerIDLNotifyHandler(idlNotifyEvent, handler);
   }
@@ -584,7 +584,7 @@ export class IDLMachineWrapper {
    */
   registerRequestHandler<T extends FromIDLMachineRequests>(
     event: T,
-    handler: FromIDLMachineRequestHandler<T>
+    handler: FromIDLMachineRequestHandler<T>,
   ) {
     this.machine.registerRequestHandler(event, handler);
   }

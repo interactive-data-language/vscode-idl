@@ -17,7 +17,7 @@ import { SERVER_INITIALIZED } from '../../is-initialized';
 export const ON_DOCUMENT_FORMATTING = async (
   event: DocumentFormattingParams,
   formatting?: Partial<IAssemblerInputOptions<FormatterType>>,
-  update = true
+  update = true,
 ): Promise<TextEdit[]> => {
   await SERVER_INITIALIZED;
 

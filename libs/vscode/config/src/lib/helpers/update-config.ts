@@ -11,11 +11,11 @@ import { IDL_EXTENSION_CONFIG } from '../initialize-extension-config';
 export function UpdateConfigObject<T>(
   key: string,
   value: Partial<T>,
-  global = true
+  global = true,
 ) {
   IDL_EXTENSION_CONFIG.update(
     key,
     { ...IDL_EXTENSION_CONFIG.get(key), ...value },
-    global
+    global,
   );
 }

@@ -21,7 +21,7 @@ const PENDING_NOTEBOOK: { [key: string]: IParsedNotebookPending } = {};
 export async function WorkerParseNotebook(
   index: IDLIndex,
   file: string,
-  notebook: IDLNotebookDocument
+  notebook: IDLNotebookDocument,
 ): Promise<ParseNotebookResponse> {
   // track all checksums
   const checksums: string[] = [];
@@ -67,7 +67,7 @@ export async function WorkerParseNotebook(
   const resp = index.indexerPool.workerio.postAndReceiveMessage(
     id,
     LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_NOTEBOOK,
-    { file, notebook }
+    { file, notebook },
   );
 
   // mark as pending

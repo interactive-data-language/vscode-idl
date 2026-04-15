@@ -15,7 +15,7 @@ export function DisableProblemForLine(
   alias: string,
   code: string[],
   lf: string,
-  cell?: number
+  cell?: number,
 ): AutoFixProblem {
   /** Get the code we inject */
   let inject = `; ${DISABLED_PROBLEM_FLAGS.NEXT} ${alias}`;

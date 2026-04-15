@@ -59,7 +59,7 @@ export async function FormatTest(folder: string): Promise<void> {
       {
         total: files.length,
         width: 25,
-      }
+      },
     );
     for (let i = 0; i < code.length; i++) {
       let canTick = true;
@@ -110,11 +110,11 @@ export async function FormatTest(folder: string): Promise<void> {
   // write our problems to disk
   if (Object.keys(problems).length > 0) {
     console.log(
-      `Problems were detected!!! See "parse-test/parse-test-problems.json" in main repository folder`
+      `Problems were detected!!! See "parse-test/parse-test-problems.json" in main repository folder`,
     );
     writeFileSync(
       join(process.cwd(), 'parse-test', 'parse-test-problems.json'),
-      JSON.stringify(problems, null, 2)
+      JSON.stringify(problems, null, 2),
     );
   }
 }

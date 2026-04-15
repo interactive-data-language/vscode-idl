@@ -19,13 +19,13 @@ export function MCP_ENVIRPCRasterSpatialref() {
       .string()
       .optional()
       .describe(
-        'Geographic (GEOGCS) or projected (PROJCS) coordinate system string.'
+        'Geographic (GEOGCS) or projected (PROJCS) coordinate system string.',
       ),
     pixel_size: z
       .tuple([z.number(), z.number()])
       .optional()
       .describe(
-        'Pixel size [X Pixel Size, Y Pixel Size] in coordinate system units.'
+        'Pixel size [X Pixel Size, Y Pixel Size] in coordinate system units.',
       ),
     rpc_line_den_coeff: z
       .array(z.number())
@@ -39,7 +39,7 @@ export function MCP_ENVIRPCRasterSpatialref() {
       .array(z.number())
       .length(5)
       .describe(
-        'Five RPC offsets: [Line_Offset, Sample_Offset, Latitude_Offset, Longitude_Offset, Height_Offset].'
+        'Five RPC offsets: [Line_Offset, Sample_Offset, Latitude_Offset, Longitude_Offset, Height_Offset].',
       ),
     rpc_samp_den_coeff: z
       .array(z.number())
@@ -53,7 +53,7 @@ export function MCP_ENVIRPCRasterSpatialref() {
       .array(z.number())
       .length(5)
       .describe(
-        'Five RPC scales: [Line_Scale, Sample_Scale, Latitude_Scale, Longitude_Scale, Height_Scale].'
+        'Five RPC scales: [Line_Scale, Sample_Scale, Latitude_Scale, Longitude_Scale, Height_Scale].',
       ),
   });
 }

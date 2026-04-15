@@ -28,7 +28,7 @@ export async function InitConfig(folder: string) {
     // make sure we havent already ignored this folder
     if (
       IDL_EXTENSION_CONFIG.dontAsk.toInitConfigForTheseFolders.indexOf(
-        folder
+        folder,
       ) !== -1
     ) {
       return;
@@ -42,7 +42,7 @@ export async function InitConfig(folder: string) {
         IDL_TRANSLATION.notifications.no,
         IDL_TRANSLATION.commands.notifications.initConfig.dontAsk,
         IDL_TRANSLATION.commands.notifications.initConfig.neverAsk,
-      ]
+      ],
     );
 
     // check what our response was
@@ -52,7 +52,7 @@ export async function InitConfig(folder: string) {
         // something to our preference
         if (
           IDL_EXTENSION_CONFIG.dontAsk.toInitConfigForTheseFolders.indexOf(
-            folder
+            folder,
           ) === -1
         ) {
           // add folder
@@ -64,7 +64,7 @@ export async function InitConfig(folder: string) {
             {
               toInitConfigForTheseFolders:
                 IDL_EXTENSION_CONFIG.dontAsk.toInitConfigForTheseFolders,
-            }
+            },
           );
         }
         break;
@@ -76,7 +76,7 @@ export async function InitConfig(folder: string) {
       case IDL_TRANSLATION.notifications.yes:
         LANGUAGE_SERVER_MESSENGER.sendNotification(
           LANGUAGE_SERVER_MESSAGE_LOOKUP.INIT_WORKSPACE_CONFIG,
-          { folder }
+          { folder },
         );
         break;
       default:

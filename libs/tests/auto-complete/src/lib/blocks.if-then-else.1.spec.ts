@@ -15,12 +15,12 @@ describe(`[auto generated] Custom block auto-complete`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/if_then_else.pro'
+      'idl/test/auto-complete/if_then_else.pro',
     );
 
     // add file to index
@@ -200,9 +200,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 6, character: 3 };
@@ -378,9 +378,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_2: Position = { line: 8, character: 18 };
@@ -554,9 +554,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_2
+          position_2,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_3: Position = { line: 9, character: 19 };
@@ -730,9 +730,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_3
+          position_3,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 
@@ -744,12 +744,12 @@ describe(`[auto generated] Custom block auto-complete`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/if_then_else.pro'
+      'idl/test/auto-complete/if_then_else.pro',
     );
 
     // add file to index
@@ -907,9 +907,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 12, character: 24 };
@@ -1063,9 +1063,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 
@@ -1077,12 +1077,12 @@ describe(`[auto generated] Custom block auto-complete`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/if_then_else.pro'
+      'idl/test/auto-complete/if_then_else.pro',
     );
 
     // add file to index
@@ -1100,9 +1100,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 15, character: 35 };
@@ -1337,9 +1337,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_2: Position = { line: 17, character: 44 };
@@ -1493,9 +1493,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_2
+          position_2,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_3: Position = { line: 18, character: 45 };
@@ -1649,9 +1649,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_3
+          position_3,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

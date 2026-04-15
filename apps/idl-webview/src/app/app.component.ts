@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     public materialCssVarsService: MaterialCssVarsService,
-    private vscodeService: VSCodeService
+    private vscodeService: VSCodeService,
   ) {}
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
 
     // get our colors
     const accent = getComputedStyle(body).getPropertyValue(
-      '--vscode-activityBarBadge-background'
+      '--vscode-activityBarBadge-background',
     );
 
     // set colors/themes/properties

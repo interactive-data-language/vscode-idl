@@ -13,21 +13,20 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Deck, FlyToInterpolator, WebMercatorViewport } from '@deck.gl/core';
-import { TileLayer } from '@deck.gl/geo-layers';
-import { BitmapLayer } from '@deck.gl/layers';
+import {
+  CreateBaseMapLayer,
+  CreateLayers,
+  NotebookMapLayer,
+  NotebookMapLayers,
+  NotebookMapLayerType,
+  RecreateLayers,
+} from '@idl/ngx/map';
 import { IDLNotebookMap } from '@idl/types/notebooks';
 import { copy } from 'fast-copy';
 
 import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { DataSharingService } from '../data-sharing.service';
-import { CreateLayers } from './helpers/create-layers';
-import {
-  NotebookMapLayer,
-  NotebookMapLayers,
-  NotebookMapLayerType,
-} from './helpers/create-layers.interface';
-import { RecreateLayers } from './helpers/recreate-layers';
 
 /**
  * Initial view state
@@ -117,7 +116,7 @@ export class MapComponent
     @SkipSelf() dataService: DataSharingService,
     messenger: VSCodeRendererMessenger,
     private el: ElementRef<HTMLElement>,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     super(dataService, messenger);
     window.addEventListener('resize', this.resizeCb);
@@ -125,7 +124,7 @@ export class MapComponent
       this.messenger.themeChange$.subscribe((isDark) => {
         this.baseMapLayer = this.createBaseMapLayer();
         this.propertyChange();
-      })
+      }),
     );
   }
 
@@ -133,30 +132,7 @@ export class MapComponent
    * Creates our basemap layer
    */
   createBaseMapLayer() {
-    return new TileLayer({
-      data: this.messenger.darkTheme
-        ? `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`
-        : `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png`,
-
-      minZoom: 0,
-      maxZoom: 16,
-      tileSize: 256,
-
-      renderSubLayers: (props) => {
-        const { boundingBox } = props.tile;
-
-        return new BitmapLayer(props, {
-          data: undefined,
-          image: props.data,
-          bounds: [
-            boundingBox[0][0],
-            boundingBox[0][1],
-            boundingBox[1][0],
-            boundingBox[1][1],
-          ],
-        });
-      },
-    });
+    return CreateBaseMapLayer(this.messenger.darkTheme);
   }
 
   /**
@@ -183,7 +159,7 @@ export class MapComponent
     moveItemInArray(
       this.layers.layers,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
 
     // update deck
@@ -261,7 +237,7 @@ export class MapComponent
       layers: [
         this.baseMapLayer,
         ...RecreateLayers(
-          Array.isArray(layers) ? layers : this.layers.layers
+          Array.isArray(layers) ? layers : this.layers.layers,
         ).reverse(),
       ],
     });
@@ -315,7 +291,7 @@ export class MapComponent
           ],
           {
             padding: 100,
-          }
+          },
         );
 
         /**

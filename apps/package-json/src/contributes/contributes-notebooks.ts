@@ -56,7 +56,7 @@ export function ProcessNotebooks(packageJSON: IPackageJSON, nls: IPackageNLS) {
 
   if (!VerifyNLS(IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME, nls)) {
     throw new Error(
-      'IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME not in translation'
+      'IDL_NOTEBOOK_CONTROLLER_TRANSLATION_NAME not in translation',
     );
   }
 

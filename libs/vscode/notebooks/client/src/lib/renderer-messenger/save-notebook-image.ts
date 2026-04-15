@@ -8,7 +8,7 @@ import * as vscode from 'vscode';
  * Save image from a notebook
  */
 export async function SaveNotebookImage(
-  payload: IDLNotebookEmbeddedItem<IDLNotebookImage_PNG>
+  payload: IDLNotebookEmbeddedItem<IDLNotebookImage_PNG>,
 ) {
   const res = await vscode.window.showSaveDialog({
     filters: {
@@ -24,6 +24,6 @@ export async function SaveNotebookImage(
   // write files to disk
   await vscode.workspace.fs.writeFile(
     res,
-    Buffer.from(payload.item.data, 'base64')
+    Buffer.from(payload.item.data, 'base64'),
   );
 }

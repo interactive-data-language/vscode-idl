@@ -48,7 +48,7 @@ interface IGlobalTokenTypeLookup {
 /**
  * Names for all global tokens
  */
-export const GLOBAL_TOKEN_TYPES: IGlobalTokenTypeLookup = {
+export const GLOBAL_TOKEN_TYPES = {
   FUNCTION: 'f',
   PROCEDURE: 'p',
   FUNCTION_METHOD: 'fm',
@@ -56,7 +56,7 @@ export const GLOBAL_TOKEN_TYPES: IGlobalTokenTypeLookup = {
   STRUCTURE: 's',
   SYSTEM_VARIABLE: 'sv',
   COMMON: 'c',
-};
+} as const satisfies IGlobalTokenTypeLookup;
 
 /** Native code */
 type InternalTokenSource = 'internal';
@@ -116,8 +116,12 @@ export interface IBaseTokenMetadata {
   docs: string;
   /** Is it private? */
   private?: boolean;
+  /** HUman readable name for some values (i.e. "Spectral Index Task" vs SpectralIndexTask) */
+  readableName?: string;
   /** Source information for a routine */
   source: GlobalTokenSource;
+  /** Tags for the token */
+  tags?: string[];
 }
 
 /**
@@ -236,16 +240,16 @@ export type GlobalTokenMetadata<T extends GlobalTokenType> =
   T extends GlobalFunctionToken
     ? IFunctionMetadata
     : T extends GlobalProcedureToken
-    ? IRoutineMetadata
-    : T extends GlobalFunctionMethodToken
-    ? IFunctionMethodMetadata
-    : T extends GlobalProcedureMethodToken
-    ? IMethodMetadata
-    : T extends GlobalStructureToken
-    ? IStructureMetadata
-    : T extends GlobalSystemVariableToken
-    ? ISystemVariableMetadata
-    : IBaseTokenMetadata;
+      ? IRoutineMetadata
+      : T extends GlobalFunctionMethodToken
+        ? IFunctionMethodMetadata
+        : T extends GlobalProcedureMethodToken
+          ? IMethodMetadata
+          : T extends GlobalStructureToken
+            ? IStructureMetadata
+            : T extends GlobalSystemVariableToken
+              ? ISystemVariableMetadata
+              : IBaseTokenMetadata;
 
 /**
  * Base data structure for global or local indexed tokens

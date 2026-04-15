@@ -1,4 +1,4 @@
-import { MCPToolHelper } from '@idl/mcp/server-tools';
+import { MCPServer } from '@idl/mcp/server';
 import { IDLIndex } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/idl-data-types';
@@ -15,11 +15,11 @@ import {
  * Search known routines for matches
  */
 export function RegisterMCPTool_ResourcesSearchForRoutine(
-  helper: MCPToolHelper,
+  server: MCPServer,
   index: IDLIndex,
-  getWorkspacesCallback: () => string[]
+  getWorkspacesCallback: () => string[],
 ) {
-  helper.registerTool(
+  server.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE,
     {
       title:
@@ -34,7 +34,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
               name: z
                 .string()
                 .describe(
-                  'The name to search for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"'
+                  'The name to search for, case insensitive. For methods use "ClassName::MethodName" or "::MethodName" or "MethodName"',
                 ),
               type: z
                 .enum([
@@ -48,10 +48,10 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
                 ])
                 .default('All')
                 .describe('The type of routine to search for.'),
-            })
+            }),
           )
           .describe(
-            'The search queries to look for, returns an array of matches for each query.'
+            'The search queries to look for, returns an array of matches for each query.',
           ),
       },
     },
@@ -106,6 +106,6 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
           },
         ],
       };
-    }
+    },
   );
 }

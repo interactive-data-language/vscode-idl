@@ -144,12 +144,12 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
     timeout?: number,
-    cancel = new CancellationToken()
+    cancel = new CancellationToken(),
   ): IPostAndReceiveMessageResult<T> {
     // make sure we have an ID to send a message to
     if (!(workerId in this.workers)) {
       throw new Error(
-        `Attempted to send message to worker "${workerId}", but it does not exist`
+        `Attempted to send message to worker "${workerId}", but it does not exist`,
       );
     }
 
@@ -178,7 +178,7 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
 
         // send our message
         this._postMessage(workerId, msg, idReturn);
-      }
+      },
     );
 
     return { token: cancel, response };
@@ -190,11 +190,11 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   postMessage<T extends _Message>(
     workerId: string,
     type: T,
-    payload: PayloadToWorkerBaseMessage<T>
+    payload: PayloadToWorkerBaseMessage<T>,
   ): string {
     if (!(workerId in this.workers)) {
       throw new Error(
-        `Attempted to send message to worker "${workerId}", but it does not exist`
+        `Attempted to send message to worker "${workerId}", but it does not exist`,
       );
     }
 
@@ -265,7 +265,7 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
                 err,
               ],
             });
-          }
+          },
         )
         .catch((err) => {
           this.log.log({
@@ -295,12 +295,12 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
    * Subscribe to all messages with the same ID from any worker
    */
   subscribeToGlobalMessages<T extends _Message>(
-    messageId: T
+    messageId: T,
   ): Subject<PayloadFromWorkerBaseMessage<T>> {
     // check for our worker
     if (messageId in this.globalSubscriptions) {
       throw new Error(
-        `Attempted to subscribe to all messages with ID "${messageId}" data, but a subscription already exists`
+        `Attempted to subscribe to all messages with ID "${messageId}" data, but a subscription already exists`,
       );
     }
 
@@ -319,12 +319,12 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
    */
   subscribeToWorkerMessages<T extends _Message>(
     workerId: string,
-    messageId: T
+    messageId: T,
   ): Subject<PayloadFromWorkerBaseMessage<T>> {
     // check for our worker
     if (!(workerId in this.workers)) {
       throw new Error(
-        `Attempted to subscribe to worker "${workerId}" data, but it does not exist`
+        `Attempted to subscribe to worker "${workerId}" data, but it does not exist`,
       );
     }
     if (!(workerId in this.subscriptions)) {
@@ -348,7 +348,7 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
     // check for our worker
     if (!(messageId in this.globalSubscriptions)) {
       throw new Error(
-        `Attempted to subscribe to all messages with ID "${messageId}" data, but a subscription already exists`
+        `Attempted to subscribe to all messages with ID "${messageId}" data, but a subscription already exists`,
       );
     }
 
@@ -381,7 +381,7 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
    */
   private _handleMessage(
     workerId: string,
-    incoming: IMessageFromWorker<_Message>
+    incoming: IMessageFromWorker<_Message>,
   ) {
     // gab some message properties
     const messageType = incoming.type;
@@ -468,7 +468,7 @@ export class WorkerIO<_Message extends string> implements IWorkerIO<_Message> {
   private _postMessage(
     workerId: string,
     msg: IMessageToWorker<_Message>,
-    id?: string
+    id?: string,
   ) {
     // send our message
     this.workers[workerId].postMessage(this.prepareMessage(msg, id));

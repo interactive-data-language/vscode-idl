@@ -20,7 +20,7 @@ const TO_RUN: { file: string; success: boolean }[] = [
   },
   {
     file: GetExtensionPath(
-      'idl/test/client-e2e/debug/run-file/syntax_error.pro'
+      'idl/test/client-e2e/debug/run-file/syntax_error.pro',
     ),
     success: false,
   },
@@ -34,7 +34,7 @@ const TO_RUN: { file: string; success: boolean }[] = [
   },
   {
     file: GetExtensionPath(
-      'idl/test/client-e2e/debug/run-file/procedure_with_main.pro'
+      'idl/test/client-e2e/debug/run-file/procedure_with_main.pro',
     ),
     success: true,
   },
@@ -48,7 +48,7 @@ const TO_RUN: { file: string; success: boolean }[] = [
   },
   {
     file: GetExtensionPath(
-      'idl/test/client-e2e/debug/run-file/function_with_main.pro'
+      'idl/test/client-e2e/debug/run-file/function_with_main.pro',
     ),
     success: true,
   },
@@ -58,7 +58,7 @@ const TO_RUN: { file: string; success: boolean }[] = [
    */
   {
     file: GetExtensionPath(
-      'idl/test/client-e2e/debug/run-file/name mismatch.pro'
+      'idl/test/client-e2e/debug/run-file/name mismatch.pro',
     ),
     success: true,
   },
@@ -68,13 +68,13 @@ const TO_RUN: { file: string; success: boolean }[] = [
    */
   {
     file: GetExtensionPath(
-      'idl/test/client-e2e/debug/run-file/procedure_method.pro'
+      'idl/test/client-e2e/debug/run-file/procedure_method.pro',
     ),
     success: false,
   },
   {
     file: GetExtensionPath(
-      'idl/test/client-e2e/debug/run-file/procedure_method_with_main.pro'
+      'idl/test/client-e2e/debug/run-file/procedure_method_with_main.pro',
     ),
     success: true,
   },
@@ -84,13 +84,13 @@ const TO_RUN: { file: string; success: boolean }[] = [
    */
   {
     file: GetExtensionPath(
-      'idl/test/client-e2e/debug/run-file/function_method.pro'
+      'idl/test/client-e2e/debug/run-file/function_method.pro',
     ),
     success: false,
   },
   {
     file: GetExtensionPath(
-      'idl/test/client-e2e/debug/run-file/function_method_with_main.pro'
+      'idl/test/client-e2e/debug/run-file/function_method_with_main.pro',
     ),
     success: true,
   },
@@ -104,7 +104,7 @@ export const RunFile: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -127,7 +127,7 @@ export const RunFile: RunnerFunction = async (init) => {
 
     // run
     const res: IRunIDLCommandResult = await vscode.commands.executeCommand(
-      IDL_COMMANDS.DEBUG.RUN
+      IDL_COMMANDS.DEBUG.RUN,
     );
 
     // verify result

@@ -30,7 +30,7 @@ import { ISelectedToken } from './selected-token.interface';
 export function GetTokenAtCursor(
   parsed: IParsed,
   pos: Position,
-  onlyStart = false
+  onlyStart = false,
 ): ISelectedToken {
   // make a cancellation token
   const cancel = new CancellationToken();
@@ -123,7 +123,7 @@ export function GetTokenAtCursor(
         name: GetRoutineName(
           foundToken.scopeTokens[0] as IBranch<
             MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
-          >
+          >,
         ),
         type: DEFAULT_GLOBAL_PARENTS[foundToken.scopeTokens[0].name],
         token: foundToken.scopeTokens[0],

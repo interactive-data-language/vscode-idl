@@ -8,5 +8,5 @@ import { copy } from 'fast-copy';
  * Default settings for our server
  */
 export const DEFAULT_SERVER_SETTINGS: ILanguageServerConfig = copy(
-  DEFAULT_IDL_EXTENSION_CONFIG.languageServer
+  DEFAULT_IDL_EXTENSION_CONFIG.languageServer,
 );

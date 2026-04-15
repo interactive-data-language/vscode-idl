@@ -13,7 +13,7 @@ export const RunMCPTestStartIDL: RunnerFunction = async (init) => {
     MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
     {
       action: 'start-idl',
-    }
+    },
   );
 
   // make sure the tool runs

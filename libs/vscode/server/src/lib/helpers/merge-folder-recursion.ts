@@ -6,7 +6,7 @@ import { copy } from 'fast-copy';
  */
 export function MergeFolderRecursion(
   first: IFolderRecursion,
-  second: IFolderRecursion
+  second: IFolderRecursion,
 ) {
   const copied = copy(first);
 

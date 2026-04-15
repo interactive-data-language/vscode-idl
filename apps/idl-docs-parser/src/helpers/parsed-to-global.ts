@@ -19,12 +19,12 @@ import { SetKeywordsFromProperties } from './set-keywords-from-properties';
  */
 export async function ParsedToGlobal(
   jsonUri: string,
-  helpDir: string
+  helpDir: string,
 ): Promise<GlobalTokens> {
   // verify that our help folder is present
   if (!existsSync(jsonUri)) {
     throw new Error(
-      `Pre-parsed JSON help content does not exist where expected`
+      `Pre-parsed JSON help content does not exist where expected`,
     );
   }
 
@@ -35,7 +35,7 @@ export async function ParsedToGlobal(
 
   /** Parsed routines */
   const parsedRoutines: IGlobalFromIDL[] = JSON.parse(
-    readFileSync(jsonUri, { encoding: 'utf-8' })
+    readFileSync(jsonUri, { encoding: 'utf-8' }),
   );
 
   /**

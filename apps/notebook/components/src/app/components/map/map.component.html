@@ -5,11 +5,7 @@
 
   <div class="map-controls" fxLayout="column" fxLayoutAlign="center start">
     @if (showLayers) {
-      <div
-        fxLayout="column"
-        class="toolbar"
-        style="margin-bottom: 5px"
-        >
+      <div fxLayout="column" class="toolbar" style="margin-bottom: 5px">
         <!-- display layers -->
         @if (layers !== undefined) {
           <div>
@@ -18,7 +14,7 @@
               (cdkDropListDropped)="drop($event)"
               (cdkDropListSorted)="dragging($event)"
               cdkDropListLockAxis="y"
-              >
+            >
               @for (iLayer of layers.layers; track iLayer) {
                 <div fxLayout="row" fxLayoutAlign=" center">
                   <!-- cdkDrag is on the map layer card -->

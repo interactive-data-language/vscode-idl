@@ -12,7 +12,7 @@ import { IConfigTest } from '../tests.interface';
 export async function TestsForConfigFileResolving(
   name: string,
   tests: IConfigTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -21,7 +21,7 @@ export async function TestsForConfigFileResolving(
   strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
 
   strings.push(``);
@@ -45,7 +45,7 @@ export async function TestsForConfigFileResolving(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // add our tokens
@@ -72,7 +72,7 @@ export async function TestsForConfigFileResolving(
       // specify the position to use
       strings.push(`    // specify filepath`);
       strings.push(
-        `    const filepath_${j} = GetExtensionPath('${workspace}/${action.file}')`
+        `    const filepath_${j} = GetExtensionPath('${workspace}/${action.file}')`,
       );
       strings.push(``);
 
@@ -91,8 +91,8 @@ export async function TestsForConfigFileResolving(
           strings.push('    // verify results');
           strings.push(
             `    expect(${JSON.stringify(
-              config
-            )}).toEqual(index.getConfigForFile(filepath_${j}))`
+              config,
+            )}).toEqual(index.getConfigForFile(filepath_${j}))`,
           );
           break;
         }

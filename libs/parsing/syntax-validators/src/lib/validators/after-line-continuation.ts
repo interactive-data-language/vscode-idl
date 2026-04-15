@@ -43,7 +43,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
 
         // track problem for our unknown token
         token.kids[j].parseProblems.push(
-          IDL_PROBLEM_CODES.ILLEGAL_AFTER_LINE_CONTINUATION
+          IDL_PROBLEM_CODES.ILLEGAL_AFTER_LINE_CONTINUATION,
         );
       }
     }
@@ -54,9 +54,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.ILLEGAL_AFTER_LINE_CONTINUATION,
           token.pos,
-          end
-        )
+          end,
+        ),
       );
     }
-  }
+  },
 );

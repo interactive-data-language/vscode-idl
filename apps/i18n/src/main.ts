@@ -14,7 +14,7 @@ function flattenWithPath(obj, objectPath = '') {
     if (typeof obj[key] === 'object') {
       Object.assign(
         flat,
-        flattenWithPath(obj[key], objectPath ? `${objectPath}.${key}` : key)
+        flattenWithPath(obj[key], objectPath ? `${objectPath}.${key}` : key),
       );
     } else {
       flat[objectPath ? `${objectPath}.${key}` : key] = obj[key];
@@ -54,7 +54,7 @@ function main() {
       JSON.stringify(flattenWithPath(LANGUAGES[language])),
       {
         encoding: 'utf8',
-      }
+      },
     );
 
     // specify the translation file for our extension that is easy to use and user proof

@@ -15,7 +15,7 @@ describe(`[auto generated] Only use code for docs`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -61,7 +61,7 @@ describe(`[auto generated] Only use code for docs`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

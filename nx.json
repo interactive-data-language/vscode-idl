@@ -8,10 +8,10 @@
   "defaultProject": "idl-webview",
   "generators": {
     "@nx/angular:application": {
-      "style": "scss",
+      "e2eTestRunner": "cypress",
       "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "style": "scss",
+      "unitTestRunner": "jest"
     },
     "@nx/angular:library": {
       "linter": "eslint",
@@ -132,6 +132,11 @@
       "inputs": ["production", "^production"]
     },
     "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "@angular/build:application": {
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]

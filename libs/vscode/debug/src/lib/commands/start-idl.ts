@@ -36,7 +36,7 @@ export async function StartIDL(show = true): Promise<IStartIDL> {
   // check for active debugging
   if (vscode.debug.activeDebugSession !== undefined) {
     vscode.window.showInformationMessage(
-      IDL_TRANSLATION.debugger.idl.existingSessionFound
+      IDL_TRANSLATION.debugger.idl.existingSessionFound,
     );
     return {
       started: false,
@@ -62,7 +62,7 @@ export async function StartIDL(show = true): Promise<IStartIDL> {
   // launch the debug configuration
   await vscode.debug.startDebugging(
     folder,
-    copy(DEFAULT_IDL_DEBUG_CONFIGURATION)
+    copy(DEFAULT_IDL_DEBUG_CONFIGURATION),
   );
 
   // return that IDL has started
@@ -116,7 +116,7 @@ export function VerifyIDLHasStarted(alert = true): boolean {
             return;
           }
           console.error(err);
-        }
+        },
       );
     return undefined;
   }

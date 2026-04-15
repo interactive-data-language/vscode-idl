@@ -15,7 +15,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -35,7 +35,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables
@@ -282,7 +282,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -293,7 +293,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables
@@ -380,7 +380,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -391,7 +391,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables
@@ -478,7 +478,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -489,7 +489,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables
@@ -576,7 +576,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -587,7 +587,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables
@@ -674,7 +674,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -685,7 +685,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables
@@ -772,7 +772,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -783,7 +783,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

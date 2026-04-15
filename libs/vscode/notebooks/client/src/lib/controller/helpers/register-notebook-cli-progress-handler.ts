@@ -9,7 +9,7 @@ import { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.c
  * Handles progress messages via IDL Machine for IDL CLI
  */
 export function RegisterNotebookCLIProgressHandler(
-  manager: IDLNotebookExecutionManager
+  manager: IDLNotebookExecutionManager,
 ) {
   // plug in progress messages
   if (manager._runtime.isIDLMachine()) {
@@ -40,7 +40,7 @@ export function RegisterNotebookCLIProgressHandler(
           });
         }
         return 1;
-      }
+      },
     );
   }
 }

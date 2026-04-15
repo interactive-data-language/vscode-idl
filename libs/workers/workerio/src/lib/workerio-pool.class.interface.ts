@@ -3,10 +3,7 @@ import { Subject } from 'rxjs';
 
 import { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
 import { IWorkerIO } from './workerio.class.interface';
-import {
-  IMessageFromWorker,
-  IPostAndReceiveMessageResult,
-} from './workerio.interface';
+import { IPostAndReceiveMessageResult } from './workerio.interface';
 import { IPostMessageOptions } from './workerio-pool.interface';
 
 /**
@@ -31,7 +28,7 @@ export interface IWorkerIOPool<_Message extends string> {
   postAndReceiveMessage<T extends _Message>(
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
-    options?: IPostMessageOptions
+    options?: IPostMessageOptions,
   ): IPostAndReceiveMessageResult<T>;
 
   /**
@@ -39,7 +36,7 @@ export interface IWorkerIOPool<_Message extends string> {
    */
   postToAll<T extends _Message>(
     type: T,
-    payload: PayloadToWorkerBaseMessage<T>
+    payload: PayloadToWorkerBaseMessage<T>,
   ): void;
 
   /**
@@ -50,9 +47,8 @@ export interface IWorkerIOPool<_Message extends string> {
   /**
    * Subscribe to all messages with the same ID from any worker
    */
-  subscribeToGlobalMessages<T extends _Message>(
-    type: T
-  ): Subject<IMessageFromWorker<T>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  subscribeToGlobalMessages<T extends _Message>(type: T): Subject<any>;
 
   /** Reference to our WorkerIO class that does the work of talking to our worker threads */
   workerio: IWorkerIO<_Message>;

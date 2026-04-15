@@ -13,13 +13,13 @@ import { SERVER_MESSENGER } from '../initialize-language-server';
  */
 export function SendUsageMetricServer<T extends UsageMetric>(
   event: T,
-  payload: UsageMetricPayload<T>
+  payload: UsageMetricPayload<T>,
 ) {
   SERVER_MESSENGER.sendNotification(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.USAGE_METRIC,
     {
       event,
       payload,
-    }
+    },
   );
 }

@@ -32,7 +32,7 @@ export class ENVIOpenerProvider implements vscode.CustomTextEditorProvider {
   public async resolveCustomTextEditor(
     document: vscode.TextDocument,
     webviewPanel: vscode.WebviewPanel,
-    _token: vscode.CancellationToken
+    _token: vscode.CancellationToken,
   ): Promise<void> {
     // get the path to our file
     const uri = CleanPath(document.uri.fsPath);
@@ -47,7 +47,7 @@ export class ENVIOpenerProvider implements vscode.CustomTextEditorProvider {
         },
         () => {
           // do nothing
-        }
+        },
       )
       .catch(() => {
         // do nothing, handled elsewhere

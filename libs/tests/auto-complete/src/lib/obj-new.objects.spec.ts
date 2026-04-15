@@ -15,7 +15,7 @@ describe(`[auto generated] Add class names for obj_new`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -199,9 +199,9 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 62, character: 17 };
@@ -491,9 +491,9 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_2: Position = { line: 65, character: 17 };
@@ -783,9 +783,9 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_2
+          position_2,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_3: Position = { line: 68, character: 17 };
@@ -1075,9 +1075,9 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_3
+          position_3,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

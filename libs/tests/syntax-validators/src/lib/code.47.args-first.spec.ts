@@ -14,7 +14,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -31,7 +31,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -75,7 +75,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -87,7 +87,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -105,7 +105,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -184,7 +184,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -196,7 +196,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -213,7 +213,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -257,7 +257,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -269,7 +269,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -287,7 +287,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -366,7 +366,7 @@ describe(`[auto generated] Detects bad argument definitions`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

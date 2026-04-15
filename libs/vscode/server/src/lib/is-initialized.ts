@@ -1,6 +1,7 @@
 import { FindFiles, FindIDL } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { RegisterMCPTaskTools } from '@idl/mcp/language-server-tools';
+import { MCPServer } from '@idl/mcp/server';
 import { NUM_WORKERS } from '@idl/parsing/index';
 import { RoundToNearest } from '@idl/shared/extension';
 import {
@@ -89,7 +90,7 @@ SERVER_INFO.then(async (res) => {
         'Problem inclusion filters and ignore problem codes',
         INCLUDE_PROBLEMS_FOR,
         Object.keys(IGNORE_PROBLEM_CODES).map(
-          (code) => IDL_PROBLEM_CODE_ALIAS_LOOKUP[code]
+          (code) => IDL_PROBLEM_CODE_ALIAS_LOOKUP[code],
         ),
       ],
     });
@@ -176,9 +177,9 @@ SERVER_INFO.then(async (res) => {
      * We do this here because we need information from VSCode about whether
      * we can launch the server or not
      */
-    const mcpToolHelper = InitializeMCPServer(
+    InitializeMCPServer(
       SERVER_INITIALIZATION_OPTIONS.serverPorts.mcp,
-      foundEnvi
+      foundEnvi,
     );
 
     /**
@@ -210,7 +211,7 @@ SERVER_INFO.then(async (res) => {
       await IDL_INDEX.indexWorkspaceFiles(
         files,
         merged,
-        GLOBAL_SERVER_SETTINGS.fullParse
+        GLOBAL_SERVER_SETTINGS.fullParse,
       );
 
       // init cache for all files if we did a full parse
@@ -282,11 +283,11 @@ SERVER_INFO.then(async (res) => {
       // send usage metric
       SendUsageMetricServer(
         USAGE_METRIC_LOOKUP.LANGUAGE_SERVER_STARTUP,
-        statsDetail
+        statsDetail,
       );
 
       // using what we parsed, register MCP tools for the user
-      RegisterMCPTaskTools(mcpToolHelper, IDL_INDEX);
+      RegisterMCPTaskTools(MCPServer.instance, IDL_INDEX);
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,

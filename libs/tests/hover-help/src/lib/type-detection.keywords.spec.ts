@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly provide hover help for keywords`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -52,12 +52,12 @@ describe(`[auto generated] Correctly provide hover help for keywords`, () => {
     const hoverHelp_0 = await index.getHoverHelp(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
 
     // verify results
     expect(expectedFound_0).toEqual(
-      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim)
+      ((hoverHelp_0?.contents as string) || '').split(/\r?\n/gim),
     );
 
     // define position
@@ -76,12 +76,12 @@ describe(`[auto generated] Correctly provide hover help for keywords`, () => {
     const hoverHelp_1 = await index.getHoverHelp(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_1
+      position_1,
     );
 
     // verify results
     expect(expectedFound_1).toEqual(
-      ((hoverHelp_1?.contents as string) || '').split(/\r?\n/gim)
+      ((hoverHelp_1?.contents as string) || '').split(/\r?\n/gim),
     );
 
     // define position
@@ -114,12 +114,12 @@ describe(`[auto generated] Correctly provide hover help for keywords`, () => {
     const hoverHelp_2 = await index.getHoverHelp(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_2
+      position_2,
     );
 
     // verify results
     expect(expectedFound_2).toEqual(
-      ((hoverHelp_2?.contents as string) || '').split(/\r?\n/gim)
+      ((hoverHelp_2?.contents as string) || '').split(/\r?\n/gim),
     );
   });
 });

@@ -18,7 +18,7 @@ export const BreakpointStepInStepOut: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started

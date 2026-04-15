@@ -11,14 +11,14 @@ import { LoadTaskSchema } from './load-task-schema';
  */
 export async function LoadTask(
   fsPath: string,
-  content?: string
+  content?: string,
 ): Promise<ParsedTask> {
   // check if we have a file to read
   if (content === undefined) {
     // verify file exists
     if (!existsSync(fsPath)) {
       throw new Error(
-        `${IDL_TRANSLATION.tasks.parsing.errors.fileNotFound}: "${fsPath}"`
+        `${IDL_TRANSLATION.tasks.parsing.errors.fileNotFound}: "${fsPath}"`,
       );
     }
 
@@ -80,7 +80,7 @@ export async function LoadTask(
 
     // throw actual error
     throw new Error(
-      `${IDL_TRANSLATION.tasks.parsing.errors.invalidTaskFile}. File: "${fsPath}"\n  ${errAdd}`
+      `${IDL_TRANSLATION.tasks.parsing.errors.invalidTaskFile}. File: "${fsPath}"\n  ${errAdd}`,
     );
   }
 

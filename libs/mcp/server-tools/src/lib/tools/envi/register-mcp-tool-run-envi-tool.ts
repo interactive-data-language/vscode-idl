@@ -1,3 +1,4 @@
+import { MCPServer } from '@idl/mcp/server';
 import {
   MCPTaskRegistry,
   TaskLocation,
@@ -12,7 +13,6 @@ import {
 } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { IS_ENVI_INSTALLED } from '../../register-all-mcp-tools';
 import { ENVI_INSTALL_MESSAGE } from './envi-install-message.interface';
 import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
@@ -21,10 +21,10 @@ import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
  * Registers a tool that can run an ENVI Task
  */
 export function RegisterMCPTool_RunENVITool(
-  helper: MCPToolHelper,
-  registry: MCPTaskRegistry
+  server: MCPServer,
+  registry: MCPTaskRegistry,
 ) {
-  helper.registerTool(
+  server.registerTool(
     MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
     {
       title:
@@ -38,13 +38,13 @@ export function RegisterMCPTool_RunENVITool(
           .object({})
           .catchall(z.any())
           .describe(
-            `Specify a JSON object containing the task parameters that matches the JSON schema returned from the tool "${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}"`
+            `Specify a JSON object containing the task parameters that matches the JSON schema returned from the tool "${MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS}"`,
           ),
         interactive: z
           .boolean()
           .default(false)
           .describe(
-            `If true, the tool will appear in the ENVI UI and the user can fine-tune/tweak parameters. Only do this when requested.`
+            `If true, the tool will appear in the ENVI UI and the user can fine-tune/tweak parameters. Only do this when requested.`,
           ),
       },
     },
@@ -77,7 +77,7 @@ export function RegisterMCPTool_RunENVITool(
       // validate the parameters
       const isValid = registry.validateInputParameters(
         toolName,
-        inputParameters
+        inputParameters,
       );
 
       // report error
@@ -114,10 +114,10 @@ export function RegisterMCPTool_RunENVITool(
         }
       }
 
-      const resp = (await helper.sendRequestToVSCode(
+      const resp = (await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
-        params
+        params,
       )) as MCPToolResponse<MCPTool_RunENVITool>;
 
       // sanitize the output parameters
@@ -140,6 +140,6 @@ export function RegisterMCPTool_RunENVITool(
           // },
         ],
       };
-    }
+    },
   );
 }

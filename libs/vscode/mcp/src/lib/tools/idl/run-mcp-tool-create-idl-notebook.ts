@@ -15,7 +15,7 @@ import * as vscode from 'vscode';
  */
 export async function RunMCPTool_CreateIDLNotebook(
   id: string,
-  params: MCPToolParams<MCPTool_CreateIDLNotebook>
+  params: MCPToolParams<MCPTool_CreateIDLNotebook>,
 ): Promise<MCPToolResponse<MCPTool_CreateIDLNotebook>> {
   const nbAsBytes = await CreateNewIDLNotebook(params);
 

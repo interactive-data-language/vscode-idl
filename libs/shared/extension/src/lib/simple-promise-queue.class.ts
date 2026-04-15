@@ -51,7 +51,7 @@ export class SimplePromiseQueue {
           this.nProcessing--;
           item.reject(err);
           this._next();
-        }
+        },
       );
     } catch (err) {
       this.nProcessing--;
@@ -63,7 +63,7 @@ export class SimplePromiseQueue {
   // add an item to process
   async add(
     promiseGenerator: () => Promise<void>,
-    getRejector?: (rejector: (reason?: any) => void) => void
+    getRejector?: (rejector: (reason?: any) => void) => void,
   ) {
     return new Promise<void>((resolve, reject) => {
       if (getRejector) {

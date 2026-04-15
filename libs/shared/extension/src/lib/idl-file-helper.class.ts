@@ -108,7 +108,7 @@ export class IDLFileHelper {
       scheme: 'vscode-notebook-cell',
       path: `${platform() === 'win32' ? '/' : ''}${split[0].replace(
         /\\/g,
-        '/'
+        '/',
       )}${IDL_NOTEBOOK_EXTENSION}`,
       fragment: basename(split[1], `.pro`),
     });
@@ -122,8 +122,8 @@ export class IDLFileHelper {
       CleanPath(dirname(uri.fsPath)),
       `${basename(
         uri.fsPath,
-        IDL_NOTEBOOK_EXTENSION
-      )}_${NOTEBOOK_CELL_BASE_NAME}_${uri.fragment}.pro`
+        IDL_NOTEBOOK_EXTENSION,
+      )}_${NOTEBOOK_CELL_BASE_NAME}_${uri.fragment}.pro`,
     );
   }
 }

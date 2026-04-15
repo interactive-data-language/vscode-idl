@@ -16,7 +16,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * @param event The event from VSCode
  */
 export const ON_PREPARE_IDL_CODE = async (
-  event: PrepareIDLCodePayload
+  event: PrepareIDLCodePayload,
 ): Promise<PrepareNotebookCellResponse> => {
   await SERVER_INITIALIZED;
   try {
@@ -30,7 +30,7 @@ export const ON_PREPARE_IDL_CODE = async (
     return await IDL_INDEX.indexerPool.workerio.postAndReceiveMessage(
       IDL_INDEX.getNextWorkerID(),
       LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
-      event
+      event,
     ).response;
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({

@@ -46,7 +46,7 @@ export class Logger {
     name: string,
     enableDebugLogs = false,
     alertCb: LogAlertCallback,
-    logUgly = false
+    logUgly = false,
   ) {
     // save properties
     this.name = name;
@@ -205,7 +205,7 @@ export class Logger {
 
         this._logPretty(
           `${chalk.gray(this.name)} ${prettyLogType}`,
-          chalk.white(StringifyData(useData[i], true))
+          chalk.white(StringifyData(useData[i], true)),
         );
       } else {
         // skip if not allowed to log to console

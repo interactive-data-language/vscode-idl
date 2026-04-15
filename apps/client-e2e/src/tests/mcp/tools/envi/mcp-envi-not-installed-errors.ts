@@ -10,7 +10,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   // list ENVI tools
   expect(
-    (await CallMCPTool(MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS, {})).isError
+    (await CallMCPTool(MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS, {})).isError,
   ).toBeTruthy();
 
   // get tool parameters
@@ -19,7 +19,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
       await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS, {
         toolName: 'ISODATAClassification',
       })
-    ).isError
+    ).isError,
   ).toBeTruthy();
 
   // get tool parameters
@@ -32,12 +32,12 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
         },
         interactive: false,
       })
-    ).isError
+    ).isError,
   ).toBeTruthy();
 
   // list ENVI Tool workflows
   expect(
-    (await CallMCPTool(MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS, {})).isError
+    (await CallMCPTool(MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS, {})).isError,
   ).toBeTruthy();
 
   // get ENVI Tool workflow
@@ -46,7 +46,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
       await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_WORKFLOW, {
         name: 'ISODATAClassification',
       })
-    ).isError
+    ).isError,
   ).toBeTruthy();
 
   // query dataset
@@ -58,7 +58,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
           url: 'file',
         },
       })
-    ).isError
+    ).isError,
   ).toBeTruthy();
 
   // query dataset
@@ -74,7 +74,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
         automaticZoom: 'all-layers',
         resetView: false,
       })
-    ).isError
+    ).isError,
   ).toBeTruthy();
 
   // start ENVI
@@ -83,7 +83,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
       await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
         action: 'start-envi',
       })
-    ).isError
+    ).isError,
   ).toBeTruthy();
 
   // start ENVI
@@ -92,7 +92,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
       await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
         action: 'start-envi-headless',
       })
-    ).isError
+    ).isError,
   ).toBeTruthy();
 
   // manage ENVI session
@@ -101,7 +101,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
       await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
         action: 'restart-envi',
       })
-    ).isError
+    ).isError,
   ).toBeTruthy();
 
   // manage ENVI session
@@ -110,6 +110,6 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
       await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
         action: 'restart-envi-headless',
       })
-    ).isError
+    ).isError,
   ).toBeTruthy();
 };

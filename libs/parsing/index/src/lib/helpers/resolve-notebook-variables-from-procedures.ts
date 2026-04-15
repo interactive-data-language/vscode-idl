@@ -17,7 +17,7 @@ export function ResolveNotebookVariablesFromProcedures(parsed: IParsed) {
    * Get the main level
    */
   const main = parsed.tree.find(
-    (item) => item.name === TOKEN_NAMES.MAIN_LEVEL
+    (item) => item.name === TOKEN_NAMES.MAIN_LEVEL,
   ) as TreeToken<MainLevelToken> | undefined;
 
   // check if main

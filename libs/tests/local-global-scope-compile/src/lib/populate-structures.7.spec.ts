@@ -15,7 +15,7 @@ describe(`[auto generated] Ignore them in`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -38,7 +38,7 @@ describe(`[auto generated] Ignore them in`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables
@@ -272,7 +272,7 @@ describe(`[auto generated] Ignore them in`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -295,7 +295,7 @@ describe(`[auto generated] Ignore them in`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

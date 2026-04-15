@@ -15,7 +15,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -36,7 +36,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // format code
@@ -60,7 +60,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
-      expectedFormatting
+      expectedFormatting,
     );
 
     // define expected problems
@@ -76,7 +76,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
 
     // verify problems
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -88,7 +88,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -108,7 +108,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // format code
@@ -132,7 +132,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
-      expectedFormatting
+      expectedFormatting,
     );
 
     // define expected problems
@@ -155,7 +155,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
 
     // verify problems
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -167,7 +167,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -178,7 +178,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // format code
@@ -200,7 +200,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
-      expectedFormatting
+      expectedFormatting,
     );
 
     // define expected problems
@@ -216,7 +216,7 @@ describe(`[auto generated] Verify we remove excess args`, () => {
 
     // verify problems
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 });

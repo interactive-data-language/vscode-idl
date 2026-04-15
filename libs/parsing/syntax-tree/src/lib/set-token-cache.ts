@@ -8,7 +8,7 @@ import { TreeRecurserBasic } from './recursion-and-callbacks/tree-recurser-basic
  */
 export function SetTokenCache(
   parsed: IParsed,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ): void {
   if (!parsed.hasCache) {
     TreeRecurserBasic(parsed.tree, cancel, {

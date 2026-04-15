@@ -34,7 +34,7 @@ export function AddNotebookConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.notebooks.embedGraphics,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.notebooksEmbedGraphics,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -47,7 +47,7 @@ export function AddNotebookConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.notebooks.quietMode,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.notebooksQuietMode,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };

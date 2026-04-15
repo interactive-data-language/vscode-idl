@@ -29,10 +29,10 @@ export function RegisterWebViewCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while starting webview',
           err,
-          cmdErrors.webview.start
+          cmdErrors.webview.start,
         );
         return false;
       }
-    })
+    }),
   );
 }

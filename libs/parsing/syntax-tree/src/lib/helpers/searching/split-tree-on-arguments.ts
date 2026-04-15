@@ -23,7 +23,7 @@ SKIP_FIRST[TOKEN_NAMES.CALL_PROCEDURE_METHOD] = true;
  * by operators
  */
 export function SplitTreeOnArguments(
-  token: TreeBranchToken
+  token: TreeBranchToken,
 ): ISplitTreeOnArguments {
   const split = SplitTreeOnCommas(token.kids);
 

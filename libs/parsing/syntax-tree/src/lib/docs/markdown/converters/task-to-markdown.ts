@@ -25,7 +25,7 @@ SKIP_THESE['output parameters'] = true;
  */
 export function TaskToMarkdownDocumentProperties(
   markdown: string[],
-  props: IPropertyLookup
+  props: IPropertyLookup,
 ) {
   // process args
   const propNames = Object.keys(props);
@@ -52,7 +52,7 @@ export function TaskToMarkdownDocumentProperties(
       // check if private or not - ignore for now since this is for developers
       // if (!arg.private) {
       markdown.push(
-        `- **${prop.display}**: ${SerializeTypeForDocs(prop.type)}`
+        `- **${prop.display}**: ${SerializeTypeForDocs(prop.type)}`,
       );
       markdown.push(``);
       markdown.push(NormalizeIndent(prop.docs, '  '));
@@ -84,7 +84,7 @@ export function TaskToMarkdownDocumentProperties(
       // check if private or not - ignore for now since this is for developers
       // if (!arg.private) {
       markdown.push(
-        `- **${prop.display}**: ${SerializeTypeForDocs(prop.type)}`
+        `- **${prop.display}**: ${SerializeTypeForDocs(prop.type)}`,
       );
 
       markdown.push(``);
@@ -101,7 +101,7 @@ export function TaskToMarkdownDocumentProperties(
  */
 export function TaskToMarkdown(
   info: MarkdownInfo<TaskMarkdown>,
-  onlyProps = false
+  onlyProps = false,
 ): string {
   /** Metadata */
   const meta = info.meta;

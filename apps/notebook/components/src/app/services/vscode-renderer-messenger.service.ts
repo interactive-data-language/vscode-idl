@@ -69,7 +69,7 @@ export class VSCodeRendererMessenger implements OnDestroy {
     ) {
       this.context.onDidReceiveMessage(
         (
-          msg: IDLNotebookToRendererBaseMessage<IDLNotebookToRendererMessageType>
+          msg: IDLNotebookToRendererBaseMessage<IDLNotebookToRendererMessageType>,
         ) => {
           // update dark theme flag
           this.darkTheme = !document.body.classList.contains('vscode-light');
@@ -89,7 +89,7 @@ export class VSCodeRendererMessenger implements OnDestroy {
 
           // send event
           this.themeChange$.next(this.darkTheme);
-        }
+        },
       );
     }
 
@@ -119,7 +119,7 @@ export class VSCodeRendererMessenger implements OnDestroy {
    * Posts message to notebook controller
    */
   postMessage<T extends IDLNotebookFromRendererMessageType>(
-    message: IDLNotebookFromRendererBaseMessage<T>
+    message: IDLNotebookFromRendererBaseMessage<T>,
   ) {
     if (this?.context?.postMessage !== undefined) {
       const typed: IDLNotebookFromRendererMessage<T> = {
@@ -141,7 +141,7 @@ export class VSCodeRendererMessenger implements OnDestroy {
 
     // Get the theme from a hex color
     const theme = themeFromSourceColor(
-      argbFromHex(style.getPropertyValue('--vscode-activityBar-foreground'))
+      argbFromHex(style.getPropertyValue('--vscode-activityBar-foreground')),
     );
 
     // Apply the theme to the body by updating custom properties for material tokens

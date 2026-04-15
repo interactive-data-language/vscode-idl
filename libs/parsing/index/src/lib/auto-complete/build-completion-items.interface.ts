@@ -37,7 +37,7 @@ export type BuildCompletionItemsArg<T extends AutoCompleteType> = {
  * Callback structure for completion items
  */
 export type BuildCompletionItemsCallback<T extends AutoCompleteType> = (
-  options: BuildCompletionItemsArg<T>
+  options: BuildCompletionItemsArg<T>,
 ) => void;
 
 /**

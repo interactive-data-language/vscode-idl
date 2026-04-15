@@ -14,7 +14,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -36,7 +36,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -52,7 +52,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -64,7 +64,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -88,7 +88,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -111,7 +111,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -123,7 +123,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -147,7 +147,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'def' }
+      { postProcess: true, type: 'def' },
     );
 
     // define expected tokens
@@ -163,7 +163,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -175,7 +175,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -200,7 +200,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -216,7 +216,7 @@ describe(`[auto generated] Detects when the returns tag has too much information
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

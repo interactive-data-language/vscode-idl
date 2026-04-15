@@ -27,7 +27,7 @@ const cmdErrors = IDL_TRANSLATION.commands.errors;
  */
 export function RegisterClientSharedCommands(
   ctx: ExtensionContext,
-  serverPorts: IVSCodeServerPorts
+  serverPorts: IVSCodeServerPorts,
 ) {
   IDL_LOGGER.log({ content: 'Registering client shared commands' });
 
@@ -46,12 +46,12 @@ export function RegisterClientSharedCommands(
           const url = ResolveExtensionDocsURL(
             '',
             IDL_EXTENSION_CONFIG.documentation.useOnline,
-            serverPorts.docs
+            serverPorts.docs,
           );
 
           vscode.commands.executeCommand(
             'vscode.open',
-            vscode.Uri.parse(`${url}${path || ''}`)
+            vscode.Uri.parse(`${url}${path || ''}`),
           );
 
           return true;
@@ -59,8 +59,8 @@ export function RegisterClientSharedCommands(
           LogCommandError('Error while opening docs', err, cmdErrors.docs.open);
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -74,18 +74,18 @@ export function RegisterClientSharedCommands(
 
           await vscode.env.openExternal(
             vscode.Uri.parse(
-              'https://github.com/interactive-data-language/vscode-idl/issues/new/choose'
-            )
+              'https://github.com/interactive-data-language/vscode-idl/issues/new/choose',
+            ),
           );
         } catch (err) {
           LogCommandError(
             'Error while filing a bug',
             err,
-            cmdErrors.client.fileABug
+            cmdErrors.client.fileABug,
           );
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -98,7 +98,7 @@ export function RegisterClientSharedCommands(
       } catch (err) {
         LogCommandError('Error showing logs', err, cmdErrors.client.viewLogs);
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -118,16 +118,16 @@ export function RegisterClientSharedCommands(
              * Use search input box to find this syntax. If you type "@" in settings, you'll
              * see more options too
              */
-            `@ext: ${EXTENSION_FULL_NAME}`
+            `@ext: ${EXTENSION_FULL_NAME}`,
           );
         } catch (err) {
           LogCommandError(
             'Error while viewing preferences',
             err,
-            cmdErrors.config.specifyIDLDirectoryWorkspace
+            cmdErrors.config.specifyIDLDirectoryWorkspace,
           );
         }
-      }
-    )
+      },
+    ),
   );
 }

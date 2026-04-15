@@ -1,0 +1,49 @@
+.message-wrapper {
+  display: flex;
+
+  // space between messages
+  margin-bottom: 12px;
+
+  &.user-message {
+    justify-content: flex-end;
+
+    .message-card {
+      max-width: 55%;
+    }
+  }
+
+  &.system-message {
+    justify-content: flex-start;
+
+    .message-card {
+      max-width: 55%;
+    }
+  }
+}
+
+.message-card {
+  // round edges
+  border-radius: 12px;
+
+  mat-card-content {
+    // compact messages
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+}
+
+// custom link styles - variables are from theme file
+// found in: libs/ngx/theme/src/lib/styles/theme.scss
+.custom-markdown {
+  // Custom markdown link styles
+  ::ng-deep .chat-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-color);
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

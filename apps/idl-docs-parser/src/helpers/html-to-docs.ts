@@ -30,7 +30,7 @@ const SKIP_SECTIONS = {
 export async function HTMLToDocs(
   html: IHTMLByRoutine,
   file: string,
-  lookup: GlobalDisplayNameLookup
+  lookup: GlobalDisplayNameLookup,
 ): Promise<IDocsByRoutine> {
   // get the directory for our file
   const dir = dirname(file);
@@ -69,14 +69,14 @@ export async function HTMLToDocs(
               routine.name,
               routine.docs[sections[j]],
               dir,
-              lookup
+              lookup,
             );
             break;
           case 'Properties':
             await ResolveProperties(
               routineDocs,
               routine.docs[sections[j]],
-              dir
+              dir,
             );
             break;
           case 'Superclasses':
@@ -89,7 +89,7 @@ export async function HTMLToDocs(
       }
       routineDocs.docs[sections[j]] = HTMLToMarkdown(
         routine.docs[sections[j]],
-        dir
+        dir,
       );
     }
 
@@ -97,7 +97,7 @@ export async function HTMLToDocs(
     routineDocs.args = await await ProcessParameters(routine.args, file);
     routineDocs.keywords = await await ProcessParameters(
       routine.keywords,
-      file
+      file,
     );
     routineDocs.properties = {
       ...routineDocs.properties,

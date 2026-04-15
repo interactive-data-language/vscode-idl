@@ -19,7 +19,7 @@ import { TreeToken } from '@idl/types/syntax-tree';
  */
 const cb: BranchCallback<RoutineProcedureToken, IDLSyntaxValidatorMeta> = (
   branch,
-  parsed
+  parsed,
 ) => {
   // return if no children
   if (branch.kids.length === 0) {
@@ -40,7 +40,7 @@ const cb: BranchCallback<RoutineProcedureToken, IDLSyntaxValidatorMeta> = (
     /** Get defined procedures */
     const kws = FindAllBranchChildren(
       nameToken,
-      TOKEN_NAMES.KEYWORD_DEFINITION
+      TOKEN_NAMES.KEYWORD_DEFINITION,
     );
 
     // check if we have either
@@ -50,8 +50,8 @@ const cb: BranchCallback<RoutineProcedureToken, IDLSyntaxValidatorMeta> = (
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.CLASS_NO_PARAMETERS,
           nameToken.pos,
-          nameToken?.end?.pos || nameToken.pos
-        )
+          nameToken?.end?.pos || nameToken.pos,
+        ),
       );
     }
   }

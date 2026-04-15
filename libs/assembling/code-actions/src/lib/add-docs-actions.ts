@@ -13,7 +13,7 @@ export function AddDocsActions(diag: IDLDiagnostic, actions: CodeAction[]) {
   actions.push({
     title: IDL_TRANSLATION.lsp.codeActions.viewProblemCodeDocs.replace(
       'PROBLEM',
-      diag.data.alias
+      diag.data.alias,
     ),
     command: {
       command: IDL_COMMANDS.DOCS.OPEN,

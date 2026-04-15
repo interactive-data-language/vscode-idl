@@ -14,7 +14,7 @@ export function GetVSCodeLocale() {
     try {
       // parse the JSOn to get the language information
       const language: { locale: string } = JSON.parse(
-        process.env.VSCODE_NLS_CONFIG
+        process.env.VSCODE_NLS_CONFIG,
       );
 
       // check if we have our language and update our constant

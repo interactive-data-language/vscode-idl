@@ -23,7 +23,7 @@ export function GetKeywordHoverHelp(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<KeywordBinaryToken | KeywordDefinitionToken | KeywordToken>,
-  lookup: GetHoverHelpLookupResponse
+  lookup: GetHoverHelpLookupResponse,
 ) {
   // get the keyword
   const kw = GetKeyword(index, parsed, token, false);
@@ -38,7 +38,7 @@ export function GetKeywordHoverHelp(
       GetKeywordDisplayName(token),
       IDL_TRANSLATION.lsp.types.unknown.keyword,
       IDLTypeHelper.parseIDLType(IDL_TYPE_LOOKUP.ANY),
-      'kw'
+      'kw',
     );
   }
 }

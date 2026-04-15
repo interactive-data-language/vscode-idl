@@ -14,7 +14,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -25,7 +25,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -55,7 +55,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -67,7 +67,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -78,7 +78,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -101,7 +101,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -113,7 +113,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -124,7 +124,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -147,7 +147,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -159,7 +159,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -170,7 +170,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -193,7 +193,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -205,7 +205,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -216,7 +216,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -232,7 +232,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -244,7 +244,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -255,7 +255,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -278,7 +278,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -290,7 +290,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -301,7 +301,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -324,7 +324,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -336,7 +336,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -347,7 +347,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -370,7 +370,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -382,7 +382,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -393,7 +393,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -423,7 +423,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -435,7 +435,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -446,7 +446,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -469,7 +469,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -481,7 +481,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -497,7 +497,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -555,7 +555,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -567,7 +567,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -584,7 +584,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -642,7 +642,7 @@ describe(`[auto generated] Detects problems with statements not being closed`, (
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

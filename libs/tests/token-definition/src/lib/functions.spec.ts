@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly find function definitions`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify reference filepath
@@ -98,7 +98,7 @@ describe(`[auto generated] Correctly find function definitions`, () => {
     const found_0 = await index.getTokenDef(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
     if (found_0 !== undefined) {
       delete found_0.file;
@@ -116,7 +116,7 @@ describe(`[auto generated] Correctly find function definitions`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify reference filepath
@@ -135,7 +135,7 @@ describe(`[auto generated] Correctly find function definitions`, () => {
     const found_0 = await index.getTokenDef(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
     if (found_0 !== undefined) {
       delete found_0.file;

@@ -18,11 +18,11 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.COLON_IN_FUNCTION,
           branch.pos,
-          branch.end ? branch.end.pos : branch.pos
-        )
+          branch.end ? branch.end.pos : branch.pos,
+        ),
       );
     }
-  }
+  },
 );
 
 /**
@@ -37,9 +37,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.COLON_IN_FUNCTION_METHOD,
           branch.pos,
-          branch.end ? branch.end.pos : branch.pos
-        )
+          branch.end ? branch.end.pos : branch.pos,
+        ),
       );
     }
-  }
+  },
 );

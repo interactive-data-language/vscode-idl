@@ -36,7 +36,7 @@ export async function GetHoverHelpLookup(
   index: IDLIndex,
   file: string,
   code: string | string[],
-  position: Position
+  position: Position,
 ): Promise<GetHoverHelpLookupResponse> {
   /**
    * Init response
@@ -53,7 +53,7 @@ export async function GetHoverHelpLookup(
     new CancellationToken(),
     {
       postProcess: true,
-    }
+    },
   );
   if (parsed !== undefined) {
     // determine what we have hovered over
@@ -117,7 +117,7 @@ export async function GetHoverHelpLookup(
             index,
             parsed,
             token as TreeToken<KeywordDefinitionToken | KeywordToken>,
-            lookup
+            lookup,
           );
           break;
         }
@@ -132,7 +132,7 @@ export async function GetHoverHelpLookup(
                 index,
                 parsed,
                 token as TreeToken<KeywordBinaryToken>,
-                lookup
+                lookup,
               );
             }
           }

@@ -14,11 +14,11 @@ import { CompareNotebookJSONOutputs } from './helpers/compare-notebook-json-outp
  */
 export const ExecutiveCommandsExpectedOutput: RunnerFunction = async (init) => {
   const nbUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/executive-commands/quiet-works-right.idlnb'
+    'idl/test/client-e2e/notebooks/executive-commands/quiet-works-right.idlnb',
   );
 
   const expectedUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/executive-commands/quiet-works-right-output.idlnb'
+    'idl/test/client-e2e/notebooks/executive-commands/quiet-works-right-output.idlnb',
   );
 
   // open notebook

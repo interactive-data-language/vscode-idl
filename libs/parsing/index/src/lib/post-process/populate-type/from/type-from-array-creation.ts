@@ -21,7 +21,7 @@ import { TypePromotion } from './type-promotion';
 export function TypeFromArrayCreation(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<BracketToken>
+  token: TreeToken<BracketToken>,
 ): IDLDataType {
   /** Data types that we have found */
   let foundTypes: IDLDataType[] = [];
@@ -37,12 +37,12 @@ export function TypeFromArrayCreation(
     // sub split on operators to get types for each element
     const operatorSplit = SplitTreeOnOperators(
       splitCommas[i],
-      new CancellationToken()
+      new CancellationToken(),
     );
 
     // get the children and filter empty elements
     const operatorSplitTrees = operatorSplit.children.filter(
-      (tree) => tree.length > 0
+      (tree) => tree.length > 0,
     );
 
     // process each split
@@ -50,7 +50,7 @@ export function TypeFromArrayCreation(
       const opSplit = TypeFromOperatorSplit(
         index,
         parsed,
-        operatorSplitTrees[j]
+        operatorSplitTrees[j],
       );
 
       // if not null, save
@@ -71,7 +71,7 @@ export function TypeFromArrayCreation(
         foundTypes,
         token.pos,
         token.end !== undefined ? token.end.pos : token.pos,
-        true
+        true,
       );
 
       // if we have an array, ignore because we don't track dimensionality

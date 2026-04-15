@@ -14,25 +14,25 @@ export function MCP_ENVIPseudoRasterSpatialref() {
       .array(z.number())
       .length(4)
       .describe(
-        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the top-left geographic corner.`
+        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the top-left geographic corner.`,
       ),
     pseudo_geo_point_2: z
       .array(z.number())
       .length(4)
       .describe(
-        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the lower-left geographic corner.`
+        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the lower-left geographic corner.`,
       ),
     pseudo_geo_point_3: z
       .array(z.number())
       .length(4)
       .describe(
-        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the lower-right geographic corner.`
+        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the lower-right geographic corner.`,
       ),
     pseudo_geo_point_4: z
       .array(z.number())
       .length(4)
       .describe(
-        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the upper-right geographic corner.`
+        `A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the upper-right geographic corner.`,
       ),
   });
 }

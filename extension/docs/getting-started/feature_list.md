@@ -45,7 +45,6 @@ This page lists the many features as a part of this extension!
 - Colorization and schema validation of ENVI and IDL task files.
 
 - Commands (Ctrl+shift+p) for terminal and debug sessions:
-
   - Opening an IDL session
 
   - Compiling
@@ -59,7 +58,6 @@ This page lists the many features as a part of this extension!
   - Plus some others!
 
 - Support for internationalization
-
   - Submit a bug/feature for adding languages. Hopefully they are for a language that you speak, so you could also help with the translation :)
 
 ## VSCode Commands

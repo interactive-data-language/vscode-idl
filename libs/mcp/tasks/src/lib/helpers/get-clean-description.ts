@@ -24,7 +24,7 @@ const EXAMPLES_REGEX = /#+\s*example/im;
  */
 export function StripMarkdown(markdown: string) {
   return markdownToTxt(
-    markdown.replace(/!\[([^\]]*)\]\([^)]+\)/g, '[removed image]') // Remove images ![alt](url)
+    markdown.replace(/!\[([^\]]*)\]\([^)]+\)/g, '[removed image]'), // Remove images ![alt](url)
   ).replace(/\[([^\]]+)\]\([^)]+\)/g, '$1'); // Remove [text](url) -> text
 }
 

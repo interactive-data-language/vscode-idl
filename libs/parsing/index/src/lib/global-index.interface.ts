@@ -22,9 +22,9 @@ export type GlobalIndexedToken = IGlobalIndexedToken<GlobalTokenType>;
  * Lookup with all tokens by type. We store an array of the token types
  * which we can manually search through to find.
  */
-export interface GlobalTokensByTypeByName {
-  [key: string]: { [key: string]: GlobalIndexedToken[] };
-}
+export type GlobalTokensByTypeByName = {
+  [key in GlobalTokenType]: { [name: string]: IGlobalIndexedToken<key>[] };
+};
 
 /**
  * Lookup with tokens by type for easier access when we export
@@ -33,14 +33,14 @@ export type ExportedGlobalTokensByType = {
   [key in GlobalTokenType]: IGlobalIndexedToken<key>[];
 };
 
-/**
- * For each file we index tokens for, track which types of tokens they
- * contribute to filter the locations we need to clean up tokens from so
- * we don't need to process all tokens.
- */
-export interface ITokenTypesByFile {
-  [file: string]: { [key: string]: GlobalIndexedToken[] };
-}
+// /**
+//  * For each file we index tokens for, track which types of tokens they
+//  * contribute to filter the locations we need to clean up tokens from so
+//  * we don't need to process all tokens.
+//  */
+// export type ITokenTypesByFile = {
+//   [file: string]: { [key in GlobalTokenType]: GlobalIndexedToken[] };
+// };
 
 /**
  * Maps our token types to problem codes

@@ -15,7 +15,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -26,7 +26,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'notebook' }
+      { postProcess: true, type: 'notebook' },
     );
 
     // define expected local variables
@@ -82,7 +82,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -98,7 +98,7 @@ describe(`[auto generated] Verify notebook parsing`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'notebook' }
+      { postProcess: true, type: 'notebook' },
     );
 
     // define expected local variables

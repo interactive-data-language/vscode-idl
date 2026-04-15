@@ -85,7 +85,7 @@ export class Runner {
   async closeAll() {
     await vscode.commands.executeCommand('workbench.action.closeAllEditors');
     await vscode.commands.executeCommand(
-      IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS
+      IDL_COMMANDS.NOTEBOOKS.STOP_ALL_KERNELS,
     );
   }
 
@@ -120,7 +120,7 @@ export class Runner {
     // alert user
     this.logger.info([
       `Finished running ${total} tests in ${Math.ceil(
-        (performance.now() - t0) / 1000
+        (performance.now() - t0) / 1000,
       )} seconds with ${failures} failed tests`,
     ]);
 
@@ -158,7 +158,7 @@ export class Runner {
         // check if we should skip running the test
         if (!this.canRunTest(this.tests[i])) {
           this.logger.warn(
-            `(${i + 1}/${nTests}) Skipping test: "${this.tests[i].name}"`
+            `(${i + 1}/${nTests}) Skipping test: "${this.tests[i].name}"`,
           );
           continue;
         }
@@ -172,7 +172,7 @@ export class Runner {
         // check for unhandled errors
         if (ACTIVATION_RESULT.client.logger.tracker.errors > 0) {
           throw new Error(
-            'Unhandled error detected on the language server during test'
+            'Unhandled error detected on the language server during test',
           );
         }
 
@@ -181,7 +181,7 @@ export class Runner {
 
         // remove all breakpoints
         await vscode.commands.executeCommand(
-          'workbench.debug.viewlet.action.removeAllBreakpoints'
+          'workbench.debug.viewlet.action.removeAllBreakpoints',
         );
 
         // pause afterwards so things catch up
@@ -189,7 +189,7 @@ export class Runner {
       } catch (err) {
         // remove all breakpoints
         await vscode.commands.executeCommand(
-          'workbench.debug.viewlet.action.removeAllBreakpoints'
+          'workbench.debug.viewlet.action.removeAllBreakpoints',
         );
 
         // pause so output logs can be captured
@@ -221,7 +221,7 @@ export class Runner {
     // alert users
     this.logger.info([
       `Finished running ${nTests} tests in ${Math.ceil(
-        (performance.now() - t0) / 1000
+        (performance.now() - t0) / 1000,
       )} seconds with ${failures} failed tests`,
       '',
     ]);

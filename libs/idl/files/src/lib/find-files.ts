@@ -12,7 +12,7 @@ import { IFolderRecursion } from './find-files.interface';
  */
 export async function FindFiles(
   folder: IFolderRecursion | string | string[],
-  pattern = ALL_FILES_GLOB_PATTERN
+  pattern = ALL_FILES_GLOB_PATTERN,
 ): Promise<string[]> {
   // init files that we find
   const files = new Set<string>();

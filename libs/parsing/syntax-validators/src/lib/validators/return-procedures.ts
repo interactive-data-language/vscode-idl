@@ -19,7 +19,7 @@ import { FILTER_TOKENS } from './expected-comma';
  */
 function Callback(
   token: IBranch<MainLevelToken | RoutineProcedureToken>,
-  syntax: SyntaxProblems
+  syntax: SyntaxProblems,
 ) {
   // get all procedures we are calling
   const returns = FindAllBranchChildren(token, TOKEN_NAMES.CALL_PROCEDURE);
@@ -29,18 +29,18 @@ function Callback(
     if (returns[i].match[0].toLowerCase() === 'return') {
       if (
         (returns[i] as IBranch<CallProcedureToken>).kids.filter(
-          (child) => !(child.name in FILTER_TOKENS)
+          (child) => !(child.name in FILTER_TOKENS),
         ).length > 0
       ) {
         returns[i].parseProblems.push(
-          IDL_PROBLEM_CODES.RETURN_VALUES_PROCEDURES
+          IDL_PROBLEM_CODES.RETURN_VALUES_PROCEDURES,
         );
         syntax.push(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.RETURN_VALUES_PROCEDURES,
             returns[i].pos,
-            returns[i].end ? returns[i].end.pos : returns[i].pos
-          )
+            returns[i].end ? returns[i].end.pos : returns[i].pos,
+          ),
         );
       }
     }
@@ -54,7 +54,7 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.ROUTINE_PROCEDURE,
   (token, parsed) => {
     Callback(token, parsed.parseProblems);
-  }
+  },
 );
 
 /**
@@ -64,5 +64,5 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.MAIN_LEVEL,
   (token, parsed) => {
     Callback(token, parsed.parseProblems);
-  }
+  },
 );

@@ -81,13 +81,13 @@ export type IDLNotebookImage_EmbedType =
  * Data embedded in a notebook cell
  */
 export type IDLNotebookImage_EmbedTypeData<
-  T extends IDLNotebookImage_EmbedType
+  T extends IDLNotebookImage_EmbedType,
 > = T extends IDLNotebookImage_AnimationFromPNGs
   ? IDLNotebookImage_AnimationFromPNGsData
   : T extends IDLNotebookImage_AnimationFromUris
-  ? IDLNotebookImage_AnimationFromUrisData
-  : T extends IDLNotebookImage_PNG
-  ? IDLNotebookImage_PNGData
-  : T extends IDLNotebookImage_FromURI
-  ? IDLNotebookImage_FromURIData
-  : never;
+    ? IDLNotebookImage_AnimationFromUrisData
+    : T extends IDLNotebookImage_PNG
+      ? IDLNotebookImage_PNGData
+      : T extends IDLNotebookImage_FromURI
+        ? IDLNotebookImage_FromURIData
+        : never;

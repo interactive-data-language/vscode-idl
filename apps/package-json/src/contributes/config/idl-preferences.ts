@@ -24,7 +24,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
     type: 'object',
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.IDLPreferences,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
     additionalProperties: false,
@@ -37,7 +37,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['single', 'double', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       methods: {
@@ -47,7 +47,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['dot', 'arrow', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       keywords: {
@@ -57,7 +57,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       properties: {
@@ -67,7 +67,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       control: {
@@ -77,7 +77,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       numbers: {
@@ -87,7 +87,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       hex: {
@@ -97,7 +97,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       octal: {
@@ -107,7 +107,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       binary: {
@@ -117,7 +117,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       systemVariables: {
@@ -125,13 +125,13 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'systemVariables',
           nls,
-          keyBase
+          keyBase,
         ),
         enum: ['lower', 'upper', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       internalRoutines: {
@@ -139,13 +139,13 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'internalRoutines',
           nls,
-          keyBase
+          keyBase,
         ),
         enum: ['match', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['match', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       userRoutines: {
@@ -155,7 +155,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         enumDescriptions: TranslationFromConfigurationChoices(
           ['match', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       localVariables: {
@@ -163,13 +163,13 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'localVariables',
           nls,
-          keyBase
+          keyBase,
         ),
         enum: ['match', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['match', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
     },

@@ -19,7 +19,7 @@ export const SaveAndClearNotebook: RunnerFunction = async (init) => {
    * Get the file we are going to open
    */
   const file = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/test-notebook.idlnb'
+    'idl/test/client-e2e/notebooks/test-notebook.idlnb',
   );
 
   /**

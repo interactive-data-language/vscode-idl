@@ -15,7 +15,7 @@ import { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.
  * gets returned here for the tru paths on disk.
  */
 export async function ResolveFSPathAndCodeForURI(
-  url: string
+  url: string,
 ): Promise<IResolvedFSPathAndCodeForURI | undefined> {
   /**
    * parse the URI for the document

@@ -7,6 +7,7 @@ import { createCustomElement } from '@angular/elements';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaterialModule } from '@idl/ngx/material';
 
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
@@ -19,7 +20,6 @@ import {
   MapPropertySheetComponent,
 } from './components/map/map-property-sheet/map-property-sheet.component';
 import { RegisterIcons } from './icons/register-icons';
-import { MaterialModule } from './material.module';
 import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.service';
 
 @NgModule({
@@ -29,7 +29,7 @@ import { VSCodeRendererMessenger } from './services/vscode-renderer-messenger.se
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule,
+    NgxMaterialModule,
     ComponentsModule,
   ],
   providers: [
@@ -42,7 +42,7 @@ export class AppModule implements DoBootstrap {
     private injector: Injector,
     private appRef: ApplicationRef,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
   ) {
     RegisterIcons(this.matIconRegistry, this.domSanitizer);
   }
@@ -67,16 +67,24 @@ export class AppModule implements DoBootstrap {
           IDL_NB_ENTRY_COMPONENT_SELECTOR,
           createCustomElement(EntryComponent, {
             injector: this.injector,
-          })
+          }),
         );
       }
 
+      /**
+       * Register our notebook property sheet
+       *
+       * This is ot used right now, was for popups showing properties for
+       * deck.gl objects on the map.
+       *
+       * If you search for the property sheet selector, you will find it
+       */
       if (!customElements.get(IDL_NB_MAP_PROPERTY_SHEET_SELECTOR)) {
         customElements.define(
           IDL_NB_MAP_PROPERTY_SHEET_SELECTOR,
           createCustomElement(MapPropertySheetComponent, {
             injector: this.injector,
-          })
+          }),
         );
       }
     } catch (err) {

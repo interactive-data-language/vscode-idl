@@ -94,7 +94,7 @@ export async function GetCompletionRecipes(
   index: IDLIndex,
   file: string,
   code: string | string[],
-  position: Position
+  position: Position,
 ): Promise<AutoCompleteRecipe<AutoCompleteType>[]> {
   // initialize the value of our help
   const recipes: AutoCompleteRecipe<AutoCompleteType>[] = [];
@@ -107,7 +107,7 @@ export async function GetCompletionRecipes(
     new CancellationToken(),
     {
       postProcess: true,
-    }
+    },
   );
   if (parsed !== undefined) {
     // determine what we have hovered over
@@ -152,7 +152,7 @@ export async function GetCompletionRecipes(
        */
       case token?.scope[token.scope.length - 1] === TOKEN_NAMES.CALL_FUNCTION &&
         SPECIAL_FUNCTION_REGEX.test(
-          token?.scopeTokens[token.scope.length - 1]?.match[0]
+          token?.scopeTokens[token.scope.length - 1]?.match[0],
         ): {
         const typed: AutoCompleteRecipe<SpecialFunctionCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.SPECIAL_FUNCTION,
@@ -168,7 +168,7 @@ export async function GetCompletionRecipes(
       case token?.scope[token.scope.length - 1] ===
         TOKEN_NAMES.CALL_PROCEDURE &&
         SPECIAL_PROCEDURE_REGEX.test(
-          token?.scopeTokens[token.scope.length - 1]?.match[0]
+          token?.scopeTokens[token.scope.length - 1]?.match[0],
         ): {
         const typed: AutoCompleteRecipe<SpecialProcedureCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.SPECIAL_PROCEDURE,
@@ -204,7 +204,7 @@ export async function GetCompletionRecipes(
         const typed: AutoCompleteRecipe<CompileOptCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.COMPILE_OPT,
           options: GetCompileOptCompletionOptions(
-            local as TreeToken<ControlCompileOptToken>
+            local as TreeToken<ControlCompileOptToken>,
           ),
         };
         recipes.push(typed);
@@ -214,7 +214,7 @@ export async function GetCompletionRecipes(
         const typed: AutoCompleteRecipe<CompileOptCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.COMPILE_OPT,
           options: GetCompileOptCompletionOptions(
-            token as TreeToken<ControlCompileOptToken>
+            token as TreeToken<ControlCompileOptToken>,
           ),
         };
         recipes.push(typed);
@@ -282,7 +282,7 @@ export async function GetCompletionRecipes(
         const typed: AutoCompleteRecipe<PropertyInStructureCompletion> = {
           type: AUTO_COMPLETE_TYPE_LOOKUP.PROPERTY_IN_STRUCTURE,
           options: GetPropertyInStructureCompletionOptions(
-            token as IBranch<StructureNameToken>
+            token as IBranch<StructureNameToken>,
           ),
         };
         recipes.push(typed);
@@ -380,7 +380,7 @@ export async function GetCompletionRecipes(
           options: GetKeywordCompletionOptions(
             parsed,
             index,
-            token || cursor.scopeTokens[cursor.scopeTokens.length - 1]
+            token || cursor.scopeTokens[cursor.scopeTokens.length - 1],
           ),
         };
         recipes.push(typed);
@@ -424,7 +424,7 @@ export async function GetCompletionRecipes(
             type: AUTO_COMPLETE_TYPE_LOOKUP.PROPERTY,
             options: GetPropertyCompletionOptions(
               local?.name in PROCEDURES ? '' : '',
-              type
+              type,
             ),
           };
           recipes.push(typed);

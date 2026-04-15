@@ -24,7 +24,7 @@ export class VSCodeLanguageServerMessenger {
    */
   onNotification<T extends LanguageServerMessage>(
     message: T,
-    callback: (payload: LanguageServerPayload<T>) => void
+    callback: (payload: LanguageServerPayload<T>) => void,
   ) {
     this.connection.onNotification(MessageNameNormalizer(message), callback);
   }
@@ -35,8 +35,8 @@ export class VSCodeLanguageServerMessenger {
   onRequest<T extends LanguageServerMessage>(
     message: T,
     callback: (
-      payload: LanguageServerPayload<T>
-    ) => LanguageServerResponse<T> | Promise<LanguageServerResponse<T>>
+      payload: LanguageServerPayload<T>,
+    ) => LanguageServerResponse<T> | Promise<LanguageServerResponse<T>>,
   ) {
     this.connection.onRequest(MessageNameNormalizer(message), callback);
   }
@@ -46,7 +46,7 @@ export class VSCodeLanguageServerMessenger {
    */
   sendNotification<T extends LanguageServerMessage>(
     message: T,
-    payload: LanguageServerPayload<T>
+    payload: LanguageServerPayload<T>,
   ) {
     // serialize our message
     const serialized = SerializeServerMessage(payload);
@@ -62,7 +62,7 @@ export class VSCodeLanguageServerMessenger {
    */
   sendRequest<T extends LanguageServerMessage>(
     message: T,
-    payload: LanguageServerPayload<T>
+    payload: LanguageServerPayload<T>,
   ): LanguageServerResponse<T> | Promise<LanguageServerResponse<T>> {
     // serialize our message
     const serialized = SerializeServerMessage(payload);
@@ -71,7 +71,7 @@ export class VSCodeLanguageServerMessenger {
     if (this.canSendNotification(serialized)) {
       return this.connection.sendRequest(
         MessageNameNormalizer(message),
-        payload
+        payload,
       );
     }
   }

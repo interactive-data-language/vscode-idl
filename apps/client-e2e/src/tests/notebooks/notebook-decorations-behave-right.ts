@@ -18,9 +18,9 @@ export const NotebookDecorationsBehaveRight: RunnerFunction = async (init) => {
   // open our notebook
   const nb = await OpenNotebookInVSCode(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/problems/decorations.idlnb'
+      'idl/test/client-e2e/notebooks/problems/decorations.idlnb',
     ),
-    true
+    true,
   );
 
   // short pause
@@ -34,8 +34,8 @@ export const NotebookDecorationsBehaveRight: RunnerFunction = async (init) => {
    */
   expect(
     cells.map(
-      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-    )
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+    ),
   ).toEqual([0, 0]);
 
   /**
@@ -50,8 +50,8 @@ export const NotebookDecorationsBehaveRight: RunnerFunction = async (init) => {
    */
   expect(
     cells.map(
-      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-    )
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+    ),
   ).toEqual([1, 0]);
 
   /**
@@ -66,8 +66,8 @@ export const NotebookDecorationsBehaveRight: RunnerFunction = async (init) => {
    */
   expect(
     cells.map(
-      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-    )
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+    ),
   ).toEqual([1, 1]);
 
   // get editor for the first cell
@@ -93,8 +93,8 @@ export const NotebookDecorationsBehaveRight: RunnerFunction = async (init) => {
    */
   expect(
     cells.map(
-      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-    )
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+    ),
   ).toEqual([0, 1]);
 
   // stop IDL
@@ -108,7 +108,7 @@ export const NotebookDecorationsBehaveRight: RunnerFunction = async (init) => {
    */
   expect(
     cells.map(
-      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-    )
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+    ),
   ).toEqual([0, 0]);
 };

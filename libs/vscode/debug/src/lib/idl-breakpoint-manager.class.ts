@@ -38,7 +38,7 @@ export class IDLBreakpointManager {
      */
     const bpTable = await this.adapter.evaluate(
       'help, /breakpoints',
-      this._options
+      this._options,
     );
 
     /**
@@ -89,7 +89,7 @@ export class IDLBreakpointManager {
   async removeBreakpoint(file: string, line: number) {
     await this.adapter.evaluate(
       this._getRemoveBreakpointCommand(file, line),
-      this._options
+      this._options,
     );
   }
 
@@ -101,7 +101,7 @@ export class IDLBreakpointManager {
     for (let i = 0; i < this.VSCodeBreakpoints.length; i++) {
       await this.removeBreakpoint(
         this.VSCodeBreakpoints[i].source.path,
-        this.VSCodeBreakpoints[i].line
+        this.VSCodeBreakpoints[i].line,
       );
     }
 
@@ -149,7 +149,7 @@ export class IDLBreakpointManager {
    * Sets breakpoints and return set breakpoints
    */
   async setBreakpoints(
-    bps: DebugProtocol.SetBreakpointsArguments
+    bps: DebugProtocol.SetBreakpointsArguments,
   ): Promise<DebugProtocol.Breakpoint[]> {
     // wait for IDL to start before we add them
     await this.adapter._startup;
@@ -233,8 +233,8 @@ export class IDLBreakpointManager {
           true,
           fromIDL[i].line,
           undefined,
-          new Source(IDLDebugAdapter.name, fromIDL[i].file)
-        )
+          new Source(IDLDebugAdapter.name, fromIDL[i].file),
+        ),
       );
     }
 
@@ -280,14 +280,14 @@ export class IDLBreakpointManager {
   private async setBreakpoint(
     file: string,
     line: number,
-    sync = true
+    sync = true,
   ): Promise<void> {
     /**
      * Add breakpoint via IDL
      */
     await this.adapter.evaluate(
       this._getSetBreakpointCommand(file, line),
-      this._options
+      this._options,
     );
 
     // check if we need to sync with VSCode

@@ -16,7 +16,7 @@ export function MCP_ENVIAgZones() {
         message: 'url must end with ".sav"',
       })
       .describe(
-        `Provide a fully-qualified filepath to the az zones on disk. Should end with a ".sav" extension.`
+        `Provide a fully-qualified filepath to the az zones on disk. Should end with a ".sav" extension.`,
       ),
   });
 }

@@ -29,7 +29,7 @@ interface IProblem {
  */
 export async function ParsingPerformanceRunner(
   folder: string,
-  options: IParsingPerformanceRunnerOpts
+  options: IParsingPerformanceRunnerOpts,
 ): Promise<void> {
   const manager = new LogManager({
     alert: () => {
@@ -65,7 +65,7 @@ export async function ParsingPerformanceRunner(
     patterns = [ALL_FILES_GLOB_PATTERN];
     for (let i = 0; i < patterns.length; i++) {
       speedSearch = speedSearch.concat(
-        await index.findFiles(folder, patterns[i])
+        await index.findFiles(folder, patterns[i]),
       );
     }
 
@@ -84,7 +84,7 @@ export async function ParsingPerformanceRunner(
   const files = bucket.proFiles;
   manager.log({
     content: `Data discovery found ${files.length} file(s) in ${Math.floor(
-      performance.now() - t0
+      performance.now() - t0,
     )} ms`,
   });
   if (files.length === 0) {
@@ -129,7 +129,7 @@ export async function ParsingPerformanceRunner(
       {
         total: nFiles,
         width: 25,
-      }
+      },
     );
     for (let j = 0; j < nFiles; j++) {
       const canTick = true;

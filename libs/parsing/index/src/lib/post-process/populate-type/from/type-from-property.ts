@@ -12,7 +12,7 @@ import { IDLIndex } from '../../../idl-index.class';
 export function TypeFromProperty(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<AccessPropertyToken>
+  token: TreeToken<AccessPropertyToken>,
 ): IDLDataType {
   // find matching property
   const property = GetProperty(index, parsed, token);

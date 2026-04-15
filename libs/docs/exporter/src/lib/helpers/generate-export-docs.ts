@@ -12,7 +12,7 @@ function EscapeDocs(docs: string) {
 }
 
 export function GenerateExportDocs<T extends GlobalTokenType>(
-  item: IGlobalIndexedToken<T>
+  item: IGlobalIndexedToken<T>,
 ): string {
   // get initial value of docs
   const docs = item.meta.docs;

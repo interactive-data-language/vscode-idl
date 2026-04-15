@@ -22,18 +22,18 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.TERMINAL.START, async () => {
       try {
-        LogCommandInfo('Opening IDL terminal');
+        LogCommandInfo('Starting IDL terminal');
         await SendCommandToIDLTerminal({ label: 'Open' });
         return true;
       } catch (err) {
         LogCommandError(
           'Error while starting IDL',
           err,
-          cmdErrors.terminal.startIDL
+          cmdErrors.terminal.startIDL,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -45,11 +45,11 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while compiling file in IDL terminal',
           err,
-          cmdErrors.terminal.compileFile
+          cmdErrors.terminal.compileFile,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -61,11 +61,11 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while running file in IDL temrinal',
           err,
-          cmdErrors.terminal.runFile
+          cmdErrors.terminal.runFile,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -79,12 +79,12 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while executing batch file in IDL temrinal',
             err,
-            cmdErrors.terminal.executeBatchFile
+            cmdErrors.terminal.executeBatchFile,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -97,11 +97,11 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while resetting IDL',
           err,
-          cmdErrors.terminal.resetIDL
+          cmdErrors.terminal.resetIDL,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -114,11 +114,11 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while stopping IDL',
           err,
-          cmdErrors.terminal.pauseExecution
+          cmdErrors.terminal.pauseExecution,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -133,12 +133,12 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while continuing execution in IDL temrinal',
             err,
-            cmdErrors.terminal.continueExecution
+            cmdErrors.terminal.continueExecution,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -151,11 +151,11 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
         LogCommandError(
           'Error while steping in IDL terminal',
           err,
-          cmdErrors.terminal.stepIn
+          cmdErrors.terminal.stepIn,
         );
         return false;
       }
-    })
+    }),
   );
 
   ctx.subscriptions.push(
@@ -170,12 +170,12 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while stepping over in IDL terminal',
             err,
-            cmdErrors.terminal.stepOver
+            cmdErrors.terminal.stepOver,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -190,11 +190,11 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while stepping out of IDL terminal',
             err,
-            cmdErrors.terminal.stepOut
+            cmdErrors.terminal.stepOut,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 }

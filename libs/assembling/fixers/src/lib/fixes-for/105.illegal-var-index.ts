@@ -9,7 +9,7 @@ ASSEMBLER_PROBLEM_FIXERS.onBranchToken(TOKEN_NAMES.BRACKET, (token, parsed) => {
     HasProblem(
       token,
       IDL_PROBLEM_CODES.ILLEGAL_VARIABLE_INDEX,
-      parsed.disabledProblems
+      parsed.disabledProblems,
     )
   ) {
     token.match[0] = '[';

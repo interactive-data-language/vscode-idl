@@ -223,7 +223,7 @@ describe(`[auto generated] Correctly map options for compound control statements
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 });

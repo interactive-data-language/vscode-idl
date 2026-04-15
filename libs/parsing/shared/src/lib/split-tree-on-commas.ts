@@ -17,7 +17,7 @@ IGNORE[TOKEN_NAMES.COMMENT_BLOCK] = true;
  */
 export function SplitTreeOnCommas(
   tree: SyntaxTree,
-  stopOnThese: { [key: string]: any } = {}
+  stopOnThese: { [key: string]: any } = {},
 ) {
   /** Commas we split by */
   const commas: TreeToken<CommaToken>[] = [];

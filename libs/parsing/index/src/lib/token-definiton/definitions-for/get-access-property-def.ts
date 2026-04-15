@@ -12,7 +12,7 @@ import { CACHE_FOR_TOKEN_DEF } from '../get-token-definition';
 export function GetAccessPropertyDef(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<AccessPropertyToken>
+  token: TreeToken<AccessPropertyToken>,
 ): IBaseIndexedToken {
   return GetProperty(index, parsed, token, CACHE_FOR_TOKEN_DEF);
 }

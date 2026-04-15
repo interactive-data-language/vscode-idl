@@ -13,7 +13,7 @@ import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
  */
 export function CreateRoutineSyntax(
   info: MarkdownInfo<RoutineMarkdown>,
-  forDocs = true
+  forDocs = true,
 ): string {
   /** Metadata for routine */
   const meta = info.meta;
@@ -38,11 +38,11 @@ export function CreateRoutineSyntax(
     syntax.push(';+\n');
     if (isTask) {
       syntax.push(
-        `; :Returns: ${GetTaskDisplayName(info.meta.display).display}\n`
+        `; :Returns: ${GetTaskDisplayName(info.meta.display).display}\n`,
       );
     } else {
       syntax.push(
-        `; :Returns: ${IDLTypeHelper.serializeIDLType(typed.returns)}\n`
+        `; :Returns: ${IDLTypeHelper.serializeIDLType(typed.returns)}\n`,
       );
     }
     syntax.push(';-\n');
@@ -122,7 +122,7 @@ export function CreateRoutineSyntax(
         kwSyntax = `${kw.display} = value`;
       } else {
         kwSyntax = `${kw.display} = '${IDLTypeHelper.serializeIDLType(
-          kw?.type
+          kw?.type,
         )}'`;
       }
     }

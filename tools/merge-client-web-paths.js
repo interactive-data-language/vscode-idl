@@ -5,7 +5,7 @@ const path = require('path');
 const baseConfigPath = path.resolve(process.cwd(), './tsconfig.base.json');
 const extendedConfigPath = path.resolve(
   process.cwd(),
-  './apps/client-web/tsconfig.app.json'
+  './apps/client-web/tsconfig.app.json',
 );
 
 /** Read reference config */

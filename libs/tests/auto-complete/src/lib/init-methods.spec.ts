@@ -15,7 +15,7 @@ describe(`[auto generated] Verify auto-complete for`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -201,9 +201,9 @@ describe(`[auto generated] Verify auto-complete for`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 16, character: 18 };
@@ -385,9 +385,9 @@ describe(`[auto generated] Verify auto-complete for`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

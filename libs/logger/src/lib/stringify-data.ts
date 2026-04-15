@@ -23,7 +23,7 @@ export function StringifyDataForLog(
   front: string,
   data: any,
   indent = false,
-  color = true
+  color = true,
 ) {
   // get the strings that we actually want to write
   const toWrite = `${front} ${StringifyData(data, color)}`;

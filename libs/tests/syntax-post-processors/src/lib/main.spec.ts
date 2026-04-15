@@ -97,7 +97,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -173,7 +173,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -318,7 +318,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -497,7 +497,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -682,7 +682,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -946,7 +946,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -1069,7 +1069,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -1201,7 +1201,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -1348,7 +1348,7 @@ describe(`[auto generated] Correctly maps main level tokens`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 });

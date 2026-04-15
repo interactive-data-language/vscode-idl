@@ -3,7 +3,7 @@ import {
   MCPTrackResources,
   RegisterAllLanguageServerMCPTools,
 } from '@idl/mcp/language-server-tools';
-import { StartMCPServer } from '@idl/mcp/server';
+import { MCPServer } from '@idl/mcp/server';
 import { RegisterStaticMCPResources } from '@idl/mcp/server-resources';
 import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -43,21 +43,41 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
   }
 
   try {
-    // indicate that we are starting the MCP server
-    StartMCPServer(
+    // start the unified MCP server
+    MCPServer.start({
       port,
-      (logThis) => {
-        IDL_LANGUAGE_SERVER_LOGGER.log({ ...logThis, ...{ log: IDL_MCP_LOG } });
+      logManager: IDL_LANGUAGE_SERVER_LOGGER,
+      idlExecutionCallback: (executionId, tool, params) => {
+        return SERVER_MESSENGER.sendRequest(
+          LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
+          {
+            id: executionId,
+            tool,
+            params,
+          },
+        ) as any;
       },
-      (err) => {
+      toolInvokedCallback: (tool, params) => {
+        SERVER_MESSENGER.sendNotification(
+          LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP_HISTORY,
+          {
+            tool,
+            params,
+          },
+        );
+      },
+      failCallback: (err) => {
         IDL_LANGUAGE_SERVER_LOGGER.log({
           log: IDL_MCP_LOG,
           type: 'error',
           content: ['Error starting server', err],
           alert: IDL_TRANSLATION.mcp.errors.failedStart,
         });
-      }
-    );
+      },
+    });
+
+    /** Get reference to the server singleton */
+    const mcpServer = MCPServer.instance;
 
     // register static resources (documentation links)
     RegisterStaticMCPResources();
@@ -74,26 +94,13 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
     }
 
     // register all of our tools
-    const mcpToolHelper = RegisterAllMCPTools(
-      SERVER_MESSENGER,
-      IDL_LANGUAGE_SERVER_LOGGER,
-      (tool, params) => {
-        SERVER_MESSENGER.sendNotification(
-          LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP_HISTORY,
-          {
-            tool,
-            params,
-          }
-        );
-      },
-      isEnviInstalled
-    );
+    RegisterAllMCPTools(isEnviInstalled);
 
     // register all tools that require the language server (IDL Index) to function
     RegisterAllLanguageServerMCPTools(
-      mcpToolHelper,
+      mcpServer,
       IDL_INDEX,
-      GetWorkspaceFolders
+      GetWorkspaceFolders,
     );
 
     // listen for progress notifications
@@ -101,7 +108,7 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
       LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP_PROGRESS,
       (msg) => {
         try {
-          mcpToolHelper.sendToolExecutionNotification(msg.id, msg.progress);
+          mcpServer.sendToolExecutionNotification(msg.id, msg.progress);
         } catch (err) {
           IDL_LANGUAGE_SERVER_LOGGER.log({
             log: IDL_MCP_LOG,
@@ -110,12 +117,12 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
             alert: IDL_TRANSLATION.mcp.errors.failedProgress,
           });
         }
-      }
+      },
     );
 
     // add all prompts as server resources
     try {
-      RegisterMCPPromptTools(mcpToolHelper);
+      RegisterMCPPromptTools(mcpServer);
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_MCP_LOG,
@@ -124,7 +131,7 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
       });
     }
 
-    return mcpToolHelper;
+    return mcpServer;
   } catch (err) {
     IDL_LANGUAGE_SERVER_LOGGER.log({
       log: IDL_MCP_LOG,

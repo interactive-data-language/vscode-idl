@@ -10,7 +10,7 @@ import { readFileSync } from 'fs';
  */
 function GetCells(data: IDLRawNotebook<IDLRawNotebookVersion_2_0_0>) {
   return data.cells.map((cell) =>
-    cell.content.join('\n').trimEnd().split(/\n/gim)
+    cell.content.join('\n').trimEnd().split(/\n/gim),
   );
 }
 
@@ -19,20 +19,20 @@ function GetCells(data: IDLRawNotebook<IDLRawNotebookVersion_2_0_0>) {
  */
 export async function CompareNotebookJSONCells(
   referenceUri: string,
-  actualUri: string
+  actualUri: string,
 ) {
   /**
    * Get reference notebook
    */
   const refData: IDLRawNotebook<IDLRawNotebookVersion_2_0_0> = JSON.parse(
-    readFileSync(referenceUri, 'utf-8')
+    readFileSync(referenceUri, 'utf-8'),
   );
 
   /**
    * Get actual notebook
    */
   const actualData: IDLRawNotebook<IDLRawNotebookVersion_2_0_0> = JSON.parse(
-    readFileSync(actualUri, 'utf-8')
+    readFileSync(actualUri, 'utf-8'),
   );
 
   // compare

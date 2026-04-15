@@ -24,14 +24,14 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
   const base = JSON.parse(
     readFileSync(
       GetExtensionPath('extension/language/schemas/config/schema.json'),
-      { encoding: 'utf-8' }
-    )
+      { encoding: 'utf-8' },
+    ),
   );
 
   // verify child
   if (!('properties' in base)) {
     throw new Error(
-      'Expected "properties" key not found in idl.json schema.json file'
+      'Expected "properties" key not found in idl.json schema.json file',
     );
   }
 
@@ -56,7 +56,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
     // validate correctness
     if (!(properties1[i] in baseProperties)) {
       throw new Error(
-        `Property "${properties1[i]}" is missing from the idl.json schema file`
+        `Property "${properties1[i]}" is missing from the idl.json schema file`,
       );
     }
     const vsProp = vsCodeProperties[properties1[i]];
@@ -66,7 +66,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
     // verify default
     if (!(properties1[i] in baseDefault)) {
       throw new Error(
-        `Property "${properties1[i]}" has no default in VSCode configuration`
+        `Property "${properties1[i]}" has no default in VSCode configuration`,
       );
     }
 
@@ -78,21 +78,21 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
   // write to disk
   writeFileSync(
     GetExtensionPath('extension/language/schemas/config/schema.json'),
-    JSON.stringify(base, undefined, 2)
+    JSON.stringify(base, undefined, 2),
   );
 
   // load actual schema for config tags
   const details = JSON.parse(
     readFileSync(
       GetExtensionPath('extension/language/schemas/config/v1.schema.json'),
-      { encoding: 'utf-8' }
-    )
+      { encoding: 'utf-8' },
+    ),
   );
 
   // verify child
   if (!('definitions' in details)) {
     throw new Error(
-      'Expected "definitions" key not found in idl.json v1.schema.json file'
+      'Expected "definitions" key not found in idl.json v1.schema.json file',
     );
   }
   const detailDefinitions = details['definitions'];
@@ -100,7 +100,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
   // verify child
   if (!('1.0.0-options' in detailDefinitions)) {
     throw new Error(
-      'Expected "1.0.0-options" key not found in idl.json v1.schema.json "definitions"'
+      'Expected "1.0.0-options" key not found in idl.json v1.schema.json "definitions"',
     );
   }
 
@@ -129,7 +129,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
     // validate correctness
     if (!(properties2[i] in detailProperties)) {
       throw new Error(
-        `Property "${properties2[i]}" is missing from the idl.json v1.schema.json file`
+        `Property "${properties2[i]}" is missing from the idl.json v1.schema.json file`,
       );
     }
     const vsProp = vsCodeDetailProperties[properties2[i]];
@@ -139,7 +139,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
     // verify default
     if (!(properties2[i] in detailDefault)) {
       throw new Error(
-        `Property "${properties2[i]}" has no default in VSCode configuration`
+        `Property "${properties2[i]}" has no default in VSCode configuration`,
       );
     }
 
@@ -151,7 +151,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
   // save to disk
   writeFileSync(
     GetExtensionPath('extension/language/schemas/config/v1.schema.json'),
-    JSON.stringify(details, undefined, 2)
+    JSON.stringify(details, undefined, 2),
   );
 }
 
@@ -181,7 +181,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
     type: 'object',
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.codeFormatting,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
     additionalProperties: false,
@@ -192,7 +192,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'autoDoc',
           nls,
-          formatPropertyBase
+          formatPropertyBase,
         ),
       },
       autoFix: {
@@ -200,7 +200,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'autoFix',
           nls,
-          formatPropertyBase
+          formatPropertyBase,
         ),
       },
       eol: {
@@ -208,13 +208,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'eol',
           nls,
-          formatPropertyBase
+          formatPropertyBase,
         ),
         enum: ['lf', 'crlf'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lf', 'crlf'],
           nls,
-          'enumDescriptions.formatting.eol'
+          'enumDescriptions.formatting.eol',
         ),
       },
       styleAndFormat: {
@@ -222,7 +222,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'styleAndFormat',
           nls,
-          formatPropertyBase
+          formatPropertyBase,
         ),
       },
       tabWidth: {
@@ -230,7 +230,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'tabWidth',
           nls,
-          formatPropertyBase
+          formatPropertyBase,
         ),
       },
       hangingIndent: {
@@ -238,7 +238,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'hangingIndent',
           nls,
-          formatPropertyBase
+          formatPropertyBase,
         ),
       },
       maxIndent: {
@@ -246,7 +246,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'maxIndent',
           nls,
-          formatPropertyBase
+          formatPropertyBase,
         ),
       },
     },
@@ -261,7 +261,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
     type: 'object',
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.codeFormattingStyle,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
     additionalProperties: false,
@@ -272,13 +272,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'binary',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['lower', 'upper', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       control: {
@@ -286,13 +286,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'control',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['lower', 'upper', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       hex: {
@@ -300,13 +300,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'hex',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['lower', 'upper', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       keywords: {
@@ -314,13 +314,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'keywords',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['lower', 'upper', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       localVariables: {
@@ -328,13 +328,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'localVariables',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['match', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['match', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       methods: {
@@ -342,13 +342,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'methods',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['dot', 'arrow', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['dot', 'arrow', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       numbers: {
@@ -356,13 +356,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'numbers',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['lower', 'upper', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       octal: {
@@ -370,13 +370,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'octal',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['lower', 'upper', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       properties: {
@@ -384,13 +384,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'properties',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['lower', 'upper', 'match', 'camel', 'pascal', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'match', 'camel', 'pascal', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       quotes: {
@@ -398,13 +398,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'quotes',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['single', 'double', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['single', 'double', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       routines: {
@@ -412,13 +412,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'routines',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['match', 'camel', 'pascal', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['match', 'camel', 'pascal', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       routineMethods: {
@@ -426,13 +426,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'routineMethods',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['match', 'camel', 'pascal', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['match', 'camel', 'pascal', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       structureNames: {
@@ -440,13 +440,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'structureNames',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['match', 'camel', 'pascal', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['match', 'camel', 'pascal', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
       systemVariables: {
@@ -454,13 +454,13 @@ export function AddCodeConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'systemVariables',
           nls,
-          formatStylePropertyBase
+          formatStylePropertyBase,
         ),
         enum: ['lower', 'upper', 'none'],
         enumDescriptions: TranslationFromConfigurationChoices(
           ['lower', 'upper', 'none'],
           nls,
-          'enumDescriptions.formatting.style'
+          'enumDescriptions.formatting.style',
         ),
       },
     },

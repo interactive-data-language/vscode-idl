@@ -38,7 +38,7 @@ export const RunMCPTestListAllPrompts: RunnerFunction = async (init) => {
  * Makes sure we can list prompts with filters
  */
 export const RunMCPTestListPromptsWithFilters: RunnerFunction = async (
-  init
+  init,
 ) => {
   // Call a tool
   const resultIDL = await CallMCPTool(MCP_TOOL_LOOKUP.LIST_PROMPTS, {

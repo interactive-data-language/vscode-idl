@@ -16,7 +16,7 @@ import { SERVER_INITIALIZED } from '../../is-initialized';
  * Event handler for retrieving code actions
  */
 export const ON_CODE_ACTIONS = async (
-  params: CodeActionParams
+  params: CodeActionParams,
 ): Promise<CodeAction[]> => {
   await SERVER_INITIALIZED;
   try {
@@ -24,7 +24,7 @@ export const ON_CODE_ACTIONS = async (
      * Get IDL diagnostics
      */
     const diags = params.context.diagnostics.filter((diag) =>
-      IsIDLDiagnostic(diag)
+      IsIDLDiagnostic(diag),
     ) as IDLDiagnostic[];
 
     // make sure we only keep diagnostics for each individual problem
@@ -73,7 +73,7 @@ export const ON_CODE_ACTIONS = async (
       diags,
       config,
       params.textDocument.uri,
-      info.type === 'notebook' ? +info.fsPath.split('#')[1] : undefined
+      info.type === 'notebook' ? +info.fsPath.split('#')[1] : undefined,
     );
 
     /**

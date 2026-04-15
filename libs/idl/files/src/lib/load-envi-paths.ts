@@ -25,20 +25,24 @@ export function LoadENVIPaths(bin: string) {
       DOT_IDL_FOLDER,
       'envi',
       `preferences${version[0]}_${version[1]}`,
-      'envi_preferences.json'
+      'envi_preferences.json',
     );
 
     // see if it exists
     if (existsSync(preferencesUri)) {
       try {
         const parsed = JSON.parse(readFileSync(preferencesUri, 'utf-8'));
-        const dirs = parsed['directories and files'];
+        const dirs = parsed['directories and files'] || {};
 
         // remove trailing path  separators
-        paths.push(dirs['custom code directory'].replace(/(?:\\|\/)$/, ''));
-        paths.push(dirs['extensions directory'].replace(/(?:\\|\/)$/, ''));
         paths.push(
-          dirs['local repository directory'].replace(/(?:\\|\/)$/, '')
+          (dirs['custom code directory'] || '').replace(/(?:\\|\/)$/, ''),
+        );
+        paths.push(
+          (dirs['extensions directory'] || '').replace(/(?:\\|\/)$/, ''),
+        );
+        paths.push(
+          (dirs['local repository directory'] || '').replace(/(?:\\|\/)$/, ''),
         );
       } catch (err) {
         console.warn(err);
@@ -73,5 +77,5 @@ export function LoadENVIPaths(bin: string) {
     }
   }
 
-  return paths;
+  return paths.filter((path) => path !== '');
 }

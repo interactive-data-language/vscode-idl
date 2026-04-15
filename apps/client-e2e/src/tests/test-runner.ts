@@ -26,7 +26,6 @@ export async function TestRunner(): Promise<number> {
   clientRunner.addRunner(DEBUGGING_RUNNER);
   clientRunner.addRunner(NOTEBOOK_RUNNER);
   clientRunner.addRunner(MCP_TEST_RUNNER);
-  // clientRunner.addRunner(COPILOT_TEST_RUNNER);
 
   // test and return number of failures
   return await clientRunner.runAllTests();

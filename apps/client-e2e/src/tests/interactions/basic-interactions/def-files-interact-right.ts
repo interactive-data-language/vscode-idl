@@ -19,7 +19,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const DefFilesInteractRight: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/def-files/testclente2e.pro.def')
+    GetExtensionPath('idl/test/client-e2e/def-files/testclente2e.pro.def'),
   );
 
   // short pause to make sure we open and parse
@@ -45,12 +45,15 @@ export const DefFilesInteractRight: RunnerFunction = async (init) => {
 
   // verify hover has return
   expect(
-    await init.client.client.sendRequest('textDocument/hover', hoverParams)
+    await init.client.client.sendRequest('textDocument/hover', hoverParams),
   ).toBeTruthy();
 
   // verify definition has return
   expect(
-    await init.client.client.sendRequest('textDocument/definition', hoverParams)
+    await init.client.client.sendRequest(
+      'textDocument/definition',
+      hoverParams,
+    ),
   ).toBeFalsy();
 
   /**
@@ -70,8 +73,8 @@ export const DefFilesInteractRight: RunnerFunction = async (init) => {
   expect(
     await init.client.client.sendRequest(
       'textDocument/completion',
-      completionParams
-    )
+      completionParams,
+    ),
   ).toBeFalsy();
 
   /**
@@ -87,8 +90,8 @@ export const DefFilesInteractRight: RunnerFunction = async (init) => {
   expect(
     (await init.client.client.sendRequest(
       'textDocument/semanticTokens/full',
-      tokenParams
-    )) as SemanticTokens
+      tokenParams,
+    )) as SemanticTokens,
   ).toBeFalsy();
 
   /**
@@ -101,10 +104,10 @@ export const DefFilesInteractRight: RunnerFunction = async (init) => {
     doc,
     readFileSync(
       GetExtensionPath(
-        'idl/test/client-e2e/def-files/testclente2e-changes.pro.def'
+        'idl/test/client-e2e/def-files/testclente2e-changes.pro.def',
       ),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // short pause

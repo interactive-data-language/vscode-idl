@@ -15,7 +15,7 @@ OK_PARENTS[TOKEN_NAMES.ROUTINE_PROCEDURE] = true;
 export const STRUCTURE_FORMATTER: TokenFormatter<StructureToken> = (
   token,
   meta,
-  parsed
+  parsed,
 ) => {
   // only process def files
   if (parsed.type !== 'def') {

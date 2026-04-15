@@ -16,5 +16,5 @@ export const json = JSON.parse(readFileSync(PACKAGE_URI, 'utf-8'));
  * Translation file
  */
 export const NLS: IPackageNLS = JSON.parse(
-  readFileSync(PACKAGE_NLS_URI, 'utf-8')
+  readFileSync(PACKAGE_NLS_URI, 'utf-8'),
 );

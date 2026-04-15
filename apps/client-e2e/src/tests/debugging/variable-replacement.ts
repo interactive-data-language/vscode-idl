@@ -21,7 +21,7 @@ export const VariableReplacement: RunnerFunction = async (init) => {
       IDL_PREF2: '${userHome}',
       IDL_PREF3: '${workspaceFolder}',
     },
-    true
+    true,
   );
 
   // stop our IDL session
@@ -36,8 +36,8 @@ export const VariableReplacement: RunnerFunction = async (init) => {
   // check status bar before running test
   expect(
     init.debug.statusBar.bar.text.endsWith(
-      IDL_TRANSLATION.statusBar.startAgainQuestion
-    )
+      IDL_TRANSLATION.statusBar.startAgainQuestion,
+    ),
   ).toBeTruthy();
 
   // start again
@@ -56,7 +56,7 @@ export const VariableReplacement: RunnerFunction = async (init) => {
   const res1 = CleanIDLOutput(
     await init.debug.adapter.evaluate(`print, getenv('IDL_PREF1')`, {
       echo: true,
-    })
+    }),
   );
 
   // verify we get the right output
@@ -66,7 +66,7 @@ export const VariableReplacement: RunnerFunction = async (init) => {
   const res2 = CleanIDLOutput(
     await init.debug.adapter.evaluate(`print, getenv('IDL_PREF2')`, {
       echo: true,
-    })
+    }),
   );
 
   // verify we get the right output
@@ -76,7 +76,7 @@ export const VariableReplacement: RunnerFunction = async (init) => {
   const res3 = CleanIDLOutput(
     await init.debug.adapter.evaluate(`print, getenv('IDL_PREF3')`, {
       echo: true,
-    })
+    }),
   );
 
   // verify we get the right output

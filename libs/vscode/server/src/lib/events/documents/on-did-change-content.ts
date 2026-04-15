@@ -18,7 +18,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * @param event The event from VSCode
  */
 export const ON_DID_CHANGE_CONTENT = async (
-  event: TextDocumentChangeEvent<TextDocument>
+  event: TextDocumentChangeEvent<TextDocument>,
 ) => {
   await SERVER_INITIALIZED;
   try {
@@ -53,7 +53,7 @@ export const ON_DID_CHANGE_CONTENT = async (
        * We need it as the file is most likely not saved on disk and the language server logic
        * is to use what is on disk
        */
-      { keepText: true }
+      { keepText: true },
     );
 
     // send problems

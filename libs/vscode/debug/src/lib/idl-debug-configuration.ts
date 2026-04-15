@@ -50,7 +50,7 @@ export class IDLDebugConfigurationProvider
     folder: undefined | WorkspaceFolder,
     config: DebugConfiguration,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    token?: CancellationToken
+    token?: CancellationToken,
   ): ProviderResult<IDLDebugConfiguration> {
     // log details
     IDL_LOGGER.log({
@@ -69,14 +69,14 @@ export class IDLDebugConfigurationProvider
     useConfig.env = Object.assign(
       {},
       DEFAULT_IDL_DEBUG_CONFIGURATION.env, // from `process.env`
-      IDL_EXTENSION_CONFIG.IDL.environment
+      IDL_EXTENSION_CONFIG.IDL.environment,
     );
 
     // do substitution for all environment variables
     const vars = Object.keys(IDL_EXTENSION_CONFIG.IDL.environment);
     for (let i = 0; i < vars.length; i++) {
       useConfig.env[vars[i]] = VariablesReferenceSubstitution(
-        useConfig.env[vars[i]]
+        useConfig.env[vars[i]],
       );
 
       // update copied config so VSCode doesnt try to map it
@@ -93,7 +93,7 @@ export class IDLDebugConfigurationProvider
     if (vscode.workspace.workspaceFolders !== undefined) {
       // get the paths of folders to add to IDLs search path
       const folders = vscode.workspace.workspaceFolders.map((iFolder) =>
-        CleanPath(URI.parse(iFolder.uri.toString()).fsPath)
+        CleanPath(URI.parse(iFolder.uri.toString()).fsPath),
       );
 
       // see if we have folders to update/set

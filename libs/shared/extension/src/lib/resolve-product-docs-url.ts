@@ -7,6 +7,6 @@ import { basename } from 'path';
  */
 export function ResolveProductDocsURL(link: string) {
   return `${PRODUCT_DOCS_WEBSITE}/${encodeURI(
-    basename(decodeURI(link)).replace(/\.htm(?!l)/gim, '.html')
+    basename(decodeURI(link)).replace(/\.htm(?!l)/gim, '.html'),
   )}`;
 }

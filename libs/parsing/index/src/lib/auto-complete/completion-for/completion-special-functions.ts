@@ -27,7 +27,7 @@ import { BuildCompletionStructureNameItems } from './completion-structure-names'
 const FUNCTIONS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION];
 
 export function GetSpecialFunctionCompletionOptions(
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
 ): ISpecialFunctionCompletionOptions {
   // init result
   const opts: ISpecialFunctionCompletionOptions = {
@@ -65,7 +65,7 @@ export function GetSpecialFunctionCompletionOptions(
  * Handles auto-complete for special functions
  */
 export function BuildSpecialFunctionCompletionItems(
-  arg: BuildCompletionItemsArg<SpecialFunctionCompletion>
+  arg: BuildCompletionItemsArg<SpecialFunctionCompletion>,
 ) {
   /**
    * Filter tokens that are not the first child or in our white list
@@ -97,7 +97,7 @@ export function BuildSpecialFunctionCompletionItems(
      */
     case functionName === 'envitask(': {
       displayNames = displayNames.filter((taskName) =>
-        ENVI_TASK_REGEX.test(taskName)
+        ENVI_TASK_REGEX.test(taskName),
       );
       detail = IDL_TRANSLATION.autoComplete.detail.enviTask;
 
@@ -119,7 +119,7 @@ export function BuildSpecialFunctionCompletionItems(
      */
     case functionName === 'idltask(': {
       displayNames = displayNames.filter((taskName) =>
-        IDL_TASK_REGEX.test(taskName)
+        IDL_TASK_REGEX.test(taskName),
       );
       detail = IDL_TRANSLATION.autoComplete.detail.idltask;
 
@@ -155,7 +155,7 @@ export function BuildSpecialFunctionCompletionItems(
       for (let i = 0; i < displayNames.length; i++) {
         const display = TransformCase(
           displayNames[i],
-          arg.formatting.style.routines
+          arg.formatting.style.routines,
         );
         arg.complete.push({
           label: `${display}()`,

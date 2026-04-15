@@ -104,8 +104,8 @@ export class IDLStdIOWrapper {
         // if the prompt partially came through before
         case REGEX_IDL_PROMPT.test(
           this.process.capturedOutput.substring(
-            Math.max(this.process.capturedOutput.length - 50, 0)
-          ) + data
+            Math.max(this.process.capturedOutput.length - 50, 0),
+          ) + data,
         ):
           {
             // remove IDL or ENVI prompt which might be split up
@@ -117,13 +117,13 @@ export class IDLStdIOWrapper {
               this.process.capturedOutput =
                 `${this.process.capturedOutput}${data}`.replace(
                   REGEX_IDL_PROMPT,
-                  ''
+                  '',
                 );
 
               // get the additional text to log to the console with prompt removed
               const delta = this.process.capturedOutput.substring(
                 lBefore,
-                this.process.capturedOutput.length
+                this.process.capturedOutput.length,
               );
 
               // send if not empty - can have more than just the prompt return here
@@ -177,7 +177,7 @@ export class IDLStdIOWrapper {
       }
       if (
         data.indexOf(
-          '% You compiled a main program while inside a procedure.  Returning.'
+          '% You compiled a main program while inside a procedure.  Returning.',
         ) !== -1
       ) {
         this.process.emit(IDL_EVENT_LOOKUP.CONTINUE);

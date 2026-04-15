@@ -15,7 +15,7 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -44,7 +44,7 @@ describe(`[auto generated] Verify parsing as a def file works as expected`, () =
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, type: 'def' }
+      { postProcess: true, type: 'def' },
     );
 
     // define expected local variables

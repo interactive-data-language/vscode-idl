@@ -16,7 +16,7 @@ interface IProblem {
  */
 export async function TMParseTest(
   folder: string,
-  removeColon = false
+  removeColon = false,
 ): Promise<void> {
   // search for files
   const files = await glob('**/**.pro', { cwd: folder });
@@ -52,7 +52,7 @@ export async function TMParseTest(
       {
         total: files.length,
         width: 25,
-      }
+      },
     );
     for (let i = 0; i < code.length; i++) {
       const canTick = true;

@@ -36,7 +36,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
     type: 'string',
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.IDLDirectory,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -49,7 +49,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
     default: [],
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.IDLPath,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
     items: {
@@ -66,7 +66,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.IDL.themeMatch,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.IDLThemeMatch,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -79,7 +79,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.IDL.addWorkspaceFoldersToPath,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.IDLAddWorkspaceFoldersToPath,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -92,12 +92,12 @@ export function AddIDLConfig(nls: IPackageNLS) {
     enumDescriptions: TranslationFromConfigurationChoices(
       ['prepend', 'append'],
       nls,
-      'enumDescriptions.workspace'
+      'enumDescriptions.workspace',
     ),
     default: DEFAULT_IDL_EXTENSION_CONFIG.IDL.appendOrPrependWorkspaceFolders,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.IDLAppendOrPrependWorkspaceFolders,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -112,7 +112,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
     },
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.IDLenvironment,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };
@@ -127,7 +127,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
     type: 'object',
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.IDLhistory,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
     additionalProperties: false,
@@ -138,7 +138,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'enabled',
           nls,
-          historyPropertyBase
+          historyPropertyBase,
         ),
       },
       maxSize: {
@@ -146,7 +146,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'maxSize',
           nls,
-          historyPropertyBase
+          historyPropertyBase,
         ),
         minimum: 0.5,
       },
@@ -155,7 +155,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'truncateOnStartup',
           nls,
-          historyPropertyBase
+          historyPropertyBase,
         ),
       },
       folder: {
@@ -163,7 +163,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'folder',
           nls,
-          historyPropertyBase
+          historyPropertyBase,
         ),
       },
       fileName: {
@@ -171,7 +171,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
         description: TranslationFromConfiguration(
           'fileName',
           nls,
-          historyPropertyBase
+          historyPropertyBase,
         ),
       },
     },

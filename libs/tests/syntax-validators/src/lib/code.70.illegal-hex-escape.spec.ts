@@ -14,7 +14,7 @@ describe(`[auto generated] Verify string literal escape characters`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -38,7 +38,7 @@ describe(`[auto generated] Verify string literal escape characters`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -54,7 +54,7 @@ describe(`[auto generated] Verify string literal escape characters`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

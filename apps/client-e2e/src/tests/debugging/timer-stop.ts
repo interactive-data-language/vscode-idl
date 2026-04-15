@@ -15,7 +15,7 @@ export const TimerStop: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -46,7 +46,7 @@ export const TimerStop: RunnerFunction = async (init) => {
   const stack = (await init.debug.adapter._runtime.getCallStack()).frames.map(
     (item) => {
       return { line: item.line, file: item.file };
-    }
+    },
   );
 
   // make sure our call stack matches

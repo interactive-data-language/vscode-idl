@@ -34,7 +34,7 @@ export function AddDocumentationConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.documentation.useOnline,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.documentationUseOnline,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };

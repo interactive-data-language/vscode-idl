@@ -7,7 +7,7 @@ import { TokenFormatter } from '../../formatter-rule-set.interface';
  */
 export const COMMENT_FORMATTER: TokenFormatter<CommentToken> = (
   token,
-  current
+  current,
 ) => {
   /**
    * Check if our comment is in a comment block. If so, then we preserve all

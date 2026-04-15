@@ -1,4 +1,4 @@
-import { MCPToolHelper } from '@idl/mcp/server-tools';
+import { MCPServer } from '@idl/mcp/server';
 import { IDLIndex } from '@idl/parsing/index';
 
 import { RegisterMCPTool_GetRoutineDocs } from './globals/register-mcp-tool-get-routine-docs';
@@ -8,14 +8,14 @@ import { RegisterMCPTool_ResourcesSearchForRoutine } from './globals/register-mc
  * Registers all MCP tools that require the language server
  */
 export function RegisterAllLanguageServerMCPTools(
-  helper: MCPToolHelper,
+  server: MCPServer,
   index: IDLIndex,
-  getWorkspacesCallback: () => string[]
+  getWorkspacesCallback: () => string[],
 ) {
-  RegisterMCPTool_GetRoutineDocs(helper, index);
+  RegisterMCPTool_GetRoutineDocs(server, index);
   RegisterMCPTool_ResourcesSearchForRoutine(
-    helper,
+    server,
     index,
-    getWorkspacesCallback
+    getWorkspacesCallback,
   );
 }

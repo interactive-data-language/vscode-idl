@@ -16,7 +16,7 @@ describe(`[auto generated] Extracts outline`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -58,8 +58,8 @@ describe(`[auto generated] Extracts outline`, () => {
       await index.getOutline(
         filepath,
         await readFile(filepath, 'utf-8'),
-        new CancellationToken()
-      )
+        new CancellationToken(),
+      ),
     );
   });
 });

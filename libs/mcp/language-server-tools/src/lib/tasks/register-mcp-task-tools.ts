@@ -1,39 +1,31 @@
 import { IDL_LSP_LOG, IDL_MCP_LOG } from '@idl/logger';
-import { MCP_SERVER } from '@idl/mcp/server';
+import { MCPServer } from '@idl/mcp/server';
 import {
-  MCPToolHelper,
+  RegisterMCPTool_CreateENVIModelerWorkflow,
   RegisterMCPTool_GetENVIToolParameters,
   RegisterMCPTool_ListENVITools,
   RegisterMCPTool_RunENVITool,
 } from '@idl/mcp/server-tools';
-import { FilterMCPENVITasks, MCPTaskRegistry } from '@idl/mcp/tasks';
+import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLIndex } from '@idl/parsing/index';
-import {
-  GLOBAL_TOKEN_TYPES,
-  GlobalFunctionToken,
-  GlobalStructureToken,
-  IGlobalIndexedToken,
-} from '@idl/types/idl-data-types';
+import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
 /**
  * Registers MCP Task tools from parsed code on IDL's search path
  */
-export async function RegisterMCPTaskTools(
-  helper: MCPToolHelper,
-  index: IDLIndex
-) {
-  helper.logManager.log({
+export async function RegisterMCPTaskTools(server: MCPServer, index: IDLIndex) {
+  server.logManager.log({
     log: IDL_LSP_LOG,
     type: 'info',
     content: 'Registering MCP user tools',
   });
 
   /** Create task registry */
-  const registry = new MCPTaskRegistry(helper.logManager);
+  const registry = new MCPTaskRegistry(server.logManager);
 
   // listen for task changes
   index.onParse.on('envi-task', (parsed) => {
-    helper.logManager.log({
+    server.logManager.log({
       log: IDL_MCP_LOG,
       type: 'debug',
       content: `Updating task definition for "${parsed.globals.function.name}"`,
@@ -44,44 +36,26 @@ export async function RegisterMCPTaskTools(
   });
 
   // register tools for tasks
-  RegisterMCPTool_ListENVITools(helper, registry);
-  RegisterMCPTool_GetENVIToolParameters(helper, registry);
-  RegisterMCPTool_RunENVITool(helper, registry);
+  RegisterMCPTool_ListENVITools(server, registry);
+  RegisterMCPTool_GetENVIToolParameters(server, registry);
+  RegisterMCPTool_RunENVITool(server, registry);
+  RegisterMCPTool_CreateENVIModelerWorkflow(server, registry);
 
-  /** Get all functions that we know about */
-  const functions =
-    index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.FUNCTION];
+  /** Register tasks that we have found */
+  registry.registerTasksFromGlobalTokens(
+    index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.FUNCTION],
+    index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.STRUCTURE],
+  );
 
-  /** Get all structures that we know about */
-  const structures =
-    index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.STRUCTURE];
-
-  /** Find names of ENVI Tasks and exclude those we dont need to expose  */
-  const keys = FilterMCPENVITasks(functions, Object.keys(structures)).sort();
-
-  helper.logManager.log({
-    log: IDL_MCP_LOG,
-    type: 'info',
-    content: `Attempting to register ${keys.length} ENVI Tools`,
-  });
-
-  // add all ENVI Tasks
-  for (let i = 0; i < keys.length; i++) {
-    registry.registerTask(
-      functions[keys[i]][0] as IGlobalIndexedToken<GlobalFunctionToken>,
-      structures[keys[i]][0] as IGlobalIndexedToken<GlobalStructureToken>
-    );
-  }
-
-  // helper.logManager.log({
+  // server.logManager.log({
   //   log: IDL_MCP_LOG,
   //   type: 'info',
   //   content: `Attempting to load user ENVI Tool notes`,
   // });
 
   // // load notes
-  // RegisterENVITaskNotes(registry, helper.logManager);
+  // RegisterENVITaskNotes(registry, server.logManager);
 
   // emit MCP event that tools have changed
-  MCP_SERVER.sendToolListChanged();
+  server.sendToolListChanged();
 }

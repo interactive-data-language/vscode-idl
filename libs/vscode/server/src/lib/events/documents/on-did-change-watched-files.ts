@@ -19,7 +19,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * @param event The event from VSCode
  */
 export const ON_DID_CHANGE_WATCHED_FILES = async (
-  changes: DidChangeWatchedFilesParams
+  changes: DidChangeWatchedFilesParams,
 ) => {
   await SERVER_INITIALIZED;
   try {
@@ -81,7 +81,7 @@ export const ON_DID_CHANGE_WATCHED_FILES = async (
       await IDL_INDEX.indexFiles(
         Array.from(new Set(added.concat(updated))),
         GetFileStringsFromFSPath,
-        new CancellationToken()
+        new CancellationToken(),
       );
     }
 

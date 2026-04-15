@@ -83,6 +83,6 @@ export const RunTestENVINotebook: RunnerFunction = async (init) => {
   await RunNotebookAndCompareCells(
     GetExtensionPath('idl/test/client-e2e/notebooks/envi-test-notebook.idlnb'),
     CELL_OUTPUT,
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 };

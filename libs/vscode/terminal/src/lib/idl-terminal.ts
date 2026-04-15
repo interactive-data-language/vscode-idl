@@ -19,7 +19,7 @@ const TERMINAL_NAME = 'idl';
  */
 export function GetActiveIDLTerminal(): vscode.Terminal[] {
   return vscode.window.terminals.filter(
-    (terminal) => terminal.name.toLowerCase() === TERMINAL_NAME
+    (terminal) => terminal.name.toLowerCase() === TERMINAL_NAME,
   );
 }
 
@@ -65,7 +65,7 @@ export function StartIDLTerminal(): boolean {
  * Sends a command to the current IDL Terminal Window, if it exists
  */
 export async function SendCommandToIDLTerminal(
-  item: IDLAction | IDLCommandAction
+  item: IDLAction | IDLCommandAction,
 ) {
   // get an IDL terminal, use the first
   const terminals = GetActiveIDLTerminal();
@@ -80,14 +80,14 @@ export async function SendCommandToIDLTerminal(
     case item.label === 'Open' && terminals.length > 0:
       terminals[0].show();
       vscode.window.showInformationMessage(
-        IDL_TRANSLATION.terminal.alreadyStarted
+        IDL_TRANSLATION.terminal.alreadyStarted,
       );
       return true;
 
     // no terminals, so alert user and return
     case terminals.length === 0:
       vscode.window.showInformationMessage(
-        IDL_TRANSLATION.terminal.pleaseStart
+        IDL_TRANSLATION.terminal.pleaseStart,
       );
       return false;
 

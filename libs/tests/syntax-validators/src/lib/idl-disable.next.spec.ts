@@ -14,7 +14,7 @@ describe(`[auto generated] Disable problems:`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -25,7 +25,7 @@ describe(`[auto generated] Disable problems:`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -62,7 +62,7 @@ describe(`[auto generated] Disable problems:`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -74,7 +74,7 @@ describe(`[auto generated] Disable problems:`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -85,7 +85,7 @@ describe(`[auto generated] Disable problems:`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -122,7 +122,7 @@ describe(`[auto generated] Disable problems:`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -134,7 +134,7 @@ describe(`[auto generated] Disable problems:`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -145,7 +145,7 @@ describe(`[auto generated] Disable problems:`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -182,7 +182,7 @@ describe(`[auto generated] Disable problems:`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 
@@ -194,7 +194,7 @@ describe(`[auto generated] Disable problems:`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -210,7 +210,7 @@ describe(`[auto generated] Disable problems:`, () => {
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected tokens
@@ -247,7 +247,7 @@ describe(`[auto generated] Disable problems:`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expected);
   });
 });

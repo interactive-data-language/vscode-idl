@@ -11,7 +11,7 @@ import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 export type TokenFormatter<T extends TokenName> = (
   token: TreeToken<T>,
   current: ITreeRecurserCurrent,
-  parsed: IParsed
+  parsed: IParsed,
 ) => void;
 
 /**

@@ -1,0 +1,24 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chat-landing {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+// Material sidenav container fills remaining space
+.chat-container {
+  flex: 1;
+  min-height: 0;
+}
+
+// Custom width for the sidenav (Material default is 400px)
+.chat-sidenav {
+  width: 280px;
+}

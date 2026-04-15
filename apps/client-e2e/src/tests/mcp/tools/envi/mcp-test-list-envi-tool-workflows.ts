@@ -11,7 +11,7 @@ export const RunMCPTestListENVIToolWorkflows: RunnerFunction = async (init) => {
   // Call a tool
   const result = await CallMCPTool(
     MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
-    {}
+    {},
   );
 
   // make sure the tool runs

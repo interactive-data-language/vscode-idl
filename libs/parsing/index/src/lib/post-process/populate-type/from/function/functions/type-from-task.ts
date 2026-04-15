@@ -16,7 +16,7 @@ export function TypeFromTask(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<CallFunctionToken>,
-  type: 'ENVI' | 'IDL' = 'ENVI'
+  type: 'ENVI' | 'IDL' = 'ENVI',
 ): string {
   /**
    * Get the kids from our function call

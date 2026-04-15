@@ -15,7 +15,7 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -34,7 +34,7 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // format code
@@ -57,7 +57,7 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
 
     // verify formatting
     expect(formatted !== undefined ? formatted.split(`\n`) : formatted).toEqual(
-      expectedFormatting
+      expectedFormatting,
     );
 
     // define expected problems
@@ -115,7 +115,7 @@ describe(`[auto generated] Verify tokens after main get removed on formatting`, 
 
     // verify problems
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 });

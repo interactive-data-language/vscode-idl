@@ -15,12 +15,12 @@ describe(`[auto generated] Keywords for call function`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/call_function.pro'
+      'idl/test/auto-complete/call_function.pro',
     );
 
     // add file to index
@@ -210,9 +210,9 @@ describe(`[auto generated] Keywords for call function`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

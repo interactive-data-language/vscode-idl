@@ -75,7 +75,7 @@ export class LogManager implements ILogManagerOptions {
       this.logs[name].destroy();
     }
     this.logs[name] = new Logger(name, this.debug, (options) =>
-      this.alert(options)
+      this.alert(options),
     );
   }
 

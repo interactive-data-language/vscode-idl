@@ -11,7 +11,7 @@ import { TreeToken } from '@idl/types/syntax-tree';
  * two cases.
  */
 export function GetKeywordDisplayName(
-  token: TreeToken<KeywordBinaryToken | KeywordDefinitionToken | KeywordToken>
+  token: TreeToken<KeywordBinaryToken | KeywordDefinitionToken | KeywordToken>,
 ) {
   return token.name === TOKEN_NAMES.KEYWORD_BINARY
     ? token.match[1]

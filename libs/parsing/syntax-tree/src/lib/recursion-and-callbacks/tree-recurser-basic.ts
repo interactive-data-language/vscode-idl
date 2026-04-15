@@ -18,7 +18,7 @@ import {
  */
 function _Recurser(
   tree: SyntaxTree,
-  current: ITreeRecurserBasicRecursionOptions
+  current: ITreeRecurserBasicRecursionOptions,
 ): void {
   // process every token
   for (let i = 0; i < tree.length; i++) {
@@ -30,7 +30,7 @@ function _Recurser(
       // handle branch token
       current.exit = current.onBranchToken(
         tree[i] as TreeBranchToken,
-        current.cancel
+        current.cancel,
       );
 
       // check for exit
@@ -50,7 +50,7 @@ function _Recurser(
       // handle branch token
       current.exit = current.onBasicToken(
         tree[i] as TreeBasicToken,
-        current.cancel
+        current.cancel,
       );
     }
 
@@ -71,11 +71,11 @@ function _Recurser(
 export function TreeRecurserBasic(
   tree: SyntaxTree,
   cancel: CancellationToken,
-  options: Partial<ITreeRecurserBasicOptions>
+  options: Partial<ITreeRecurserBasicOptions>,
 ) {
   // recurse through the tree
   _Recurser(
     tree,
-    Object.assign(copy(BASE_TREE_RECURSER_BASIC_OPTIONS), options, { cancel })
+    Object.assign(copy(BASE_TREE_RECURSER_BASIC_OPTIONS), options, { cancel }),
   );
 }

@@ -13,7 +13,7 @@ import { TaskFunctionName } from '../../../helpers/task-function-name';
  */
 export function CreateTaskSyntax(
   struct: IGlobalIndexedToken<GlobalStructureToken>,
-  varName = 'myTask'
+  varName = 'myTask',
 ): string {
   // initialize the call for syntax
   const syntax: string[] = [];

@@ -16,7 +16,7 @@ function updateMcpTools() {
     buildConfig = JSON.parse(buildJsonContent);
   } catch (error) {
     throw new Error(
-      `Failed to read or parse build.json at ${buildJsonPath}: ${error.message}`
+      `Failed to read or parse build.json at ${buildJsonPath}: ${error.message}`,
     );
   }
 
@@ -53,7 +53,7 @@ function updateMcpTools() {
       cwd: buildConfig['idl-dir'],
       shell: true,
       stdio: 'inherit',
-    }
+    },
   );
 
   // Step 4: Throw an error if there were problems
@@ -63,7 +63,7 @@ function updateMcpTools() {
 
   if (result.status !== 0) {
     throw new Error(
-      `IDL executable exited with non-zero status code: ${result.status}`
+      `IDL executable exited with non-zero status code: ${result.status}`,
     );
   }
 

@@ -117,7 +117,7 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
         // existing array, so concat
         if (Array.isArray(type[i].value)) {
           found[type[i].name].value = found[type[i].name].value.concat(
-            ...type[i].value
+            ...type[i].value,
           );
         } else {
           // if only one has a value, then remove tracked values

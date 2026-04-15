@@ -41,7 +41,7 @@ export const CleanOutput: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -56,9 +56,9 @@ export const CleanOutput: RunnerFunction = async (init) => {
   const res = CleanIDLOutput(
     await init.debug.adapter.evaluate(
       `print, '${STATEMENTS.join(`' & print, '`)}'`,
-      { echo: true }
+      { echo: true },
     ),
-    true
+    true,
   );
 
   // verify we get the right output
@@ -70,10 +70,10 @@ export const CleanOutput: RunnerFunction = async (init) => {
   const res2 = CleanIDLOutput(
     await init.debug.adapter.evaluate(
       `print, '${STATEMENTS.join(`' & print, '`)}'`,
-      { echo: true }
+      { echo: true },
     ),
     true,
-    true
+    true,
   );
 
   // verify we get the right output

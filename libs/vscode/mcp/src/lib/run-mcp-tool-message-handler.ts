@@ -27,7 +27,7 @@ import { RunMCPTool_ReturnNotes } from './tools/run-mcp-tool-return-notes';
 export const RUN_MCP_TOOL_LOOKUP: {
   [key in MCPTools_VSCode]: (
     id: string,
-    params: MCPToolParams<key>
+    params: MCPToolParams<key>,
   ) => MCPToolResponse<key> | Promise<MCPToolResponse<key>>;
 } = {
   'create-idl-notebook': RunMCPTool_CreateIDLNotebook,
@@ -45,17 +45,8 @@ export const RUN_MCP_TOOL_LOOKUP: {
  * Handle messages
  */
 export async function RunMCPToolMessageHandler(
-  payload: MCP_LSP_MessagePayload<MCPTools_VSCode>
+  payload: MCP_LSP_MessagePayload<MCPTools_VSCode>,
 ): Promise<MCP_LSP_MessageResponse<MCPTools_VSCode>> {
-  IDL_LOGGER.log({
-    type: 'info',
-    log: IDL_MCP_LOG,
-    content: [
-      `Run MCP tool: "${payload.tool}" with ID "${payload.id}"`,
-      payload.params,
-    ],
-  });
-
   // make sure we know how to run the tool
   if (payload.tool in RUN_MCP_TOOL_LOOKUP) {
     // try to run
@@ -63,7 +54,7 @@ export async function RunMCPToolMessageHandler(
       // use any to override specific types
       const res = await RUN_MCP_TOOL_LOOKUP[payload.tool](
         payload.id,
-        payload.params as any
+        payload.params as any,
       );
 
       IDL_LOGGER.log({

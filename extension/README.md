@@ -13,7 +13,6 @@ Contains extension-specific files that are not typescript.
 - **images**: Contains SVG images used for the extension with a light and dark mode version of each icon.
 
 - **language**: Is where we configure VS Code to work with the IDL language. See below for more details.
-
   - **schemas**: JSON schemas that we consume in the extension. Primarily for ENVI and IDL task files, but easy to grow to other ENVI + IDL file formats.
 
   - **snippets**: Is where we have the auto-complete code for things like for loops and if statements

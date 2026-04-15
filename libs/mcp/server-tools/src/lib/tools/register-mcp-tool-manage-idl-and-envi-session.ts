@@ -1,16 +1,16 @@
+import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
 import { IS_ENVI_INSTALLED } from '../..';
-import { MCPToolHelper } from '../mcp-tool-helper.class';
 import { ENVI_INSTALL_MESSAGE } from './envi/envi-install-message.interface';
 
 /**
  * Registers a tool that allows LLMs to manage ENVI and IDL sessions
  */
-export function RegisterMCPTool_ManageIDLAndENVISession(helper: MCPToolHelper) {
-  helper.registerTool(
+export function RegisterMCPTool_ManageIDLAndENVISession(server: MCPServer) {
+  server.registerTool(
     MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
     {
       title:
@@ -31,7 +31,7 @@ export function RegisterMCPTool_ManageIDLAndENVISession(helper: MCPToolHelper) {
             'stop',
           ])
           .describe(
-            'Action to take on the session. The "headless" ENVI actions do not launch the UI, only use these when instructed by the user.'
+            'Action to take on the session. The "headless" ENVI actions do not launch the UI, only use these when instructed by the user.',
           ),
       },
     },
@@ -55,12 +55,12 @@ export function RegisterMCPTool_ManageIDLAndENVISession(helper: MCPToolHelper) {
         };
       }
 
-      const resp = await helper.sendRequestToVSCode(
+      const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
         {
           action,
-        }
+        },
       );
 
       return {
@@ -72,6 +72,6 @@ export function RegisterMCPTool_ManageIDLAndENVISession(helper: MCPToolHelper) {
           },
         ],
       };
-    }
+    },
   );
 }

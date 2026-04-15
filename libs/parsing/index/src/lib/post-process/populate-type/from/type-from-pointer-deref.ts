@@ -19,7 +19,7 @@ import { TypeFromTokens } from './type-from-tokens';
 export function TypeFromPointerDeref(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<OperatorPointerToken>
+  token: TreeToken<OperatorPointerToken>,
 ): IDLDataType {
   // if no children return
   if (token.kids.length === 0) {
@@ -59,8 +59,8 @@ export function TypeFromPointerDeref(
           ? IDL_PROBLEM_CODES.POINTER_DE_REF_ILLEGAL_TYPE
           : IDL_PROBLEM_CODES.POINTER_DE_REF_AMBIGUITY,
         token.pos,
-        token.end !== undefined ? token.end.pos : token.pos
-      )
+        token.end !== undefined ? token.end.pos : token.pos,
+      ),
     );
 
     return copy(IDL_ANY_TYPE);

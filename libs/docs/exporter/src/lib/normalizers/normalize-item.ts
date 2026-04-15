@@ -27,7 +27,7 @@ export async function NormalizeItem(item: GlobalIndexedToken) {
       // fix display name
       typed.meta.display = TransformCase(
         typed.meta.display,
-        CURRENT_CONFIG.style.routines
+        CURRENT_CONFIG.style.routines,
       );
 
       // update parameters
@@ -42,7 +42,7 @@ export async function NormalizeItem(item: GlobalIndexedToken) {
       const split = typed.meta.display.split('::');
       typed.meta.display = `${TransformCase(
         split[0],
-        CURRENT_CONFIG.style.structureNames
+        CURRENT_CONFIG.style.structureNames,
       )}::${TransformCase(split[1], CURRENT_CONFIG.style.routineMethods)}`;
 
       // update parameters
@@ -56,7 +56,7 @@ export async function NormalizeItem(item: GlobalIndexedToken) {
       // fix display name
       typed.meta.display = TransformCase(
         typed.meta.display,
-        CURRENT_CONFIG.style.routines
+        CURRENT_CONFIG.style.routines,
       );
 
       // update parameters
@@ -71,7 +71,7 @@ export async function NormalizeItem(item: GlobalIndexedToken) {
       const split = typed.meta.display.split('::');
       typed.meta.display = `${TransformCase(
         split[0],
-        CURRENT_CONFIG.style.structureNames
+        CURRENT_CONFIG.style.structureNames,
       )}::${TransformCase(split[1], CURRENT_CONFIG.style.routineMethods)}`;
 
       // update parameters
@@ -86,7 +86,7 @@ export async function NormalizeItem(item: GlobalIndexedToken) {
       if (!TASK_REGEX.test(item.name)) {
         typed.meta.display = TransformCase(
           typed.meta.display,
-          CURRENT_CONFIG.style.structureNames
+          CURRENT_CONFIG.style.structureNames,
         );
       }
 

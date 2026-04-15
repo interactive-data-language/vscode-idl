@@ -22,7 +22,7 @@ export const BASE_ACTIVATION_EVENTS: string[] = [
  */
 export function ProcessActivationEvents(
   packageJSON: IPackageJSON,
-  nls: IPackageNLS
+  nls: IPackageNLS,
 ) {
   packageJSON['activationEvents'] = BASE_ACTIVATION_EVENTS;
 }

@@ -67,7 +67,7 @@ export class WorkerIOPool<_Message extends string>
   postAndReceiveMessage<T extends _Message>(
     type: T,
     payload: PayloadToWorkerBaseMessage<T>,
-    options?: IPostMessageOptions
+    options?: IPostMessageOptions,
   ): IPostAndReceiveMessageResult<T> {
     // get the next ID and shift our array
     let next = this.ids.shift() as string;
@@ -83,7 +83,7 @@ export class WorkerIOPool<_Message extends string>
       next,
       type,
       payload,
-      options?.timeout
+      options?.timeout,
     );
   }
 
@@ -92,7 +92,7 @@ export class WorkerIOPool<_Message extends string>
    */
   postToAll<T extends _Message>(
     type: T,
-    payload: PayloadToWorkerBaseMessage<T>
+    payload: PayloadToWorkerBaseMessage<T>,
   ): void {
     // make the message we are sending to errybody
     const msg: IMessageToWorker<T> = {
@@ -104,7 +104,7 @@ export class WorkerIOPool<_Message extends string>
 
     // prepare payload so we only have to do this once
     const prepared = this.workerio.prepareMessage(
-      Object.assign(msg, { _id: nanoid() })
+      Object.assign(msg, { _id: nanoid() }),
     );
 
     for (let i = 0; i < this.ids.length; i++) {

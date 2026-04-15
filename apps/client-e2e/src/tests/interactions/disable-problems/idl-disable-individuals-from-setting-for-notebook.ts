@@ -18,7 +18,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
   async () => {
     // open notebook
     const nb = await OpenNotebookInVSCode(
-      GetExtensionPath('idl/test/client-e2e/problems/code-actions.idlnb')
+      GetExtensionPath('idl/test/client-e2e/problems/code-actions.idlnb'),
     );
 
     // short pause to make sure we open and parse
@@ -32,8 +32,8 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     // verify problems
     expect(
       cells.map(
-        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-      )
+        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+      ),
     ).toEqual([1]);
 
     // create payload
@@ -45,7 +45,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     // run command
     const ok = await vscode.commands.executeCommand(
       IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
-      toDisable
+      toDisable,
     );
 
     // short pause
@@ -57,14 +57,14 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     // verify problems
     expect(
       cells.map(
-        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-      )
+        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+      ),
     ).toEqual([0]);
 
     // run command again - should return "false" because we didnt add because it exists already
     const ok2 = await vscode.commands.executeCommand(
       IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
-      toDisable
+      toDisable,
     );
 
     // make sure it ran fine
@@ -77,7 +77,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     await config.update(
       IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems,
       [],
-      true
+      true,
     );
 
     // short pause to make sure we have updates
@@ -86,7 +86,7 @@ export const IDLDisableIndividualsFromSettingsForNotebook: RunnerFunction =
     // verify problems
     expect(
       cells.map(
-        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-      )
+        (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+      ),
     ).toEqual([1]);
   };

@@ -13,7 +13,7 @@ import { CREATED_CLIENT, MCP_CLIENT } from './create-mcp-client';
  */
 export async function CallMCPTool<T extends MCPTools>(
   tool: T,
-  params: MCPToolParams<T>
+  params: MCPToolParams<T>,
 ) {
   // make sure we have connected
   if (!CREATED_CLIENT) {

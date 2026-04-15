@@ -14,7 +14,7 @@ import { basename } from 'path';
  * 5. Example code for running the procedure (for debugging)
  */
 export function GenerateENVITaskMainLevelProgram(
-  result: GenerateTaskResult<true>
+  result: GenerateTaskResult<true>,
 ): string {
   /** In code, variable for task name */
   const taskVarName = 'myTask';

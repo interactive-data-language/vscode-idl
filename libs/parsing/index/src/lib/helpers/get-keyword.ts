@@ -21,7 +21,7 @@ import { ITokenCache } from './token-cache.interface';
 export function FindKeyword(
   name: string,
   keywords: IParameterLookup,
-  strict = false
+  strict = false,
 ): IParameterOrPropertyDetails | undefined {
   if (name in keywords) {
     return keywords[name].code ? keywords[name] : undefined;
@@ -56,7 +56,7 @@ export function GetKeyword(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<KeywordBinaryToken | KeywordDefinitionToken | KeywordToken>,
-  useCache = true
+  useCache = true,
 ): IFoundParameter | undefined {
   if ('keyword' in (token.cache as ITokenCache) && useCache) {
     return (token.cache as ITokenCache).keyword;

@@ -18,7 +18,7 @@ const PROCEDURES = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.PROCEDURE];
  * Makes completion items for procedures
  */
 export function BuildProcedureCompletionItems(
-  arg: BuildCompletionItemsArg<ProcedureCompletion>
+  arg: BuildCompletionItemsArg<ProcedureCompletion>,
 ) {
   // add user procedures first
   const displayNames = Object.values(PROCEDURES);

@@ -8,7 +8,7 @@ import { CodeAction, CodeActionKind } from 'vscode-languageserver';
  */
 export function AddDisableProblemWithSettingsAction(
   diag: IDLDiagnostic,
-  actions: CodeAction[]
+  actions: CodeAction[],
 ) {
   /**
    * Disable problem at user level
@@ -20,7 +20,7 @@ export function AddDisableProblemWithSettingsAction(
   actions.push({
     title: IDL_TRANSLATION.lsp.codeActions.disableUser.replace(
       'PROBLEM',
-      diag.data.alias
+      diag.data.alias,
     ),
     command: {
       command: IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
@@ -40,7 +40,7 @@ export function AddDisableProblemWithSettingsAction(
   actions.push({
     title: IDL_TRANSLATION.lsp.codeActions.disableWorkspace.replace(
       'PROBLEM',
-      diag.data.alias
+      diag.data.alias,
     ),
     command: {
       command: IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,

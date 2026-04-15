@@ -21,7 +21,7 @@ import {
 
 /** Buffer for the WASM binary file for onigurama */
 const WASM_BIN_BUFFER = readFileSync(
-  GetExtensionPath('node_modules/vscode-oniguruma/release/onig.wasm')
+  GetExtensionPath('node_modules/vscode-oniguruma/release/onig.wasm'),
 ).buffer;
 
 // Create a registry that can create a grammar from a scope name.
@@ -42,8 +42,8 @@ const registry = new Registry({
         GetExtensionPath('extension/language/syntaxes/idl.tmLanguage'),
         {
           encoding: 'utf-8',
-        }
-      )
+        },
+      ),
     );
   },
 });
@@ -55,7 +55,7 @@ const IDL_GRAMMAR = registry.loadGrammar('source.idl');
  * Parse code using the IDL TextMate grammar
  */
 export async function TextMateParse(
-  inCode: string | string[]
+  inCode: string | string[],
 ): Promise<IHelpfulTextMateToken[]> {
   // split
   const code = Array.isArray(inCode) ? inCode : inCode.split('\n');

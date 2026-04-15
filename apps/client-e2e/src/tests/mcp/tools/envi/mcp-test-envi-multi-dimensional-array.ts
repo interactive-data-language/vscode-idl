@@ -17,7 +17,7 @@ import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
  * were failing before
  */
 export const RunMCPTestENVIMultiDimensionalArray: RunnerFunction = async (
-  init
+  init,
 ) => {
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
     toolName: 'SpectralAngleMapperClassification',

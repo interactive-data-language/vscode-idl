@@ -6,7 +6,7 @@ import { GLOBAL_TOKEN_TYPES, GlobalTokens } from '@idl/types/idl-data-types';
  * into our index for use like any other routine
  */
 export function GlobalToDisplayNames(
-  global: GlobalTokens
+  global: GlobalTokens,
 ): GlobalDisplayNameLookup {
   // store display names by routine type
   const lookup: GlobalDisplayNameLookup = {};
@@ -29,7 +29,7 @@ export function GlobalToDisplayNames(
  * Converts our pre-parsed IDL routines to display names
  */
 export function GlobalFromIDLToDisplayNames(
-  global: IGlobalFromIDL[]
+  global: IGlobalFromIDL[],
 ): GlobalDisplayNameLookup {
   // store display names by routine type
   const lookup: GlobalDisplayNameLookup = {};

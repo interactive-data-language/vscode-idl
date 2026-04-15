@@ -142,7 +142,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -282,7 +282,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -400,7 +400,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 
@@ -518,7 +518,7 @@ describe(`[auto generated] Correctly identify variables instead of function call
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 });

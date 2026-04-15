@@ -24,6 +24,6 @@ for (let i = 0; i < KEYWORDS.length; i++) {
     KEYWORDS[i],
     (token, parsed, current, meta) => {
       token.match[0] = FormatKeyword(token.match[0], meta.style.keywords);
-    }
+    },
   );
 }

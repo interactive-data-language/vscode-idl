@@ -26,7 +26,7 @@ const END_CODE = /^\s*```/i;
  */
 export async function ConvertDocsToNotebook(
   info: IRetrieveDocsPayload,
-  docs: string
+  docs: string,
 ) {
   /** Notebook cells */
   const cells: IDLRawNotebookCell<IDLRawNotebookVersion_2_0_0>[] = [];

@@ -17,7 +17,9 @@ import { RunnerFunction } from '../../runner.interface';
 export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   // open file
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems/idl_disable_all_setting.pro')
+    GetExtensionPath(
+      'idl/test/client-e2e/problems/idl_disable_all_setting.pro',
+    ),
   );
 
   // short pause to make sure we open and parse
@@ -35,7 +37,7 @@ export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   // run command
   const ok = await vscode.commands.executeCommand(
     IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
-    toDisable
+    toDisable,
   );
 
   // short pause
@@ -50,7 +52,7 @@ export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   // run command again - should return "false" because we didnt add because it exists already
   const ok2 = await vscode.commands.executeCommand(
     IDL_COMMANDS.CODE.DISABLE_PROBLEM_SETTING,
-    toDisable
+    toDisable,
   );
 
   // make sure it ran fine
@@ -63,7 +65,7 @@ export const IDLDisableIndividualsFromSettings: RunnerFunction = async () => {
   await config.update(
     IDL_EXTENSION_CONFIG_KEYS.problemsIgnoreProblems,
     [],
-    true
+    true,
   );
 
   // short pause to make sure we have updates

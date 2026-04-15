@@ -11,7 +11,7 @@ import { RunNotebookAndCheckCallStackDecorations } from './helpers/run-notebook-
 export const NotebookCallStackDecorationsOnExecutionHalted1: RunnerFunction =
   async (init) => {
     const nbFile = GetExtensionPath(
-      'idl/test/client-e2e/notebooks/decorations/on-execution-halted.1.idlnb'
+      'idl/test/client-e2e/notebooks/decorations/on-execution-halted.1.idlnb',
     );
 
     // open our notebook
@@ -25,6 +25,6 @@ export const NotebookCallStackDecorationsOnExecutionHalted1: RunnerFunction =
       nbFile,
       stack,
       init.notebooks.controller,
-      init.decorations
+      init.decorations,
     );
   };

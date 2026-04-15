@@ -27,9 +27,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
           token.pos,
           (last as TreeBranchToken).end !== undefined
             ? (last as TreeBranchToken).end.pos
-            : last.pos
-        )
+            : last.pos,
+        ),
       );
     }
-  }
+  },
 );

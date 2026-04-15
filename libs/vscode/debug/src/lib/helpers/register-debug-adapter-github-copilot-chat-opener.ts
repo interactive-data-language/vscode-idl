@@ -7,7 +7,7 @@ import { IDLDebugAdapter } from '../idl-debug-adapter.class';
  * Handles notifications to open copilot chat
  */
 export function RegisterDebugAdapterGithubCopilotChatOpener(
-  adapter: IDLDebugAdapter
+  adapter: IDLDebugAdapter,
 ) {
   // plug in progress messages
   if (adapter._runtime.isIDLMachine()) {
@@ -18,7 +18,7 @@ export function RegisterDebugAdapterGithubCopilotChatOpener(
 
         // emit that we have finished
         return 1;
-      }
+      },
     );
   }
 }

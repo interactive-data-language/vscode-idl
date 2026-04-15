@@ -15,12 +15,12 @@ describe(`[auto generated] track that global problems should not be reported`, (
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath_0 = GetExtensionPath(
-      'idl/test/global-problems/disabled/file1_all.pro'
+      'idl/test/global-problems/disabled/file1_all.pro',
     );
 
     // add file to index
@@ -33,13 +33,13 @@ describe(`[auto generated] track that global problems should not be reported`, (
     expect(problems_0).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-problems/disabled'
-      )
+        'idl/test/global-problems/disabled',
+      ),
     );
 
     // specify filepath
     const filepath_1 = GetExtensionPath(
-      'idl/test/global-problems/disabled/file2_all.pro'
+      'idl/test/global-problems/disabled/file2_all.pro',
     );
 
     // add file to index
@@ -137,8 +137,8 @@ describe(`[auto generated] track that global problems should not be reported`, (
     expect(problems_1).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-problems/disabled'
-      )
+        'idl/test/global-problems/disabled',
+      ),
     );
   });
 });

@@ -21,7 +21,7 @@ import { TypeFromTernary } from './type-from-ternary';
 export function TypeFromMultipleTokens(
   index: IDLIndex,
   parsed: IParsed,
-  children: SyntaxTree
+  children: SyntaxTree,
 ): IDLDataType {
   // check for ternary operators
   for (let i = 0; i < children.length; i++) {
@@ -35,7 +35,7 @@ export function TypeFromMultipleTokens(
         const type = TypeFromMultipleTokens(
           index,
           parsed,
-          (children[i] as TreeToken<AssignmentToken>).kids
+          (children[i] as TreeToken<AssignmentToken>).kids,
         );
 
         // check if we have a variable before
@@ -66,7 +66,7 @@ export function TypeFromMultipleTokens(
         (children[i].cache as ITokenCache).type = TypeFromTernary(
           index,
           parsed,
-          children[i] as TreeToken<LogicalTernaryThenToken>
+          children[i] as TreeToken<LogicalTernaryThenToken>,
         );
         return (children[i].cache as ITokenCache).type;
       default:
@@ -77,6 +77,6 @@ export function TypeFromMultipleTokens(
   return TypeFromOperators(
     index,
     parsed,
-    SplitTreeOnOperators(children, new CancellationToken())
+    SplitTreeOnOperators(children, new CancellationToken()),
   );
 }

@@ -23,7 +23,7 @@ const FUNCTIONS = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.FUNCTION];
  * Generates options for creating compile opts
  */
 export function GetFunctionCompletionOptions(
-  addParen: boolean
+  addParen: boolean,
 ): IFunctionCompletionOptions {
   return {
     addParen,
@@ -34,7 +34,7 @@ export function GetFunctionCompletionOptions(
  * Adds variables to our completion items
  */
 export function BuildFunctionCompletionItems(
-  arg: BuildCompletionItemsArg<FunctionCompletion>
+  arg: BuildCompletionItemsArg<FunctionCompletion>,
 ) {
   /** If we add parentheses or not */
   const add = arg.options.addParen ? '()' : '';
@@ -67,7 +67,7 @@ export function BuildFunctionCompletionItems(
     } else {
       const display = TransformCase(
         displayNames[i],
-        arg.formatting.style.routines
+        arg.formatting.style.routines,
       );
       arg.complete.push({
         label: `${display}()`,

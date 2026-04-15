@@ -12,7 +12,7 @@ import { GetSplit } from './get-split';
 export function GetArgTypes(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeBranchToken
+  token: TreeBranchToken,
 ): IDLDataType[] {
   if ('argTypes' in (token.cache as ITokenCache)) {
     return (token.cache as ITokenCache).argTypes;

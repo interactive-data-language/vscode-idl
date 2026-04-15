@@ -16,12 +16,12 @@ describe(`[auto generated] Extracts outline`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/testroutine.pro.def'
+      'idl/test/hover-help/testroutine.pro.def',
     );
 
     // add file to index
@@ -48,8 +48,8 @@ describe(`[auto generated] Extracts outline`, () => {
       await index.getOutline(
         filepath,
         await readFile(filepath, 'utf-8'),
-        new CancellationToken()
-      )
+        new CancellationToken(),
+      ),
     );
   });
 });

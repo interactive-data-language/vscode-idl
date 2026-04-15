@@ -15,7 +15,7 @@ import { UpdateThese } from './set-keywords-as-properties.interface';
 export function GetMatch<T extends GlobalTokenType>(
   global: GlobalTokens,
   name: string,
-  type: T
+  type: T,
 ) {
   const matches: IGlobalIndexedToken<T>[] = [];
   for (let i = 0; i < global.length; i++) {
@@ -31,7 +31,7 @@ export function GetMatch<T extends GlobalTokenType>(
 function UpdateThings(
   global: GlobalTokens,
   className: string,
-  updateThese: UpdateThese
+  updateThese: UpdateThese,
 ) {
   // find matching global token
   const matches = GetMatch(global, className, GLOBAL_TOKEN_TYPES.STRUCTURE);
@@ -49,7 +49,7 @@ function UpdateThings(
     const updateMatches = GetMatch(
       global,
       updateThese[j][0],
-      updateThese[j][1]
+      updateThese[j][1],
     );
 
     // update each item we find
@@ -57,7 +57,7 @@ function UpdateThings(
       Object.assign(
         updateMatches[z].meta.kws,
         match.meta.props,
-        updateMatches[z].meta.kws
+        updateMatches[z].meta.kws,
       );
     }
   }
@@ -88,7 +88,7 @@ export function SetKeywordsFromProperties(global: GlobalTokens) {
 
   // update all graphics routines
   const structures = global.filter(
-    (item) => item.type === GLOBAL_TOKEN_TYPES.STRUCTURE
+    (item) => item.type === GLOBAL_TOKEN_TYPES.STRUCTURE,
   ) as IGlobalIndexedToken<GlobalStructureToken>[];
 
   // process each structure

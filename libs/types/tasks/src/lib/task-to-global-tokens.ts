@@ -28,7 +28,7 @@ export function TaskToGlobalToken(task: ParsedTask): IGlobalsToTrack {
   switch (true) {
     case (task as ENVITaskLegacy<ENVITaskLegacyVersion>)?.version !== undefined:
       res = LegacyENVITaskToGlobal(
-        task as ENVITaskLegacy<ENVITaskLegacyVersion>
+        task as ENVITaskLegacy<ENVITaskLegacyVersion>,
       );
       break;
     case ((task as ENVITask<ENVITaskSchemaVersion>)?.schema || '')
@@ -42,7 +42,9 @@ export function TaskToGlobalToken(task: ParsedTask): IGlobalsToTrack {
       res = IDLTaskToGlobal(task as IDLTask<IDLTaskSchemaVersion>);
       break;
     default:
-      break;
+      throw new Error(
+        'Unknown task schema (not detected as IDL, ENVI, or Legacy ENVI Task',
+      );
   }
 
   /**

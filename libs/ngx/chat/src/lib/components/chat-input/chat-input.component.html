@@ -1,0 +1,28 @@
+<div class="chat-input-container">
+  <div class="selectors-row">
+    <ngx-chat-prompt-selector />
+    <ngx-chat-model-selector />
+  </div>
+  <mat-form-field appearance="outline" class="input-field">
+    <!-- <mat-label>Type a message...</mat-label> -->
+    <textarea
+      matInput
+      [(ngModel)]="inputText"
+      (keypress)="onKeyPress($event)"
+      placeholder="Type your message here (Enter to send, Shift+Enter for new line)"
+      rows="3"
+      [disabled]="isDisabled()"
+    ></textarea>
+
+    <!-- <button
+      mat-mini-fab
+      color="primary"
+      class="send-button"
+      (click)="sendMessage()"
+      [disabled]="!inputText().trim() || !sessionId()"
+      aria-label="Send message"
+    >
+      <mat-icon>send</mat-icon>
+    </button> -->
+  </mat-form-field>
+</div>

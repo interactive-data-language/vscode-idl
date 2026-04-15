@@ -8,7 +8,7 @@ import { join } from 'path';
 export function RunTaskEngine(
   taskName: string,
   parameters: { [key: string]: any },
-  binDir: string
+  binDir: string,
 ): Promise<{ [key: string]: any }> {
   return new Promise((resolve, reject) => {
     try {
@@ -24,7 +24,7 @@ export function RunTaskEngine(
        */
       const engineUri = join(
         binDir,
-        os.platform() === 'win32' ? 'taskengine.exe' : 'taskengine'
+        os.platform() === 'win32' ? 'taskengine.exe' : 'taskengine',
       );
 
       // Extend the process environment with the config options.

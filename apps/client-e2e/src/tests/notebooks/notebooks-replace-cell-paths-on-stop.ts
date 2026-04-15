@@ -27,11 +27,11 @@ export const CELL_OUTPUT: ICompareCellOutputs[] = [
  */
 export const NotebooksReplaceCellPathsOnStop: RunnerFunction = async (init) => {
   const nbUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/replace-paths/on-stop.idlnb'
+    'idl/test/client-e2e/notebooks/replace-paths/on-stop.idlnb',
   );
 
   const expectedUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/replace-paths/on-stop-results.idlnb'
+    'idl/test/client-e2e/notebooks/replace-paths/on-stop-results.idlnb',
   );
 
   // open notebook

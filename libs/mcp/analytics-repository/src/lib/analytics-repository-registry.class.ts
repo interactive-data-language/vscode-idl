@@ -79,13 +79,13 @@ export class AnalyticsRepositoryRegistry {
    * Returns all pages
    */
   async searchRepositories(
-    filter: IAnalyticsRepository_SearchFilter = {}
+    filter: IAnalyticsRepository_SearchFilter = {},
   ): Promise<IAnalyticRepository_ServerPackage[]> {
     return (
       await Promise.all(
         this.servers.map((server) =>
-          this.searchServerRepositories(server, filter)
-        )
+          this.searchServerRepositories(server, filter),
+        ),
       )
     ).flat();
   }
@@ -95,7 +95,7 @@ export class AnalyticsRepositoryRegistry {
    */
   private async searchServerRepositories(
     server: IAnalyticsRepository_ServerInfo,
-    filter: IAnalyticsRepository_SearchFilter
+    filter: IAnalyticsRepository_SearchFilter,
   ): Promise<IAnalyticRepository_ServerPackage[]> {
     /** Clean URL */
     const baseUrl = server.url.replace(/\/$/, '');

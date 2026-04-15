@@ -110,13 +110,13 @@ export async function getPorts(options?: any) {
       for (const element of excludeIterable) {
         if (typeof element !== 'number') {
           throw new TypeError(
-            'Each item in the `exclude` option must be a number corresponding to the port you want excluded.'
+            'Each item in the `exclude` option must be a number corresponding to the port you want excluded.',
           );
         }
 
         if (!Number.isSafeInteger(element)) {
           throw new TypeError(
-            `Number ${element} in the exclude option is not a safe integer and can't be used`
+            `Number ${element} in the exclude option is not a safe integer and can't be used`,
           );
         }
       }

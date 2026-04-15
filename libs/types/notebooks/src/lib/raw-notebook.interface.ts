@@ -83,19 +83,19 @@ export type IDLRawNotebookCell<T extends IDLRawNotebookVersion> =
   T extends IDLRawNotebookVersion_2_0_0
     ? RawNotebookCell_2_0_0
     : T extends IDLRawNotebookVersion_1_0_0
-    ? RawNotebookCell_1_0_0
-    : any;
+      ? RawNotebookCell_1_0_0
+      : any;
 
 /**
  * Format for the content of notebook cell outputs
  */
 export type IDLRawNotebookCellOutputItemContent<
-  T extends IDLRawNotebookVersion
+  T extends IDLRawNotebookVersion,
 > = T extends IDLRawNotebookVersion_2_0_0
   ? RawNotebookCellOutputItem_2_0_0
   : T extends IDLRawNotebookVersion_1_0_0
-  ? RawNotebookCellOutputItem_1_0_0
-  : any;
+    ? RawNotebookCellOutputItem_1_0_0
+    : any;
 
 /**
  * Format for individual notebook cell output items
@@ -104,8 +104,8 @@ export type IDLRawNotebookCellOutputItem<T extends IDLRawNotebookVersion> =
   T extends IDLRawNotebookVersion_2_0_0
     ? RawNotebookCellOutputItem_2_0_0
     : T extends IDLRawNotebookVersion_1_0_0
-    ? RawNotebookCellOutputItem_1_0_0
-    : any;
+      ? RawNotebookCellOutputItem_1_0_0
+      : any;
 
 /**
  * Format for the raw notebook cell output
@@ -114,8 +114,8 @@ export type IDLRawNotebookCellOutput<T extends IDLRawNotebookVersion> =
   T extends IDLRawNotebookVersion_2_0_0
     ? RawNotebookCellOutput_2_0_0
     : T extends IDLRawNotebookVersion_1_0_0
-    ? RawNotebookCellOutput_1_0_0
-    : any;
+      ? RawNotebookCellOutput_1_0_0
+      : any;
 
 /**
  * Data structure for IDL notebooks (using VSCode example)

@@ -112,7 +112,7 @@ export interface IDLNotebookPlot_Properties extends ChartOptions {
  * Data for a notebook plot
  */
 export interface IDLNotebookPlotData<
-  T extends IDLNotebookPlot_EmbeddedItemType
+  T extends IDLNotebookPlot_EmbeddedItemType,
 > {
   /** Data that we are embedding */
   data: IDLNotebookEmbeddedItem<T>[];
@@ -138,11 +138,11 @@ export type IDLNotebookPlot_EmbedTypeData<T extends IDLNotebookPlot_EmbedType> =
   T extends IDLNotebookPlot
     ? IDLNotebookPlotData<IDLNotebookPlot_EmbeddedItemType>
     : T extends IDLNotebookPlot_Line
-    ? IDLNotebookPlot_LineData
-    : T extends IDLNotebookPlot_LineAnimation
-    ? IDLNotebookPlot_LineAnimationData
-    : T extends IDLNotebookPlot_Bubble
-    ? IDLNotebookPlot_BubbleData
-    : T extends IDLNotebookPlot_BubbleAnimation
-    ? IDLNotebookPlot_BubbleAnimationData
-    : never;
+      ? IDLNotebookPlot_LineData
+      : T extends IDLNotebookPlot_LineAnimation
+        ? IDLNotebookPlot_LineAnimationData
+        : T extends IDLNotebookPlot_Bubble
+          ? IDLNotebookPlot_BubbleData
+          : T extends IDLNotebookPlot_BubbleAnimation
+            ? IDLNotebookPlot_BubbleAnimationData
+            : never;

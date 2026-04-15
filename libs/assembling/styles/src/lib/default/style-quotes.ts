@@ -43,6 +43,6 @@ for (let i = 0; i < QUOTES.length; i++) {
 
       // replace match
       token.match[0] = formatted;
-    }
+    },
   );
 }

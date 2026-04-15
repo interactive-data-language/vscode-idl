@@ -16,7 +16,7 @@ export function ExtractDisabledProblems(
   comment: string,
   token: TreeToken<CommentToken>,
   parsed: IParsed,
-  local?: TreeToken<NonBasicTokenNames>
+  local?: TreeToken<NonBasicTokenNames>,
 ) {
   /** Test our string */
   const match = DISABLED_PROBLEM_REGEX.exec(comment);
@@ -51,8 +51,8 @@ export function ExtractDisabledProblems(
                 ]
               } "${alias}"`,
               token.pos,
-              token.pos
-            )
+              token.pos,
+            ),
           );
           return false;
         }

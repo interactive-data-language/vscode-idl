@@ -14,7 +14,7 @@ import { IAutoCompleteTest } from '../tests.interface';
 export async function TestsForAutoComplete(
   name: string,
   tests: IAutoCompleteTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -23,11 +23,11 @@ export async function TestsForAutoComplete(
   strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { readFile } from 'fs/promises';`);
   strings.push(
-    `import { CompletionItem, Position } from 'vscode-languageserver/node';`
+    `import { CompletionItem, Position } from 'vscode-languageserver/node';`,
   );
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);
@@ -49,7 +49,7 @@ export async function TestsForAutoComplete(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // add our tokens
@@ -84,13 +84,13 @@ export async function TestsForAutoComplete(
       let found: CompletionItem[] = await index.getAutoComplete(
         filepath,
         await readFile(filepath, 'utf-8'),
-        test.position[j]
+        test.position[j],
       );
 
       // check if we have a filter
       if (test.startsWith !== undefined) {
         found = found.filter((item) =>
-          item?.label?.startsWith(test.startsWith)
+          item?.label?.startsWith(test.startsWith),
         );
       }
 
@@ -98,8 +98,8 @@ export async function TestsForAutoComplete(
       strings.push(`    // define position`);
       strings.push(
         `    const position_${j}: Position = ${JSON.stringify(
-          test.position[j]
-        )}`
+          test.position[j],
+        )}`,
       );
       strings.push('');
 
@@ -107,8 +107,8 @@ export async function TestsForAutoComplete(
       strings.push(`    // define expected token we extract`);
       strings.push(
         `    const expectedFound_${j}: CompletionItem[] = ${JSON.stringify(
-          found.slice(0, 50)
-        )}`
+          found.slice(0, 50),
+        )}`,
       );
       strings.push('');
 
@@ -118,11 +118,11 @@ export async function TestsForAutoComplete(
       // check if we have a filter
       if (test.startsWith !== undefined) {
         strings.push(
-          `    expect(expectedFound_${j}).toEqual((await index.getAutoComplete(filepath,await readFile(filepath, 'utf-8'), position_${j})).filter(item => item?.label?.startsWith('${test.startsWith}')).slice(0,50))`
+          `    expect(expectedFound_${j}).toEqual((await index.getAutoComplete(filepath,await readFile(filepath, 'utf-8'), position_${j})).filter(item => item?.label?.startsWith('${test.startsWith}')).slice(0,50))`,
         );
       } else {
         strings.push(
-          `    expect(expectedFound_${j}).toEqual((await index.getAutoComplete(filepath,await readFile(filepath, 'utf-8'), position_${j})).slice(0,50))`
+          `    expect(expectedFound_${j}).toEqual((await index.getAutoComplete(filepath,await readFile(filepath, 'utf-8'), position_${j})).slice(0,50))`,
         );
       }
     }

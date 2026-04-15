@@ -7,7 +7,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
     // specify reference filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-parsing/Download_S3_URL.task'
+      'idl/test/task-parsing/Download_S3_URL.task',
     );
 
     // reset global display names

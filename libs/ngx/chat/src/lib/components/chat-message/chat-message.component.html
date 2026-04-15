@@ -1,0 +1,26 @@
+@if (isToolMessage()) {
+  <ngx-chat-tool-message [message]="message()" />
+} @else {
+  <div
+    class="message-wrapper"
+    [class.user-message]="message().type === 'user'"
+    [class.system-message]="message().type === 'system'"
+  >
+    <mat-card class="message-card">
+      <mat-card-content>
+        @for (content of message().content; track $index) {
+          @if (content.type === 'text') {
+            <markdown
+              [data]="content.payload"
+              class="custom-markdown"
+            ></markdown>
+          } @else if (content.type === 'result') {
+            <div>
+              <pre>{{ content.payload }}</pre>
+            </div>
+          }
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

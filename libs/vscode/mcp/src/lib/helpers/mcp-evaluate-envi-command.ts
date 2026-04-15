@@ -19,7 +19,7 @@ const DEFAULT_SUCCESS: IENVISuccess = {
  */
 export async function MCPEvaluateENVICommand(
   command: string,
-  options?: IDebugEvaluateOptions
+  options?: IDebugEvaluateOptions,
 ) {
   /**
    * Run command and save IDL output

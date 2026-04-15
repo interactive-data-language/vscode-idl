@@ -17,7 +17,7 @@ export const FromIDLRawNotebook_2_0_0: FromIDLRawNotebook<IDLRawNotebookVersion_
   async function (
     parsed: IDLRawNotebook<IDLRawNotebookVersion_2_0_0>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _token: vscode.CancellationToken
+    _token: vscode.CancellationToken,
   ) {
     /**
      * Cells that we parse
@@ -37,7 +37,7 @@ export const FromIDLRawNotebook_2_0_0: FromIDLRawNotebook<IDLRawNotebookVersion_
           ? vscode.NotebookCellKind.Code
           : vscode.NotebookCellKind.Markup,
         parsed.cells[i].content.join('\n'),
-        parsed.cells[i].type === 'code' ? IDL_LANGUAGE_NAME : 'markdown'
+        parsed.cells[i].type === 'code' ? IDL_LANGUAGE_NAME : 'markdown',
       );
 
       // check for metadata
@@ -72,12 +72,12 @@ export const FromIDLRawNotebook_2_0_0: FromIDLRawNotebook<IDLRawNotebookVersion_
                   if (string) {
                     return new vscode.NotebookCellOutputItem(
                       Buffer.from(string, 'utf-8'),
-                      item.mime
+                      item.mime,
                     );
                   }
                 }),
-                output.metadata
-              )
+                output.metadata,
+              ),
           );
         } catch (err) {
           failedOutput = err;

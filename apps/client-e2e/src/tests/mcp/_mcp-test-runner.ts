@@ -60,7 +60,7 @@ export const MCP_TEST_LOGGER = new Logger(
   'mcp-tests',
   false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  () => {}
+  () => {},
 );
 
 /**

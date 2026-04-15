@@ -20,7 +20,7 @@ import { GetChangedGlobals } from './get-changed-globals';
  */
 export async function ProcessChangeDetectionResults(
   index: IDLIndex,
-  changes: Promise<ChangeDetectionResponse>[]
+  changes: Promise<ChangeDetectionResponse>[],
 ) {
   /** Track changed global tokens */
   let changedGlobals: GlobalTokens = [];
@@ -62,14 +62,14 @@ export async function ProcessChangeDetectionResults(
       changedGlobals = changedGlobals.concat(
         GetChangedGlobals(
           index.globalIndex.globalTokensByFile[changedFiles[i]] || [],
-          changed[changedFiles[i]]
-        )
+          changed[changedFiles[i]],
+        ),
       );
 
       // track in our process
       index.globalIndex.trackGlobalTokens(
         changed[changedFiles[i]],
-        changedFiles[i]
+        changedFiles[i],
       );
     }
 
@@ -89,8 +89,8 @@ export async function ProcessChangeDetectionResults(
         index.indexerPool.workerio.postAndReceiveMessage(
           ids[j],
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
-          changed
-        ).response
+          changed,
+        ).response,
       );
     }
 

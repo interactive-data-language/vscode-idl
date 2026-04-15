@@ -15,7 +15,7 @@ describe(`[auto generated] Verify fast parsing handles comments and line continu
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -44,7 +44,7 @@ describe(`[auto generated] Verify fast parsing handles comments and line continu
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true, full: false }
+      { postProcess: true, full: false },
     );
 
     // define expected local variables

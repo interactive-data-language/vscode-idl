@@ -34,10 +34,10 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     } else {
       token.match[0] = TransformCase(
         token.match[0].replace(/\s/gim, ''),
-        meta.style.routines
+        meta.style.routines,
       );
     }
-  }
+  },
 );
 
 /**
@@ -56,7 +56,7 @@ ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     // check if we have a known procedure
     token.match[0] = TransformCase(
       low in PROCEDURES && !meta.vanilla ? PROCEDURES[low] : token.match[0],
-      meta.style.routines
+      meta.style.routines,
     );
-  }
+  },
 );

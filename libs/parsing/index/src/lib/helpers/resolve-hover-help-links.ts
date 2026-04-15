@@ -20,7 +20,7 @@ const LINK_REGEX = /\[(.*?)\]\((.*?)\)/gim;
 export function ResolveHoverHelpLinks(
   help: string,
   config: IDLExtensionConfig,
-  isNotebook = false
+  isNotebook = false,
 ) {
   // check if we have a folder for IDL so we can pull images locally
   const localHelp =

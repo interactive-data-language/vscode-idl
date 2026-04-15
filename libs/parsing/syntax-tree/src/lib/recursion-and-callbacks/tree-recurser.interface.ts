@@ -18,7 +18,7 @@ import {
  */
 export type BasicTokenCallback<T extends BasicTokenNames> = (
   token: TreeToken<T>,
-  current: ITreeRecurserCurrent
+  current: ITreeRecurserCurrent,
 ) => boolean | void;
 
 /**
@@ -26,7 +26,7 @@ export type BasicTokenCallback<T extends BasicTokenNames> = (
  */
 export type BranchTokenCallback<T extends NonBasicTokenNames> = (
   token: TreeToken<T>,
-  current: ITreeRecurserCurrent
+  current: ITreeRecurserCurrent,
 ) => boolean | void;
 
 /**

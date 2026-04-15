@@ -40,7 +40,7 @@ export function PostProcessIterator(
   index: IDLIndex,
   file: string,
   parsed: IParsed,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ): boolean {
   // init variables
   const variables: ILocalTokenLookup = {};
@@ -66,7 +66,7 @@ export function PostProcessIterator(
       SetVariablesForIterators(
         topToken.scopeTokens[0] || topToken,
         parsed,
-        variables
+        variables,
       );
 
       /**
@@ -78,7 +78,7 @@ export function PostProcessIterator(
             token,
             parsed,
             current,
-            baseMeta
+            baseMeta,
           );
         },
         onBranchToken: (token, current) => {
@@ -86,7 +86,7 @@ export function PostProcessIterator(
             token,
             parsed,
             current,
-            baseMeta
+            baseMeta,
           );
         },
       };
@@ -97,7 +97,7 @@ export function PostProcessIterator(
       TreeRecurser(
         (topToken as TreeBranchToken)?.kids || [],
         cancel,
-        Object.assign(POPULATE_TYPE_HANDLER.recursionOptions, populateOps)
+        Object.assign(POPULATE_TYPE_HANDLER.recursionOptions, populateOps),
       );
 
       /**
@@ -109,7 +109,7 @@ export function PostProcessIterator(
             token,
             parsed,
             current,
-            baseMeta
+            baseMeta,
           );
 
           /**
@@ -130,7 +130,7 @@ export function PostProcessIterator(
             token,
             parsed,
             current,
-            baseMeta
+            baseMeta,
           );
 
           /**
@@ -165,7 +165,7 @@ export function PostProcessIterator(
             case TOKEN_NAMES.STRUCTURE: {
               const names = FindDirectBranchChildren(
                 token,
-                TOKEN_NAMES.STRUCTURE_NAME
+                TOKEN_NAMES.STRUCTURE_NAME,
               );
               if (names.length > 0) {
                 parsed.uses[GLOBAL_TOKEN_TYPES.STRUCTURE][
@@ -191,7 +191,7 @@ export function PostProcessIterator(
       TreeRecurser(
         (topToken as TreeBranchToken)?.kids || [],
         cancel,
-        Object.assign(VALIDATE_TYPE_HANDLER.recursionOptions, validateOpts)
+        Object.assign(VALIDATE_TYPE_HANDLER.recursionOptions, validateOpts),
       );
 
       /**

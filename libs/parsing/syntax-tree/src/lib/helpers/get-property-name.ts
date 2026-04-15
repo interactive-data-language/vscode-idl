@@ -10,7 +10,7 @@ import { TreeToken } from '@idl/types/syntax-tree';
  * Gets the name of our property
  */
 export function GetPropertyName(
-  token: TreeToken<AccessPropertyToken | StructurePropertyToken>
+  token: TreeToken<AccessPropertyToken | StructurePropertyToken>,
 ) {
   return token.name === TOKEN_NAMES.ACCESS_PROPERTY
     ? token.match[0].substring(1)

@@ -92,6 +92,6 @@ export const RunTestNotebook: RunnerFunction = async (init) => {
   await RunNotebookAndCompareCells(
     GetExtensionPath('idl/test/client-e2e/notebooks/test-notebook.idlnb'),
     CELL_OUTPUT,
-    init.notebooks.controller
+    init.notebooks.controller,
   );
 };

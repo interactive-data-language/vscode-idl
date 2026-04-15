@@ -6,6 +6,7 @@
 /out-tsc
 .angular
 .nx
+.env
 extension/docs/.vitepress/cache
 extension/docs/.vitepress/dist
 build.json

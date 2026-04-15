@@ -1,15 +1,15 @@
+import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolHelper } from '../../mcp-tool-helper.class';
 import { EXECUTE_IDL_FILE_DESCRIPTION } from './register-mcp-tool-execute-idl-file.interface';
 
 /**
  * Registers a tool that runs a file of IDL code
  */
-export function RegisterMCPTool_ExecuteIDLFile(helper: MCPToolHelper) {
-  helper.registerTool(
+export function RegisterMCPTool_ExecuteIDLFile(server: MCPServer) {
+  server.registerTool(
     MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE,
     {
       title:
@@ -21,17 +21,17 @@ export function RegisterMCPTool_ExecuteIDLFile(helper: MCPToolHelper) {
         uri: z
           .string()
           .describe(
-            'The fully-qualified path to a file on disk that contains IDL code that should run.'
+            'The fully-qualified path to a file on disk that contains IDL code that should run.',
           ),
       },
     },
     async (id, { uri }) => {
-      const resp = await helper.sendRequestToVSCode(
+      const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE,
         {
           uri,
-        }
+        },
       );
 
       return {
@@ -43,6 +43,6 @@ export function RegisterMCPTool_ExecuteIDLFile(helper: MCPToolHelper) {
           },
         ],
       };
-    }
+    },
   );
 }

@@ -21,11 +21,11 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.UNCLOSED_QUOTE,
           token.pos,
-          token.pos
-        )
+          token.pos,
+        ),
       );
     }
-  }
+  },
 );
 
 /**
@@ -46,9 +46,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.UNCLOSED_QUOTE,
           token.pos,
-          token.pos
-        )
+          token.pos,
+        ),
       );
     }
-  }
+  },
 );

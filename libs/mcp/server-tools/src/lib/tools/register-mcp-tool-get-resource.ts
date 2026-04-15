@@ -1,15 +1,14 @@
+import { MCPServer } from '@idl/mcp/server';
 import { MCPResourceIndex } from '@idl/mcp/server-resources';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MCPToolHelper } from '../mcp-tool-helper.class';
-
 /**
  * Get a resource from the server
  */
-export function RegisterMCPTool_GetResource(helper: MCPToolHelper) {
-  helper.registerTool(
+export function RegisterMCPTool_GetResource(server: MCPServer) {
+  server.registerTool(
     MCP_TOOL_LOOKUP.GET_RESOURCE,
     {
       title:
@@ -53,6 +52,6 @@ export function RegisterMCPTool_GetResource(helper: MCPToolHelper) {
           },
         ],
       };
-    }
+    },
   );
 }

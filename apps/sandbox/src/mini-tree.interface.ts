@@ -40,7 +40,7 @@ interface BasicTreeMetadata {
  */
 type TokenPosition<T extends TokenName> = [
   pos: PositionArray,
-  match: TokenStartMatches<T>
+  match: TokenStartMatches<T>,
 ];
 
 /**
@@ -74,7 +74,7 @@ export type MiniTreeBasic<T extends BasicTokenNames> = [
   /**
    * Metadata for the current node in our tree
    */
-  metadata: BasicTreeMetadata
+  metadata: BasicTreeMetadata,
 ];
 
 /**
@@ -112,7 +112,7 @@ export type MiniTreeBranch<T extends NonBasicTokenNames> = [
   /**
    * The kids for our branch
    */
-  kids: MiniTree
+  kids: MiniTree,
 ];
 
 /**
@@ -121,8 +121,8 @@ export type MiniTreeBranch<T extends NonBasicTokenNames> = [
 export type MiniTreeToken<T extends TokenName> = T extends BasicTokenNames
   ? MiniTreeBasic<T>
   : T extends NonBasicTokenNames
-  ? MiniTreeBranch<T>
-  : never;
+    ? MiniTreeBranch<T>
+    : never;
 
 /**
  * Alias for mini syntax tree

@@ -51,7 +51,7 @@ export function TaskTypeToIDLType(
   type: string,
   metadata: IDLDataTypeBaseMetadata,
   choiceList?: any,
-  dimensions?: number[] | string
+  dimensions?: number[] | string,
 ) {
   /** Check for URI parameter */
   const isUri = CLEAN_URI_REGEX.test(type);
@@ -118,7 +118,7 @@ export function TaskTypeToIDLType(
     // add dimensions
     if (dimensions) {
       created[0].meta.dimensions = DimensionsToNumber(
-        Array.isArray(dimensions) ? JSON.stringify(dimensions) : dimensions
+        Array.isArray(dimensions) ? JSON.stringify(dimensions) : dimensions,
       );
     }
   }

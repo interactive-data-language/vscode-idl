@@ -23,7 +23,7 @@ export const IDL_NOTEBOOK_CONTROLLER = new IDLNotebookController();
  * Initializes our tree views
  */
 export function InitializeNotebooks(
-  ctx: ExtensionContext
+  ctx: ExtensionContext,
 ): IInitializeNotebooks {
   IDL_LOGGER.log({
     content: 'Registering notebook serializer and controller',
@@ -31,8 +31,8 @@ export function InitializeNotebooks(
   ctx.subscriptions.push(
     vscode.workspace.registerNotebookSerializer(
       IDL_NOTEBOOK_LANGUAGE_NAME,
-      IDL_NOTEBOOK_SERIALIZER
-    )
+      IDL_NOTEBOOK_SERIALIZER,
+    ),
   );
   ctx.subscriptions.push(IDL_NOTEBOOK_CONTROLLER);
 

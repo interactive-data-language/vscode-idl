@@ -12,7 +12,7 @@ import { BRANCH_TYPES, IBranch, TreeToken } from '@idl/types/syntax-tree';
 function FindAllBranchChildrenAndTheirDocsRecurser<T extends TokenName>(
   branch: IBranch<NonBasicTokenNames>,
   token: T,
-  found: { token: TreeToken<T>; docs?: TreeToken<CommentBlockToken> }[]
+  found: { token: TreeToken<T>; docs?: TreeToken<CommentBlockToken> }[],
 ) {
   // process all children
   for (let i = 0; i < (branch.kids || []).length; i++) {
@@ -35,7 +35,7 @@ function FindAllBranchChildrenAndTheirDocsRecurser<T extends TokenName>(
       FindAllBranchChildrenAndTheirDocsRecurser(
         branch.kids[i] as IBranch<NonBasicTokenNames>,
         token,
-        found
+        found,
       );
     }
   }
@@ -46,7 +46,7 @@ function FindAllBranchChildrenAndTheirDocsRecurser<T extends TokenName>(
  */
 export function FindAllBranchChildrenAndDocs<T extends TokenName>(
   branch: IBranch<NonBasicTokenNames>,
-  token: T
+  token: T,
 ) {
   // init result for recursing
   const found: { token: TreeToken<T>; docs?: IBranch<CommentBlockToken> }[] =

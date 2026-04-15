@@ -15,12 +15,12 @@ describe(`[auto generated] Correctly ignore main level programs as duplicates`, 
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath_0 = GetExtensionPath(
-      'idl/test/global-main-problems/file1.pro'
+      'idl/test/global-main-problems/file1.pro',
     );
 
     // add file to index
@@ -33,13 +33,13 @@ describe(`[auto generated] Correctly ignore main level programs as duplicates`, 
     expect(problems_0).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-main-problems'
-      )
+        'idl/test/global-main-problems',
+      ),
     );
 
     // specify filepath
     const filepath_1 = GetExtensionPath(
-      'idl/test/global-main-problems/file2.pro'
+      'idl/test/global-main-problems/file2.pro',
     );
 
     // add file to index
@@ -52,8 +52,8 @@ describe(`[auto generated] Correctly ignore main level programs as duplicates`, 
     expect(problems_1).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-main-problems'
-      )
+        'idl/test/global-main-problems',
+      ),
     );
   });
 });

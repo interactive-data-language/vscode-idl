@@ -14,7 +14,7 @@ import { IGlobalProblemTest } from '../tests.interface';
 export async function TestsForGlobalProblems(
   name: string,
   tests: IGlobalProblemTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -23,7 +23,7 @@ export async function TestsForGlobalProblems(
   strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { SanitizeAllProblems } from '@idl/tests/helpers';`);
   strings.push(`import { SyntaxProblems } from '@idl/types/problem-codes';`);
@@ -49,7 +49,7 @@ export async function TestsForGlobalProblems(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // add our tokens
@@ -76,7 +76,7 @@ export async function TestsForGlobalProblems(
       // specify the position to use
       strings.push(`    // specify filepath`);
       strings.push(
-        `    const filepath_${j} = GetExtensionPath('${workspace}/${action.file}')`
+        `    const filepath_${j} = GetExtensionPath('${workspace}/${action.file}')`,
       );
       strings.push(``);
 
@@ -104,15 +104,15 @@ export async function TestsForGlobalProblems(
       strings.push(`    // define expected problems`);
       strings.push(
         `    const problems_${j}: {[key:string]: SyntaxProblems} = ${JSON.stringify(
-          SanitizeAllProblems(problems, workspace)
-        )}`
+          SanitizeAllProblems(problems, workspace),
+        )}`,
       );
       strings.push('');
 
       // verify results
       strings.push('    // verify results');
       strings.push(
-        `    expect(problems_${j}).toEqual(SanitizeAllProblems(index.getGlobalTokenSyntaxProblems(), '${workspace}'))`
+        `    expect(problems_${j}).toEqual(SanitizeAllProblems(index.getGlobalTokenSyntaxProblems(), '${workspace}'))`,
       );
       strings.push('');
     }

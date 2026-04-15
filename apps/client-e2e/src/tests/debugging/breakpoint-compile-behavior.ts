@@ -17,7 +17,7 @@ export const BreakpointCompileBehavior: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -34,7 +34,7 @@ export const BreakpointCompileBehavior: RunnerFunction = async (init) => {
 
   /** Get the file we need to work with */
   const file = GetExtensionPath(
-    'idl/test/client-e2e/debug/breakpoints/on_compile.pro'
+    'idl/test/client-e2e/debug/breakpoints/on_compile.pro',
   );
 
   // open editor and display
@@ -68,7 +68,7 @@ export const BreakpointCompileBehavior: RunnerFunction = async (init) => {
 
   // query breakpoints
   const bps = init.debug.adapter._breakpoints.VSCodeBreakpoints.map(
-    (bp) => bp.line
+    (bp) => bp.line,
   ).sort((a, b) => a - b);
 
   // make sure we have the right breakpoints

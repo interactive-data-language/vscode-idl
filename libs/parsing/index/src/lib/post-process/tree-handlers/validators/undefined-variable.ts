@@ -43,7 +43,7 @@ const cb: BasicCallback<VariableToken, ValidateTypeHandlerMeta> = (
   token,
   parsed,
   current,
-  meta
+  meta,
 ) => {
   // return if we are in a common block
   if (token.scope.indexOf(TOKEN_NAMES.CONTROL_COMMON) !== -1) {
@@ -95,8 +95,8 @@ const cb: BasicCallback<VariableToken, ValidateTypeHandlerMeta> = (
               : IDL_PROBLEM_CODES.UNDEFINED_VAR
           ] + ` "${token.match[0]}"`,
           token.pos,
-          token.pos
-        )
+          token.pos,
+        ),
       );
       break;
     case IsBeforeToken(token.pos, variable.pos):
@@ -111,8 +111,8 @@ const cb: BasicCallback<VariableToken, ValidateTypeHandlerMeta> = (
               : IDL_PROBLEM_CODES.VAR_USAGE_BEFORE_DEF
           ] + ` "${variable.meta.display}"`,
           token.pos,
-          token.pos
-        )
+          token.pos,
+        ),
       );
       break;
     default:

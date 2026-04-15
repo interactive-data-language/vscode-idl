@@ -191,7 +191,7 @@ export class IDLProcess extends EventEmitter {
    */
   on<T extends IDLEvent>(
     event: T,
-    listener: (...args: IDLListenerArgs<T>) => void
+    listener: (...args: IDLListenerArgs<T>) => void,
   ): this {
     return super.on(event, listener);
   }
@@ -202,7 +202,7 @@ export class IDLProcess extends EventEmitter {
    */
   once<T extends IDLEvent>(
     event: T,
-    listener: (...args: IDLListenerArgs<T>) => void
+    listener: (...args: IDLListenerArgs<T>) => void,
   ): this {
     return super.once(event, listener);
   }
@@ -229,7 +229,7 @@ export class IDLProcess extends EventEmitter {
    */
   registerIDLNotifyHandler(
     idlNotifyEvent: string,
-    handler: FromIDLMachineRequestHandler<'idlNotify'>
+    handler: FromIDLMachineRequestHandler<'idlNotify'>,
   ) {
     this._machine.registerIDLNotifyHandler(idlNotifyEvent, handler);
   }
@@ -241,7 +241,7 @@ export class IDLProcess extends EventEmitter {
    */
   registerRequestHandler<T extends FromIDLMachineRequests>(
     event: T,
-    handler: FromIDLMachineRequestHandler<T>
+    handler: FromIDLMachineRequestHandler<T>,
   ) {
     this._machine.registerRequestHandler(event, handler);
   }
@@ -289,7 +289,7 @@ export class IDLProcess extends EventEmitter {
     if (!this.evaluating && this.started) {
       if (
         REGEX_STOP_DETECTION_BASIC.test(
-          this.capturedOutput.replace(/\r*\n/gim, '')
+          this.capturedOutput.replace(/\r*\n/gim, ''),
         )
       ) {
         setTimeout(() => {
@@ -386,7 +386,7 @@ export class IDLProcess extends EventEmitter {
      */
     const machineExe = path.join(
       args.config.IDL.directory,
-      os.platform() === 'win32' ? 'idl_machine.exe' : 'idl_machine'
+      os.platform() === 'win32' ? 'idl_machine.exe' : 'idl_machine',
     );
 
     // check for process type
@@ -498,7 +498,7 @@ export class IDLProcess extends EventEmitter {
           });
           this.emit(
             IDL_EVENT_LOOKUP.FAILED_START,
-            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL
+            IDL_TRANSLATION.debugger.errors.unableToLicenseIDL,
           );
           break;
         case !this.started:

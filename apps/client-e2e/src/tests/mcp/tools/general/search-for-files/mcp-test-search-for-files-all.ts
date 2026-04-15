@@ -30,7 +30,7 @@ export const RunMCPTestSearchForFiles_All: RunnerFunction = async (init) => {
   // attempt to parse
   try {
     basicSearchFiles = JSON.parse(basicSearch.content[0].text as string).map(
-      (file) => file.replace(basicDir, '')
+      (file) => file.replace(basicDir, ''),
     );
   } catch (err) {
     // do nothing
@@ -46,7 +46,7 @@ export const RunMCPTestSearchForFiles_All: RunnerFunction = async (init) => {
   const extensions = new Set(
     basicSearchFiles
       .filter((file) => file.includes('.'))
-      .map((file) => file.split('.').pop())
+      .map((file) => file.split('.').pop()),
   );
   expect(extensions.size).toBeGreaterThan(1);
 };

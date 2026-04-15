@@ -1,0 +1,36 @@
+<div class="content-container">
+  @if (selectedSession()) {
+    <div class="chat-messages">
+      <div class="session-header">
+        <h2>{{ selectedSession()?.title }}</h2>
+        <p class="session-info">
+          {{ selectedSession()?.messageCount }} messages • Created
+          {{ selectedSession()?.createdAt | date: 'short' }}
+        </p>
+      </div>
+
+      @if (todos().length > 0) {
+        <ngx-chat-todo-list [todos]="todos()" />
+      }
+
+      <div class="messages-area" #messagesArea>
+        @for (message of selectedSession()?.messages; track message.id) {
+          <ngx-chat-message [message]="message" />
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="welcome-message">
+      <mat-icon class="welcome-icon">chat</mat-icon>
+      <h1>Welcome to Desktop Agent</h1>
+      <p>Ask anything to start a new conversation.</p>
+    </div>
+  }
+
+  <div class="input-footer">
+    @if (selectedSession()?.status === 'in-progress') {
+      <mat-progress-bar mode="indeterminate" class="processing-bar" />
+    }
+    <ngx-chat-input [sessionId]="selectedSession()?.id ?? null" />
+  </div>
+</div>

@@ -13,11 +13,11 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const DuplicateGlobalsFromDefs: RunnerFunction = async (init) => {
   const doc1 = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/change-detection/mypro2.pro')
+    GetExtensionPath('idl/test/client-e2e/change-detection/mypro2.pro'),
   );
 
   const doc2 = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/change-detection/mypro2.pro.def')
+    GetExtensionPath('idl/test/client-e2e/change-detection/mypro2.pro.def'),
   );
 
   // short pause to make sure we open and parse

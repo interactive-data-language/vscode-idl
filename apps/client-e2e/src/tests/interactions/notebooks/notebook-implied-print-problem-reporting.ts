@@ -11,14 +11,14 @@ import { RunnerFunction } from '../../runner.interface';
  * Function that verifies problems reported for implied print
  */
 export const NotebookImpliedPrintProblemReporting: RunnerFunction = async (
-  init
+  init,
 ) => {
   // open our notebook
   const nb = await OpenNotebookInVSCode(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/problems/implied-print.idlnb'
+      'idl/test/client-e2e/notebooks/problems/implied-print.idlnb',
     ),
-    true
+    true,
   );
 
   // short pause
@@ -32,7 +32,7 @@ export const NotebookImpliedPrintProblemReporting: RunnerFunction = async (
    */
   expect(
     cells.map(
-      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-    )
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+    ),
   ).toEqual([0, 1, 0]);
 };

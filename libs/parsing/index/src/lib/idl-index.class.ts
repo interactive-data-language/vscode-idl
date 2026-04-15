@@ -100,7 +100,7 @@ import { GetTokenDefinition } from './token-definiton/get-token-definition';
  */
 export const NUM_WORKERS = Math.min(
   Math.ceil(Math.max(cpus().length, 1) / 2),
-  6
+  6,
 );
 
 /**
@@ -230,7 +230,7 @@ export class IDLIndex {
             maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
             maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
           },
-        })
+        }),
       );
     }
 
@@ -238,7 +238,7 @@ export class IDLIndex {
     this.indexerPool = new WorkerIOPool(
       log,
       workers,
-      IDL_TRANSLATION.lsp.events.unhandledWorkerMessage
+      IDL_TRANSLATION.lsp.events.unhandledWorkerMessage,
     ) as ILSPWorkerThreadPool<LSPWorkerThreadMessage>;
 
     // subscribe to log messages
@@ -320,7 +320,7 @@ export class IDLIndex {
   async changeDetection(
     token: CancellationToken,
     changesOrNewGlobals: GlobalTokens,
-    oldGlobals?: GlobalTokens
+    oldGlobals?: GlobalTokens,
   ) {
     await ChangeDetection(this, token, changesOrNewGlobals, oldGlobals);
   }
@@ -351,8 +351,8 @@ export class IDLIndex {
             this.indexerPool.workerio.postAndReceiveMessage(
               ids[i],
               LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-              { all: false }
-            ).response
+              { all: false },
+            ).response,
           );
         }
 
@@ -393,13 +393,13 @@ export class IDLIndex {
     code: string | string[],
     position: Position,
     config: IDLExtensionConfig = DEFAULT_IDL_EXTENSION_CONFIG,
-    formatting: IAssemblerOptions<FormatterType> = DEFAULT_ASSEMBLER_OPTIONS
+    formatting: IAssemblerOptions<FormatterType> = DEFAULT_ASSEMBLER_OPTIONS,
   ): Promise<GetAutoCompleteResponse> {
     if (this.isMultiThreaded()) {
       const recipes = await this.indexerPool.workerio.postAndReceiveMessage(
         this.getWorkerID(file),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.AUTO_COMPLETE_RECIPE,
-        { file, code, position }
+        { file, code, position },
       ).response;
 
       return BuildCompletionItems(this, recipes, config, formatting);
@@ -413,7 +413,7 @@ export class IDLIndex {
    */
   getConfigForFile(
     file: string,
-    defaultConfig: IAssemblerOptions<FormatterType> = DEFAULT_ASSEMBLER_OPTIONS
+    defaultConfig: IAssemblerOptions<FormatterType> = DEFAULT_ASSEMBLER_OPTIONS,
   ) {
     /** Get folder name for file */
     const folder = dirname(file);
@@ -445,7 +445,7 @@ export class IDLIndex {
     // check if we have the file in our lookup
     if (this.parsedCache.has(file)) {
       const text = this.parsedCache.text(file);
-      if (text.length > 0) {
+      if (Array.isArray(text)) {
         return text.join('\n');
       }
     }
@@ -473,7 +473,7 @@ export class IDLIndex {
        * Check if local
        */
       case this.parsedCache.has(file):
-        globals = this.parsedCache.get(file).global;
+        globals = (this.parsedCache.get(file) as IParsed).global;
         break;
 
       default:
@@ -498,7 +498,7 @@ export class IDLIndex {
     file: string,
     code: string | string[],
     position: Position,
-    config: IDLExtensionConfig = DEFAULT_IDL_EXTENSION_CONFIG
+    config: IDLExtensionConfig = DEFAULT_IDL_EXTENSION_CONFIG,
   ) {
     /**
      * Get the lookup for our hover help
@@ -507,7 +507,7 @@ export class IDLIndex {
       ? await this.indexerPool.workerio.postAndReceiveMessage(
           this.getWorkerID(file),
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_HOVER_HELP_LOOKUP,
-          { file, code, position, config }
+          { file, code, position, config },
         ).response
       : await GetHoverHelpLookup(this, file, code, position);
 
@@ -529,7 +529,7 @@ export class IDLIndex {
    */
   getNotebookFiles(file: string) {
     return Object.keys(this.knownFiles).filter((known) =>
-      known.startsWith(file)
+      known.startsWith(file),
     );
   }
 
@@ -544,7 +544,7 @@ export class IDLIndex {
   async getOutline(
     file: string,
     code: string | string[],
-    token: CancellationToken
+    token: CancellationToken,
   ): Promise<DocumentSymbol[]> {
     // if document isnt PRO code, return
     if (
@@ -554,7 +554,7 @@ export class IDLIndex {
         IDLFileHelper.isPRODef(file)
       )
     ) {
-      return undefined;
+      return [];
     }
 
     // if we are multi threaded, then
@@ -562,7 +562,7 @@ export class IDLIndex {
       return await this.indexerPool.workerio.postAndReceiveMessage(
         this.getWorkerID(file),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_OUTLINE,
-        { file, code }
+        { file, code },
       ).response;
     }
 
@@ -575,7 +575,7 @@ export class IDLIndex {
   async getParsedNotebook(
     file: string,
     notebook: IDLNotebookDocument,
-    cancel: CancellationToken
+    cancel: CancellationToken,
   ): Promise<IParsedIDLNotebook> {
     return GetParsedNotebook(this, file, notebook, cancel);
   }
@@ -593,7 +593,7 @@ export class IDLIndex {
   async getParsedNotebookCell(
     file: string,
     code: string | string[],
-    token: CancellationToken
+    token: CancellationToken,
   ): Promise<IParsed> {
     return GetParsedNotebookCell(this, file, code, token);
   }
@@ -602,7 +602,7 @@ export class IDLIndex {
     file: string,
     code: string | string[],
     token = new CancellationToken(),
-    options?: Partial<IIndexProCodeOptions>
+    options?: Partial<IIndexProCodeOptions>,
   ) {
     return GetParsedPROCode(this, file, code, token, options);
   }
@@ -613,14 +613,14 @@ export class IDLIndex {
   async getSemanticTokens(
     file: string,
     code: string | string[],
-    token: CancellationToken
+    token: CancellationToken,
   ): Promise<GetSemanticTokensResponse> {
     // if we are multi threaded, then
     if (this.isMultiThreaded()) {
       return await this.indexerPool.workerio.postAndReceiveMessage(
         this.getWorkerID(file),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_SEMANTIC_TOKENS,
-        { file, code }
+        { file, code },
       ).response;
     } else {
       return GetCodeSemanticTokens(this, file, code, token);
@@ -643,14 +643,14 @@ export class IDLIndex {
   async getTokenDef(
     file: string,
     code: string | string[],
-    position: Position
+    position: Position,
   ): Promise<GetTokenDefResponse> {
     // if we are multi threaded, then
     if (this.isMultiThreaded()) {
       return await this.indexerPool.workerio.postAndReceiveMessage(
         this.getWorkerID(file),
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.GET_TOKEN_DEF,
-        { file, code, position }
+        { file, code, position },
       ).response;
     } else {
       return GetTokenDefinition(this, file, code, position);
@@ -680,7 +680,7 @@ export class IDLIndex {
   async indexFile(
     file: string,
     code?: string,
-    options: Partial<IIndexProCodeOptions> = {}
+    options: Partial<IIndexProCodeOptions> = {},
   ) {
     if (!existsSync(file)) {
       await this.removeWorkspaceFiles([file]);
@@ -703,7 +703,7 @@ export class IDLIndex {
           file,
           code,
           new CancellationToken(),
-          Object.assign({ postProcess: true }, options)
+          Object.assign({ postProcess: true }, options),
         );
         break;
       case IDLFileHelper.isTaskFile(file):
@@ -715,7 +715,7 @@ export class IDLIndex {
           file,
           code,
           new CancellationToken(),
-          Object.assign({ type: 'def' }, options)
+          Object.assign({ type: 'def' }, options),
         );
         break;
       case IDLFileHelper.isConfigFile(file):
@@ -733,7 +733,7 @@ export class IDLIndex {
   async indexFiles(
     files: string[],
     cb: (file: string) => Promise<string>,
-    token: CancellationToken
+    token: CancellationToken,
   ) {
     // add all files to known
     for (let i = 0; i < files.length; i++) {
@@ -751,7 +751,7 @@ export class IDLIndex {
     for (let i = 0; i < buckets.configFiles.length; i++) {
       await this.indexConfigFile(
         buckets.configFiles[i],
-        await cb(buckets.configFiles[i])
+        await cb(buckets.configFiles[i]),
       );
     }
 
@@ -761,7 +761,7 @@ export class IDLIndex {
     for (let i = 0; i < buckets.taskFiles.length; i++) {
       await this.indexTaskFile(
         buckets.taskFiles[i],
-        await cb(buckets.taskFiles[i])
+        await cb(buckets.taskFiles[i]),
       );
     }
 
@@ -777,7 +777,7 @@ export class IDLIndex {
         token,
         {
           postProcess: true,
-        }
+        },
       );
 
       // remove file from memory cache
@@ -793,7 +793,7 @@ export class IDLIndex {
         token,
         {
           type: 'def',
-        }
+        },
       );
 
       // remove file from memory cache
@@ -807,7 +807,7 @@ export class IDLIndex {
   async indexIDLNotebook(
     file: string,
     notebook: IDLNotebookDocument,
-    token: CancellationToken
+    token: CancellationToken,
   ): Promise<IParsedIDLNotebook> {
     // remove notebook
     await this.removeNotebook(file);
@@ -881,14 +881,14 @@ export class IDLIndex {
       // post process cell
       await this.postProcessProFile(
         files[i],
-        byCell[files[i]],
+        byCell[files[i]] as IParsed,
         token,
         [],
-        false
+        false,
       );
 
       // update stored token
-      this.parsedCache.add(files[i], byCell[files[i]]);
+      this.parsedCache.add(files[i], byCell[files[i]] as IParsed);
     }
 
     return byCell;
@@ -901,7 +901,7 @@ export class IDLIndex {
     file: string,
     code: string | string[],
     token: CancellationToken,
-    inOptions: Partial<IIndexProCodeOptions> = {}
+    inOptions: Partial<IIndexProCodeOptions> = {},
   ): Promise<IParsed | undefined> {
     // try {
     /**
@@ -909,7 +909,7 @@ export class IDLIndex {
      */
     const options = Object.assign(
       copy(DEFAULT_INDEX_PRO_CODE_OPTIONS),
-      inOptions
+      inOptions,
     );
 
     // get old global tokens
@@ -957,7 +957,7 @@ export class IDLIndex {
           parsed,
           token,
           oldGlobals,
-          options.changeDetection
+          options.changeDetection,
         );
         break;
       default:
@@ -999,7 +999,7 @@ export class IDLIndex {
   async indexProFiles(
     files: string[],
     token: CancellationToken,
-    postProcess = true
+    postProcess = true,
   ): Promise<string[]> {
     /** Track any missing files */
     const missingFiles: string[] = [];
@@ -1026,7 +1026,7 @@ export class IDLIndex {
           token,
           {
             postProcess,
-          }
+          },
         );
       } catch (err) {
         // check if we have a "false" error because a file was deleted
@@ -1063,7 +1063,7 @@ export class IDLIndex {
   async indexWorkspaceFiles(
     files: string[],
     folder: IFolderRecursion | string | string[],
-    full = true
+    full = true,
   ): Promise<void> {
     /**
      * Get start time
@@ -1083,7 +1083,7 @@ export class IDLIndex {
 
     // save discovery time
     this.lastWorkspaceIndexStats.timeSearch = Math.floor(
-      performance.now() - t0
+      performance.now() - t0,
     );
 
     // track stats
@@ -1174,7 +1174,7 @@ export class IDLIndex {
    */
   async parseAndTrackNotebook(
     file: string,
-    notebook: IDLNotebookDocument
+    notebook: IDLNotebookDocument,
   ): Promise<void> {
     // only runs in main thread because we are special
     if (!this.isMultiThreaded()) {
@@ -1232,8 +1232,8 @@ export class IDLIndex {
         this.indexerPool.workerio.postAndReceiveMessage(
           ids[j],
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
-          resp.globals
-        ).response
+          resp.globals,
+        ).response,
       );
     }
 
@@ -1261,7 +1261,7 @@ export class IDLIndex {
     parsed: IParsed,
     token: CancellationToken,
     oldGlobals: GlobalTokens,
-    changeDetection = false
+    changeDetection = false,
   ): Promise<boolean> {
     try {
       // convert pros to vars
@@ -1292,6 +1292,8 @@ export class IDLIndex {
         },
       });
     }
+
+    return false;
   }
 
   /**
@@ -1305,7 +1307,7 @@ export class IDLIndex {
   async postProcessProFiles(
     files: string[],
     token: CancellationToken,
-    changeDetection = false
+    changeDetection = false,
   ) {
     /** Track any files that are missing and should no longer be tracked */
     const missing: string[] = [];
@@ -1328,7 +1330,7 @@ export class IDLIndex {
 
       try {
         /** Get file from cache */
-        const parsed = this.parsedCache.get(files[i]);
+        const parsed = this.parsedCache.get(files[i]) as IParsed;
 
         /** Post-process and check for global changes */
         const didChange = await this.postProcessProFile(
@@ -1336,7 +1338,7 @@ export class IDLIndex {
           parsed,
           token,
           [],
-          changeDetection
+          changeDetection,
         );
 
         // if changes, then save them
@@ -1450,8 +1452,8 @@ export class IDLIndex {
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.REMOVE_FILES,
           {
             files,
-          }
-        ).response
+          },
+        ).response,
       );
     }
 
@@ -1540,7 +1542,7 @@ export class IDLIndex {
     global: GlobalTokens,
     file: string,
     disabled: IDisabledProblems,
-    sync = true
+    sync = true,
   ) {
     this.globalIndex.trackGlobalTokens(global, file, disabled);
     if (sync) {
@@ -1639,7 +1641,7 @@ export class IDLIndex {
       this.fileTypes['idl-notebook'].add(files[i]);
     }
     this.lastWorkspaceIndexStats.timeNotebook = Math.floor(
-      performance.now() - t0
+      performance.now() - t0,
     );
   }
 
@@ -1662,7 +1664,7 @@ export class IDLIndex {
   private async indexTaskFile(
     file: string,
     content?: string,
-    sync = true
+    sync = true,
   ): Promise<GlobalTokens> {
     /**
      * Wrap parsing in try catch since we will eventually have task file errors
@@ -1696,7 +1698,7 @@ export class IDLIndex {
         [global.function, global.structure],
         file,
         DEFAULT_DISABLED_PROBLEMS,
-        sync
+        sync,
       );
 
       // track as known file
@@ -1747,7 +1749,7 @@ export class IDLIndex {
     if (this.isMultiThreaded()) {
       this.indexerPool.postToAll(
         LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
-        byFile
+        byFile,
       );
     }
   }
@@ -1759,13 +1761,13 @@ export class IDLIndex {
    */
   private async indexWorkspaceConfigFiles(
     files: string[],
-    folder: IFolderRecursion | string | string[]
+    folder: IFolderRecursion | string | string[],
   ) {
     // index and track time
     const t0 = performance.now();
     await this.indexConfigFiles(files);
     this.lastWorkspaceIndexStats.timeConfig = Math.floor(
-      performance.now() - t0
+      performance.now() - t0,
     );
 
     /**
@@ -1818,7 +1820,7 @@ export class IDLIndex {
   private async indexWorkspaceProFiles(
     files: string[],
     token: CancellationToken,
-    full: boolean
+    full: boolean,
   ): Promise<void> {
     // process in this thread if we don't have any workers
     if (!this.isMultiThreaded()) {
@@ -1842,10 +1844,7 @@ export class IDLIndex {
     this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.ALL_FILES, {
       files,
     });
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     // track that we have PRO files
     if (files.length > 0) {
@@ -1889,7 +1888,7 @@ export class IDLIndex {
    */
   private async indexWorkspaceProFilesFast(
     files: string[],
-    buckets: string[][]
+    buckets: string[][],
   ): Promise<void> {
     // return if not multi threaded
     if (!this.isMultiThreaded()) {
@@ -1931,8 +1930,8 @@ export class IDLIndex {
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES_FAST,
           {
             files: buckets[i],
-          }
-        ).response
+          },
+        ).response,
       );
     }
 
@@ -1946,10 +1945,7 @@ export class IDLIndex {
     await Promise.all(parsing);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     /**
      * Messages for global token synchronization
@@ -1994,8 +1990,8 @@ export class IDLIndex {
           this.indexerPool.workerio.postAndReceiveMessage(
             ids[j],
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
-            res.globals
-          ).response
+            res.globals,
+          ).response,
         );
       }
     }
@@ -2008,10 +2004,7 @@ export class IDLIndex {
     await Promise.all(synchronize);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     // save stats
     this.lastWorkspaceIndexStats.timePro = Math.floor(performance.now() - t0);
@@ -2031,7 +2024,7 @@ export class IDLIndex {
    */
   private async indexWorkspaceProFilesFully(
     files: string[],
-    buckets: string[][]
+    buckets: string[][],
   ): Promise<void> {
     // return if not multi threaded
     if (!this.isMultiThreaded()) {
@@ -2073,8 +2066,8 @@ export class IDLIndex {
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.PARSE_FILES,
           {
             files: buckets[i],
-          }
-        ).response
+          },
+        ).response,
       );
     }
 
@@ -2084,10 +2077,7 @@ export class IDLIndex {
     await Promise.all(parsing);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     /**
      * Messages for global token synchronization
@@ -2139,7 +2129,7 @@ export class IDLIndex {
       this.globalIndex.trackGlobalTokens(
         firstGlobals[iFiles[j]],
         iFiles[j],
-        disabled[iFiles[j]]
+        disabled[iFiles[j]],
       );
     }
 
@@ -2153,8 +2143,8 @@ export class IDLIndex {
         this.indexerPool.workerio.postAndReceiveMessage(
           ids[j],
           LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
-          firstGlobals
-        ).response
+          firstGlobals,
+        ).response,
       );
     }
 
@@ -2183,8 +2173,8 @@ export class IDLIndex {
              * Send nothing and post-process all files in the thread
              */
             // files: buckets[i]
-          }
-        ).response
+          },
+        ).response,
       );
     }
 
@@ -2198,10 +2188,7 @@ export class IDLIndex {
     await Promise.all(postProcessing);
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
 
     /**
      * Process our results
@@ -2224,7 +2211,7 @@ export class IDLIndex {
       // change!
       await this.changeDetection(
         new CancellationToken(),
-        changes.changedGlobals
+        changes.changedGlobals,
       );
     }
 
@@ -2233,10 +2220,7 @@ export class IDLIndex {
     this.lastWorkspaceIndexStats.linesPro = lines;
 
     // send message to clean up
-    this.indexerPool.postToAll(
-      LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP,
-      undefined
-    );
+    this.indexerPool.postToAll(LSP_WORKER_THREAD_MESSAGE_LOOKUP.CLEAN_UP, {});
   }
 
   /**
@@ -2297,8 +2281,8 @@ export class IDLIndex {
           this.indexerPool.workerio.postAndReceiveMessage(
             ids[i],
             LSP_WORKER_THREAD_MESSAGE_LOOKUP.TRACK_GLOBAL,
-            msg
-          ).response
+            msg,
+          ).response,
         );
       }
 

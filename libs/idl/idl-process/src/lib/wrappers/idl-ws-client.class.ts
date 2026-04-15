@@ -70,7 +70,7 @@ export class IDLWebSocketClient {
           default:
             break;
         }
-      }
+      },
     );
 
     // connect
@@ -83,7 +83,7 @@ export class IDLWebSocketClient {
    */
   send<T extends ToIDLWebSocketMessageTypes>(
     type: T,
-    payload: ToIDLWebSocketPayload<T>
+    payload: ToIDLWebSocketPayload<T>,
   ) {
     this._emitToServer({
       type,
@@ -95,7 +95,7 @@ export class IDLWebSocketClient {
    * Emits messages to the server - normalizes and enforces type checking
    */
   private _emitToServer<T extends ToIDLWebSocketMessageTypes>(
-    message: ToIDLWebSocketMessage<T>
+    message: ToIDLWebSocketMessage<T>,
   ) {
     this.socket.emit(IDL_WS_MESSAGE, message);
   }

@@ -23,7 +23,7 @@ export function CreateHistoryFile() {
   if (IDL_EXTENSION_CONFIG.IDL.history.enabled) {
     OUTPUT_CONFIG.FILE = join(
       VariablesReferenceSubstitution(IDL_EXTENSION_CONFIG.IDL.history.folder),
-      IDL_EXTENSION_CONFIG.IDL.history.fileName
+      IDL_EXTENSION_CONFIG.IDL.history.fileName,
     );
 
     // add to normal log
@@ -35,7 +35,7 @@ export function CreateHistoryFile() {
 
     // add in history log where we are located
     IDL_DEBUG_OUTPUT_CHANNEL.appendLine(
-      `idl history '${OUTPUT_CONFIG.FILE}'\n`
+      `idl history '${OUTPUT_CONFIG.FILE}'\n`,
     );
 
     try {

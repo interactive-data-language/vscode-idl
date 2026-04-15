@@ -6,6 +6,7 @@ import { TestsForAssembler } from './makers/tests-for-assembler';
 import { TestsForAutoComplete } from './makers/tests-for-auto-complete';
 import { TestForAutoFixing } from './makers/tests-for-auto-fixing';
 import { TestsForConfigFileResolving } from './makers/tests-for-config-file-resolving';
+import { TestsForENVIModeler } from './makers/tests-for-envi-modeler';
 import { TestsForGlobalProblems } from './makers/tests-for-global-problems';
 import { TestsForHoverHelp } from './makers/tests-for-hover-help';
 import { TestsForLocalGlobalScopeAndCompile } from './makers/tests-for-local-global-scope-compile-and-types';
@@ -23,6 +24,7 @@ import { TestsForTokenizer } from './makers/tests-for-tokenizer';
 import { AUTO_ASSEMBLER_TESTS } from './tests/auto-assembler-tests.interface';
 import { AUTO_AUTO_COMPLETE_TESTS } from './tests/auto-auto-complete-tests.interface';
 import { AUTO_CONFIG_FILE_RESOLVING } from './tests/auto-config-file-resolving-tests.interface';
+import { AUTO_ENVI_MODELER_TESTS } from './tests/auto-envi-modeler-tests.interface';
 import { AUTO_GLOBAL_PROBLEM_TESTS } from './tests/auto-global-problem-tests.interface';
 import { AUTO_HOVER_HELP_TESTS } from './tests/auto-hover-help-tests.interface';
 import { AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS } from './tests/auto-local-global-scope-compile-and-types-tests.interface';
@@ -33,7 +35,7 @@ import { AUTO_SEMANTIC_TOKEN_TESTS } from './tests/auto-semantic-token-tests.int
 import { AUTO_POST_PROCESSOR_TESTS } from './tests/auto-syntax-post-processor-tests.interface';
 import { AUTO_SYNTAX_TESTS } from './tests/auto-syntax-validator-tests.interface';
 import { AUTO_TASK_ASSEMBLER_TESTS } from './tests/auto-task-assembler-tests.interface';
-import { AUTO_TASK_GENERATION_TESTS } from './tests/auto-task-generationtests.interface';
+import { AUTO_TASK_GENERATION_TESTS } from './tests/auto-task-generation-tests.interface';
 import { AUTO_TASK_PARSING_TESTS } from './tests/auto-task-parsing-tests.interface';
 import { AUTO_TOKEN_DEFINITION_TESTS } from './tests/auto-token-definition-tests.interface';
 import { AUTO_TOKEN_TESTS } from './tests/auto-token-tests.interface';
@@ -72,7 +74,7 @@ export async function GenerateAutomatedTests() {
     await TestsForTokenizer(
       AUTO_TOKEN_TESTS[i].suiteName,
       AUTO_TOKEN_TESTS[i].tests,
-      join(outDirToken, AUTO_TOKEN_TESTS[i].fileName)
+      join(outDirToken, AUTO_TOKEN_TESTS[i].fileName),
     );
   }
   console.log();
@@ -80,7 +82,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirTextMateToken = join(
     process.cwd(),
-    'libs/tests/textmate-tokenizer/src/lib'
+    'libs/tests/textmate-tokenizer/src/lib',
   );
 
   // clean test directory
@@ -93,7 +95,7 @@ export async function GenerateAutomatedTests() {
     await TestsForTextMateTokenizer(
       AUTO_TOKEN_TESTS[i].suiteName,
       AUTO_TOKEN_TESTS[i].tests,
-      join(outDirTextMateToken, AUTO_TOKEN_TESTS[i].fileName)
+      join(outDirTextMateToken, AUTO_TOKEN_TESTS[i].fileName),
     );
   }
   console.log();
@@ -101,7 +103,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirPostProcess = join(
     process.cwd(),
-    'libs/tests/syntax-post-processors/src/lib'
+    'libs/tests/syntax-post-processors/src/lib',
   );
 
   // clean test directory
@@ -114,7 +116,7 @@ export async function GenerateAutomatedTests() {
     await TestsForSyntaxPostProcessors(
       AUTO_POST_PROCESSOR_TESTS[i].suiteName,
       AUTO_POST_PROCESSOR_TESTS[i].tests,
-      join(outDirPostProcess, AUTO_POST_PROCESSOR_TESTS[i].fileName)
+      join(outDirPostProcess, AUTO_POST_PROCESSOR_TESTS[i].fileName),
     );
   }
   console.log();
@@ -122,7 +124,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirValidators = join(
     process.cwd(),
-    'libs/tests/syntax-validators/src/lib'
+    'libs/tests/syntax-validators/src/lib',
   );
 
   // clean test directory
@@ -135,7 +137,7 @@ export async function GenerateAutomatedTests() {
     await TestsForSyntaxValidators(
       AUTO_SYNTAX_TESTS[i].suiteName,
       AUTO_SYNTAX_TESTS[i].tests,
-      join(outDirValidators, AUTO_SYNTAX_TESTS[i].fileName)
+      join(outDirValidators, AUTO_SYNTAX_TESTS[i].fileName),
     );
   }
   console.log();
@@ -143,7 +145,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirSelectedToken = join(
     process.cwd(),
-    'libs/tests/token-at-cursor/src/lib'
+    'libs/tests/token-at-cursor/src/lib',
   );
 
   // clean test directory
@@ -156,7 +158,7 @@ export async function GenerateAutomatedTests() {
     await TestsForTokenAtCursor(
       AUTO_SELECTED_TOKEN_TESTS[i].suiteName,
       AUTO_SELECTED_TOKEN_TESTS[i].tests,
-      join(outDirSelectedToken, AUTO_SELECTED_TOKEN_TESTS[i].fileName)
+      join(outDirSelectedToken, AUTO_SELECTED_TOKEN_TESTS[i].fileName),
     );
   }
   console.log();
@@ -174,7 +176,7 @@ export async function GenerateAutomatedTests() {
     await TestsForHoverHelp(
       AUTO_HOVER_HELP_TESTS[i].suiteName,
       AUTO_HOVER_HELP_TESTS[i].tests,
-      join(outDirHoverHelp, AUTO_HOVER_HELP_TESTS[i].fileName)
+      join(outDirHoverHelp, AUTO_HOVER_HELP_TESTS[i].fileName),
     );
   }
   console.log();
@@ -182,7 +184,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirTokenDef = join(
     process.cwd(),
-    'libs/tests/token-definition/src/lib'
+    'libs/tests/token-definition/src/lib',
   );
 
   // clean test directory
@@ -195,7 +197,7 @@ export async function GenerateAutomatedTests() {
     await TestsForTokenDefinition(
       AUTO_TOKEN_DEFINITION_TESTS[i].suiteName,
       AUTO_TOKEN_DEFINITION_TESTS[i].tests,
-      join(outDirTokenDef, AUTO_TOKEN_DEFINITION_TESTS[i].fileName)
+      join(outDirTokenDef, AUTO_TOKEN_DEFINITION_TESTS[i].fileName),
     );
   }
   console.log();
@@ -203,7 +205,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirAutoComplete = join(
     process.cwd(),
-    'libs/tests/auto-complete/src/lib'
+    'libs/tests/auto-complete/src/lib',
   );
 
   // clean test directory
@@ -216,7 +218,7 @@ export async function GenerateAutomatedTests() {
     await TestsForAutoComplete(
       AUTO_AUTO_COMPLETE_TESTS[i].suiteName,
       AUTO_AUTO_COMPLETE_TESTS[i].tests,
-      join(outDirAutoComplete, AUTO_AUTO_COMPLETE_TESTS[i].fileName)
+      join(outDirAutoComplete, AUTO_AUTO_COMPLETE_TESTS[i].fileName),
     );
   }
   console.log();
@@ -224,7 +226,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirLocalVarsToken = join(
     process.cwd(),
-    'libs/tests/local-global-scope-compile/src/lib'
+    'libs/tests/local-global-scope-compile/src/lib',
   );
 
   // clean test directory
@@ -238,15 +240,15 @@ export async function GenerateAutomatedTests() {
     i++
   ) {
     console.log(
-      `  Suite (${i}): ${AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS[i].suiteName}`
+      `  Suite (${i}): ${AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS[i].suiteName}`,
     );
     await TestsForLocalGlobalScopeAndCompile(
       AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS[i].suiteName,
       AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS[i].tests,
       join(
         outDirLocalVarsToken,
-        AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS[i].fileName
-      )
+        AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS[i].fileName,
+      ),
     );
   }
   console.log();
@@ -264,7 +266,7 @@ export async function GenerateAutomatedTests() {
     await TestsForOutline(
       AUTO_OUTLINE_TESTS[i].suiteName,
       AUTO_OUTLINE_TESTS[i].tests,
-      join(outDirOutline, AUTO_OUTLINE_TESTS[i].fileName)
+      join(outDirOutline, AUTO_OUTLINE_TESTS[i].fileName),
     );
   }
   console.log();
@@ -272,7 +274,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirSemantic = join(
     process.cwd(),
-    'libs/tests/semantic-tokens/src/lib'
+    'libs/tests/semantic-tokens/src/lib',
   );
 
   // clean test directory
@@ -285,7 +287,7 @@ export async function GenerateAutomatedTests() {
     await TestsForSemanticTokens(
       AUTO_SEMANTIC_TOKEN_TESTS[i].suiteName,
       AUTO_SEMANTIC_TOKEN_TESTS[i].tests,
-      join(outDirSemantic, AUTO_SEMANTIC_TOKEN_TESTS[i].fileName)
+      join(outDirSemantic, AUTO_SEMANTIC_TOKEN_TESTS[i].fileName),
     );
   }
   console.log();
@@ -293,7 +295,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirTaskParsing = join(
     process.cwd(),
-    'libs/tests/task-parsing/src/lib'
+    'libs/tests/task-parsing/src/lib',
   );
 
   // clean test directory
@@ -306,7 +308,7 @@ export async function GenerateAutomatedTests() {
     await TestsForTaskParsing(
       AUTO_TASK_PARSING_TESTS[i].suiteName,
       AUTO_TASK_PARSING_TESTS[i].tests,
-      join(outDirTaskParsing, AUTO_TASK_PARSING_TESTS[i].fileName)
+      join(outDirTaskParsing, AUTO_TASK_PARSING_TESTS[i].fileName),
     );
   }
   console.log();
@@ -324,7 +326,7 @@ export async function GenerateAutomatedTests() {
     await TestsForAssembler(
       AUTO_ASSEMBLER_TESTS[i].suiteName,
       AUTO_ASSEMBLER_TESTS[i].tests,
-      join(outDirAssembler, AUTO_ASSEMBLER_TESTS[i].fileName)
+      join(outDirAssembler, AUTO_ASSEMBLER_TESTS[i].fileName),
     );
   }
   console.log();
@@ -332,7 +334,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirTaskAssembler = join(
     process.cwd(),
-    'libs/tests/task-assembler/src/lib'
+    'libs/tests/task-assembler/src/lib',
   );
 
   // clean test directory
@@ -345,7 +347,7 @@ export async function GenerateAutomatedTests() {
     await TestsForTaskAssembler(
       AUTO_TASK_ASSEMBLER_TESTS[i].suiteName,
       AUTO_TASK_ASSEMBLER_TESTS[i].tests,
-      join(outDirTaskAssembler, AUTO_TASK_ASSEMBLER_TESTS[i].fileName)
+      join(outDirTaskAssembler, AUTO_TASK_ASSEMBLER_TESTS[i].fileName),
     );
   }
   console.log();
@@ -363,7 +365,7 @@ export async function GenerateAutomatedTests() {
     await TestForAutoFixing(
       AUTO_PROBLEM_FIXING_TESTS[i].suiteName,
       AUTO_PROBLEM_FIXING_TESTS[i].tests,
-      join(outDirFixing, AUTO_PROBLEM_FIXING_TESTS[i].fileName)
+      join(outDirFixing, AUTO_PROBLEM_FIXING_TESTS[i].fileName),
     );
   }
   console.log();
@@ -371,7 +373,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirGlobalProblems = join(
     process.cwd(),
-    'libs/tests/global-problems/src/lib'
+    'libs/tests/global-problems/src/lib',
   );
 
   // clean test directory
@@ -384,7 +386,7 @@ export async function GenerateAutomatedTests() {
     await TestsForGlobalProblems(
       AUTO_GLOBAL_PROBLEM_TESTS[i].suiteName,
       AUTO_GLOBAL_PROBLEM_TESTS[i].tests,
-      join(outDirGlobalProblems, AUTO_GLOBAL_PROBLEM_TESTS[i].fileName)
+      join(outDirGlobalProblems, AUTO_GLOBAL_PROBLEM_TESTS[i].fileName),
     );
   }
   console.log();
@@ -392,7 +394,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirConfigResolution = join(
     process.cwd(),
-    'libs/tests/config-resolution/src/lib'
+    'libs/tests/config-resolution/src/lib',
   );
 
   // clean test directory
@@ -405,7 +407,7 @@ export async function GenerateAutomatedTests() {
     await TestsForConfigFileResolving(
       AUTO_CONFIG_FILE_RESOLVING[i].suiteName,
       AUTO_CONFIG_FILE_RESOLVING[i].tests,
-      join(outDirConfigResolution, AUTO_CONFIG_FILE_RESOLVING[i].fileName)
+      join(outDirConfigResolution, AUTO_CONFIG_FILE_RESOLVING[i].fileName),
     );
   }
   console.log();
@@ -413,7 +415,7 @@ export async function GenerateAutomatedTests() {
   // specify the output folder
   const outDirTaskGeneration = join(
     process.cwd(),
-    'libs/tests/task-generation/src/lib'
+    'libs/tests/task-generation/src/lib',
   );
 
   // clean test directory
@@ -426,7 +428,28 @@ export async function GenerateAutomatedTests() {
     await TestsForTaskGeneration(
       AUTO_TASK_GENERATION_TESTS[i].suiteName,
       AUTO_TASK_GENERATION_TESTS[i].tests,
-      join(outDirTaskGeneration, AUTO_TASK_GENERATION_TESTS[i].fileName)
+      join(outDirTaskGeneration, AUTO_TASK_GENERATION_TESTS[i].fileName),
+    );
+  }
+  console.log();
+
+  // specify the output folder
+  const outDirENVIModeler = join(
+    process.cwd(),
+    'libs/tests/envi-modeler/src/lib',
+  );
+
+  // clean test directory
+  CleanTestDir(outDirENVIModeler);
+
+  // process each test
+  console.log('Generating tests for ENVI Modeler');
+  for (let i = 0; i < AUTO_ENVI_MODELER_TESTS.length; i++) {
+    console.log(`  Suite (${i}): ${AUTO_ENVI_MODELER_TESTS[i].suiteName}`);
+    await TestsForENVIModeler(
+      AUTO_ENVI_MODELER_TESTS[i].suiteName,
+      AUTO_ENVI_MODELER_TESTS[i].tests,
+      join(outDirENVIModeler, AUTO_ENVI_MODELER_TESTS[i].fileName),
     );
   }
   console.log();

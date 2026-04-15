@@ -20,7 +20,7 @@ import {
  */
 export function DocsToMarkdown<T extends MarkdownType>(
   type: T,
-  info: MarkdownInfo<T>
+  info: MarkdownInfo<T>,
 ): string {
   // find the right converter
   switch (type) {
@@ -36,7 +36,7 @@ export function DocsToMarkdown<T extends MarkdownType>(
       return VariablesToMarkdown(info as IDocs);
     default:
       throw new Error(
-        `Unhandled docs conversion to markdown of type "${type}"`
+        `Unhandled docs conversion to markdown of type "${type}"`,
       );
   }
 }

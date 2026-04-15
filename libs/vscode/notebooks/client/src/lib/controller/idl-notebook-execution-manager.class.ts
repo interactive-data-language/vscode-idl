@@ -85,13 +85,13 @@ export class IDLNotebookExecutionManager {
 
   constructor(
     controller: IDLNotebookController,
-    vscodeController: vscode.NotebookController
+    vscodeController: vscode.NotebookController,
   ) {
     // create our runtime session - does not immediately start IDL
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
       VSCODE_PRO_DIR,
-      ''
+      '',
     );
     this.listenToEvents();
 
@@ -126,7 +126,7 @@ export class IDLNotebookExecutionManager {
       // replace the output for the cell
       await this._replaceCellOutput(
         this._currentCell,
-        this._currentCell.output
+        this._currentCell.output,
       );
     }
   }
@@ -138,7 +138,7 @@ export class IDLNotebookExecutionManager {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _notebook: vscode.NotebookDocument,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _controller: vscode.NotebookController
+    _controller: vscode.NotebookController,
   ): Promise<void> {
     /**
      * Get next cells to process
@@ -218,7 +218,7 @@ export class IDLNotebookExecutionManager {
    */
   async _endCellExecution(
     success: boolean,
-    inActions: Partial<IEndCellExecutionActions> = {}
+    inActions: Partial<IEndCellExecutionActions> = {},
   ) {
     /**
      * Get current cell
@@ -255,7 +255,7 @@ export class IDLNotebookExecutionManager {
 
       // get the fsPath for the current cell
       const fsPath = IDLFileHelper.notebookCellUriToFSPath(
-        cell.cell.document.uri
+        cell.cell.document.uri,
       );
 
       /** Check if any of our scope items are in this notebook cell */
@@ -279,7 +279,7 @@ export class IDLNotebookExecutionManager {
               ? IDLFileHelper.notebookCellFSPathToUri(stack[i].file)
               : URI.file(stack[i].file),
             [stack[i].line - 1], // in notebooks, we need zero-based instead of one
-            i === 0
+            i === 0,
           );
         }
 
@@ -379,7 +379,7 @@ export class IDLNotebookExecutionManager {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _notebook: vscode.NotebookDocument,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _controller: vscode.NotebookController
+    _controller: vscode.NotebookController,
   ): Promise<void> {
     try {
       this.queue.push(cells);
@@ -436,8 +436,8 @@ export class IDLNotebookExecutionManager {
       await this.evaluate('.compile idlittool__define');
       outputs.push(
         await this.evaluate(
-          `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/idlititool__refreshcurrentview.pro'`
-        )
+          `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/idlititool__refreshcurrentview.pro'`,
+        ),
       );
 
       /**
@@ -446,8 +446,8 @@ export class IDLNotebookExecutionManager {
       await this.evaluate('.compile graphic__define');
       outputs.push(
         await this.evaluate(
-          `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/graphic__refresh.pro'`
-        )
+          `.compile '${VSCODE_NOTEBOOK_PRO_DIR}/graphic__refresh.pro'`,
+        ),
       );
     }
 
@@ -483,7 +483,7 @@ export class IDLNotebookExecutionManager {
   async _replaceCellOutput(
     cell: ICurrentCell,
     content: string,
-    forceUpdate = false
+    forceUpdate = false,
   ) {
     // only save output if we are not finished
     if (!cell.finished) {
@@ -495,12 +495,12 @@ export class IDLNotebookExecutionManager {
               Buffer.from(
                 ReplaceNotebookPaths(
                   this.controller,
-                  content.replace(REGEX_NEW_LINE, '\n')
-                )
+                  content.replace(REGEX_NEW_LINE, '\n'),
+                ),
               ),
-              'text/plain'
+              'text/plain',
             ),
-          ])
+          ]),
         );
       }
     }
@@ -576,7 +576,7 @@ export class IDLNotebookExecutionManager {
     this._runtime = new IDLInteractionManager(
       IDL_LOGGER.getLog(IDL_DEBUG_NOTEBOOK_LOG),
       VSCODE_PRO_DIR,
-      ''
+      '',
     );
 
     // listen to events
@@ -598,7 +598,7 @@ export class IDLNotebookExecutionManager {
     const config =
       await IDL_DEBUG_CONFIGURATION_PROVIDER.resolveDebugConfiguration(
         folder,
-        copy(DEFAULT_IDL_DEBUG_CONFIGURATION)
+        copy(DEFAULT_IDL_DEBUG_CONFIGURATION),
       );
 
     /**
@@ -620,7 +620,7 @@ export class IDLNotebookExecutionManager {
             echo: false,
             silent: true,
             idlInfo: false,
-          })
+          }),
         );
 
         try {
@@ -636,7 +636,7 @@ export class IDLNotebookExecutionManager {
               await this._replaceCellOutput(
                 current,
                 IDL_TRANSLATION.notebooks.notifications.notValidIDLVersion,
-                true
+                true,
               );
             }
 
@@ -645,7 +645,7 @@ export class IDLNotebookExecutionManager {
 
             // alert user we have started IDL for their notebook
             vscode.window.showErrorMessage(
-              IDL_TRANSLATION.notebooks.notifications.notValidIDLVersion
+              IDL_TRANSLATION.notebooks.notifications.notValidIDLVersion,
             );
 
             // reject
@@ -704,7 +704,7 @@ export class IDLNotebookExecutionManager {
       },
       () => {
         return launchPromise;
-      }
+      },
     );
 
     // make sure cells are done executing
@@ -769,12 +769,12 @@ export class IDLNotebookExecutionManager {
    * Marks cell execution as finished
    */
   private async _IDLStopped(
-    reason: 'crash' | 'failed-start' | 'lost-connection'
+    reason: 'crash' | 'failed-start' | 'lost-connection',
   ) {
     switch (reason) {
       case 'crash':
         await this._appendToCurrentCellOutput(
-          IDL_TRANSLATION.notebooks.errors.crashed
+          IDL_TRANSLATION.notebooks.errors.crashed,
         );
         IDL_LOGGER.log({
           type: 'error',
@@ -785,12 +785,12 @@ export class IDLNotebookExecutionManager {
         break;
       case 'failed-start':
         await this._appendToCurrentCellOutput(
-          IDL_TRANSLATION.debugger.adapter.failedStart
+          IDL_TRANSLATION.debugger.adapter.failedStart,
         );
         break;
       case 'lost-connection':
         await this._appendToCurrentCellOutput(
-          IDL_TRANSLATION.notifications.lostIDLConnection
+          IDL_TRANSLATION.notifications.lostIDLConnection,
         );
         break;
       default:
@@ -912,7 +912,7 @@ export class IDLNotebookExecutionManager {
       try {
         // get exported items
         const exported: IDLNotebookEmbeddedItems = JSON.parse(
-          CleanIDLOutput(output)
+          CleanIDLOutput(output),
         );
 
         // process the items to embed

@@ -13,7 +13,7 @@ import {
 export async function CompareCellOutputs(
   nb: vscode.NotebookDocument,
   cellOutput: ICompareCellOutputs[],
-  checkExecution = true
+  checkExecution = true,
 ) {
   /**
    * get notebook cells
@@ -70,7 +70,7 @@ export async function CompareCellOutputs(
  */
 export function CompareCellKindsAndOutputs(
   nb: vscode.NotebookDocument,
-  cellsAndOutput: ICompareCellAndOutputs[]
+  cellsAndOutput: ICompareCellAndOutputs[],
 ) {
   /**
    * get notebook cells

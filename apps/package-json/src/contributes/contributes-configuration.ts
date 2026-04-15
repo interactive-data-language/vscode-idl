@@ -22,7 +22,7 @@ import { VerifyNLS } from './helpers/verify-nls';
  */
 export function ProcessConfiguration(
   packageJSON: IPackageJSON,
-  nls: IPackageNLS
+  nls: IPackageNLS,
 ) {
   // get all of our contribution points
   const contrib = packageJSON['contributes'];

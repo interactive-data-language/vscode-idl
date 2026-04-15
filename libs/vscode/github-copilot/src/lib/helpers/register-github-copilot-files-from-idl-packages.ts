@@ -9,7 +9,7 @@ import { HomeRelativePath } from './home-relative-path';
  * automatically for GitHub Copilot
  */
 export async function RegisterGitHubCopilotFilesFromIDLPackages(
-  type: 'instructions' | 'prompts'
+  type: 'instructions' | 'prompts',
 ) {
   // Get the configuration for chat settings
   const config = vscode.workspace.getConfiguration('chat');
@@ -63,6 +63,6 @@ export async function RegisterGitHubCopilotFilesFromIDLPackages(
   await config.update(
     settingKey,
     filesLocations,
-    vscode.ConfigurationTarget.Global
+    vscode.ConfigurationTarget.Global,
   );
 }

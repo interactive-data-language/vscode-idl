@@ -17,7 +17,7 @@ export function InitializeENVIOpener(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.window.registerCustomEditorProvider(
       ENVIOpenerProvider.viewType,
-      provider
-    )
+      provider,
+    ),
   );
 }

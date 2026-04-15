@@ -39,7 +39,7 @@ const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
   token,
   parsed,
   current,
-  meta
+  meta,
 ) => {
   /**
    * Find our include file
@@ -62,8 +62,8 @@ const cb: BasicCallback<ProcessToken, PopulateTypeHandlerMeta> = (
       SyntaxProblemWithTranslation(
         IDL_PROBLEM_CODES.CIRCULAR_INCLUDE,
         token.pos,
-        token.pos
-      )
+        token.pos,
+      ),
     );
     return;
   }

@@ -25,7 +25,7 @@ const REGEX_START = /[^\s]/im;
  * Returns undefined if we dont have code to embed
  */
 export async function CreateCodeForNotebooks(
-  code: string[]
+  code: string[],
 ): Promise<string[] | undefined> {
   if (code.length === 0) {
     return undefined;

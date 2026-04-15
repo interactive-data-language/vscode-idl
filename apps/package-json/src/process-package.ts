@@ -36,7 +36,7 @@ import { IPackageJSON, IPackageNLS } from './package.interface';
  */
 export async function ProcessPackage(
   packageJSON: IPackageJSON,
-  nls: IPackageNLS
+  nls: IPackageNLS,
 ) {
   // clear contrib section
   packageJSON['contributes'] = {};

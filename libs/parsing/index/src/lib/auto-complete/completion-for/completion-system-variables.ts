@@ -17,7 +17,7 @@ const SYSTEM_VARIABLES = IDL_DISPLAY_NAMES[GLOBAL_TOKEN_TYPES.SYSTEM_VARIABLE];
  * Adds system variable completion items
  */
 export function BuildCompletionSystemVariableItems(
-  arg: BuildCompletionItemsArg<SystemVariableCompletion>
+  arg: BuildCompletionItemsArg<SystemVariableCompletion>,
 ) {
   // add user procedures first
   const displayNames = Object.values(SYSTEM_VARIABLES);

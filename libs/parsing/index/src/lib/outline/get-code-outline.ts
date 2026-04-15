@@ -15,7 +15,7 @@ export async function GetCodeOutline(
   index: IDLIndex,
   file: string,
   code: string | string[],
-  token = new CancellationToken()
+  token = new CancellationToken(),
 ): Promise<DocumentSymbol[]> {
   switch (true) {
     /**

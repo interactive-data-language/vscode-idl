@@ -16,7 +16,7 @@ import * as vscode from 'vscode';
  */
 export async function RunMCPTool_ExecuteIDLFile(
   id: string,
-  params: MCPToolParams<MCPTool_ExecuteIDLFile>
+  params: MCPToolParams<MCPTool_ExecuteIDLFile>,
 ): Promise<MCPToolResponse<MCPTool_ExecuteIDLFile>> {
   /**
    * Start IDL
@@ -70,7 +70,7 @@ export async function RunMCPTool_ExecuteIDLFile(
 
   // set compile option and make sure we are at the main level
   await IDL_DEBUG_ADAPTER.evaluate(
-    `compile_opt idl2 & message, /reset & retall`
+    `compile_opt idl2 & message, /reset & retall`,
   );
 
   // reset main with ".run"
@@ -78,7 +78,7 @@ export async function RunMCPTool_ExecuteIDLFile(
 
   /** Run our file */
   const result: IRunIDLCommandResult = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.RUN
+    IDL_COMMANDS.DEBUG.RUN,
   );
 
   // return if we didnt finish
@@ -90,7 +90,7 @@ export async function RunMCPTool_ExecuteIDLFile(
   const lastMessage = CleanIDLOutput(
     await IDL_DEBUG_ADAPTER.evaluate(`help, /last_message`, {
       silent: true,
-    })
+    }),
   );
 
   /**

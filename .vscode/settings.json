@@ -4,11 +4,16 @@
   "editor.detectIndentation": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll.eslint": "explicit"
   },
   "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
   "cSpell.words": [
+    "arrayextractor",
     "Arrayify",
+    "arrayvalues",
     "bendcase",
     "bendelse",
     "bendfor",
@@ -19,6 +24,7 @@
     "bubbleanimation",
     "coeff",
     "coordsys",
+    "datamanager",
     "deeplearningkerasmodel",
     "deeplearninglabelraster",
     "deeplearningobjectdetectionraster",
@@ -95,6 +101,7 @@
     "IMCP",
     "INCREMENTERS",
     "INDGEN",
+    "inputparameters",
     "ioerror",
     "Keras",
     "lineanimation",
@@ -113,12 +120,14 @@
     "onigurama",
     "ONNX",
     "orthophoto",
+    "outputparameters",
     "paren",
     "pointcloud",
     "pointcloudspatialref",
     "populators",
     "powerlines",
     "PROJCS",
+    "propertyextractor",
     "pseudorasterspatialref",
     "Recurser",
     "Recursor",
@@ -140,6 +149,7 @@
     "tiepoint",
     "tiepoints",
     "TLDR",
+    "todos",
     "TOGGLEABLE",
     "traceback",
     "Uncaptured",

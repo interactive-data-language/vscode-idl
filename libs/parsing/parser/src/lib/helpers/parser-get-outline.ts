@@ -17,7 +17,7 @@ import {
  * Given a global token, returns the display name to be shown in the outline in VSCode
  */
 export function OutlineDisplayName(
-  token: IGlobalIndexedToken<GlobalTokenType>
+  token: IGlobalIndexedToken<GlobalTokenType>,
 ): string {
   switch (token.type) {
     case GLOBAL_TOKEN_TYPES.FUNCTION:

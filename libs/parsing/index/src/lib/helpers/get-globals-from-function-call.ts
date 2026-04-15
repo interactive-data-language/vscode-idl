@@ -17,7 +17,7 @@ import { TypeFromTask } from '../post-process/populate-type/from/function/functi
 export function GetGlobalsFromFunctionCall(
   index: IDLIndex,
   parsed: IParsed,
-  local: TreeToken<CallFunctionToken>
+  local: TreeToken<CallFunctionToken>,
 ): GlobalIndexedRoutineToken[] {
   /** The thing we search for */
   let findThis = local.match[1].toLowerCase();
@@ -47,7 +47,7 @@ export function GetGlobalsFromFunctionCall(
         index,
         parsed,
         local,
-        findThis === 'envitask' ? 'ENVI' : 'IDL'
+        findThis === 'envitask' ? 'ENVI' : 'IDL',
       );
 
       // if the class is not "any" then use that as the function
@@ -73,7 +73,7 @@ export function GetGlobalsFromFunctionCall(
   if (global.length === 0) {
     global = index.findMatchingGlobalToken(
       GLOBAL_TOKEN_TYPES.FUNCTION_METHOD,
-      `${findThis}::init`
+      `${findThis}::init`,
     );
   }
 

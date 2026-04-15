@@ -34,7 +34,7 @@ import { copy } from 'fast-copy';
  */
 export function TypeFromNumber(
   token: TreeToken<NumberToken>,
-  compOptions: string[] = []
+  compOptions: string[] = [],
 ): IDLDataType {
   const match = token.match[0];
 

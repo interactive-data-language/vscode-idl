@@ -16,7 +16,7 @@ export function MCP_ENVIGCPSet() {
         message: 'url must end with ".pts"',
       })
       .describe(
-        `Provide a fully-qualified filepath to the GCP (Ground Control Points) file on disk. Should end with a ".pts" extension.`
+        `Provide a fully-qualified filepath to the GCP (Ground Control Points) file on disk. Should end with a ".pts" extension.`,
       ),
   });
 }

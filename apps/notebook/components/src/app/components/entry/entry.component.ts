@@ -82,7 +82,7 @@ export class EntryComponent implements AfterViewInit {
 
   constructor(
     @Host() private dataShare: DataSharingService,
-    private el: ElementRef<HTMLElement>
+    private el: ElementRef<HTMLElement>,
   ) {}
 
   ngAfterViewInit() {

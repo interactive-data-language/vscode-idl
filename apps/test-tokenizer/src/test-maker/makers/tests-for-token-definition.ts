@@ -14,7 +14,7 @@ import { ITokenDefTest } from '../tests.interface';
 export async function TestsForTokenDefinition(
   name: string,
   tests: ITokenDefTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -23,7 +23,7 @@ export async function TestsForTokenDefinition(
   strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { readFile } from 'fs/promises';`);
   strings.push(`import { Position } from 'vscode-languageserver/node';`);
@@ -47,7 +47,7 @@ export async function TestsForTokenDefinition(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // add our tokens
@@ -79,7 +79,7 @@ export async function TestsForTokenDefinition(
       // specify file and index
       strings.push(`    // parse file for tests`);
       strings.push(
-        `    await index.indexFile(GetExtensionPath('${test.files[j]}'))`
+        `    await index.indexFile(GetExtensionPath('${test.files[j]}'))`,
       );
       strings.push(``);
     }
@@ -89,7 +89,7 @@ export async function TestsForTokenDefinition(
       const found = await index.getTokenDef(
         filepath,
         await readFile(filepath, 'utf-8'),
-        test.position[j]
+        test.position[j],
       );
 
       // remove file-specific field
@@ -101,8 +101,8 @@ export async function TestsForTokenDefinition(
       strings.push(`    // define position`);
       strings.push(
         `    const position_${j}: Position = ${JSON.stringify(
-          test.position[j]
-        )}`
+          test.position[j],
+        )}`,
       );
       strings.push('');
 
@@ -111,14 +111,14 @@ export async function TestsForTokenDefinition(
       strings.push(
         `    const expectedFound_${j} = ${
           found !== undefined ? JSON.stringify(found) : 'undefined'
-        }`
+        }`,
       );
       strings.push('');
 
       // remove filepaths
       strings.push(`    // get expected and remove file`);
       strings.push(
-        `    const found_${j} = await index.getTokenDef(filepath, await readFile(filepath, 'utf-8'), position_${j})`
+        `    const found_${j} = await index.getTokenDef(filepath, await readFile(filepath, 'utf-8'), position_${j})`,
       );
       strings.push(`    if (found_${j} !== undefined){`);
       strings.push(`      delete found_${j}.file`);

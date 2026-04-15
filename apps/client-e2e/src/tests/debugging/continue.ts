@@ -26,7 +26,7 @@ export const Continue: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -66,7 +66,7 @@ export const Continue: RunnerFunction = async (init) => {
   for (let i = 0; i < EXPECTED_LINES.length; i++) {
     // verify we are on the right line
     expect(init.debug.adapter._eventHelper.stopped?.stack?.line).toEqual(
-      EXPECTED_LINES[i]
+      EXPECTED_LINES[i],
     );
 
     // continue running

@@ -63,7 +63,7 @@ export function BorrowKeywordsFrom(global: GlobalTokens) {
   // do the same for all structures
   // update all graphics routines
   const structures = global.filter(
-    (item) => item.type === GLOBAL_TOKEN_TYPES.STRUCTURE
+    (item) => item.type === GLOBAL_TOKEN_TYPES.STRUCTURE,
   ) as IGlobalIndexedToken<GlobalStructureToken>[];
 
   // process each structure

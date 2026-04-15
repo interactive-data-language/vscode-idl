@@ -47,7 +47,7 @@ export function ProcessGrammars(packageJSON: IPackageJSON, nls: IPackageNLS) {
     const url = join(process.cwd(), grammar.path);
     if (!existsSync(url)) {
       throw new Error(
-        `grammar at index ${i} missing path file where expected "${grammar.path}"`
+        `grammar at index ${i} missing path file where expected "${grammar.path}"`,
       );
     }
   }

@@ -34,7 +34,7 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
     type: 'object',
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.dontAsk,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
     additionalProperties: false,
@@ -44,28 +44,28 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
         type: 'boolean',
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.dontAskForIDLDir,
-          nls
+          nls,
         ),
       },
       forIconChange: {
         type: 'boolean',
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.dontAskForIconChange,
-          nls
+          nls,
         ),
       },
       forFormatterChange: {
         type: 'boolean',
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.dontAskForFormatterChange,
-          nls
+          nls,
         ),
       },
       toOpenDocs: {
         type: 'boolean',
         description: TranslationFromConfiguration(
           IDL_EXTENSION_CONFIG_KEYS.dontAskToOpenDocs,
-          nls
+          nls,
         ),
       },
       // toInitConfig: {

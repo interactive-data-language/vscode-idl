@@ -15,37 +15,37 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify reference filepath
     const filepath = GetExtensionPath(
-      'idl/test/change-detection/dynamic/use_leap.pro'
+      'idl/test/change-detection/dynamic/use_leap.pro',
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/use_leap.pro')
+      GetExtensionPath('idl/test/change-detection/dynamic/use_leap.pro'),
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/leap2.pro')
+      GetExtensionPath('idl/test/change-detection/dynamic/leap2.pro'),
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/leap.pro')
+      GetExtensionPath('idl/test/change-detection/dynamic/leap.pro'),
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/leap3.pro')
+      GetExtensionPath('idl/test/change-detection/dynamic/leap3.pro'),
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/leap4.pro')
+      GetExtensionPath('idl/test/change-detection/dynamic/leap4.pro'),
     );
 
     // define position
@@ -79,7 +79,7 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
     const found_0 = await index.getTokenDef(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
     if (found_0 !== undefined) {
       delete found_0.file;

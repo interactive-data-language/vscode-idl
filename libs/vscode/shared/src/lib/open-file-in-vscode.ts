@@ -7,7 +7,7 @@ import * as vscode from 'vscode';
 export async function OpenFileInVSCode(
   file: string,
   show = true,
-  bySide = false
+  bySide = false,
 ) {
   const uri = vscode.Uri.file(file);
   const doc = await vscode.workspace.openTextDocument(uri);
@@ -31,7 +31,7 @@ export async function OpenFileInVSCode(
           // find active tab group
           const active =
             groups.findIndex(
-              (group) => group === vscode.window.tabGroups.activeTabGroup
+              (group) => group === vscode.window.tabGroups.activeTabGroup,
             ) + 1;
 
           // if active is not the first, show in the first
@@ -51,7 +51,7 @@ export async function OpenFileInVSCode(
             viewColumn: column,
             preserveFocus: false,
           }
-        : { preserveFocus: false }
+        : { preserveFocus: false },
     );
   }
   return doc;

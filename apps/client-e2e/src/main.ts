@@ -72,7 +72,7 @@ export async function run(): Promise<void> {
     // make sure we found files
     if (files.length === 0) {
       console.log(
-        ` ERROR: MCP tools not found where expected, build with "npm run build-mcp-tools"`
+        ` ERROR: MCP tools not found where expected, build with "npm run build-mcp-tools"`,
       );
       await Sleep(500);
       process.exit(1);
@@ -90,7 +90,7 @@ export async function run(): Promise<void> {
 
     /** Open PRO code */
     const doc = await OpenFileInVSCode(
-      GetExtensionPath('idl/test/client-e2e/load_first_problems.pro')
+      GetExtensionPath('idl/test/client-e2e/load_first_problems.pro'),
     );
 
     // get the current workspace config
@@ -115,7 +115,7 @@ export async function run(): Promise<void> {
       // make sure we dont wait forever
       if (performance.now() - t0 > 10000) {
         throw new Error(
-          'Language server took longer than 10 seconds to return diagnostics, assuming failed start'
+          'Language server took longer than 10 seconds to return diagnostics, assuming failed start',
         );
       }
 
@@ -128,7 +128,7 @@ export async function run(): Promise<void> {
 
     // track how long it took to start
     console.log(
-      `Language server started in ${Math.floor(performance.now() - t0)} ms`
+      `Language server started in ${Math.floor(performance.now() - t0)} ms`,
     );
 
     // verify we have problems
@@ -164,6 +164,19 @@ export async function run(): Promise<void> {
   }
 
   // sleep before exit, otherwise console output does not always get returned
+  console.log('');
+  console.log('-----------------------------------------');
+  console.log('  LLM QA Tests still need to be run.');
+  console.log('');
+  console.log('  1. Open this repo in VS Code');
+  console.log('  2. Make sure you are signed into GitHub Copilot');
+  console.log('  3. Press F5 to launch the Extension Development Host');
+  console.log('  4. Open the Command Palette (Ctrl+Shift+P)');
+  console.log('  5. Run: "IDL: Run Copilot QC Tests"');
+  console.log('  6. Click "Allow" when the LM consent dialog appears');
+  console.log('  7. Check the Output panel for results');
+  console.log('-----------------------------------------');
+
   await Sleep(500);
 
   // nonzero exit to indicate we failed

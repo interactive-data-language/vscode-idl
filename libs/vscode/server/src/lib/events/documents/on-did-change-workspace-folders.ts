@@ -27,7 +27,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * @param event The event from VSCode
  */
 export const ON_DID_CHANGE_WORKSPACE_FOLDERS = async (
-  ev: WorkspaceFoldersChangeEvent
+  ev: WorkspaceFoldersChangeEvent,
 ) => {
   await SERVER_INITIALIZED;
   try {
@@ -50,22 +50,22 @@ export const ON_DID_CHANGE_WORKSPACE_FOLDERS = async (
 
     /** Find files we added */
     const filesAdded = await FindFiles(
-      MergeFolderRecursion(infoRemoved.folders.added, infoAdded.folders.added)
+      MergeFolderRecursion(infoRemoved.folders.added, infoAdded.folders.added),
     );
 
     // add workspaces
     await IDL_INDEX.indexWorkspaceFiles(
       filesAdded,
       MergeFolderRecursion(infoRemoved.folders.added, infoAdded.folders.added),
-      GLOBAL_SERVER_SETTINGS.fullParse
+      GLOBAL_SERVER_SETTINGS.fullParse,
     );
 
     /** Find files we removed */
     const filesRemoved = await FindFiles(
       MergeFolderRecursion(
         infoRemoved.folders.removed,
-        infoAdded.folders.removed
-      )
+        infoAdded.folders.removed,
+      ),
     );
 
     // remove workspaces that we dont need
@@ -79,7 +79,7 @@ export const ON_DID_CHANGE_WORKSPACE_FOLDERS = async (
 
     // update our list
     UpdateWorkspaceFolders(
-      (folders !== null ? folders : []).map((item) => GetWorkspaceFSPath(item))
+      (folders !== null ? folders : []).map((item) => GetWorkspaceFSPath(item)),
     );
 
     // save that we have a list

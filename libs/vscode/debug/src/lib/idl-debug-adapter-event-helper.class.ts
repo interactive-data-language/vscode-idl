@@ -58,7 +58,7 @@ export class IDLDebugAdapterEventHelper {
 
       // alert VSCode we have stopped
       this.adapter.sendEvent(
-        new StoppedEvent(reason, IDLDebugAdapter.THREAD_ID)
+        new StoppedEvent(reason, IDLDebugAdapter.THREAD_ID),
       );
 
       // short pause to make sure APIs catch up
@@ -69,7 +69,7 @@ export class IDLDebugAdapterEventHelper {
       // debug helper libs\vscode\debug\src\lib\idl-debug-adapter.class.ts
       if (stack.file.toLowerCase().endsWith('.pro')) {
         await vscode.commands.executeCommand(
-          'workbench.action.debug.callStackTop'
+          'workbench.action.debug.callStackTop',
         );
       }
     }

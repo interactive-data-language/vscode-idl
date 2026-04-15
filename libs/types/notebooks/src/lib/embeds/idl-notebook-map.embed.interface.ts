@@ -127,11 +127,11 @@ export type IDLNotebookMap_EmbedTypeData<T extends IDLNotebookMap_EmbedType> =
   T extends IDLNotebookMap
     ? IDLNotebookMapData<IDLNotebookMap_EmbeddedItemType>
     : T extends IDLNotebookMap_GeoJSONFromUri
-    ? IDLNotebookMap_GeoJSONFromUriData
-    : T extends IDLNotebookMap_GeoJSON
-    ? IDLNotebookMap_GeoJSONData
-    : T extends IDLNotebookMap_Image
-    ? IDLNotebookMap_ImageData
-    : T extends IDLNotebookMap_ImageFromUri
-    ? IDLNotebookMap_ImageFromUriData
-    : never;
+      ? IDLNotebookMap_GeoJSONFromUriData
+      : T extends IDLNotebookMap_GeoJSON
+        ? IDLNotebookMap_GeoJSONData
+        : T extends IDLNotebookMap_Image
+          ? IDLNotebookMap_ImageData
+          : T extends IDLNotebookMap_ImageFromUri
+            ? IDLNotebookMap_ImageFromUriData
+            : never;

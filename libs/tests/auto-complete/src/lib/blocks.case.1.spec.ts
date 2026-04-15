@@ -15,12 +15,12 @@ describe(`[auto generated] Custom block auto-complete`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/case_switch_then_else.pro'
+      'idl/test/auto-complete/case_switch_then_else.pro',
     );
 
     // add file to index
@@ -166,9 +166,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 4, character: 11 };
@@ -310,9 +310,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_2: Position = { line: 5, character: 7 };
@@ -454,9 +454,9 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_2
+          position_2,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

@@ -24,7 +24,7 @@ BREAK_PARENTS[TOKEN_NAMES.LOGICAL_CASE] = true;
  */
 function ValidateParents(
   scope: TokenName[],
-  allowed: { [ley: string]: boolean }
+  allowed: { [ley: string]: boolean },
 ): boolean {
   // process all scope items
   for (let i = 0; i < scope.length; i++) {
@@ -48,11 +48,11 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.BAD_CONTINUE_LOCATION,
           token.pos,
-          token.pos
-        )
+          token.pos,
+        ),
       );
     }
-  }
+  },
 );
 
 /**
@@ -67,9 +67,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.BAD_BREAK_LOCATION,
           token.pos,
-          token.pos
-        )
+          token.pos,
+        ),
       );
     }
-  }
+  },
 );

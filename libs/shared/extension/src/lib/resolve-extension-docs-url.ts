@@ -6,7 +6,7 @@ import { EXTENSION_DOCS_URL } from '@idl/types/websites';
 export function ResolveExtensionDocsURL(
   baseUrl: string,
   useOnline: boolean,
-  port: number
+  port: number,
 ) {
   return `${
     useOnline || port === -1 ? EXTENSION_DOCS_URL : `http://localhost:${port}`

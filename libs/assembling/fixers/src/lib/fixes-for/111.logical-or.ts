@@ -12,5 +12,5 @@ ASSEMBLER_PROBLEM_FIXERS.onBranchToken(
     ) {
       token.match[0] = token.match[0].replace(/or/i, '||');
     }
-  }
+  },
 );

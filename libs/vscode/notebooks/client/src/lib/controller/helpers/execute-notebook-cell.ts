@@ -27,7 +27,7 @@ import { ENVI_REGEX } from './execute-notebook-cell.interface';
  */
 export async function ExecuteNotebookCell(
   manager: IDLNotebookExecutionManager,
-  cell: vscode.NotebookCell
+  cell: vscode.NotebookCell,
 ): Promise<ICurrentCell> {
   /**
    * Create cell execution data
@@ -51,7 +51,7 @@ export async function ExecuteNotebookCell(
       if (
         !(await manager.launchIDL(
           IDL_TRANSLATION.notebooks.notifications.startingIDL,
-          current
+          current,
         ))
       ) {
         execution.end(false, Date.now());
@@ -108,7 +108,7 @@ export async function ExecuteNotebookCell(
       notebookUri: cell.notebook.uri.toString(),
       cellUri: cell.document.uri.toString(),
       code: cell.document.getText(),
-    }
+    },
   );
 
   // see if theres a problem, user should be alerted
@@ -157,7 +157,7 @@ export async function ExecuteNotebookCell(
     // check if we have more than 2 lines of code then alert user (statement and "end" for the last line)
     if (code.length > 2) {
       await manager._appendToCurrentCellOutput(
-        IDL_TRANSLATION.notebooks.notifications.enviCellDetected
+        IDL_TRANSLATION.notebooks.notifications.enviCellDetected,
       );
     }
   }
@@ -178,7 +178,7 @@ export async function ExecuteNotebookCell(
     resp.isBatch ? `@'${fsPath}'` : `.compile -v '${fsPath}'`,
     {
       silent: true,
-    }
+    },
   );
 
   // get syntax errors
@@ -197,7 +197,7 @@ export async function ExecuteNotebookCell(
       resp.isBatch ? `@'${fsPath}'` : `.compile -v '${fsPath}'`,
       {
         silent: false,
-      }
+      },
     );
   } else {
     /**
@@ -235,7 +235,7 @@ export async function ExecuteNotebookCell(
   // reset quiet flag
   if (resp.isBatch) {
     await manager.evaluate(
-      `!quiet = ${IDL_EXTENSION_CONFIG.notebooks.quietMode ? 1 : 0}`
+      `!quiet = ${IDL_EXTENSION_CONFIG.notebooks.quietMode ? 1 : 0}`,
     );
   }
 

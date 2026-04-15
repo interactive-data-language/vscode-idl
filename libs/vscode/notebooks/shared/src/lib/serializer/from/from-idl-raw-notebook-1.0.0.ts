@@ -17,7 +17,7 @@ export const FromIDLRawNotebook_1_0_0: FromIDLRawNotebook<IDLRawNotebookVersion_
   async function (
     parsed: IDLRawNotebook<IDLRawNotebookVersion_1_0_0>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _token: vscode.CancellationToken
+    _token: vscode.CancellationToken,
   ) {
     /**
      * Cells that we parse
@@ -37,7 +37,7 @@ export const FromIDLRawNotebook_1_0_0: FromIDLRawNotebook<IDLRawNotebookVersion_
           ? vscode.NotebookCellKind.Code
           : vscode.NotebookCellKind.Markup,
         Buffer.from(parsed.cells[i].content, 'base64').toString(),
-        parsed.cells[i].type === 'code' ? IDL_LANGUAGE_NAME : 'markdown'
+        parsed.cells[i].type === 'code' ? IDL_LANGUAGE_NAME : 'markdown',
       );
 
       // check for metadata
@@ -55,11 +55,11 @@ export const FromIDLRawNotebook_1_0_0: FromIDLRawNotebook<IDLRawNotebookVersion_
                   (item) =>
                     new vscode.NotebookCellOutputItem(
                       Buffer.from(item.data, 'base64'),
-                      item.mime
-                    )
+                      item.mime,
+                    ),
                 ),
-                output.metadata
-              )
+                output.metadata,
+              ),
           );
         } catch (err) {
           failedOutput = err;

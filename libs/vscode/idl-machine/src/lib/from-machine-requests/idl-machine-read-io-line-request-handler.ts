@@ -16,7 +16,7 @@ export const IDLMachineReadIOLineRequestHandler: FromIDLMachineRequestHandler<
       {
         title: params.prompt,
       },
-      tokenSource.token
+      tokenSource.token,
     );
 
     /**

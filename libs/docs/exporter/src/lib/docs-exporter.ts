@@ -48,7 +48,7 @@ export async function IDLDocsExporter(
   outDir: string,
   globs: string[],
   exclude: string[],
-  everything = false
+  everything = false,
 ): Promise<void> {
   /**
    * Get the things we need to export
@@ -166,8 +166,8 @@ export async function IDLDocsExporter(
         index,
         `---\noutline: deep\n---\n\n# ${useDisplay}\n\n${
           classes[classNames[i]].summary
-        }`
-      )
+        }`,
+      ),
     );
 
     // create sidebar
@@ -188,13 +188,13 @@ export async function IDLDocsExporter(
 
   // sort by classes
   classSideBar = classSideBar.sort((a, b) =>
-    a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+    a.text > b.text ? 1 : b.text > a.text ? -1 : 0,
   );
   enviTaskSideBar = enviTaskSideBar.sort((a, b) =>
-    a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+    a.text > b.text ? 1 : b.text > a.text ? -1 : 0,
   );
   idlTaskSideBar = idlTaskSideBar.sort((a, b) =>
-    a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+    a.text > b.text ? 1 : b.text > a.text ? -1 : 0,
   );
 
   // add classes if we have them
@@ -271,7 +271,7 @@ export async function IDLDocsExporter(
      * And sort by name
      */
     const forType = toExport[exportTypes[i]].sort((a, b) =>
-      a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+      a.name > b.name ? 1 : b.name > a.name ? -1 : 0,
     );
 
     /** Create sidebar for our items */
@@ -373,7 +373,7 @@ export async function IDLDocsExporter(
     apiSidebar.push({
       text: 'Routines',
       items: routineSidebar.sort((a, b) =>
-        a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+        a.text > b.text ? 1 : b.text > a.text ? -1 : 0,
       ),
       collapsed: true,
     });
@@ -387,10 +387,10 @@ export async function IDLDocsExporter(
     sidebarUri,
     JSON.stringify(
       apiSidebar.sort((a, b) =>
-        a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+        a.text > b.text ? 1 : b.text > a.text ? -1 : 0,
       ),
       null,
-      2
-    )
+      2,
+    ),
   );
 }

@@ -43,7 +43,7 @@ export type StructureInheritanceTokenDef = ITokenDef<StructureInheritanceToken>;
  */
 export type StructureInheritanceMatches = [
   fullMatch: string,
-  structureName: string
+  structureName: string,
 ];
 
 /**

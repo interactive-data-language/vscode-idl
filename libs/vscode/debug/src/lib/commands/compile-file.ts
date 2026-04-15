@@ -39,7 +39,7 @@ export async function CompileFile(): Promise<IRunIDLCommandResult> {
   // compile
   const idlOutput = await IDL_DEBUG_ADAPTER.evaluate(
     `.compile -v '${CleanPath(code.uri.fsPath)}'`,
-    { echo: true, newLine: true, errorCheck: true }
+    { echo: true, newLine: true, errorCheck: true },
   );
 
   /**
@@ -51,8 +51,8 @@ export async function CompileFile(): Promise<IRunIDLCommandResult> {
       IDL_DEBUG_ADAPTER.sendEvent(
         new OutputEvent(
           `${IDL_TRANSLATION.debugger.adapter.syntaxErrorsFound}\n`,
-          'stderr'
-        )
+          'stderr',
+        ),
       );
       return {
         success: false,

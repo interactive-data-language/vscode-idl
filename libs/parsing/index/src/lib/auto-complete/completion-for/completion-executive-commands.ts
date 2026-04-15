@@ -36,7 +36,7 @@ const EXECUTIVE_COMMANDS = [
  * Get options for executive command auto-complete
  */
 export function GetExecutiveCommandCompletionOptions(
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
 ): IExecutiveCommandCompletionOptions {
   /**
    * Do we add files
@@ -71,7 +71,7 @@ export function GetExecutiveCommandCompletionOptions(
  * Build auto-complete from options
  */
 export function BuildExecutiveCommandCompletionItems(
-  arg: BuildCompletionItemsArg<ExecutiveCommandCompletion>
+  arg: BuildCompletionItemsArg<ExecutiveCommandCompletion>,
 ) {
   switch (true) {
     case arg.options.addFiles: {
@@ -110,7 +110,7 @@ export function BuildExecutiveCommandCompletionItems(
         // properly case the executive command
         const cased = AdjustCase(
           EXECUTIVE_COMMANDS[i],
-          arg.formatting.style.control
+          arg.formatting.style.control,
         );
 
         // save completion item

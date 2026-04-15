@@ -13,7 +13,7 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath

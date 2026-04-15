@@ -60,7 +60,7 @@ export class IDLTypeEvaluator {
               name: IDL_TYPE_LOOKUP.ARRAY,
               args: [args],
             },
-          ])
+          ]),
         );
       }
     }

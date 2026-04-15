@@ -9,7 +9,7 @@ import { LogWhenExpectError } from '../../helpers/test-loggers';
  * Makes sure invalid input parameters cause tool execution to fail
  */
 export const RunMCPTestENVIToolParameterValidation: RunnerFunction = async (
-  init
+  init,
 ) => {
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
     toolName: 'ISODataClassification',

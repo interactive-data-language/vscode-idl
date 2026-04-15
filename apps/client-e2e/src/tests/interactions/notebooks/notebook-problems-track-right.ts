@@ -14,9 +14,9 @@ export const NotebookProblemsTrackRight: RunnerFunction = async (init) => {
   // open our notebook
   const nb = await OpenNotebookInVSCode(
     GetExtensionPath(
-      'idl/test/client-e2e/notebooks/problems-track-right.idlnb'
+      'idl/test/client-e2e/notebooks/problems-track-right.idlnb',
     ),
-    true
+    true,
   );
 
   // short pause
@@ -28,14 +28,14 @@ export const NotebookProblemsTrackRight: RunnerFunction = async (init) => {
   expect(
     nb
       .getCells()
-      .map((cell) => vscode.languages.getDiagnostics(cell.document.uri).length)
+      .map((cell) => vscode.languages.getDiagnostics(cell.document.uri).length),
   ).toEqual([3]);
 
   // focus the top cell
   // await vscode.commands.executeCommand('notebook.focusTop');
   await vscode.commands.executeCommand(
     'notebook.cell.insertCodeCellAboveAndFocusContainer',
-    nb
+    nb,
   );
 
   // short pause
@@ -49,8 +49,8 @@ export const NotebookProblemsTrackRight: RunnerFunction = async (init) => {
    */
   expect(
     cells.map(
-      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-    )
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+    ),
   ).toEqual([0, 3]);
 
   // delete the bottom cell
@@ -65,7 +65,7 @@ export const NotebookProblemsTrackRight: RunnerFunction = async (init) => {
    */
   expect(
     cells.map(
-      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length
-    )
+      (cell) => vscode.languages.getDiagnostics(cell.document.uri).length,
+    ),
   ).toEqual([0, 0]);
 };

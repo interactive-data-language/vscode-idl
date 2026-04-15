@@ -306,7 +306,7 @@ describe(`[auto generated] Correctly identify array indexing`, () => {
 
     // verify results
     expect(
-      tokenized.parseProblems.concat(tokenized.postProcessProblems)
+      tokenized.parseProblems.concat(tokenized.postProcessProblems),
     ).toEqual(expectedProblems);
   });
 });

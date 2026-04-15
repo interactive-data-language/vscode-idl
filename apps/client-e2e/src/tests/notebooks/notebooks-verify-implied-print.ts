@@ -13,11 +13,11 @@ import { CompareNotebookJSONOutputs } from './helpers/compare-notebook-json-outp
  */
 export const NotebooksVerifyImpliedPrint: RunnerFunction = async (init) => {
   const nbUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/implied-print/implied-print.idlnb'
+    'idl/test/client-e2e/notebooks/implied-print/implied-print.idlnb',
   );
 
   const expectedUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/implied-print/implied-print-results.idlnb'
+    'idl/test/client-e2e/notebooks/implied-print/implied-print-results.idlnb',
   );
 
   // open notebook

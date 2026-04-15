@@ -31,7 +31,7 @@ describe('Validates operator parsing', () => {
       // get tokens
       const tokens = Tokenizer(
         `a ${operator} b`,
-        new CancellationToken()
+        new CancellationToken(),
       ).tokens;
 
       // make sure we only found one token
@@ -89,7 +89,7 @@ describe('Validates operator parsing', () => {
       // get tokens
       const tokens = Tokenizer(
         `a ${operator} b`,
-        new CancellationToken()
+        new CancellationToken(),
       ).tokens;
 
       // make sure we only found one token

@@ -16,7 +16,7 @@ import { DEBUG_PAUSE } from './_shared.interface';
 export const BreakpointSetBeforeStart: RunnerFunction = async (init) => {
   /** Get the file we need to work with */
   const file = GetExtensionPath(
-    'idl/test/client-e2e/debug/breakpoints/before_start.pro'
+    'idl/test/client-e2e/debug/breakpoints/before_start.pro',
   );
 
   // open editor and display
@@ -52,7 +52,7 @@ export const BreakpointSetBeforeStart: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -63,7 +63,7 @@ export const BreakpointSetBeforeStart: RunnerFunction = async (init) => {
 
   // query breakpoints
   const bps = init.debug.adapter._breakpoints.VSCodeBreakpoints.map(
-    (bp) => bp.line
+    (bp) => bp.line,
   );
 
   // make sure we have the right breakpoints

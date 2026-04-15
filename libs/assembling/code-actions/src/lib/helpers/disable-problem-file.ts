@@ -13,7 +13,7 @@ export function DisableProblemForFile(
   alias: string,
   code: string[],
   lf: string,
-  cell?: number
+  cell?: number,
 ): AutoFixProblem {
   /** Get the code we inject */
   let inject = `;+${lf}; ${DISABLED_PROBLEM_FLAGS.ALL} ${alias}${lf};-${lf}${lf}${code[0]}`;

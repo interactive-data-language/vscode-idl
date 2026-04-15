@@ -37,7 +37,7 @@ export function ExtractParameterDocs(
   reference: { [key: string]: string }, // contains the reference display names
   problems: SyntaxProblems,
   sort: boolean,
-  properties = false
+  properties = false,
 ): {
   [key: string]: IParameterOrPropertyDetails;
 } {
@@ -127,8 +127,8 @@ export function ExtractParameterDocs(
                 ]
               }: "${key}"`,
               comments[i].pos,
-              comments[i].pos
-            )
+              comments[i].pos,
+            ),
           );
         } else {
           // update display name from our reference if we only have one
@@ -163,8 +163,8 @@ export function ExtractParameterDocs(
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.NOT_ENOUGH_PROPERTY_DOCS_PARAMETERS,
                 comments[i].pos,
-                comments[i].pos
-              )
+                comments[i].pos,
+              ),
             );
             break;
           case split.length > 1:
@@ -172,8 +172,8 @@ export function ExtractParameterDocs(
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.TOO_MANY_PROPERTY_DOCS_PARAMETERS,
                 comments[i].pos,
-                comments[i].pos
-              )
+                comments[i].pos,
+              ),
             );
             break;
           default:
@@ -221,8 +221,8 @@ export function ExtractParameterDocs(
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.NOT_ENOUGH_DOCS_PARAMETERS,
                 comments[i].pos,
-                comments[i].pos
-              )
+                comments[i].pos,
+              ),
             );
             break;
           case split.length > 4:
@@ -230,8 +230,8 @@ export function ExtractParameterDocs(
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.TOO_MANY_DOCS_PARAMETERS,
                 comments[i].pos,
-                comments[i].pos
-              )
+                comments[i].pos,
+              ),
             );
             break;
           default:
@@ -267,8 +267,8 @@ export function ExtractParameterDocs(
                   SyntaxProblemWithTranslation(
                     IDL_PROBLEM_CODES.INVALID_IN_OUT_DOCS,
                     pos,
-                    pos
-                  )
+                    pos,
+                  ),
                 );
               }
 
@@ -286,8 +286,8 @@ export function ExtractParameterDocs(
                   SyntaxProblemWithTranslation(
                     IDL_PROBLEM_CODES.INVALID_REQUIRED_OPTIONAL_DOCS,
                     pos,
-                    pos
-                  )
+                    pos,
+                  ),
                 );
               }
 
@@ -330,8 +330,8 @@ export function ExtractParameterDocs(
                   SyntaxProblemWithTranslation(
                     IDL_PROBLEM_CODES.INVALID_PRIVATE_DOCS,
                     pos,
-                    pos
-                  )
+                    pos,
+                  ),
                 );
               }
               comments[i].hoverOverride.push({

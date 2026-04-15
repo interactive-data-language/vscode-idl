@@ -80,7 +80,7 @@ export class WorkerIOClient<_Message extends string>
     message: string,
     err: any,
     type: ErrorMessage | UnhandledError = 'error',
-    _id = 'error'
+    _id = 'error',
   ) {
     const outgoing: IMessageFromWorker<ErrorMessage | UnhandledError> = {
       _id,
@@ -126,7 +126,7 @@ export class WorkerIOClient<_Message extends string>
   /** Subscribe to messages from our parent thread */
   on(
     message: _Message,
-    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>
+    promiseGenerator: (arg: any, cancel: CancellationToken) => Promise<any>,
   ) {
     this.events[message] = promiseGenerator;
   }
@@ -136,7 +136,7 @@ export class WorkerIOClient<_Message extends string>
    */
   postMessage<T extends _Message>(
     type: T,
-    payload: PayloadFromWorkerBaseMessage<T>
+    payload: PayloadFromWorkerBaseMessage<T>,
   ) {
     const msg: IMessageFromWorker<_Message> = {
       _id: 'out',
@@ -180,7 +180,7 @@ export class WorkerIOClient<_Message extends string>
             `Error while responding to event "${message.type}"`,
             ObjectifyError(err),
             'unhandled-error',
-            message._id
+            message._id,
           );
         }
 

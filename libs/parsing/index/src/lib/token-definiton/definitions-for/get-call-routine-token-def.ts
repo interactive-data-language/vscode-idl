@@ -15,7 +15,7 @@ import { CACHE_FOR_TOKEN_DEF } from '../get-token-definition';
 export function GetCallRoutineTokenDef(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
 ): GlobalIndexedToken | undefined {
   // initialize help
   const global = GetRoutine(index, parsed, token, CACHE_FOR_TOKEN_DEF);

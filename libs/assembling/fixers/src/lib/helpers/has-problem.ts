@@ -9,7 +9,7 @@ import { TreeToken } from '@idl/types/syntax-tree';
 export function HasProblem(
   token: TreeToken<TokenName>,
   code: IDLProblemCode,
-  disabled: IDisabledProblems
+  disabled: IDisabledProblems,
 ): boolean {
   // make sure we have the problem code AND that it is not disabled for that line
   return (

@@ -17,24 +17,24 @@ import { RenameENVITasks } from './helpers/rename-envi-tasks';
 export async function MigrateToDL40(
   parsed: IParsed,
   formatting: IAssemblerOptions<FormatterType>,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ) {
   /** Type for our init task */
   const trainType1 = IDLTypeHelper.createTaskType(
     'TrainTensorFlowPixelModel',
-    'ENVI'
+    'ENVI',
   );
 
   /** Type for our init task */
   const trainType2 = IDLTypeHelper.createTaskType(
     'TrainTensorFlowObjectModel',
-    'ENVI'
+    'ENVI',
   );
 
   /** Type for our init task */
   const trainType3 = IDLTypeHelper.createTaskType(
     'TrainTensorFlowGridModel',
-    'ENVI'
+    'ENVI',
   );
 
   /**
@@ -113,7 +113,7 @@ export async function MigrateToDL40(
       {
         model_name: undefined,
       },
-      propDefLines
+      propDefLines,
     );
   }
 
@@ -161,13 +161,13 @@ export async function MigrateToDL40(
        */
       outStrings.push('');
       outStrings.push(
-        '; Set name of model (now a required parameter during training instead of optional)'
+        '; Set name of model (now a required parameter during training instead of optional)',
       );
       outStrings.push(
         `${varName}.${TransformCase(
           'model_name',
-          formatting.style.properties
-        )} = 'My Awesome Model'`
+          formatting.style.properties,
+        )} = 'My Awesome Model'`,
       );
       outStrings.push('; ================================================');
       outStrings.push('');

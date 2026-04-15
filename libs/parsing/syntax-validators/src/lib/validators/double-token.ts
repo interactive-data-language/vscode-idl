@@ -34,7 +34,7 @@ SKIP_CHECK[TOKEN_NAMES.CALL_FUNCTION_METHOD] = true;
  */
 function CheckBranch(
   branch: IBranch<NonBasicTokenNames>,
-  syntax: SyntaxProblems
+  syntax: SyntaxProblems,
 ) {
   // make sure there are kids
   if (branch.kids.length > 0) {
@@ -48,8 +48,8 @@ function CheckBranch(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.DOUBLE_TOKEN,
             branch.pos,
-            branch.kids[0].pos
-          )
+            branch.kids[0].pos,
+          ),
         );
       }
     }
@@ -103,8 +103,8 @@ function CheckNeighbors(tree: SyntaxTree, syntax: SyntaxProblems) {
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.DOUBLE_TOKEN,
                 tree[i].pos,
-                tree[i + 1].pos
-              )
+                tree[i + 1].pos,
+              ),
             );
           }
         }

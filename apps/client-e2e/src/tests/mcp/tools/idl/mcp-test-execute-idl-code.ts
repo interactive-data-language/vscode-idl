@@ -28,7 +28,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 
   // parse result
   const parsed = JSON.parse(
-    result.content[0].text
+    result.content[0].text,
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we have "foo" as the cleaned text
@@ -47,7 +47,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 
   // parse result
   const parsedRuntimeError = JSON.parse(
-    runtimeError.content[0].text
+    runtimeError.content[0].text,
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we catch in the IDL MCP tool
@@ -57,7 +57,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   expect(
     CleanIDLOutput(parsedRuntimeError.idlOutput)
       .toLowerCase()
-      .startsWith('% variable is undefined')
+      .startsWith('% variable is undefined'),
   ).toBeTruthy();
 
   /**
@@ -71,7 +71,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 
   // parse result
   const parsedSyntaxError = JSON.parse(
-    syntaxError.content[0].text
+    syntaxError.content[0].text,
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we catch in the IDL MCP tool
@@ -81,6 +81,6 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   expect(
     CleanIDLOutput(parsedSyntaxError.err || '')
       .toLowerCase()
-      .includes(' compilation error(s)')
+      .includes(' compilation error(s)'),
   ).toBeTruthy();
 };

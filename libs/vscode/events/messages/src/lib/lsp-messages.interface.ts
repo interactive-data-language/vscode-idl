@@ -107,62 +107,62 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
   T extends AddDocsMessage
     ? DocumentFormattingParams
     : T extends FileRenameMessage
-    ? IFileRenamePayload
-    : T extends FolderDeleteMessage
-    ? IFolderDeletePayload
-    : T extends FormatFileMessage
-    ? DocumentFormattingParams
-    : T extends FormatWorkspaceMessage
-    ? FormatWorkspacePayload
-    : T extends GenerateTaskMessage
-    ? IGenerateTaskPayload
-    : T extends IndexingMessage
-    ? IIndexingMessagePayload
-    : T extends InitWorkspaceConfigMessage
-    ? IInitWorkspaceConfigPayload
-    : T extends LoggingMessage
-    ? ILogOptions
-    : T extends MCP_LSP_Message
-    ? MCP_LSP_MessagePayload<MCPTools_VSCode>
-    : T extends MCPHistory_Message
-    ? MCPHistory_MessagePayload<MCPTools>
-    : T extends MCPProgress_LSP_Message
-    ? MCPProgress_LSP_MessagePayload
-    : T extends MigrateCodeLSPMessage
-    ? MigrateCodeLSPPayload
-    : T extends NotebookToProCodeMessage
-    ? INotebookToProCodePayload
-    : T extends RetrieveDocsMessage
-    ? IRetrieveDocsPayload
-    : T extends ProgressMessage
-    ? ProgressMessagePayload
-    : T extends PrepareIDLCodeMessage
-    ? PrepareIDLCodePayload
-    : T extends PrepareNotebookCellMessage
-    ? PrepareNotebookCellPayload
-    : T extends UsageMetricLSPMessage
-    ? IUsageMetricAndPayload<UsageMetric>
-    : T extends WorkspaceConfigMessage
-    ? IWorkspaceConfigPayload
-    : any;
+      ? IFileRenamePayload
+      : T extends FolderDeleteMessage
+        ? IFolderDeletePayload
+        : T extends FormatFileMessage
+          ? DocumentFormattingParams
+          : T extends FormatWorkspaceMessage
+            ? FormatWorkspacePayload
+            : T extends GenerateTaskMessage
+              ? IGenerateTaskPayload
+              : T extends IndexingMessage
+                ? IIndexingMessagePayload
+                : T extends InitWorkspaceConfigMessage
+                  ? IInitWorkspaceConfigPayload
+                  : T extends LoggingMessage
+                    ? ILogOptions
+                    : T extends MCP_LSP_Message
+                      ? MCP_LSP_MessagePayload<MCPTools_VSCode>
+                      : T extends MCPHistory_Message
+                        ? MCPHistory_MessagePayload<MCPTools>
+                        : T extends MCPProgress_LSP_Message
+                          ? MCPProgress_LSP_MessagePayload
+                          : T extends MigrateCodeLSPMessage
+                            ? MigrateCodeLSPPayload
+                            : T extends NotebookToProCodeMessage
+                              ? INotebookToProCodePayload
+                              : T extends RetrieveDocsMessage
+                                ? IRetrieveDocsPayload
+                                : T extends ProgressMessage
+                                  ? ProgressMessagePayload
+                                  : T extends PrepareIDLCodeMessage
+                                    ? PrepareIDLCodePayload
+                                    : T extends PrepareNotebookCellMessage
+                                      ? PrepareNotebookCellPayload
+                                      : T extends UsageMetricLSPMessage
+                                        ? IUsageMetricAndPayload<UsageMetric>
+                                        : T extends WorkspaceConfigMessage
+                                          ? IWorkspaceConfigPayload
+                                          : any;
 
 /** Strictly typed payloads to/from the language server */
 export type LanguageServerResponse<T extends LanguageServerMessage> =
   T extends FormatWorkspaceMessage
     ? FormatWorkspaceResponse
     : T extends MCP_LSP_Message
-    ? MCP_LSP_MessageResponse<MCPTools_VSCode>
-    : T extends MigrateCodeLSPMessage
-    ? MigrateCodeLSPResponse
-    : T extends NotebookToProCodeMessage
-    ? INotebookToProCodeResponse
-    : T extends RetrieveDocsMessage
-    ? IRetrieveDocsResponse
-    : T extends PrepareIDLCodeMessage
-    ? PrepareIDLCodeResponse
-    : T extends PrepareNotebookCellMessage
-    ? PrepareNotebookCellResponse
-    : never;
+      ? MCP_LSP_MessageResponse<MCPTools_VSCode>
+      : T extends MigrateCodeLSPMessage
+        ? MigrateCodeLSPResponse
+        : T extends NotebookToProCodeMessage
+          ? INotebookToProCodeResponse
+          : T extends RetrieveDocsMessage
+            ? IRetrieveDocsResponse
+            : T extends PrepareIDLCodeMessage
+              ? PrepareIDLCodeResponse
+              : T extends PrepareNotebookCellMessage
+                ? PrepareNotebookCellResponse
+                : never;
 
 /** Strictly typed lookup of language server messages */
 export interface ILanguageServerMessages {

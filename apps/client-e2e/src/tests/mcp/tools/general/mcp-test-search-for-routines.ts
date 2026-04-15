@@ -7,9 +7,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 /**
  * Make sure that we can search for routines using the "all" type
  */
-export const RunMCPTestSearchForRoutineAll: RunnerFunction = async (
-  init
-) => {
+export const RunMCPTestSearchForRoutineAll: RunnerFunction = async (init) => {
   // Call a tool
   const routineSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE, {
     routines: [
@@ -51,7 +49,7 @@ export const RunMCPTestSearchForRoutineAll: RunnerFunction = async (
  * Makes sure we can search for a single type of routine
  */
 export const RunMCPTestSearchForRoutineSingle: RunnerFunction = async (
-  init
+  init,
 ) => {
   // Call a tool
   const routineSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE, {
@@ -93,7 +91,7 @@ export const RunMCPTestSearchForRoutineSingle: RunnerFunction = async (
  * Makes sure we can search for a single type of routine
  */
 export const RunMCPTestSearchForRoutineMultiple: RunnerFunction = async (
-  init
+  init,
 ) => {
   // Call a tool
   const routineSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE, {

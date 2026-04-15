@@ -15,7 +15,7 @@ import { MakeSpaces } from './make-spaces';
 export function JoinDocs(
   docThis: string[],
   comments: IBasicBranch<CommentToken>[],
-  syntax: SyntaxProblems
+  syntax: SyntaxProblems,
 ) {
   // return if nothing
   if (docThis.length === 0) {
@@ -50,8 +50,8 @@ export function JoinDocs(
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.DOCS_NOT_LEFT_ALIGNED,
                 comments[i].pos,
-                comments[i].pos
-              )
+                comments[i].pos,
+              ),
             );
           }
         }

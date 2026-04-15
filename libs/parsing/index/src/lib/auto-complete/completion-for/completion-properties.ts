@@ -20,7 +20,7 @@ import { IPropertyCompletionArg } from './completion-properties.interface';
  */
 function BuildPropertyCompletionItemsForType(
   arg: IPropertyCompletionArg,
-  type: IDLDataTypeBase<IDLTypes>
+  type: IDLDataTypeBase<IDLTypes>,
 ) {
   // return if we dont have a type
   if (type.name === IDL_TYPE_LOOKUP.ANY) {
@@ -36,7 +36,7 @@ function BuildPropertyCompletionItemsForType(
       if (!(lowKey in arg.found)) {
         const display = TransformCase(
           properties[keys[i]].display,
-          arg.formatting.style.properties
+          arg.formatting.style.properties,
         );
 
         // add to completion
@@ -58,7 +58,7 @@ function BuildPropertyCompletionItemsForType(
   // check for global token first
   const global = arg.index.findMatchingGlobalToken(
     GLOBAL_TOKEN_TYPES.STRUCTURE,
-    type.name.toLocaleLowerCase()
+    type.name.toLocaleLowerCase(),
   );
 
   // check if we found a match
@@ -70,7 +70,7 @@ function BuildPropertyCompletionItemsForType(
       if (!(lowKey in arg.found)) {
         const display = TransformCase(
           properties[keys[i]].display,
-          arg.formatting.style.properties
+          arg.formatting.style.properties,
         );
 
         // add to completion
@@ -111,7 +111,7 @@ function BuildPropertyCompletionItemsForType(
  */
 export function GetPropertyCompletionOptions(
   add: string,
-  type: IDLDataType
+  type: IDLDataType,
 ): IPropertyCompletionOptions {
   return {
     add,
@@ -145,7 +145,7 @@ export function BuildPropertyCompletionItems(arg: IPropertyCompletionArg) {
    * Since this is recursive based on types and inheritance, we do it at this level
    */
   const idxSorted = GetSortIndexForStrings(
-    arg.complete.map((item) => item.label)
+    arg.complete.map((item) => item.label),
   );
 
   // merge while perserving original array reference

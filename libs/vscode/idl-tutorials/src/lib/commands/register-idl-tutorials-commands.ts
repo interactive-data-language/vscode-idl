@@ -46,7 +46,7 @@ export function RegisterIDLTutorialsCommands(ctx: ExtensionContext) {
             await cp(
               GetExtensionPath('extension/example-notebooks'),
               EXAMPLE_NOTEBOOKS,
-              { recursive: true }
+              { recursive: true },
             );
           }
 
@@ -59,12 +59,12 @@ export function RegisterIDLTutorialsCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error opening IDL example notebook',
             err,
-            cmdErrors.idlTutorials.openIDLTutorial
+            cmdErrors.idlTutorials.openIDLTutorial,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 
   ctx.subscriptions.push(
@@ -89,7 +89,7 @@ export function RegisterIDLTutorialsCommands(ctx: ExtensionContext) {
           await cp(
             GetExtensionPath('extension/example-notebooks'),
             EXAMPLE_NOTEBOOKS,
-            { recursive: true }
+            { recursive: true },
           );
 
           // return as though we succeeded
@@ -98,11 +98,11 @@ export function RegisterIDLTutorialsCommands(ctx: ExtensionContext) {
           LogCommandError(
             'Error while resetting tutorials',
             err,
-            cmdErrors.idlTutorials.resetTutorials
+            cmdErrors.idlTutorials.resetTutorials,
           );
           return false;
         }
-      }
-    )
+      },
+    ),
   );
 }

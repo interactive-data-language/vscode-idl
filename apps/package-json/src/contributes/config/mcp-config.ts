@@ -34,7 +34,7 @@ export function AddMCPConfig(nls: IPackageNLS) {
     default: DEFAULT_IDL_EXTENSION_CONFIG.mcp.enabled,
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.mcpEnabled,
-      nls
+      nls,
     ),
     scope: IDL_CONFIG_SCOPE,
   };

@@ -13,7 +13,7 @@ import { TypeFromTokens } from './type-from-tokens';
 export function TypeFromTernary(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<LogicalTernaryThenToken>
+  token: TreeToken<LogicalTernaryThenToken>,
 ): IDLDataType {
   // if no children return
   if (token.kids.length === 0) {
@@ -35,7 +35,7 @@ export function TypeFromTernary(
   const outputType: IDLDataType = TypeFromTokens(
     index,
     parsed,
-    kids.slice(0, -1)
+    kids.slice(0, -1),
   ).concat(TypeFromTokens(index, parsed, last.kids));
 
   if (IDLTypeHelper.isAnyType(outputType)) {

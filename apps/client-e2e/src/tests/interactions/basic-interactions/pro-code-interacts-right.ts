@@ -17,7 +17,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const ProCodeInteractRight: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/test_user_interaction.pro')
+    GetExtensionPath('idl/test/client-e2e/test_user_interaction.pro'),
   );
 
   await Sleep(CLIENT_E2E_CONFIG.DELAYS.DEFAULT);
@@ -42,12 +42,15 @@ export const ProCodeInteractRight: RunnerFunction = async (init) => {
 
   // verify hover has return
   expect(
-    await init.client.client.sendRequest('textDocument/hover', hoverParams)
+    await init.client.client.sendRequest('textDocument/hover', hoverParams),
   ).toBeTruthy();
 
   // verify definition has return
   expect(
-    await init.client.client.sendRequest('textDocument/definition', hoverParams)
+    await init.client.client.sendRequest(
+      'textDocument/definition',
+      hoverParams,
+    ),
   ).toBeTruthy();
 
   /**
@@ -67,8 +70,8 @@ export const ProCodeInteractRight: RunnerFunction = async (init) => {
   expect(
     await init.client.client.sendRequest(
       'textDocument/completion',
-      completionParams
-    )
+      completionParams,
+    ),
   ).toBeTruthy();
 
   /**
@@ -85,8 +88,8 @@ export const ProCodeInteractRight: RunnerFunction = async (init) => {
     (
       (await init.client.client.sendRequest(
         'textDocument/semanticTokens/full',
-        tokenParams
+        tokenParams,
       )) as SemanticTokens
-    ).data
+    ).data,
   ).toEqual([10, 0, 11, 0, 0]);
 };

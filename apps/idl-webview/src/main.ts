@@ -33,9 +33,11 @@ provideVSCodeDesignSystem().register(
   vsCodePanels(),
   vsCodePanelTab(),
   vsCodePanelView(),
-  vsCodeLink()
+  vsCodeLink(),
 );
 
 platformBrowserDynamic()
-  .bootstrapModule(AppModule, { applicationProviders: [provideZoneChangeDetection()], })
+  .bootstrapModule(AppModule, {
+    applicationProviders: [provideZoneChangeDetection()],
+  })
   .catch((err) => console.error(err));

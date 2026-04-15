@@ -6,7 +6,7 @@ import { IBranch } from '@idl/types/syntax-tree';
  */
 export function IsChildInBranch<T extends TokenName>(
   branch: IBranch<NonBasicTokenNames>,
-  token: T
+  token: T,
 ): boolean {
   for (let i = 0; i < branch.kids.length; i++) {
     if (branch.kids[i].name === token) {

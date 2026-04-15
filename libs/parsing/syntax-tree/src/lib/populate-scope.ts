@@ -10,7 +10,7 @@ import { TreeRecurser } from './recursion-and-callbacks/tree-recurser';
  */
 export function PopulateScope(
   parsed: IParsed,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ): void {
   TreeRecurser(parsed.tree, cancel, {
     onBasicToken: (token, current) => {

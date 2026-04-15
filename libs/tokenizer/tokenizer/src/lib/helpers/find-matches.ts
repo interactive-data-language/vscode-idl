@@ -9,7 +9,7 @@ export function FindMatches(
   linePosition: number,
   foundDefs: ITokenDef<TokenName>[],
   matches: RegExpExecArray[],
-  regex: ITokenDef<TokenName>[]
+  regex: ITokenDef<TokenName>[],
 ) {
   // clear previous matches - faster than setting length = 0
   foundDefs.splice(0, foundDefs.length);
@@ -36,7 +36,7 @@ export function FindMatches(
       // check for bad regex - error to prevent infinite loop
       if (found[0].length === 0) {
         throw new Error(
-          `Regex for token "${regex[i].name}" produced a start with zero width. Not supported and causes errors with infinite loops`
+          `Regex for token "${regex[i].name}" produced a start with zero width. Not supported and causes errors with infinite loops`,
         );
       }
       foundDefs.push(regex[i]);

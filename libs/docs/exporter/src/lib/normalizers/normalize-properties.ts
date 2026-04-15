@@ -16,7 +16,7 @@ export async function NormalizeProperties(lookup: IParameterLookup) {
   for (let i = 0; i < props.length; i++) {
     props[i].display = TransformCase(
       props[i].display,
-      CURRENT_CONFIG.style.properties
+      CURRENT_CONFIG.style.properties,
     );
   }
 }

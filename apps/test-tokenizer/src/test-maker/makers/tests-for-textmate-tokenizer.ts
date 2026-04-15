@@ -16,7 +16,7 @@ import { StringifyCode } from './stringify-code';
 export async function TestsForTextMateTokenizer(
   name: string,
   tests: ITokenTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];

@@ -41,7 +41,7 @@ function GetTokenNamesRecursor(tree: SyntaxTree, names: number[]) {
     if (tree[i].type === BRANCH_TYPES.BRANCH) {
       GetTokenNamesRecursor(
         (tree[i] as IBranch<NonBasicTokenNames>).kids,
-        names
+        names,
       );
     }
   }

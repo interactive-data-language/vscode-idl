@@ -22,7 +22,7 @@ export type IDLNotebookFromRendererMessageType =
  * Typed-payloads for renderer messages
  */
 export type IDLNotebookFromRendererMessagePayload<
-  T extends IDLNotebookFromRendererMessageType
+  T extends IDLNotebookFromRendererMessageType,
 > = T extends SaveImageRendererMessage
   ? IDLNotebookEmbeddedItem<IDLNotebookImage_PNG>
   : never;
@@ -31,7 +31,7 @@ export type IDLNotebookFromRendererMessagePayload<
  * Data structure for notebook renderer messages
  */
 export type IDLNotebookFromRendererBaseMessage<
-  T extends IDLNotebookFromRendererMessageType
+  T extends IDLNotebookFromRendererMessageType,
 > = {
   /**
    * Type of the message
@@ -52,7 +52,7 @@ export type IDLNotebookToRendererMessageType = 'theme-change';
  * Message structure we send to the rendered
  */
 export type IDLNotebookToRendererBaseMessage<
-  T extends IDLNotebookToRendererMessageType
+  T extends IDLNotebookToRendererMessageType,
 > = {
   /**
    * Type of the message
@@ -78,7 +78,7 @@ export interface IDLNotebookRendererMessageBase {
  * Message format for what we send from the renderer to the controller
  */
 export interface IDLNotebookFromRendererMessage<
-  T extends IDLNotebookFromRendererMessageType
+  T extends IDLNotebookFromRendererMessageType,
 > extends IDLNotebookFromRendererBaseMessage<T>,
     IDLNotebookRendererMessageBase {}
 

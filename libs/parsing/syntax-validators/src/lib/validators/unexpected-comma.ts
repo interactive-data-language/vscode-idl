@@ -49,7 +49,7 @@ const TOKENS: CommaTokens[] = [
  */
 function Callback<T extends CommaTokens>(
   token: IBranch<T>,
-  syntax: SyntaxProblems
+  syntax: SyntaxProblems,
 ) {
   // only validate if we have children
   if (token.kids.length > 0) {
@@ -60,8 +60,8 @@ function Callback<T extends CommaTokens>(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.UNEXPECTED_COMMA,
           token.pos,
-          token.kids[0].pos
-        )
+          token.kids[0].pos,
+        ),
       );
     }
   }

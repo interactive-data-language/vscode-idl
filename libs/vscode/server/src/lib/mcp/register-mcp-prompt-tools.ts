@@ -1,10 +1,8 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { MCPPromptRegistry } from '@idl/mcp/prompts';
-import { MCP_SERVER } from '@idl/mcp/server';
+import { MCPServer } from '@idl/mcp/server';
 import {
-  MCP_TOOL_HELPER,
-  MCPToolHelper,
   RegisterMCPTool_GetPrompt,
   RegisterMCPTool_ListPrompts,
 } from '@idl/mcp/server-tools';
@@ -14,19 +12,19 @@ import { join } from 'path';
 /**
  * Registers MCP Prompt tools
  */
-export function RegisterMCPPromptTools(helper: MCPToolHelper) {
-  helper.logManager.log({
+export function RegisterMCPPromptTools(server: MCPServer) {
+  server.logManager.log({
     log: IDL_LSP_LOG,
     type: 'info',
     content: 'Registering MCP prompt tools',
   });
 
   /** Create prompt registry */
-  const registry = new MCPPromptRegistry(helper.logManager);
+  const registry = new MCPPromptRegistry(server.logManager);
 
   // register tools
-  RegisterMCPTool_GetPrompt(MCP_TOOL_HELPER, registry);
-  RegisterMCPTool_ListPrompts(MCP_TOOL_HELPER, registry);
+  RegisterMCPTool_GetPrompt(server, registry);
+  RegisterMCPTool_ListPrompts(server, registry);
 
   /** ENVI prompt dir */
   const enviDir = GetExtensionPath('extension/github-copilot/prompts/ENVI');
@@ -47,7 +45,17 @@ export function RegisterMCPPromptTools(helper: MCPToolHelper) {
       'Describes how to use ENVI to perform batch processing. Use when individuals are working with imagery, remote sensing, or image analysis problems and have more than one image or set of images to process.',
     prompt: readFileSync(
       join(enviDir, 'enviBatchProcessing.prompt.md'),
-      'utf-8'
+      'utf-8',
+    ),
+    type: 'envi',
+  });
+  registry.addPrompt({
+    name: 'enviModelerWorkflow',
+    description:
+      'Describes how to design and create an ENVI Modeler workflow file (.model) that automates a chain of ENVI Tasks. Use when a user wants to save a processing pipeline as a reusable, graphical ENVI Modeler workflow.',
+    prompt: readFileSync(
+      join(enviDir, 'enviModelerWorkflow.prompt.md'),
+      'utf-8',
     ),
     type: 'envi',
   });
@@ -67,5 +75,5 @@ export function RegisterMCPPromptTools(helper: MCPToolHelper) {
   });
 
   // emit MCP event that tools have changed
-  MCP_SERVER.sendToolListChanged();
+  server.sendToolListChanged();
 }

@@ -10,7 +10,7 @@ import { CallMCPTool } from '../../../helpers/call-mcp-tool';
  * Tests for the search for files MCP tool
  */
 export const RunMCPTestSearchForFiles_NoRecursion: RunnerFunction = async (
-  init
+  init,
 ) => {
   /** IDL folder for searching */
   const basicDir = GetExtensionPath('idl/vscode');
@@ -33,7 +33,7 @@ export const RunMCPTestSearchForFiles_NoRecursion: RunnerFunction = async (
   // attempt to parse
   try {
     basicSearchFiles = JSON.parse(basicSearch.content[0].text as string).map(
-      (file) => dirname(file.replace(basicDir + sep, ''))
+      (file) => dirname(file.replace(basicDir + sep, '')),
     );
   } catch (err) {
     // do nothing

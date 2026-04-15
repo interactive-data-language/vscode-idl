@@ -185,6 +185,14 @@
       "@idl/mcp/analytics-repository": [
         "libs/mcp/analytics-repository/src/index.ts"
       ],
+      "@idl/ngx/material": ["libs/ngx/material/src/index.ts"],
+      "@idl/ngx/theme": ["libs/ngx/theme/src/index.ts"],
+      "@idl/ngx/chat": ["libs/ngx/chat/src/index.ts"],
+      "@idl/ngx/map": ["libs/ngx/map/src/index.ts"],
+      "@idl/types/chat": ["libs/types/chat/src/index.ts"],
+      "@idl/mcp/idl-machine": ["libs/mcp/idl-machine/src/index.ts"],
+      "@idl/envi/modeler": ["libs/envi/modeler/src/index.ts"],
+      "@idl/types/envi/modeler": ["libs/types/envi/modeler/src/index.ts"],
       "zod": ["node_modules/zod/v3"],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],

@@ -14,7 +14,7 @@ import { CreatedPlots, PlotAnimationCallback } from './create-plots.interface';
  * Creates plot data for display in an IDL Notebook
  */
 export function CreatePlots(
-  embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>
+  embed: IDLNotebookEmbeddedItem<IDLNotebookPlot>,
 ): CreatedPlots {
   /**
    * The plot data

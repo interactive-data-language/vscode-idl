@@ -12,9 +12,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.POINTER_NOTHING_TO_DE_REF,
           token.pos,
-          token?.end?.pos || token.pos
-        )
+          token?.end?.pos || token.pos,
+        ),
       );
     }
-  }
+  },
 );

@@ -6,6 +6,6 @@ import { IDLDataType } from '@idl/types/idl-data-types';
  */
 export function GetTypeBadge(type: IDLDataType) {
   return `<Badge type="warning" text="type=${IDLTypeHelper.serializeIDLType(
-    type
+    type,
   )}" />`;
 }

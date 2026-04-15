@@ -13,7 +13,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const NotebooksNoDuplicateRoutines: RunnerFunction = async (init) => {
   const doc = await OpenNotebookInVSCode(
-    GetExtensionPath('idl/test/client-e2e/notebooks/problems-before.idlnb')
+    GetExtensionPath('idl/test/client-e2e/notebooks/problems-before.idlnb'),
   );
 
   // short pause
@@ -56,7 +56,7 @@ export const NotebooksNoDuplicateRoutines: RunnerFunction = async (init) => {
 
   // insert new code cell at top
   await vscode.commands.executeCommand(
-    VSCODE_COMMANDS.NOTEBOOK_INSERT_CODE_CELL_AT_TOP
+    VSCODE_COMMANDS.NOTEBOOK_INSERT_CODE_CELL_AT_TOP,
   );
 
   // short pause
@@ -71,7 +71,7 @@ export const NotebooksNoDuplicateRoutines: RunnerFunction = async (init) => {
    * Get number of problems
    */
   const nAfterRound2 = vscode.languages.getDiagnostics(
-    secondRound2.document.uri
+    secondRound2.document.uri,
   ).length;
 
   //  verify problems

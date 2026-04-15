@@ -10,7 +10,7 @@ import { LINE_SEPARATOR } from '@idl/types/tokenizer';
  * Creates a new IDL Notebook and returns it encoded as byte data
  */
 export async function CreateNewIDLNotebook(
-  payload: MCPToolParams_CreateIDLNotebook
+  payload: MCPToolParams_CreateIDLNotebook,
 ) {
   /**
    * Create raw notebook

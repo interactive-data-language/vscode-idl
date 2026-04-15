@@ -23,7 +23,7 @@ const BasicControlCallback: BasicCallback<
 for (let i = 0; i < BASIC_CONTROL.length; i++) {
   ASSEMBLER_DEFAULT_STYLING.onBasicToken(
     BASIC_CONTROL[i],
-    BasicControlCallback
+    BasicControlCallback,
   );
 }
 
@@ -56,6 +56,6 @@ const BranchControlCallback: BranchCallback<
 for (let i = 0; i < BRANCH_CONTROL.length; i++) {
   ASSEMBLER_DEFAULT_STYLING.onBranchToken(
     BRANCH_CONTROL[i],
-    BranchControlCallback
+    BranchControlCallback,
   );
 }

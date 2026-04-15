@@ -48,8 +48,8 @@ export type TaskLocationMetadata<T extends TaskLocationKind> =
   T extends TaskLocation_File
     ? TaskLocationMetadata_File
     : T extends TaskLocation_Repository
-    ? TaskLocationMetadata_Repository
-    : never;
+      ? TaskLocationMetadata_Repository
+      : never;
 
 /**
  * Metadata for the task location

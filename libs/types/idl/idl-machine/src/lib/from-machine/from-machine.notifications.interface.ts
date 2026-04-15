@@ -123,51 +123,51 @@ export type FromIDLMachineNotifications =
  * Parameters for notifications from the IDL Machine
  */
 export type FromIDLMachineNotificationParams<
-  T extends FromIDLMachineNotifications
+  T extends FromIDLMachineNotifications,
 > = T extends BreakpointMovedNotification
   ? BreakpointMovedParams
   : T extends CommandFinishedNotification
-  ? CommandFinishedParams
-  : T extends CommandStartedNotification
-  ? CommandStartedParams
-  : T extends CompilerOpenFileNotification
-  ? CompilerOpenFileParams
-  : T extends DeathHintNotification
-  ? DeathHintParams
-  : T extends DebugSendNotification
-  ? DebugSendParams
-  : T extends DeletedVariableNotification
-  ? DeletedVariableParams
-  : T extends ExitDoneNotification
-  ? ExitDoneParams
-  : T extends HelpTopicNotification
-  ? HelpTopicParams
-  : T extends LicensingEventNotification
-  ? LicensingEventParams
-  : T extends InterpreterStoppedNotification
-  ? InterpreterStoppedParams
-  : T extends ModalMessageNotification
-  ? ModalMessageParams
-  : T extends OpenFileNotification
-  ? OpenFileParams
-  : T extends PathChangeNotification
-  ? PathChangeParams
-  : T extends PromptChangeNotification
-  ? PromptChangeParams
-  : T extends ResetSessionDoneNotification
-  ? ResetSessionDoneParams
-  : T extends RuntimeErrorNotification
-  ? RuntimeErrorParams
-  : T extends ServerExitNotification
-  ? ServerExitParams
-  : T extends ServerReadyNotification
-  ? ServerReadyParams
-  : T extends ShowBreakpointNotification
-  ? ShowBreakpointParams
-  : T extends ShowCompileErrorNotification
-  ? CompileOpenFileParams
-  : T extends TOutNotification
-  ? TOutParams
-  : T extends WorkingDirChangeNotification
-  ? WorkingDirChangeParams
-  : never;
+    ? CommandFinishedParams
+    : T extends CommandStartedNotification
+      ? CommandStartedParams
+      : T extends CompilerOpenFileNotification
+        ? CompilerOpenFileParams
+        : T extends DeathHintNotification
+          ? DeathHintParams
+          : T extends DebugSendNotification
+            ? DebugSendParams
+            : T extends DeletedVariableNotification
+              ? DeletedVariableParams
+              : T extends ExitDoneNotification
+                ? ExitDoneParams
+                : T extends HelpTopicNotification
+                  ? HelpTopicParams
+                  : T extends LicensingEventNotification
+                    ? LicensingEventParams
+                    : T extends InterpreterStoppedNotification
+                      ? InterpreterStoppedParams
+                      : T extends ModalMessageNotification
+                        ? ModalMessageParams
+                        : T extends OpenFileNotification
+                          ? OpenFileParams
+                          : T extends PathChangeNotification
+                            ? PathChangeParams
+                            : T extends PromptChangeNotification
+                              ? PromptChangeParams
+                              : T extends ResetSessionDoneNotification
+                                ? ResetSessionDoneParams
+                                : T extends RuntimeErrorNotification
+                                  ? RuntimeErrorParams
+                                  : T extends ServerExitNotification
+                                    ? ServerExitParams
+                                    : T extends ServerReadyNotification
+                                      ? ServerReadyParams
+                                      : T extends ShowBreakpointNotification
+                                        ? ShowBreakpointParams
+                                        : T extends ShowCompileErrorNotification
+                                          ? CompileOpenFileParams
+                                          : T extends TOutNotification
+                                            ? TOutParams
+                                            : T extends WorkingDirChangeNotification
+                                              ? WorkingDirChangeParams
+                                              : never;

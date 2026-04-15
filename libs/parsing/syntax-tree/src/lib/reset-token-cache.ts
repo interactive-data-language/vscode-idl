@@ -9,7 +9,7 @@ import { TreeRecurserBasic } from './recursion-and-callbacks/tree-recurser-basic
  */
 export function ResetTokenCache(
   parsed: IParsed,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ): void {
   TreeRecurserBasic(parsed.tree, cancel, {
     onBasicToken: (token) => {

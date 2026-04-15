@@ -18,18 +18,18 @@ import { RenameENVITasks } from './helpers/rename-envi-tasks';
 export async function MigrateToDL30(
   parsed: IParsed,
   formatting: IAssemblerOptions<FormatterType>,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ) {
   /** Type for our init task */
   const initType = IDLTypeHelper.createTaskType(
     'InitializeENVINet5MultiModel',
-    'ENVI'
+    'ENVI',
   );
 
   /** Type for our init task */
   const trainType = IDLTypeHelper.createTaskType(
     'TrainTensorFlowMaskModel',
-    'ENVI'
+    'ENVI',
   );
 
   /**
@@ -111,7 +111,7 @@ export async function MigrateToDL30(
         validation_precision: undefined,
         validation_recall: undefined,
       },
-      toCommentOut
+      toCommentOut,
     );
   }
 
@@ -146,7 +146,7 @@ export async function MigrateToDL30(
         model_architecture: undefined,
         patch_size: undefined,
       },
-      propDefLines
+      propDefLines,
     );
   }
 
@@ -193,7 +193,7 @@ export async function MigrateToDL30(
       outStrings.push('; ================================================');
       outStrings.push('; TODO: review new parameters');
       outStrings.push(
-        '; see the migration guide in the help for more information'
+        '; see the migration guide in the help for more information',
       );
       outStrings.push('');
 
@@ -211,8 +211,8 @@ export async function MigrateToDL30(
         outStrings.push(
           `${varName}.${TransformCase(
             'model_architecture',
-            formatting.style.properties
-          )} = 'SegUNet++'`
+            formatting.style.properties,
+          )} = 'SegUNet++'`,
         );
       }
       outStrings.push('');
@@ -231,30 +231,30 @@ export async function MigrateToDL30(
         outStrings.push(
           `${varName}.${TransformCase(
             'patch_size',
-            formatting.style.properties
-          )} = 464`
+            formatting.style.properties,
+          )} = 464`,
         );
       }
       outStrings.push('');
       outStrings.push(
-        '; train on X% of our examples within the training rasters'
+        '; train on X% of our examples within the training rasters',
       );
       outStrings.push(
         `${varName}.${TransformCase(
           'feature_patch_percentage',
-          formatting.style.properties
-        )} = 1.0 ; 1.0 = 100%`
+          formatting.style.properties,
+        )} = 1.0 ; 1.0 = 100%`,
       );
       outStrings.push('');
       outStrings.push('; for every 100 examples of features,');
       outStrings.push(
-        '; how many examples of the background get added during training?'
+        '; how many examples of the background get added during training?',
       );
       outStrings.push(
         `${varName}.${TransformCase(
           'background_patch_ratio',
-          formatting.style.properties
-        )} = 0.2 ; 0.2 = 20%`
+          formatting.style.properties,
+        )} = 0.2 ; 0.2 = 20%`,
       );
       outStrings.push('; ================================================');
       outStrings.push('');

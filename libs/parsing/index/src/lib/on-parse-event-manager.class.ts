@@ -44,7 +44,7 @@ export class OnParseEventManager {
    */
   emit<T extends IDLFileType>(
     fileType: T,
-    payload: ParseEventPayloadMap[T]
+    payload: ParseEventPayloadMap[T],
   ): void {
     if (!(fileType in this.listeners)) {
       return;
@@ -57,7 +57,7 @@ export class OnParseEventManager {
       } catch (error) {
         console.error(
           `Error in parse event listener for type ${fileType}:`,
-          error
+          error,
         );
       }
     });
@@ -70,7 +70,7 @@ export class OnParseEventManager {
    */
   on<T extends IDLFileType>(
     fileType: T,
-    listener: ParseEventListener<T>
+    listener: ParseEventListener<T>,
   ): () => void {
     this.listeners[fileType].add(listener as any);
 

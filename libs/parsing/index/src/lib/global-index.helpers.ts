@@ -12,7 +12,7 @@ import { RoutineMethodNameToken, TokenStartMatches } from '@idl/tokenizer';
 export function SaveMatch(
   lookup: IGlobalLocationLookup,
   routineName: string,
-  info: IGlobalTokenPosition
+  info: IGlobalTokenPosition,
 ) {
   // convert to lower case
   const useMatch = routineName.toLowerCase();
@@ -33,7 +33,7 @@ export function SaveClassMatch(
   lookup: IClassLookup,
   procedure: boolean,
   matches: TokenStartMatches<RoutineMethodNameToken>,
-  info: IGlobalTokenPosition
+  info: IGlobalTokenPosition,
 ) {
   // get lower case class name
   const className = matches[1].toLowerCase();
@@ -62,7 +62,7 @@ export function SaveClassMatch(
 export function SaveClassSource(
   lookup: IClassLookup,
   className: string,
-  info: IGlobalTokenPosition
+  info: IGlobalTokenPosition,
 ) {
   // get lower case class name
   const useName = className.toLowerCase();

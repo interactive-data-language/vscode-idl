@@ -15,7 +15,7 @@ export const NewNotebook: RunnerFunction = async (init) => {
   // make a new notebook - arg is to tell us that we dont want to save
   await vscode.commands.executeCommand(
     IDL_COMMANDS.NOTEBOOKS.NEW_NOTEBOOK,
-    true
+    true,
   );
 
   // short pause

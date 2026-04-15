@@ -13,7 +13,7 @@ export function EvaluateArrayPromotion(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<CallFunctionMethodToken | CallFunctionToken>,
-  promoted: IDLDataType
+  promoted: IDLDataType,
 ): IDLDataType {
   // get the types from our arguments
   const types = GetArgTypes(index, parsed, token);

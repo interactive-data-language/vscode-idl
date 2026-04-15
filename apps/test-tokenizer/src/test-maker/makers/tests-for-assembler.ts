@@ -18,7 +18,7 @@ import { StringifyCode } from './stringify-code';
 export async function TestsForAssembler(
   name: string,
   tests: IAssemblerTest[],
-  uri = join(process.cwd(), 'tokens.ts')
+  uri = join(process.cwd(), 'tokens.ts'),
 ) {
   // track our strings
   const strings: string[] = [];
@@ -29,7 +29,7 @@ export async function TestsForAssembler(
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(`import { GetTokenNames } from '@idl/parser';`);
   strings.push(
-    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`
+    `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { SyntaxProblems } from '@idl/types/problem-codes';`);
   strings.push(``);
@@ -59,7 +59,7 @@ export async function TestsForAssembler(
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // update test config
@@ -74,7 +74,7 @@ export async function TestsForAssembler(
      */
     const parseConfig = Object.assign(
       { postProcess: true },
-      test.parseConfig !== undefined ? test.parseConfig : {}
+      test.parseConfig !== undefined ? test.parseConfig : {},
     );
 
     // tokenize
@@ -82,14 +82,14 @@ export async function TestsForAssembler(
       'my_file.pro',
       code,
       new CancellationToken(),
-      parseConfig
+      parseConfig,
     );
 
     // format
     const formatted = Assembler(
       tokenized,
       new CancellationToken(),
-      test.config
+      test.config,
     );
 
     // add our tokens
@@ -110,8 +110,8 @@ export async function TestsForAssembler(
     strings.push(`    // extract tokens`);
     strings.push(
       `    const tokenized = await index.getParsedProCode('my_file.pro', code, new CancellationToken(), ${JSON.stringify(
-        parseConfig
-      )});`
+        parseConfig,
+      )});`,
     );
     strings.push(``);
     strings.push(`    // extract token names`);
@@ -121,13 +121,13 @@ export async function TestsForAssembler(
     if (test.config !== undefined) {
       strings.push(
         `    const formatted = Assembler(tokenized, new CancellationToken(), ${JSON.stringify(
-          test.config
-        )});`
+          test.config,
+        )});`,
       );
       strings.push(``);
     } else {
       strings.push(
-        `    const formatted = Assembler(tokenized, new CancellationToken(), { formatter: 'fiddle' });`
+        `    const formatted = Assembler(tokenized, new CancellationToken(), { formatter: 'fiddle' });`,
       );
       strings.push(``);
     }
@@ -150,26 +150,26 @@ export async function TestsForAssembler(
     // add the start to  our tokens
     strings.push(`      // define expected problems`);
     strings.push(
-      `      const expectedFormatting: string[] = ${expectedString}`
+      `      const expectedFormatting: string[] = ${expectedString}`,
     );
     strings.push('');
 
     // verify results
     strings.push('      // verify formatting');
     strings.push(
-      '      expect(formatted.split(`\\n`)).toEqual(expectedFormatting)'
+      '      expect(formatted.split(`\\n`)).toEqual(expectedFormatting)',
     );
     strings.push('');
     strings.push('      // parse formatted code');
     strings.push(
-      `      const reParsed = await index.getParsedProCode('my_file.pro', formatted, new CancellationToken(), {postProcess: true});`
+      `      const reParsed = await index.getParsedProCode('my_file.pro', formatted, new CancellationToken(), {postProcess: true});`,
     );
     strings.push('');
     strings.push(
-      '      // make sure the syntax trees are the same as they were before if not def files'
+      '      // make sure the syntax trees are the same as they were before if not def files',
     );
     strings.push(
-      `      if (tokenized.type !== 'def') {expect(GetTokenNames(reParsed)).toEqual(tokenizedNames)}`
+      `      if (tokenized.type !== 'def') {expect(GetTokenNames(reParsed)).toEqual(tokenizedNames)}`,
     );
     strings.push('    }');
     strings.push('');
@@ -178,15 +178,15 @@ export async function TestsForAssembler(
     strings.push(`    // define expected problems`);
     strings.push(
       `    const expectedProblems: SyntaxProblems = ${JSON.stringify(
-        tokenized.parseProblems.concat(tokenized.postProcessProblems)
-      )}`
+        tokenized.parseProblems.concat(tokenized.postProcessProblems),
+      )}`,
     );
     strings.push('');
 
     // verify results
     strings.push('    // verify problems');
     strings.push(
-      '    expect(tokenized.parseProblems.concat(tokenized.postProcessProblems)).toEqual(expectedProblems)'
+      '    expect(tokenized.parseProblems.concat(tokenized.postProcessProblems)).toEqual(expectedProblems)',
     );
 
     strings.push('  })');

@@ -72,7 +72,7 @@ export async function activate(ctx: ExtensionContext) {
     InitializeNotebooksWeb(ctx);
   } catch (err) {
     vscode.window.showErrorMessage(
-      'Failed to activate IDL for VSCode extension'
+      'Failed to activate IDL for VSCode extension',
     );
     console.log(err);
   }

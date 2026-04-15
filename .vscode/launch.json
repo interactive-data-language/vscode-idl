@@ -1,7 +1,3 @@
-// A launch configuration that compiles the extension and then opens it inside a new window
-// Use IntelliSense to learn about possible attributes.
-// Hover to view descriptions of existing attributes.
-// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 {
   "version": "0.2.0",
   "configurations": [
@@ -20,7 +16,7 @@
       "name": "Run IDL Extension (Web)",
       "type": "extensionHost",
       "debugWebWorkerHost": true,
-      "request": "launch", 
+      "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}",
@@ -39,6 +35,24 @@
       ],
       "outFiles": ["${workspaceFolder}/dist/apps/vscode-e2e-runner/main.js"],
       "preLaunchTask": "npm: start-test"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug agents-server with Nx",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["nx", "serve", "agents-server"],
+      "env": {
+        "NODE_OPTIONS": "--inspect=9229"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/apps/agents/server/dist/**/*.(m|c|)js",
+        "!**/node_modules/**"
+      ]
     }
   ]
 }

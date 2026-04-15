@@ -45,14 +45,14 @@ import { MARKDOWN_TYPE_LOOKUP } from './markdown/docs-to-markdown.interface';
  *
  */
 export function GenerateRoutineDocsAndMetadata<
-  T extends FunctionRoutineType | ProcedureRoutineType
+  T extends FunctionRoutineType | ProcedureRoutineType,
 >(
   type: T,
   routine: IBranch<RoutineFunctionToken | RoutineProcedureToken>,
   nameToken: IBranch<RoutineMethodNameToken | RoutineNameToken>,
   problems: SyntaxProblems,
   structures: IGlobalIndexedToken<GlobalStructureToken>[],
-  commentBlock?: IBranch<CommentBlockToken>
+  commentBlock?: IBranch<CommentBlockToken>,
 ) {
   /** Flag for if we have comments */
   const hasComments = commentBlock !== undefined;
@@ -71,7 +71,7 @@ export function GenerateRoutineDocsAndMetadata<
     type,
     docs,
     structures,
-    problems
+    problems,
   );
 
   // set display name
@@ -103,8 +103,8 @@ export function GenerateRoutineDocsAndMetadata<
               ]
             }: "${argName}"`,
             args[i].pos,
-            args[i].pos
-          )
+            args[i].pos,
+          ),
         );
       }
 
@@ -142,7 +142,7 @@ export function GenerateRoutineDocsAndMetadata<
   // get all of our keywords
   const kws = FindDirectBranchChildren(
     nameToken,
-    TOKEN_NAMES.KEYWORD_DEFINITION
+    TOKEN_NAMES.KEYWORD_DEFINITION,
   );
 
   // map keywords to object for quick lookup
@@ -167,8 +167,8 @@ export function GenerateRoutineDocsAndMetadata<
               ]
             }: "${kwName}"`,
             kws[i].pos,
-            kws[i].pos
-          )
+            kws[i].pos,
+          ),
         );
       }
 
@@ -208,8 +208,8 @@ export function GenerateRoutineDocsAndMetadata<
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.RETURNS_MISSING_FROM_DOCS,
           commentBlock.pos,
-          commentBlock.end ? commentBlock.end.pos : commentBlock.pos
-        )
+          commentBlock.end ? commentBlock.end.pos : commentBlock.pos,
+        ),
       );
     }
   } else {
@@ -220,8 +220,8 @@ export function GenerateRoutineDocsAndMetadata<
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.RETURN_DOCS_NOT_NEEDED,
           commentBlock.pos,
-          commentBlock.end ? commentBlock.end.pos : commentBlock.pos
-        )
+          commentBlock.end ? commentBlock.end.pos : commentBlock.pos,
+        ),
       );
 
       // delete
@@ -237,8 +237,8 @@ export function GenerateRoutineDocsAndMetadata<
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.ARGS_MISSING_FROM_DOCS,
           commentBlock.pos,
-          commentBlock.end ? commentBlock.end.pos : commentBlock.pos
-        )
+          commentBlock.end ? commentBlock.end.pos : commentBlock.pos,
+        ),
       );
       break;
     // documented arguments, but no args
@@ -247,8 +247,8 @@ export function GenerateRoutineDocsAndMetadata<
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.NO_ARGS_TO_DOCUMENT,
           docs[IDL_DOCS_HEADERS.ARGS].pos,
-          docs[IDL_DOCS_HEADERS.ARGS].end
-        )
+          docs[IDL_DOCS_HEADERS.ARGS].end,
+        ),
       );
       break;
     // have both
@@ -265,8 +265,8 @@ export function GenerateRoutineDocsAndMetadata<
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.KEYWORDS_MISSING_FROM_DOCS,
           commentBlock.pos,
-          commentBlock.end ? commentBlock.end.pos : commentBlock.pos
-        )
+          commentBlock.end ? commentBlock.end.pos : commentBlock.pos,
+        ),
       );
       break;
     // documented kws, but no kws
@@ -275,8 +275,8 @@ export function GenerateRoutineDocsAndMetadata<
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.NO_KEYWORDS_TO_DOCUMENT,
           docs[IDL_DOCS_HEADERS.KEYWORDS].pos,
-          docs[IDL_DOCS_HEADERS.KEYWORDS].end
-        )
+          docs[IDL_DOCS_HEADERS.KEYWORDS].end,
+        ),
       );
       break;
     // have both

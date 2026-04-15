@@ -14,7 +14,7 @@ export const TASK_NAME_REGEX = /^(?:ENVI|IDL)(.+)Task$/i;
  */
 function GetTaskDisplayName(name: string) {
   return TASK_NAME_REGEX.exec(
-    name in CUSTOM_TYPE_DISPLAY_NAMES ? CUSTOM_TYPE_DISPLAY_NAMES[name] : name
+    name in CUSTOM_TYPE_DISPLAY_NAMES ? CUSTOM_TYPE_DISPLAY_NAMES[name] : name,
   )[1];
 }
 

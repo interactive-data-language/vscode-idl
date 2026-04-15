@@ -44,7 +44,7 @@ export class IDLDebugStatusBar {
     // create the bar - right-most on the left
     const bar = vscode.window.createStatusBarItem(
       vscode.StatusBarAlignment.Left,
-      -1
+      -1,
     );
 
     // set our text

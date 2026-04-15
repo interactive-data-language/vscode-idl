@@ -9,7 +9,7 @@ import { join } from 'path';
  */
 export function RegisterENVITaskNotes(
   registry: MCPTaskRegistry,
-  logger: LogManager
+  logger: LogManager,
 ) {
   /**
    * Check for user notes

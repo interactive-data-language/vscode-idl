@@ -101,6 +101,7 @@ export const EN: ITranslation = {
       },
       copilot: {
         setupInstructions: 'IDL: Setup GitHub Copilot Instructions',
+        runQCTests: 'IDL: Run Copilot QC Tests',
       },
       webview: {
         start: 'IDL: Start Webview',
@@ -175,6 +176,7 @@ export const EN: ITranslation = {
       },
       copilot: {
         setupInstructions: 'Error while setting up Copilot instructions',
+        runQCTests: 'Error while running Copilot QC tests',
       },
       webview: {
         start: 'Error while starting webview',
@@ -405,10 +407,10 @@ export const EN: ITranslation = {
         '\n-----------------------------\nRunning IDL from within VSCode is fully integrated with IDL 9.2 so please upgrade :)\nMost functionality should work using an older version, but you may encounter a few issues.\nIn particular, the "Pause" button does not work on Windows, and you may occasionally see some internal output in the debug console.\n-----------------------------\n',
       promiseResolveError:
         'Error resolving promise for executing IDL statement',
-      restart: 'Restarting IDL!',
+      restart: 'Restarting IDL',
       returning: 'File compiled while active, returning...',
       scopeParseError: 'Error getting scope information from IDL output',
-      start: 'Launching IDL!',
+      start: 'Launching IDL',
       stop: 'Stopping IDL session',
       syntaxError:
         'IDL detected a syntax error on this line when compiling your code',
@@ -568,8 +570,8 @@ export const EN: ITranslation = {
             name: 'Run',
           },
           start: {
-            description: 'a session of IDL',
-            name: 'Start',
+            description: '',
+            name: 'Start IDL',
           },
           startENVI: {
             description: 'and IDL',

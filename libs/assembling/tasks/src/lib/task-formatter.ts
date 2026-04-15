@@ -21,7 +21,7 @@ import { TrimProperties } from './formatters/trim-properties';
  */
 export function TaskFormatter<T extends FormatterType>(
   task: ParsedTask,
-  options: IAssemblerOptions<T>
+  options: IAssemblerOptions<T>,
 ): string | undefined {
   /** Copy our task so we can freely manipulate it */
   let useTask = copy(task);
@@ -31,7 +31,7 @@ export function TaskFormatter<T extends FormatterType>(
     case (task as ENVITaskLegacy<ENVITaskLegacyVersion>)?.version !== undefined:
       useTask = ENVITaskLegacyFormatter(
         useTask as ENVITaskLegacy<ENVITaskLegacyVersion>,
-        options
+        options,
       );
       break;
     case (task as ENVITask<ENVITaskSchemaVersion>)?.schema
@@ -39,7 +39,7 @@ export function TaskFormatter<T extends FormatterType>(
       .startsWith('envi'):
       useTask = ENVITaskFormatter(
         useTask as ENVITask<ENVITaskSchemaVersion>,
-        options
+        options,
       );
       break;
     case (task as IDLTask<IDLTaskSchemaVersion>)?.schema
@@ -47,7 +47,7 @@ export function TaskFormatter<T extends FormatterType>(
       .startsWith('idl'):
       useTask = IDLTaskFormatter(
         useTask as IDLTask<IDLTaskSchemaVersion>,
-        options
+        options,
       );
       break;
     default:

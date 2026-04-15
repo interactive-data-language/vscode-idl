@@ -15,7 +15,7 @@ let FIRST_MESSAGE = true;
 let LOGGER: (ev: string, payload: any) => void = (ev, payload) => {
   console.log(
     `${IDL_TRANSLATION.usageMetrics.sendingUsageMetric} "${ev}" with information:`,
-    payload
+    payload,
   );
 };
 
@@ -33,7 +33,7 @@ export function SetUsageMetricLogger(cb: (ev: string, payload: any) => void) {
  */
 export function SendUsageMetric<T extends UsageMetric>(
   event: T,
-  payload: UsageMetricPayload<T>
+  payload: UsageMetricPayload<T>,
 ) {
   /**
    * Do nothing if we don't have an analytics interface which means

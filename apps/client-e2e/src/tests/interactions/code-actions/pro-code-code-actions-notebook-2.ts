@@ -14,7 +14,7 @@ import { RunnerFunction } from '../../runner.interface';
 export const ProCodeCodeActionsNotebook2: RunnerFunction = async (init) => {
   /** Open notebooks */
   const nb = await OpenNotebookInVSCode(
-    GetExtensionPath('idl/test/client-e2e/problems/code-actions-2.idlnb')
+    GetExtensionPath('idl/test/client-e2e/problems/code-actions-2.idlnb'),
   );
 
   /** Get first cell */
@@ -49,7 +49,7 @@ export const ProCodeCodeActionsNotebook2: RunnerFunction = async (init) => {
 
   const actions = await init.client.client.sendRequest(
     'textDocument/codeAction',
-    codeActionParams
+    codeActionParams,
   );
 
   // verify hover has return

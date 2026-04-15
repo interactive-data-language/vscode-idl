@@ -23,7 +23,6 @@ In there, the function `Parser` goes through the following steps:
    Takes the flat token structure and turns it into a recursive syntax tree.
 
    Creation of the syntax tree includes several steps.
-
    1. Build initial tree
 
    2. Populate the scope for tokens (i.e. all parents) which is used in the next step

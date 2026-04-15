@@ -16,7 +16,7 @@ export const PROCEDURE_METHOD_OVERRIDE: IProcedureMethodOverride = {
       keys: {
         direction: 'in',
         type: IDLTypeHelper.parseIDLType(
-          'Number | String | Array<Number | String >'
+          'Number | String | Array<Number | String >',
         ),
       },
     },
@@ -32,7 +32,7 @@ export const PROCEDURE_METHOD_OVERRIDE: IProcedureMethodOverride = {
       keys: {
         direction: 'in',
         type: IDLTypeHelper.parseIDLType(
-          'Number | String | Array<Number | String >'
+          'Number | String | Array<Number | String >',
         ),
       },
     },
@@ -111,7 +111,7 @@ export const PROCEDURE_METHOD_OVERRIDE: IProcedureMethodOverride = {
       keys: {
         direction: 'in',
         type: IDLTypeHelper.parseIDLType(
-          'Number | String | Array<Number | String >'
+          'Number | String | Array<Number | String >',
         ),
       },
     },

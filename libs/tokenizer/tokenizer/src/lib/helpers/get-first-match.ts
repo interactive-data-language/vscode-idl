@@ -10,7 +10,7 @@ import { IGetFirstMatch } from './get-first-match.interface';
 export function GetFirstMatch(
   text: string,
   matches: RegExpExecArray[],
-  closer?: ITokenDef<TokenName>
+  closer?: ITokenDef<TokenName>,
 ): IGetFirstMatch {
   /** For all regex matches, the string index of the first match */
   let minIdx = text.length + 1;

@@ -23,7 +23,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
    */
   const resSuccess = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
     uri: GetExtensionPath(
-      'idl/test/client-e2e/copilot/mcp/idl-file-runs-fine.pro'
+      'idl/test/client-e2e/copilot/mcp/idl-file-runs-fine.pro',
     ),
   });
 
@@ -34,7 +34,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
 
   // parse result
   const parsedSuccess = JSON.parse(
-    resSuccess.content[0].text
+    resSuccess.content[0].text,
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
@@ -48,7 +48,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
    */
   const resRuntimeErr = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
     uri: GetExtensionPath(
-      'idl/test/client-e2e/copilot/mcp/idl-file-runtime-error.pro'
+      'idl/test/client-e2e/copilot/mcp/idl-file-runtime-error.pro',
     ),
   });
 
@@ -62,7 +62,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
 
   // parse result
   const parsedRuntimeErr = JSON.parse(
-    resRuntimeErr.content[0].text
+    resRuntimeErr.content[0].text,
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
@@ -73,7 +73,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
    */
   const resSyntaxErr = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
     uri: GetExtensionPath(
-      'idl/test/client-e2e/copilot/mcp/idl-file-syntax-error.pro'
+      'idl/test/client-e2e/copilot/mcp/idl-file-syntax-error.pro',
     ),
   });
 
@@ -84,7 +84,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
 
   // parse result
   const parsedSyntaxErr = JSON.parse(
-    resSyntaxErr.content[0].text
+    resSyntaxErr.content[0].text,
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag

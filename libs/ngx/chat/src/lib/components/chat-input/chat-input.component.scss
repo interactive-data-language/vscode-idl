@@ -1,0 +1,27 @@
+.chat-input-container {
+  position: sticky;
+  bottom: 0;
+  padding: 16px 24px;
+
+  .selectors-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  // background-color: var(--mat-app-surface);
+  // border-top: 1px solid var(--mat-app-outline-variant);
+  z-index: 10;
+}
+
+.input-field {
+  position: relative;
+  width: 100%;
+  margin: 0;
+
+  textarea {
+    resize: vertical;
+    min-height: 60px;
+    max-height: 200px;
+    padding-right: 60px; // Space for the button
+  }
+}

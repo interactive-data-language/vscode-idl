@@ -1,16 +1,15 @@
 import { FindFiles, IFolderRecursion } from '@idl/idl/files';
+import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { existsSync } from 'fs';
 import { z } from 'zod';
 
-import { MCPToolHelper } from '../mcp-tool-helper.class';
-
 /**
  * Search through registered resources
  */
-export function RegisterMCPTool_SearchForFiles(helper: MCPToolHelper) {
-  helper.registerTool(
+export function RegisterMCPTool_SearchForFiles(server: MCPServer) {
+  server.registerTool(
     MCP_TOOL_LOOKUP.SEARCH_FOR_FILES,
     {
       title:
@@ -22,19 +21,19 @@ export function RegisterMCPTool_SearchForFiles(helper: MCPToolHelper) {
         folder: z
           .string()
           .describe(
-            'The fully qualified path to a location to search for files'
+            'The fully qualified path to a location to search for files',
           ),
         extensions: z
           .array(z.string())
-          .optional()
+          .default(['*'])
           .describe(
-            'Optionally specify one or more file extensions to search for. All files are returned unless this parameter is specified.'
+            'Specify one or more file extensions to search for. Asterisk indicates all files are returned (recommended).',
           ),
         recursive: z
           .boolean()
           .default(true)
           .describe(
-            'Do we recursively search? Default is to search recursively.'
+            'Do we recursively search? Default is to search recursively.',
           ),
       },
     },
@@ -57,9 +56,10 @@ export function RegisterMCPTool_SearchForFiles(helper: MCPToolHelper) {
       /**
        * Map extensions to recursive glob patterns
        */
-      const useExtensions = !extensions
-        ? [`**/*`]
-        : extensions.map((ext) => `**/*${ext}`);
+      const useExtensions =
+        extensions.findIndex((val) => val === '*') !== -1
+          ? [`**/*`]
+          : extensions.map((ext) => `**/*${ext}`);
 
       /** Init results */
       let results: string[] = [];
@@ -83,6 +83,6 @@ export function RegisterMCPTool_SearchForFiles(helper: MCPToolHelper) {
           },
         ],
       };
-    }
+    },
   );
 }

@@ -19,7 +19,7 @@ export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
     MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
     {
       action: 'start-envi-headless',
-    }
+    },
   );
 
   // log
@@ -33,7 +33,7 @@ export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
 
   // make sure that the ENVI UI is not started
   expect(
-    CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`))
+    CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`)),
   ).toEqual('0');
 
   // pause while stopping
@@ -53,7 +53,7 @@ export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
     MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
     {
       action: 'start-envi',
-    }
+    },
   );
 
   // log
@@ -67,6 +67,6 @@ export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
 
   // make sure that the ENVI UI is not started
   expect(
-    CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`))
+    CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`)),
   ).not.toEqual('0');
 };

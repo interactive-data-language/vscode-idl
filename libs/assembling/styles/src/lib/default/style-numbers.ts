@@ -31,7 +31,7 @@ for (let i = 0; i < NUMBERS.length; i++) {
 
           token.match[0] = `0x${AdjustCase(
             match.substring(2),
-            meta.style.hex
+            meta.style.hex,
           )}`;
           break;
         case match.startsWith('0o'):
@@ -41,7 +41,7 @@ for (let i = 0; i < NUMBERS.length; i++) {
 
           token.match[0] = `0o${AdjustCase(
             match.substring(2),
-            meta.style.octal
+            meta.style.octal,
           )}`;
           break;
         case match.startsWith('0b'):
@@ -51,7 +51,7 @@ for (let i = 0; i < NUMBERS.length; i++) {
 
           token.match[0] = `0b${AdjustCase(
             match.substring(2),
-            meta.style.binary
+            meta.style.binary,
           )}`;
           break;
         case NUMBER_AS_SINGLE_QUOTE.test(match):
@@ -66,10 +66,10 @@ for (let i = 0; i < NUMBERS.length; i++) {
             // replace
             token.match[0] = `${quote}${AdjustCase(
               res[1],
-              meta.style.numbers
+              meta.style.numbers,
             )}${quote}${res[2]}${AdjustCase(
               res[3] ? res[3] : '',
-              meta.style.numbers
+              meta.style.numbers,
             )}`;
           }
           break;
@@ -87,10 +87,10 @@ for (let i = 0; i < NUMBERS.length; i++) {
               // replace
               token.match[0] = `${quote}${AdjustCase(
                 res[1],
-                meta.style.numbers
+                meta.style.numbers,
               )}${quote}${res[2]}${AdjustCase(
                 res[3] ? res[3] : '',
-                meta.style.numbers
+                meta.style.numbers,
               )}`;
             } else {
               // only one quote so we have short-hand octal and have
@@ -106,6 +106,6 @@ for (let i = 0; i < NUMBERS.length; i++) {
           token.match[0] = AdjustCase(match, meta.style.numbers);
           break;
       }
-    }
+    },
   );
 }

@@ -26,7 +26,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain(
-      'idl-webview app is running!'
+      'idl-webview app is running!',
     );
   });
 });

@@ -25,7 +25,7 @@ import { ICurrentCell } from './idl-notebook-controller.interface';
  */
 export function ProcessIDLNotebookEmbeddedItems(
   cell: ICurrentCell,
-  items: IDLNotebookEmbeddedItems
+  items: IDLNotebookEmbeddedItems,
 ) {
   // process each item
   for (let i = 0; i < items.length; i++) {
@@ -62,7 +62,7 @@ export function ProcessIDLNotebookEmbeddedItems(
             type: 'idlnotebookimage_animationfrompngs',
             item: {
               data: toEmbed.item.uris.map((uri) =>
-                Buffer.from(readFileSync(uri)).toString('base64')
+                Buffer.from(readFileSync(uri)).toString('base64'),
               ),
               xsize: toEmbed.item.xsize,
               ysize: toEmbed.item.ysize,
@@ -91,7 +91,7 @@ export function ProcessIDLNotebookEmbeddedItems(
           type: 'idlnotebookimage_png',
           item: {
             data: Buffer.from(readFileSync(toEmbed.item.uri)).toString(
-              'base64'
+              'base64',
             ),
             xsize: toEmbed.item.xsize,
             ysize: toEmbed.item.ysize,
@@ -151,7 +151,7 @@ export function ProcessIDLNotebookEmbeddedItems(
                   type: 'idlnotebookmap_image',
                   item: {
                     data: Buffer.from(readFileSync(typed.item.uri)).toString(
-                      'base64'
+                      'base64',
                     ),
                     xsize: typed.item.xsize,
                     ysize: typed.item.ysize,
@@ -185,11 +185,11 @@ export function ProcessIDLNotebookEmbeddedItems(
         [
           new vscode.NotebookCellOutputItem(
             Buffer.from(JSON.stringify(embedThis)),
-            IDL_NOTEBOOK_MIME_TYPE
+            IDL_NOTEBOOK_MIME_TYPE,
           ),
         ],
-        meta
-      )
+        meta,
+      ),
     );
   }
 }

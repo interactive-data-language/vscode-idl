@@ -6,7 +6,7 @@ import { EscapeHtml } from './escape';
 export function CreateOutputText(
   idx: number,
   content: string,
-  style: 'image' | 'text'
+  style: 'image' | 'text',
 ) {
   if (style === 'text') {
     const string = `
@@ -14,7 +14,7 @@ export function CreateOutputText(
 <tr style="display: flex;">
 <td style="width: 20px;padding-top: 20px;color: #a8a8a8;">[${idx}]:</td>
 <td style="flex-grow: 1;"><pre><code>${EscapeHtml(
-      content
+      content,
     )}</code></pre></td></tr>
 </table>
     `;

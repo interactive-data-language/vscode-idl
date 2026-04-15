@@ -12,7 +12,7 @@ export function GetNewLine(
   tabWidth: number,
   maxIndent: number,
   tokenParent: TreeToken<TokenName> | undefined,
-  hangingLine: number | undefined
+  hangingLine: number | undefined,
 ): string[] {
   // return if we dont indent
   if (tokenParent?.name in DONT_INDENT_INSIDE_OF) {

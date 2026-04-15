@@ -58,10 +58,10 @@ export class IDLInteractionManager {
     this.idl = new IDLProcess(log, vscodeProDir, startupMessage);
 
     this.idl.on(IDL_EVENT_LOOKUP.FAILED_START, (reason) =>
-      this.handleErrors(`IDL failed to start: ${reason}`)
+      this.handleErrors(`IDL failed to start: ${reason}`),
     );
     this.idl.on(IDL_EVENT_LOOKUP.CRASHED, (reason) =>
-      this.handleErrors('IDL crashed or was stopped by the user')
+      this.handleErrors('IDL crashed or was stopped by the user'),
     );
   }
 
@@ -128,7 +128,7 @@ export class IDLInteractionManager {
    */
   async evaluate(
     command: string,
-    inOptions: IDLEvaluateOptions = {}
+    inOptions: IDLEvaluateOptions = {},
   ): Promise<string> {
     if (!this.isStarted()) {
       throw new Error('Start IDL before evaluating any expressions');
@@ -158,7 +158,7 @@ export class IDLInteractionManager {
             if ('echo' in options ? options.echo : false) {
               this.idl.emit(
                 IDL_EVENT_LOOKUP.OUTPUT,
-                'echoThis' in options ? options.echoThis : command
+                'echoThis' in options ? options.echoThis : command,
               );
             }
 
@@ -190,7 +190,7 @@ export class IDLInteractionManager {
       // retrieve scope information
       const scopeInfo = ProcessScope(
         this.idl,
-        await this.idl.evaluate(this.scopeInfoCommand(0))
+        await this.idl.evaluate(this.scopeInfoCommand(0)),
       );
 
       // update if we have it or use default
@@ -228,7 +228,7 @@ export class IDLInteractionManager {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     filepath?: string,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    lineNumber?: number
+    lineNumber?: number,
   ): Promise<IDLBreakpoint[]> {
     // get the strings for our breakpoints
     const resp = await this.evaluate('  vscode_getBreakpoints', {
@@ -259,7 +259,7 @@ export class IDLInteractionManager {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     startFrame?: number,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    endFrame?: number
+    endFrame?: number,
   ): Promise<IDLCallStack> {
     // return if we have not started
     if (!this.idl.started) {
@@ -297,7 +297,7 @@ export class IDLInteractionManager {
       await this.evaluate(`vscode_getFileCodeCoverage, '${file}'`, {
         silent: false,
         idlInfo: false,
-      })
+      }),
     );
   }
 
@@ -313,7 +313,7 @@ export class IDLInteractionManager {
         await this.evaluate(this.scopeInfoCommand(0), {
           silent: true,
           idlInfo: false,
-        })
+        }),
       ).scope;
     }
   }
@@ -355,7 +355,7 @@ export class IDLInteractionManager {
         await this.evaluate(this.scopeInfoCommand(frameId), {
           silent: true,
           idlInfo: false,
-        })
+        }),
       );
       vars = scopeInfo.variables;
     }
@@ -383,7 +383,7 @@ export class IDLInteractionManager {
    */
   off<T extends IDLEvent>(
     event: T,
-    listener: (...args: IDLListenerArgs<T>) => void
+    listener: (...args: IDLListenerArgs<T>) => void,
   ): EventEmitter {
     return this.idl.off(event, listener);
   }
@@ -394,7 +394,7 @@ export class IDLInteractionManager {
    */
   on<T extends IDLEvent>(
     event: T,
-    listener: (...args: IDLListenerArgs<T>) => void
+    listener: (...args: IDLListenerArgs<T>) => void,
   ): EventEmitter {
     return this.idl.on(event, listener);
   }
@@ -405,7 +405,7 @@ export class IDLInteractionManager {
    */
   once<T extends IDLEvent>(
     event: T,
-    listener: (...args: IDLListenerArgs<T>) => void
+    listener: (...args: IDLListenerArgs<T>) => void,
   ): EventEmitter {
     return this.idl.once(event, listener);
   }
@@ -422,7 +422,7 @@ export class IDLInteractionManager {
    */
   registerIDLNotifyHandler(
     idlNotifyEvent: string,
-    handler: FromIDLMachineRequestHandler<'idlNotify'>
+    handler: FromIDLMachineRequestHandler<'idlNotify'>,
   ) {
     this.idl.registerIDLNotifyHandler(idlNotifyEvent, handler);
   }
@@ -434,7 +434,7 @@ export class IDLInteractionManager {
    */
   registerRequestHandler<T extends FromIDLMachineRequests>(
     event: T,
-    handler: FromIDLMachineRequestHandler<T>
+    handler: FromIDLMachineRequestHandler<T>,
   ) {
     this.idl.registerRequestHandler(event, handler);
   }
@@ -525,7 +525,7 @@ export class IDLInteractionManager {
   private handleErrors(reason: string) {
     if (this._processing !== undefined) {
       this._processing.reject(
-        `${reason}. Current IDL output: ${this.idl.capturedOutput}`
+        `${reason}. Current IDL output: ${this.idl.capturedOutput}`,
       );
     }
   }

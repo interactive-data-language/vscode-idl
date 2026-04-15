@@ -49,7 +49,7 @@ export function RegisterNotebookCompletionProvider() {
         const completion: LanguageServerCompletionItem[] =
           await LANGUAGE_SERVER_CLIENT.sendRequest(
             'textDocument/completion',
-            params
+            params,
           );
 
         // return if nothing to do
@@ -69,7 +69,7 @@ export function RegisterNotebookCompletionProvider() {
           // libs\parsing\index\src\lib\auto-complete\get-auto-complete.ts
           if (item.documentation) {
             mapped.documentation = new vscode.MarkdownString(
-              (item.documentation as MarkupContent).value
+              (item.documentation as MarkupContent).value,
             );
           }
 
@@ -79,6 +79,6 @@ export function RegisterNotebookCompletionProvider() {
       },
       // convert to VSCode hover help
     },
-    ...COMPLETION_TRIGGER_CHARACTERS
+    ...COMPLETION_TRIGGER_CHARACTERS,
   );
 }

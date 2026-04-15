@@ -12,7 +12,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const AddDocs: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/test/client-e2e/docs/docs_test.pro')
+    GetExtensionPath('idl/test/client-e2e/docs/docs_test.pro'),
   );
 
   // short pause to make sure we open and parse
@@ -28,8 +28,8 @@ export const AddDocs: RunnerFunction = async (init) => {
   expect(doc.getText()).toEqual(
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/docs/docs_test_out.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // replace the content in our document
@@ -37,8 +37,8 @@ export const AddDocs: RunnerFunction = async (init) => {
     doc,
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/docs/docs_test_edit.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 
   // short pause
@@ -54,7 +54,7 @@ export const AddDocs: RunnerFunction = async (init) => {
   expect(doc.getText()).toEqual(
     readFileSync(
       GetExtensionPath('idl/test/client-e2e/docs/docs_test_edit_out.pro'),
-      'utf-8'
-    )
+      'utf-8',
+    ),
   );
 };

@@ -11,11 +11,11 @@ import { GetTypeBadge } from './get-type-badge';
  */
 export function DocsForParameter(
   param: IParameterOrPropertyDetails,
-  link: string
+  link: string,
 ) {
   return `### ${param.display} {#${CleanParamLink(link)}}\n\n${GetRequiredBadge(
-    param
+    param,
   )}${GetDirectionBadge(param)}${GetTypeBadge(param.type)}\n\n${CleanDocs(
-    param.docs
+    param.docs,
   )}\n\n`;
 }

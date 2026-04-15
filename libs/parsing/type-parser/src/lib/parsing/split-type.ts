@@ -34,7 +34,7 @@ export function SplitType(type: string, found: string[]) {
           if (count === 0) {
             found.push(
               type.substring(0, argsPos).trim(),
-              type.substring(argsPos + 1, i).trim()
+              type.substring(argsPos + 1, i).trim(),
             );
             argsPos = i + 1;
             break;

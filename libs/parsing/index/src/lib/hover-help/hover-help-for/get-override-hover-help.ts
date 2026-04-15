@@ -12,7 +12,7 @@ import { Position } from 'vscode-languageserver';
  */
 export function GetOverrideHoverHelp(
   token: TreeToken<TokenName>,
-  pos: Position
+  pos: Position,
 ): string {
   let help = '';
 

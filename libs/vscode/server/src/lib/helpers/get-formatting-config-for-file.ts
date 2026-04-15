@@ -16,7 +16,7 @@ import { IDL_CLIENT_CONFIG } from './track-workspace-config';
  */
 export function GetFormattingConfigForFile(
   fsPath: string,
-  formatting?: Partial<IAssemblerInputOptions<FormatterType>>
+  formatting?: Partial<IAssemblerInputOptions<FormatterType>>,
 ) {
   /**
    * Make default formatting config for info.fsPath

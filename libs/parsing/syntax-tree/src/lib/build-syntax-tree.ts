@@ -36,7 +36,7 @@ import { DEFAULT_CURRENT } from './recursion-and-callbacks/tree-recurser.interfa
 function BuildTreeRecurser(
   tokens: TokenizerToken<TokenName>[],
   options: IRecurserOptions,
-  closer?: IRecurserCloseOptions
+  closer?: IRecurserCloseOptions,
 ): SyntaxTree {
   /** Tree of tokens */
   const tree: SyntaxTree = [];
@@ -63,8 +63,8 @@ function BuildTreeRecurser(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.AFTER_MAIN,
             token.pos,
-            token.pos
-          )
+            token.pos,
+          ),
         );
         parseProblems.push(IDL_PROBLEM_CODES.AFTER_MAIN);
       }
@@ -78,8 +78,8 @@ function BuildTreeRecurser(
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.UNEXPECTED_CLOSER,
             token.pos,
-            token.pos
-          )
+            token.pos,
+          ),
         );
         parseProblems.push(IDL_PROBLEM_CODES.UNEXPECTED_CLOSER);
         continue;
@@ -111,7 +111,7 @@ function BuildTreeRecurser(
             basic,
             DEFAULT_PARSED,
             DEFAULT_CURRENT,
-            {}
+            {},
           );
         }
         break;
@@ -155,8 +155,8 @@ function BuildTreeRecurser(
                 SyntaxProblemWithTranslation(
                   IDL_PROBLEM_CODES.NOT_CLOSED,
                   branch.pos,
-                  branch.pos
-                )
+                  branch.pos,
+                ),
               );
               parseProblems.push(IDL_PROBLEM_CODES.NOT_CLOSED);
 
@@ -176,7 +176,7 @@ function BuildTreeRecurser(
             branch,
             DEFAULT_PARSED,
             DEFAULT_CURRENT,
-            {}
+            {},
           );
         }
         break;
@@ -196,8 +196,8 @@ function BuildTreeRecurser(
                 SyntaxProblemWithTranslation(
                   IDL_PROBLEM_CODES.UNEXPECTED_CLOSER,
                   token.pos,
-                  token.pos
-                )
+                  token.pos,
+                ),
               );
               parseProblems.push(IDL_PROBLEM_CODES.UNEXPECTED_CLOSER);
             }
@@ -207,8 +207,8 @@ function BuildTreeRecurser(
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.UNEXPECTED_CLOSER,
                 token.pos,
-                token.pos
-              )
+                token.pos,
+              ),
             );
             parseProblems.push(IDL_PROBLEM_CODES.UNEXPECTED_CLOSER);
           }
@@ -222,7 +222,7 @@ function BuildTreeRecurser(
           console.log(
             `Warning: when building tree, found unexpected token type of "${
               (token as IBasicToken<TokenName>).type
-            }"`
+            }"`,
           );
 
           // dont save problem - these are caught un the unknown syntax validator
@@ -263,7 +263,7 @@ function BuildTreeRecurser(
 export function BuildSyntaxTree(
   tokens: TokenizerToken<TokenName>[],
   parseSyntaxProblems: SyntaxProblems,
-  full: boolean
+  full: boolean,
 ) {
   // build our syntax tree
   return BuildTreeRecurser(tokens, {

@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+// Custom title styling (Material toolbar doesn't style content)
+.header-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+// Custom spacer for layout (common Material pattern)
+.spacer {
+  flex: 1;
+}

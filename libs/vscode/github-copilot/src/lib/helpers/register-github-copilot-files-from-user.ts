@@ -12,7 +12,7 @@ import { HomeRelativePath } from './home-relative-path';
  * prompts can be stored and managed
  */
 export async function RegisterGitHubCopilotFilesFromUser(
-  type: 'instructions' | 'prompts'
+  type: 'instructions' | 'prompts',
 ) {
   // Get the configuration for chat settings
   const config = vscode.workspace.getConfiguration('chat');
@@ -72,6 +72,6 @@ export async function RegisterGitHubCopilotFilesFromUser(
   await config.update(
     settingKey,
     filesLocations,
-    vscode.ConfigurationTarget.Global
+    vscode.ConfigurationTarget.Global,
   );
 }

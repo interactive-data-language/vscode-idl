@@ -18,7 +18,7 @@ import { RestoreOutputMetadata } from './restore-output-metadata';
  */
 export async function FromIDLRawNotebook(
   content: Uint8Array,
-  _token: vscode.CancellationToken
+  _token: vscode.CancellationToken,
 ): Promise<vscode.NotebookData> {
   /**
    * Parsed notebook, placeholder in case we have error parsing file
@@ -42,7 +42,7 @@ export async function FromIDLRawNotebook(
       case '1.0.0':
         nb = await FromIDLRawNotebook_1_0_0(
           parsed as IDLRawNotebook<IDLRawNotebookVersion_1_0_0>,
-          _token
+          _token,
         );
         break;
       /**
@@ -51,12 +51,12 @@ export async function FromIDLRawNotebook(
       case '2.0.0':
         nb = await FromIDLRawNotebook_2_0_0(
           parsed as IDLRawNotebook<IDLRawNotebookVersion_2_0_0>,
-          _token
+          _token,
         );
         break;
       default:
         throw new Error(
-          `Unable to parse unknown notebook version "${parsed.version}"`
+          `Unable to parse unknown notebook version "${parsed.version}"`,
         );
     }
 

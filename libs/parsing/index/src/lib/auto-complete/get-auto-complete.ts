@@ -16,7 +16,7 @@ export async function GetAutoComplete(
   code: string | string[],
   position: Position,
   config: IDLExtensionConfig,
-  formatting: IAssemblerOptions<FormatterType>
+  formatting: IAssemblerOptions<FormatterType>,
 ): Promise<GetAutoCompleteResponse> {
   // get completion recipes
   const recipes = await GetCompletionRecipes(index, file, code, position);

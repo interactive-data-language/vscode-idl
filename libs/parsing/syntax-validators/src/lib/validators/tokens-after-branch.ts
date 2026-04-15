@@ -50,7 +50,7 @@ const TOKENS: NonBasicTokenNames[] = [
  */
 const callback: BranchCallback<NonBasicTokenNames, IDLSyntaxValidatorMeta> = (
   token,
-  parsed
+  parsed,
 ) => {
   // check for missing children
   if (token.kids.length === 0) {
@@ -60,8 +60,8 @@ const callback: BranchCallback<NonBasicTokenNames, IDLSyntaxValidatorMeta> = (
       SyntaxProblemWithTranslation(
         IDL_PROBLEM_CODES.EXPECTED_STATEMENT,
         token.pos,
-        token.end !== undefined ? token.end.pos : token.pos
-      )
+        token.end !== undefined ? token.end.pos : token.pos,
+      ),
     );
   }
 };

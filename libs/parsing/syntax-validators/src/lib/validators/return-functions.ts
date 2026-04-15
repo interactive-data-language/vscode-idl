@@ -40,8 +40,8 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.RETURN_MISSING,
           token.pos,
-          endPos
-        )
+          endPos,
+        ),
       );
     }
 
@@ -54,14 +54,14 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
           // missing
           case 0:
             returns[i].parseProblems.push(
-              IDL_PROBLEM_CODES.RETURN_FUNCTION_MISSING
+              IDL_PROBLEM_CODES.RETURN_FUNCTION_MISSING,
             );
             parsed.parseProblems.push(
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.RETURN_FUNCTION_MISSING,
                 returns[i].pos,
-                returns[i].end ? returns[i].end.pos : returns[i].pos
-              )
+                returns[i].end ? returns[i].end.pos : returns[i].pos,
+              ),
             );
             break;
           // good
@@ -71,18 +71,18 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
           default:
             // too many
             returns[i].parseProblems.push(
-              IDL_PROBLEM_CODES.RETURN_VALUES_FUNCTIONS
+              IDL_PROBLEM_CODES.RETURN_VALUES_FUNCTIONS,
             );
             parsed.parseProblems.push(
               SyntaxProblemWithTranslation(
                 IDL_PROBLEM_CODES.RETURN_VALUES_FUNCTIONS,
                 returns[i].pos,
-                returns[i].end ? returns[i].end.pos : returns[i].pos
-              )
+                returns[i].end ? returns[i].end.pos : returns[i].pos,
+              ),
             );
             break;
         }
       }
     }
-  }
+  },
 );

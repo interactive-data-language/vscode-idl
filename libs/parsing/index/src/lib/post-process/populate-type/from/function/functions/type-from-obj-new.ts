@@ -13,7 +13,7 @@ import { TypeFromFirstArg } from '../../helpers/type-from-first-arg';
 export function TypeFromObjNew(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<CallFunctionToken>
+  token: TreeToken<CallFunctionToken>,
 ): string {
   return TypeFromFirstArg(index, parsed, token);
 }

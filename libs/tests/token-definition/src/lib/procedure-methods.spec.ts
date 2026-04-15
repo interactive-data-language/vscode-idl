@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly find definitions for procedure methods`, ()
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify reference filepath
@@ -90,7 +90,7 @@ describe(`[auto generated] Correctly find definitions for procedure methods`, ()
     const found_0 = await index.getTokenDef(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
     if (found_0 !== undefined) {
       delete found_0.file;
@@ -165,7 +165,7 @@ describe(`[auto generated] Correctly find definitions for procedure methods`, ()
     const found_1 = await index.getTokenDef(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_1
+      position_1,
     );
     if (found_1 !== undefined) {
       delete found_1.file;
@@ -183,7 +183,7 @@ describe(`[auto generated] Correctly find definitions for procedure methods`, ()
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify reference filepath
@@ -202,7 +202,7 @@ describe(`[auto generated] Correctly find definitions for procedure methods`, ()
     const found_0 = await index.getTokenDef(
       filepath,
       await readFile(filepath, 'utf-8'),
-      position_0
+      position_0,
     );
     if (found_0 !== undefined) {
       delete found_0.file;

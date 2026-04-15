@@ -42,8 +42,8 @@ const cb: BranchCallback<
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.ARGS_FIRST,
             branch.kids[i].pos,
-            branch.kids[i].pos
-          )
+            branch.kids[i].pos,
+          ),
         );
       }
     }

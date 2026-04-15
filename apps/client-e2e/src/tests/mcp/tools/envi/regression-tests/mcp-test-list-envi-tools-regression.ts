@@ -20,7 +20,7 @@ function GetKey(name: string, obj: { [key: string]: any }) {
  * Makes regression tests for listing ENVI tools
  */
 export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
-  init
+  init,
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.LIST_ENVI_TOOLS, {});
@@ -37,7 +37,7 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
   // attempt to parse
   try {
     toolsList = JSON.parse(
-      (result.content[0].text as string).replace(/^All tools: /, '')
+      (result.content[0].text as string).replace(/^All tools: /, ''),
     );
   } catch (err) {
     // do nothing
@@ -45,7 +45,7 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
 
   const toolDescriptionDir = join(
     GetExtensionPath('idl/test/client-e2e/mcp/regression'),
-    'tool-descriptions'
+    'tool-descriptions',
   );
 
   // clean up
@@ -70,7 +70,7 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
     // write regression test to disk
     writeFileSync(
       join(toolDescriptionDir, `${toolName}.json`),
-      JSON.stringify(toolsList[key].split(/\n/g), undefined, 2)
+      JSON.stringify(toolsList[key].split(/\n/g), undefined, 2),
     );
   }
 };

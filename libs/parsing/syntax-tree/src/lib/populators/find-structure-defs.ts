@@ -34,7 +34,7 @@ SKIP_THESE[TOKEN_NAMES.STRUCTURE_PROPERTY] = true;
 export function FindStructureDefs(
   token: TreeToken<RoutineFunctionToken | RoutineProcedureToken>,
   routineName: string,
-  structures: { [key: string]: any }
+  structures: { [key: string]: any },
 ): IGlobalIndexedToken<GlobalStructureToken>[] {
   /** global structures that we return */
   const found: IGlobalIndexedToken<GlobalStructureToken>[] = [];
@@ -56,7 +56,7 @@ export function FindStructureDefs(
   const structs = FindAllBranchChildren(
     token,
     TOKEN_NAMES.STRUCTURE_NAME,
-    SKIP_THESE
+    SKIP_THESE,
   );
 
   // process each structure
@@ -76,7 +76,7 @@ export function FindStructureDefs(
     // check for inheritance statements
     const inheritance = FindDirectBranchChildren(
       structs[i],
-      TOKEN_NAMES.STRUCTURE_INHERITANCE
+      TOKEN_NAMES.STRUCTURE_INHERITANCE,
     );
 
     // build the inheritance information
@@ -124,7 +124,7 @@ export function FindStructureDefs(
     // get all of our properties
     const propTokens = FindDirectBranchChildren(
       structs[i],
-      TOKEN_NAMES.STRUCTURE_PROPERTY
+      TOKEN_NAMES.STRUCTURE_PROPERTY,
     );
 
     // add all of our properties

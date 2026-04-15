@@ -43,7 +43,6 @@ TreeRecurser(parsed, {
 - This has been tied into our core callback framework for tokens (TreeCallbackHandler) as an additional method to execute code when we encounter tokens
 
 - This applies to:
-
   - Tree post-processing (mapping tokens from one type to another)
 
   - Tree validation (checking for syntax errors)
@@ -90,7 +89,6 @@ The config file also introduces several new formatting options:
 - **style.localVariables** to match the case of any variable with the first definition of it
 
 - **style.userRoutines** to match the case of any user-defined routine (not methods) with the definition of it. This matches a pattern we have for internal routines.
-
   - In addition to the new setting, we have a new global lookup that is populated with user routines after parsing code. It gets cleaned up and updated any time a file is parsed to stay up-to-date with the latest information
 
 ## Hover Help

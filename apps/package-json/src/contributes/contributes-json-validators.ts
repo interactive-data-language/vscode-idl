@@ -29,7 +29,7 @@ export const JSON_VALIDATORS = [
  */
 export function ProcessJSONValidators(
   packageJSON: IPackageJSON,
-  nls: IPackageNLS
+  nls: IPackageNLS,
 ) {
   // get all of our contribution points
   const contrib = packageJSON['contributes'];
@@ -41,7 +41,7 @@ export function ProcessJSONValidators(
     // make sure we have absolute path
     if (!validator.url.startsWith('./')) {
       throw new Error(
-        `jsonValidator at index ${i} does not start with "./" as required`
+        `jsonValidator at index ${i} does not start with "./" as required`,
       );
     }
 
@@ -49,7 +49,7 @@ export function ProcessJSONValidators(
     const url = join(process.cwd(), validator.url);
     if (!existsSync(url)) {
       throw new Error(
-        `jsonValidator at index ${i} missing path file where expected "${validator.url}"`
+        `jsonValidator at index ${i} missing path file where expected "${validator.url}"`,
       );
     }
   }

@@ -127,7 +127,7 @@ export function InitializeLanguageServer() {
   IDL_LANGUAGE_SERVER_LOGGER.setInterceptor((options) => {
     SERVER_MESSENGER.sendNotification(
       LANGUAGE_SERVER_MESSAGE_LOOKUP.LOG,
-      options
+      options,
     );
   });
 
@@ -137,7 +137,7 @@ export function InitializeLanguageServer() {
 
   // handle when a user searches for a symbol
   SERVER_CONNECTION.onWorkspaceSymbol(
-    (params: WorkspaceSymbolParams): SymbolInformation[] => []
+    (params: WorkspaceSymbolParams): SymbolInformation[] => [],
     // idl.findSymbolsByName(params.query)
   );
 
@@ -235,7 +235,7 @@ export function InitializeLanguageServer() {
       // Register for all configuration changes.
       SERVER_CONNECTION.client.register(
         DidChangeConfigurationNotification.type,
-        undefined
+        undefined,
       );
     }
   });

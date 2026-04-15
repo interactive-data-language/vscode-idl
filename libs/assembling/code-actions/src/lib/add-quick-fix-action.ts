@@ -13,7 +13,7 @@ import {
 export function AddQuickFixActions(
   diag: IDLDiagnostic,
   actions: CodeAction[],
-  uri: string
+  uri: string,
 ) {
   // skip if we dont ahve any edits
   if (!diag.data.edits) {
@@ -32,7 +32,7 @@ export function AddQuickFixActions(
   actions.push({
     title: IDL_TRANSLATION.lsp.codeActions.quickFixProblem.replace(
       'PROBLEM',
-      diag.data.alias
+      diag.data.alias,
     ),
     kind: CodeActionKind.QuickFix,
     edit,

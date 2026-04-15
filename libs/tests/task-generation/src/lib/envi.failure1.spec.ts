@@ -18,7 +18,7 @@ describe(`[auto generated] Don't make ENVI Task`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify type of task
@@ -26,7 +26,7 @@ describe(`[auto generated] Don't make ENVI Task`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-generation/empty_envi.pro'
+      'idl/test/task-generation/empty_envi.pro',
     );
 
     // add file to index
@@ -34,7 +34,7 @@ describe(`[auto generated] Don't make ENVI Task`, () => {
       filepath,
       readFileSync(filepath, 'utf-8'),
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // make our task
@@ -48,7 +48,7 @@ describe(`[auto generated] Don't make ENVI Task`, () => {
 
     // verify reason
     expect((result as GenerateTaskResult<false>).failureReason).toEqual(
-      'No procedure definition found with the base name of the PRO file (required to create a task)'
+      'No procedure definition found with the base name of the PRO file (required to create a task)',
     );
   });
 });

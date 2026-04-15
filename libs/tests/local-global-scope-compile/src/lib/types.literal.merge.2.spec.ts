@@ -15,7 +15,7 @@ describe(`[auto generated] Cases to make sure we always merge literal types and 
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // test code to extract tokens from
@@ -54,7 +54,7 @@ describe(`[auto generated] Cases to make sure we always merge literal types and 
       'not-real',
       code,
       new CancellationToken(),
-      { postProcess: true }
+      { postProcess: true },
     );
 
     // define expected local variables

@@ -45,8 +45,8 @@ function _Validate(parsed: IParsed, local: ILocalTokenLookup) {
             IDL_TRANSLATION.parsing.errors[IDL_PROBLEM_CODES.UNUSED_VARIABLE]
           } "${variables[i].meta.display}"`,
           variables[i].pos,
-          variables[i].pos
-        )
+          variables[i].pos,
+        ),
       );
     }
   }
@@ -62,7 +62,7 @@ function _Validate(parsed: IParsed, local: ILocalTokenLookup) {
  */
 export function ValidateVariableUsage(
   parsed: IParsed,
-  local: ILocalTokenLookup
+  local: ILocalTokenLookup,
 ) {
   _Validate(parsed, local);
 }

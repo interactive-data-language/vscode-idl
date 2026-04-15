@@ -4,6 +4,7 @@ import {
   IDL_PROBLEM_CODE_SHORTHAND_LOOKUP,
   IDL_PROBLEM_CODES,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
+  IDLProblemCode,
 } from '@idl/types/problem-codes';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { copy } from 'fast-copy';
@@ -14,10 +15,13 @@ import {
   WORKSPACE_FOLDER_CONFIGS,
 } from './track-workspace-config';
 
+// type for ignore problem codes
+type IgnoreProblemCodes = { [key in IDLProblemCode]?: boolean };
+
 /**
  * Track all problem codes that we want to filter out from being reported to the user
  */
-export const IGNORE_PROBLEM_CODES: { [key: number]: boolean } = {};
+export const IGNORE_PROBLEM_CODES: IgnoreProblemCodes = {};
 
 /**
  * Track cases where we exclude problem reporting
@@ -53,7 +57,7 @@ export const MCP_CONFIG = { ...DEFAULT_IDL_EXTENSION_CONFIG.mcp };
 export function MergeConfig() {
   // get all configs
   const configs = Object.values(WORKSPACE_FOLDER_CONFIGS).concat(
-    IDL_CLIENT_CONFIG
+    IDL_CLIENT_CONFIG,
   );
 
   // copy existing folders
@@ -62,7 +66,7 @@ export function MergeConfig() {
   // empty problem codes in case we have new ones coming through
   const currentCodes = Object.keys(IGNORE_PROBLEM_CODES);
   for (let i = 0; i < currentCodes.length; i++) {
-    delete IGNORE_PROBLEM_CODES[currentCodes[i]];
+    delete IGNORE_PROBLEM_CODES[+currentCodes[i] as IDLProblemCode];
   }
 
   // empty folders
@@ -104,7 +108,7 @@ export function MergeConfig() {
             true;
         }
       } else {
-        IGNORE_PROBLEM_CODES[code] = true;
+        IGNORE_PROBLEM_CODES[code as IDLProblemCode] = true;
       }
     }
 
@@ -132,12 +136,12 @@ export function MergeConfig() {
       // replace plus sign
       const pathEntry = el.problems.excludeProblemsForPath[j].replace(
         RECURSIVE_REGEX,
-        ''
+        '',
       );
 
       // check if recursive
       const isRecursive = RECURSIVE_REGEX.test(
-        el.problems.excludeProblemsForPath[j]
+        el.problems.excludeProblemsForPath[j],
       );
 
       // if not in, then save

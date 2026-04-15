@@ -25,7 +25,7 @@ export function LoadGlobal(okToLoad?: { [key: string]: any }) {
   const fromDisk: GlobalTokens = JSON.parse(
     readFileSync(GetExtensionPath('idl/routines/global.json'), {
       encoding: 'utf-8',
-    })
+    }),
   ) as GlobalTokens;
 
   // load tokens and filter ones we shouldnt have
@@ -33,7 +33,7 @@ export function LoadGlobal(okToLoad?: { [key: string]: any }) {
     IDL_INDEX_OPTIONS.IS_TEST || okToLoad === undefined
       ? fromDisk
       : fromDisk.filter((item) =>
-          !item.meta.source ? true : item.meta.source in okToLoad
+          !item.meta.source ? true : item.meta.source in okToLoad,
         );
 
   /**

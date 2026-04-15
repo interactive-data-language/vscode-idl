@@ -15,7 +15,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * Callback to handle requesting the outline (i.e. "document symbol") request
  */
 export const ON_DOCUMENT_SYMBOL = async (
-  event: DocumentSymbolParams
+  event: DocumentSymbolParams,
 ): Promise<DocumentSymbol[]> => {
   await SERVER_INITIALIZED;
   try {
@@ -39,7 +39,7 @@ export const ON_DOCUMENT_SYMBOL = async (
     const outline = await IDL_INDEX.getOutline(
       info.fsPath,
       info.code,
-      new CancellationToken()
+      new CancellationToken(),
     );
 
     // return outline

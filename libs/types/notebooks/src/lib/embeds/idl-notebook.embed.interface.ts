@@ -36,10 +36,10 @@ export type IDLNotebook_EmbedTypeData<T extends IDLNotebook_EmbedType> =
   T extends IDLNotebookImage_EmbedType
     ? IDLNotebookImage_EmbedTypeData<T>
     : T extends IDLNotebookMap_EmbedType
-    ? IDLNotebookMap_EmbedTypeData<T>
-    : T extends IDLNotebookPlot_EmbedType
-    ? IDLNotebookPlot_EmbedTypeData<T>
-    : never;
+      ? IDLNotebookMap_EmbedTypeData<T>
+      : T extends IDLNotebookPlot_EmbedType
+        ? IDLNotebookPlot_EmbedTypeData<T>
+        : never;
 
 /**
  * Data structure for notebook embedded items

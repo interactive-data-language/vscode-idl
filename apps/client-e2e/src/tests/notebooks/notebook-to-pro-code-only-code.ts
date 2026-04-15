@@ -15,11 +15,11 @@ import { RunnerFunction } from '../runner.interface';
  */
 export const NotebookToProCodeOnlyCode: RunnerFunction = async (init) => {
   const nbUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/notebook-to-pro-code/test-notebook.idlnb'
+    'idl/test/client-e2e/notebooks/notebook-to-pro-code/test-notebook.idlnb',
   );
 
   const expectedUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/notebook-to-pro-code/test_notebook_only_code.pro'
+    'idl/test/client-e2e/notebooks/notebook-to-pro-code/test_notebook_only_code.pro',
   );
 
   // open notebook
@@ -30,7 +30,7 @@ export const NotebookToProCodeOnlyCode: RunnerFunction = async (init) => {
 
   // get the code we should expect, independent of line ending
   const expected = readFileSync(expectedUri, { encoding: 'utf-8' }).split(
-    LINE_SEPARATOR
+    LINE_SEPARATOR,
   );
 
   /**
@@ -43,7 +43,7 @@ export const NotebookToProCodeOnlyCode: RunnerFunction = async (init) => {
   // convert to PRO code
   await vscode.commands.executeCommand(
     IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE,
-    options
+    options,
   );
 
   // short pause

@@ -22,7 +22,7 @@ import { TaskTypeToIDLType } from './task-type-to-idl-type';
  * Converts an ENVI Task to global tokens for auto-complete
  */
 export function ENVITaskToGlobal(
-  task: ENVITask<ENVITaskSchemaVersion>
+  task: ENVITask<ENVITaskSchemaVersion>,
 ): IGlobalsToTrack {
   // make sure we have description
   task.description = task.description || '';
@@ -40,6 +40,7 @@ export function ENVITaskToGlobal(
     pos: [0, 0, 0],
     meta: {
       display: name,
+      readableName: task.display_name,
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
       private: false,
@@ -48,6 +49,11 @@ export function ENVITaskToGlobal(
       props: {},
     },
   };
+
+  // check if we have tags
+  if (Array.isArray(task.tags)) {
+    struct.meta.tags = task.tags;
+  }
 
   // create properties
   const props: IPropertyLookup = {};
@@ -102,7 +108,7 @@ export function ENVITaskToGlobal(
         param.type,
         meta,
         param.choice_list,
-        param.dimensions
+        param.dimensions,
       ),
       req: param.required,
     };

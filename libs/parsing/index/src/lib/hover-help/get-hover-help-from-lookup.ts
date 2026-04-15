@@ -36,7 +36,7 @@ ROUTINE_GLOBAL_TYPES[GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD] = true;
 export async function GetHoverHelpFromLookup(
   index: IDLIndex,
   lookup: GetHoverHelpLookupResponse,
-  config: IDLExtensionConfig
+  config: IDLExtensionConfig,
 ): Promise<Hover> {
   /**
    * Init hover response
@@ -74,7 +74,7 @@ export async function GetHoverHelpFromLookup(
        */
       const globals = index.globalIndex.findMatchingGlobalToken(
         lookup.type,
-        lookup.name
+        lookup.name,
       );
 
       /**
@@ -111,7 +111,7 @@ export async function GetHoverHelpFromLookup(
                 arg.display,
                 arg.docs,
                 arg.type,
-                'arg'
+                'arg',
               );
             }
             break;
@@ -126,7 +126,7 @@ export async function GetHoverHelpFromLookup(
                 kw.display,
                 kw.docs,
                 kw.type,
-                'kw'
+                'kw',
               );
             }
             break;
@@ -147,11 +147,11 @@ export async function GetHoverHelpFromLookup(
               help = IDLTypeHelper.addTypeToDocs(
                 GetPropertyDisplayName(
                   prop.display,
-                  IDLTypeHelper.parseIDLType(global.meta.display)
+                  IDLTypeHelper.parseIDLType(global.meta.display),
                 ),
                 prop.docs,
                 prop.type,
-                'prop'
+                'prop',
               );
             }
             break;

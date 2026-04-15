@@ -18,7 +18,7 @@ import { SAVE } from './svgs/save';
  */
 export function RegisterIcons(
   registry: MatIconRegistry,
-  sanitizer: DomSanitizer
+  sanitizer: DomSanitizer,
 ) {
   // icons we load
   const icons: { [key: string]: any } = {
@@ -37,7 +37,7 @@ export function RegisterIcons(
   for (let i = 0; i < keys.length; i++) {
     registry.addSvgIconLiteral(
       keys[i],
-      sanitizer.bypassSecurityTrustHtml(icons[keys[i]])
+      sanitizer.bypassSecurityTrustHtml(icons[keys[i]]),
     );
   }
 }

@@ -15,12 +15,12 @@ describe(`[auto generated] Task auto complete`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/task_completion.pro'
+      'idl/test/auto-complete/task_completion.pro',
     );
 
     // add file to index
@@ -207,9 +207,9 @@ describe(`[auto generated] Task auto complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 4, character: 16 };
@@ -387,9 +387,9 @@ describe(`[auto generated] Task auto complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_2: Position = { line: 7, character: 18 };
@@ -755,9 +755,9 @@ describe(`[auto generated] Task auto complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_2
+          position_2,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_3: Position = { line: 8, character: 17 };
@@ -771,9 +771,9 @@ describe(`[auto generated] Task auto complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_3
+          position_3,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_4: Position = { line: 11, character: 18 };
@@ -1139,9 +1139,9 @@ describe(`[auto generated] Task auto complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_4
+          position_4,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_5: Position = { line: 12, character: 17 };
@@ -1155,9 +1155,9 @@ describe(`[auto generated] Task auto complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_5
+          position_5,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_6: Position = { line: 15, character: 18 };
@@ -1523,9 +1523,9 @@ describe(`[auto generated] Task auto complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_6
+          position_6,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_7: Position = { line: 16, character: 17 };
@@ -1539,9 +1539,9 @@ describe(`[auto generated] Task auto complete`, () => {
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_7
+          position_7,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

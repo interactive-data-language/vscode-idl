@@ -8,7 +8,7 @@ import { BRANCH_TYPES, IBranch, SyntaxTree } from '@idl/types/syntax-tree';
 export function ConditionalLineNumberIncrement(
   tree: SyntaxTree,
   start: number,
-  increment: number
+  increment: number,
 ) {
   // process all children
   for (let i = 0; i < tree.length; i++) {

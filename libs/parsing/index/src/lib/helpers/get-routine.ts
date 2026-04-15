@@ -28,7 +28,7 @@ import { ITokenCache } from './token-cache.interface';
  */
 function GetRoutineFromName(
   index: IDLIndex,
-  token: TreeToken<RoutineMethodNameToken | RoutineNameToken>
+  token: TreeToken<RoutineMethodNameToken | RoutineNameToken>,
 ): GlobalIndexedRoutineToken[] {
   // get our parent
   const local = token.scopeTokens[token.scopeTokens.length - 1].name;
@@ -45,28 +45,28 @@ function GetRoutineFromName(
       local === TOKEN_NAMES.ROUTINE_FUNCTION:
       return index.findMatchingGlobalToken(
         GLOBAL_TOKEN_TYPES.FUNCTION,
-        token.match[0]
+        token.match[0],
       );
     // user defined function method
     case token.name === TOKEN_NAMES.ROUTINE_METHOD_NAME &&
       local === TOKEN_NAMES.ROUTINE_FUNCTION:
       return index.findMatchingGlobalToken(
         GLOBAL_TOKEN_TYPES.FUNCTION_METHOD,
-        token.match[0]
+        token.match[0],
       );
     // user defined procedure
     case token.name === TOKEN_NAMES.ROUTINE_NAME &&
       local === TOKEN_NAMES.ROUTINE_PROCEDURE:
       return index.findMatchingGlobalToken(
         GLOBAL_TOKEN_TYPES.PROCEDURE,
-        token.match[0]
+        token.match[0],
       );
     // user defined procedure method
     case token.name === TOKEN_NAMES.ROUTINE_METHOD_NAME &&
       local === TOKEN_NAMES.ROUTINE_PROCEDURE:
       return index.findMatchingGlobalToken(
         GLOBAL_TOKEN_TYPES.PROCEDURE_METHOD,
-        token.match[0]
+        token.match[0],
       );
     default:
       break;
@@ -90,7 +90,7 @@ export function GetRoutine(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<TokenName>,
-  useCache = true
+  useCache = true,
 ): GlobalIndexedRoutineToken[] {
   if ('routine' in (token.cache as ITokenCache) && useCache) {
     return (token.cache as ITokenCache).routine;
@@ -105,7 +105,7 @@ export function GetRoutine(
   if (token.name in ROUTINE_NAME_TOKENS) {
     global = GetRoutineFromName(
       index,
-      token as TreeToken<RoutineMethodNameToken | RoutineNameToken>
+      token as TreeToken<RoutineMethodNameToken | RoutineNameToken>,
     );
     (token.cache as ITokenCache).routine = global;
     return global;
@@ -121,7 +121,7 @@ export function GetRoutine(
       index,
       token.scopeTokens[token.scopeTokens.length - 1] as TreeToken<
         RoutineMethodNameToken | RoutineNameToken
-      >
+      >,
     );
     (token.cache as ITokenCache).routine = global;
     return global;
@@ -159,7 +159,7 @@ export function GetRoutine(
         index,
         parsed,
         local as TreeToken<CallFunctionMethodToken>,
-        useCache
+        useCache,
       );
       break;
     case TOKEN_NAMES.CALL_PROCEDURE:
@@ -170,7 +170,7 @@ export function GetRoutine(
         index,
         parsed,
         local as TreeToken<CallProcedureMethodToken>,
-        useCache
+        useCache,
       );
       break;
     // no global tokens, so do nothing

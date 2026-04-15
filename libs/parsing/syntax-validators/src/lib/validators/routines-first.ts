@@ -62,8 +62,8 @@ IDL_SYNTAX_TREE_VALIDATOR.onTree((tree, parsed) => {
           SyntaxProblemWithTranslation(
             IDL_PROBLEM_CODES.ROUTINES_FIRST,
             tree[i].pos,
-            end
-          )
+            end,
+          ),
         );
       }
     }

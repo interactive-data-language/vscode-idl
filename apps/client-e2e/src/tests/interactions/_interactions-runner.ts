@@ -54,7 +54,7 @@ export const INTERACTIONS_TEST_LOGGER = new Logger(
   'interaction-tests',
   false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  () => {}
+  () => {},
 );
 
 /**

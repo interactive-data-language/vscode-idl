@@ -9,7 +9,7 @@ import { IDLIndex } from '../../idl-index.class';
  */
 export function GetIncludeDef(
   index: IDLIndex,
-  token: TreeToken<IncludeToken>
+  token: TreeToken<IncludeToken>,
 ): IBaseIndexedToken {
   let found: IBaseIndexedToken;
 

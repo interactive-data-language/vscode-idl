@@ -9,12 +9,12 @@ import { ReplaceEditorContent } from './replace-editor-content';
  */
 export async function ReplaceDocumentContent(
   doc: TextDocument,
-  content: string
+  content: string,
 ) {
   // make sure file is active in the editor by opening
   vscode.commands.executeCommand<vscode.TextDocumentShowOptions>(
     VSCODE_COMMANDS.OPEN_FILE,
-    doc.uri
+    doc.uri,
   );
 
   await ReplaceEditorContent(vscode.window.activeTextEditor, content);

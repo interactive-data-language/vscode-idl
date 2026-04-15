@@ -60,7 +60,7 @@ export class BaseRendererComponent<T extends IDLNotebook_EmbedType>
 
   constructor(
     @SkipSelf() dataService: DataSharingService,
-    messenger: VSCodeRendererMessenger
+    messenger: VSCodeRendererMessenger,
   ) {
     this.dataService = dataService;
     this.messenger = messenger;

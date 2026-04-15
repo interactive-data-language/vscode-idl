@@ -9,7 +9,7 @@ import {
  * Maps a problem code to a severity level
  */
 export function GetIDLProblemSeverity(
-  code: IDLProblemCode
+  code: IDLProblemCode,
 ): IDLProblemSeverity {
   if (code in IDL_PROBLEM_SEVERITY_LEVEL_MAP) {
     return IDL_PROBLEM_SEVERITY_LEVEL_MAP[code];

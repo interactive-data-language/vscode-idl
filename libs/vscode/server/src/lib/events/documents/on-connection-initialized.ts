@@ -104,7 +104,7 @@ export const ON_CONNECTION_INITIALIZED = async (event: InitializedParams) => {
         // alert that we have started indexing
         SERVER_MESSENGER.sendNotification(
           LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-          { type: 'start' }
+          { type: 'start' },
         );
 
         /**
@@ -119,7 +119,7 @@ export const ON_CONNECTION_INITIALIZED = async (event: InitializedParams) => {
           await IDL_INDEX.indexWorkspaceFiles(
             addedFiles,
             info.folders.added,
-            GLOBAL_SERVER_SETTINGS.fullParse
+            GLOBAL_SERVER_SETTINGS.fullParse,
           );
 
           /** Find files we removed */
@@ -134,13 +134,13 @@ export const ON_CONNECTION_INITIALIZED = async (event: InitializedParams) => {
           // alert that we have started indexing
           SERVER_MESSENGER.sendNotification(
             LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-            { type: 'finish' }
+            { type: 'finish' },
           );
         } catch (err) {
           // alert that we have started indexing
           SERVER_MESSENGER.sendNotification(
             LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-            { type: 'finish' }
+            { type: 'finish' },
           );
           throw err;
         }
@@ -160,7 +160,7 @@ export const ON_CONNECTION_INITIALIZED = async (event: InitializedParams) => {
        * sure.
        */
       SERVER_CONNECTION.workspace.onDidChangeWorkspaceFolders(
-        ON_DID_CHANGE_WORKSPACE_FOLDERS
+        ON_DID_CHANGE_WORKSPACE_FOLDERS,
       );
     }
   } catch (err) {

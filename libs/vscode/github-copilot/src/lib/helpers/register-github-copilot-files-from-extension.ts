@@ -16,7 +16,7 @@ import { MoveAndUpdateCopilotFile } from './move-and-update-copilot-file';
  * part of the extension with GitHub Copilot's configuration
  */
 export async function RegisterGitHubCopilotFilesFromExtension(
-  type: 'instructions' | 'prompts'
+  type: 'instructions' | 'prompts',
 ) {
   // Get the configuration for chat settings
   const config = vscode.workspace.getConfiguration('chat');
@@ -102,6 +102,6 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   await config.update(
     settingKey,
     filesLocations,
-    vscode.ConfigurationTarget.Global
+    vscode.ConfigurationTarget.Global,
   );
 }

@@ -12,7 +12,7 @@ import { TypeFromNumber } from './type-from-number';
 export function TypeFromNumberOrNumberString(
   index: IDLIndex,
   token: TreeToken<NumberToken>,
-  parsed: IParsed
+  parsed: IParsed,
 ): IDLDataType {
   /** Compile options */
   let compOpts: string[] = [];

@@ -1,0 +1,19 @@
+<mat-expansion-panel class="todo-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="todo-panel-title">
+      <mat-icon class="todo-title-icon">checklist</mat-icon>
+      {{ panelTitle() }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <ul class="todo-list">
+    @for (item of todos(); track item.id) {
+      <li class="todo-item" [class]="'status-' + item.status">
+        <mat-icon class="status-icon" [color]="colorFor(item.status)">{{
+          iconFor(item.status)
+        }}</mat-icon>
+        <span class="todo-text">{{ item.text }}</span>
+      </li>
+    }
+  </ul>
+</mat-expansion-panel>

@@ -47,7 +47,7 @@ export const CONFIG_INITIALIZATION = new Promise<IFolderRecursion>((res) => {
  * @param event The event sent from VSCode
  */
 export const ON_WORKSPACE_CONFIG = async (
-  payload: LanguageServerPayload<WorkspaceConfigMessage>
+  payload: LanguageServerPayload<WorkspaceConfigMessage>,
 ) => {
   setTimeout(() => {
     if (!IS_RESOLVED) {
@@ -107,7 +107,7 @@ export const ON_WORKSPACE_CONFIG = async (
                 content: ['Error starting server', err],
                 alert: IDL_TRANSLATION.lsp.errors.startingServer,
               });
-            }
+            },
           );
         }
         // catch all other errors
@@ -142,12 +142,12 @@ export const ON_WORKSPACE_CONFIG = async (
       await IDL_INDEX.indexWorkspaceFiles(
         await FindFiles(info.folders.added),
         info.folders.added,
-        GLOBAL_SERVER_SETTINGS.fullParse
+        GLOBAL_SERVER_SETTINGS.fullParse,
       );
 
       // remove folders
       await IDL_INDEX.removeWorkspaceFiles(
-        await FindFiles(info.folders.removed)
+        await FindFiles(info.folders.removed),
       );
 
       // send problems with settings changes
@@ -156,12 +156,12 @@ export const ON_WORKSPACE_CONFIG = async (
       // alert that we are done
       SERVER_MESSENGER.sendNotification(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-        { type: 'finish' }
+        { type: 'finish' },
       );
     } catch (err) {
       SERVER_MESSENGER.sendNotification(
         LANGUAGE_SERVER_MESSAGE_LOOKUP.INDEXING,
-        { type: 'finish' }
+        { type: 'finish' },
       );
       throw err;
     }

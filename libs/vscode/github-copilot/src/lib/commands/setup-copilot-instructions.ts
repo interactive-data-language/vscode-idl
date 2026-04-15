@@ -8,7 +8,7 @@ import * as vscode from 'vscode';
  */
 export async function SetupCopilotInstructions(
   ctx: vscode.ExtensionContext,
-  versionsAreDifferent?: boolean
+  versionsAreDifferent?: boolean,
 ): Promise<boolean> {
   try {
     const folders = vscode.workspace.workspaceFolders;
@@ -16,7 +16,7 @@ export async function SetupCopilotInstructions(
     // We check for workspace in initialize-extension.
     if (!folders || folders.length === 0) {
       vscode.window.showErrorMessage(
-        IDL_TRANSLATION.notifications.noWorkspaceFolder
+        IDL_TRANSLATION.notifications.noWorkspaceFolder,
       );
       return false;
     }
@@ -28,7 +28,7 @@ export async function SetupCopilotInstructions(
     const instructionsUri = vscode.Uri.joinPath(githubUri, 'instructions');
     const idlInstructionsUri = vscode.Uri.joinPath(
       instructionsUri,
-      'IDL.instructions.md'
+      'IDL.instructions.md',
     );
 
     // Check if IDL.instructions.md already exists
@@ -45,7 +45,7 @@ export async function SetupCopilotInstructions(
       const overwrite = await vscode.window.showWarningMessage(
         IDL_TRANSLATION.notifications.copilotFileExists,
         IDL_TRANSLATION.notifications.yes,
-        IDL_TRANSLATION.notifications.no
+        IDL_TRANSLATION.notifications.no,
       );
 
       if (overwrite !== IDL_TRANSLATION.notifications.yes) {
@@ -56,13 +56,13 @@ export async function SetupCopilotInstructions(
     // Get template from extension
     const idlInstructionsTemplateUri = vscode.Uri.file(
       GetExtensionPath(
-        'extension/github-copilot/instructions/idl.instructions.md'
-      )
+        'extension/github-copilot/instructions/idl.instructions.md',
+      ),
     );
 
     // Read template content
     const templateContent = await vscode.workspace.fs.readFile(
-      idlInstructionsTemplateUri
+      idlInstructionsTemplateUri,
     );
 
     // Create directories if they don't exist
@@ -76,13 +76,13 @@ export async function SetupCopilotInstructions(
     await vscode.workspace.fs.writeFile(idlInstructionsUri, templateContent);
 
     vscode.window.showInformationMessage(
-      IDL_TRANSLATION.notifications.copilotInstructionsCreated
+      IDL_TRANSLATION.notifications.copilotInstructionsCreated,
     );
 
     return true;
   } catch (err) {
     vscode.window.showErrorMessage(
-      `${IDL_TRANSLATION.commands.errors.copilot.setupInstructions}: ${err}`
+      `${IDL_TRANSLATION.commands.errors.copilot.setupInstructions}: ${err}`,
     );
     return false;
   }

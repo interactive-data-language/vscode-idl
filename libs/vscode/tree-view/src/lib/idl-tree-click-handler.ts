@@ -33,7 +33,7 @@ export class IDLTreeClickHandler {
           // determine if we are a command or not
           await vscode.commands.executeCommand(
             item.commandName,
-            ...(item.commandArgs || [])
+            ...(item.commandArgs || []),
           );
           break;
         default:

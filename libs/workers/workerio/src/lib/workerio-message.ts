@@ -5,7 +5,7 @@ import { WorkerIOSerializedMessageToWorker } from './workerio-messages.interface
  * Serializes a message to the worker
  */
 export function WorkerIOSerializeMessageToWorker<T extends string>(
-  msg: ISentMessageToWorker<T>
+  msg: ISentMessageToWorker<T>,
 ): WorkerIOSerializedMessageToWorker {
   return {
     msg: JSON.stringify(msg),
@@ -17,7 +17,7 @@ export function WorkerIOSerializeMessageToWorker<T extends string>(
  * Parses
  */
 export function WorkerIOParseMessageToWorker<T extends string>(
-  msg: WorkerIOSerializedMessageToWorker
+  msg: WorkerIOSerializedMessageToWorker,
 ): ISentMessageToWorker<T> {
   /**
    * Parse original message

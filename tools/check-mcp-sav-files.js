@@ -20,7 +20,7 @@ const savFiles = files.filter((file) => file.endsWith('.sav'));
 if (savFiles.length === 0) {
   console.error(`ERROR: No .sav files found in ${mcpDir}`);
   console.error(
-    'The MCP folder must contain at least one .sav file before packaging.'
+    'The MCP folder must contain at least one .sav file before packaging.',
   );
   process.exit(1);
 }

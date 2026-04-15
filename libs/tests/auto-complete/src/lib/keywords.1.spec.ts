@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -260,9 +260,9 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_0
+          position_0,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_1: Position = { line: 7, character: 11 };
@@ -500,9 +500,9 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_1
+          position_1,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_2: Position = { line: 10, character: 15 };
@@ -787,9 +787,9 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_2
+          position_2,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_3: Position = { line: 13, character: 13 };
@@ -979,9 +979,9 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_3
+          position_3,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
     // define position
     const position_4: Position = { line: 16, character: 14 };
@@ -1052,9 +1052,9 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         await index.getAutoComplete(
           filepath,
           await readFile(filepath, 'utf-8'),
-          position_4
+          position_4,
         )
-      ).slice(0, 50)
+      ).slice(0, 50),
     );
   });
 });

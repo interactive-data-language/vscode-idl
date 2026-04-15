@@ -39,12 +39,12 @@ IDL_SYNTAX_TREE_VALIDATOR.onBasicToken(
             .replace(DISABLED_PROBLEM_REGEX, '')
             .trim()}`,
           token.pos,
-          token.pos
-        )
+          token.pos,
+        ),
       );
     }
 
     // check for disabled problems that we need to remove
     ExtractDisabledProblems(sub, token, parsed, meta.localParent);
-  }
+  },
 );

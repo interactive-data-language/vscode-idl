@@ -72,7 +72,7 @@ export type CallFunctionMethodMatches = [
   full: string,
   operator: string,
   name: string,
-  paren: string
+  paren: string,
 ];
 
 export type ProcedureMethodCallTokenDef = ITokenDef<CallProcedureMethodToken>;
@@ -94,5 +94,5 @@ export const CALL_PRO_METHOD: ProcedureMethodCallTokenDef = {
 export type CallProcedureMethodMatches = [
   full: string,
   operator: string,
-  name: string
+  name: string,
 ];

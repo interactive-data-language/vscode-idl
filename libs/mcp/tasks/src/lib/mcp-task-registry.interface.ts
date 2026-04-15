@@ -1,3 +1,7 @@
+import {
+  GlobalStructureToken,
+  IGlobalIndexedToken,
+} from '@idl/types/idl-data-types';
 import { ValidateFunction } from 'ajv';
 import { JsonSchema7Type } from 'zod-to-json-schema';
 
@@ -19,6 +23,8 @@ export interface ITaskRegistryEntry {
   location?: TaskLocation<TaskLocationKind>;
   /** Output parameters for task */
   outputParameters: JsonSchema7Type;
+  /** The task structure */
+  structure: IGlobalIndexedToken<GlobalStructureToken>;
 }
 
 /**

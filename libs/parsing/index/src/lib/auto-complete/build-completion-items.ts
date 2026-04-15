@@ -14,7 +14,7 @@ export function BuildCompletionItems(
   index: IDLIndex,
   recipes: AutoCompleteRecipe<AutoCompleteType>[],
   config: IDLExtensionConfig,
-  formatting: IAssemblerOptions<FormatterType>
+  formatting: IAssemblerOptions<FormatterType>,
 ) {
   /** initial list of completion items */
   const complete: CompletionItem[] = [];
@@ -40,7 +40,7 @@ export function BuildCompletionItems(
         kind: MarkupKind.Markdown,
         value: ResolveHoverHelpLinks(
           complete[i].documentation as string,
-          config
+          config,
         ),
       };
     }

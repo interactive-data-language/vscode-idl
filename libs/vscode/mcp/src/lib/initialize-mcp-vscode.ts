@@ -24,7 +24,7 @@ export const MCP_HISTORY = new MCPHistory();
  * Initializes MCP server for VSCode
  */
 export function InitializeMCPVSCode(
-  ctx: vscode.ExtensionContext
+  ctx: vscode.ExtensionContext,
 ): IInitializeMCPResult {
   IDL_LOGGER.log({
     log: IDL_MCP_VSCODE_LOG,
@@ -38,7 +38,7 @@ export function InitializeMCPVSCode(
   // listen for MCP tool requests - needs to be done here to avoid circular dependencies
   LANGUAGE_SERVER_MESSENGER.onRequest(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
-    RunMCPToolMessageHandler
+    RunMCPToolMessageHandler,
   );
 
   // track notifications for MCP tools being ran
@@ -52,7 +52,7 @@ export function InitializeMCPVSCode(
       VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
         idl_command: `idl.mcp.${params.tool}`,
       });
-    }
+    },
   );
 
   /**
@@ -65,7 +65,7 @@ export function InitializeMCPVSCode(
       // Called eagerly by VS Code to discover what MCP servers your
       // extension can provide.
       async provideMcpServerDefinitions(
-        token: vscode.CancellationToken
+        token: vscode.CancellationToken,
       ): Promise<undefined | vscode.McpServerDefinition[]> {
         if (token.isCancellationRequested) {
           return;
@@ -79,11 +79,11 @@ export function InitializeMCPVSCode(
             IDL_TRANSLATION.packageJSON.displayName,
             vscode.Uri.parse(`http://localhost:${SERVER_PORTS.mcp}/mcp`),
             {},
-            VERSION
+            VERSION,
             // `${VERSION}.${Math.floor(100 * Math.random())}.${Math.floor(
             //   100 * Math.random()
             // )}.${Math.floor(100 * Math.random())}`
-          )
+          ),
         );
 
         return servers;
@@ -94,7 +94,7 @@ export function InitializeMCPVSCode(
        */
       async resolveMcpServerDefinition(
         server: vscode.McpServerDefinition,
-        token: vscode.CancellationToken
+        token: vscode.CancellationToken,
       ): Promise<undefined | vscode.McpServerDefinition> {
         if (token.isCancellationRequested) {
           return;
@@ -112,7 +112,7 @@ export function InitializeMCPVSCode(
             {
               method: 'GET',
               signal: controller.signal,
-            }
+            },
           );
 
           // remove timeout
@@ -149,7 +149,7 @@ export function InitializeMCPVSCode(
           return undefined;
         }
       },
-    })
+    }),
   );
 
   return {

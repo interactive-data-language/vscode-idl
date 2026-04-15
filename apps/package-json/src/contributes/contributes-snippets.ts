@@ -50,7 +50,7 @@ export function ProcessSnippets(packageJSON: IPackageJSON, nls: IPackageNLS) {
     const snippetUri = join(process.cwd(), snippet.path);
     if (!existsSync(snippetUri)) {
       throw new Error(
-        `Snippet at index ${i} missing path file where expected "${snippet.path}"`
+        `Snippet at index ${i} missing path file where expected "${snippet.path}"`,
       );
     }
   }

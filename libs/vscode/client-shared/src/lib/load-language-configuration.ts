@@ -12,6 +12,6 @@ import { LANGUAGE_CONFIGURATION } from './language-config/language-configuration
 export function LoadLanguageConfiguration() {
   vscode.languages.setLanguageConfiguration(
     IDL_LANGUAGE_NAME,
-    LANGUAGE_CONFIGURATION
+    LANGUAGE_CONFIGURATION,
   );
 }

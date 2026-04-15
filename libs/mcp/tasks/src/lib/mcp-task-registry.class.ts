@@ -12,6 +12,7 @@ import Ajv from 'ajv';
 import { z, ZodRawShape } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
+import { FilterMCPENVITasks } from './helpers/filter-mcp-envi-tasks';
 import { GetCleanDescription } from './helpers/get-clean-description';
 import { StrictCheck } from './helpers/strict-check';
 import {
@@ -104,7 +105,7 @@ export class MCPTaskRegistry {
   /**
    * Gets information about a task
    */
-  getTaskDetail(taskName: string): ITaskInformation {
+  getTaskDetail(taskName: string): ITaskInformation | undefined {
     /** Get lower case name */
     const lc = taskName.toLowerCase();
 
@@ -136,10 +137,18 @@ export class MCPTaskRegistry {
    */
   registerTask(
     taskFunction: IGlobalIndexedToken<GlobalFunctionToken>,
-    taskStructure: IGlobalIndexedToken<GlobalStructureToken>
+    taskStructure: IGlobalIndexedToken<GlobalStructureToken>,
   ) {
+    // extract task name
+    const match = TASK_REGEX.exec(taskStructure.meta.display);
+
+    // return if no match - prevent errors when we don't really have a task
+    if (match === null) {
+      return;
+    }
+
     /** Get task display name */
-    const taskDisplay = TASK_REGEX.exec(taskStructure.meta.display)[1];
+    const taskDisplay = match[1];
 
     /** Determine the type of task */
     const toolType = taskStructure.name.startsWith('envi') ? 'ENVI' : 'IDL';
@@ -169,7 +178,7 @@ export class MCPTaskRegistry {
     if (this.strict) {
       if (StrictCheck(taskName, description)) {
         toolError.push(
-          `Tool description is the same as the tool name which is not allowed`
+          `Tool description is the same as the tool name which is not allowed`,
         );
       }
     }
@@ -213,7 +222,7 @@ export class MCPTaskRegistry {
       if (this.strict) {
         if (StrictCheck(names[i], prop.docs)) {
           toolError.push(
-            `The parameter "${names[i]}" has a description that is the same name of the parameter`
+            `The parameter "${names[i]}" has a description that is the same name of the parameter`,
           );
           continue;
         }
@@ -231,8 +240,8 @@ export class MCPTaskRegistry {
           `The parameter "${
             names[i]
           }" has an unhandled ENVI Task data type of "${IDLTypeHelper.serializeIDLType(
-            prop.type
-          )}"`
+            prop.type,
+          )}"`,
         );
         continue;
       }
@@ -259,8 +268,8 @@ export class MCPTaskRegistry {
       z
         .object(inputArgs)
         .describe(
-          `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${fullDescription}`
-        )
+          `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${fullDescription}`,
+        ),
     );
 
     // create output parameters schema
@@ -268,8 +277,8 @@ export class MCPTaskRegistry {
       z
         .object(outputArgs)
         .describe(
-          'Outputs from running the tool. These should *NEVER* be specified and are returned.'
-        )
+          'Outputs from running the tool. These should *NEVER* be specified and are returned.',
+        ),
     );
 
     // create location metadata if we have a file
@@ -292,7 +301,34 @@ export class MCPTaskRegistry {
       inputValidator: this.ajv.compile(inputParameters),
       outputParameters,
       location,
+      structure: taskStructure,
     };
+  }
+
+  /**
+   * Loads tasks from global tokens (i.e. after we index a location)
+   */
+  registerTasksFromGlobalTokens(
+    functions: {
+      [key: string]: IGlobalIndexedToken<GlobalFunctionToken>[];
+    },
+    structures: {
+      [key: string]: IGlobalIndexedToken<GlobalStructureToken>[];
+    },
+  ) {
+    /** Find names of ENVI Tasks and exclude those we dont need to expose  */
+    const keys = FilterMCPENVITasks(functions, Object.keys(structures)).sort();
+
+    this.logger.log({
+      log: IDL_MCP_LOG,
+      type: 'info',
+      content: `Attempting to register ${keys.length} ENVI Tools`,
+    });
+
+    // add all ENVI Tasks
+    for (let i = 0; i < keys.length; i++) {
+      this.registerTask(functions[keys[i]][0], structures[keys[i]][0]);
+    }
   }
 
   /**
@@ -355,12 +391,12 @@ export class MCPTaskRegistry {
       // check if we have JSON schema problems
       if (!valid) {
         // Format validation errors for the response
-        const errors = validate.errors
+        const errors = (validate.errors || [])
           .map(
             (err) =>
               `- ${err.instancePath || 'root'}: ${err.message}${
                 err.params ? ` (${JSON.stringify(err.params)})` : ''
-              }`
+              }`,
           )
           .join('\n');
 

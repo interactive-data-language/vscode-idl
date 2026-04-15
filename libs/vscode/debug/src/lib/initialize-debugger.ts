@@ -29,7 +29,7 @@ export let IDL_STATUS_BAR: IDLDebugStatusBar;
  * Initializes everything to allow for a debug session of IDL
  */
 export function InitializeDebugger(
-  ctx: vscode.ExtensionContext
+  ctx: vscode.ExtensionContext,
 ): IInitializeDebuggerResult {
   // register provider for debugging
   IDL_LOGGER.log({
@@ -39,8 +39,8 @@ export function InitializeDebugger(
   ctx.subscriptions.push(
     vscode.debug.registerDebugConfigurationProvider(
       IDL_LANGUAGE_NAME,
-      IDL_DEBUG_CONFIGURATION_PROVIDER
-    )
+      IDL_DEBUG_CONFIGURATION_PROVIDER,
+    ),
   );
 
   IDL_LOGGER.log({
@@ -50,8 +50,8 @@ export function InitializeDebugger(
   ctx.subscriptions.push(
     vscode.debug.registerDebugAdapterDescriptorFactory(
       IDL_LANGUAGE_NAME,
-      factory
-    )
+      factory,
+    ),
   );
   if ('dispose' in factory) {
     ctx.subscriptions.push(factory);

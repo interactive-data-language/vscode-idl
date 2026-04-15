@@ -1,9 +1,5 @@
-import { LogManager } from '@idl/logger';
-import { IS_MCP_SERVER_STARTED, MCP_SERVER } from '@idl/mcp/server';
-import { MCPToolInvokedCallback, MCPTools } from '@idl/types/mcp';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
+import { MCPServer } from '@idl/mcp/server';
 
-import { MCPToolHelper } from './mcp-tool-helper.class';
 import { RegisterMCPTool_GetENVIToolWorkflow } from './tools/envi/register-mcp-tool-get-envi-tool-workflow';
 import { RegisterMCPTool_ListENVIToolWorkflows } from './tools/envi/register-mcp-tool-list-envi-tool-workflows';
 import { RegisterMCPTool_OpenDatasetsInENVI } from './tools/envi/register-mcp-tool-open-datasets-in-envi';
@@ -18,11 +14,6 @@ import { RegisterMCPTool_SearchForFiles } from './tools/register-mcp-tool-search
 import { RegisterMCPTool_SearchResources } from './tools/register-mcp-tool-search-resources';
 
 /**
- * Helper instance for managing MCP tool registration and execution
- */
-export let MCP_TOOL_HELPER: MCPToolHelper;
-
-/**
  * Track if we registered our tools or not
  */
 let REGISTERED = false;
@@ -33,15 +24,12 @@ let REGISTERED = false;
 export let IS_ENVI_INSTALLED = false;
 
 /**
- * Helper that adds all tools to the MCP server
+ * Helper that adds all tools to the MCP server.
+ *
+ * Uses the MCPServer singleton — must be called after MCPServer.start().
  */
-export function RegisterAllMCPTools(
-  messenger: VSCodeLanguageServerMessenger,
-  logManager: LogManager,
-  toolInvokedCallback: MCPToolInvokedCallback<MCPTools>,
-  isEnviInstalled: boolean
-) {
-  if (!IS_MCP_SERVER_STARTED) {
+export function RegisterAllMCPTools(isEnviInstalled: boolean) {
+  if (!MCPServer.isStarted) {
     return;
   }
   if (REGISTERED) {
@@ -51,47 +39,42 @@ export function RegisterAllMCPTools(
   // update flag for ENVI being installed
   IS_ENVI_INSTALLED = isEnviInstalled;
 
-  // create helper instance with the MCP server
-  MCP_TOOL_HELPER = new MCPToolHelper({
-    mcpServer: MCP_SERVER,
-    logManager,
-    messenger,
-    toolInvokedCallback,
-  });
+  /** Get the singleton server instance */
+  const server = MCPServer.instance;
 
   /**
    * Register generic tools
    */
-  RegisterMCPTool_GetResource(MCP_TOOL_HELPER);
-  RegisterMCPTool_ListAllResources(MCP_TOOL_HELPER);
-  RegisterMCPTool_SearchForFiles(MCP_TOOL_HELPER);
-  RegisterMCPTool_SearchResources(MCP_TOOL_HELPER);
+  RegisterMCPTool_GetResource(server);
+  RegisterMCPTool_ListAllResources(server);
+  RegisterMCPTool_SearchForFiles(server);
+  RegisterMCPTool_SearchResources(server);
 
   /**
    * Register IDL tools
    */
-  RegisterMCPTool_CreateIDLNotebook(MCP_TOOL_HELPER);
-  RegisterMCPTool_ExecuteIDLCode(MCP_TOOL_HELPER);
-  RegisterMCPTool_ExecuteIDLFile(MCP_TOOL_HELPER);
+  RegisterMCPTool_CreateIDLNotebook(server);
+  RegisterMCPTool_ExecuteIDLCode(server);
+  RegisterMCPTool_ExecuteIDLFile(server);
 
   /**
    * Register ENVI and IDL shared tools
    */
-  RegisterMCPTool_ManageIDLAndENVISession(MCP_TOOL_HELPER);
+  RegisterMCPTool_ManageIDLAndENVISession(server);
 
   /**
    * ENVI tools
    *
    * The tools that use tasks are registered after the language server has started up
    */
-  RegisterMCPTool_GetENVIToolWorkflow(MCP_TOOL_HELPER);
-  RegisterMCPTool_ListENVIToolWorkflows(MCP_TOOL_HELPER);
-  RegisterMCPTool_OpenDatasetsInENVI(MCP_TOOL_HELPER);
-  RegisterMCPTool_QueryDatasetWithENVI(MCP_TOOL_HELPER);
+  RegisterMCPTool_GetENVIToolWorkflow(server);
+  RegisterMCPTool_ListENVIToolWorkflows(server);
+  RegisterMCPTool_OpenDatasetsInENVI(server);
+  RegisterMCPTool_QueryDatasetWithENVI(server);
 
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;
 
-  // return the tool helper
-  return MCP_TOOL_HELPER;
+  // return the server instance
+  return server;
 }

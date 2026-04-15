@@ -12,7 +12,7 @@ import { SERVER_CONNECTION } from '../initialize-language-server';
 export async function UpdateDocument(
   uri: string,
   content: string,
-  codeDoc?: TextDocument
+  codeDoc?: TextDocument,
 ) {
   // create workspace change for file
   const change = new WorkspaceChange();
@@ -32,7 +32,7 @@ export async function UpdateDocument(
       start: { line: 0, character: 0 },
       end: { line: Number.MAX_VALUE, character: Number.MAX_VALUE },
     },
-    content
+    content,
   );
 
   // sync our file changes

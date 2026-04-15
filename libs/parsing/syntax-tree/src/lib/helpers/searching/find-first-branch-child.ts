@@ -7,7 +7,7 @@ import { IBranch, TreeToken } from '@idl/types/syntax-tree';
  */
 export function FindFirstBranchChild<T extends TokenName>(
   branch: IBranch<NonBasicTokenNames>,
-  token: T
+  token: T,
 ): TreeToken<T> | undefined {
   for (let i = 0; i < (branch.kids || []).length; i++) {
     if (branch.kids[i].name === token) {

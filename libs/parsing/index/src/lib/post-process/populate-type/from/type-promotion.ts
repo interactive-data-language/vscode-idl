@@ -32,7 +32,7 @@ export function TypePromotion(
   types: IDLDataType[],
   startPos: PositionArray,
   endPos: PositionArray,
-  arrays = false
+  arrays = false,
 ): IDLDataType {
   // attempt to reduce and see if we only have one type
   let merged: IDLDataType = [];
@@ -123,8 +123,8 @@ export function TypePromotion(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.ILLEGAL_STRUCTURE_OPERATION,
           startPos,
-          endPos
-        )
+          endPos,
+        ),
       );
 
       return copy(IDL_ANY_TYPE);
@@ -157,7 +157,7 @@ export function TypePromotion(
         if (i > 0) {
           // report problem
           parsed.postProcessProblems.push(
-            SyntaxProblemWithTranslation(compatibleErrorCode, startPos, endPos)
+            SyntaxProblemWithTranslation(compatibleErrorCode, startPos, endPos),
           );
 
           // return any
@@ -169,7 +169,7 @@ export function TypePromotion(
 
         // save the compatible type args
         compatibleTypeArgs = compatibleTypeArgs.concat(
-          type.args.length > 0 ? type.args[0] : []
+          type.args.length > 0 ? type.args[0] : [],
         );
 
         // skip everything else
@@ -183,7 +183,7 @@ export function TypePromotion(
       if (compatibleTypes.indexOf(type.name) !== -1) {
         // save the compatible type args
         compatibleTypeArgs = compatibleTypeArgs.concat(
-          type.args.length > 0 ? type.args[0] : []
+          type.args.length > 0 ? type.args[0] : [],
         );
         continue;
       } else {
@@ -191,7 +191,7 @@ export function TypePromotion(
          * If we arent compatible, then report an error
          */
         parsed.postProcessProblems.push(
-          SyntaxProblemWithTranslation(compatibleErrorCode, startPos, endPos)
+          SyntaxProblemWithTranslation(compatibleErrorCode, startPos, endPos),
         );
 
         /**
@@ -262,8 +262,8 @@ export function TypePromotion(
             SyntaxProblemWithTranslation(
               IDL_PROBLEM_CODES.POTENTIAL_IDL_ARRAY_TYPE_INCOMPATIBILITIES,
               startPos,
-              endPos
-            )
+              endPos,
+            ),
           );
           return copy(IDL_ARRAY_TYPE);
         /**
@@ -275,8 +275,8 @@ export function TypePromotion(
             SyntaxProblemWithTranslation(
               IDL_PROBLEM_CODES.POTENTIAL_TYPE_INCOMPATIBILITIES,
               startPos,
-              endPos
-            )
+              endPos,
+            ),
           );
           return copy(IDL_ANY_TYPE);
       }

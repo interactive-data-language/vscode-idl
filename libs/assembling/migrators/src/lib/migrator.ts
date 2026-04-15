@@ -16,7 +16,7 @@ export async function Migrator(
   migrationType: MigrationType,
   parsed: IParsed,
   formatting: IAssemblerOptions<FormatterType>,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ) {
   switch (migrationType) {
     case MIGRATION_TYPE_LOOKUP.ENVI_DL_30:

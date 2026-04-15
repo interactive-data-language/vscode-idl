@@ -12,14 +12,14 @@ import { CompareNotebookJSONOutputs } from './helpers/compare-notebook-json-outp
  * Verifies we replace paths when we have syntax errors
  */
 export const NotebooksReplaceCellPathsForError: RunnerFunction = async (
-  init
+  init,
 ) => {
   const nbUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/replace-paths/syntax-error.idlnb'
+    'idl/test/client-e2e/notebooks/replace-paths/syntax-error.idlnb',
   );
 
   const expectedUri = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/replace-paths/syntax-error-results.idlnb'
+    'idl/test/client-e2e/notebooks/replace-paths/syntax-error-results.idlnb',
   );
 
   // open notebook

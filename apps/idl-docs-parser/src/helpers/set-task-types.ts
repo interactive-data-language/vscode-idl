@@ -20,7 +20,7 @@ import { ENVI_DIR } from '../idl-dir.interface';
 export async function SetTaskTypes(global: GlobalTokens) {
   // find task files
   const taskFiles = (await glob(TASK_FILE_GLOB_PATTERN, { cwd: ENVI_DIR })).map(
-    (file) => join(ENVI_DIR, file)
+    (file) => join(ENVI_DIR, file),
   );
 
   // store as object with base name of task file
@@ -84,6 +84,9 @@ export async function SetTaskTypes(global: GlobalTokens) {
           // get first global, always structure from our routines
           const struct = taskGlobals.structure;
 
+          // set human readable name
+          globali.meta.readableName = struct.meta.readableName;
+
           // get properties
           const props = struct.meta?.props || {};
 
@@ -121,7 +124,7 @@ export async function SetTaskTypes(global: GlobalTokens) {
               meta: taskFunctions[name].meta,
               taskProperties: globali,
             },
-            true
+            true,
           )}`;
         }
       }

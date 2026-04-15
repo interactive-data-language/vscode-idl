@@ -26,7 +26,7 @@ export function ExtractPropertyLines(
   strings: string[],
   variables: { [key: string]: any },
   properties: { [key: string]: any },
-  lines: IPropertiesByVarsByLines
+  lines: IPropertiesByVarsByLines,
 ) {
   for (let i = 0; i < tree.length; i++) {
     // recurse if needed
@@ -36,7 +36,7 @@ export function ExtractPropertyLines(
         strings,
         variables,
         properties,
-        lines
+        lines,
       );
       continue;
     }

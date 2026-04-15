@@ -19,7 +19,6 @@ You might be asking yourself, now why would we have this extra step? Well, for t
 ## Fundamentals
 
 - The tmLanguage engine uses Onigurama as the regex engine itself
-
   - However, You can still write regular expressions using ECMAScript at regex101.com
 
 - Only a single line is processed at a time. If you need to capture more than one line, you'll need to use something like how line continuations are implemented.

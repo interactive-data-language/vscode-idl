@@ -16,7 +16,7 @@ import { IDL_INDEX } from '../initialize-document-manager';
  * Event handler for adding sematic highlighting
  */
 export const ON_SEMANTIC_HIGHLIGHTING = async (
-  params: SemanticTokensParams
+  params: SemanticTokensParams,
 ): Promise<SemanticTokens> => {
   await SERVER_INITIALIZED;
   try {
@@ -50,7 +50,7 @@ export const ON_SEMANTIC_HIGHLIGHTING = async (
     const tokens = await IDL_INDEX.getSemanticTokens(
       info.fsPath,
       info.code,
-      new CancellationToken()
+      new CancellationToken(),
     );
 
     // return

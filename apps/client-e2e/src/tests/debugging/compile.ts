@@ -17,7 +17,7 @@ export const Compile: RunnerFunction = async (init) => {
    * Start IDL
    */
   const started = await vscode.commands.executeCommand(
-    IDL_COMMANDS.DEBUG.START
+    IDL_COMMANDS.DEBUG.START,
   );
 
   // verify we started
@@ -29,7 +29,7 @@ export const Compile: RunnerFunction = async (init) => {
   // compile file
   const res = CleanIDLOutput(
     await init.debug.adapter.evaluate(`.compile plot`, { echo: true }),
-    false
+    false,
   );
 
   // make sure we compile

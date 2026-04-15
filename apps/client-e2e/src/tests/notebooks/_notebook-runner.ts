@@ -40,7 +40,7 @@ export const NOTEBOOK_TEST_LOGGER = new Logger(
   'notebook-tests',
   false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  () => {}
+  () => {},
 );
 
 /**

@@ -15,7 +15,7 @@ export async function LoadConfig(uri: string, content?: string) {
     // verify file exists
     if (!existsSync(uri)) {
       throw new Error(
-        `${IDL_TRANSLATION.tasks.parsing.errors.fileNotFound}: "${uri}"`
+        `${IDL_TRANSLATION.tasks.parsing.errors.fileNotFound}: "${uri}"`,
       );
     }
 
@@ -59,7 +59,7 @@ export async function LoadConfig(uri: string, content?: string) {
 
     // throw actual error
     throw new Error(
-      `${IDL_TRANSLATION.assembling.config.errors.invalidConfigFile}. File: "${uri}"\n  ${errAdd}`
+      `${IDL_TRANSLATION.assembling.config.errors.invalidConfigFile}. File: "${uri}"\n  ${errAdd}`,
     );
   }
 

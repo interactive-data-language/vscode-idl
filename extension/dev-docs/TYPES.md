@@ -129,26 +129,15 @@ type IndexType = String | Number;
 // optional and default to strings?
 type Hash<T extends VariableType, IDX extends IndexType> = hash<T, IDX>;
 
-type OrderedHash<T extends VariableType, IDX extends IndexType> =
-  | orderedhash<T, IDX>
-  | ohash<T, IDX>;
+type OrderedHash<T extends VariableType, IDX extends IndexType> = orderedhash<T, IDX> | ohash<T, IDX>;
 
-type Dictionary<T extends VariableType, IDX extends IndexType> =
-  | dict<T, IDX>
-  | Dictionary<T, IDX>;
+type Dictionary<T extends VariableType, IDX extends IndexType> = dict<T, IDX> | Dictionary<T, IDX>;
 
 type Array<T extends VariableType> = array<T> | T[];
 
 // union type of all types that variables can be
 // so that we have recursive typing support
-type VariableType =
-  | BaseType
-  | Object<ClassName>
-  | List<VariableType, IndexType>
-  | Hash<VariableType, IndexType>
-  | OrderedHash<VariableType, IndexType>
-  | Dictionary<VariableType, IndexType>
-  | Array<VariableType>;
+type VariableType = BaseType | Object<ClassName> | List<VariableType, IndexType> | Hash<VariableType, IndexType> | OrderedHash<VariableType, IndexType> | Dictionary<VariableType, IndexType> | Array<VariableType>;
 ```
 
 ## Type Promotion Rules

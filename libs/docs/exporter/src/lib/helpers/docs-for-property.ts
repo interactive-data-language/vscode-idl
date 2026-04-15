@@ -9,6 +9,6 @@ import { GetTypeBadge } from './get-type-badge';
  */
 export function DocsForProperty(prop: IParameterOrPropertyDetails) {
   return `### ${prop.display} {prop-${CleanParamLink(
-    prop.display.toLowerCase()
+    prop.display.toLowerCase(),
   )}}\n\n${GetTypeBadge(prop.type)}\n\n${CleanDocs(prop.docs)}\n\n`;
 }

@@ -22,9 +22,9 @@ IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
         SyntaxProblemWithTranslation(
           IDL_PROBLEM_CODES.STRING_LITERAL_TOO_MANY_ARGS,
           token.pos,
-          token.end ? token.end.pos : token.pos
-        )
+          token.end ? token.end.pos : token.pos,
+        ),
       );
     }
-  }
+  },
 );

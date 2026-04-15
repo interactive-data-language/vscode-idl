@@ -25,7 +25,7 @@ const cb: BranchCallback<LoopTokens, PopulateTypeHandlerMeta> = (
   token,
   parsed,
   current,
-  meta
+  meta,
 ) => {
   // split the tokens by our arguments
   const split = GetSplit(token);

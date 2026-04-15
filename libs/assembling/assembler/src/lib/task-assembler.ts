@@ -9,7 +9,7 @@ import { ParsedTask } from '@idl/types/tasks';
  */
 export function TaskAssembler<T extends FormatterType>(
   task: ParsedTask,
-  options?: Partial<IAssemblerInputOptions<T>>
+  options?: Partial<IAssemblerInputOptions<T>>,
 ): string | undefined {
   /** Default-merged configuration to use */
   const useOptions = MergeConfig<T>(options);

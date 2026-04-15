@@ -15,7 +15,7 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
           // do nothing
         },
       }),
-      0
+      0,
     );
 
     // specify filepath
@@ -31,8 +31,8 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
     expect(problems_0).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-problems'
-      )
+        'idl/test/global-problems',
+      ),
     );
 
     // specify filepath
@@ -133,8 +133,8 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
     expect(problems_1).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-problems'
-      )
+        'idl/test/global-problems',
+      ),
     );
 
     // specify filepath
@@ -277,8 +277,8 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
     expect(problems_2).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-problems'
-      )
+        'idl/test/global-problems',
+      ),
     );
 
     // specify filepath
@@ -380,8 +380,8 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
     expect(problems_3).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-problems'
-      )
+        'idl/test/global-problems',
+      ),
     );
 
     // specify filepath
@@ -401,8 +401,8 @@ describe(`[auto generated] Correctly identify duplicate problems`, () => {
     expect(problems_4).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-problems'
-      )
+        'idl/test/global-problems',
+      ),
     );
   });
 });

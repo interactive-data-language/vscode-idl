@@ -17,7 +17,7 @@ export function PostProcessParsed(
   index: IDLIndex,
   file: string,
   parsed: IParsed,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ): boolean {
   // clear secondary problems
   parsed.postProcessProblems = [];

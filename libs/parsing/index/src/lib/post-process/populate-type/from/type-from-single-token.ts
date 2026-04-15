@@ -37,7 +37,7 @@ TYPE_MAP[TOKEN_NAMES.NUMBER] = IDL_ANY_TYPE;
 export function TypeFromSingleToken(
   index: IDLIndex,
   parsed: IParsed,
-  token: TreeToken<TokenName>
+  token: TreeToken<TokenName>,
 ): IDLDataType {
   if ('type' in (token.cache as ITokenCache)) {
     return (token.cache as ITokenCache).type;
@@ -49,7 +49,7 @@ export function TypeFromSingleToken(
       (token.cache as ITokenCache).type = TypeFromProperty(
         index,
         parsed,
-        token
+        token,
       );
       break;
     case TOKEN_NAMES.BRACKET:
@@ -59,42 +59,42 @@ export function TypeFromSingleToken(
       (token.cache as ITokenCache).type = TypeFromFunction(
         index,
         parsed,
-        token
+        token,
       );
       break;
     case TOKEN_NAMES.CALL_FUNCTION_METHOD:
       (token.cache as ITokenCache).type = TypeFromCallFunctionMethod(
         index,
         parsed,
-        token
+        token,
       );
       break;
     case TOKEN_NAMES.NUMBER:
       (token.cache as ITokenCache).type = TypeFromNumberOrNumberString(
         index,
         token,
-        parsed
+        parsed,
       );
       break;
     case TOKEN_NAMES.OPERATOR_POINTER:
       (token.cache as ITokenCache).type = TypeFromPointerDeref(
         index,
         parsed,
-        token
+        token,
       );
       break;
     case TOKEN_NAMES.PARENTHESES:
       (token.cache as ITokenCache).type = TypeFromMultipleTokens(
         index,
         parsed,
-        token.kids
+        token.kids,
       );
       break;
     case TOKEN_NAMES.STRUCTURE:
       (token.cache as ITokenCache).type = TypeFromStructure(
         index,
         token,
-        parsed
+        parsed,
       );
       break;
     case TOKEN_NAMES.SYSTEM_VARIABLE:
@@ -104,7 +104,7 @@ export function TypeFromSingleToken(
       (token.cache as ITokenCache).type = TypeFromVariable(
         index,
         parsed,
-        token
+        token,
       );
       break;
     default:
@@ -158,7 +158,7 @@ export function TypeFromSingleToken(
     (token.cache as ITokenCache).type = TypeFromMultipleTokens(
       index,
       parsed,
-      token.kids
+      token.kids,
     );
     return (token.cache as ITokenCache).type;
   }

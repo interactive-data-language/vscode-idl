@@ -27,7 +27,7 @@ import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 function CheckForDuplicatesByName(
   parsed: IParsed,
   tokens: TreeToken<TokenName>[],
-  code: IDLProblemCode
+  code: IDLProblemCode,
 ) {
   // name of current token
   let tokenName: string;
@@ -58,7 +58,7 @@ function CheckForDuplicatesByName(
       for (let j = 0; j < bad.length; j++) {
         bad[j].parseProblems.push(code);
         parsed.parseProblems.push(
-          SyntaxProblemWithTranslation(code, bad[j].pos, bad[j].pos)
+          SyntaxProblemWithTranslation(code, bad[j].pos, bad[j].pos),
         );
       }
     }
@@ -83,28 +83,28 @@ const CALLBACK_DEFS: BranchCallback<
     (
       FindAllBranchChildren(
         branch,
-        TOKEN_NAMES.ARG_DEFINITION
+        TOKEN_NAMES.ARG_DEFINITION,
       ) as TreeToken<TokenName>[]
     ).concat(FindAllBranchChildren(branch, TOKEN_NAMES.VARIABLE)),
-    IDL_PROBLEM_CODES.DUPLICATE_ARG_VARIABLE_DEF
+    IDL_PROBLEM_CODES.DUPLICATE_ARG_VARIABLE_DEF,
   );
 
   // get and check keywords
   CheckForDuplicatesByName(
     parsed,
     FindAllBranchChildren(branch, TOKEN_NAMES.KEYWORD_DEFINITION),
-    IDL_PROBLEM_CODES.DUPLICATE_KEYWORD_DEF
+    IDL_PROBLEM_CODES.DUPLICATE_KEYWORD_DEF,
   );
 };
 
 // add check
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.ROUTINE_NAME,
-  CALLBACK_DEFS
+  CALLBACK_DEFS,
 );
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.ROUTINE_METHOD_NAME,
-  CALLBACK_DEFS
+  CALLBACK_DEFS,
 );
 
 /**
@@ -126,29 +126,29 @@ const CALLBACK_KW_USAGE: BranchCallback<
     (
       FindDirectBranchChildren(
         branch,
-        TOKEN_NAMES.KEYWORD
+        TOKEN_NAMES.KEYWORD,
       ) as TreeToken<TokenName>[]
     ).concat(FindDirectBranchChildren(branch, TOKEN_NAMES.KEYWORD_BINARY)),
-    IDL_PROBLEM_CODES.DUPLICATE_KEYWORD_USAGE
+    IDL_PROBLEM_CODES.DUPLICATE_KEYWORD_USAGE,
   );
 };
 
 // add check
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.CALL_FUNCTION,
-  CALLBACK_KW_USAGE
+  CALLBACK_KW_USAGE,
 );
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.CALL_FUNCTION_METHOD,
-  CALLBACK_KW_USAGE
+  CALLBACK_KW_USAGE,
 );
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.CALL_PROCEDURE,
-  CALLBACK_KW_USAGE
+  CALLBACK_KW_USAGE,
 );
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.CALL_PROCEDURE_METHOD,
-  CALLBACK_KW_USAGE
+  CALLBACK_KW_USAGE,
 );
 
 /**
@@ -165,12 +165,12 @@ const CALLBACK_PROPERTIES: BranchCallback<
   CheckForDuplicatesByName(
     parsed,
     FindDirectBranchChildren(branch, TOKEN_NAMES.STRUCTURE_PROPERTY),
-    IDL_PROBLEM_CODES.DUPLICATE_PROPERTY
+    IDL_PROBLEM_CODES.DUPLICATE_PROPERTY,
   );
 };
 
 // add check
 IDL_SYNTAX_TREE_VALIDATOR.onBranchToken(
   TOKEN_NAMES.STRUCTURE,
-  CALLBACK_PROPERTIES
+  CALLBACK_PROPERTIES,
 );

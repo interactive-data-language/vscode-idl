@@ -18,12 +18,12 @@ export function MCP_ENVIROI() {
         message: 'url must end with ".xml"',
       })
       .describe(
-        `Provide a fully-qualified filepath to an ENVI ROI file. Should end with an ".xml" extension.`
+        `Provide a fully-qualified filepath to an ENVI ROI file. Should end with an ".xml" extension.`,
       ),
     dataset_index: z
       .number()
       .describe(
-        `If an ROI file has more than one ROI, optionally specify the zero-based index of which ROI you want. The tool ${MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI} returns an array of matches and their dehydrated versions to help.`
+        `If an ROI file has more than one ROI, optionally specify the zero-based index of which ROI you want. The tool ${MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI} returns an array of matches and their dehydrated versions to help.`,
       )
       .optional(),
   });

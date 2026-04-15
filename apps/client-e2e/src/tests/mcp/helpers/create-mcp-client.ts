@@ -23,7 +23,7 @@ export async function CreateMCPClient(port: number) {
 
   // Create transport
   const transport = new StreamableHTTPClientTransport(
-    new URL(`http://localhost:${port}/mcp`)
+    new URL(`http://localhost:${port}/mcp`),
   );
 
   // Create client
@@ -34,7 +34,7 @@ export async function CreateMCPClient(port: number) {
     },
     {
       capabilities: {},
-    }
+    },
   );
 
   // Connect

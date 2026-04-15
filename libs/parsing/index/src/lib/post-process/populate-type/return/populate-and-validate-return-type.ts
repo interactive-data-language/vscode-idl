@@ -33,7 +33,7 @@ export function PopulateAndValidateReturnType(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<RoutineFunctionToken>,
-  cancel: CancellationToken
+  cancel: CancellationToken,
 ): boolean {
   /** Are there docs changes */
   let docsChanges = false;
@@ -49,7 +49,7 @@ export function PopulateAndValidateReturnType(
   const functions = (
     parsed.global.filter(
       (global) =>
-        global.type in RETURN_TYPES_FOR && !global.name.endsWith('::init')
+        global.type in RETURN_TYPES_FOR && !global.name.endsWith('::init'),
     ) as IGlobalIndexedToken<GlobalFunctionMethodToken | GlobalFunctionToken>[]
   ).filter((global) => Object.keys(global.meta.docsLookup).length === 0);
 
@@ -91,7 +91,7 @@ export function PopulateAndValidateReturnType(
           character: func.pos[1],
         },
         token.pos,
-        token.end.pos
+        token.end.pos,
       )
     ) {
       continue;
@@ -102,7 +102,7 @@ export function PopulateAndValidateReturnType(
      */
     const allTypes: IDLDataType = FindAllBranchChildren(
       token,
-      TOKEN_NAMES.CALL_PROCEDURE
+      TOKEN_NAMES.CALL_PROCEDURE,
     )
       .filter((pro) => pro.match[0].toLowerCase() === 'return')
       .filter((pro) => pro.kids.length > 1)

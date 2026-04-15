@@ -1,3 +1,4 @@
+export * from './lib/http/mcp-tool-create-envi-modeler-workflow.interface';
 export * from './lib/http/mcp-tool-get-envi-tool-parameters.interface';
 export * from './lib/http/mcp-tool-get-envi-tool-workflow.interface';
 export * from './lib/http/mcp-tool-get-prompt.interface';
@@ -9,6 +10,7 @@ export * from './lib/http/mcp-tool-list-prompts.interface';
 export * from './lib/http/mcp-tool-search-for-files.interface';
 export * from './lib/http/mcp-tool-search-for-routine.interface';
 export * from './lib/http/mcp-tool-search-resources.interface';
+export * from './lib/mcp-send-request-callback.interface';
 export * from './lib/mcp-tool-invoked-callback.interface';
 export * from './lib/mcp-tool-invoked-callback.interface';
 export * from './lib/mcp-tool-progress.interface';

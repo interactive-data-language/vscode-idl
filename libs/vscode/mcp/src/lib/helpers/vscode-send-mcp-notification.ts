@@ -9,7 +9,7 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
  */
 export function VSCodeSendMCPNotification(
   id: string,
-  progress: IMCPToolProgress
+  progress: IMCPToolProgress,
 ) {
   IDL_LOGGER.log({
     type: 'debug',
@@ -22,6 +22,6 @@ export function VSCodeSendMCPNotification(
     {
       id,
       progress,
-    }
+    },
   );
 }

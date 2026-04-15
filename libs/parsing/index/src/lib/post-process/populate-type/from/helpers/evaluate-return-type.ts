@@ -20,14 +20,14 @@ export function EvaluateReturnType(
   index: IDLIndex,
   parsed: IParsed,
   token: TreeToken<CallFunctionMethodToken | CallFunctionToken>,
-  global: IGlobalIndexedToken<GlobalFunctionMethodToken | GlobalFunctionToken>
+  global: IGlobalIndexedToken<GlobalFunctionMethodToken | GlobalFunctionToken>,
 ): IDLDataType {
   /**
    * Check for the `TypeOfArg<ArgIdx>` type
    */
   const argType = IDLTypeHelper.getMatchingTypes(
     global.meta.returns,
-    IDL_TYPE_LOOKUP.TYPE_OF_ARG
+    IDL_TYPE_LOOKUP.TYPE_OF_ARG,
   );
   if (argType.length > 0) {
     return EvaluateTypeOfArgs(index, parsed, token, argType);
@@ -39,7 +39,7 @@ export function EvaluateReturnType(
    */
   const promoted = IDLTypeHelper.getMatchingTypes(
     global.meta.returns,
-    IDL_TYPE_LOOKUP.ARRAY_PROMOTION
+    IDL_TYPE_LOOKUP.ARRAY_PROMOTION,
   );
   if (promoted.length > 0) {
     return EvaluateArrayPromotion(index, parsed, token, promoted);

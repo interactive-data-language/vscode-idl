@@ -1,0 +1,53 @@
+.todo-panel {
+  margin: 0 16px 8px;
+  box-shadow: none !important;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+.todo-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.todo-title-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 4px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+.status-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.todo-text {
+  flex: 1;
+}
+
+.status-done .todo-text {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.status-skipped .todo-text {
+  opacity: 0.45;
+}

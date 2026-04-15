@@ -80,7 +80,7 @@ export const NotebookFormats_2_0_0: RunnerFunction = async (init) => {
    * Get the file we are going to open
    */
   const file = GetExtensionPath(
-    'idl/test/client-e2e/notebooks/test-2.0.0.idlnb'
+    'idl/test/client-e2e/notebooks/test-2.0.0.idlnb',
   );
 
   /**

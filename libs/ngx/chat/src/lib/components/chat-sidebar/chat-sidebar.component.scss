@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-header {
+  padding: 16px;
+}
+
+.new-chat-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+mat-nav-list {
+  padding-top: 0;
+}

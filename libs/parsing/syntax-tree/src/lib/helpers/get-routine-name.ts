@@ -22,7 +22,9 @@ NAME_THESE[TOKEN_NAMES.ROUTINE_METHOD_NAME] = true;
  * Returns an empty string if we can't determine the routine name
  */
 export function GetRoutineName(
-  branch: IBranch<MainLevelToken | RoutineFunctionToken | RoutineProcedureToken>
+  branch: IBranch<
+    MainLevelToken | RoutineFunctionToken | RoutineProcedureToken
+  >,
 ): string {
   // initialize name value
   let name = '';

@@ -12,7 +12,7 @@ import { RunnerFunction } from '../../runner.interface';
  */
 export const NotebooksNoUndefinedVars: RunnerFunction = async (init) => {
   const doc = await OpenNotebookInVSCode(
-    GetExtensionPath('idl/test/client-e2e/notebooks/no-undefined-vars.idlnb')
+    GetExtensionPath('idl/test/client-e2e/notebooks/no-undefined-vars.idlnb'),
   );
 
   // short pause
@@ -20,11 +20,11 @@ export const NotebooksNoUndefinedVars: RunnerFunction = async (init) => {
 
   //  no problems in first cell
   expect(
-    vscode.languages.getDiagnostics(doc.cellAt(0).document.uri).length
+    vscode.languages.getDiagnostics(doc.cellAt(0).document.uri).length,
   ).toEqual(0);
 
   // no problems in second cell
   expect(
-    vscode.languages.getDiagnostics(doc.cellAt(1).document.uri).length
+    vscode.languages.getDiagnostics(doc.cellAt(1).document.uri).length,
   ).toEqual(0);
 };

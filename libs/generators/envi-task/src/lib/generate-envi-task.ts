@@ -26,7 +26,7 @@ export async function GenerateENVITask(
   file: string,
   parsed: IParsed,
   config: IAssemblerOptions<FormatterType> = DEFAULT_ASSEMBLER_OPTIONS,
-  write = false
+  write = false,
 ): Promise<GenerateTaskResult<boolean>> {
   /*
    * Base name fo the file

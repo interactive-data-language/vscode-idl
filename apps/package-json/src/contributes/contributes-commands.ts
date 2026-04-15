@@ -86,6 +86,12 @@ HIDDEN_COMMAND[IDL_COMMANDS.NOTEBOOKS.HELP_AS_NOTEBOOK] = true;
 HIDDEN_COMMAND[IDL_COMMANDS.WEBVIEW.START] = true;
 
 /**
+ * Commands only visible in the Extension Development Host
+ */
+const DEV_ONLY_COMMAND: { [key: string]: any } = {};
+DEV_ONLY_COMMAND[IDL_COMMANDS.COPILOT.RUN_QC_TESTS] = true;
+
+/**
  * Map our command name to the translation which should match
  * exactly our command name
  */
@@ -131,7 +137,7 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
   const keys = Object.keys(IDL_COMMANDS);
   for (let i = 0; i < keys.length; i++) {
     allCommands = allCommands.concat(
-      Object.values(Object.values(IDL_COMMANDS[keys[i]]))
+      Object.values(Object.values(IDL_COMMANDS[keys[i]])),
     );
   }
 
@@ -154,12 +160,12 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
     // verify our translation
     if (!VerifyNLS(tKey, nls)) {
       throw new Error(
-        `Command "${command}" is missing a translation key of "${tKey}"`
+        `Command "${command}" is missing a translation key of "${tKey}"`,
       );
     }
     if (!VerifyNLS(eKey, nls)) {
       throw new Error(
-        `Command "${command}" is missing a translation key of "${eKey}"`
+        `Command "${command}" is missing a translation key of "${eKey}"`,
       );
     }
 
@@ -174,12 +180,12 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
       // make sure icons exist
       if (!existsSync(join(process.cwd(), icon.light))) {
         throw new Error(
-          `Command "${command}" is missing the "light" icon from COMMAND_ICONS`
+          `Command "${command}" is missing the "light" icon from COMMAND_ICONS`,
         );
       }
       if (!existsSync(join(process.cwd(), icon.dark))) {
         throw new Error(
-          `Command "${command}" is missing the "light" icon from COMMAND_ICONS`
+          `Command "${command}" is missing the "light" icon from COMMAND_ICONS`,
         );
       }
 
@@ -196,6 +202,12 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
        */
       case command in HIDDEN_COMMAND:
         commandMenus.push({ command, when: 'false' });
+        break;
+      /**
+       * Dev-only commands, visible only in Extension Development Host
+       */
+      case command in DEV_ONLY_COMMAND:
+        commandMenus.push({ command, when: 'idl.devMode' });
         break;
       /**
        * Commands not for web

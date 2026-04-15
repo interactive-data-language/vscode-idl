@@ -53,7 +53,7 @@ export function CondenseLegacyDocs(comments: IBasicBranch<CommentToken>[]) {
         /** Get text on the next line instead */
         const nextLine = comments[i + 1].match[0].replace(
           REMOVE_COMMENT_REGEX,
-          ''
+          '',
         );
 
         // check the next line for parameter information

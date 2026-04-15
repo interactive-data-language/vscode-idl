@@ -44,7 +44,7 @@ export function PopulateVariables(
   >,
   parsed: IParsed,
   compileOpts: string[], // lower case compile options
-  global?: GlobalRoutineToken
+  global?: GlobalRoutineToken,
 ): ILocalTokenLookup {
   /** Init local variables */
   const local: ILocalTokenLookup = {};
@@ -188,7 +188,7 @@ export function PopulateVariables(
       docs = JoinDocs(
         varDocs[IDL_DOCS_HEADERS.DEFAULT].docs,
         varDocs[IDL_DOCS_HEADERS.DEFAULT].comments,
-        parsed.parseProblems
+        parsed.parseProblems,
       );
     }
 

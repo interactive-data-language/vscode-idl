@@ -9,7 +9,7 @@ import { FormatDocsCode } from '../helpers/format-docs-code';
 export async function NormalizeCodeBlocks(index: IDLIndex, docs: string) {
   /** Make array of strings */
   const split = ResolveHoverHelpLinks(docs, DEFAULT_IDL_EXTENSION_CONFIG).split(
-    /\n/gim
+    /\n/gim,
   );
 
   // init start index
@@ -33,7 +33,7 @@ export async function NormalizeCodeBlocks(index: IDLIndex, docs: string) {
 
         // format the code
         const formatted = (await FormatDocsCode(index, code.join('\n'))).split(
-          /\n/g
+          /\n/g,
         );
 
         // replace

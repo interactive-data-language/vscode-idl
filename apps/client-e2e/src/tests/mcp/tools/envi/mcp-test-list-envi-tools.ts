@@ -28,7 +28,7 @@ export const RunMCPTestListENVITools: RunnerFunction = async (init) => {
   // attempt to parse
   try {
     toolsList = JSON.parse(
-      (result.content[0].text as string).replace(/^All tools: /, '')
+      (result.content[0].text as string).replace(/^All tools: /, ''),
     );
   } catch (err) {
     // do nothing

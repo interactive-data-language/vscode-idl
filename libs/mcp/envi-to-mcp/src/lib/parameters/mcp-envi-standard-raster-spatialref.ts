@@ -23,13 +23,13 @@ export function MCP_ENVIStandardRasterSpatialref() {
       .boolean()
       .optional()
       .describe(
-        'Set true when retrieving a geographic (GEOGCS) code or string with coord_sys_code / coord_sys_str.'
+        'Set true when retrieving a geographic (GEOGCS) code or string with coord_sys_code / coord_sys_str.',
       ),
     projcs: z
       .boolean()
       .optional()
       .describe(
-        'Set true when retrieving a projected (PROJCS) code or string with coord_sys_code / coord_sys_str.'
+        'Set true when retrieving a projected (PROJCS) code or string with coord_sys_code / coord_sys_str.',
       ),
     pixel_size: z
       .array(z.number())
@@ -43,13 +43,13 @@ export function MCP_ENVIStandardRasterSpatialref() {
       .array(z.number())
       .length(2)
       .describe(
-        '[X Tie Point, Y Tie Point] map location corresponding to tie_point_pixel.'
+        '[X Tie Point, Y Tie Point] map location corresponding to tie_point_pixel.',
       ),
     tie_point_pixel: z
       .array(z.number())
       .length(2)
       .describe(
-        '[X Pixel, Y Pixel] pixel location corresponding to tie_point_map. If taken from ENVI header (one-based), subtract 1 from both.'
+        '[X Pixel, Y Pixel] pixel location corresponding to tie_point_map. If taken from ENVI header (one-based), subtract 1 from both.',
       ),
   });
 }
