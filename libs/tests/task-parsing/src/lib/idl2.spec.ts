@@ -58,6 +58,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         pos: [0, 0, 0],
         meta: {
           display: 'IDLQueryAllTasksTask',
+          readableName: 'Query All Tasks',
           source: 'user',
           docs: "This task returns a hash where each key is the task name and each task name key contains a hash of the task's properties.\n\n\n### Properties\n\n- **filter_tags**: Array\\<String\\>\n\n  An array of tags to filter the tasks to query on. Only tasks that have all tags set in this array will be returned. The search is case-insensitive. Default is to perform no filtering.\n\n- **task_definitions**: IDLTASKCATALOG\n\n  An IDLTaskCatalog hash that describes all tasks and their properties for each task.\n\n",
           private: false,
@@ -113,6 +114,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               req: true,
             },
           },
+          tags: ['IDL', 'Task Processing'],
         },
       },
     };

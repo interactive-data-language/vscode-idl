@@ -56,6 +56,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         pos: [0, 0, 0],
         meta: {
           display: 'IDLQueryTaskTask',
+          readableName: 'Query Task',
           source: 'user',
           docs: 'This task returns a hash that describes the properties of an IDL task.\n\n\n### Properties\n\n- **task_name**: String\n\n  The name of a task that will be queried for its definition.\n\n- **definition**: IDLTASKINFO\n\n  An IDLTaskInfo hash that describes the properties of an IDL task.\n\n',
           private: false,
@@ -101,6 +102,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               req: true,
             },
           },
+          tags: ['IDL', 'Task Processing'],
         },
       },
     };

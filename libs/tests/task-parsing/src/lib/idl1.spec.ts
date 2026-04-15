@@ -58,6 +58,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         pos: [0, 0, 0],
         meta: {
           display: 'IDLDownload_S3_URLTask',
+          readableName: 'Download S3 URL',
           source: 'user',
           docs: 'This task downloads a resource specified by an S3 URL into a local file.\n\n\n### Properties\n\n- **s3_url**: String\n\n  The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.\n\n- **local_file**: String\n\n  The local file in which to download the S3 resource.\n\n',
           private: false,
