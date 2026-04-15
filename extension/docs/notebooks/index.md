@@ -12,7 +12,9 @@ If you are new to notebooks, they are:
 
 Here's a short video introducing IDL Notebooks (requires internet access). You can also find the video [here](https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24427/IDL-Notebooks-%7c-QUICK-DEMO) on our website.
 
-<img style="width: 100%; margin: auto; display: block;" class="vidyard-player-embed" src="https://play.vidyard.com/ZdFrzw2XcDwjySetxjVJ1x.jpg" data-uuid="ZdFrzw2XcDwjySetxjVJ1x" data-v="4" data-type="inline" />
+<div style="display: flex; justify-content: center;">
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/1035792073?h=32136799d0" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
+</div>
 
 ::: tip
 With the latest release of VSCode, you can now pop open notebooks in separate windows.
@@ -46,7 +48,9 @@ Here's how:
 
 Here's a longer video talking more about how to use IDL Notebooks and it covers some of the more advanced ENVI APIs to display imagery and other types of data (requires internet access). You can also find the video [here](https://www.nv5geospatialsoftware.com/Learn/Videos/Video-Detail/ArtMID/10263/ArticleID/24428/IDL-Notebooks-%7c-IN-DEPTH-TUTORIAL) on our website.
 
-<img style="width: 100%; margin: auto; display: block;" class="vidyard-player-embed" src="https://play.vidyard.com/49Qg9kt6RN3ukj9vfdKcRE.jpg" data-uuid="49Qg9kt6RN3ukj9vfdKcRE" data-v="4" data-type="inline" />
+<div style="display: flex; justify-content: center;">
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/1022658861?h=e304d8bfe9" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
+</div>
 
 ## Resetting Notebook Examples
 
