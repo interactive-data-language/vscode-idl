@@ -15,7 +15,7 @@ Prefer running ENVI directly through MCP tools to prototype the workflow before 
 - "IDL for VSCode/get-envi-tool-parameters" — get parameters, types, and defaults for a task
 - "IDL for VSCode/list-envi-tool-workflows" — find pre-built workflow recipes
 - "IDL for VSCode/get-envi-tool-workflow" — load a workflow recipe
-- "IDL for VSCode/query-datasets-with-envi" — inspect sample data before designing the workflow
+- "IDL for VSCode/query-dataset-with-envi" — inspect sample data before designing the workflow
 - "IDL for VSCode/run-envi-tool" — optionally run the workflow steps to validate them
 - "IDL for VSCode/create-envi-modeler-workflow" — **save the final workflow as a .model file**
 - "IDL for VSCode/open-datasets-in-envi" — open results after processing
@@ -28,7 +28,7 @@ CRITICAL: if any tool fails with an "ENVI Agent license" error, stop work altoge
 
 - Ask what processing the user wants to automate.
 - Ask if they have sample data to prototype with and where it is located.
-- If sample data is provided, query 1–2 datasets with `query-datasets-with-envi` for metadata context.
+- If sample data is provided, query 1–2 datasets with `query-dataset-with-envi` for metadata context.
 
 ### Step 2: Design the workflow
 
@@ -39,6 +39,7 @@ CRITICAL: if any tool fails with an "ENVI Agent license" error, stop work altoge
    - Which output parameters feed the next task's input.
    - Which parameters differ from their defaults (only those go into `static_input`).
    - Which parameters should be exposed to the user (go into `inputparameters` node).
+4. If sample data is provided, query datasets with `query-dataset-with-envi` for metadata context.
 
 ### Step 3: Review with the user
 

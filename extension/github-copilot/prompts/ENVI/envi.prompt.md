@@ -22,7 +22,7 @@ Here's a helpful place to start with tools you can run. You are not limited to t
 - "IDL for VSCode/list-all-resources"
 - "IDL for VSCode/manage-idl-and-envi-session"
 - "IDL for VSCode/open-datasets-in-envi"
-- "IDL for VSCode/query-datasets-with-envi"
+- "IDL for VSCode/query-dataset-with-envi"
 - "IDL for VSCode/run-envi-tool"
 - "IDL for VSCode/search-for-files"
 
@@ -38,7 +38,7 @@ CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop wo
 
 - Use the same output file multiple times when running processing. Outputs are auto-opened in ENVI and will be locked byt he file system so you can't delete them
 - Spawn command prompts or shells to delete files, use a different filename
-- Read header files directly, use the "IDL for VSCode/query-datasets-with-envi" to get metadata
+- Read header files directly, use the "IDL for VSCode/query-dataset-with-envi" to get metadata
 
 ## Steps to Follow (To-Do List)
 
