@@ -14,6 +14,10 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 Fixed an issue where the "Restart" debug toolbar item only reset IDL and did not, in fact, restart IDL. It now stops and launches a new session.
 
+Refined the ENVI instructions to include more detail about how and when to use different tools.
+
+Updated the ENVI instructions to better support opening the correct files in ENVI. ENVI Agent should now review files in a location, check against known formats, and open the right one for processing. This should hep improve how frequently ENVI Agent selects the right file.
+
 ## 6.0.2 - March 2026
 
 Fixed an issue where, if IDL crashed or was stopped by the user, GitHub Copilot would not be notified and get in a bad state.

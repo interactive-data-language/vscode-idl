@@ -27,9 +27,4 @@ export function RegisterStaticMCPResources() {
     'documenting-code',
     'Best practices and examples for documenting your code. See resource here for information about how to document IDL Code including best practices: https://interactive-data-language.github.io/vscode-idl/code-comments/',
   );
-
-  MCPResourceIndex.add(
-    'opening-rasters',
-    'Information about which files to open in ENVI so metadata is populated as users expect. See resource here: https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html',
-  );
 }

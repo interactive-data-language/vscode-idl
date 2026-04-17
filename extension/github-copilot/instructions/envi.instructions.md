@@ -16,6 +16,30 @@ Prefer running ENVI directly through MCP instead of writing code or IDL Notebook
 
 Code or notebooks should only be used when users ask or as a way to summarize your processing steps at the end.
 
+## DATASETS
+
+It is CRITICAL you select the right files when opening a dataset, running a tool, or querying a dataset.
+
+ALWAYS load relevant resources based on the type of data:
+
+- For rasters, load the IDL resource "resoure-raster-formats"
+
+- For vectors, load the IDL resource "resoure-vector-formats"
+
+It is CRITICAL because many multi-file formats require a special file to be opened in ENVI for metadata to be correct.
+
+Here's the steps to follow any time you need to select a dataset:
+
+1. Search for files
+
+2. Cross-reference found files with the relevant resource above
+
+3. Decide which file to open:
+
+- If a root-level metadata file is found, ONLY open that. Do NOT also open other files related to the dataset. Instead, the query tool will return all available datasets and you can use the dataset_index property to extract individual items.
+
+- ONLY WHEN NO ROOT METADATA FILE IS FOUND, then you can open/query any files
+
 ## ENVI TOOLS
 
 Prefer these tools when working with ENVI over other tools targeted at programming.

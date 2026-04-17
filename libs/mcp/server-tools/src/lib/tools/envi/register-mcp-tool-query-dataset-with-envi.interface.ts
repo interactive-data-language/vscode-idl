@@ -12,4 +12,9 @@ Metadata returned varies by type, but here is a brief summary:
 - ENVI ONNX Model: Description, class names, type of model (object detection, pixel segmentation), and expected bands for input data
 
 - Machine Learning Model: Description, class names, model performance, and expected raster input
+
+RULES:
+
+When querying a raster, ALWAYS retrieve the IDL resource "resource-raster-formats" to make sure you are selecting the right file. For multi-file file formats, you should always select the root metadata file and that resource will tell you what to open.
+
 `;
