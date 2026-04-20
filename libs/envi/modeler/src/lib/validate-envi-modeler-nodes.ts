@@ -68,12 +68,22 @@ export function ValidateENVIModelerNodes(
   for (let i = 0; i < edges.length; i++) {
     const edge = edges[i];
 
+    /** Flag if we need to skip */
+    let edgeProblem = false;
+
     // verify that we have correct IDs for connections
     if (!(edge.from in nodeMap)) {
       errors.push(`Edge references unknown source node id "${edge.from}"`);
+      edgeProblem = true;
     }
     if (!(edge.to in nodeMap)) {
       errors.push(`Edge references unknown target node id "${edge.to}"`);
+      edgeProblem = true;
+    }
+
+    // skip if bad node references
+    if (edgeProblem) {
+      continue;
     }
 
     // extract nodes
