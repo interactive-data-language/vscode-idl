@@ -199,22 +199,22 @@ describe(`[auto generated] Parameter error tests`, () => {
 
     // define expected errors
     const expectedErrors: string[] = [
-      'The "to_parameters" property on edge node 1 has problems that need resolved:',
+      'The "to_parameters" property on edge node 1 (zero-based) has problems that need resolved:',
       '  "input_raster1" is not a known parameter of "BuildBandStack"',
       '  "input_raster2" is not a known parameter of "BuildBandStack"',
-      'The "to_parameters" property on edge node 2 has problems that need resolved:',
+      'The "to_parameters" property on edge node 2 (zero-based) has problems that need resolved:',
       '  "input_raster" is not a known parameter of "NormalizationStatistics"',
-      'The "from_parameters" property on edge node 5 has problems that need resolved:',
+      'The "from_parameters" property on edge node 5 (zero-based) has problems that need resolved:',
       '  "output_training_data" is not a known parameter of "MLTrainingDataFromROIs"',
-      'The "to_parameters" property on edge node 5 has problems that need resolved:',
+      'The "to_parameters" property on edge node 5 (zero-based) has problems that need resolved:',
       '  "input_training_data" is not a known parameter of "TrainRandomForest"',
-      'The "from_parameters" property on edge node 6 has problems that need resolved:',
+      'The "from_parameters" property on edge node 6 (zero-based) has problems that need resolved:',
       '  "output_normalization_statistics" is not a known parameter of "NormalizationStatistics"',
-      'The "to_parameters" property on edge node 6 has problems that need resolved:',
+      'The "to_parameters" property on edge node 6 (zero-based) has problems that need resolved:',
       '  "input_normalization_statistics" is not a known parameter of "TrainRandomForest"',
-      'The "from_parameters" property on edge node 9 has problems that need resolved:',
+      'The "from_parameters" property on edge node 9 (zero-based) has problems that need resolved:',
       '  "output_normalization_statistics" is not a known parameter of "NormalizationStatistics"',
-      'The "to_parameters" property on edge node 9 has problems that need resolved:',
+      'The "to_parameters" property on edge node 9 (zero-based) has problems that need resolved:',
       '  "input_normalization_statistics" is not a known parameter of "MachineLearningClassification"',
     ];
 

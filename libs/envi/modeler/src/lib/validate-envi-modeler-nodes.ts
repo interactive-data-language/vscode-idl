@@ -62,22 +62,26 @@ export function ValidateENVIModelerNodes(
     }
   }
 
+  /** Flag if we need to skip */
+  let edgeProblem = false;
+
   /**
    * Validate all of our edges
    */
   for (let i = 0; i < edges.length; i++) {
     const edge = edges[i];
 
-    /** Flag if we need to skip */
-    let edgeProblem = false;
-
     // verify that we have correct IDs for connections
     if (!(edge.from in nodeMap)) {
-      errors.push(`Edge references unknown source node id "${edge.from}"`);
+      errors.push(
+        `Edge ${i} (zero-based) references unknown source node id "${edge.from}"`,
+      );
       edgeProblem = true;
     }
     if (!(edge.to in nodeMap)) {
-      errors.push(`Edge references unknown target node id "${edge.to}"`);
+      errors.push(
+        `Edge ${i} (zero-based) references unknown target node id "${edge.to}"`,
+      );
       edgeProblem = true;
     }
 
@@ -188,7 +192,7 @@ export function ValidateENVIModelerNodes(
     // format errors
     if (fromErrs.length > 0) {
       errors.push(
-        `The "from_parameters" property on edge node ${i} has problems that need resolved:`,
+        `The "from_parameters" property on edge node ${i} (zero-based) has problems that need resolved:`,
       );
       errors.push(...fromErrs);
     }
@@ -196,7 +200,7 @@ export function ValidateENVIModelerNodes(
     // format errors
     if (toErrors.length > 0) {
       errors.push(
-        `The "to_parameters" property on edge node ${i} has problems that need resolved:`,
+        `The "to_parameters" property on edge node ${i} (zero-based) has problems that need resolved:`,
       );
       errors.push(...toErrors);
     }
@@ -209,6 +213,11 @@ export function ValidateENVIModelerNodes(
      */
     // if (fromInfo && toInfo) {
     // }
+  }
+
+  // return if edge problems
+  if (edgeProblem) {
+    return errors;
   }
 
   /**
