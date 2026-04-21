@@ -67,7 +67,9 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
     const isFunction = tree[i].name === TOKEN_NAMES.TYPE_FUNCTION;
 
     /** Init type */
-    let baseType = isFunction ? tree[i].match[1].trim() : tree[i].match[0];
+    let baseType = isFunction
+      ? (tree[i].match[1] || '').trim()
+      : tree[i].match[0];
 
     /** Init display name */
     let displayType = baseType;
@@ -97,7 +99,7 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
       switch (true) {
         case tree[i].name in STRING_TYPES:
           baseType = LITERAL_TYPE_MAP[tree[i].name];
-          thisType.value = [tree[i].match[1]];
+          thisType.value = [tree[i].match[1] || ''];
           break;
         case tree[i].name === TOKEN_NAMES.NUMBER:
           UpdateNumberBaseType(thisType, tree[i].match[0]);
