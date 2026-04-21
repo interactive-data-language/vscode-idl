@@ -1,6 +1,6 @@
 import {
   CreateENVIModelerWorkflow,
-  ValidateENVIModelerNodes,
+  ValidateENVIModelerWorkflow,
 } from '@idl/envi/modeler';
 import { LogManager } from '@idl/logger';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
@@ -30,7 +30,7 @@ export async function TestsForENVIModeler(
 
   // --- imports ---
   strings.push(
-    `import { CreateENVIModelerWorkflow, ValidateENVIModelerNodes } from '@idl/envi/modeler';`,
+    `import { CreateENVIModelerWorkflow, ValidateENVIModelerWorkflow } from '@idl/envi/modeler';`,
   );
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(`import { MCPTaskRegistry } from '@idl/mcp/tasks';`);
@@ -100,7 +100,7 @@ export async function TestsForENVIModeler(
     const testName = test.name;
 
     // run validation at generation time to capture expected outputs
-    const errors = ValidateENVIModelerNodes(
+    const errors = ValidateENVIModelerWorkflow(
       test.nodes,
       test.edges,
       genRegistry,
@@ -124,7 +124,7 @@ export async function TestsForENVIModeler(
     strings.push(``);
     strings.push(`    // validate nodes`);
     strings.push(
-      `    const errors = ValidateENVIModelerNodes(nodes, edges, registry);`,
+      `    const errors = ValidateENVIModelerWorkflow(nodes, edges, registry);`,
     );
     strings.push(``);
     strings.push(`    // define expected errors`);

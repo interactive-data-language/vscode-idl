@@ -7,12 +7,12 @@ import { BuildConnectionMap } from './helpers/build-connection-map';
 import {
   SINK_TYPES,
   SOURCE_TYPES,
-} from './validate-envi-modeler-nodes.interface';
+} from './validate-envi-modeler-workflow.interface';
 
 /**
  * Validates the inputs for an ENVI Modeler node
  */
-export function ValidateENVIModelerNodes(
+export function ValidateENVIModelerWorkflow(
   nodes: ENVIModelerNode[],
   edges: ENVIModelerEdge[],
   registry: MCPTaskRegistry,

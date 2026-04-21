@@ -1,6 +1,6 @@
 import {
   CreateENVIModelerWorkflow,
-  ValidateENVIModelerNodes,
+  ValidateENVIModelerWorkflow,
 } from '@idl/envi/modeler';
 import { LogManager } from '@idl/logger';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
@@ -107,7 +107,7 @@ describe(`[auto generated] Add aggregators`, () => {
     ];
 
     // validate nodes
-    const errors = ValidateENVIModelerNodes(nodes, edges, registry);
+    const errors = ValidateENVIModelerWorkflow(nodes, edges, registry);
 
     // define expected errors
     const expectedErrors: string[] = [];

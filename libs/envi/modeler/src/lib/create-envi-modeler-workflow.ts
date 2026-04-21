@@ -15,7 +15,7 @@ import { RemoveSingletonNodes } from './helpers/remove-singleton-nodes';
 /**
  * Creates an ENVI Modeler Workflow (JSON) from nodes and edges
  *
- * Assumes that you have run `ValidateENVIModelerNodes` before executing this
+ * Assumes that you have run `ValidateENVIModelerWorkflow` before executing this
  */
 export function CreateENVIModelerWorkflow(
   nodes: ENVIModelerNode[],

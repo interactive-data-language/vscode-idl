@@ -1,6 +1,6 @@
 import {
   CreateENVIModelerWorkflow,
-  ValidateENVIModelerNodes,
+  ValidateENVIModelerWorkflow,
 } from '@idl/envi/modeler';
 import { MCPServer } from '@idl/mcp/server';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
@@ -199,7 +199,7 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
     },
     async (id, { output_path, nodes, edges }) => {
       /** Validate the nodes and check for errors */
-      const errors = ValidateENVIModelerNodes(
+      const errors = ValidateENVIModelerWorkflow(
         nodes as ENVIModelerNode[],
         edges as ENVIModelerEdge[],
         registry,

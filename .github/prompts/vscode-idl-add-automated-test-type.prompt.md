@@ -105,7 +105,7 @@ it(`[auto generated] ${testName}`, () => {
   const edges: ENVIModelerEdge[] = <JSON>;
 
   // call function under test
-  const errors = ValidateENVIModelerNodes(nodes, edges, registry);
+  const errors = ValidateENVIModelerWorkflow(nodes, edges, registry);
 
   // inline snapshot of expected output (captured at generation time)
   const expectedErrors: string[] = <captured>;

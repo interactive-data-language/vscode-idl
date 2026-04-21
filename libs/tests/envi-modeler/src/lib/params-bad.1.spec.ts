@@ -1,4 +1,4 @@
-import { ValidateENVIModelerNodes } from '@idl/envi/modeler';
+import { ValidateENVIModelerWorkflow } from '@idl/envi/modeler';
 import { LogManager } from '@idl/logger';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
@@ -195,7 +195,7 @@ describe(`[auto generated] Parameter error tests`, () => {
     ];
 
     // validate nodes
-    const errors = ValidateENVIModelerNodes(nodes, edges, registry);
+    const errors = ValidateENVIModelerWorkflow(nodes, edges, registry);
 
     // define expected errors
     const expectedErrors: string[] = [
