@@ -13,9 +13,9 @@ export const TASK_NAME_REGEX = /^(?:ENVI|IDL)(.+)Task$/i;
  * Gets the display name for a task from the class "(envi or idl)mytasknametask"
  */
 function GetTaskDisplayName(name: string) {
-  return TASK_NAME_REGEX.exec(
-    name in CUSTOM_TYPE_DISPLAY_NAMES ? CUSTOM_TYPE_DISPLAY_NAMES[name] : name,
-  )[1];
+  const displayName =
+    name in CUSTOM_TYPE_DISPLAY_NAMES ? CUSTOM_TYPE_DISPLAY_NAMES[name] : name;
+  return TASK_NAME_REGEX.exec(displayName)?.[1] || displayName;
 }
 
 /**

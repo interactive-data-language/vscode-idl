@@ -199,6 +199,13 @@ function IDLParameterToMCPParameter_Recurser(
       break;
 
     /**
+     * FeatureCount
+     */
+    case IDLTypeHelper.isType(type, 'envifeaturecount'):
+      res = MCP_ENVIFeatureCount();
+      break;
+
+    /**
      * GCP Set
      */
     case IDLTypeHelper.isType(type, 'envigcpset'):
@@ -217,13 +224,6 @@ function IDLParameterToMCPParameter_Recurser(
      */
     case IDLTypeHelper.isType(type, 'envigriddefinition'):
       res = MCP_ENVIGridDefinition();
-      break;
-
-    /**
-     * FeatureCount
-     */
-    case IDLTypeHelper.isType(type, 'envifeaturecount'):
-      res = MCP_ENVIFeatureCount();
       break;
 
     /**
