@@ -9,6 +9,7 @@ import {
   TYPE_FIND_TOKEN_OPTIONS,
 } from '@idl/tokenizer';
 import {
+  CUSTOM_TYPE_DISPLAY_NAMES,
   IDL_TYPE_LOOKUP,
   IDLDataType,
   IDLDataTypeBase,
@@ -115,9 +116,30 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
       thisType.display = baseType;
     }
 
-    // set the name of the data type
-    if (thisType.name.toLowerCase() in TYPE_ALIASES) {
-      thisType.name = TYPE_ALIASES[thisType.name.toLowerCase()];
+    /** Get lower case name */
+    const lc = thisType.name.toLowerCase();
+
+    // determine how to normalize
+    switch (true) {
+      /**
+       * Do we have a known alias? All "known" IDL types
+       * will enter here
+       */
+      case lc in TYPE_ALIASES:
+        thisType.name = TYPE_ALIASES[lc];
+        break;
+      /**
+       * Check for custom type display name for user types
+       */
+      case lc in CUSTOM_TYPE_DISPLAY_NAMES:
+        thisType.name = CUSTOM_TYPE_DISPLAY_NAMES[lc];
+        break;
+      /**
+       * Unknown so normalize to lower case for consistency
+       */
+      default:
+        thisType.name = lc;
+        break;
     }
 
     // check if we recurse and get type arguments or not
