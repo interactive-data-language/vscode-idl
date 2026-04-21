@@ -250,6 +250,7 @@ export class IDLTypeHelper {
         return false;
       }
     }
+    return true;
   }
 
   /**
