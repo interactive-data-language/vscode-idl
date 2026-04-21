@@ -4,6 +4,7 @@ import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 
 import { BuildConnectionMap } from './helpers/build-connection-map';
+import { ValidateNodeConnection } from './helpers/validate-node-connection';
 import {
   SINK_TYPES,
   SOURCE_TYPES,
@@ -114,6 +115,9 @@ export function ValidateENVIModelerWorkflow(
     /** Errors for from parameters */
     const fromErrs: string[] = [];
 
+    /** Track if we encounter unknown parameters */
+    let unknownParams = false;
+
     /**
      * Validate from task parameters
      */
@@ -136,6 +140,7 @@ export function ValidateENVIModelerWorkflow(
             fromErrs.push(
               `  "${fromParam}" is not a known parameter of "${from.task_name}"`,
             );
+            unknownParams = true;
             continue;
           }
 
@@ -176,6 +181,7 @@ export function ValidateENVIModelerWorkflow(
             toErrors.push(
               `  "${toParam}" is not a known parameter of "${to.task_name}"`,
             );
+            unknownParams = true;
             continue;
           }
 
@@ -187,6 +193,11 @@ export function ValidateENVIModelerWorkflow(
           }
         }
       }
+    }
+
+    // if we have both known parameters, validate the type
+    if (toInfo && fromInfo && !unknownParams) {
+      ValidateNodeConnection(edge, toInfo, fromInfo, fromErrs);
     }
 
     // format errors
@@ -204,15 +215,6 @@ export function ValidateENVIModelerWorkflow(
       );
       errors.push(...toErrors);
     }
-
-    /**
-     * @TODO add in logic to validate compatibility of parameters
-     *
-     * Maybe leave this to ENVI, but without this feedback the LLM may
-     * get things wrong
-     */
-    // if (fromInfo && toInfo) {
-    // }
   }
 
   // return if edge problems
