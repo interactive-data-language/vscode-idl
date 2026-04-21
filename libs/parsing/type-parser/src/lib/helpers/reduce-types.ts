@@ -1,9 +1,9 @@
 import {
+  IDL_NUMBER_TYPE_ORDER,
   IDL_TYPE_LOOKUP,
   IDLDataType,
   IDLDataTypeBase,
   KNOWN_IDL_TYPE_ARG_PROMOTIONS,
-  TYPE_ORDER_LOOKUP,
 } from '@idl/types/idl-data-types';
 
 import { MergeTypeArgs } from './merge-type-args';
@@ -51,12 +51,12 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
     // check if we are in our type order lookup
     if (
       type[i].name === IDL_TYPE_LOOKUP.NUMBER ||
-      (foundLiterals && type[i].name in TYPE_ORDER_LOOKUP)
+      (foundLiterals && type[i].name in IDL_NUMBER_TYPE_ORDER)
     ) {
       // check if we have already found an item
       if (highestName) {
         // if we are not the highest type, then replace the name of this item
-        if (highestNumber < TYPE_ORDER_LOOKUP[type[i].name]) {
+        if (highestNumber < IDL_NUMBER_TYPE_ORDER[type[i].name]) {
           // if we were a number and have higher type, make
           // complex number
           if (wasNumber) {
@@ -67,7 +67,7 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
           const old = found[highestName];
 
           // update constants
-          highestNumber = TYPE_ORDER_LOOKUP[type[i].name];
+          highestNumber = IDL_NUMBER_TYPE_ORDER[type[i].name];
           highestName = type[i].name;
 
           // replace old props and save with new name
@@ -80,7 +80,7 @@ export function ReduceIDLDataType(type: IDLDataType): IDLDataType {
       } else {
         // save highest type information
         highestName = type[i].name;
-        highestNumber = TYPE_ORDER_LOOKUP[type[i].name];
+        highestNumber = IDL_NUMBER_TYPE_ORDER[type[i].name];
       }
     }
 
