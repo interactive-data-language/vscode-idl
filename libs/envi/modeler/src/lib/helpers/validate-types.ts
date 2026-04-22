@@ -80,7 +80,7 @@ export function ValidateTypes(
      * Make sure types are teh same
      */
     default:
-      if (toType.name !== fromType.name) {
+      if (toType.name.toLowerCase() !== fromType.name.toLowerCase()) {
         fromErrs.push(
           `  "${fromName}" does not have the same type as the connected parameter "${toName}" and cannot be connected`,
         );

@@ -88,13 +88,13 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'envisubsetrastertask',
+                  name: 'ENVISubsetRasterTask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],
@@ -120,7 +120,7 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'envitask',
+                  name: 'ENVITask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [
@@ -347,13 +347,13 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'envisubsetrastertask',
+                  name: 'ENVISubsetRasterTask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],
@@ -379,13 +379,13 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'envisubsetrastertask',
+                  name: 'ENVISubsetRasterTask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],
@@ -411,7 +411,7 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'envitask',
+                  name: 'ENVITask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [
@@ -443,7 +443,7 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'envitask',
+                  name: 'ENVITask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [

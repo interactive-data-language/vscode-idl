@@ -57,9 +57,9 @@ describe(`[auto generated] Find them in`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'WAVFILEHEADER',
-                  display: 'WAVFILEHEADER',
-                  serialized: 'WAVFILEHEADER',
+                  name: 'wavfileheader',
+                  display: 'wavfileheader',
+                  serialized: 'wavfileheader',
                   args: [],
                   meta: {},
                 },

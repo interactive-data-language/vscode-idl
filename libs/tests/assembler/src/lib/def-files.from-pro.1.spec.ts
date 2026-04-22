@@ -200,7 +200,7 @@ describe(`[auto generated] Format def files correctly`, () => {
         `; :Description:`,
         `;   Creates our message interceptor and registers it with ENVI (requires that ENVI is launched)`,
         `;`,
-        `; :Returns: VSCodeENVIMessageInterceptor`,
+        `; :Returns: vscodeenvimessageinterceptor`,
         `;`,
         `; :Keywords:`,
         `;   verbose: in, optional, Boolean`,

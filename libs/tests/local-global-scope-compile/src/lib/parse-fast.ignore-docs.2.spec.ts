@@ -88,7 +88,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'envitask',
+                  name: 'ENVITask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [
@@ -120,7 +120,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'idltask',
+                  name: 'IDLTask',
                   display: 'IDLTask<any>',
                   serialized: 'IDLTask<any>',
                   args: [
@@ -152,13 +152,13 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'envibuildmosaicrastertask',
+                  name: 'ENVIBuildMosaicRasterTask',
                   display: 'ENVITask<BuildMosaicRaster>',
                   serialized: 'ENVITask<BuildMosaicRaster>',
                   args: [
                     [
                       {
-                        name: 'BuildMosaicRaster',
+                        name: 'buildmosaicraster',
                         display: 'BuildMosaicRaster',
                         serialized: 'BuildMosaicRaster',
                         args: [],
@@ -169,13 +169,13 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
                   meta: {},
                 },
                 {
-                  name: 'envisubsetrastertask',
+                  name: 'ENVISubsetRasterTask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],
@@ -202,14 +202,14 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               type: [
                 {
                   name: 'idls3_downloadtask',
-                  display: 'IDLTask<S3_Download>',
-                  serialized: 'IDLTask<S3_Download>',
+                  display: 'IDLTask<s3_download>',
+                  serialized: 'IDLTask<s3_download>',
                   args: [
                     [
                       {
-                        name: 'S3_Download',
-                        display: 'S3_Download',
-                        serialized: 'S3_Download',
+                        name: 's3_download',
+                        display: 's3_download',
+                        serialized: 's3_download',
                         args: [],
                         meta: {},
                       },
@@ -233,13 +233,13 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'envibuildmosaicrastertask',
+                  name: 'ENVIBuildMosaicRasterTask',
                   display: 'ENVITask<BuildMosaicRaster>',
                   serialized: 'ENVITask<BuildMosaicRaster>',
                   args: [
                     [
                       {
-                        name: 'BuildMosaicRaster',
+                        name: 'buildmosaicraster',
                         display: 'BuildMosaicRaster',
                         serialized: 'BuildMosaicRaster',
                         args: [],
@@ -276,7 +276,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               source: 'internal',
               type: [
                 {
-                  name: 'envitask',
+                  name: 'ENVITask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [
@@ -305,7 +305,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               source: 'internal',
               type: [
                 {
-                  name: 'idltask',
+                  name: 'IDLTask',
                   display: 'IDLTask<any>',
                   serialized: 'IDLTask<any>',
                   args: [
@@ -334,13 +334,13 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               source: 'internal',
               type: [
                 {
-                  name: 'envibuildmosaicrastertask',
+                  name: 'ENVIBuildMosaicRasterTask',
                   display: 'ENVITask<BuildMosaicRaster>',
                   serialized: 'ENVITask<BuildMosaicRaster>',
                   args: [
                     [
                       {
-                        name: 'BuildMosaicRaster',
+                        name: 'buildmosaicraster',
                         display: 'BuildMosaicRaster',
                         serialized: 'BuildMosaicRaster',
                         args: [],
@@ -351,13 +351,13 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
                   meta: {},
                 },
                 {
-                  name: 'envisubsetrastertask',
+                  name: 'ENVISubsetRasterTask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],
@@ -381,14 +381,14 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               type: [
                 {
                   name: 'idls3_downloadtask',
-                  display: 'IDLTask<S3_Download>',
-                  serialized: 'IDLTask<S3_Download>',
+                  display: 'IDLTask<s3_download>',
+                  serialized: 'IDLTask<s3_download>',
                   args: [
                     [
                       {
-                        name: 'S3_Download',
-                        display: 'S3_Download',
-                        serialized: 'S3_Download',
+                        name: 's3_download',
+                        display: 's3_download',
+                        serialized: 's3_download',
                         args: [],
                         meta: {},
                       },
@@ -409,13 +409,13 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               source: 'internal',
               type: [
                 {
-                  name: 'envibuildmosaicrastertask',
+                  name: 'ENVIBuildMosaicRasterTask',
                   display: 'ENVITask<BuildMosaicRaster>',
                   serialized: 'ENVITask<BuildMosaicRaster>',
                   args: [
                     [
                       {
-                        name: 'BuildMosaicRaster',
+                        name: 'buildmosaicraster',
                         display: 'BuildMosaicRaster',
                         serialized: 'BuildMosaicRaster',
                         args: [],
@@ -433,7 +433,7 @@ describe(`[auto generated] Verify fast parsing ignores docs`, () => {
               pos: [14, 34, 4],
             },
           },
-          docs: '\n```idl\npro3, arg1, arg2, arg3, arg4, arg5, $\n  KW1 = value\n```\n\n\n\n\n### Arguments\n\n- **arg1**: in, required, ENVITask\\<any\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, IDLTask\\<any\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, ENVITask\\<BuildMosaicRaster\\> | ENVITask\\<SubsetRaster\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, IDLTask\\<S3_Download\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, ENVITask\\<BuildMosaicRaster\\>\n\n  Placeholder docs for argument, keyword, or property\n\n\n\n### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n',
+          docs: '\n```idl\npro3, arg1, arg2, arg3, arg4, arg5, $\n  KW1 = value\n```\n\n\n\n\n### Arguments\n\n- **arg1**: in, required, ENVITask\\<any\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, IDLTask\\<any\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, ENVITask\\<BuildMosaicRaster\\> | ENVITask\\<SubsetRaster\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, IDLTask\\<s3_download\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, ENVITask\\<BuildMosaicRaster\\>\n\n  Placeholder docs for argument, keyword, or property\n\n\n\n### Keywords\n\n- **KW1**: bidirectional, optional, any\n\n    \n\n',
           docsLookup: { default: '' },
           display: 'pro3',
           kws: {

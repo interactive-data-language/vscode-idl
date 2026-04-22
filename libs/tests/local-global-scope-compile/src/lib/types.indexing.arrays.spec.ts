@@ -1110,14 +1110,14 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  display: 'Array',
                   name: 'Array',
+                  display: 'Array<any>',
                   serialized: 'Array<any>',
                   args: [
                     [
                       {
-                        display: 'any',
                         name: 'any',
+                        display: 'any',
                         serialized: 'any',
                         args: [],
                         meta: {},

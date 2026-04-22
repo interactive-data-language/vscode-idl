@@ -73,7 +73,7 @@ describe(`[auto generated] Verify type formatting for`, () => {
         `;     Placeholder docs for argument, keyword, or property`,
         `;   arg3: in, required, ENVITask<BuildMosaicRaster> | ENVITask<SubsetRaster>`,
         `;     Placeholder docs for argument, keyword, or property`,
-        `;   arg4: in, required, IDLTask<S3_Download>`,
+        `;   arg4: in, required, IDLTask<s3_download>`,
         `;     Placeholder docs for argument, keyword, or property`,
         `;   arg5: in, required, ENVITask<BuildMosaicRaster>`,
         `;     Placeholder docs for argument, keyword, or property`,

@@ -56,7 +56,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'envitask',
+                name: 'ENVITask',
                 display: 'ENVITask<any>',
                 serialized: 'ENVITask<any>',
                 args: [
@@ -88,7 +88,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
+                name: 'IDLTask',
                 display: 'IDLTask<any>',
                 serialized: 'IDLTask<any>',
                 args: [
@@ -120,7 +120,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'envitask',
+                name: 'ENVITask',
                 display: 'ENVITask<any>',
                 serialized: 'ENVITask<any>',
                 args: [
@@ -152,7 +152,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
+                name: 'IDLTask',
                 display: 'IDLTask<any>',
                 serialized: 'IDLTask<any>',
                 args: [
@@ -184,7 +184,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'envitask',
+                name: 'ENVITask',
                 display: 'ENVITask<any>',
                 serialized: 'ENVITask<any>',
                 args: [
@@ -216,7 +216,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
+                name: 'IDLTask',
                 display: 'IDLTask<any>',
                 serialized: 'IDLTask<any>',
                 args: [
@@ -314,7 +314,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'envitask',
+                name: 'ENVITask',
                 display: 'ENVITask<any>',
                 serialized: 'ENVITask<any>',
                 args: [
@@ -412,7 +412,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
+                name: 'IDLTask',
                 display: 'IDLTask<any>',
                 serialized: 'IDLTask<any>',
                 args: [
@@ -510,7 +510,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'envitask',
+                name: 'ENVITask',
                 display: 'ENVITask<any>',
                 serialized: 'ENVITask<any>',
                 args: [
@@ -608,7 +608,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
+                name: 'IDLTask',
                 display: 'IDLTask<any>',
                 serialized: 'IDLTask<any>',
                 args: [
@@ -706,7 +706,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'envitask',
+                name: 'ENVITask',
                 display: 'ENVITask<any>',
                 serialized: 'ENVITask<any>',
                 args: [
@@ -804,7 +804,7 @@ describe(`[auto generated] Verify type regression tests`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
+                name: 'IDLTask',
                 display: 'IDLTask<any>',
                 serialized: 'IDLTask<any>',
                 args: [

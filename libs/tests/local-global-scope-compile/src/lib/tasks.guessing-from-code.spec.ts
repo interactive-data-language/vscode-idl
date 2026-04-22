@@ -65,13 +65,13 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'envibuildmosaicrastertask',
+                name: 'ENVIBuildMosaicRasterTask',
                 display: 'ENVITask<BuildMosaicRaster>',
                 serialized: 'ENVITask<BuildMosaicRaster>',
                 args: [
                   [
                     {
-                      name: 'BuildMosaicRaster',
+                      name: 'buildmosaicraster',
                       display: 'BuildMosaicRaster',
                       serialized: 'BuildMosaicRaster',
                       args: [],
@@ -97,13 +97,13 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'envibuildmosaicrastertask',
+                name: 'ENVIBuildMosaicRasterTask',
                 display: 'ENVITask<BuildMosaicRaster>',
                 serialized: 'ENVITask<BuildMosaicRaster>',
                 args: [
                   [
                     {
-                      name: 'BuildMosaicRaster',
+                      name: 'buildmosaicraster',
                       display: 'BuildMosaicRaster',
                       serialized: 'BuildMosaicRaster',
                       args: [],
@@ -160,13 +160,13 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'envibuildmosaicrastertask',
+                name: 'ENVIBuildMosaicRasterTask',
                 display: 'ENVITask<BuildMosaicRaster>',
                 serialized: 'ENVITask<BuildMosaicRaster>',
                 args: [
                   [
                     {
-                      name: 'BuildMosaicRaster',
+                      name: 'buildmosaicraster',
                       display: 'BuildMosaicRaster',
                       serialized: 'BuildMosaicRaster',
                       args: [],
@@ -192,7 +192,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'envitask',
+                name: 'ENVITask',
                 display: 'ENVITask<any>',
                 serialized: 'ENVITask<any>',
                 args: [
@@ -320,7 +320,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
             source: 'user',
             type: [
               {
-                name: 'idltask',
+                name: 'IDLTask',
                 display: 'IDLTask<any>',
                 serialized: 'IDLTask<any>',
                 args: [

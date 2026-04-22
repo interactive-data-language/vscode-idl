@@ -2,11 +2,10 @@ import {
   ICreateIDLDataType,
   IDL_TYPE_LOOKUP,
   IDLDataType,
-  TYPE_ALIASES,
 } from '@idl/types/idl-data-types';
 
 import { ParseIDLType, PostProcessIDLType } from './parsing/parse-idl-type';
-import { PopulateTypeDisplayName } from './parsing/populate-type-display-name';
+import { PopulateTypeProperties } from './parsing/populate-type-properties';
 
 /**
  * Helper class with static methods for working with types to make
@@ -73,7 +72,7 @@ export class IDLTypeHelper {
     type[0].value = value;
 
     // set display names
-    PopulateTypeDisplayName(type);
+    PopulateTypeProperties(type);
   }
 
   /**
@@ -118,11 +117,6 @@ export class IDLTypeHelper {
   static createIDLType(type: ICreateIDLDataType[]) {
     return PostProcessIDLType(
       type.map((iType) => {
-        // set the name of the data type
-        if (iType.name.toLowerCase() in TYPE_ALIASES) {
-          iType.name = TYPE_ALIASES[iType.name.toLowerCase()];
-        }
-
         return {
           ...{
             name: '',

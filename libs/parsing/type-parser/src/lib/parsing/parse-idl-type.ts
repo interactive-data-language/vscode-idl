@@ -9,12 +9,10 @@ import {
   TYPE_FIND_TOKEN_OPTIONS,
 } from '@idl/tokenizer';
 import {
-  CUSTOM_TYPE_DISPLAY_NAMES,
   IDL_TYPE_LOOKUP,
   IDLDataType,
   IDLDataTypeBase,
   IDLTypes,
-  TYPE_ALIASES,
 } from '@idl/types/idl-data-types';
 import { SyntaxProblems } from '@idl/types/problem-codes';
 import { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
@@ -23,9 +21,10 @@ import { copy } from 'fast-copy';
 import { GetTaskDisplayName } from '../helpers/get-task-display-name';
 import { ReduceIDLDataType } from '../helpers/reduce-types';
 import { ARRAY_SHORTHAND_TYPES } from './array-shorthand-types.interface';
+import { NormalizeTypeName } from './normalize-type-name';
 import { UpdateNumberBaseType } from './number-to-literal';
 import { TASK_REGEX, TASK_REGEX_GLOBAL } from './parse-idl-type.interface';
-import { PopulateTypeDisplayName } from './populate-type-display-name';
+import { PopulateTypeProperties } from './populate-type-properties';
 import { SetDefaultTypes } from './set-default-types';
 
 /** Tokens we skip for now */
@@ -116,31 +115,8 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
       thisType.display = baseType;
     }
 
-    /** Get lower case name */
-    const lc = thisType.name.toLowerCase();
-
-    // determine how to normalize
-    switch (true) {
-      /**
-       * Do we have a known alias? All "known" IDL types
-       * will enter here
-       */
-      case lc in TYPE_ALIASES:
-        thisType.name = TYPE_ALIASES[lc];
-        break;
-      /**
-       * Check for custom type display name for user types
-       */
-      case lc in CUSTOM_TYPE_DISPLAY_NAMES:
-        thisType.name = CUSTOM_TYPE_DISPLAY_NAMES[lc];
-        break;
-      /**
-       * Unknown so normalize to lower case for consistency
-       */
-      default:
-        thisType.name = lc;
-        break;
-    }
+    // normalize the type name
+    thisType.name = NormalizeTypeName(thisType.name);
 
     // check if we recurse and get type arguments or not
     if (tree[i].name === TOKEN_NAMES.TYPE_FUNCTION) {
@@ -176,7 +152,11 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
  * Only advanced cases should change this behavior, like in the recursive
  * calls to this function internally.
  */
-export function PostProcessIDLType(type: IDLDataType, makeCopy = true) {
+export function PostProcessIDLType(
+  type: IDLDataType,
+  makeCopy = true,
+  isTask = false,
+) {
   // check if we need to make a copy of the type
   if (makeCopy) {
     type = copy(type);
@@ -191,12 +171,16 @@ export function PostProcessIDLType(type: IDLDataType, makeCopy = true) {
   // remove duplicates and process all type arguments
   for (let i = 0; i < reduced.length; i++) {
     for (let j = 0; j < reduced[i].args.length; j++) {
-      reduced[i].args[j] = PostProcessIDLType(reduced[i].args[j], false);
+      reduced[i].args[j] = PostProcessIDLType(
+        reduced[i].args[j],
+        false,
+        isTask,
+      );
     }
   }
 
-  // set display names
-  PopulateTypeDisplayName(reduced);
+  // set name, display, and serialized
+  PopulateTypeProperties(reduced, isTask);
 
   return reduced;
 }
