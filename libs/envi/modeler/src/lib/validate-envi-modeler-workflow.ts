@@ -232,7 +232,11 @@ export function ValidateENVIModelerWorkflow(
 
             // check for array
             if (IDLTypeHelper.isType(fromProp.type, IDL_TYPE_LOOKUP.ARRAY)) {
-              typeToCheck = IDLTypeHelper.getAllTypeArgs(fromProp.type);
+              // typeToCheck = IDLTypeHelper.getAllTypeArgs(fromProp.type);
+              fromErrs.push(
+                `  "${fromParam}" is an array parameters and cannot be connected to datamanager`,
+              );
+              continue;
             }
 
             // get the type name
@@ -280,6 +284,10 @@ export function ValidateENVIModelerWorkflow(
             // check for array
             if (IDLTypeHelper.isType(fromProp.type, IDL_TYPE_LOOKUP.ARRAY)) {
               typeToCheck = IDLTypeHelper.getAllTypeArgs(fromProp.type);
+              fromErrs.push(
+                `  "${fromParam}" is an array parameters and cannot be connected to view`,
+              );
+              continue;
             }
 
             // get the type name
