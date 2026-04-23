@@ -195,9 +195,35 @@ export function ValidateENVIModelerWorkflow(
       }
     }
 
-    // if we have both known parameters, validate the type
-    if (toInfo && fromInfo && !unknownParams) {
-      ValidateNodeConnection(edge, toInfo, fromInfo, fromErrs);
+    /**
+     * Determine how to proceed
+     */
+    if (!unknownParams) {
+      switch (true) {
+        case !!toInfo && !!fromInfo:
+          ValidateNodeConnection(edge, toInfo, fromInfo, fromErrs);
+          break;
+        case !!fromInfo && to.type === 'datamanager':
+          /**
+           * Validate the connected parameter is of type: ENVIRaster, ENVIVector, ENVIRasterSeries, ENVIAnnotationSet
+           *
+           * After validating, make sure that the parameter we connect to is valid. Parameter names
+           * match input_raster, input_vector, input_raster_series, input_annotation_set
+           */
+          break;
+        case !!fromInfo && to.type === 'view':
+          /**
+           * Validate the connected parameter is of type: ENVIRaster, ENVIVector, ENVIRasterSeries, ENVIAnnotationSet, ENVIPointCloud, String, Number
+           *
+           * Number should follow similar logic as ValidateNodeConnection()
+           *
+           * After validating, make sure that the parameter we connect to is valid. Parameter names
+           * match input_raster, input_vector, input_raster_series, input_annotation_set, input_point_cloud, input_string, input_number
+           */
+          break;
+        default:
+          break;
+      }
     }
 
     // format errors
