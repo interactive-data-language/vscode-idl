@@ -5,6 +5,7 @@ import { AUTO_ENVI_MODELER_TEST_BAD_EDGES } from './envi-modeler-workflows/bad-e
 import { AUTO_ENVI_MODELER_TEST_CHANGE_DETECTION } from './envi-modeler-workflows/change-detection';
 import { AUTO_ENVI_MODELER_TEST_CHANGE_DETECTION_ML } from './envi-modeler-workflows/change-detection-ml';
 import { AUTO_ENVI_MODELER_TEST_CORRECT_OUTPUT } from './envi-modeler-workflows/correct-output';
+import { AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION } from './envi-modeler-workflows/datamanager-view-validation';
 import { AUTO_ENVI_MODELER_TEST_DATASET_INDEX } from './envi-modeler-workflows/dataset-index';
 import { AUTO_ENVI_MODELER_TEST_DEEP_LEARNING } from './envi-modeler-workflows/deep-learning';
 import { AUTO_ENVI_MODELER_TEST_IMAGE_CLASSIFICATION_ML } from './envi-modeler-workflows/image-classification-ml';
@@ -28,6 +29,7 @@ export const AUTO_ENVI_MODELER_TESTS: IAutoENVIModelerTest[] = [
   AUTO_ENVI_MODELER_TEST_CHANGE_DETECTION,
   AUTO_ENVI_MODELER_TEST_CHANGE_DETECTION_ML,
   AUTO_ENVI_MODELER_TEST_CORRECT_OUTPUT,
+  AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION,
   AUTO_ENVI_MODELER_TEST_DATASET_INDEX,
   AUTO_ENVI_MODELER_TEST_DEEP_LEARNING,
   AUTO_ENVI_MODELER_TEST_IMAGE_CLASSIFICATION_ML,

@@ -1,13 +1,18 @@
 import { ITaskInformation, MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
-import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
+import {
+  IDL_NUMBER_TYPE_ORDER,
+  IDL_TYPE_LOOKUP,
+} from '@idl/types/idl-data-types';
 
 import { BuildConnectionMap } from './helpers/build-connection-map';
 import { ValidateNodeConnection } from './helpers/validate-node-connection';
 import {
+  DATAMANAGER_TYPE_TO_PARAMETER_MAP,
   SINK_TYPES,
   SOURCE_TYPES,
+  VIEW_TYPE_TO_PARAMETER_MAP,
 } from './validate-envi-modeler-workflow.interface';
 
 /**
@@ -207,19 +212,96 @@ export function ValidateENVIModelerWorkflow(
           /**
            * Validate the connected parameter is of type: ENVIRaster, ENVIVector, ENVIRasterSeries, ENVIAnnotationSet
            *
-           * After validating, make sure that the parameter we connect to is valid. Parameter names
-           * match input_raster, input_vector, input_raster_series, input_annotation_set
+           * The datamanager node automatically infers the correct input parameter name based on the type:
+           * - ENVIRaster -> input_raster
+           * - ENVIVector -> input_vector
+           * - ENVIRasterSeries -> input_raster_series
+           * - ENVIAnnotationSet -> input_annotation_set
            */
+
+          /** Clear to_parameters and rebuild based on types */
+          edge.to_parameters = [];
+
+          for (let z = 0; z < edge.from_parameters.length; z++) {
+            const fromParam = edge.from_parameters[z];
+            const fromProp =
+              fromInfo.structure.meta.props[fromParam.toLowerCase()];
+
+            // get the type (handle arrays by extracting element type)
+            let typeToCheck = fromProp.type;
+
+            // check for array
+            if (IDLTypeHelper.isType(fromProp.type, IDL_TYPE_LOOKUP.ARRAY)) {
+              typeToCheck = IDLTypeHelper.getAllTypeArgs(fromProp.type);
+            }
+
+            // get the type name
+            const typeName = typeToCheck[0].name.toLowerCase();
+
+            // check if type is allowed
+            if (typeName in DATAMANAGER_TYPE_TO_PARAMETER_MAP) {
+              // add the mapped parameter name
+              edge.to_parameters.push(
+                DATAMANAGER_TYPE_TO_PARAMETER_MAP[typeName],
+              );
+            } else {
+              fromErrs.push(
+                `  "${fromParam}" has type "${typeToCheck[0].name}" and cannot be connected to datamanager; expected ENVIRaster, ENVIVector, ENVIRasterSeries, or ENVIAnnotationSet`,
+              );
+            }
+          }
           break;
         case !!fromInfo && to.type === 'view':
           /**
            * Validate the connected parameter is of type: ENVIRaster, ENVIVector, ENVIRasterSeries, ENVIAnnotationSet, ENVIPointCloud, String, Number
            *
-           * Number should follow similar logic as ValidateNodeConnection()
-           *
-           * After validating, make sure that the parameter we connect to is valid. Parameter names
-           * match input_raster, input_vector, input_raster_series, input_annotation_set, input_point_cloud, input_string, input_number
+           * Number types are promoted (any numeric type is acceptable).
+           * The view node automatically infers the correct input parameter name based on the type:
+           * - ENVIRaster -> input_raster
+           * - ENVIVector -> input_vector
+           * - ENVIRasterSeries -> input_raster_series
+           * - ENVIAnnotationSet -> input_annotation_set
+           * - ENVIPointCloud -> input_point_cloud
+           * - String -> input_string
+           * - Number (Byte, Int, Long, Float, Double, etc.) -> input_number
            */
+
+          /** Clear to_parameters and rebuild based on types */
+          edge.to_parameters = [];
+
+          for (let z = 0; z < edge.from_parameters.length; z++) {
+            const fromParam = edge.from_parameters[z];
+            const fromProp =
+              fromInfo.structure.meta.props[fromParam.toLowerCase()];
+
+            // get the type (handle arrays by extracting element type)
+            let typeToCheck = fromProp.type;
+
+            // check for array
+            if (IDLTypeHelper.isType(fromProp.type, IDL_TYPE_LOOKUP.ARRAY)) {
+              typeToCheck = IDLTypeHelper.getAllTypeArgs(fromProp.type);
+            }
+
+            // get the type name
+            const typeName = typeToCheck[0].name.toLowerCase();
+
+            // check if it's a number type
+            const isNumber = typeToCheck[0].name in IDL_NUMBER_TYPE_ORDER;
+
+            switch (true) {
+              case typeName in VIEW_TYPE_TO_PARAMETER_MAP:
+                edge.to_parameters.push(VIEW_TYPE_TO_PARAMETER_MAP[typeName]);
+                break;
+              case isNumber:
+                edge.to_parameters.push('input_number');
+                break;
+              default:
+                fromErrs.push(
+                  `  "${fromParam}" has type "${typeToCheck[0].name}" and cannot be connected to view; expected ENVIRaster, ENVIVector, ENVIRasterSeries, ENVIAnnotationSet, ENVIPointCloud, String, or Number`,
+                );
+                break;
+            }
+          }
           break;
         default:
           break;
