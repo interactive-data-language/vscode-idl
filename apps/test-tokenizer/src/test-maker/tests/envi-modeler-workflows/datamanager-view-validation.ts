@@ -324,5 +324,49 @@ export const AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION: IAutoENVIModele
           },
         ],
       },
+      {
+        name: 'rejects array type for view',
+        nodes: [
+          {
+            id: 'task1',
+            type: 'task',
+            task_name: 'DiceRasterByTileCount',
+          },
+          {
+            id: 'view',
+            type: 'view',
+          },
+        ],
+        edges: [
+          {
+            from: 'task1',
+            from_parameters: ['output_raster'],
+            to: 'view',
+            to_parameters: [''],
+          },
+        ],
+      },
+      {
+        name: 'rejects array type for data manager',
+        nodes: [
+          {
+            id: 'task1',
+            type: 'task',
+            task_name: 'DiceRasterByTileCount',
+          },
+          {
+            id: 'dm',
+            type: 'datamanager',
+          },
+        ],
+        edges: [
+          {
+            from: 'task1',
+            from_parameters: ['output_raster'],
+            to: 'dm',
+            to_parameters: [''],
+          },
+        ],
+      },
     ],
   };
