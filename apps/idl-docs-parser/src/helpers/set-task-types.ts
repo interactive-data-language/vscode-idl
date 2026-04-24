@@ -9,7 +9,7 @@ import {
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import { ParsedTask, TaskToGlobalToken } from '@idl/types/tasks';
-import * as glob from 'fast-glob';
+import glob from 'fast-glob';
 import { join } from 'path';
 
 import { ENVI_DIR } from '../idl-dir.interface';

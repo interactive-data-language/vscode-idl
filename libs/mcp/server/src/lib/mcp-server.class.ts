@@ -22,7 +22,7 @@ import {
   ServerNotification,
   ServerRequest,
 } from '@modelcontextprotocol/sdk/types';
-import * as express from 'express';
+import express from 'express';
 import { nanoid } from 'nanoid';
 import { ZodRawShape } from 'zod';
 

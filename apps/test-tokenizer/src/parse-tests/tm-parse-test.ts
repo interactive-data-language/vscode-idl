@@ -1,9 +1,9 @@
 import { TimeItAsync } from '@idl/shared/extension';
 import { TextMateParse } from '@idl/tests/helpers';
-import * as glob from 'fast-glob';
+import glob from 'fast-glob';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import * as progressBar from 'progress';
+import progressBar from 'progress';
 
 interface IProblem {
   erased: string;

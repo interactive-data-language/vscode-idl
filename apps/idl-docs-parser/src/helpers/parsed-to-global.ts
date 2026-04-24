@@ -2,7 +2,7 @@ import { IGlobalFromIDL } from '@idl/parsing/routines';
 import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
 import { GlobalTokens, IRoutineMetadata } from '@idl/types/idl-data-types';
 import { existsSync, readFileSync } from 'fs';
-import * as progressBar from 'progress';
+import progressBar from 'progress';
 
 import { BorrowKeywordsFrom } from './borrow-keywords-from';
 import { GlobalFromIDLToDisplayNames } from './global-to-display-names';
