@@ -1,10 +1,9 @@
-import {
-  GetExtensionPath,
-  IDL_PACKAGE_DIR,
-  IFolderRecursion,
-  LoadENVIPaths,
-} from '@idl/idl/files';
 import { existsSync } from 'fs';
+
+import { IDL_PACKAGE_DIR } from './dot-idl-folder.interface';
+import { IFolderRecursion } from './find-files.interface';
+import { GetExtensionPath } from './get-extension-path';
+import { LoadENVIPaths } from './load-envi-paths';
 
 /**
  * Track additional search paths from:
@@ -13,7 +12,7 @@ import { existsSync } from 'fs';
  * 2. User IDL packages folder
  * 3. ENVI's package preference location (if ENVI installed, from ENVI preference file)
  */
-export function AddAdditionalSearchPaths(
+export function LoadIDLSearchPaths(
   paths: IFolderRecursion,
   idlBin?: string,
 ): boolean {
