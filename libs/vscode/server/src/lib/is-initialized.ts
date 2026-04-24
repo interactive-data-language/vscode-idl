@@ -1,4 +1,4 @@
-import { FindFiles, FindIDL } from '@idl/idl/files';
+import { FindFiles, FindIDL, LoadIDLSearchPaths } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { RegisterMCPTaskTools } from '@idl/mcp/language-server-tools';
 import { MCPServer } from '@idl/mcp/server';
@@ -22,7 +22,6 @@ import { arch, cpus, platform } from 'os';
 import { CONFIG_INITIALIZATION } from './events/custom-events/on-workspace-config';
 import { WORKSPACE_FOLDER_PROMISE } from './events/documents/on-connection-initialized';
 import { IDL_INDEX } from './events/initialize-document-manager';
-import { AddAdditionalSearchPaths } from './helpers/add-additional-search-paths';
 import { CacheValidFSPath } from './helpers/cache-valid';
 import {
   IGNORE_PROBLEM_CODES,
@@ -159,7 +158,7 @@ SERVER_INFO.then(async (res) => {
     const merged = { ...res[0], ...res[1] };
 
     // register other paths we need to index
-    const foundEnvi = AddAdditionalSearchPaths(merged, idlBin);
+    const foundEnvi = LoadIDLSearchPaths(merged, idlBin);
 
     // alert users
     IDL_LANGUAGE_SERVER_LOGGER.log({
