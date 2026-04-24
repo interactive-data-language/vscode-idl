@@ -1,7 +1,7 @@
+import { PopulateENVIError } from '@idl/mcp/envi';
 import { IENVISuccess } from '@idl/types/vscode-debug';
 
 import { IDLDebugAdapter } from '../idl-debug-adapter.class';
-import { PopulateENVIError } from './populate-envi-error';
 
 /** Track the last message we got from IDL */
 export let LAST_ENVI_SUCCESS_MESSAGE: IENVISuccess;

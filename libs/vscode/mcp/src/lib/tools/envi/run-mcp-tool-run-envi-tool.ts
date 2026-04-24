@@ -1,4 +1,4 @@
-import { IDL_TRANSLATION } from '@idl/translation';
+import { RunENVITool } from '@idl/mcp/envi';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_RunENVITool,
@@ -6,61 +6,18 @@ import {
   MCPToolResponse,
 } from '@idl/types/mcp';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
-import { StartIDL } from '@idl/vscode/debug';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 
-import { MCPEvaluateENVICommand } from '../../helpers/mcp-evaluate-envi-command';
-import { MCPSerializeJSON } from '../../helpers/mcp-serialize-json';
-import { MCPVerifyIDLVersion } from '../../helpers/mcp-verify-idl-version';
 import { VSCodeSendMCPNotification } from '../../helpers/vscode-send-mcp-notification';
+import { MCP_EXECUTION_BACKEND } from '../../initialize-mcp-vscode';
 
 /**
- * Run a tool in ENVI
+ * Run a tool in ENVI (VS Code wrapper)
  */
 export async function RunMCPTool_RunENVITool(
   id: string,
   params: MCPToolParams<MCPTool_RunENVITool>,
 ): Promise<MCPToolResponse<MCPTool_RunENVITool>> {
-  VSCodeSendMCPNotification(id, { message: 'Starting IDL' });
-
-  /**
-   * Start IDL
-   */
-  const started = await StartIDL(false);
-
-  // return if unable to start IDL
-  if (!started.started) {
-    return { success: false, err: started.reason, outputParameters: {} };
-  }
-
-  VSCodeSendMCPNotification(id, { message: 'Starting ENVI' });
-
-  // start ENVI/make sure it is started
-  const start = await MCPEvaluateENVICommand(`vscode_startENVI`);
-
-  // if we didnt succeed, then return
-  if (!start.succeeded) {
-    return {
-      success: start.succeeded,
-      err: start.error,
-      outputParameters: {},
-      idlOutput: start.idlOutput,
-    };
-  }
-
-  // verify version
-  if (!MCPVerifyIDLVersion()) {
-    return {
-      success: false,
-      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
-      outputParameters: {},
-      idlOutput: '',
-    };
-  }
-
-  // attempting to run ENVI task
-  VSCodeSendMCPNotification(id, { message: 'Running task' });
-
   // track high-level task called - only do this for core ENVI tools
   if (!params.uri) {
     VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
@@ -68,16 +25,7 @@ export async function RunMCPTool_RunENVITool(
     });
   }
 
-  // run our command to open in ENVI
-  const res = await MCPEvaluateENVICommand(
-    `vscode_runENVITool, '${MCPSerializeJSON(params)}'`,
-    { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false },
+  return RunENVITool(MCP_EXECUTION_BACKEND, params, (msg) =>
+    VSCodeSendMCPNotification(id, { message: msg }),
   );
-
-  return {
-    success: res.succeeded,
-    err: res.error,
-    outputParameters: res.payload || {},
-    idlOutput: res.idlOutput,
-  };
 }

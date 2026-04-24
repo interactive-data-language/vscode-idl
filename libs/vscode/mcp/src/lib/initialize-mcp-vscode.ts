@@ -10,6 +10,7 @@ import * as vscode from 'vscode';
 
 import { MCPHistory } from './helpers/mcp-history.class';
 import { RemoveLegacyMCPConfig } from './helpers/remove-legacy-mcp-config';
+import { VSCodeExecutionBackend } from './helpers/vscode-execution-backend';
 import { IInitializeMCPResult } from './initialize-mcp-vscode.interface';
 import { RunMCPToolMessageHandler } from './run-mcp-tool-message-handler';
 
@@ -19,6 +20,11 @@ export const MCP_CHANGE_EVENT_EMITTER = new vscode.EventEmitter<void>();
  * Class to track history of running MCP tools
  */
 export const MCP_HISTORY = new MCPHistory();
+
+/**
+ * Execution backend for MCP tools
+ */
+export const MCP_EXECUTION_BACKEND = new VSCodeExecutionBackend();
 
 /**
  * Initializes MCP server for VSCode
@@ -139,7 +145,7 @@ export function InitializeMCPVSCode(
             log: IDL_MCP_VSCODE_LOG,
             type: 'error',
             content: [
-              err.name === 'AbortError'
+              ((err as Error).name || '') === 'AbortError'
                 ? 'Failed to connect to MCP server because of connection timeout'
                 : 'Unknown error while connecting to MCP server',
               err,

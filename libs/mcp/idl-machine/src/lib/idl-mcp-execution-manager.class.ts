@@ -31,6 +31,9 @@ export class IDLMCPExecutionManager {
   /** Reference to our IDL class, manages process and input/output */
   _runtime: IDLInteractionManager;
 
+  /** Detail about the current IDL session */
+  idlVersion: IDLVersionInfo | undefined;
+
   /** Whether we are currently subscribed to runtime events */
   private listening = false;
 
@@ -147,6 +150,9 @@ export class IDLMCPExecutionManager {
 
         try {
           const parsed = JSON.parse(versionRaw) as IDLVersionInfo;
+
+          // Store version info on the instance
+          this.idlVersion = parsed;
 
           // Require IDL 8.8.0 or newer — same boundary as the notebook manager
           if (compareVersions(parsed.release, '9.2.0') === -1) {
