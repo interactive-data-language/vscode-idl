@@ -73,16 +73,6 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
     return { idlOutput, ...res };
   }
 
-  /**
-   * Returns a callback that stores ENVI success/failure messages
-   * on this backend instance. Pass this to `RegisterENVINotifyHandlers()`.
-   */
-  getENVIMessageHandler(): MCPBackendENVIHandler {
-    return (msg: IENVISuccess) => {
-      this.lastENVISuccessMessage = msg;
-    };
-  }
-
   getErrorsByFile(): IDLSyntaxErrorLookup {
     return this.manager._runtime.getErrorsByFile();
   }

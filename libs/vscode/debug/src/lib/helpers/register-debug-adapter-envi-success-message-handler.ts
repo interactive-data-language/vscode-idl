@@ -1,4 +1,4 @@
-import { PopulateENVIError } from '@idl/mcp/envi';
+import { PopulateENVIError, RegisterENVINotifyHandlers } from '@idl/mcp/envi';
 import { IENVISuccess } from '@idl/types/vscode-debug';
 
 import { IDLDebugAdapter } from '../idl-debug-adapter.class';
@@ -14,26 +14,8 @@ export function RegisterDebugAdapterENVISuccessMessageHandler(
 ) {
   // plug in progress messages
   if (adapter._runtime.isIDLMachine()) {
-    adapter._runtime.registerIDLNotifyHandler('envi_success', async (msg) => {
-      /** Parse the message */
-      LAST_ENVI_SUCCESS_MESSAGE = JSON.parse(msg.param1);
-
-      // populate error message
-      PopulateENVIError(LAST_ENVI_SUCCESS_MESSAGE);
-
-      // emit that we have finished
-      return 1;
-    });
-
-    adapter._runtime.registerIDLNotifyHandler('envi_failure', async (msg) => {
-      /** Parse the message */
-      LAST_ENVI_SUCCESS_MESSAGE = JSON.parse(msg.param1);
-
-      // populate error message
-      PopulateENVIError(LAST_ENVI_SUCCESS_MESSAGE);
-
-      // emit that we have finished
-      return 1;
+    RegisterENVINotifyHandlers(adapter._runtime, (msg) => {
+      LAST_ENVI_SUCCESS_MESSAGE = msg;
     });
   }
 }
