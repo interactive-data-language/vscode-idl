@@ -10,7 +10,10 @@ import {
   SystemMemoryUsedMB,
 } from '@idl/system-memory';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_PROBLEM_CODE_ALIAS_LOOKUP } from '@idl/types/problem-codes';
+import {
+  IDL_PROBLEM_CODE_ALIAS_LOOKUP,
+  IDLProblemCode,
+} from '@idl/types/problem-codes';
 import {
   ILanguageServerStartupPayload,
   USAGE_METRIC_LOOKUP,
@@ -89,7 +92,8 @@ SERVER_INFO.then(async (res) => {
         'Problem inclusion filters and ignore problem codes',
         INCLUDE_PROBLEMS_FOR,
         Object.keys(IGNORE_PROBLEM_CODES).map(
-          (code) => IDL_PROBLEM_CODE_ALIAS_LOOKUP[code],
+          (code) =>
+            IDL_PROBLEM_CODE_ALIAS_LOOKUP[code as any as IDLProblemCode],
         ),
       ],
     });
