@@ -18,6 +18,8 @@ Refined the ENVI instructions to include more detail about how and when to use d
 
 Updated the ENVI instructions to better support opening the correct files in ENVI. ENVI Agent should now review files in a location, check against known formats, and open the right one for processing. This should hep improve how frequently ENVI Agent selects the right file.
 
+Fixed an issue where a semi-colon was added to IDL_DEFAULT search path on mac and Linux.
+
 ## 6.0.2 - March 2026
 
 Fixed an issue where, if IDL crashed or was stopped by the user, GitHub Copilot would not be notified and get in a bad state.
