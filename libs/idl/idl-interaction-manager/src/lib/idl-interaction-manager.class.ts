@@ -43,7 +43,7 @@ export class IDLInteractionManager {
   errorsByFile: IDLSyntaxErrorLookup = {};
 
   /** Track the current item we are processing */
-  private _processing: IDLEvaluationItem;
+  private _processing!: IDLEvaluationItem;
 
   /** promise queue to manage pending requests */
   private _queue: IDLEvaluationItem[] = [];
@@ -92,7 +92,7 @@ export class IDLInteractionManager {
     const errors: { file: string; line: number }[] = [];
 
     /** Match for syntax errors */
-    let me: RegExpExecArray;
+    let me: null | RegExpExecArray;
     while ((me = REGEX_SYNTAX_ERROR.exec(output)) !== null) {
       errors.push({ file: URI.file(me[2]).toString(), line: parseInt(me[3]) });
     }
@@ -158,7 +158,7 @@ export class IDLInteractionManager {
             if ('echo' in options ? options.echo : false) {
               this.idl.emit(
                 IDL_EVENT_LOOKUP.OUTPUT,
-                'echoThis' in options ? options.echoThis : command,
+                options.echoThis ? options.echoThis : command,
               );
             }
 
@@ -205,7 +205,7 @@ export class IDLInteractionManager {
     this.idl.silent = false;
 
     // indicate that we are finished and the queue can be cleared
-    this._processing = undefined;
+    (this._processing as any) = undefined;
 
     // trigger next processing
     this._next();
