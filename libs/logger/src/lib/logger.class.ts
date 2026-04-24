@@ -1,5 +1,5 @@
 import { ObjectifyError } from '@idl/error-shared';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 import { LogInterceptor } from './log-manager.interface';
 import {

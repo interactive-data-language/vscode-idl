@@ -1,4 +1,4 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 // force chalk to be enabled
 (chalk as any).level = 2;

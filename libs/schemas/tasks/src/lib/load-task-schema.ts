@@ -1,23 +1,25 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import Ajv, { ValidateFunction } from 'ajv';
 import { readFile } from 'fs/promises';
-import * as RefResolver from 'json-schema-resolver';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const RefResolver = require('json-schema-resolver');
 
 /**
  * Validation function for parsed schema
  */
-let TASK_SCHEMA_VALIDATOR: ValidateFunction<any> = undefined;
+let TASK_SCHEMA_VALIDATOR: ValidateFunction<any>;
 
 /**
  * Loads the JSON schema file for ENVI and IDL task files
  */
 export async function LoadTaskSchema(): Promise<ValidateFunction<any>> {
   // load if not loaded
-  if (TASK_SCHEMA_VALIDATOR === undefined) {
+  if (!TASK_SCHEMA_VALIDATOR) {
     // follows example: https://www.npmjs.com/package/json-schema-resolver
     const ref = RefResolver({
       clone: true, // Clone the input schema without changing it. Default: false,
-      buildLocalReference(json, baseUri, fragment, i) {
+      buildLocalReference(json: any, baseUri: any, fragment: any, i: any) {
         // the `json` that is being resolved
         // the `baseUri` object of the schema. Its values is the parse result from https://www.npmjs.com/package/uri-js
         // the `fragment` is the `$ref` string when the `$ref` is a relative reference

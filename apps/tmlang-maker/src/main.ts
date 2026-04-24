@@ -4,7 +4,7 @@ import {
   LOG_LANGUAGE_NAME,
   LOG_LANGUAGE_TOKEN_SCOPE_NAME,
 } from '@idl/shared/extension';
-import * as merge from 'deepmerge';
+import merge from 'deepmerge';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import * as plist from 'plist';
