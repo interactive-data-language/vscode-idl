@@ -12,7 +12,7 @@ import type {
 export interface MCPClientConfig {
   /** MCP server host (default: localhost) */
   host?: string;
-  /** MCP server port (default: 9194) */
+  /** MCP server port (default: 3000, co-hosted with the main API server) */
   port?: number;
 }
 
@@ -25,12 +25,12 @@ export class MCPClient {
   private config: Required<MCPClientConfig>;
   private connected = false;
   private toolCache: Tool[] = [];
-  private transport: StreamableHTTPClientTransport;
+  private transport!: StreamableHTTPClientTransport;
 
   constructor(config: MCPClientConfig = {}) {
     this.config = {
       host: config.host || 'localhost',
-      port: config.port || 9194,
+      port: config.port || 3000,
     };
 
     this.client = new Client(
