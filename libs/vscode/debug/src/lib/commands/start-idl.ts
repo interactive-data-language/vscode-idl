@@ -118,7 +118,7 @@ export function VerifyIDLHasStarted(alert = true): boolean {
           console.error(err);
         },
       );
-    return undefined;
+    return false;
   }
 
   return started;
