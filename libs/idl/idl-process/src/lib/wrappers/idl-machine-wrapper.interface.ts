@@ -1,4 +1,4 @@
-export const IDL_DATA_TYPE_MAP = {
+export const IDL_DATA_TYPE_MAP: { [key: string]: string } = {
   '0': 'Undefined',
   '1': 'byte',
   '2': 'int',

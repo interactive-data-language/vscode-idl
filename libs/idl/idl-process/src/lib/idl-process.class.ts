@@ -61,7 +61,7 @@ export class IDLProcess extends EventEmitter {
   evaluating = false;
 
   /** Reference to our child process */
-  idl: ChildProcess;
+  idl!: ChildProcess;
 
   /** Information about our current IDL session */
   idlInfo = copy(DEFAULT_IDL_INFO);
@@ -424,7 +424,7 @@ export class IDLProcess extends EventEmitter {
     });
 
     // launch IDL with the environment from our parent process and in the specified folder
-    this.idl = spawn(cmd, null, {
+    this.idl = spawn(cmd, undefined, {
       env: args.env,
       cwd: args.cwd,
       stdio: ['pipe', 'pipe', 'pipe'],
@@ -568,7 +568,7 @@ export class IDLProcess extends EventEmitter {
     // check for traceback information
     const reasons: StopReason[] = [];
     const traceback: IDLCallStackItem[] = [];
-    let m: RegExpExecArray;
+    let m: null | RegExpExecArray;
     while ((m = REGEX_STOP_DETECTION.exec(output)) !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
       if (m.index === REGEX_STOP_DETECTION.lastIndex) {
