@@ -225,12 +225,15 @@ export class IDLIndex {
     // create all of our workers
     for (let i = 0; i < nWorkers; i++) {
       workers.push(
-        new Worker(join(dirname(__dirname), 'parsing-worker/main.js'), {
-          resourceLimits: {
-            maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
-            maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
+        new Worker(
+          join(process.cwd(), 'dist', 'apps', 'parsing-worker/main.js'),
+          {
+            resourceLimits: {
+              maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
+              maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
+            },
           },
-        }),
+        ),
       );
     }
 
