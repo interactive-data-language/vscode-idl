@@ -76,7 +76,7 @@ export class MCPServer {
   toolInvokedCallback: MCPToolInvokedCallback<MCPTools>;
 
   /** Reference to express */
-  private app: express.Application = express();
+  private app: express.Application;
 
   /** Express app that is listening */
   private appInstance?: ReturnType<express.Application['listen']>;
@@ -114,12 +114,17 @@ export class MCPServer {
    */
   private tools: { [name: string]: IRegisteredTool } = {};
 
+  /** Whether we are using an externally-provided Express app */
+  private usingExternalApp: boolean;
+
   private constructor(options: IMCPServerOptions) {
     this.logManager = options.logManager;
     this.idlExecutionCallback = options.idlExecutionCallback;
     this.toolInvokedCallback = options.toolInvokedCallback;
     this.failCallback = options.failCallback;
     this.mcpPort = options.port ?? MCP_SERVER_CONFIG.PORT;
+    this.app = options.app ?? express();
+    this.usingExternalApp = !!options.app;
 
     this.startHttpServer();
     this.startSessionCleanup();
@@ -187,7 +192,7 @@ export class MCPServer {
 
       try {
         // init result
-        let res: MCPToolHTTPResponse<Tool>;
+        let res!: MCPToolHTTPResponse<Tool>;
 
         // call invoked callback
         this.toolInvokedCallback(name, params as any);
@@ -220,7 +225,7 @@ export class MCPServer {
             {
               type: 'text',
               text: `Unknown error while running tool: ${JSON.stringify(
-                ObjectifyError(err),
+                ObjectifyError(err as Error),
               )}`,
             },
           ],
@@ -264,8 +269,8 @@ export class MCPServer {
       } catch (err) {
         // filter out connection errors
         if (
-          err.message !== 'Not connected' &&
-          !err.message.startsWith('No connection established')
+          (err as Error).message !== 'Not connected' &&
+          !(err as Error).message.startsWith('No connection established')
         ) {
           this.logManager.log({
             log: IDL_MCP_LOG,
@@ -447,8 +452,12 @@ export class MCPServer {
    * Start the Express HTTP server with MCP endpoints
    */
   private startHttpServer() {
-    // Middleware to only allow requests from localhost
-    this.app.use((req: express.Request, res: express.Response, next) => {
+    /** Localhost restriction middleware */
+    const localhostMiddleware = (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction,
+    ) => {
       const ip = req.ip || req.socket.remoteAddress || '';
       const isLocalhost = ip in LOCAL_IPS || ip.startsWith('127.');
 
@@ -465,110 +474,114 @@ export class MCPServer {
       }
 
       next();
-    });
+    };
+
+    /**
+     * When using an external Express app, create a Router for MCP routes
+     * so localhost middleware only applies to MCP endpoints.
+     * When standalone, register routes directly on the app.
+     */
+    const router = this.usingExternalApp ? express.Router() : this.app;
+
+    // Apply localhost middleware to MCP routes
+    router.use(localhostMiddleware);
 
     // POST /mcp — main entry point for MCP protocol messages
-    this.app.post(
-      '/mcp',
-      async (req: express.Request, res: express.Response) => {
-        // Create interval to keep connection alive during long-running tool executions
-        // Sends SSE-style heartbeat messages to prevent timeouts
-        const keepAliveInterval = setInterval(() => {
-          // Check if the connection is still open using the socket's writable state
-          if (!res.writableEnded && !res.writableFinished) {
-            res.write(':beat\n\n');
-          } else {
-            clearInterval(keepAliveInterval);
-          }
-        }, MCP_SERVER_CONFIG.KEEP_ALIVE_INTERVAL);
-
-        try {
-          // Check for existing session
-          const sessionId = req.headers['mcp-session-id'] as string;
-          let conn: IMCPConnection;
-
-          switch (true) {
-            /**
-             * Get existing session
-             */
-            case sessionId && this.connections.has(sessionId):
-              conn = this.connections.get(sessionId);
-              break;
-            /**
-             * Session was cleaned up, let the client know that session
-             * has been closed - needs a reconnect to work again from the
-             * client
-             */
-            case !!sessionId:
-              clearInterval(keepAliveInterval);
-              res.status(404).json({
-                jsonrpc: '2.0',
-                error: { code: -32000, message: 'Session not found' },
-                id: null,
-              });
-              return;
-            /**
-             * Create new session
-             */
-            default: {
-              const created = await this.createConnection();
-              conn = created.connection;
-              break;
-            }
-          }
-
-          // Update last activity timestamp
-          conn.lastActivity = Date.now();
-
-          // Delegate to the transport to handle the MCP protocol message
-          await conn.transport.handleRequest(req, res, req.body);
-        } catch (error) {
-          this.logManager.log({
-            log: IDL_MCP_LOG,
-            type: 'error',
-            content: ['Error handling MCP request:', error],
-          });
-          if (!res.headersSent) {
-            res.status(500).json({
-              jsonrpc: '2.0',
-              error: {
-                code: -32603,
-                message: 'Internal server error',
-              },
-              id: null,
-            });
-          }
-        } finally {
-          // Always clean up the keep-alive interval
+    router.post('/mcp', async (req: express.Request, res: express.Response) => {
+      // Create interval to keep connection alive during long-running tool executions
+      // Sends SSE-style heartbeat messages to prevent timeouts
+      const keepAliveInterval = setInterval(() => {
+        // Check if the connection is still open using the socket's writable state
+        if (!res.writableEnded && !res.writableFinished) {
+          res.write(':beat\n\n');
+        } else {
           clearInterval(keepAliveInterval);
         }
-      },
-    );
+      }, MCP_SERVER_CONFIG.KEEP_ALIVE_INTERVAL);
 
-    // GET /mcp — method not allowed
-    this.app.get(
-      '/mcp',
-      async (req: express.Request, res: express.Response) => {
+      try {
+        // Check for existing session
+        const sessionId = req.headers['mcp-session-id'] as string;
+        let conn: IMCPConnection;
+
+        switch (true) {
+          /**
+           * Get existing session
+           */
+          case sessionId && this.connections.has(sessionId):
+            conn = this.connections.get(sessionId) as any;
+            break;
+          /**
+           * Session was cleaned up, let the client know that session
+           * has been closed - needs a reconnect to work again from the
+           * client
+           */
+          case !!sessionId:
+            clearInterval(keepAliveInterval);
+            res.status(404).json({
+              jsonrpc: '2.0',
+              error: { code: -32000, message: 'Session not found' },
+              id: null,
+            });
+            return;
+          /**
+           * Create new session
+           */
+          default: {
+            const created = await this.createConnection();
+            conn = created.connection;
+            break;
+          }
+        }
+
+        // Update last activity timestamp
+        conn.lastActivity = Date.now();
+
+        // Delegate to the transport to handle the MCP protocol message
+        await conn.transport.handleRequest(req, res, req.body);
+      } catch (error) {
         this.logManager.log({
           log: IDL_MCP_LOG,
-          type: 'debug',
-          content: 'Received GET MCP request',
+          type: 'error',
+          content: ['Error handling MCP request:', error],
         });
-        res.writeHead(405).end(
-          JSON.stringify({
+        if (!res.headersSent) {
+          res.status(500).json({
             jsonrpc: '2.0',
             error: {
-              code: -32000,
-              message: 'Method not allowed.',
+              code: -32603,
+              message: 'Internal server error',
             },
             id: null,
-          }),
-        );
-      },
-    );
+          });
+        }
+      } finally {
+        // Always clean up the keep-alive interval
+        clearInterval(keepAliveInterval);
+      }
+    });
+
+    // GET /mcp — method not allowed
+    router.get('/mcp', async (req: express.Request, res: express.Response) => {
+      this.logManager.log({
+        log: IDL_MCP_LOG,
+        type: 'debug',
+        content: 'Received GET MCP request',
+      });
+      res.writeHead(405).end(
+        JSON.stringify({
+          jsonrpc: '2.0',
+          error: {
+            code: -32000,
+            message: 'Method not allowed.',
+          },
+          id: null,
+        }),
+      );
+    });
 
     // DELETE /mcp — client session cleanup
-    this.app.delete(
+    router.delete(
       '/mcp',
       async (req: express.Request, res: express.Response) => {
         const sessionId = req.headers['mcp-session-id'] as string;
@@ -597,7 +610,7 @@ export class MCPServer {
     );
 
     // GET /health-check — simple health check endpoint
-    this.app.get(
+    router.get(
       '/health-check',
       async (req: express.Request, res: express.Response) => {
         res.status(200).json({
@@ -606,34 +619,44 @@ export class MCPServer {
       },
     );
 
-    try {
+    // Mount the router on the external app
+    if (this.usingExternalApp) {
+      this.app.use(router as express.Router);
       this.logManager.log({
         log: IDL_MCP_LOG,
         type: 'info',
-        content: `Attempting to start MCP server on port ${this.mcpPort}`,
+        content: 'MCP routes mounted on external Express app',
       });
-
-      this.appInstance = this.app.listen(this.mcpPort, (err) => {
+    } else {
+      try {
         this.logManager.log({
           log: IDL_MCP_LOG,
           type: 'info',
-          content: `MCP server successfully started! Available at "http://localhost:${this.mcpPort}"`,
+          content: `Attempting to start MCP server on port ${this.mcpPort}`,
         });
-      });
 
-      this.appInstance.on('error', (error: NodeJS.ErrnoException) => {
-        if (error.code === 'EADDRINUSE') {
-          this.failCallback(error);
-        } else {
+        this.appInstance = this.app.listen(this.mcpPort, (err) => {
           this.logManager.log({
             log: IDL_MCP_LOG,
-            type: 'error',
-            content: ['Failed to start MCP server:', error],
+            type: 'info',
+            content: `MCP server successfully started! Available at "http://localhost:${this.mcpPort}"`,
           });
-        }
-      });
-    } catch (error) {
-      this.failCallback(error);
+        });
+
+        this.appInstance.on('error', (error: NodeJS.ErrnoException) => {
+          if (error.code === 'EADDRINUSE') {
+            this.failCallback(error);
+          } else {
+            this.logManager.log({
+              log: IDL_MCP_LOG,
+              type: 'error',
+              content: ['Failed to start MCP server:', error],
+            });
+          }
+        });
+      } catch (error) {
+        this.failCallback(error);
+      }
     }
   }
 
