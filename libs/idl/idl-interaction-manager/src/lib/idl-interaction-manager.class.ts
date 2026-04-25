@@ -290,6 +290,13 @@ export class IDLInteractionManager {
   }
 
   /**
+   * Get current output from IDL process
+   */
+  getCapturedOutput() {
+    return this.idl.capturedOutput;
+  }
+
+  /**
    * Gets code coverage for a given file
    */
   async getCodeCoverage(file: string): Promise<IDLCodeCoverage> {
