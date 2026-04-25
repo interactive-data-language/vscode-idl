@@ -15,15 +15,19 @@ import { RegisterStaticMCPResources } from '@idl/mcp/server-resources';
 import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
 import { IDLIndex } from '@idl/parsing/index';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
+import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
+import type { Application } from 'express';
 
+import { CreateIDLBackend } from './create-idl-backend';
 import { CreateStandaloneExecutionCallback } from './create-standalone-execution-callback';
-import { StartIDL } from './start-idl';
 
 /**
  * Starts the language server for our dedicated MCP server - so we can re-use our MCP
- * tools over here
+ * tools over here.
+ *
+ * Mounts MCP routes on the provided Express app instead of creating a standalone server.
  */
-export async function MCPLanguageServer() {
+export async function MCPLanguageServer(app: Application) {
   const logManager = new LogManager({
     alert: () => {
       //
@@ -42,8 +46,7 @@ export async function MCPLanguageServer() {
 
   // verify that we found the IDL search path
   if (!idlPath) {
-    console.log('Unable to find IDL, cannot proceed');
-    process.exit(1);
+    throw new Error('Unable to find IDL, cannot proceed');
   }
 
   // register other paths we need to index
@@ -64,9 +67,9 @@ export async function MCPLanguageServer() {
   index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
 
   /**
-   * Start IDL and get the execution backend
+   * Create the IDL execution backend (IDL launches on demand via backend.start())
    */
-  const backend = await StartIDL(logManager, idlPath);
+  const backend = CreateIDLBackend(logManager, idlPath);
 
   /**
    * Create the standalone execution callback that dispatches
@@ -75,25 +78,31 @@ export async function MCPLanguageServer() {
   const idlExecutionCallback = CreateStandaloneExecutionCallback(
     backend,
     async (code) => {
-      /**
-       * TODO: Wire up code preparation through the IDLIndex worker
-       * for the standalone path. For now, return a simple pass-through.
-       */
-      return {
-        code,
-        codeWithoutPrint: code,
-        emptyMain: false,
-        hasMain: true,
-        isBatch: false,
-        offset: 0,
-      };
+      return await index.indexerPool.workerio.postAndReceiveMessage(
+        index.getNextWorkerID(),
+        LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
+        {
+          code,
+        },
+      ).response;
     },
   );
 
-  // start the MCP server with the execution callback
+  // start the MCP server with the execution callback, mounting on the provided Express app
   MCPServer.start({
+    app,
     logManager,
     idlExecutionCallback,
+    failCallback: (err) => {
+      logManager.log({
+        log: IDL_MCP_LOG,
+        type: 'error',
+        content: ['Error starting MCP server', err],
+      });
+    },
+    toolInvokedCallback: () => {
+      // no-op for standalone mode
+    },
   });
 
   /** Get reference to the server singleton */
@@ -120,5 +129,7 @@ export async function MCPLanguageServer() {
   RegisterAllLanguageServerMCPTools(mcpServer, index, () => []);
 
   // register MCP task tools
-  RegisterMCPTaskTools(MCPServer.instance, index);
+  if (isEnviInstalled) {
+    RegisterMCPTaskTools(MCPServer.instance, index);
+  }
 }

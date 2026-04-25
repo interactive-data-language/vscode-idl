@@ -2,6 +2,7 @@ import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import {
   IDLEvaluateOptions,
   IDLSyntaxErrorLookup,
+  IStartIDLConfig,
 } from '@idl/types/idl/idl-process';
 import { IDLVersionInfo, IENVISuccess } from '@idl/types/vscode-debug';
 import { compareVersions } from 'compare-versions';
@@ -38,6 +39,12 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
    */
   lastENVISuccessMessage: IENVISuccess | undefined;
 
+  /**
+   * Launch configuration for IDL. When set, `start()` will use this
+   * to launch IDL on demand if it is not already running.
+   */
+  launchConfig: IStartIDLConfig;
+
   get idlVersion(): IDLVersionInfo | undefined {
     return this.manager.idlVersion;
   }
@@ -45,8 +52,17 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
   /** Underlying manager that owns the IDL process */
   private manager: IDLMCPExecutionManager;
 
-  constructor(manager: IDLMCPExecutionManager) {
+  /** Callback executed when we launch IDL */
+  private onLaunch: () => void;
+
+  constructor(
+    manager: IDLMCPExecutionManager,
+    launchConfig: IStartIDLConfig,
+    onLaunch: () => void,
+  ) {
     this.manager = manager;
+    this.launchConfig = launchConfig;
+    this.onLaunch = onLaunch;
   }
 
   async evaluate(
@@ -120,10 +136,21 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
     if (this.manager.isStarted()) {
       return { started: true };
     }
-    return {
-      started: false,
-      reason: 'IDL not started — call launch() on the manager first',
-    };
+
+    // attempt to launch
+    const launched = await this.manager.launch(this.launchConfig);
+
+    // check if we succeeded or not
+    if (launched) {
+      this.onLaunch();
+      return { started: true };
+    } else {
+      const output = this.manager._runtime.getCapturedOutput();
+      return {
+        started: false,
+        reason: `IDL failed to launch, captured output: ${output}`,
+      };
+    }
   }
 
   async stop(): Promise<void> {

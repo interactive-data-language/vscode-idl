@@ -40,9 +40,9 @@ export class ChatService {
   private mcpTools: DynamicStructuredTool[] = [];
   private openaiApiKey: string;
 
-  constructor(openaiApiKey: string, mcpPort?: number) {
+  constructor(openaiApiKey: string, serverPort?: number) {
     this.openaiApiKey = openaiApiKey;
-    this.mcpClient = new MCPClient({ port: mcpPort });
+    this.mcpClient = new MCPClient({ port: serverPort });
     this.initializeMCP();
   }
 
