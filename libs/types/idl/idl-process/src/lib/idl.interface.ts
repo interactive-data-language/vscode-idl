@@ -14,7 +14,7 @@ export interface IStartIDLConfig {
   /** optionally specify the directory that IDL starts in */
   cwd?: string;
   /** Environment variables */
-  env: { [key: string]: string };
+  env: { [key: string]: string | undefined };
 }
 
 /**
