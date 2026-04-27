@@ -5,4 +5,4 @@ export * from './lib/query-dataset-with-envi';
 export * from './lib/register-envi-notify-handlers';
 export * from './lib/return-notes';
 export * from './lib/run-envi-tool';
-export * from './lib/start-envi';
+export * from './lib/start-envi-session';

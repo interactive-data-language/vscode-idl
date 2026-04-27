@@ -1,5 +1,5 @@
+import { MCPSerializeJSON } from '@idl/mcp/common';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
-import { MCPSerializeJSON } from '@idl/mcp/idl';
 import {
   IIDLExecutionBackend,
   MCPProgressCallback,

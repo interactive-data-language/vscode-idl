@@ -14,7 +14,7 @@ import {
  *
  * Independent of VS Code — works with any `IIDLExecutionBackend`.
  */
-export async function StartENVI(
+export async function StartENVISession(
   backend: IIDLExecutionBackend,
   params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
   onProgress?: MCPProgressCallback,

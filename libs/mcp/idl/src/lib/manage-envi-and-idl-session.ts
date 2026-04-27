@@ -1,4 +1,4 @@
-import { StartENVI } from '@idl/mcp/envi';
+import { StartENVISession } from '@idl/mcp/envi';
 import {
   IIDLExecutionBackend,
   MCPProgressCallback,
@@ -25,9 +25,9 @@ export async function ManageENVIAndIDLSession(
   // Check if we are starting
   switch (params.action) {
     case 'start-envi':
-      return StartENVI(backend, params, onProgress);
+      return StartENVISession(backend, params, onProgress);
     case 'start-envi-headless':
-      return StartENVI(backend, params, onProgress);
+      return StartENVISession(backend, params, onProgress);
     case 'start-idl':
       return StartIDLSession(backend, params, onProgress);
     default:
@@ -60,9 +60,9 @@ export async function ManageENVIAndIDLSession(
   // determine how to restart
   switch (params.action) {
     case 'restart-envi':
-      return StartENVI(backend, params, onProgress);
+      return StartENVISession(backend, params, onProgress);
     case 'restart-envi-headless':
-      return StartENVI(backend, params, onProgress);
+      return StartENVISession(backend, params, onProgress);
     case 'restart-idl':
       return StartIDLSession(backend, params, onProgress);
     default:

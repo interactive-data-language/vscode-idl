@@ -207,7 +207,8 @@
       "@idl/types/envi/modeler": ["libs/types/envi/modeler/src/index.ts"],
       "tests-envi-modeler": ["libs/tests/envi-modeler/src/index.ts"],
       "@idl/mcp/envi": ["libs/mcp/envi/src/index.ts"],
-      "@idl/mcp/idl": ["libs/mcp/idl/src/index.ts"]
+      "@idl/mcp/idl": ["libs/mcp/idl/src/index.ts"],
+      "@idl/mcp/common": ["libs/mcp/common/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

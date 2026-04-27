@@ -1,4 +1,4 @@
-import { MCPSerializeJSON } from '@idl/mcp/idl';
+import { MCPSerializeJSON } from '@idl/mcp/common';
 import {
   IIDLExecutionBackend,
   MCPProgressCallback,
