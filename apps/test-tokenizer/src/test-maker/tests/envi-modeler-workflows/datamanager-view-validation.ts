@@ -302,7 +302,7 @@ export const AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION: IAutoENVIModele
           {
             id: 'stats',
             type: 'task',
-            task_name: 'CalculateRasterStatistics',
+            task_name: 'RasterStatistics',
           },
           {
             id: 'view',
