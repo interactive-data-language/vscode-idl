@@ -92,7 +92,7 @@ import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
 import { OnParseEventManager } from './on-parse-event-manager.class';
 import { GetCodeOutline } from './outline/get-code-outline';
 import { PostProcessParsed } from './post-process/post-process-parsed';
-import { GetTokenDefinition } from './token-definiton/get-token-definition';
+import { GetTokenDefinition } from './token-definition/get-token-definition';
 
 /**
  * Auto-pick the number of workers. On higher-end machines, doesn't
