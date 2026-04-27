@@ -64,7 +64,7 @@ export const AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION: IAutoENVIModele
         edges: [
           {
             from: 'task1',
-            from_parameters: ['index_info'],
+            from_parameters: ['available_indices'],
             to: 'datamanager',
             to_parameters: [''],
           },
@@ -129,7 +129,7 @@ export const AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION: IAutoENVIModele
         edges: [
           {
             from: 'task1',
-            from_parameters: ['index_info'],
+            from_parameters: ['available_indices'],
             to: 'view',
             to_parameters: [''],
           },
