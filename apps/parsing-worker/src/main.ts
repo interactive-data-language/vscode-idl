@@ -25,7 +25,8 @@ import {
 import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IParsedLightWeight } from '@idl/types/syntax-tree';
+import { IDisabledProblems } from '@idl/types/problem-codes';
+import { IParsed, IParsedLightWeight } from '@idl/types/syntax-tree';
 import {
   ChangeDetectionResponse,
   ILSPWorkerThreadClient,
@@ -40,6 +41,11 @@ import {
 import { WorkerIOClient } from '@idl/workers/workerio';
 import { existsSync } from 'fs';
 import { parentPort } from 'worker_threads';
+
+if (parentPort === null) {
+  console.log('no parent port, expected to be in worker thread');
+  process.exit(1);
+}
 
 // create our connection client - overload MessagePort to assert that we are running in a worker thread
 const client = new WorkerIOClient<LSPWorkerThreadMessage>(
@@ -264,7 +270,7 @@ client.on(
           );
 
     /** Return value for PRO code */
-    let proCode: string;
+    let proCode = '';
 
     // if we made a task, then make PRO code
     if (result.success) {
@@ -524,14 +530,16 @@ client.on(
       }
 
       // save lines
-      resp.lines += WORKER_INDEX.parsedCache.lines(files[i]);
+      resp.lines += WORKER_INDEX.parsedCache.lines(files[i]) as number;
 
       // track globals
       resp.globals[files[i]] = WORKER_INDEX.getGlobalsForFile(files[i]);
 
       // track disabled
       resp.disabledProblems[files[i]] =
-        WORKER_INDEX.parsedCache.disabledProblems(files[i]);
+        WORKER_INDEX.parsedCache.disabledProblems(
+          files[i],
+        ) as IDisabledProblems;
     }
 
     return resp;
@@ -574,8 +582,9 @@ client.on(
         resp.problems[files[i]] = [];
         continue;
       }
-      resp.globals[files[i]] = byCell[files[i]].global;
-      resp.problems[files[i]] = GetSyntaxProblems(byCell[files[i]]);
+      const iParsed = byCell[files[i]] as IParsed;
+      resp.globals[files[i]] = iParsed.global;
+      resp.problems[files[i]] = GetSyntaxProblems(iParsed);
     }
 
     // return each cell
@@ -652,7 +661,7 @@ client.on(
       }
 
       // save lines
-      resp.lines += WORKER_INDEX.parsedCache.lines(files[i]);
+      resp.lines += WORKER_INDEX.parsedCache.lines(files[i]) as number;
 
       // populate problems
       resp.problems[files[i]] = problems[files[i]] || [];
