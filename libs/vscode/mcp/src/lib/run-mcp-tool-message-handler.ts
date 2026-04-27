@@ -88,7 +88,7 @@ export async function RunMCPToolMessageHandler(
           asString = JSON.stringify(err);
           break;
         default:
-          asString = JSON.stringify(ObjectifyError(err));
+          asString = JSON.stringify(ObjectifyError(err as Error));
           break;
       }
 
