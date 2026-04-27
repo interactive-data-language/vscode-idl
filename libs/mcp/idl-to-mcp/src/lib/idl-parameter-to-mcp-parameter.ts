@@ -58,7 +58,7 @@ function IDLParameterToMCPParameter_Recurser(
   param: IParameterOrPropertyDetails,
   cleanDocs: string,
   type?: IDLDataType,
-) {
+): undefined | z.ZodType {
   // default type if it wasn't specified
   if (!type) {
     type = param.type;
@@ -68,7 +68,7 @@ function IDLParameterToMCPParameter_Recurser(
   const firstType = type[0];
 
   /** Initialize return value */
-  let res: z.ZodType;
+  let res: undefined | z.ZodType;
 
   /**
    * Convert to ZOD
@@ -93,9 +93,6 @@ function IDLParameterToMCPParameter_Recurser(
         /** Check for dimensions */
         const dims = type[0].meta.dimensions || ['*'];
 
-        // init res with the array type
-        res = arrayType;
-
         /**
          * Populate the dimension
          *
@@ -106,13 +103,15 @@ function IDLParameterToMCPParameter_Recurser(
          * In IDL we also have a transpose from list to array to match what IDL
          * expects.
          */
+        let current = arrayType;
         for (let g = 0; g < dims.length; g++) {
           if (dims[g] === '*') {
-            res = z.array(res);
+            current = z.array(current);
           } else {
-            res = z.array(res).length(dims[g] as number);
+            current = z.array(current).length(dims[g] as number);
           }
         }
+        res = current;
       }
       break;
     }
@@ -454,7 +453,7 @@ export function IDLParameterToMCPParameter(
   param: IParameterOrPropertyDetails,
   cleanDocs: string,
   type?: IDLDataType,
-): z.ZodType {
+): undefined | z.ZodType {
   /**
    * Recurse into the data type and populate
    */
