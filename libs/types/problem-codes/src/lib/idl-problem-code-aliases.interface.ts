@@ -143,7 +143,7 @@ export const IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP: ReverseProblemCodeAliasLooku
 const keys = Object.keys(IDL_PROBLEM_CODE_ALIAS_LOOKUP);
 for (let i = 0; i < keys.length; i++) {
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP[
-    IDL_PROBLEM_CODE_ALIAS_LOOKUP[keys[i]]
+    IDL_PROBLEM_CODE_ALIAS_LOOKUP[keys[i] as any as IDLProblemCode]
   ] = +keys[i] as IDLProblemCode;
 }
 
