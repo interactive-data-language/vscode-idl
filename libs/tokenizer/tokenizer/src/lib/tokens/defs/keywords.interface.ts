@@ -12,4 +12,6 @@ export type KeywordBinaryMatches = [full: string, keyword: string];
  * @param {string} external Full match for the keyword definition
  * @param {string} internal (optional) Name of the argument definition for internal use
  */
-export type KeywordDefinitionMatches = [external: string, internal?: string];
+export type KeywordDefinitionMatches =
+  | [external: string, internal: string]
+  | [external: string];
