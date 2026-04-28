@@ -8,7 +8,7 @@ export function CleanPath(uri: string) {
   let toClean = uri;
 
   // recurse through the string
-  let m: RegExpExecArray;
+  let m: null | RegExpExecArray;
   while ((m = dirRegex.exec(uri)) !== null) {
     // This is necessary to avoid infinite loops with zero-width matches
     if (m.index === dirRegex.lastIndex) {

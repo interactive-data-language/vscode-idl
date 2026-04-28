@@ -14,7 +14,7 @@ import * as YAML from 'yaml';
 const LOWER_CASE_REGEX = /(?<!\\)[a-z]/gim;
 
 /**
- * Makes patterns case insensitive so we dont have to remember to do this oursleves
+ * Makes patterns case insensitive so we dont have to remember to do this ourselves
  */
 function CaseInsensitize(item: { [key: string]: any }) {
   // check if we need to clean up a match property
@@ -45,7 +45,7 @@ function CaseInsensitize(item: { [key: string]: any }) {
     if (recurseKeys[i] in item) {
       const children = Object.values(item[recurseKeys[i]]);
       for (let j = 0; j < children.length; j++) {
-        CaseInsensitize(children[j]);
+        CaseInsensitize(children[j] as { [key: string]: any });
       }
     }
   }
