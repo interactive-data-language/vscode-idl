@@ -17,5 +17,7 @@ export async function ReplaceDocumentContent(
     doc.uri,
   );
 
-  await ReplaceEditorContent(vscode.window.activeTextEditor, content);
+  if (vscode.window.activeTextEditor) {
+    await ReplaceEditorContent(vscode.window.activeTextEditor, content);
+  }
 }

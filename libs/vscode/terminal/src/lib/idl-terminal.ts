@@ -43,7 +43,7 @@ export function StartIDLTerminal(): boolean {
 
   // make sure we found the directory
   const newTerminal: vscode.Terminal = vscode.window.createTerminal({
-    shellPath: platform() === 'win32' ? 'cmd.exe' : null,
+    shellPath: platform() === 'win32' ? 'cmd.exe' : undefined,
     env: useEnv,
     name: 'idl',
   });
@@ -101,12 +101,11 @@ export async function SendCommandToIDLTerminal(
   const idl = terminals[0];
 
   // determine what command we need to run
-  let code: vscode.TextDocument;
+  const code = GetActivePROCodeWindow(true);
 
   // check what our action is
   switch (item.label) {
     case 'Compile':
-      code = GetActivePROCodeWindow(true);
       if (!code) {
         return false;
       }
@@ -117,7 +116,6 @@ export async function SendCommandToIDLTerminal(
       idl.sendText('.continue');
       break;
     case 'Execute':
-      code = GetActivePROCodeWindow(true);
       if (!code) {
         return false;
       }
@@ -127,8 +125,7 @@ export async function SendCommandToIDLTerminal(
     case 'Reset':
       idl.sendText('.reset');
       break;
-    case 'Run':
-      code = GetActivePROCodeWindow(true);
+    case 'Run': {
       if (!code) {
         return false;
       }
@@ -136,6 +133,7 @@ export async function SendCommandToIDLTerminal(
       idl.sendText(`.compile -v '${CleanPath(code.uri.fsPath)}'`);
       idl.sendText('.go');
       break;
+    }
     case 'Step In':
       idl.sendText('.step');
       break;

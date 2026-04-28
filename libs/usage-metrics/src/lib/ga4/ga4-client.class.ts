@@ -260,8 +260,8 @@ export class GA4Client<Event extends string = string> {
         for (let i = 0; i < items.length; i++) {
           if (items[i]) {
             const item = {
-              core: {},
-              custom: {},
+              core: {} as { [key: string]: any },
+              custom: {} as { [key: string]: any },
             };
             Object.entries(items[i]).forEach((pair2) => {
               if (GA4_EVENT_MAP[pair2[0]]) {

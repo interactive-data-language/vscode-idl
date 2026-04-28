@@ -14,17 +14,18 @@ export function GetActivePROCodeOrTaskWindow(
   // get active editor
   const editor = vscode.window.activeTextEditor;
 
+  // make sure we have an editor
+  if (!editor) {
+    if (alert) {
+      vscode.window.showInformationMessage(
+        IDL_TRANSLATION.notifications.noProCodeOrTaskFile,
+      );
+    }
+    return undefined;
+  }
+
   // check how to proceeed
   switch (true) {
-    // no editor
-    case !editor:
-      if (alert) {
-        vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noProCodeOrTaskFile,
-        );
-      }
-      return undefined;
-
     // PRO code
     case IDLFileHelper.isPROCode(editor.document.uri.fsPath):
       return editor.document;
