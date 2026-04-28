@@ -18,7 +18,7 @@ export function AddTopLevelConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.general%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation

@@ -17,7 +17,7 @@ export function AddCopilotConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.copilot%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation

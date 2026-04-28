@@ -68,12 +68,19 @@ async function DownloadFiles() {
 
       const resp = await axios.get(`${baseUrl}/${files[i]}`, {
         responseType: 'arraybuffer',
+        timeout: 5000,
       });
 
       // write to disk
       writeFileSync(outFile, resp.data);
     } catch (err) {
       console.log(err);
+      if ((err as any)?.message?.startsWith('timeout of')) {
+        console.log(
+          'Unable to fetch reference files, skipping icon theme local update',
+        );
+        return;
+      }
     }
   }
 

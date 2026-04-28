@@ -18,7 +18,7 @@ export function AddMCPConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.mcp%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation

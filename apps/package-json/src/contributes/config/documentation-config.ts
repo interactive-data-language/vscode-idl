@@ -18,7 +18,7 @@ export function AddDocumentationConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.documentation%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation

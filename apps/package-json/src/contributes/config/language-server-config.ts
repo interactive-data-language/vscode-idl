@@ -18,7 +18,7 @@ export function AddLanguageServerConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.languageServer%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation

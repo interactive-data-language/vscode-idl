@@ -137,7 +137,7 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
   const keys = Object.keys(IDL_COMMANDS);
   for (let i = 0; i < keys.length; i++) {
     allCommands = allCommands.concat(
-      Object.values(Object.values(IDL_COMMANDS[keys[i]])),
+      Object.values(Object.values((IDL_COMMANDS as any)[keys[i]])),
     );
   }
 
@@ -170,7 +170,10 @@ export function ProcessCommands(packageJSON: IPackageJSON, nls: IPackageNLS) {
     }
 
     /** Build command JSON */
-    const add = { command, title: tKey };
+    const add: { [key: string]: any; command: string; title: string } = {
+      command,
+      title: tKey,
+    };
 
     // check if we hve an icon to save or not
     if (command in COMMAND_ICONS) {

@@ -12,7 +12,7 @@ import { IDL_DIRS } from './idl-dirs.interface';
  */
 export function FindIDL(version?: string): string | undefined {
   // detect IDL's installation directory
-  let idlDir: string;
+  let idlDir: string | undefined = undefined;
 
   // check default locations
   const testDirs = IDL_DIRS[os.platform()];

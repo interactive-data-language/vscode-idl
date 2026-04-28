@@ -2,6 +2,7 @@ import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_CODES,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
+  IDLProblemCode,
 } from '@idl/types/problem-codes';
 
 /**
@@ -12,10 +13,10 @@ export function IDLProblemCodeEnumAndTranslations(config: {
   [key: string]: any;
 }) {
   // get the codes
-  const codes = Object.values(IDL_PROBLEM_CODES);
+  const codes = Object.values(IDL_PROBLEM_CODES) as IDLProblemCode[];
 
   // make enum and description array
-  let enums: number[] | string = [];
+  let enums: (number | string)[] = [];
 
   for (let i = 0; i < codes.length; i++) {
     // enums.push(codes[i]);W

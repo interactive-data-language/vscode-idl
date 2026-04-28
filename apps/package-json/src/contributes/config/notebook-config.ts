@@ -18,7 +18,7 @@ export function AddNotebookConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.notebooks%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation

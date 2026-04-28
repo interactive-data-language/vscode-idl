@@ -6,7 +6,12 @@ import { VerifyNLS } from './helpers/verify-nls';
 /**
  * Base configuration for our ENVI file opener/wrapper.
  */
-const ENVI_OPENER_CONFIG = {
+const ENVI_OPENER_CONFIG: {
+  viewType: string;
+  displayName: string;
+  selector: any[];
+  priority: string;
+} = {
   viewType: ENVI_OPENER_TYPE,
   displayName: '%envi.openerTitle%',
   selector: [],

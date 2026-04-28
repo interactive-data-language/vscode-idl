@@ -19,7 +19,7 @@ export function AddQuestionsConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.questions%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation
