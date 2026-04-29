@@ -65,22 +65,22 @@ const nodeSchema = z.object({
     .string()
     .optional()
     .describe('ENVI Task revision string (e.g. "1.0.0"). Omit to use latest.'),
-  static_input: z
-    .record(z.unknown())
-    .optional()
-    .describe(
-      `Hardcoded task parameters NOT exposed to the user. Only include values that differ from task defaults, use '${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS}' to check defaults.`,
-    ),
+  // static_input: z
+  //   .record(z.unknown())
+  //   .optional()
+  //   .describe(
+  //     `Hardcoded task parameters NOT exposed to the user. Only include values that differ from task defaults, use '${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS}' to check defaults.`,
+  //   ),
   parameters: z
     .array(inputParameterSchema)
     .optional()
     .describe(
       "For type='inputparameters': parameters the user fills in at runtime.",
     ),
-  value: z
-    .array(z.unknown())
-    .optional()
-    .describe("For type='arrayvalues': the literal values in the array."),
+  // value: z
+  //   .array(z.unknown())
+  //   .optional()
+  //   .describe("For type='arrayvalues': the literal values in the array."),
   data_type: z
     .string()
     .optional()
