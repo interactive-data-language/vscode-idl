@@ -75,7 +75,7 @@ export function TaskTypeToIDLType(
   /**
    * Track values of our type
    */
-  let values: string[];
+  let values: string[] | undefined;
 
   /**
    * Check if there's a choice list to set as the value of the type
