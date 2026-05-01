@@ -30,7 +30,7 @@ import {
   SyntaxProblems,
 } from '@idl/types/problem-codes';
 import { IParsed, TreeToken } from '@idl/types/syntax-tree';
-import { TaskToGlobalToken } from '@idl/types/tasks';
+import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDLExtensionConfig,

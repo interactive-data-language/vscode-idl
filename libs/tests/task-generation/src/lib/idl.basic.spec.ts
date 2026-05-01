@@ -7,7 +7,7 @@ import {
   GenerateIDLTask,
   GenerateIDLTaskMainLevelProgram,
 } from '@idl/generators/idl-task';
-import { GenerateTaskResult } from '@idl/generators/tasks-shared';
+import { GenerateTaskResult } from '@idl/types/generators';
 import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';

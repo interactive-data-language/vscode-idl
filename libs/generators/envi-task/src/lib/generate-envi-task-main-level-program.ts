@@ -1,4 +1,4 @@
-import { GenerateTaskResult } from '@idl/generators/tasks-shared';
+import { GenerateTaskResult } from '@idl/types/generators';
 import { basename } from 'path';
 
 /**

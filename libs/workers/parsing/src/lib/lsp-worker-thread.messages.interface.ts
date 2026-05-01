@@ -1,6 +1,6 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { MigrationType } from '@idl/assembling/migrators-types';
-import { GenerateTaskResult } from '@idl/generators/tasks-shared';
+import { GenerateTaskResult } from '@idl/types/generators';
 import { ILogOptions } from '@idl/logger';
 import { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { AutoCompleteRecipe, AutoCompleteType } from '@idl/types/auto-complete';

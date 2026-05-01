@@ -1,1 +1,1 @@
-export * from './lib/types-generators';
+export * from './lib/generate-task-result.interface';

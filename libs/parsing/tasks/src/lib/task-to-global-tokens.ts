@@ -3,18 +3,20 @@ import {
   IDL_DOCS_HEADERS,
   MARKDOWN_TYPE_LOOKUP,
 } from '@idl/parsing/syntax-tree';
+import {
+  ENVITask,
+  ENVITaskLegacy,
+  ENVITaskLegacyVersion,
+  ENVITaskSchemaVersion,
+  IDLTask,
+  IDLTaskSchemaVersion,
+  IGlobalsToTrack,
+  ParsedTask,
+} from '@idl/types/tasks';
 
 import { ENVITaskToGlobal } from './converters/envi-task-to-global';
 import { IDLTaskToGlobal } from './converters/idl-task-to-global';
 import { LegacyENVITaskToGlobal } from './converters/legacy-envi-task-to-global';
-import { ENVITask, ENVITaskSchemaVersion } from './envitask.interface';
-import {
-  ENVITaskLegacy,
-  ENVITaskLegacyVersion,
-} from './envitasklegacy.interface';
-import { IDLTask, IDLTaskSchemaVersion } from './idltask.interface';
-import { ParsedTask } from './parsed-task.interface';
-import { IGlobalsToTrack } from './task-to-global-token.interface';
 
 /**
  * Converts a parsed task definition to global routines so that we have auto-complete, hover, help

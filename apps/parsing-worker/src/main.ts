@@ -8,7 +8,7 @@ import {
   GenerateIDLTask,
   GenerateIDLTaskMainLevelProgram,
 } from '@idl/generators/idl-task';
-import { GenerateTaskResult } from '@idl/generators/tasks-shared';
+import { GenerateTaskResult } from '@idl/types/generators';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { PrepareNotebookCell } from '@idl/notebooks/idl-index';
 import { ParseFileSync } from '@idl/parser';

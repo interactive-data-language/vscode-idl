@@ -9,25 +9,22 @@ import {
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
-
 import {
-  ENVITask,
-  ENVITaskParameter,
-  ENVITaskSchema32,
-  ENVITaskSchemaVersion,
-} from '../envitask.interface';
-import { IGlobalsToTrack } from '../task-to-global-token.interface';
+  ENVITaskLegacy,
+  ENVITaskLegacyParameter,
+  ENVITaskLegacyVersion,
+  ENVITaskLegacyVersion532,
+  IGlobalsToTrack,
+} from '@idl/types/tasks';
+
 import { TaskTypeToIDLType } from './task-type-to-idl-type';
 
 /**
- * Converts an ENVI Task to global tokens for auto-complete
+ * Converts a legacy ENVI Task to global tokens for auto-complete
  */
-export function ENVITaskToGlobal(
-  task: ENVITask<ENVITaskSchemaVersion>,
+export function LegacyENVITaskToGlobal(
+  task: ENVITaskLegacy<ENVITaskLegacyVersion>,
 ): IGlobalsToTrack {
-  // make sure we have description
-  task.description = task.description || '';
-
   /** Get the name of our task */
   const name = `ENVI${task.name}Task`;
 
@@ -41,20 +38,15 @@ export function ENVITaskToGlobal(
     pos: [0, 0, 0],
     meta: {
       display: name,
-      readableName: task.display_name || GetDisplayName(task.name),
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
+      readableName: task.displayName || GetDisplayName(task.name),
       private: false,
       inherits: ['envitask'], // lower-case
       docsLookup: {},
       props: {},
     },
   };
-
-  // check if we have tags
-  if (Array.isArray(task.tags)) {
-    struct.meta.tags = task.tags;
-  }
 
   // create properties
   const props: IPropertyLookup = {};
@@ -63,37 +55,37 @@ export function ENVITaskToGlobal(
     const propName = param.name.toLowerCase();
     const dir = (param.direction || 'input').toLowerCase();
 
-    /**
-     * Don't parse dag types
-     */
-    if (
-      param.type.toLowerCase() === 'dag' ||
-      param.type.toLowerCase() === 'envimetataskdag'
-    ) {
-      continue;
-    }
-
     /** Create type metadata for URI specials */
     const meta: IDLDataTypeBaseMetadata = {};
 
-    // set folder - note that URI is automatically detected in the `TaskTypeToIDlType` function
-    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.is_directory) {
-      meta.isFolder = true;
-    }
-
     // set min
-    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.min !== undefined) {
-      meta.min = (param as ENVITaskParameter<ENVITaskSchema32>)?.min;
+    if (
+      (param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>)?.min !==
+      undefined
+    ) {
+      meta.min = (
+        param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
+      )?.min;
     }
 
     // set max
-    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.max !== undefined) {
-      meta.max = (param as ENVITaskParameter<ENVITaskSchema32>)?.max;
+    if (
+      (param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>)?.max !==
+      undefined
+    ) {
+      meta.max = (
+        param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
+      )?.max;
     }
 
     // set default
-    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.default !== undefined) {
-      meta.default = (param as ENVITaskParameter<ENVITaskSchema32>)?.default;
+    if (
+      (param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>)
+        ?.defaultValue !== undefined
+    ) {
+      meta.default = (
+        param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
+      )?.defaultValue;
     }
 
     // save our property
@@ -105,13 +97,8 @@ export function ENVITaskToGlobal(
       private: param.hidden ? true : false,
       display: param.name.toLowerCase(),
       docs: param.description || '',
-      type: TaskTypeToIDLType(
-        param.type,
-        meta,
-        param.choice_list,
-        param.dimensions,
-      ),
-      req: param.required,
+      type: TaskTypeToIDLType(param.dataType, meta, param.choiceList),
+      req: param.parameterType === 'required',
     };
   }
 

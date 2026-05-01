@@ -9,24 +9,27 @@ import {
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
-
 import {
-  ENVITaskLegacy,
-  ENVITaskLegacyParameter,
-  ENVITaskLegacyVersion,
-  ENVITaskLegacyVersion532,
-} from '../envitasklegacy.interface';
-import { IGlobalsToTrack } from '../task-to-global-token.interface';
+  IDLTask,
+  IDLTaskParameter,
+  IDLTaskSchema12,
+  IDLTaskSchemaVersion,
+  IGlobalsToTrack,
+} from '@idl/types/tasks';
+
 import { TaskTypeToIDLType } from './task-type-to-idl-type';
 
 /**
- * Converts a legacy ENVI Task to global tokens for auto-complete
+ * Converts an IDL Task to global tokens for auto-complete
  */
-export function LegacyENVITaskToGlobal(
-  task: ENVITaskLegacy<ENVITaskLegacyVersion>,
+export function IDLTaskToGlobal(
+  task: IDLTask<IDLTaskSchemaVersion>,
 ): IGlobalsToTrack {
+  // make sure we have description
+  task.description = task.description || '';
+
   /** Get the name of our task */
-  const name = `ENVI${task.name}Task`;
+  const name = `IDL${task.name}Task`;
 
   /** Lower-case name */
   const useName = name.toLowerCase();
@@ -38,15 +41,20 @@ export function LegacyENVITaskToGlobal(
     pos: [0, 0, 0],
     meta: {
       display: name,
+      readableName: task.display_name || GetDisplayName(task.name),
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
-      readableName: task.displayName || GetDisplayName(task.name),
       private: false,
-      inherits: ['envitask'], // lower-case
+      inherits: ['idltask'], // lower-case
       docsLookup: {},
       props: {},
     },
   };
+
+  // check if we have tags
+  if (Array.isArray(task.tags)) {
+    struct.meta.tags = task.tags;
+  }
 
   // create properties
   const props: IPropertyLookup = {};
@@ -59,33 +67,18 @@ export function LegacyENVITaskToGlobal(
     const meta: IDLDataTypeBaseMetadata = {};
 
     // set min
-    if (
-      (param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>)?.min !==
-      undefined
-    ) {
-      meta.min = (
-        param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
-      )?.min;
+    if ((param as IDLTaskParameter<IDLTaskSchema12>)?.min !== undefined) {
+      meta.min = (param as IDLTaskParameter<IDLTaskSchema12>)?.min;
     }
 
     // set max
-    if (
-      (param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>)?.max !==
-      undefined
-    ) {
-      meta.max = (
-        param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
-      )?.max;
+    if ((param as IDLTaskParameter<IDLTaskSchema12>)?.max !== undefined) {
+      meta.max = (param as IDLTaskParameter<IDLTaskSchema12>)?.max;
     }
 
     // set default
-    if (
-      (param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>)
-        ?.defaultValue !== undefined
-    ) {
-      meta.default = (
-        param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
-      )?.defaultValue;
+    if ((param as IDLTaskParameter<IDLTaskSchema12>)?.default !== undefined) {
+      meta.default = (param as IDLTaskParameter<IDLTaskSchema12>)?.default;
     }
 
     // save our property
@@ -96,9 +89,15 @@ export function LegacyENVITaskToGlobal(
       direction: dir === 'input' ? 'in' : 'out',
       private: param.hidden ? true : false,
       display: param.name.toLowerCase(),
+      readableName: param.display_name || GetDisplayName(param.name),
       docs: param.description || '',
-      type: TaskTypeToIDLType(param.dataType, meta, param.choiceList),
-      req: param.parameterType === 'required',
+      type: TaskTypeToIDLType(
+        param.type,
+        meta,
+        param.choice_list,
+        param.dimensions,
+      ),
+      req: param.required,
     };
   }
 

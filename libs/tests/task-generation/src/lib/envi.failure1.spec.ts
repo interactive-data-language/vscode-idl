@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { GenerateENVITask } from '@idl/generators/envi-task';
 import { GenerateIDLTask } from '@idl/generators/idl-task';
-import { GenerateTaskResult } from '@idl/generators/tasks-shared';
+import { GenerateTaskResult } from '@idl/types/generators';
 import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';

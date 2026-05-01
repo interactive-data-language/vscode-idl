@@ -1,7 +1,8 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
+import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';
+import { IGlobalsToTrack } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] envi`, async () => {

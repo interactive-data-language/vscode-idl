@@ -9,27 +9,27 @@ import {
   IGlobalIndexedToken,
   IPropertyLookup,
 } from '@idl/types/idl-data-types';
-
 import {
-  IDLTask,
-  IDLTaskParameter,
-  IDLTaskSchema12,
-  IDLTaskSchemaVersion,
-} from '../idltask.interface';
-import { IGlobalsToTrack } from '../task-to-global-token.interface';
+  ENVITask,
+  ENVITaskParameter,
+  ENVITaskSchema32,
+  ENVITaskSchemaVersion,
+  IGlobalsToTrack,
+} from '@idl/types/tasks';
+
 import { TaskTypeToIDLType } from './task-type-to-idl-type';
 
 /**
- * Converts an IDL Task to global tokens for auto-complete
+ * Converts an ENVI Task to global tokens for auto-complete
  */
-export function IDLTaskToGlobal(
-  task: IDLTask<IDLTaskSchemaVersion>,
+export function ENVITaskToGlobal(
+  task: ENVITask<ENVITaskSchemaVersion>,
 ): IGlobalsToTrack {
   // make sure we have description
   task.description = task.description || '';
 
   /** Get the name of our task */
-  const name = `IDL${task.name}Task`;
+  const name = `ENVI${task.name}Task`;
 
   /** Lower-case name */
   const useName = name.toLowerCase();
@@ -45,7 +45,7 @@ export function IDLTaskToGlobal(
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
       private: false,
-      inherits: ['idltask'], // lower-case
+      inherits: ['envitask'], // lower-case
       docsLookup: {},
       props: {},
     },
@@ -63,22 +63,37 @@ export function IDLTaskToGlobal(
     const propName = param.name.toLowerCase();
     const dir = (param.direction || 'input').toLowerCase();
 
+    /**
+     * Don't parse dag types
+     */
+    if (
+      param.type.toLowerCase() === 'dag' ||
+      param.type.toLowerCase() === 'envimetataskdag'
+    ) {
+      continue;
+    }
+
     /** Create type metadata for URI specials */
     const meta: IDLDataTypeBaseMetadata = {};
 
+    // set folder - note that URI is automatically detected in the `TaskTypeToIDlType` function
+    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.is_directory) {
+      meta.isFolder = true;
+    }
+
     // set min
-    if ((param as IDLTaskParameter<IDLTaskSchema12>)?.min !== undefined) {
-      meta.min = (param as IDLTaskParameter<IDLTaskSchema12>)?.min;
+    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.min !== undefined) {
+      meta.min = (param as ENVITaskParameter<ENVITaskSchema32>)?.min;
     }
 
     // set max
-    if ((param as IDLTaskParameter<IDLTaskSchema12>)?.max !== undefined) {
-      meta.max = (param as IDLTaskParameter<IDLTaskSchema12>)?.max;
+    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.max !== undefined) {
+      meta.max = (param as ENVITaskParameter<ENVITaskSchema32>)?.max;
     }
 
     // set default
-    if ((param as IDLTaskParameter<IDLTaskSchema12>)?.default !== undefined) {
-      meta.default = (param as IDLTaskParameter<IDLTaskSchema12>)?.default;
+    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.default !== undefined) {
+      meta.default = (param as ENVITaskParameter<ENVITaskSchema32>)?.default;
     }
 
     // save our property
@@ -89,7 +104,6 @@ export function IDLTaskToGlobal(
       direction: dir === 'input' ? 'in' : 'out',
       private: param.hidden ? true : false,
       display: param.name.toLowerCase(),
-      readableName: param.display_name || GetDisplayName(param.name),
       docs: param.description || '',
       type: TaskTypeToIDLType(
         param.type,
