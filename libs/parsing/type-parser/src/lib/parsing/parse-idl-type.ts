@@ -92,6 +92,9 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
       meta: {},
     };
 
+    // normalize the type name
+    thisType.name = NormalizeTypeName(thisType.name);
+
     /**
      * Check for a literal type
      */
@@ -114,9 +117,6 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
       thisType.name = baseType;
       thisType.display = baseType;
     }
-
-    // normalize the type name
-    thisType.name = NormalizeTypeName(thisType.name);
 
     // check if we recurse and get type arguments or not
     if (tree[i].name === TOKEN_NAMES.TYPE_FUNCTION) {
