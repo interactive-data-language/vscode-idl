@@ -43,7 +43,7 @@ export function TaskToGlobalToken(task: ParsedTask): IGlobalsToTrack {
       break;
     default:
       throw new Error(
-        'Unknown task schema (not detected as IDL, ENVI, or Legacy ENVI Task',
+        'Unknown task schema (not detected as IDL, ENVI, or Legacy ENVI Task)',
       );
   }
 
