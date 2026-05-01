@@ -3,6 +3,18 @@ import { ENVIModelerNode } from '@idl/types/mcp';
 
 import { FIXED_DISPLAY_NAMES } from '../create-envi-modeler-workflow.interface';
 
+/**
+ * Convert object keys to lowercase
+ */
+function LowercaseKeys(obj: { [key: string]: any }): Record<string, unknown> {
+  const result: { [key: string]: any } = {};
+  const keys = Object.keys(obj);
+  for (let i = 0; i < keys.length; i++) {
+    result[keys[i].toLowerCase()] = obj[keys[i]];
+  }
+  return result;
+}
+
 /** Convert a single ENVIModelerNode to its JSON representation */
 export function BuildNodeJSON(
   node: ENVIModelerNode,
@@ -32,7 +44,7 @@ export function BuildNodeJSON(
         name: node.task_name ?? 'ExtractElementFromArray',
       };
       if (node.static_input && Object.keys(node.static_input).length > 0) {
-        extTask['static_input'] = node.static_input;
+        extTask['static_input'] = LowercaseKeys(node.static_input);
       } else if (node.indices) {
         extTask['static_input'] = { indices: node.indices };
       }
@@ -85,7 +97,7 @@ export function BuildNodeJSON(
         name: node.task_name,
       };
       if (node.static_input && Object.keys(node.static_input).length > 0) {
-        envitask['static_input'] = node.static_input;
+        envitask['static_input'] = LowercaseKeys(node.static_input);
       }
       if (node.revision) {
         envitask['revision'] = node.revision;
