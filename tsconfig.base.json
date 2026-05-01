@@ -208,7 +208,9 @@
       "tests-envi-modeler": ["libs/tests/envi-modeler/src/index.ts"],
       "@idl/mcp/envi": ["libs/mcp/envi/src/index.ts"],
       "@idl/mcp/idl": ["libs/mcp/idl/src/index.ts"],
-      "@idl/mcp/common": ["libs/mcp/common/src/index.ts"]
+      "@idl/mcp/common": ["libs/mcp/common/src/index.ts"],
+      "@idl/types/generators": ["libs/types/generators/src/index.ts"],
+      "@idl/parsing/tasks": ["libs/parsing/tasks/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
