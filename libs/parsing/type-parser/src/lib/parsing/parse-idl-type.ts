@@ -25,7 +25,7 @@ import { NormalizeTypeName } from './normalize-type-name';
 import { UpdateNumberBaseType } from './number-to-literal';
 import { TASK_REGEX, TASK_REGEX_GLOBAL } from './parse-idl-type.interface';
 import { PopulateTypeProperties } from './populate-type-properties';
-import { SetDefaultTypes } from './set-default-types';
+import { SetDefaultTypesAndNormalizeNames } from './set-default-types-and-normalize-names';
 
 /** Tokens we skip for now */
 const SKIP: { [key: string]: undefined } = {};
@@ -163,7 +163,7 @@ export function PostProcessIDLType(
   }
 
   // set type defaults
-  SetDefaultTypes(type);
+  SetDefaultTypesAndNormalizeNames(type);
 
   // remove duplicates and return the top level
   const reduced = ReduceIDLDataType(type);

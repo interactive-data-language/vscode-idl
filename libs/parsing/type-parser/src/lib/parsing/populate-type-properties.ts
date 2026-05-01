@@ -1,6 +1,5 @@
 import { IDL_TYPE_LOOKUP, IDLDataType } from '@idl/types/idl-data-types';
 
-import { NormalizeTypeName } from './normalize-type-name';
 import { PostProcessTypeName, TASK_NAME_REGEX } from './post-process-type-name';
 
 /**
@@ -18,9 +17,6 @@ export function PopulateTypeProperties(types: IDLDataType, isTask = false) {
 
     /** Initialize display name */
     let base = zType.name;
-
-    // normalize our name
-    zType.name = NormalizeTypeName(zType.name);
 
     /** Track if we are a task */
     let iIsTask = false;

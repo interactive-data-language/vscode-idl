@@ -2,6 +2,7 @@ import { IDLDataType } from '@idl/types/idl-data-types';
 import { copy } from 'fast-copy';
 
 import { DEFAULT_TYPE_ARGS } from './default-type-args.interface';
+import { NormalizeTypeName } from './normalize-type-name';
 
 /**
  * Processes each parsed type and sets defaults for args and strips
@@ -9,9 +10,13 @@ import { DEFAULT_TYPE_ARGS } from './default-type-args.interface';
  *
  * This ensures that, for example, arrays always have an indexed type
  */
-export function SetDefaultTypes(types: IDLDataType) {
+export function SetDefaultTypesAndNormalizeNames(types: IDLDataType) {
   for (let z = 0; z < types.length; z++) {
     const struct = types[z];
+
+    // normalize our name
+    struct.name = NormalizeTypeName(struct.name);
+
     switch (true) {
       case struct.name in DEFAULT_TYPE_ARGS:
         switch (true) {
@@ -35,7 +40,7 @@ export function SetDefaultTypes(types: IDLDataType) {
     // check if we have args to process as well
     if (struct.args.length > 0) {
       for (let i = 0; i < struct.args.length; i++) {
-        SetDefaultTypes(struct.args[i]);
+        SetDefaultTypesAndNormalizeNames(struct.args[i]);
       }
     }
   }
