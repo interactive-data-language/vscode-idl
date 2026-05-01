@@ -1,3 +1,4 @@
+import { GetDisplayName } from '@idl/generators/tasks-shared';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
@@ -39,7 +40,7 @@ export function LegacyENVITaskToGlobal(
       display: name,
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
-      readableName: task.displayName,
+      readableName: task.displayName || GetDisplayName(task.name),
       private: false,
       inherits: ['envitask'], // lower-case
       docsLookup: {},
@@ -94,7 +95,7 @@ export function LegacyENVITaskToGlobal(
       pos: [0, 0, 0],
       direction: dir === 'input' ? 'in' : 'out',
       private: param.hidden ? true : false,
-      display: task.parameters[i].name.toLowerCase(),
+      display: param.name.toLowerCase(),
       docs: param.description || '',
       type: TaskTypeToIDLType(param.dataType, meta, param.choiceList),
       req: param.parameterType === 'required',

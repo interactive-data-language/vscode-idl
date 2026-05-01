@@ -84,4 +84,34 @@ export const AUTO_TASK_PARSING_TESTS: ITaskParsingTests[] = [
       },
     ],
   },
+  {
+    suiteName: `Correctly parse task without display_name`,
+    fileName: `idl-no-display-name.spec.ts`,
+    tests: [
+      {
+        name: `idl`,
+        file: `idl/test/task-parsing/test_task_no_display_name_idl.task`,
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly parse task without display_name`,
+    fileName: `envi-no-display-name.spec.ts`,
+    tests: [
+      {
+        name: `envi`,
+        file: `idl/test/task-parsing/test_task_no_display_name_envi.task`,
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly parse task without displayName`,
+    fileName: `legacy-envi-no-display-name.spec.ts`,
+    tests: [
+      {
+        name: `envi`,
+        file: `idl/test/task-parsing/test_task_no_display_name_legacy.task`,
+      },
+    ],
+  },
 ];

@@ -100,7 +100,7 @@ export interface ENVITaskSchema30Properties {
   /** Description of what the task does */
   description: string;
   /** Name of the task that gets displayed in the ENVI UI */
-  display_name: string;
+  display_name?: string;
   /** Name of the task when calling via the ENVI API */
   name: string;
   /** Name of our routine */

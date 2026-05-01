@@ -90,7 +90,7 @@
           }
         }
       },
-      "required": ["name", "base_class", "display_name", "schema", "parameters"]
+      "required": ["name", "base_class", "schema", "parameters"]
     },
     "idltask-1.2-parameter": {
       "type": "object",

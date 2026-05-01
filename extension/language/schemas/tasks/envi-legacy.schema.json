@@ -82,14 +82,7 @@
           }
         }
       },
-      "required": [
-        "name",
-        "baseClass",
-        "displayName",
-        "description",
-        "version",
-        "parameters"
-      ]
+      "required": ["name", "baseClass", "description", "version", "parameters"]
     },
     "envi-5.3.2-parameter": {
       "type": "object",
@@ -167,12 +160,16 @@
           "pattern": "^[Rr][Ee][Qq][Uu][Ii][Rr][Ee][Dd]$|^[Oo][Pp][Tt][Ii][Oo][Nn][Aa][Ll]$"
         },
         "choiceList": {
-          "type": "array",
           "title": "Choice List",
           "description": "A string array that lists the possible values for the property. Any IDL data type is supported. You can also map from user-friendly strings to an internal lookup table of values if desired.",
-          "items": {
-            "type": "string"
-          }
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "array"
+            }
+          ]
         },
         "defaultValue": {
           "title": "Default Value",

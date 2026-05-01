@@ -106,13 +106,7 @@
           }
         }
       },
-      "required": [
-        "name",
-        "base_class",
-        "display_name",
-        "schema",
-        "parameters"
-      ],
+      "required": ["name", "base_class", "schema", "parameters"],
       "if": {
         "properties": {
           "base_class": {
@@ -223,7 +217,15 @@
         },
         "choice_list": {
           "title": "Choice List",
-          "description": "A string array that lists the possible values for the property. Any IDL data type is supported. You can also map from user-friendly strings to an internal lookup table of values if desired."
+          "description": "A string array that lists the possible values for the property. Any IDL data type is supported. You can also map from user-friendly strings to an internal lookup table of values if desired.",
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "array"
+            }
+          ]
         },
         "default": {
           "title": "Default",

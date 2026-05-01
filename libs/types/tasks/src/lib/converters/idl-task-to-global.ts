@@ -1,3 +1,4 @@
+import { GetDisplayName } from '@idl/generators/tasks-shared';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
@@ -40,7 +41,7 @@ export function IDLTaskToGlobal(
     pos: [0, 0, 0],
     meta: {
       display: name,
-      readableName: task.display_name,
+      readableName: task.display_name || GetDisplayName(task.name),
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
       docs: task.description,
       private: false,
@@ -87,7 +88,8 @@ export function IDLTaskToGlobal(
       pos: [0, 0, 0],
       direction: dir === 'input' ? 'in' : 'out',
       private: param.hidden ? true : false,
-      display: task.parameters[i].name.toLowerCase(),
+      display: param.name.toLowerCase(),
+      readableName: param.display_name || GetDisplayName(param.name),
       docs: param.description || '',
       type: TaskTypeToIDLType(
         param.type,

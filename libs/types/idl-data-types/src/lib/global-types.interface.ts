@@ -110,13 +110,13 @@ export const GLOBAL_TOKEN_SOURCE_LOOKUP: IGlobalTokenSourceLookup = {
  * Base information stored for any global or local token
  */
 export interface IBaseTokenMetadata {
-  /** The name that we display to the user */
+  /** The as-typed name that we display to the user (i.e. SubsetRaster vs subsetraster on the name) */
   display: string;
   /** Joined string for our tokens documentation */
   docs: string;
   /** Is it private? */
   private?: boolean;
-  /** HUman readable name for some values (i.e. "Spectral Index Task" vs SpectralIndexTask) */
+  /** Human readable name for some values (i.e. "Spectral Index Task" vs SpectralIndexTask) */
   readableName?: string;
   /** Source information for a routine */
   source: GlobalTokenSource;
