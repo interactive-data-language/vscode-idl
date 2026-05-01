@@ -20,6 +20,8 @@ Updated the ENVI instructions to better support opening the correct files in ENV
 
 Fixed an issue where a semi-colon was added to IDL_DEFAULT search path on mac and Linux.
 
+Fixed an issue with ENVI Coord Sys where it was a string instead of a number.
+
 ## 6.0.2 - March 2026
 
 Fixed an issue where, if IDL crashed or was stopped by the user, GitHub Copilot would not be notified and get in a bad state.
