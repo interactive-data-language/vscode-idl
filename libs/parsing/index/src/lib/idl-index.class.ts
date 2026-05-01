@@ -1710,27 +1710,26 @@ export class IDLIndex {
       // return global token
       return [global.function, global.structure];
     } catch (err) {
-      console.log(err);
+      this.log.log({
+        log: IDL_LSP_LOG,
+        type: 'warn',
+        content: [
+          `${IDL_TRANSLATION.tasks.parsing.errors.failedParse}: "${file}"`,
+          err,
+        ],
+        //   /**
+        //    * Silently error for now, JSON errors should appear if they open the file
+        //    */
+        //   // alert: `${IDL_TRANSLATION.tasks.parsing.errors.failedParse}: "${file}"`,
+        //   // alertMeta: {
+        //   //   file,
+        //   // },
+      });
       /**
-       * Silently ignore errors as we coul have many while
+       * Silently ignore errors as we could have many while
        * people are editing or changing task files
        */
       return [];
-      // this.log.log({
-      //   log: IDL_LSP_LOG,
-      //   type: 'error',
-      //   content: [
-      //     `${IDL_TRANSLATION.tasks.parsing.errors.failedParse}: "${file}"`,
-      //     err,
-      //   ],
-      //   /**
-      //    * Silently error for now, JSON errors should appear if they open the file
-      //    */
-      //   // alert: `${IDL_TRANSLATION.tasks.parsing.errors.failedParse}: "${file}"`,
-      //   // alertMeta: {
-      //   //   file,
-      //   // },
-      // });
     }
   }
 
