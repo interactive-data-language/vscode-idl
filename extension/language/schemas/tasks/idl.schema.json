@@ -177,14 +177,7 @@
           "default": false
         }
       },
-      "required": [
-        "name",
-        "display_name",
-        "type",
-        "direction",
-        "description",
-        "required"
-      ]
+      "required": ["name", "type", "direction", "description", "required"]
     }
   }
 }

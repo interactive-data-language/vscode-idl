@@ -85,6 +85,16 @@ export const AUTO_TASK_PARSING_TESTS: ITaskParsingTests[] = [
     ],
   },
   {
+    suiteName: `Correctly parse task file`,
+    fileName: `idl4.spec.ts`,
+    tests: [
+      {
+        name: `idl`,
+        file: `idl/test/task-parsing/addition_example.task`,
+      },
+    ],
+  },
+  {
     suiteName: `Correctly parse task without display_name`,
     fileName: `idl-no-display-name.spec.ts`,
     tests: [
