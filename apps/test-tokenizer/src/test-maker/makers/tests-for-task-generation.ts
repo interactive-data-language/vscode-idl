@@ -7,10 +7,10 @@ import {
   GenerateIDLTask,
   GenerateIDLTaskMainLevelProgram,
 } from '@idl/generators/idl-task';
-import { GenerateTaskResult } from '@idl/types/generators';
 import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
+import { GenerateTaskResult } from '@idl/types/generators';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 

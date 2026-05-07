@@ -8,7 +8,6 @@ import {
   GenerateIDLTask,
   GenerateIDLTaskMainLevelProgram,
 } from '@idl/generators/idl-task';
-import { GenerateTaskResult } from '@idl/types/generators';
 import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
 import { PrepareNotebookCell } from '@idl/notebooks/idl-index';
 import { ParseFileSync } from '@idl/parser';
@@ -25,6 +24,7 @@ import {
 import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { GenerateTaskResult } from '@idl/types/generators';
 import { IDisabledProblems } from '@idl/types/problem-codes';
 import { IParsed, IParsedLightWeight } from '@idl/types/syntax-tree';
 import {

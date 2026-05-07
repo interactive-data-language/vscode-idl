@@ -228,7 +228,7 @@ export function ValidateENVIModelerWorkflow(
               fromInfo.structure.meta.props[fromParam.toLowerCase()];
 
             // get the type (handle arrays by extracting element type)
-            let typeToCheck = fromProp.type;
+            const typeToCheck = fromProp.type;
 
             // check for array
             if (IDLTypeHelper.isType(fromProp.type, IDL_TYPE_LOOKUP.ARRAY)) {

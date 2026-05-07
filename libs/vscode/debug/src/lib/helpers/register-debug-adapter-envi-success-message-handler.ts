@@ -1,4 +1,4 @@
-import { PopulateENVIError, RegisterENVINotifyHandlers } from '@idl/mcp/envi';
+import { RegisterENVINotifyHandlers } from '@idl/mcp/envi';
 import { IENVISuccess } from '@idl/types/vscode-debug';
 
 import { IDLDebugAdapter } from '../idl-debug-adapter.class';
