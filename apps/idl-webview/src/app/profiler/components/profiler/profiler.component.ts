@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IProfilerItem } from '@idl/types/profiler';
@@ -41,7 +47,7 @@ export class ProfilerComponent implements OnInit {
   // track timer for filer when typing
   private timeout?: number;
 
-  constructor(private vscode: VSCodeService) {}
+  private vscode = inject(VSCodeService);
 
   /**
    * Applies our filter to the list of profiled entities

@@ -2,16 +2,14 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   OnDestroy,
-  SkipSelf,
   ViewChild,
 } from '@angular/core';
 import { IDLNotebookPlot } from '@idl/types/notebooks';
 import Chart from 'chart.js/auto';
 
-import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
-import { DataSharingService } from '../data-sharing.service';
 import { ChartConfig } from './helpers/chart-config';
 import { CreatePlots } from './helpers/create-plots';
 import { CreatedPlots } from './helpers/create-plots.interface';
@@ -63,16 +61,14 @@ export class PlotComponent
    */
   private chart: Chart<any> | undefined;
 
+  private el = inject(ElementRef<HTMLElement>);
+
   /**
    * We can access the latest data directly through our dataService which tracks
    * the last value on $embed
    */
-  constructor(
-    @SkipSelf() dataService: DataSharingService,
-    messenger: VSCodeRendererMessenger,
-    private el: ElementRef<HTMLElement>,
-  ) {
-    super(dataService, messenger);
+  constructor() {
+    super();
 
     // add resize event listener
     window.addEventListener('resize', this.resizeCb);

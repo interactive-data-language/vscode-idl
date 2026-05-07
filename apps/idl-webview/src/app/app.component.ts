@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, inject, OnInit } from '@angular/core';
 import { DEFAULT_VSCODE_MESSAGE } from '@idl/vscode/webview-shared';
 import { MaterialCssVarsService } from 'angular-material-css-vars';
 
@@ -14,13 +14,11 @@ export class AppComponent implements OnInit {
   // theming
   @HostBinding('class') activeThemeCssClass!: string;
 
+  materialCssVarsService = inject(MaterialCssVarsService);
   message = { ...DEFAULT_VSCODE_MESSAGE };
-  title = 'idl-webview';
 
-  constructor(
-    public materialCssVarsService: MaterialCssVarsService,
-    private vscodeService: VSCodeService,
-  ) {}
+  title = 'idl-webview';
+  private vscodeService = inject(VSCodeService);
 
   ngOnInit() {
     // listen for color changes
@@ -30,7 +28,7 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // isten for messages - used for "routing"
+    // listen for messages - used for "routing"
     this.vscodeService.messages.subscribe((msg) => {
       this.message = msg;
     });
