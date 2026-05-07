@@ -43,6 +43,8 @@ export const TYPE_MAP_AND_ALIASES: { [key: string]: IDLTypes } = {
 
   enviagzones: 'ENVIAgZones',
 
+  enviannotationset: 'ENVIAnnotationSet',
+
   envicoordsys: 'ENVICoordSys',
 
   envideeplearningkerasmodel: 'ENVIDeepLearningKerasModel',

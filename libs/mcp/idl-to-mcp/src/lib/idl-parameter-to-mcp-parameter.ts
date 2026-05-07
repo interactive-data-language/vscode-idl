@@ -1,6 +1,7 @@
 import {
   MCP_ENVIAgCrops,
   MCP_ENVIAgZones,
+  MCP_ENVIAnnotationSet,
   MCP_ENVICoordSys,
   MCP_ENVIDeepLearningKerasModel,
   MCP_ENVIDeepLearningLabelRaster,
@@ -153,6 +154,13 @@ function IDLParameterToMCPParameter_Recurser(
      */
     case IDLTypeHelper.isType(type, 'enviagzones'):
       res = MCP_ENVIAgZones();
+      break;
+
+    /**
+     * Annotation sets
+     */
+    case IDLTypeHelper.isType(type, 'enviannotationset'):
+      res = MCP_ENVIAnnotationSet();
       break;
 
     /**

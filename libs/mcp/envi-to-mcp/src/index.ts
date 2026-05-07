@@ -1,6 +1,7 @@
 export * from './lib/fix-envi-factory';
 export * from './lib/parameters/mcp-envi-ag-crops';
 export * from './lib/parameters/mcp-envi-ag-zones';
+export * from './lib/parameters/mcp-envi-annotation-set';
 export * from './lib/parameters/mcp-envi-coord-sys';
 export * from './lib/parameters/mcp-envi-deep-learning-keras-model';
 export * from './lib/parameters/mcp-envi-deep-learning-label-raster';
