@@ -18,7 +18,7 @@ import {
   IParameterOrPropertyDetails,
   ParameterDirection,
 } from '@idl/types/idl-data-types';
-import * as merge from 'deepmerge';
+import merge from 'deepmerge';
 import { join } from 'path';
 
 import { IDocsByRoutine } from '../main.interface';
@@ -171,7 +171,7 @@ function MergeEntries(
         type: IDLTypeHelper.parseIDLType(startType),
         direction:
           name in jsonOverride
-            ? jsonOverride[useName].direction
+            ? jsonOverride[useName].direction || DEFAULT_DIRECTION
             : DEFAULT_DIRECTION,
         source: GLOBAL_TOKEN_SOURCE_LOOKUP.INTERNAL,
         code: true,
