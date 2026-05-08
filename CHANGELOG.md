@@ -12,6 +12,11 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ## Unreleased
 
+Added a new feature: ability to create ENVI Modeler Workflows! You can now ask questions like:
+
+- Help me create an ENVI Modeler Workflow to detect change detection using spectral indices. Have the spectral index as an input option.
+- [After you run processing] Can you generate an ENVI Modeler Workflow from the processing steps that we just walked through?
+
 Fixed an issue where the "Restart" debug toolbar item only reset IDL and did not, in fact, restart IDL. It now stops and launches a new session.
 
 Refined the ENVI instructions to include more detail about how and when to use different tools.
@@ -21,6 +26,8 @@ Updated the ENVI instructions to better support opening the correct files in ENV
 Fixed an issue where a semi-colon was added to IDL_DEFAULT search path on mac and Linux.
 
 Fixed an issue with ENVI Coord Sys where it was a string instead of a number.
+
+Changed the "manage-id-and-envi-session" MCP tool to only start the ENVI UI. Headless was causing some issues when trying to interact with the UI, so narrowing the capabilities for now.
 
 ## 6.0.2 - March 2026
 
