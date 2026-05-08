@@ -39,19 +39,6 @@ export const AUTO_ENVI_MODELER_TEST_STATIC_INPUT: IAutoENVIModelerTest = {
           comment: 'Step 2: Remove clumps ≤500 pixels',
         },
         {
-          id: 'mask_manipulator',
-          type: 'task',
-          display_name: 'Grow-Shrink Mask',
-          task_name: 'MTKMaskManipulator',
-          static_input: {
-            MASK_VALUE: 2,
-            ACTIONS: ['grow-shrink'],
-            PIXEL_DISTANCE: [3],
-            N_ITERATIONS: [5],
-          },
-          comment: 'Step 3: Grow-shrink by 15 pixels over 5 iterations',
-        },
-        {
           id: 'to_shapefile',
           type: 'task',
           display_name: 'Export Decrease Class',
@@ -103,12 +90,6 @@ export const AUTO_ENVI_MODELER_TEST_STATIC_INPUT: IAutoENVIModelerTest = {
         },
         {
           from: 'sieve',
-          from_parameters: ['output_raster'],
-          to: 'mask_manipulator',
-          to_parameters: ['INPUT_RASTER'],
-        },
-        {
-          from: 'mask_manipulator',
           from_parameters: ['OUTPUT_RASTER'],
           to: 'to_shapefile',
           to_parameters: ['input_raster'],
