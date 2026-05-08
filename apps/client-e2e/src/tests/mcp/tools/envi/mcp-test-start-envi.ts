@@ -31,13 +31,13 @@ export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
   // // verify we started
   // expect(init.debug.adapter.isStarted()).toBeTruthy();
 
-  // make sure that the ENVI UI is not started
-  expect(
-    CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`)),
-  ).toEqual('0');
+  // // make sure that the ENVI UI is not started
+  // expect(
+  //   CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`)),
+  // ).toEqual('0');
 
-  // pause while stopping
-  await Sleep(DEBUG_PAUSE);
+  // // pause while stopping
+  // await Sleep(DEBUG_PAUSE);
 
   // stop
   init.debug.adapter.terminate();

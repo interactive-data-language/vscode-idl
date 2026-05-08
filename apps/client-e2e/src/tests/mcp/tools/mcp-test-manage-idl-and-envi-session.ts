@@ -24,6 +24,9 @@ export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
   // make sure launched
   expect(init.debug.adapter.isStarted()).toBeTruthy();
 
+  // pause while stopping
+  await Sleep(DEBUG_PAUSE);
+
   /**
    * =========================================================
    * Restart IDL
@@ -41,6 +44,9 @@ export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
 
   // make sure launched
   expect(init.debug.adapter.isStarted()).toBeTruthy();
+
+  // pause while stopping
+  await Sleep(DEBUG_PAUSE);
 
   /**
    * =========================================================
@@ -64,6 +70,9 @@ export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
   expect(
     CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`)),
   ).not.toEqual('0');
+
+  // pause while stopping
+  await Sleep(DEBUG_PAUSE);
 
   /**
    * Functionality disabled to prefer UI
@@ -116,6 +125,9 @@ export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
   expect(
     CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`)),
   ).not.toEqual('0');
+
+  // pause while stopping
+  await Sleep(DEBUG_PAUSE);
 
   /**
    * =========================================================
