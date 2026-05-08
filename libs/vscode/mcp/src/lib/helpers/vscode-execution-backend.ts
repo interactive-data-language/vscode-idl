@@ -90,7 +90,7 @@ export class VSCodeExecutionBackend implements IIDLExecutionBackend {
   }
 
   async stop(): Promise<void> {
-    IDL_DEBUG_ADAPTER.terminate(false);
+    IDL_DEBUG_ADAPTER.terminate();
   }
 
   verifyIDLVersion(): boolean {
