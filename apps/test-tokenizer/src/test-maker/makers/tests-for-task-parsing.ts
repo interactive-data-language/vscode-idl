@@ -25,7 +25,7 @@ export async function TestsForTaskParsing(
   // add imports
   strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { ResetGlobalDisplayNames } from '@idl/parsing/index';`);
-  strings.push(`import { TaskToGlobalToken } from '@idl/types/tasks';`);
+  strings.push(`import { TaskToGlobalToken } from '@idl/parsing/tasks';`);
   strings.push(`import { LoadTask } from '@idl/schemas/tasks';`);
   strings.push(`import { IGlobalsToTrack } from '@idl/types/tasks';`);
   strings.push(``);

@@ -71,6 +71,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'in',
               private: false,
               display: 'task_name',
+              readableName: 'Task Name',
               docs: 'The name of a task that will be queried for its definition.',
               type: [
                 {
@@ -90,6 +91,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'out',
               private: false,
               display: 'definition',
+              readableName: 'Definition',
               docs: 'An IDLTaskInfo hash that describes the properties of an IDL task.',
               type: [
                 {

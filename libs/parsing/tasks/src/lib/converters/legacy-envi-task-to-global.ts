@@ -39,7 +39,7 @@ export function LegacyENVITaskToGlobal(
     meta: {
       display: name,
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
-      docs: task.description,
+      docs: task.description || '',
       readableName: task.displayName || GetDisplayName(task.name),
       private: false,
       inherits: ['envitask'], // lower-case
@@ -113,7 +113,7 @@ export function LegacyENVITaskToGlobal(
     meta: {
       display: name,
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
-      docs: task.description,
+      docs: task.description || '',
       private: false,
       returns: IDLTypeHelper.parseIDLType(useName),
       args: {},

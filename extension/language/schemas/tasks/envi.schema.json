@@ -246,33 +246,7 @@
           "default": false
         }
       },
-      "required": ["name", "type"],
-      "if": {
-        "allOf": [
-          {
-            "not": {
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "pattern": "^[Ee][Nn][Vv][Ii][Mm][Ee][Tt][Aa][Tt][Aa][Ss][Kk][Dd][Aa][Gg]$"
-                }
-              }
-            }
-          },
-          {
-            "not": {
-              "properties": {
-                "hidden": {
-                  "const": true
-                }
-              }
-            }
-          }
-        ]
-      },
-      "then": {
-        "required": ["display_name"]
-      }
+      "required": ["name", "type"]
     }
   }
 }

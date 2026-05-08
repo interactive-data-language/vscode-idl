@@ -8,7 +8,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
     // specify reference filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-parsing/Download_S3_URL.task',
+      'idl/test/task-parsing/addition_example.task',
     );
 
     // reset global display names
@@ -21,24 +21,24 @@ describe(`[auto generated] Correctly parse task file`, () => {
     const expected: IGlobalsToTrack = {
       function: {
         type: 'f',
-        name: 'idldownload_s3_urltask',
+        name: 'idladdition_exampletask',
         pos: [0, 0, 0],
         meta: {
-          display: 'IDLDownload_S3_URLTask',
+          display: 'IDLaddition_exampleTask',
           source: 'user',
-          docs: "\nThis task downloads a resource specified by an S3 URL into a local file.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<Download_S3_URL>\n;-\nmyTask = IDLTask('Download_S3_URL')\n\n; set input parameters\nmyTask.s3_url = value\nmyTask.local_file = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\n\n```\n\n\n### Input Parameters\n\n- **s3_url**: String\n\n  The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.\n\n- **local_file**: String\n\n  The local file in which to download the S3 resource.\n\n",
+          docs: "\nReturns the sum of a and b.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<addition_example>\n;-\nmyTask = IDLTask('addition_example')\n\n; set input parameters\nmyTask.a = value\nmyTask.b = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\nc = myTask.c\n\n```\n\n\n### Input Parameters\n\n- **a**: Int\n\n  \n\n- **b**: Int\n\n  \n\n\n\n### Output Parameters\n\n- **c**: Int\n\n  \n\n",
           private: false,
           returns: [
             {
-              name: 'idldownload_s3_urltask',
-              display: 'IDLTask<download_s3_url>',
-              serialized: 'IDLTask<download_s3_url>',
+              name: 'idladdition_exampletask',
+              display: 'IDLTask<addition_example>',
+              serialized: 'IDLTask<addition_example>',
               args: [
                 [
                   {
-                    name: 'download_s3_url',
-                    display: 'download_s3_url',
-                    serialized: 'download_s3_url',
+                    name: 'addition_example',
+                    display: 'addition_example',
+                    serialized: 'addition_example',
                     args: [],
                     meta: {},
                   },
@@ -55,51 +55,71 @@ describe(`[auto generated] Correctly parse task file`, () => {
       },
       structure: {
         type: 's',
-        name: 'idldownload_s3_urltask',
+        name: 'idladdition_exampletask',
         pos: [0, 0, 0],
         meta: {
-          display: 'IDLDownload_S3_URLTask',
-          readableName: 'Download S3 URL',
+          display: 'IDLaddition_exampleTask',
+          readableName: 'Addition Example',
           source: 'user',
-          docs: 'This task downloads a resource specified by an S3 URL into a local file.\n\n\n### Properties\n\n- **s3_url**: String\n\n  The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.\n\n- **local_file**: String\n\n  The local file in which to download the S3 resource.\n\n',
+          docs: 'Returns the sum of a and b.\n\n\n### Properties\n\n- **a**: Int\n\n  \n\n- **b**: Int\n\n  \n\n- **c**: Int\n\n  \n\n',
           private: false,
           inherits: ['idltask'],
           docsLookup: {},
           props: {
-            s3_url: {
+            a: {
               source: 'user',
               code: true,
               pos: [0, 0, 0],
               direction: 'in',
               private: false,
-              display: 's3_url',
-              readableName: 'S3 URL',
-              docs: 'The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.',
+              display: 'a',
+              readableName: 'A',
+              docs: '',
               type: [
                 {
-                  name: 'String',
-                  display: 'String',
-                  serialized: 'String',
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
                   args: [],
                   meta: {},
                 },
               ],
               req: true,
             },
-            local_file: {
+            b: {
               source: 'user',
               code: true,
               pos: [0, 0, 0],
               direction: 'in',
               private: false,
-              display: 'local_file',
-              readableName: 'Local Filename',
-              docs: 'The local file in which to download the S3 resource.',
+              display: 'b',
+              readableName: 'B',
+              docs: '',
               type: [
                 {
-                  name: 'String',
-                  display: 'String',
-                  serialized: 'String',
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
+                  args: [],
+                  meta: {},
+                },
+              ],
+              req: true,
+            },
+            c: {
+              source: 'user',
+              code: true,
+              pos: [0, 0, 0],
+              direction: 'out',
+              private: false,
+              display: 'c',
+              readableName: 'C',
+              docs: '',
+              type: [
+                {
+                  name: 'Int',
+                  display: 'Int',
+                  serialized: 'Int',
                   args: [],
                   meta: {},
                 },

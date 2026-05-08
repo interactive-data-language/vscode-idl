@@ -73,6 +73,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'in',
               private: false,
               display: 'filter_tags',
+              readableName: 'Filter Tags',
               docs: 'An array of tags to filter the tasks to query on. Only tasks that have all tags set in this array will be returned. The search is case-insensitive. Default is to perform no filtering.',
               type: [
                 {
@@ -102,6 +103,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'out',
               private: false,
               display: 'task_definitions',
+              readableName: 'Task Definitions',
               docs: 'An IDLTaskCatalog hash that describes all tasks and their properties for each task.',
               type: [
                 {

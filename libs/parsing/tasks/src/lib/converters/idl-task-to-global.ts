@@ -43,7 +43,7 @@ export function IDLTaskToGlobal(
       display: name,
       readableName: task.display_name || GetDisplayName(task.name),
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
-      docs: task.description,
+      docs: task.description || '',
       private: false,
       inherits: ['idltask'], // lower-case
       docsLookup: {},
@@ -112,7 +112,7 @@ export function IDLTaskToGlobal(
     meta: {
       display: name,
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,
-      docs: task.description,
+      docs: task.description || '',
       private: false,
       returns: IDLTypeHelper.parseIDLType(useName),
       args: {},

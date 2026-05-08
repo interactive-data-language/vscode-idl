@@ -25,7 +25,7 @@ export interface ENVIParameterSchema30 {
   /** Default value for the task */
   default?: any;
   /** parameter description */
-  description: string;
+  description?: string;
   /** If array, dimension string */
   dimensions?: number[] | string;
   /** Direction (input or output) */
@@ -98,7 +98,7 @@ export interface ENVITaskSchema30Properties {
   /** Type of the task, should be "ENVITaskFromProcedure" */
   base_class: string;
   /** Description of what the task does */
-  description: string;
+  description?: string;
   /** Name of the task that gets displayed in the ENVI UI */
   display_name?: string;
   /** Name of the task when calling via the ENVI API */
