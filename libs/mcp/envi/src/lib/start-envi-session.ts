@@ -36,11 +36,11 @@ export async function StartENVISession(
 
   onProgress?.('Starting ENVI');
 
-  const headless =
-    params.action === 'restart-envi-headless' ||
-    params.action === 'start-envi-headless'
-      ? true
-      : false;
+  const headless = false;
+  // params.action === 'restart-envi-headless' ||
+  // params.action === 'start-envi-headless'
+  //   ? true
+  //   : false;
 
   const res = await backend.evaluateENVICommand(
     `vscode_startENVI, headless = ${headless ? '!true' : '!false'}`,

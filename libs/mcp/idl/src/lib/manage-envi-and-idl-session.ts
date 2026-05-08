@@ -26,8 +26,8 @@ export async function ManageENVIAndIDLSession(
   switch (params.action) {
     case 'start-envi':
       return StartENVISession(backend, params, onProgress);
-    case 'start-envi-headless':
-      return StartENVISession(backend, params, onProgress);
+    // case 'start-envi-headless':
+    //   return StartENVISession(backend, params, onProgress);
     case 'start-idl':
       return StartIDLSession(backend, params, onProgress);
     default:
@@ -61,8 +61,8 @@ export async function ManageENVIAndIDLSession(
   switch (params.action) {
     case 'restart-envi':
       return StartENVISession(backend, params, onProgress);
-    case 'restart-envi-headless':
-      return StartENVISession(backend, params, onProgress);
+    // case 'restart-envi-headless':
+    //   return StartENVISession(backend, params, onProgress);
     case 'restart-idl':
       return StartIDLSession(backend, params, onProgress);
     default:
