@@ -23,7 +23,11 @@ import { ReduceIDLDataType } from '../helpers/reduce-types';
 import { ARRAY_SHORTHAND_TYPES } from './array-shorthand-types.interface';
 import { NormalizeTypeName } from './normalize-type-name';
 import { UpdateNumberBaseType } from './number-to-literal';
-import { TASK_REGEX, TASK_REGEX_GLOBAL } from './parse-idl-type.interface';
+import {
+  ARRAY_REGEX_GLOBAL,
+  TASK_REGEX,
+  TASK_REGEX_GLOBAL,
+} from './parse-idl-type.interface';
 import { PopulateTypeProperties } from './populate-type-properties';
 import { SetDefaultTypesAndNormalizeNames } from './set-default-types-and-normalize-names';
 
@@ -199,6 +203,13 @@ export function ParseIDLType(type: string) {
   if (use === '') {
     return parsedType;
   }
+
+  /**
+   * Normalize array types from StringArray to Array<String>
+   */
+  use = use.replace(ARRAY_REGEX_GLOBAL, (match, g1) => {
+    return `Array<${g1}>`;
+  });
 
   /**
    * Normalize any task types since we support two flavors

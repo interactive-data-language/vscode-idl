@@ -1585,6 +1585,41 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
     },
     {
       suiteName: `Types from`,
+      fileName: `types.arrays.regressions.2.spec.ts`,
+      tests: [
+        {
+          name: `legacy array creation`,
+          code: [
+            `;+`,
+            `; :Description:`,
+            `;   Queries the KY Bridges feature service for one or more bridge IDs, creates a`,
+            `;   separate CityWorks inspection request for each bridge, and writes all matching`,
+            `;   point features to a single shapefile.`,
+            `;`,
+            `; :Keywords:`,
+            `;   BRIDGE_ID : in, required, type=StringArray`,
+            `;     One or more bridge structure numbers (STRUCTURE_NUMBER_008)`,
+            `;   INSPECTION_IDS : out, optional, type=StringArray`,
+            `;     The IDs of the created CityWorks inspections, one per bridge`,
+            `;   SHAPEFILE_URI : in, optional, type=string`,
+            `;     Fully-qualified path for the output shapefile. Auto-generated if not provided.`,
+            `;   OUTPUT_VECTOR : out, optional, type=ENVIVector`,
+            `;     ENVIVector reference to the output bridge point shapefile`,
+            `;`,
+            `;-`,
+            `pro create_inspection_request, $`,
+            `  bridge_id = bridge_id, $`,
+            `  inspection_ids = inspection_ids, $`,
+            `  shapefile_uri = shapefile_uri, $`,
+            `  output_vector = output_vector`,
+            `  compile_opt idl2, hidden`,
+            `end`,
+          ],
+        },
+      ],
+    },
+    {
+      suiteName: `Types from`,
       fileName: `types.array-promotion.spec.ts`,
       tests: [
         {
@@ -1622,7 +1657,6 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
         },
       ],
     },
-
     {
       suiteName: `Types from`,
       fileName: `types.array-promotion.2.spec.ts`,
