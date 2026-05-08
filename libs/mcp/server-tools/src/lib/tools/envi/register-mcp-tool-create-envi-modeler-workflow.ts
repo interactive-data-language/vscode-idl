@@ -242,12 +242,24 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
         };
       }
 
+      // send request to open the ENVI Modeler Workflow
+      const resp = await server.sendIDLRequest(
+        id,
+        MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
+        { code: `vscode_openENVIModelerWorkflow, '${output_path}'` },
+      );
+
+      let msgAdd = '';
+      if (!resp.success) {
+        msgAdd = `\n\nCreated, but encountered error while opening in ENVI, details: ${JSON.stringify(resp)}`;
+      }
+
       return {
         isError: false,
         content: [
           {
             type: 'text',
-            text: `ENVI Modeler workflow written to: ${output_path}\n\n${modelContent}`,
+            text: `ENVI Modeler workflow written to: ${output_path}${msgAdd}`,
           },
         ],
       };
