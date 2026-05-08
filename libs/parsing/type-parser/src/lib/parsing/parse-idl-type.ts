@@ -156,11 +156,7 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
  * Only advanced cases should change this behavior, like in the recursive
  * calls to this function internally.
  */
-export function PostProcessIDLType(
-  type: IDLDataType,
-  makeCopy = true,
-  isTask = false,
-) {
+export function PostProcessIDLType(type: IDLDataType, makeCopy = true) {
   // check if we need to make a copy of the type
   if (makeCopy) {
     type = copy(type);
@@ -175,16 +171,12 @@ export function PostProcessIDLType(
   // remove duplicates and process all type arguments
   for (let i = 0; i < reduced.length; i++) {
     for (let j = 0; j < reduced[i].args.length; j++) {
-      reduced[i].args[j] = PostProcessIDLType(
-        reduced[i].args[j],
-        false,
-        isTask,
-      );
+      reduced[i].args[j] = PostProcessIDLType(reduced[i].args[j], false);
     }
   }
 
   // set name, display, and serialized
-  PopulateTypeProperties(reduced, isTask);
+  PopulateTypeProperties(reduced);
 
   return reduced;
 }

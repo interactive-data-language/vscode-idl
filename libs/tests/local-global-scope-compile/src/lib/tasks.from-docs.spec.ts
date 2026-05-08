@@ -66,7 +66,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVITask',
+                  name: 'envitask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [
@@ -98,7 +98,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'IDLTask',
+                  name: 'idltask',
                   display: 'IDLTask<any>',
                   serialized: 'IDLTask<any>',
                   args: [
@@ -130,7 +130,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVIBuildMosaicRasterTask',
+                  name: 'envibuildmosaicrastertask',
                   display: 'ENVITask<BuildMosaicRaster>',
                   serialized: 'ENVITask<BuildMosaicRaster>',
                   args: [
@@ -147,7 +147,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
                   meta: {},
                 },
                 {
-                  name: 'ENVISubsetRasterTask',
+                  name: 'envisubsetrastertask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
@@ -211,7 +211,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVIBuildMosaicRasterTask',
+                  name: 'envibuildmosaicrastertask',
                   display: 'ENVITask<BuildMosaicRaster>',
                   serialized: 'ENVITask<BuildMosaicRaster>',
                   args: [
@@ -254,7 +254,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
               source: 'internal',
               type: [
                 {
-                  name: 'ENVITask',
+                  name: 'envitask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [
@@ -283,7 +283,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
               source: 'internal',
               type: [
                 {
-                  name: 'IDLTask',
+                  name: 'idltask',
                   display: 'IDLTask<any>',
                   serialized: 'IDLTask<any>',
                   args: [
@@ -312,7 +312,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
               source: 'internal',
               type: [
                 {
-                  name: 'ENVIBuildMosaicRasterTask',
+                  name: 'envibuildmosaicrastertask',
                   display: 'ENVITask<BuildMosaicRaster>',
                   serialized: 'ENVITask<BuildMosaicRaster>',
                   args: [
@@ -329,7 +329,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
                   meta: {},
                 },
                 {
-                  name: 'ENVISubsetRasterTask',
+                  name: 'envisubsetrastertask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
@@ -387,7 +387,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
               source: 'internal',
               type: [
                 {
-                  name: 'ENVIBuildMosaicRasterTask',
+                  name: 'envibuildmosaicrastertask',
                   display: 'ENVITask<BuildMosaicRaster>',
                   serialized: 'ENVITask<BuildMosaicRaster>',
                   args: [

@@ -88,7 +88,7 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVISubsetRasterTask',
+                  name: 'envisubsetrastertask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
@@ -120,7 +120,7 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVITask',
+                  name: 'envitask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [
@@ -347,7 +347,7 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVISubsetRasterTask',
+                  name: 'envisubsetrastertask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
@@ -379,7 +379,7 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVISubsetRasterTask',
+                  name: 'envisubsetrastertask',
                   display: 'ENVITask<SubsetRaster>',
                   serialized: 'ENVITask<SubsetRaster>',
                   args: [
@@ -411,7 +411,7 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVITask',
+                  name: 'envitask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [
@@ -443,7 +443,7 @@ describe(`[auto generated] Types from`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'ENVITask',
+                  name: 'envitask',
                   display: 'ENVITask<any>',
                   serialized: 'ENVITask<any>',
                   args: [
