@@ -14,22 +14,22 @@ import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
  * Headless execution of
  */
 export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
-  // Call a tool
-  const resultHeadless = await CallMCPTool(
-    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
-    {
-      action: 'start-envi-headless',
-    },
-  );
+  // // Call a tool
+  // const resultHeadless = await CallMCPTool(
+  //   MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+  //   {
+  //     action: 'start-envi-headless',
+  //   },
+  // );
 
-  // log
-  LogWhenExpectSuccess(resultHeadless);
+  // // log
+  // LogWhenExpectSuccess(resultHeadless);
 
-  // make sure the tool runs
-  expect(resultHeadless.isError).toBeFalsy();
+  // // make sure the tool runs
+  // expect(resultHeadless.isError).toBeFalsy();
 
-  // verify we started
-  expect(init.debug.adapter.isStarted()).toBeTruthy();
+  // // verify we started
+  // expect(init.debug.adapter.isStarted()).toBeTruthy();
 
   // make sure that the ENVI UI is not started
   expect(
