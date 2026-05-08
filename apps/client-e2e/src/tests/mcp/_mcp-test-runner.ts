@@ -3,6 +3,23 @@ import { Logger } from '@idl/logger';
 import { Runner } from '../runner.class';
 import { IOSDefinition } from '../runner.interface';
 import { RunMCPTestValidateMCPConnection } from './mcp-test-validate-mcp-connection';
+import { RunMCPTestWorkflowAddAggregators } from './tools/envi/envi-modeler/mcp-test-workflow-add-aggregators';
+import { RunMCPTestWorkflowBadDirection } from './tools/envi/envi-modeler/mcp-test-workflow-bad-direction';
+import { RunMCPTestWorkflowBadEdges } from './tools/envi/envi-modeler/mcp-test-workflow-bad-edges';
+import { RunMCPTestWorkflowChangeDetection } from './tools/envi/envi-modeler/mcp-test-workflow-change-detection';
+import { RunMCPTestWorkflowChangeDetectionML } from './tools/envi/envi-modeler/mcp-test-workflow-change-detection-ml';
+import { RunMCPTestWorkflowCorrectOutput } from './tools/envi/envi-modeler/mcp-test-workflow-correct-output';
+import { RunMCPTestWorkflowDatamanagerView } from './tools/envi/envi-modeler/mcp-test-workflow-datamanager-view';
+import { RunMCPTestWorkflowDatasetIndex } from './tools/envi/envi-modeler/mcp-test-workflow-dataset-index';
+import { RunMCPTestWorkflowDeepLearning } from './tools/envi/envi-modeler/mcp-test-workflow-deep-learning';
+import { RunMCPTestWorkflowImageClassificationML } from './tools/envi/envi-modeler/mcp-test-workflow-image-classification-ml';
+import { RunMCPTestWorkflowImageRegistration } from './tools/envi/envi-modeler/mcp-test-workflow-image-registration';
+import { RunMCPTestWorkflowIsodataWithUri } from './tools/envi/envi-modeler/mcp-test-workflow-isodata-with-uri';
+import { RunMCPTestWorkflowOrthorectification } from './tools/envi/envi-modeler/mcp-test-workflow-orthorectification';
+import { RunMCPTestWorkflowParamsBad } from './tools/envi/envi-modeler/mcp-test-workflow-params-bad';
+import { RunMCPTestWorkflowSelectiveDownsampling } from './tools/envi/envi-modeler/mcp-test-workflow-selective-downsampling';
+import { RunMCPTestWorkflowSpectralIndexIsodata } from './tools/envi/envi-modeler/mcp-test-workflow-spectral-index-isodata';
+import { RunMCPTestWorkflowStaticInput } from './tools/envi/envi-modeler/mcp-test-workflow-static-input';
 import { RunMCPENVINotInstalledErrors } from './tools/envi/mcp-envi-not-installed-errors';
 import { RunMCPTestInvalidENVIToolWorkflowName } from './tools/envi/mcp-test-envi-invalid-envi-tool-workflow-name';
 import { RunMCPTestInvalidENVIToolName } from './tools/envi/mcp-test-envi-invalid-tool-name';
@@ -126,7 +143,7 @@ MCP_TEST_RUNNER.addTest({
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestSearchForRoutineMultiple,
-  name: 'Verify we can fullfill multiple searches at once',
+  name: 'Verify we can fulfill multiple searches at once',
 });
 
 MCP_TEST_RUNNER.addTest({
@@ -292,6 +309,115 @@ MCP_TEST_RUNNER.addTest({
   name: 'Verify retrieving workflows with bad name fails',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
+
+/**
+ * ENVI Modeler Workflow tests
+ */
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowAddAggregators,
+  name: 'Create workflow: Add Aggregators',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowChangeDetection,
+  name: 'Create workflow: Change Detection',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowChangeDetectionML,
+  name: 'Create workflow: Change Detection ML',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowCorrectOutput,
+  name: 'Create workflow: Correct Output',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowDatasetIndex,
+  name: 'Create workflow: Dataset Index',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowDeepLearning,
+  name: 'Create workflow: Deep Learning',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowImageClassificationML,
+  name: 'Create workflow: Image Classification ML',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowImageRegistration,
+  name: 'Create workflow: Image Registration',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowOrthorectification,
+  name: 'Create workflow: Orthorectification',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowSelectiveDownsampling,
+  name: 'Create workflow: Selective Downsampling',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowSpectralIndexIsodata,
+  name: 'Create workflow: Spectral Index ISODATA',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowIsodataWithUri,
+  name: 'Create workflow: ISODATA with URI',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowStaticInput,
+  name: 'Create workflow: Static Input',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowDatamanagerView,
+  name: 'Create workflow: Datamanager and View',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowBadEdges,
+  name: 'Workflow validation: Bad Edges',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowBadDirection,
+  name: 'Workflow validation: Bad Direction',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowParamsBad,
+  name: 'Workflow validation: Bad Parameters',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+/**
+ * Query dataset
+ */
 
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_Raster,
