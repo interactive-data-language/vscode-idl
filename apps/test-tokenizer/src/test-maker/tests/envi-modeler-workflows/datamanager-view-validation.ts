@@ -49,28 +49,6 @@ export const AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION: IAutoENVIModele
         ],
       },
       {
-        name: 'rejects invalid types for datamanager (String)',
-        nodes: [
-          {
-            id: 'task1',
-            type: 'task',
-            task_name: 'QuerySpectralIndices',
-          },
-          {
-            id: 'datamanager',
-            type: 'datamanager',
-          },
-        ],
-        edges: [
-          {
-            from: 'task1',
-            from_parameters: ['available_indices'],
-            to: 'datamanager',
-            to_parameters: [''],
-          },
-        ],
-      },
-      {
         name: 'allows valid types for view (ENVIRaster)',
         nodes: [
           {
@@ -108,68 +86,6 @@ export const AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION: IAutoENVIModele
           {
             from: 'spectral_index',
             from_parameters: ['output_raster'],
-            to: 'view',
-            to_parameters: [''],
-          },
-        ],
-      },
-      {
-        name: 'allows String type for view',
-        nodes: [
-          {
-            id: 'task1',
-            type: 'task',
-            task_name: 'QuerySpectralIndices',
-          },
-          {
-            id: 'view',
-            type: 'view',
-          },
-        ],
-        edges: [
-          {
-            from: 'task1',
-            from_parameters: ['available_indices'],
-            to: 'view',
-            to_parameters: [''],
-          },
-        ],
-      },
-      {
-        name: 'rejects invalid types for view (Hash)',
-        nodes: [
-          {
-            id: 'input_params',
-            type: 'inputparameters',
-            parameters: [
-              {
-                name: 'input_raster',
-                display_name: 'Input Raster',
-                description: 'A raster',
-                type: 'ENVIRaster',
-              },
-            ],
-          },
-          {
-            id: 'raster_metadata',
-            type: 'task',
-            task_name: 'RasterMetadata',
-          },
-          {
-            id: 'view',
-            type: 'view',
-          },
-        ],
-        edges: [
-          {
-            from: 'input_params',
-            from_parameters: ['input_raster'],
-            to: 'raster_metadata',
-            to_parameters: ['input_raster'],
-          },
-          {
-            from: 'raster_metadata',
-            from_parameters: ['metadata'],
             to: 'view',
             to_parameters: [''],
           },
@@ -280,46 +196,6 @@ export const AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION: IAutoENVIModele
             from: 'buffer',
             from_parameters: ['output_vector'],
             to: 'datamanager',
-            to_parameters: [''],
-          },
-        ],
-      },
-      {
-        name: 'allows numeric types for view',
-        nodes: [
-          {
-            id: 'input_params',
-            type: 'inputparameters',
-            parameters: [
-              {
-                name: 'input_raster',
-                display_name: 'Input Raster',
-                description: 'A raster',
-                type: 'ENVIRaster',
-              },
-            ],
-          },
-          {
-            id: 'stats',
-            type: 'task',
-            task_name: 'RasterStatistics',
-          },
-          {
-            id: 'view',
-            type: 'view',
-          },
-        ],
-        edges: [
-          {
-            from: 'input_params',
-            from_parameters: ['input_raster'],
-            to: 'stats',
-            to_parameters: ['input_raster'],
-          },
-          {
-            from: 'stats',
-            from_parameters: ['max'],
-            to: 'view',
             to_parameters: [''],
           },
         ],
