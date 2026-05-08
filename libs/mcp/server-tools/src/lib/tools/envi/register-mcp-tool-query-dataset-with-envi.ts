@@ -71,33 +71,16 @@ export function RegisterMCPTool_QueryDatasetWithENVI(server: MCPServer) {
         };
       }
 
-      // pick the dataset that was provided
-      const dataset =
-        raster ??
-        vector ??
-        roi ??
-        spectralLibrary ??
-        deepLearningModel ??
-        machineLearningModel;
-
-      // make sure one was passed in
-      if (!dataset) {
-        return {
-          isError: true,
-          content: [
-            {
-              type: 'text',
-              text: 'No dataset provided. Specify exactly one of: raster, vector, roi, spectralLibrary, deepLearningModel, or machineLearningModel.',
-            },
-          ],
-        };
-      }
-
       const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
         {
-          dataset,
+          raster,
+          vector,
+          roi,
+          spectralLibrary,
+          deepLearningModel,
+          machineLearningModel,
         },
       );
 

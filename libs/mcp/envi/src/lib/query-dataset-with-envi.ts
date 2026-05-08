@@ -21,6 +21,24 @@ export async function QueryDatasetWithENVI(
   params: MCPToolParams<MCPTool_QueryDatasetWithENVI>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_QueryDatasetWithENVI>> {
+  // Pick the dataset that was provided
+  const dataset =
+    params.raster ??
+    params.vector ??
+    params.roi ??
+    params.spectralLibrary ??
+    params.deepLearningModel ??
+    params.machineLearningModel;
+
+  // Validate that exactly one dataset was passed in
+  if (!dataset) {
+    return {
+      success: false,
+      err: 'No dataset provided. Specify exactly one of: raster, vector, roi, spectralLibrary, deepLearningModel, or machineLearningModel.',
+      info: [{}],
+    };
+  }
+
   onProgress?.('Starting IDL');
 
   const started = await backend.start(false);
@@ -52,7 +70,7 @@ export async function QueryDatasetWithENVI(
   onProgress?.('Querying dataset');
 
   const res = await backend.evaluateENVICommand(
-    `vscode_queryDataset, '${MCPSerializeJSON(params.dataset)}'`,
+    `vscode_queryDataset, '${MCPSerializeJSON(dataset)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false },
   );
 

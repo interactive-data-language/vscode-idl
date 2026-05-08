@@ -18,7 +18,7 @@ export const RunMCPTestQueryDatasetWithENVI_Vector: RunnerFunction = async (
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI, {
-    dataset: ENVITestDatasets.vector(),
+    vector: ENVITestDatasets.vector(),
   });
 
   // log if failure

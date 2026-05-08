@@ -18,7 +18,7 @@ export const RunMCPTestQueryDatasetWithENVI_Raster: RunnerFunction = async (
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI, {
-    dataset: ENVITestDatasets.raster(),
+    raster: ENVITestDatasets.raster(),
   });
 
   // log if failure

@@ -17,7 +17,7 @@ export const RunMCPTestQueryDatasetWithENVI_SpectralLibrary: RunnerFunction =
   async (init) => {
     // Call a tool
     const result = await CallMCPTool(MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI, {
-      dataset: ENVITestDatasets.spectralLibrary(),
+      spectralLibrary: ENVITestDatasets.spectralLibrary(),
     });
 
     // log if failure

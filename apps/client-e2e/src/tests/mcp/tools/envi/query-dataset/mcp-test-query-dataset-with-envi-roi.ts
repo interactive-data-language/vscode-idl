@@ -18,7 +18,7 @@ export const RunMCPTestQueryDatasetWithENVI_ROI: RunnerFunction = async (
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI, {
-    dataset: ENVITestDatasets.roi(),
+    roi: ENVITestDatasets.roi(),
   });
 
   // log if failure
