@@ -22,10 +22,10 @@ export function RegisterMCPTool_ManageIDLAndENVISession(server: MCPServer) {
       inputSchema: {
         action: z
           .enum([
-            'restart-envi-headless',
+            // 'restart-envi-headless',
             'restart-envi',
             'restart-idl',
-            'start-envi-headless',
+            // 'start-envi-headless',
             'start-envi',
             'start-idl',
             'stop',
@@ -39,9 +39,9 @@ export function RegisterMCPTool_ManageIDLAndENVISession(server: MCPServer) {
       // check actions and make sure ENVI is installed
       if (
         (action === 'restart-envi' ||
-          action === 'restart-envi-headless' ||
-          action === 'start-envi' ||
-          action === 'start-envi-headless') &&
+          // action === 'restart-envi-headless' ||
+          // action === 'start-envi-headless' ||
+          action === 'start-envi') &&
         !IS_ENVI_INSTALLED
       ) {
         return {
