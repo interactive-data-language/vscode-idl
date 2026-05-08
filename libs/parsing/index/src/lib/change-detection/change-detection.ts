@@ -191,7 +191,7 @@ export async function ChangeDetectionMainThread(
   // print log
   index.log.log({
     log: IDL_LSP_LOG,
-    type: 'info',
+    type: 'debug',
     content: [
       `Finished change detection after updating ${totalChanges} global(s) with ${recursion} step(s) over ${Math.floor(
         performance.now() - t0,
