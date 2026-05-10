@@ -66,7 +66,7 @@ const nodeSchema = z.object({
     .optional()
     .describe('ENVI Task revision string (e.g. "1.0.0"). Omit to use latest.'),
   static_input: z
-    .record(z.any())
+    .record(z.string(), z.unknown())
     .optional()
     .describe(
       `Hardcoded task input parameters. Only include values that differ from task defaults, use '${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS}' to check defaults.`,
