@@ -325,39 +325,51 @@ export class IDLMachine {
    * Writes a JSON RPC notification message
    */
   private _writeNotification(method: string, params: any) {
-    this.idl.stdin?.write(
-      JSON.stringify({
-        jsonrpc: '2.0',
-        method,
-        params,
-      }),
-    );
+    try {
+      this.idl.stdin?.write(
+        JSON.stringify({
+          jsonrpc: '2.0',
+          method,
+          params,
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   /**
    * Writes a JSON RPC notification message
    */
   private _writeRequest(id: number, method: string, params: any) {
-    this.idl.stdin?.write(
-      JSON.stringify({
-        jsonrpc: '2.0',
-        id,
-        method,
-        params,
-      }),
-    );
+    try {
+      this.idl.stdin?.write(
+        JSON.stringify({
+          jsonrpc: '2.0',
+          id,
+          method,
+          params,
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   /**
    * Writes out a JSON RPC response to the IDL Machine
    */
   private _writeResponse(id: number, result: any) {
-    this.idl.stdin?.write(
-      JSON.stringify({
-        jsonrpc: '2.0',
-        id,
-        result,
-      }),
-    );
+    try {
+      this.idl.stdin?.write(
+        JSON.stringify({
+          jsonrpc: '2.0',
+          id,
+          result,
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
