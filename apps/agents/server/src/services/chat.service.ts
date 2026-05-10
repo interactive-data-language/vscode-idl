@@ -55,6 +55,52 @@ export class ChatService {
   }
 
   /**
+   * Gets chat messages
+   */
+  async getMessages(request: ChatMessageRequest) {
+    /** Init messages */
+    const messages: BaseMessage[] = [
+      new SystemMessage(this.loadInstructions('todo')),
+    ];
+
+    // Prepend system instructions if a prompt type is specified
+    if (request.prompt !== 'none') {
+      messages.push(new SystemMessage(this.loadInstructions(request.prompt)));
+    }
+
+    // add all previous session messages
+    messages.push(
+      ...this.convertToLangChainMessages(request.conversationHistory),
+    );
+
+    // add reminder for the to-dos
+    if (Array.isArray(request.currentTodos)) {
+      const todoMessage = this.formatTodoListMessage(request.currentTodos);
+      if (todoMessage) {
+        messages.push(new SystemMessage(todoMessage));
+      }
+    }
+
+    // add the new user message
+    messages.push(
+      new HumanMessage(this.extractMessageContent(request.message)),
+    );
+
+    return messages;
+  }
+
+  /**
+   * Gets all of the tools for the model
+   */
+  async getTools(request: ChatMessageRequest) {
+    /** Get current to-dos, the tools require these */
+    const todos: TodoItem[] = request.currentTodos || [];
+
+    // concat tools and return
+    return [...this.mcpTools, ...RegisterMCPToolsForToDos(todos)];
+  }
+
+  /**
    * Stream a chat completion from OpenAI with agentic tool calling
    *
    * @param request - The chat message request with history and model selection
@@ -75,39 +121,24 @@ export class ChatService {
         temperature: 0.7,
       });
 
+      /** Get messages */
+      const messages = await this.getMessages(request);
+
+      /** Get tools */
+      const allTools = await this.getTools(request);
+
       // Initialize per-request to-do list from frontend state (stateless pattern)
-      const todos: TodoItem[] = [...(request.currentTodos ?? [])];
-      const todoTools = RegisterMCPToolsForToDos(todos);
+      const todos: TodoItem[] = request.currentTodos || [];
 
       // Bind MCP tools + todo tools to the model
-      const allTools = [...this.mcpTools, ...todoTools];
       const modelWithTools =
         allTools.length > 0 ? model.bindTools(allTools) : model;
-
-      // Convert conversation history to LangChain format
-      const messages: BaseMessage[] = this.convertToLangChainMessages(
-        request.conversationHistory,
-      );
-
-      // add instructions for our ToDo list
-      messages.unshift(new SystemMessage(this.loadInstructions('todo')));
-
-      // Prepend system instructions if a prompt type is specified
-      if (request.prompt !== 'none') {
-        messages.unshift(
-          new SystemMessage(this.loadInstructions(request.prompt)),
-        );
-      }
-
-      // Add the new user message
-      messages.push(
-        new HumanMessage(this.extractMessageContent(request.message)),
-      );
 
       // Agentic loop: keep calling the model until it stops using tools
       let iteration = 0;
       let continueLoop = true;
 
+      // loop through requests
       while (continueLoop && iteration < MAX_ITERATIONS) {
         iteration++;
 
@@ -117,6 +148,7 @@ export class ChatService {
         // Accumulate chunks using LangChain's built-in concat
         let accumulated: AIMessageChunk | null = null;
 
+        // handle output from the LLM
         for await (const chunk of stream) {
           accumulated = accumulated ? accumulated.concat(chunk) : chunk;
 
@@ -136,7 +168,7 @@ export class ChatService {
         }
 
         // Check for tool calls from the accumulated message
-        const toolCalls = accumulated.tool_calls ?? [];
+        const toolCalls = accumulated.tool_calls || [];
 
         // Convert AIMessageChunk to a proper AIMessage before adding to history.
         // AIMessageChunk may not serialize tool_calls correctly for the API on
@@ -149,7 +181,7 @@ export class ChatService {
                   ? accumulated.content
                   : '',
               tool_calls: toolCalls.map((tc) => ({
-                id: tc.id ?? `tool_${Date.now()}_${Math.random()}`,
+                id: tc.id || `tool_${Date.now()}_${Math.random()}`,
                 name: tc.name,
                 args: tc.args,
               })),
@@ -167,12 +199,10 @@ export class ChatService {
 
         // Use the tool call IDs from the message we just pushed
         const aiMsg = messages[messages.length - 1] as AIMessage;
-        const resolvedToolCalls = aiMsg.tool_calls ?? [];
+        const resolvedToolCalls = aiMsg.tool_calls || [];
 
         // Execute tool calls using the LangChain tools from loadMcpTools
-        const toolsByName = new Map(
-          [...this.mcpTools, ...todoTools].map((t) => [t.name, t]),
-        );
+        const toolsByName = new Map(allTools.map((t) => [t.name, t]));
 
         for (const toolCall of resolvedToolCalls) {
           // Notify user that we're calling a tool
@@ -182,7 +212,12 @@ export class ChatService {
             toolArgs: toolCall.args as Record<string, unknown>,
           };
 
+          /** get the tool */
           const tool = toolsByName.get(toolCall.name);
+
+          /**
+           * Attempt to run the tool+
+           */
           try {
             if (!tool) {
               throw new Error(`Unknown tool: ${toolCall.name}`);
@@ -223,10 +258,11 @@ export class ChatService {
             const resultContent =
               typeof result === 'string' ? result : JSON.stringify(result);
 
+            // save result in messages
             messages.push(
               new ToolMessage({
                 content: resultContent,
-                tool_call_id: toolCall.id ?? '',
+                tool_call_id: toolCall.id || '',
               }),
             );
 
@@ -253,7 +289,7 @@ export class ChatService {
                 properties?: Record<string, unknown>;
                 required?: string[];
               };
-              const required = jsonSchema?.required ?? [];
+              const required = jsonSchema?.required || [];
               const received = Object.keys(toolCall.args as object);
               const missing = required.filter(
                 (k) => !(k in (toolCall.args as object)),
@@ -277,7 +313,7 @@ export class ChatService {
             messages.push(
               new ToolMessage({
                 content: `Error executing tool: ${errorMessage}`,
-                tool_call_id: toolCall.id ?? '',
+                tool_call_id: toolCall.id || '',
               }),
             );
 
@@ -338,6 +374,34 @@ export class ChatService {
    */
   private extractMessageContent(content: string): string {
     return content.trim();
+  }
+
+  /**
+   * Format the to-do list as a markdown checklist for inclusion in system messages
+   */
+  private formatTodoListMessage(todos: TodoItem[]): string {
+    // return if no to-dos
+    if (todos.length === 0) {
+      return '';
+    }
+
+    /** get number done */
+    const doneCount = todos.filter((t) => t.status === 'done').length;
+
+    /** get completed */
+    const total = todos.length;
+
+    const statusSymbol: Record<TodoItem['status'], string> = {
+      done: '[x]',
+      'in-progress': '[~]',
+      pending: '[ ]',
+      skipped: '[-]',
+    };
+
+    return [
+      `Current tasks (${doneCount}/${total} done):`,
+      ...todos.map((todo) => `- ${statusSymbol[todo.status]} ${todo.text}`),
+    ].join('\n');
   }
 
   /**
