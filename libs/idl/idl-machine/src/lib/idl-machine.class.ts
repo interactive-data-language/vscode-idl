@@ -134,10 +134,10 @@ export class IDLMachine {
                   id: (parsed as JSONRPCRequest).id,
                   error: {
                     code: -32000,
-                    message: JSON.stringify(ObjectifyError(err)),
+                    message: JSON.stringify(ObjectifyError(err as any)),
                   },
                 };
-                this.idl.stdin.write(JSON.stringify(resp));
+                this.idl.stdin?.write(JSON.stringify(resp));
               }
               break;
 
@@ -162,10 +162,10 @@ export class IDLMachine {
                   id: (parsed as JSONRPCRequest).id,
                   error: {
                     code: -32000,
-                    message: JSON.stringify(ObjectifyError(err)),
+                    message: JSON.stringify(ObjectifyError(err as any)),
                   },
                 };
-                this.idl.stdin.write(JSON.stringify(resp));
+                this.idl.stdin?.write(JSON.stringify(resp));
               }
               break;
           }
@@ -182,7 +182,7 @@ export class IDLMachine {
               message: 'Unhandled method',
             },
           };
-          this.idl.stdin.write(JSON.stringify(resp));
+          this.idl.stdin?.write(JSON.stringify(resp));
         }
         break;
 
@@ -237,6 +237,10 @@ export class IDLMachine {
 
   constructor(idl: ChildProcess) {
     this.idl = idl;
+
+    if (!idl.stdout) {
+      throw new Error('Unable to listen to stdout on IDL process');
+    }
 
     // handle output from IDL
     idl.stdout.on('data', (data: Buffer) => {
@@ -321,7 +325,7 @@ export class IDLMachine {
    * Writes a JSON RPC notification message
    */
   private _writeNotification(method: string, params: any) {
-    this.idl.stdin.write(
+    this.idl.stdin?.write(
       JSON.stringify({
         jsonrpc: '2.0',
         method,
@@ -334,7 +338,7 @@ export class IDLMachine {
    * Writes a JSON RPC notification message
    */
   private _writeRequest(id: number, method: string, params: any) {
-    this.idl.stdin.write(
+    this.idl.stdin?.write(
       JSON.stringify({
         jsonrpc: '2.0',
         id,
@@ -348,7 +352,7 @@ export class IDLMachine {
    * Writes out a JSON RPC response to the IDL Machine
    */
   private _writeResponse(id: number, result: any) {
-    this.idl.stdin.write(
+    this.idl.stdin?.write(
       JSON.stringify({
         jsonrpc: '2.0',
         id,

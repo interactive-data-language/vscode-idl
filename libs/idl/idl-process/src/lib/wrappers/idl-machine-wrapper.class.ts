@@ -291,7 +291,7 @@ export class IDLMachineWrapper {
      * If we don't do this, then we don't always detect that IDL has stopped.
      */
     this.machine.onNotification('serverExit', () => {
-      this.stop();
+      this.stop(false);
     });
 
     /**
@@ -612,8 +612,11 @@ export class IDLMachineWrapper {
   /**
    * Stops our IDL debug session
    */
-  stop() {
-    this.machine.sendNotification('exit', undefined);
+  stop(notify = true) {
+    console.trace('Stopping');
+    if (notify) {
+      this.machine.sendNotification('exit', undefined);
+    }
 
     // short timeout to make sure it shuts down
     setTimeout(() => {

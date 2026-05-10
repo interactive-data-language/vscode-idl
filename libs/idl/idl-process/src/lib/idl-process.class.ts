@@ -528,7 +528,7 @@ export class IDLProcess extends EventEmitter {
       }
 
       // reset properties
-      this.stop();
+      this.stop(false);
       this.closing = false;
     });
   }
@@ -536,12 +536,12 @@ export class IDLProcess extends EventEmitter {
   /**
    * Stops our IDL debug session
    */
-  stop() {
+  stop(notify = true) {
     this.closing = true;
     this.started = false;
     switch (this.processType) {
       case 'machine':
-        this._machine.stop();
+        this._machine.stop(notify);
         break;
       case 'ws':
         this._ws.stop();
