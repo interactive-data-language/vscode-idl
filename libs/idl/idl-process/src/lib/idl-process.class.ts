@@ -496,6 +496,7 @@ export class IDLProcess extends EventEmitter {
             ],
             alert: IDL_TRANSLATION.debugger.errors.unableToLicenseIDL,
           });
+          this.capturedOutput += '\n\nFailed to license IDL';
           this.emit(
             IDL_EVENT_LOOKUP.FAILED_START,
             IDL_TRANSLATION.debugger.errors.unableToLicenseIDL,
