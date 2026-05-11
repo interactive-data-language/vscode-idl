@@ -118,9 +118,11 @@ export class IDLMachine {
                 /**
                  * Get what we send back
                  */
-                const result = await this._customRequestHandlers.handlers[
-                  (parsed as JSONRPCRequest).method
-                ]((parsed as JSONRPCRequest).params);
+                const result = await (
+                  this._customRequestHandlers.handlers as any
+                )[(parsed as JSONRPCRequest).method](
+                  (parsed as JSONRPCRequest).params,
+                );
 
                 // send message
                 this._writeResponse((parsed as JSONRPCRequest).id, result);
