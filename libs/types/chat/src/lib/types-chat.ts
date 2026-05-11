@@ -206,11 +206,20 @@ export interface ChatStreamChunk_TodoUpdate {
 }
 
 /**
+ * Keep-alive heartbeat to maintain HTTP streaming connection during long tool execution.
+ * Should be ignored by clients but prevents proxy/connection timeouts.
+ */
+export interface ChatStreamChunk_Keepalive {
+  type: 'keepalive';
+}
+
+/**
  * Discriminated union of all chunk types streamed from the chat API via SSE
  */
 export type ChatStreamChunk =
   | ChatStreamChunk_Done
   | ChatStreamChunk_Error
+  | ChatStreamChunk_Keepalive
   | ChatStreamChunk_TextChunk
   | ChatStreamChunk_Title
   | ChatStreamChunk_TodoUpdate
