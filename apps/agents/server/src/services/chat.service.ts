@@ -126,6 +126,22 @@ export class ChatService {
         temperature: 0.7,
       });
 
+      /**
+       * If our first message, generate a title for the chat
+       */
+      if (request.conversationHistory.length === 0) {
+        /** Make title */
+        const title = await this.generateTitle(request.message);
+
+        // verify we got one and not an empty string
+        if (title) {
+          yield {
+            type: 'title',
+            title,
+          };
+        }
+      }
+
       /** Get messages */
       const messages = await this.getMessages(request);
 
@@ -453,7 +469,7 @@ export class ChatService {
   /**
    * Generate a short session title from the first user message
    */
-  private async generateTitle(firstMessage: string): Promise<null | string> {
+  private async generateTitle(firstMessage: string): Promise<string> {
     try {
       const model = new ChatOpenAI({
         apiKey: this.openaiApiKey,
@@ -467,11 +483,13 @@ export class ChatService {
             `Reply with only the title, no quotes, no punctuation at the end:\n\n${firstMessage}`,
         ),
       ]);
-      const text =
-        typeof response.content === 'string' ? response.content.trim() : null;
-      return text || null;
-    } catch {
-      return null;
+      return typeof response.content === 'string'
+        ? response.content.trim()
+        : '';
+    } catch (err) {
+      console.log(`[McpChatService] Error while getting title for chat`);
+      console.log(err);
+      return '';
     }
   }
 
