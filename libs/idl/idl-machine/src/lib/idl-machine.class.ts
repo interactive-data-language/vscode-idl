@@ -129,15 +129,11 @@ export class IDLMachine {
                   `Error responding to request with custom handler`,
                   err,
                 );
-                const resp: JSONRPCResponse = {
-                  jsonrpc: '2.0',
-                  id: (parsed as JSONRPCRequest).id,
-                  error: {
-                    code: -32000,
-                    message: JSON.stringify(ObjectifyError(err as any)),
-                  },
-                };
-                this.idl.stdin?.write(JSON.stringify(resp));
+                this._writeError(
+                  (parsed as JSONRPCRequest).id,
+                  -32000,
+                  JSON.stringify(ObjectifyError(err as any)),
+                );
               }
               break;
 
@@ -157,15 +153,11 @@ export class IDLMachine {
                 this._writeResponse((parsed as JSONRPCRequest).id, result);
               } catch (err) {
                 console.log(`Error responding to request`, err);
-                const resp: JSONRPCResponse = {
-                  jsonrpc: '2.0',
-                  id: (parsed as JSONRPCRequest).id,
-                  error: {
-                    code: -32000,
-                    message: JSON.stringify(ObjectifyError(err as any)),
-                  },
-                };
-                this.idl.stdin?.write(JSON.stringify(resp));
+                this._writeError(
+                  (parsed as JSONRPCRequest).id,
+                  -32000,
+                  JSON.stringify(ObjectifyError(err as any)),
+                );
               }
               break;
           }
@@ -174,15 +166,12 @@ export class IDLMachine {
           /**
            * Alert if we have no handler to send a response back
            */
-          const resp: JSONRPCResponse = {
-            jsonrpc: '2.0',
-            id: (parsed as JSONRPCRequest).id,
-            error: {
-              code: -32601,
-              message: 'Unhandled method',
-            },
-          };
-          this.idl.stdin?.write(JSON.stringify(resp));
+
+          this._writeError(
+            (parsed as JSONRPCRequest).id,
+            -32601,
+            'Unhandled method',
+          );
         }
         break;
 
@@ -319,6 +308,28 @@ export class IDLMachine {
       // send request
       this._writeRequest(this.id++, request, params);
     });
+  }
+
+  /**
+   * Writes an error message via JSON RPC
+   *
+   * Dedicated helper so all writing comes from the same place (neighboring
+   * methods)
+   */
+  private _writeError(id: number, code: number, message: string) {
+    try {
+      const resp: JSONRPCResponse = {
+        jsonrpc: '2.0',
+        id,
+        error: {
+          code,
+          message,
+        },
+      };
+      this.idl.stdin?.write(JSON.stringify(resp));
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   /**
