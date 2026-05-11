@@ -613,7 +613,6 @@ export class IDLMachineWrapper {
    * Stops our IDL debug session
    */
   stop(notify = true) {
-    console.trace('Stopping');
     if (notify) {
       this.machine.sendNotification('exit', undefined);
     }
