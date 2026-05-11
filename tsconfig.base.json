@@ -16,7 +16,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "zod": ["node_modules/zod/v3"],
       "@idl/assembler": ["libs/assembling/assembler/src/index.ts"],
       "@idl/assembling/code-actions": [
         "libs/assembling/code-actions/src/index.ts"

@@ -59,13 +59,5 @@ module.exports = composePlugins(withNx(), (config) => {
   // tsCheckerPlugin.options.async = false;
   // }
 
-  if (!config.resolve) {
-    config.resolve = {};
-  }
-  if (!config.resolve.alias) {
-    config.resolve.alias = {};
-  }
-  config.resolve.alias.zod$ = path.resolve(__dirname, 'node_modules/zod/v3');
-
   return newConfig;
 });

@@ -198,7 +198,6 @@
       "@idl/mcp/common": ["libs/mcp/common/src/index.ts"],
       "@idl/types/generators": ["libs/types/generators/src/index.ts"],
       "@idl/parsing/tasks": ["libs/parsing/tasks/src/index.ts"],
-      "zod": ["node_modules/zod/v3"],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],

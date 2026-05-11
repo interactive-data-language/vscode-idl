@@ -16,14 +16,6 @@ module.exports = composePlugins(
     };
     config.devtool = 'source-map';
 
-    if (!config.resolve) {
-      config.resolve = {};
-    }
-    if (!config.resolve.alias) {
-      config.resolve.alias = {};
-    }
-    config.resolve.alias.zod$ = path.resolve(__dirname, 'node_modules/zod/v3');
-
     // Update the webpack config as needed here.
     // e.g. `config.plugins.push(new MyPlugin())`
     return config;
