@@ -42,7 +42,7 @@ export async function MCPLanguageServer(app: Application) {
   /**
    * Find a version of IDL
    */
-  const idlPath = FindIDL();
+  const idlPath = FindIDL('idl92');
 
   // verify that we found the IDL search path
   if (!idlPath) {
