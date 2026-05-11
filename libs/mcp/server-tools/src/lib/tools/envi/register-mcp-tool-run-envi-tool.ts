@@ -1,5 +1,6 @@
 import { MCPServer } from '@idl/mcp/server';
 import {
+  ITaskInformation,
   MCPTaskRegistry,
   TaskLocation,
   TaskLocation_File,
@@ -96,7 +97,7 @@ export function RegisterMCPTool_RunENVITool(
       }
 
       /** Get detail for our task */
-      const detail = registry.getTaskDetail(toolName);
+      const detail = registry.getTaskDetail(toolName) as ITaskInformation;
 
       // strictly typed parameters and make sure we always have content in the cells
       const params: MCPToolParams<MCPTool_RunENVITool> = {
