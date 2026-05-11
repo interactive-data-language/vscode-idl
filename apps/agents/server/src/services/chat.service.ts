@@ -236,14 +236,14 @@ export class ChatService {
           /** get the tool */
           const tool = toolsByName.get(toolCall.name);
 
+          if (!tool) {
+            throw new Error(`Unknown tool: ${toolCall.name}`);
+          }
+
           /**
            * Attempt to run the tool+
            */
           try {
-            if (!tool) {
-              throw new Error(`Unknown tool: ${toolCall.name}`);
-            }
-
             /** init tool result */
             let result: any;
 
