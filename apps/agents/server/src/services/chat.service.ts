@@ -29,13 +29,18 @@ import { MCPClient } from './mcp-client.service';
 /**
  * Maximum number of agentic loop iterations to prevent infinite loops
  */
-const MAX_ITERATIONS = 20;
+const MAX_ITERATIONS = 30;
+
+/**
+ * Interval (in milliseconds) for emitting keepalive chunks during long tool execution
+ */
+const KEEPALIVE_INTERVAL_MS = 15000;
 
 /**
  * Service for handling chat completions using LangChain and OpenAI
  */
 export class ChatService {
-  private mcpClient: MCPClient;
+  mcpClient: MCPClient;
   private mcpReady = false;
   private mcpTools: DynamicStructuredTool[] = [];
   private openaiApiKey: string;
@@ -224,11 +229,23 @@ export class ChatService {
             }
 
             /** init tool result */
-            let result: string;
+            let result: any;
 
-            // try to run
+            // try to run with heartbeat to keep HTTP connection alive
             try {
-              result = await tool.invoke(toolCall.args);
+              // Iterate through heartbeat chunks
+              for await (const chunk of this.invokeToolWithHeartbeat(
+                tool,
+                toolCall.args,
+              )) {
+                if (chunk.type === 'keepalive') {
+                  // Emit keepalive to keep HTTP stream alive
+                  yield { type: 'keepalive' };
+                } else {
+                  // Got the final result
+                  result = chunk.value;
+                }
+              }
             } catch (invokeError) {
               // if we fail, see if it is because of a connection error
               if (this.isSessionExpiredError(invokeError)) {
@@ -247,14 +264,31 @@ export class ChatService {
                   );
                 }
 
-                // run with new connection
-                result = await freshTool.invoke(toolCall.args);
+                // run with new connection and heartbeat
+                for await (const chunk of this.invokeToolWithHeartbeat(
+                  freshTool,
+                  toolCall.args,
+                )) {
+                  if (chunk.type === 'keepalive') {
+                    // Emit keepalive to keep HTTP stream alive
+                    yield { type: 'keepalive' };
+                  } else {
+                    // Got the final result
+                    result = chunk.value;
+                  }
+                }
               } else {
                 throw invokeError;
               }
             }
 
             // Build a ToolMessage from the result
+            if (result === undefined) {
+              throw new Error(
+                `Tool "${toolCall.name}" completed without returning a result`,
+              );
+            }
+
             const resultContent =
               typeof result === 'string' ? result : JSON.stringify(result);
 
@@ -348,6 +382,18 @@ export class ChatService {
           error instanceof Error ? error.message : 'Unknown error occurred',
       };
     }
+  }
+
+  /**
+   * Wait for MCP to be ready (with timeout)
+   */
+  async waitForMCP(timeoutMs = 5000): Promise<boolean> {
+    this.mcpClient.connect();
+    const startTime = Date.now();
+    while (!this.mcpReady && Date.now() - startTime < timeoutMs) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    return this.mcpReady;
   }
 
   /**
@@ -463,6 +509,69 @@ export class ChatService {
   }
 
   /**
+   * Invoke a tool with periodic keepalive heartbeats to prevent HTTP timeout
+   * during long-running tool execution.
+   *
+   * Yields keepalive chunks every KEEPALIVE_INTERVAL_MS until the tool completes,
+   * then yields the final result.
+   *
+   * @param tool - The tool to invoke
+   * @param args - Arguments to pass to the tool
+   * @yields Keepalive chunks during execution, then a result chunk with the tool output
+   */
+  private async *invokeToolWithHeartbeat(
+    tool: DynamicStructuredTool,
+    args: Record<string, unknown>,
+  ): AsyncIterable<{ type: 'keepalive' } | { type: 'result'; value: any }> {
+    // Start the tool invocation
+    const toolPromise = tool.invoke(args);
+
+    /** Track if tool has completed */
+    let toolCompleted = false;
+
+    /** Store the tool result */
+    let toolResult: any;
+
+    /** Store any error */
+    let toolError: unknown;
+
+    // Set up completion handler
+    toolPromise
+      .then((result) => {
+        toolResult = result;
+        toolCompleted = true;
+      })
+      .catch((error) => {
+        toolError = error;
+        toolCompleted = true;
+      });
+
+    // Emit keepalive chunks until tool completes
+    while (!toolCompleted) {
+      // sleep
+      await new Promise((resolve) =>
+        setTimeout(resolve, KEEPALIVE_INTERVAL_MS),
+      );
+
+      if (!toolCompleted) {
+        yield { type: 'keepalive' };
+      }
+    }
+
+    // If there was an error, throw it
+    if (toolError !== undefined) {
+      throw toolError;
+    }
+
+    // Return the result
+    if (toolResult === undefined) {
+      throw new Error('Tool completed without returning a result');
+    }
+
+    yield { type: 'result', value: toolResult };
+  }
+
+  /**
    * Detect errors caused by an expired or missing MCP session
    */
   private isSessionExpiredError(error: unknown): boolean {
@@ -528,16 +637,5 @@ export class ChatService {
       // ignore — we're tearing down anyway
     }
     await this.initializeMCP();
-  }
-
-  /**
-   * Wait for MCP to be ready (with timeout)
-   */
-  private async waitForMCP(timeoutMs = 5000): Promise<boolean> {
-    const startTime = Date.now();
-    while (!this.mcpReady && Date.now() - startTime < timeoutMs) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    }
-    return this.mcpReady;
   }
 }
