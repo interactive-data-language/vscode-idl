@@ -11,7 +11,6 @@ export const TODO_TOOL_NAMES = new Set([
   'todo-create',
   'todo-update',
   'todo-delete',
-  'todo-list',
 ]);
 
 /**
@@ -99,13 +98,5 @@ export function RegisterMCPToolsForToDos(
     },
   });
 
-  const todoList = new DynamicStructuredTool({
-    name: 'todo-list',
-    description:
-      'Return the current to-do list without modifying it. Use this at the start of a new turn to re-orient after a long workflow.',
-    schema: z.object({}),
-    func: async () => JSON.stringify(todos),
-  });
-
-  return [todoCreate, todoUpdate, todoDelete, todoList];
+  return [todoCreate, todoUpdate, todoDelete];
 }
