@@ -161,6 +161,7 @@ export class ChatService {
 
       // loop through requests
       while (continueLoop && iteration < MAX_ITERATIONS) {
+        // increase iteration counter
         iteration++;
 
         // Stream the completion
@@ -226,12 +227,17 @@ export class ChatService {
         const toolsByName = new Map(allTools.map((t) => [t.name, t]));
 
         for (const toolCall of resolvedToolCalls) {
-          // Notify user that we're calling a tool
-          yield {
-            type: 'tool_call',
-            toolName: toolCall.name,
-            toolArgs: toolCall.args as Record<string, unknown>,
-          };
+          // Notify user that we're calling a tool if it is not a to-do
+          if (TODO_TOOL_NAMES.has(toolCall.name)) {
+            // decrease counter because it is only a todo, not serious logic
+            iteration--;
+          } else {
+            yield {
+              type: 'tool_call',
+              toolName: toolCall.name,
+              toolArgs: toolCall.args as Record<string, unknown>,
+            };
+          }
 
           /** get the tool */
           const tool = toolsByName.get(toolCall.name);
@@ -316,17 +322,19 @@ export class ChatService {
               }),
             );
 
-            // Notify user of tool result
-            yield {
-              type: 'tool_result',
-              toolName: toolCall.name,
-              toolError: false,
-              toolOutput: resultContent,
-            };
-
-            // If a todo tool ran, stream the updated list to the frontend
+            /**
+             * If we have a todo tool, alert user, but don't send tool update
+             */
             if (TODO_TOOL_NAMES.has(toolCall.name)) {
               yield { type: 'todo_update', todos: [...todos] };
+            } else {
+              // alert tool result
+              yield {
+                type: 'tool_result',
+                toolName: toolCall.name,
+                toolError: false,
+                toolOutput: resultContent,
+              };
             }
           } catch (error) {
             // Handle tool execution errors
@@ -403,12 +411,8 @@ export class ChatService {
   /**
    * Wait for MCP to be ready (with timeout)
    */
-  async waitForMCP(timeoutMs = 5000): Promise<boolean> {
-    this.mcpClient.connect();
-    const startTime = Date.now();
-    while (!this.mcpReady && Date.now() - startTime < timeoutMs) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    }
+  async waitForMCP(): Promise<boolean> {
+    await this.mcpClient.connect();
     return this.mcpReady;
   }
 
