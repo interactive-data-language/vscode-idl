@@ -548,49 +548,26 @@ export class ChatService {
     // Start the tool invocation
     const toolPromise = tool.invoke(args);
 
-    /** Track if tool has completed */
-    let toolCompleted = false;
+    // Race tool completion against keepalive intervals so we return immediately
+    // when the tool finishes rather than always waiting the full interval
+    while (true) {
+      const outcome = await Promise.race([
+        toolPromise.then((value) => ({ tag: 'done' as const, value })),
+        new Promise<{ tag: 'timeout' }>((resolve) =>
+          setTimeout(() => resolve({ tag: 'timeout' }), KEEPALIVE_INTERVAL_MS),
+        ),
+      ]);
 
-    /** Store the tool result */
-    let toolResult: any;
-
-    /** Store any error */
-    let toolError: unknown;
-
-    // Set up completion handler
-    toolPromise
-      .then((result) => {
-        toolResult = result;
-        toolCompleted = true;
-      })
-      .catch((error) => {
-        toolError = error;
-        toolCompleted = true;
-      });
-
-    // Emit keepalive chunks until tool completes
-    while (!toolCompleted) {
-      // sleep
-      await new Promise((resolve) =>
-        setTimeout(resolve, KEEPALIVE_INTERVAL_MS),
-      );
-
-      if (!toolCompleted) {
+      if (outcome.tag === 'timeout') {
         yield { type: 'keepalive' };
+      } else {
+        if (outcome.value === undefined) {
+          throw new Error('Tool completed without returning a result');
+        }
+        yield { type: 'result', value: outcome.value };
+        return;
       }
     }
-
-    // If there was an error, throw it
-    if (toolError !== undefined) {
-      throw toolError;
-    }
-
-    // Return the result
-    if (toolResult === undefined) {
-      throw new Error('Tool completed without returning a result');
-    }
-
-    yield { type: 'result', value: toolResult };
   }
 
   /**
