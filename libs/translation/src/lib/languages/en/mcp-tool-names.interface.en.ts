@@ -29,4 +29,5 @@ export const MCPToolNames_EN: ValsOfToStrings<MCPTools> = {
   'search-for-routine': 'Search for Routine',
   'list-prompts': 'List Prompts',
   'search-resources': 'Search Resources',
+  'take-envi-screenshot': 'Take ENVI Screenshot',
 };

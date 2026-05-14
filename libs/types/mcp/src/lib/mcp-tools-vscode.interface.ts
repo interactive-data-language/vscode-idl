@@ -1,4 +1,8 @@
-import { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types';
+import {
+  CallToolResult,
+  ImageContent,
+  TextContent,
+} from '@modelcontextprotocol/sdk/types';
 
 import {
   MCPTool_CreateIDLNotebook,
@@ -45,6 +49,11 @@ import {
   MCPToolParams_RunENVITool,
   MCPToolResponse_RunENVITool,
 } from './vscode/mcp-tool-run-envi-tool.interface';
+import {
+  MCPTool_TakeENVIScreenshot,
+  MCPToolParams_TakeENVIScreenshot,
+  MCPToolResponse_TakeENVIScreenshot,
+} from './vscode/mcp-tool-take-envi-screenshot.interface';
 
 /**
  * MCP Tools that run in VSCode
@@ -58,7 +67,8 @@ export type MCPTools_VSCode =
   | MCPTool_OpenDatasetsInENVI
   | MCPTool_QueryDatasetWithENVI
   | MCPTool_ReturnNotes
-  | MCPTool_RunENVITool;
+  | MCPTool_RunENVITool
+  | MCPTool_TakeENVIScreenshot;
 
 /**
  * MCP parameters and payload sent to VSCode to run an MCP tool
@@ -83,7 +93,9 @@ export type MCPToolParams_VSCode<T extends MCPTools_VSCode> =
                   ? MCPToolParams_ReturnNotes
                   : T extends MCPTool_RunENVITool
                     ? MCPToolParams_RunENVITool
-                    : never;
+                    : T extends MCPTool_TakeENVIScreenshot
+                      ? MCPToolParams_TakeENVIScreenshot
+                      : never;
 
 /**
  * Responses from MCP tools that run in VSCode for ENVI and IDL
@@ -107,7 +119,9 @@ export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
                   ? MCPToolResponse_ReturnNotes
                   : T extends MCPTool_RunENVITool
                     ? MCPToolResponse_RunENVITool
-                    : never;
+                    : T extends MCPTool_TakeENVIScreenshot
+                      ? MCPToolResponse_TakeENVIScreenshot
+                      : never;
 
 /**
  * Response from tools that run in VSCode
@@ -120,7 +134,7 @@ export type MCPToolHTTPResponse_VSCode = {
    * there in pre-error checking and a failure, then this will have a text-based
    * error for the LLM.
    */
-  content: TextContent[];
+  content: (ImageContent | TextContent)[];
   /** If an error */
   isError: boolean; // make sure it is included
 } & Omit<CallToolResult, 'content'>;

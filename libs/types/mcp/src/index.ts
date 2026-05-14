@@ -28,3 +28,4 @@ export * from './lib/vscode/mcp-tool-return-notes.interface';
 export * from './lib/vscode/mcp-tool-run-envi-tool.interface';
 export * from './lib/vscode/mcp-tool-start-envi.interface';
 export * from './lib/vscode/mcp-tool-start-idl.interface';
+export * from './lib/vscode/mcp-tool-take-envi-screenshot.interface';
