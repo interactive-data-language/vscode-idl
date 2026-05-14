@@ -86,9 +86,6 @@ export class MCPClient {
               timeout: this.config.toolTimeout,
               ...options,
             };
-            console.log(
-              `[MCPClient] Calling tool with ${mergedOptions.timeout}ms timeout`,
-            );
             return target.callTool(params, resultSchema, mergedOptions);
           };
         }
