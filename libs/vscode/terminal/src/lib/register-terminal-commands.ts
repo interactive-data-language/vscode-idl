@@ -59,7 +59,7 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
         return await SendCommandToIDLTerminal({ label: 'Run' });
       } catch (err) {
         LogCommandError(
-          'Error while running file in IDL temrinal',
+          'Error while running file in IDL terminal',
           err,
           cmdErrors.terminal.runFile,
         );
@@ -77,7 +77,7 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
           return await SendCommandToIDLTerminal({ label: 'Execute' });
         } catch (err) {
           LogCommandError(
-            'Error while executing batch file in IDL temrinal',
+            'Error while executing batch file in IDL terminal',
             err,
             cmdErrors.terminal.executeBatchFile,
           );
@@ -131,7 +131,7 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
           return true;
         } catch (err) {
           LogCommandError(
-            'Error while continuing execution in IDL temrinal',
+            'Error while continuing execution in IDL terminal',
             err,
             cmdErrors.terminal.continueExecution,
           );
@@ -149,7 +149,7 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
         return true;
       } catch (err) {
         LogCommandError(
-          'Error while steping in IDL terminal',
+          'Error while stepping in IDL terminal',
           err,
           cmdErrors.terminal.stepIn,
         );
