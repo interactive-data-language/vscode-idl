@@ -118,24 +118,21 @@ The location of this tool depends on a few things:
 
 ### For an ENVI and IDL MCP Tool
 
-Note: If the tool calls ENVI and returns dehydrated parameters, then you need to include a call to FixENVIFactory from the '@idl/mcp=envi-to-mcp' lib to normalize an object property.
+Note: If the tool calls ENVI and returns dehydrated parameters, then you need to include a call to FixENVIFactory from the '@idl/mcp/envi-to-mcp' lib to normalize an object properties.
 
 ```typescript
+import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
-
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 
 /**
  * Registers My MCP Tool
  */
 export function RegisterMCPTool_MyMCPTool(
-  messenger: VSCodeLanguageServerMessenger
+  server: MCPServer,
 ) {
-  MCPToolRegistry.registerTool(
+  server.registerTool(
     MCP_TOOL_LOOKUP.MY_MCP_TOOL,
     {
       title: IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.MY_MCP_TOOL],
@@ -147,7 +144,7 @@ export function RegisterMCPTool_MyMCPTool(
     },
     async (id, {myFlag}) => {
       // send request
-      const resp = await helper.sendRequestToVSCode(
+      const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.MY_MCP_TOOL,
         { myFlag }
@@ -170,21 +167,18 @@ export function RegisterMCPTool_MyMCPTool(
 ### For an MCP Tool that Doesn't use ENVI or IDL
 
 ```typescript
+import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { z } from 'zod';
-
-import { MCPToolRegistry } from '../../mcp-tool-registry.class';
 
 /**
  * Registers My MCP Tool
  */
 export function RegisterMCPTool_MyMCPTool(
-  messenger: VSCodeLanguageServerMessenger
+  server: MCPServer,
 ) {
-  MCPToolRegistry.registerTool(
+  server.registerTool(
     MCP_TOOL_LOOKUP.MY_MCP_TOOL,
     {
       title: IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.MY_MCP_TOOL],
@@ -281,3 +275,118 @@ export async function RunMCPTool_MyMCPTool(
 11. Update the MCP tool callback lookup in "libs\vscode\mcp\src\lib\run-mcp-tool-message-handler.ts"
 
 Add new extry to the variable "MCP_TOOL_LOOKUP"
+
+### Tool Reusability
+
+If the IDL or ENVI MCP tool does not explicitly require VSCode, then it should be added to a re-usable library.
+
+Here's the libraries for each:
+
+- idl: libs\idl\envi\src\lib
+- envi: libs\mcp\envi\src\lib
+
+Create a file with the name "my-mcp-tool.ts" in the right library and fill out a helper function like this:
+
+```typescript
+import {
+  IIDLExecutionBackend,
+  MCPProgressCallback,
+} from '@idl/mcp/idl-machine';
+import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  MCPTool_ManageIDLAndENVISession,
+  MCPToolParams,
+  MCPToolResponse,
+} from '@idl/types/mcp';
+
+export async function MyMCPTool(
+  backend: IIDLExecutionBackend,
+  params: MCPToolParams<MCPTool_MyMCPTool>,
+  onProgress?: MCPProgressCallback,
+): Promise<MCPToolResponse<MCPTool_MyMCPTool>> {
+  onProgress?.('Starting IDL');
+
+  const started = await backend.start(false);
+
+  if (!started.started) {
+    return { success: false, err: started.reason };
+  }
+
+  // envi tools need to check IDL version
+  if (!backend.verifyIDLVersion()) {
+    return {
+      success: false,
+      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
+    };
+  }
+
+  // run some IDL code
+  const res = await backend.evaluateENVICommand(
+    `vscode_startENVI, headless = ${headless ? '!true' : '!false'}`,
+  );
+
+  return {
+    success: res.succeeded,
+    err: res.error,
+    idlOutput: res.idlOutput,
+  };
+}
+```
+
+Lastly, add an entry in `apps\agents\server\src\language-server\create-standalone-execution-callback.ts` for the new function so that the MCP tool can be called outside of VSCode as well.
+
+## Adding Integration Tests
+
+For tool testing, all MCP tool tests live in "apps\client-e2e\src\tests\mcp\tools".
+
+In this folder you will find three sub-directories:
+
+- envi: for ENVI-based MCP tools
+- general: for general MCP tools that don't require ENVI or IDL
+- idl: for IDL-based MCP tools
+
+Create a new file following "mcp-test-tool-name.ts" (tool-name comes from the naming convention used above).
+
+Use this code as a template and update to match the input/output parameters returned by the tool:
+
+
+```typescript
+import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
+import {
+  MCP_TOOL_LOOKUP,
+  MCPTool_ExecuteIDLCode,
+  MCPToolResponse_VSCode,
+} from '@idl/types/mcp';
+import expect from 'expect';
+
+import { RunnerFunction } from '../../../runner.interface';
+import { CallMCPTool } from '../../helpers/call-mcp-tool';
+
+/**
+ * Makes sure we can start IDL through MCP
+ */
+export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
+  /**
+   * Run code that completes
+   */
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE, {
+    code: `print, 'foo'`,
+  });
+
+  // make sure the tool runs
+  expect(result.isError).toBeFalsy();
+
+  // verify we started
+  expect(init.debug.adapter.isStarted()).toBeTruthy();
+
+  // parse result
+  const parsed = JSON.parse(
+    result.content[0].text,
+  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
+
+  // make sure we have "foo" as the cleaned text
+  expect(CleanIDLOutput(parsed.idlOutput)).toEqual('foo');
+};
+```
+
+Then, register the tool in "apps\client-e2e\src\tests\mcp\_mcp-test-runner.ts"
