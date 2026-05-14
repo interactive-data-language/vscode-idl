@@ -39,7 +39,7 @@ export function RegisterMCPTool_GetPrompt(
         content: [
           {
             type: 'text',
-            text: registry.getPrompt(name),
+            text: registry.getPrompt(name) as string,
           },
         ],
       };
