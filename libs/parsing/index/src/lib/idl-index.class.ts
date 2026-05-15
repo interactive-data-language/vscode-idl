@@ -4,7 +4,7 @@ import {
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IFolderRecursion } from '@idl/idl/files';
+import { GetExtensionPath, IFolderRecursion } from '@idl/idl/files';
 import {
   IDL_LSP_LOG,
   IDL_WORKER_THREAD_CONSOLE,
@@ -55,7 +55,7 @@ import { copy } from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
-import { basename, dirname, join } from 'path';
+import { basename, dirname } from 'path';
 import { performance } from 'perf_hooks';
 import {
   DocumentSymbol,
@@ -225,15 +225,12 @@ export class IDLIndex {
     // create all of our workers
     for (let i = 0; i < nWorkers; i++) {
       workers.push(
-        new Worker(
-          join(process.cwd(), 'dist', 'apps', 'parsing-worker/main.js'),
-          {
-            resourceLimits: {
-              maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
-              maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
-            },
+        new Worker(GetExtensionPath('dist/apps/parsing-worker/main.js'), {
+          resourceLimits: {
+            maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
+            maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
           },
-        ),
+        }),
       );
     }
 
