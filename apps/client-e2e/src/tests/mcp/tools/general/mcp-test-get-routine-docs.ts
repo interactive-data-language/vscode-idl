@@ -4,6 +4,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../helpers/get-text-content';
 
 /**
  * Get docs for a specific routine
@@ -34,7 +35,7 @@ export const RunMCPTestGetRoutineDocs: RunnerFunction = async (init) => {
 
   // attempt to parse
   try {
-    docs = JSON.parse(routineDocs.content[0].text as string);
+    docs = JSON.parse(GetTextContent(routineDocs.content));
   } catch (err) {
     // do nothing
   }

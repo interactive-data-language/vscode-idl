@@ -3,6 +3,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../helpers/get-text-content';
 
 /**
  * Makes sure we error when we get resources
@@ -26,7 +27,7 @@ export const RunMCPTestSearchResources: RunnerFunction = async (init) => {
 
   // attempt to parse
   try {
-    noQueryResourcesrces = JSON.parse(searchNoQuery.content[0].text as string);
+    noQueryResourcesrces = JSON.parse(GetTextContent(searchNoQuery.content));
   } catch (err) {
     // do nothing
   }
@@ -54,7 +55,7 @@ export const RunMCPTestSearchResources: RunnerFunction = async (init) => {
   // attempt to parse
   try {
     parsedFunctionResources = JSON.parse(
-      functonResources.content[0].text as string,
+      GetTextContent(functonResources.content),
     );
   } catch (err) {
     // do nothing

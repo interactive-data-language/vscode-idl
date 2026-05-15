@@ -11,6 +11,7 @@ import { join } from 'path';
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { ENVITestDatasets } from '../../helpers/envi-test-datasets.class';
+import { GetTextContent } from '../../helpers/get-text-content';
 import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
 
 /**
@@ -53,7 +54,7 @@ export const RunMCPTestRunENVITool: RunnerFunction = async (init) => {
 
   // attempt to parse
   try {
-    results = JSON.parse(result.content[0].text as string);
+    results = JSON.parse(GetTextContent(result.content));
   } catch (err) {
     // do nothing
   }

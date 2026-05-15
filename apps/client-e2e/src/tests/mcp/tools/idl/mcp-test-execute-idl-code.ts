@@ -8,6 +8,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../helpers/get-text-content';
 
 /**
  * Makes sure we can start IDL through MCP
@@ -28,7 +29,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 
   // parse result
   const parsed = JSON.parse(
-    result.content[0].text,
+    GetTextContent(result.content),
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we have "foo" as the cleaned text
@@ -47,7 +48,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 
   // parse result
   const parsedRuntimeError = JSON.parse(
-    runtimeError.content[0].text,
+    GetTextContent(runtimeError.content),
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we catch in the IDL MCP tool
@@ -71,7 +72,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 
   // parse result
   const parsedSyntaxError = JSON.parse(
-    syntaxError.content[0].text,
+    GetTextContent(syntaxError.content),
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we catch in the IDL MCP tool

@@ -3,6 +3,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../helpers/get-text-content';
 import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
 
 /**
@@ -28,7 +29,7 @@ export const RunMCPTestListENVITools: RunnerFunction = async (init) => {
   // attempt to parse
   try {
     toolsList = JSON.parse(
-      (result.content[0].text as string).replace(/^All tools: /, ''),
+      GetTextContent(result.content).replace(/^All tools: /, ''),
     );
   } catch (err) {
     // do nothing

@@ -4,6 +4,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../../helpers/get-text-content';
 
 /**
  * Tests for the search for files MCP tool
@@ -29,7 +30,7 @@ export const RunMCPTestSearchForFiles_All: RunnerFunction = async (init) => {
 
   // attempt to parse
   try {
-    basicSearchFiles = JSON.parse(basicSearch.content[0].text as string).map(
+    basicSearchFiles = JSON.parse(GetTextContent(basicSearch.content)).map(
       (file) => file.replace(basicDir, ''),
     );
   } catch (err) {

@@ -3,6 +3,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../helpers/get-text-content';
 
 /**
  * Make sure that we can search for routines using the "all" type
@@ -29,7 +30,7 @@ export const RunMCPTestSearchForRoutineAll: RunnerFunction = async (init) => {
 
   // attempt to parse
   try {
-    routineMatches = JSON.parse(routineSearch.content[0].text as string);
+    routineMatches = JSON.parse(GetTextContent(routineSearch.content));
   } catch (err) {
     // do nothing
   }
@@ -72,7 +73,7 @@ export const RunMCPTestSearchForRoutineSingle: RunnerFunction = async (
 
   // attempt to parse
   try {
-    routineMatches = JSON.parse(routineSearch.content[0].text as string);
+    routineMatches = JSON.parse(GetTextContent(routineSearch.content));
   } catch (err) {
     // do nothing
   }
@@ -118,7 +119,7 @@ export const RunMCPTestSearchForRoutineMultiple: RunnerFunction = async (
 
   // attempt to parse
   try {
-    routineMatches = JSON.parse(routineSearch.content[0].text as string);
+    routineMatches = JSON.parse(GetTextContent(routineSearch.content));
   } catch (err) {
     // do nothing
   }

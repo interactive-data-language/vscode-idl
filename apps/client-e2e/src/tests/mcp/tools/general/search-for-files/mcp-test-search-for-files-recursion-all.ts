@@ -5,6 +5,7 @@ import { dirname, sep } from 'path';
 
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../../helpers/get-text-content';
 
 /**
  * Search for files with one extension
@@ -32,7 +33,7 @@ export const RunMCPTestSearchForFiles_RecursionAll: RunnerFunction = async (
 
   // attempt to parse
   try {
-    basicSearchFiles = JSON.parse(basicSearch.content[0].text as string).map(
+    basicSearchFiles = JSON.parse(GetTextContent(basicSearch.content)).map(
       (file) => dirname(file.replace(basicDir + sep, '')),
     );
   } catch (err) {

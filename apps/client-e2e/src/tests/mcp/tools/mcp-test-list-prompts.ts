@@ -3,6 +3,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../runner.interface';
 import { CallMCPTool } from '../helpers/call-mcp-tool';
+import { GetTextContent } from '../helpers/get-text-content';
 
 /**
  * Makes sure we can list all prompts
@@ -22,7 +23,7 @@ export const RunMCPTestListAllPrompts: RunnerFunction = async (init) => {
 
   // attempt to parse
   try {
-    promptList = JSON.parse(result.content[0].text as string);
+    promptList = JSON.parse(GetTextContent(result.content));
   } catch (err) {
     // do nothing
   }

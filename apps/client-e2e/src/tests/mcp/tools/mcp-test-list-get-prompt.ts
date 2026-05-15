@@ -3,6 +3,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../runner.interface';
 import { CallMCPTool } from '../helpers/call-mcp-tool';
+import { GetTextContent } from '../helpers/get-text-content';
 
 /**
  * Makes sure we can list ENVI Tool workflows and return the list
@@ -22,7 +23,7 @@ export const RunMCPTestListGetPrompts: RunnerFunction = async (init) => {
 
   // attempt to parse
   try {
-    promptList = JSON.parse(result.content[0].text as string);
+    promptList = JSON.parse(GetTextContent(result.content));
   } catch (err) {
     // do nothing
   }
@@ -45,5 +46,5 @@ export const RunMCPTestListGetPrompts: RunnerFunction = async (init) => {
   expect((result2.content as any[])?.length).toEqual(1);
 
   // validate we get a string back
-  expect(typeof result.content[0].text).toEqual('string');
+  expect(typeof GetTextContent(result.content)).toEqual('string');
 };
