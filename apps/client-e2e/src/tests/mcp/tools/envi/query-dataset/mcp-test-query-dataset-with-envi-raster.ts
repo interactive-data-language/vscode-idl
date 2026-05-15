@@ -32,7 +32,7 @@ export const RunMCPTestQueryDatasetWithENVI_Raster: RunnerFunction = async (
   expect((result.content as any[])?.length).toEqual(1);
 
   // init variable
-  let results: MCPToolResponse<MCPTool_QueryDatasetWithENVI>;
+  let results!: MCPToolResponse<MCPTool_QueryDatasetWithENVI>;
 
   // attempt to parse
   try {

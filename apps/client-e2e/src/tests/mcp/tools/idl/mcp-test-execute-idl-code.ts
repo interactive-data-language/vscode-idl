@@ -33,7 +33,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
 
   // make sure we have "foo" as the cleaned text
-  expect(CleanIDLOutput(parsed.idlOutput)).toEqual('foo');
+  expect(CleanIDLOutput(parsed.idlOutput || '')).toEqual('foo');
 
   /**
    * Run code that fails
@@ -56,7 +56,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 
   // make sure we have "foo" as the cleaned text
   expect(
-    CleanIDLOutput(parsedRuntimeError.idlOutput)
+    CleanIDLOutput(parsedRuntimeError.idlOutput || '')
       .toLowerCase()
       .startsWith('% variable is undefined'),
   ).toBeTruthy();

@@ -24,7 +24,7 @@ export const RunMCPTestListENVITools: RunnerFunction = async (init) => {
   expect((result.content as any[])?.length).toEqual(1);
 
   // init variable
-  let toolsList: { [key: string]: string };
+  let toolsList!: { [key: string]: string };
 
   // attempt to parse
   try {

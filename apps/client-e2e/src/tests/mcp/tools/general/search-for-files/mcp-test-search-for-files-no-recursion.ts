@@ -29,12 +29,12 @@ export const RunMCPTestSearchForFiles_NoRecursion: RunnerFunction = async (
   expect(basicSearch.content.length).toEqual(1);
 
   // init variable
-  let basicSearchFiles: string[];
+  let basicSearchFiles!: string[];
 
   // attempt to parse
   try {
     basicSearchFiles = JSON.parse(GetTextContent(basicSearch.content)).map(
-      (file) => dirname(file.replace(basicDir + sep, '')),
+      (file: string) => dirname(file.replace(basicDir + sep, '')),
     );
   } catch (err) {
     // do nothing

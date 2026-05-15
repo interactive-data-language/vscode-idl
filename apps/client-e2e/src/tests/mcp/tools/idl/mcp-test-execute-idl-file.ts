@@ -42,7 +42,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   expect(parsedSuccess.success).toBeTruthy();
 
   // make sure we have "foo" as the cleaned text
-  expect(CleanIDLOutput(parsedSuccess.idlOutput)).toEqual('foo');
+  expect(CleanIDLOutput(parsedSuccess.idlOutput || '')).toEqual('foo');
 
   /**
    * Run a file that has a runtime error

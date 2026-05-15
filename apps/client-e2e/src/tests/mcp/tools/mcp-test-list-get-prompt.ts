@@ -19,7 +19,7 @@ export const RunMCPTestListGetPrompts: RunnerFunction = async (init) => {
   expect((result.content as any[])?.length).toEqual(1);
 
   // init variable
-  let promptList: { [key: string]: string };
+  let promptList!: { [key: string]: string };
 
   // attempt to parse
   try {

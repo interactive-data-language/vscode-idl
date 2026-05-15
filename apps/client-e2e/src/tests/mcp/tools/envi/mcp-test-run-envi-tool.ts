@@ -50,7 +50,7 @@ export const RunMCPTestRunENVITool: RunnerFunction = async (init) => {
   expect(existsSync(outUri)).toBeTruthy();
 
   // init variable
-  let results: MCPToolResponse<MCPTool_RunENVITool>;
+  let results!: MCPToolResponse<MCPTool_RunENVITool>;
 
   // attempt to parse
   try {

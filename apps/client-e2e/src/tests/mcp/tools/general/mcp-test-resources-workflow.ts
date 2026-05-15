@@ -22,7 +22,7 @@ export const RunMCPTestResourcesWorkflow: RunnerFunction = async (init) => {
   expect(listResources.content.length).toEqual(1);
 
   // init variable
-  let parsedResourceNames: string[];
+  let parsedResourceNames!: string[];
 
   // attempt to parse
   try {
@@ -54,7 +54,7 @@ export const RunMCPTestResourcesWorkflow: RunnerFunction = async (init) => {
   expect(getResource.content.length).toEqual(1);
 
   // init variable
-  let parsedResources: { [key: string]: any };
+  let parsedResources!: { [key: string]: any };
 
   // attempt to parse
   try {

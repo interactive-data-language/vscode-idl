@@ -54,9 +54,11 @@ export const RunMCPTestGetENVIToolParametersRegression: RunnerFunction = async (
     expect(result.isError).toBeFalsy();
 
     /** Extract content, replace gets rid of invalid JSON */
-    const content = result.content.map((item) =>
-      JSON.parse((item.text as string).replace(/^Additional notes: /, '')),
-    );
+    const content = result.content
+      .filter((item) => item.type === 'text')
+      .map((item) =>
+        JSON.parse((item.text as string).replace(/^Additional notes: /, '')),
+      );
 
     // make sure the tool runs
     expect(content?.length).toBeGreaterThanOrEqual(2);

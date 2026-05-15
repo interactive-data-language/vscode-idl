@@ -26,7 +26,7 @@ export const RunMCPTestSearchForRoutineAll: RunnerFunction = async (init) => {
   expect(routineSearch.content.length).toEqual(1);
 
   // init variable
-  let routineMatches: { [key: string]: string[] }[];
+  let routineMatches!: { [key: string]: string[] }[];
 
   // attempt to parse
   try {
@@ -69,7 +69,7 @@ export const RunMCPTestSearchForRoutineSingle: RunnerFunction = async (
   expect(routineSearch.content.length).toEqual(1);
 
   // init variable
-  let routineMatches: { [key: string]: string[] }[];
+  let routineMatches!: { [key: string]: string[] }[];
 
   // attempt to parse
   try {
@@ -115,7 +115,7 @@ export const RunMCPTestSearchForRoutineMultiple: RunnerFunction = async (
   expect(routineSearch.content.length).toEqual(1);
 
   // init variable
-  let routineMatches: { [key: string]: string[] }[];
+  let routineMatches!: { [key: string]: string[] }[];
 
   // attempt to parse
   try {

@@ -27,12 +27,12 @@ export const RunMCPTestSearchForFiles_Single: RunnerFunction = async (init) => {
   expect(basicSearch.content.length).toEqual(1);
 
   // init variable
-  let basicSearchFiles: string[];
+  let basicSearchFiles!: string[];
 
   // attempt to parse
   try {
     basicSearchFiles = JSON.parse(GetTextContent(basicSearch.content)).map(
-      (file) => file.replace(basicDir, ''),
+      (file: string) => file.replace(basicDir, ''),
     );
   } catch (err) {
     // do nothing

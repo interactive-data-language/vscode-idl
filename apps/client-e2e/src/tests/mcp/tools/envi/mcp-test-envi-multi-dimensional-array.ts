@@ -67,7 +67,7 @@ export const RunMCPTestENVIMultiDimensionalArrayMultiStep: RunnerFunction =
     expect(result.isError).toBeFalsy();
 
     // init variable
-    let results: MCPToolResponse<MCPTool_RunENVITool>;
+    let results!: MCPToolResponse<MCPTool_RunENVITool>;
 
     // attempt to parse
     try {

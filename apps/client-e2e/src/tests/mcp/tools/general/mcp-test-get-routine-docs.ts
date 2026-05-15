@@ -31,7 +31,7 @@ export const RunMCPTestGetRoutineDocs: RunnerFunction = async (init) => {
   expect(routineDocs.content.length).toEqual(1);
 
   // init variable
-  let docs: ({ [key: string]: any } | string)[];
+  let docs!: ({ [key: string]: any } | string)[];
 
   // attempt to parse
   try {

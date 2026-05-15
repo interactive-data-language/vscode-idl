@@ -34,7 +34,7 @@ export const RunMCPTestOpenDatasetsInENVI_RasterSeries: RunnerFunction = async (
   expect((result.content as any[])?.length).toEqual(1);
 
   // init variable
-  let results: MCPToolResponse<MCPTool_OpenDatasetsInENVI>;
+  let results!: MCPToolResponse<MCPTool_OpenDatasetsInENVI>;
 
   // attempt to parse
   try {
