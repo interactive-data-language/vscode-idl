@@ -16,6 +16,7 @@ import { AUTO_ENVI_MODELER_TEST_PARAMS_BAD } from './envi-modeler-workflows/para
 import { AUTO_ENVI_MODELER_TEST_SELECTIVE_DOWNSAMPLING } from './envi-modeler-workflows/selective-downsampling';
 import { AUTO_ENVI_MODELER_TEST_SPECTRAL_INDEX_ISODATA } from './envi-modeler-workflows/spectral-index-isodata';
 import { AUTO_ENVI_MODELER_TEST_STATIC_INPUT } from './envi-modeler-workflows/static-input';
+import { AUTO_ENVI_MODELER_TEST_TEXT_SANITIZATION } from './envi-modeler-workflows/text-sanitization';
 
 /**
  * Automated tests for ENVI Modeler validation and workflow creation.
@@ -41,4 +42,5 @@ export const AUTO_ENVI_MODELER_TESTS: IAutoENVIModelerTest[] = [
   AUTO_ENVI_MODELER_TEST_SELECTIVE_DOWNSAMPLING,
   AUTO_ENVI_MODELER_TEST_SPECTRAL_INDEX_ISODATA,
   AUTO_ENVI_MODELER_TEST_STATIC_INPUT,
+  AUTO_ENVI_MODELER_TEST_TEXT_SANITIZATION,
 ];

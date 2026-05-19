@@ -75,6 +75,7 @@
     "compare-versions": "^6.1.1",
     "cors": "^2.8.5",
     "deepmerge": "^4.2.2",
+    "emoji-regex": "^10.6.0",
     "eventsource-parser": "^3.0.6",
     "express": "^5.1.0",
     "fast-copy": "^4.0.2",
