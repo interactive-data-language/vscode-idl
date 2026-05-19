@@ -482,6 +482,7 @@ export class IDLProcess extends EventEmitter {
 
     // listen for closing
     this.idl.stdout.on('close', (code: number, signal: string) => {
+      (this.idl as any) = undefined;
       switch (true) {
         case this.closing:
           // do nothing because we are closing IDL

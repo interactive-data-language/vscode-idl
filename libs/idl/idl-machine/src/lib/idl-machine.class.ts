@@ -328,7 +328,7 @@ export class IDLMachine {
           message,
         },
       };
-      this.idl.stdin?.write(JSON.stringify(resp));
+      this.idl?.stdin?.write(JSON.stringify(resp));
     } catch (err) {
       console.error(err);
     }
@@ -339,7 +339,7 @@ export class IDLMachine {
    */
   private _writeNotification(method: string, params: any) {
     try {
-      this.idl.stdin?.write(
+      this.idl?.stdin?.write(
         JSON.stringify({
           jsonrpc: '2.0',
           method,
@@ -356,7 +356,7 @@ export class IDLMachine {
    */
   private _writeRequest(id: number, method: string, params: any) {
     try {
-      this.idl.stdin?.write(
+      this.idl?.stdin?.write(
         JSON.stringify({
           jsonrpc: '2.0',
           id,
@@ -374,7 +374,7 @@ export class IDLMachine {
    */
   private _writeResponse(id: number, result: any) {
     try {
-      this.idl.stdin?.write(
+      this.idl?.stdin?.write(
         JSON.stringify({
           jsonrpc: '2.0',
           id,
