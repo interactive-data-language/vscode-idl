@@ -4,6 +4,7 @@ import {
   QueryDatasetWithENVI,
   ReturnNotes,
   RunENVITool,
+  TakeENVIScreenshot,
 } from '@idl/mcp/envi';
 import {
   CreateIDLNotebook,
@@ -58,6 +59,9 @@ export function CreateStandaloneExecutionCallback(
 
       case MCP_TOOL_LOOKUP.RUN_ENVI_TOOL:
         return RunENVITool(backend, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.TAKE_ENVI_SCREENSHOT:
+        return TakeENVIScreenshot(backend, params as any) as any;
 
       default:
         return { success: false, err: `Unknown tool: ${tool}` } as any;
