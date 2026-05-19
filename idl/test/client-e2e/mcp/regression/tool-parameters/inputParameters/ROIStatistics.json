@@ -76,11 +76,11 @@
       ]
     },
     "output_report_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     }
   },
   "required": [

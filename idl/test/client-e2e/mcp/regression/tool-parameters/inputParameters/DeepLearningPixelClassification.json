@@ -8,14 +8,15 @@
       ]
     },
     "enhance_display": {
-      "type": "boolean",
       "default": false,
       "description": [
         "Specify whether to apply an additional small stretch to the processed data to suppress noise and enhance feature visibility. The optional stretch is effective for improving visual clarity in imagery acquired from aerial platforms or sensors with higher noise profiles."
-      ]
+      ],
+      "type": "boolean"
     },
     "input_metadata": {
       "type": "object",
+      "propertyNames": {},
       "additionalProperties": {},
       "description": [
         "Specify an optional hash containing metadata that will be passed on and accessible to ONNX preprocessor and postprocessor functions."
@@ -87,44 +88,50 @@
       ]
     },
     "output_class_activation_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "output_classification_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "runtime": {
-      "type": "string",
-      "enum": [
-        "CUDA",
-        "CPU"
-      ],
       "default": "CUDA",
       "description": [
         "Specify the execution environment for the classification task with one of these options:",
         "",
         "CUDA: (Default) Uses NVIDIA GPU acceleration for optimal performance and faster processing. See also CUDA_DEVICE_ID for details on providing a device ID.",
         "CPU: Ensures compatibility on systems without GPU support, but with reduced processing speeds."
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "CUDA"
+        },
+        {
+          "type": "string",
+          "const": "CPU"
+        }
       ]
     },
     "visual_rgb": {
-      "type": "boolean",
       "default": false,
       "description": [
         "Specify whether to encode the output raster as a three-band RGB composite (red, green, blue) for color image processing. This ensures consistent band selection from ENVI display types (such as RGB, CIR, and pan) and supports integration of diverse data sources (such as MSI, panchromatic, and VNIR) without band mismatch."
-      ]
+      ],
+      "type": "boolean"
     }
   },
   "required": [
     "input_model",
-    "input_raster"
+    "input_raster",
+    "output_classification_raster_uri"
   ],
   "additionalProperties": false,
   "description": [

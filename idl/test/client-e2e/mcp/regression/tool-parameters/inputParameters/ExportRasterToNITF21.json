@@ -50,19 +50,6 @@
       ]
     },
     "nitf_compression": {
-      "type": "string",
-      "enum": [
-        "EPJE Num Lossless",
-        "EPJE Vis Lossless",
-        "JPEG DCT (High)",
-        "JPEG DCT (Low)",
-        "JPEG DCT (Medium)",
-        "No Compression",
-        "NPJE Num Lossless",
-        "NPJE Vis Lossless",
-        "Transcode EPJE to NPJE",
-        "Transcode NPJE to EPJE"
-      ],
       "default": "No Compression",
       "description": [
         "Specifies the NITF compression type. The choices are as follows:",
@@ -83,14 +70,56 @@
         "JPEG DCT (Medium)",
         "",
         "The default value is No Compression."
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "EPJE Num Lossless"
+        },
+        {
+          "type": "string",
+          "const": "EPJE Vis Lossless"
+        },
+        {
+          "type": "string",
+          "const": "JPEG DCT (High)"
+        },
+        {
+          "type": "string",
+          "const": "JPEG DCT (Low)"
+        },
+        {
+          "type": "string",
+          "const": "JPEG DCT (Medium)"
+        },
+        {
+          "type": "string",
+          "const": "No Compression"
+        },
+        {
+          "type": "string",
+          "const": "NPJE Num Lossless"
+        },
+        {
+          "type": "string",
+          "const": "NPJE Vis Lossless"
+        },
+        {
+          "type": "string",
+          "const": "Transcode EPJE to NPJE"
+        },
+        {
+          "type": "string",
+          "const": "Transcode NPJE to EPJE"
+        }
       ]
     },
     "output_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     }
   },
   "required": [

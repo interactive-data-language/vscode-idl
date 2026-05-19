@@ -56,12 +56,12 @@
     "class_lookup": {
       "type": "array",
       "items": {
+        "minItems": 3,
+        "maxItems": 3,
         "type": "array",
         "items": {
           "type": "number"
-        },
-        "minItems": 3,
-        "maxItems": 3
+        }
       },
       "description": [
         "Specify a (3, n) byte array, where n is the number of classes, with RGB color definitions for each class in a classification file. For example, black is [0,0,0]."
@@ -90,23 +90,24 @@
       ]
     },
     "color_table": {
+      "minItems": 256,
+      "maxItems": 256,
       "type": "array",
       "items": {
+        "minItems": 3,
+        "maxItems": 3,
         "type": "array",
         "items": {
           "type": "number"
-        },
-        "minItems": 3,
-        "maxItems": 3
+        }
       },
-      "minItems": 256,
-      "maxItems": 256,
       "description": [
         "Specify a (3, 256) byte array representing the full color table to use when displaying this raster."
       ]
     },
     "custom_metadata": {
       "type": "object",
+      "propertyNames": {},
       "additionalProperties": {},
       "description": [
         "Specify a hash of key-value pairs indicating user-defined custom metadata items not defined in the ENVI header file format. The key of the hash will be the name of the metadata item, its value (string) will become the metadata value."
@@ -185,11 +186,11 @@
       ]
     },
     "dem_file": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "fwhm": {
       "type": "array",
@@ -243,11 +244,11 @@
       ]
     },
     "output_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "reflectance_scale_factor": {
       "type": "number",
@@ -356,45 +357,45 @@
               "const": "PseudoRasterSpatialRef"
             },
             "pseudo_geo_point_1": {
+              "minItems": 4,
+              "maxItems": 4,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 4,
-              "maxItems": 4,
               "description": [
                 "A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the top-left geographic corner."
               ]
             },
             "pseudo_geo_point_2": {
+              "minItems": 4,
+              "maxItems": 4,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 4,
-              "maxItems": 4,
               "description": [
                 "A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the lower-left geographic corner."
               ]
             },
             "pseudo_geo_point_3": {
+              "minItems": 4,
+              "maxItems": 4,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 4,
-              "maxItems": 4,
               "description": [
                 "A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the lower-right geographic corner."
               ]
             },
             "pseudo_geo_point_4": {
+              "minItems": 4,
+              "maxItems": 4,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 4,
-              "maxItems": 4,
               "description": [
                 "A four-element array [X Pixel, Y Pixel, Longitude, Latitude] specifying the upper-right geographic corner."
               ]
@@ -417,95 +418,95 @@
               "const": "RPCRasterSpatialRef"
             },
             "coord_sys_code": {
-              "type": "integer",
               "description": [
                 "The EPSG code for the coordinate system"
-              ]
+              ],
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
             },
             "coord_sys_str": {
-              "type": "string",
               "description": [
                 "Geographic (GEOGCS) or projected (PROJCS) coordinate system string."
-              ]
+              ],
+              "type": "string"
             },
             "pixel_size": {
+              "description": [
+                "Pixel size [X Pixel Size, Y Pixel Size] in coordinate system units."
+              ],
               "type": "array",
-              "minItems": 2,
-              "maxItems": 2,
-              "items": [
+              "prefixItems": [
                 {
                   "type": "number"
                 },
                 {
                   "type": "number"
                 }
-              ],
-              "description": [
-                "Pixel size [X Pixel Size, Y Pixel Size] in coordinate system units."
               ]
             },
             "rpc_line_den_coeff": {
+              "minItems": 20,
+              "maxItems": 20,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 20,
-              "maxItems": 20,
               "description": [
                 "20 RPC line denominator coefficients."
               ]
             },
             "rpc_line_num_coeff": {
+              "minItems": 20,
+              "maxItems": 20,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 20,
-              "maxItems": 20,
               "description": [
                 "20 RPC line numerator coefficients."
               ]
             },
             "rpc_offsets": {
+              "minItems": 5,
+              "maxItems": 5,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 5,
-              "maxItems": 5,
               "description": [
                 "Five RPC offsets: [Line_Offset, Sample_Offset, Latitude_Offset, Longitude_Offset, Height_Offset]."
               ]
             },
             "rpc_samp_den_coeff": {
+              "minItems": 20,
+              "maxItems": 20,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 20,
-              "maxItems": 20,
               "description": [
                 "20 RPC sample denominator coefficients."
               ]
             },
             "rpc_samp_num_coeff": {
+              "minItems": 20,
+              "maxItems": 20,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 20,
-              "maxItems": 20,
               "description": [
                 "20 RPC sample numerator coefficients."
               ]
             },
             "rpc_scales": {
+              "minItems": 5,
+              "maxItems": 5,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 5,
-              "maxItems": 5,
               "description": [
                 "Five RPC scales: [Line_Scale, Sample_Scale, Latitude_Scale, Longitude_Scale, Height_Scale]."
               ]
@@ -530,64 +531,66 @@
               "const": "StandardRasterSpatialRef"
             },
             "coord_sys_code": {
-              "type": "integer",
               "description": [
                 "GEOGCS or PROJCS coordinate system code (EPSG)."
-              ]
+              ],
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
             },
             "coord_sys_str": {
-              "type": "string",
               "description": [
                 "GEOGCS or PROJCS coordinate system string."
-              ]
+              ],
+              "type": "string"
             },
             "geogcs": {
-              "type": "boolean",
               "description": [
                 "Set true when retrieving a geographic (GEOGCS) code or string with coord_sys_code / coord_sys_str."
-              ]
+              ],
+              "type": "boolean"
             },
             "projcs": {
-              "type": "boolean",
               "description": [
                 "Set true when retrieving a projected (PROJCS) code or string with coord_sys_code / coord_sys_str."
-              ]
+              ],
+              "type": "boolean"
             },
             "pixel_size": {
+              "minItems": 2,
+              "maxItems": 2,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 2,
-              "maxItems": 2,
               "description": [
                 "[X Pixel Size, Y Pixel Size] in coordinate system units."
               ]
             },
             "rotation": {
-              "type": "number",
               "description": [
                 "Rotation in degrees clockwise from North."
-              ]
+              ],
+              "type": "number"
             },
             "tie_point_map": {
+              "minItems": 2,
+              "maxItems": 2,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 2,
-              "maxItems": 2,
               "description": [
                 "[X Tie Point, Y Tie Point] map location corresponding to tie_point_pixel."
               ]
             },
             "tie_point_pixel": {
+              "minItems": 2,
+              "maxItems": 2,
               "type": "array",
               "items": {
                 "type": "number"
               },
-              "minItems": 2,
-              "maxItems": 2,
               "description": [
                 "[X Pixel, Y Pixel] pixel location corresponding to tie_point_map. If taken from ENVI header (one-based), subtract 1 from both."
               ]
@@ -637,15 +640,35 @@
       ]
     },
     "wavelength_units": {
-      "type": "string",
-      "enum": [
-        "Micrometers",
-        "Nanometers",
-        "Wavenumber",
-        "GHz",
-        "MHz",
-        "Index",
-        "Unknown"
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "Micrometers"
+        },
+        {
+          "type": "string",
+          "const": "Nanometers"
+        },
+        {
+          "type": "string",
+          "const": "Wavenumber"
+        },
+        {
+          "type": "string",
+          "const": "GHz"
+        },
+        {
+          "type": "string",
+          "const": "MHz"
+        },
+        {
+          "type": "string",
+          "const": "Index"
+        },
+        {
+          "type": "string",
+          "const": "Unknown"
+        }
       ],
       "description": [
         "Specify one of the following strings indicating the units of the wavelengths in the WAVELENGTH parameter. The default value is Nanometers.",
@@ -660,23 +683,23 @@
       ]
     },
     "z_plot_range": {
+      "minItems": 2,
+      "maxItems": 2,
       "type": "array",
       "items": {
         "type": "number"
       },
-      "minItems": 2,
-      "maxItems": 2,
       "description": [
         "Specify a two-element double-precision array with the default minimum and maximum values for Z (spectral) plots."
       ]
     },
     "z_plot_titles": {
+      "minItems": 2,
+      "maxItems": 2,
       "type": "array",
       "items": {
         "type": "string"
       },
-      "minItems": 2,
-      "maxItems": 2,
       "description": [
         "Specify a two-element string array with the X-axis and Y-axis titles for Z (spectral) plots."
       ]

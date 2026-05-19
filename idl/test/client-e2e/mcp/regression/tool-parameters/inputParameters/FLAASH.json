@@ -56,36 +56,27 @@
       ]
     },
     "aer_reference_value": {
-      "type": "number",
       "default": 0,
       "description": [
         "Specify the expected reflectance value of a pixel to use in the single band aerosol retrieval. This is primarily useful when a known target material is present. The default value is 0."
-      ]
+      ],
+      "type": "number"
     },
     "aerosol_scale_ht": {
-      "type": "number",
       "default": 2,
       "description": [
         "Adjust the scattering range for adjacency correction. Specify the highest altitude in kilometers of the boundary aerosol layer. The default value is 2."
-      ]
+      ],
+      "type": "number"
     },
     "calibration_file": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "calibration_format": {
-      "type": "string",
-      "enum": [
-        "ASCII",
-        "ENVI",
-        "Discrete",
-        "Filter Format",
-        "FLAASH",
-        "Spectrograph"
-      ],
       "default": "flaash",
       "description": [
         "Set the sensor calibration file format with one of the following:",
@@ -98,13 +89,44 @@
         "Spectograph",
         "",
         " For FLAASH, sensor calibration data is defined within the FLAASH input configuration. For all other selections, you must also specify a CALIBRATION_FILE."
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "ASCII"
+        },
+        {
+          "type": "string",
+          "const": "ENVI"
+        },
+        {
+          "type": "string",
+          "const": "Discrete"
+        },
+        {
+          "type": "string",
+          "const": "Filter Format"
+        },
+        {
+          "type": "string",
+          "const": "FLAASH"
+        },
+        {
+          "type": "string",
+          "const": "Spectrograph"
+        }
       ]
     },
     "calibration_units": {
-      "type": "string",
-      "enum": [
-        "Nanometers",
-        "Microns"
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "Nanometers"
+        },
+        {
+          "type": "string",
+          "const": "Microns"
+        }
       ],
       "description": [
         "If a CALIBRATION_FILE was added, specify the wavelength units of the calibration data. Valid values are:",
@@ -114,11 +136,11 @@
       ]
     },
     "cloud_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "co2_mixing": {
       "type": "number",
@@ -153,12 +175,12 @@
       ]
     },
     "default_visibility": {
-      "type": "number",
-      "minimum": 0.1,
       "default": 40,
       "description": [
         "Set a default visibility in kilometers for the scene. If the aerosol retrieval is disabled, the default visibility is used; otherwise, the default visibility is used only for the first water retrieval. The default value is 40."
-      ]
+      ],
+      "type": "number",
+      "minimum": 0.1
     },
     "ground_elevation": {
       "type": "number",
@@ -225,44 +247,35 @@
       ]
     },
     "lat_long": {
+      "minItems": 2,
+      "maxItems": 2,
       "type": "array",
       "items": {
         "type": "number"
       },
-      "minItems": 2,
-      "maxItems": 2,
       "description": [
         "Specify the Latitude and Longitude of the scene center, in decimal degrees."
       ]
     },
     "los_azimuth": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 360,
       "default": 0,
       "description": [
         "Specify the line-of-sight azimuth angle for a non-nadir data acquisition. The azimuth angle is measured as degrees clockwise from North to the line-of-sight vector (90 degrees due east, 270 degrees due west)."
-      ]
+      ],
+      "type": "number",
+      "minimum": 0,
+      "maximum": 360
     },
     "los_zenith": {
-      "type": "number",
-      "minimum": 90,
-      "maximum": 270,
       "default": 180,
       "description": [
         "Specify the line-of-sight zenith angle in degrees for a non-nadir data acquisition. For a nadir viewing instrument this angle is 180 degrees. The default value is 180."
-      ]
+      ],
+      "type": "number",
+      "minimum": 90,
+      "maximum": 270
     },
     "modtran_aer": {
-      "type": "string",
-      "enum": [
-        "No Aerosol",
-        "High-Visibility Rural",
-        "Low-Visibility Rural",
-        "Maritime",
-        "Urban",
-        "Tropospheric"
-      ],
       "default": "No Aerosol",
       "description": [
         "Set the MODTRAN aerosol model with one of the following:",
@@ -273,18 +286,35 @@
         "Maritime: (visibility = 23 Km)",
         "Tropospheric: (visibility = 50 Km)",
         "Urban"
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "No Aerosol"
+        },
+        {
+          "type": "string",
+          "const": "High-Visibility Rural"
+        },
+        {
+          "type": "string",
+          "const": "Low-Visibility Rural"
+        },
+        {
+          "type": "string",
+          "const": "Maritime"
+        },
+        {
+          "type": "string",
+          "const": "Urban"
+        },
+        {
+          "type": "string",
+          "const": "Tropospheric"
+        }
       ]
     },
     "modtran_atm": {
-      "type": "string",
-      "enum": [
-        "Tropical Atmosphere",
-        "Mid-Latitude Summer",
-        "Mid-Latitude Winter",
-        "Sub-Arctic Summer",
-        "Sub-Arctic Winter",
-        "1976 US Standard Atmosphere"
-      ],
       "default": "Tropical Atmosphere",
       "description": [
         "Set the MODTRAN atmospheric model.",
@@ -295,15 +325,35 @@
         "Sub-Arctic Summer: (60 degrees north latitude)",
         "Sub-Arctic Winter: (60 degrees north latitude)",
         "1976 US Standard Atmosphere"
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "Tropical Atmosphere"
+        },
+        {
+          "type": "string",
+          "const": "Mid-Latitude Summer"
+        },
+        {
+          "type": "string",
+          "const": "Mid-Latitude Winter"
+        },
+        {
+          "type": "string",
+          "const": "Sub-Arctic Summer"
+        },
+        {
+          "type": "string",
+          "const": "Sub-Arctic Winter"
+        },
+        {
+          "type": "string",
+          "const": "1976 US Standard Atmosphere"
+        }
       ]
     },
     "modtran_mscat": {
-      "type": "string",
-      "enum": [
-        "ISAACS",
-        "DISORT",
-        "Scaled ISAACS"
-      ],
       "default": "Scaled ISAACS",
       "description": [
         "Selects a multiple scattering method to use in MODTRAN. ISAACS (fastest), Scaled ISAACS (fast, more accurate), DISORT (SLOW, most accurate).",
@@ -313,16 +363,23 @@
         "ISAACS: The fastest method.",
         "DISORT: The slowest method, but is the most accurate.",
         "Scaled ISAACS: (default) Fast, more accurate than ISAACS."
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "ISAACS"
+        },
+        {
+          "type": "string",
+          "const": "DISORT"
+        },
+        {
+          "type": "string",
+          "const": "Scaled ISAACS"
+        }
       ]
     },
     "modtran_res": {
-      "type": "number",
-      "enum": [
-        15,
-        5,
-        1,
-        0.1
-      ],
       "default": 15,
       "description": [
         "Specify the bandmodel resolution to use with the MODTRAN simulations with one of the following:",
@@ -331,14 +388,32 @@
         "5.0",
         "1.0",
         "0.1"
+      ],
+      "anyOf": [
+        {
+          "type": "number",
+          "const": 15
+        },
+        {
+          "type": "number",
+          "const": 5
+        },
+        {
+          "type": "number",
+          "const": 1
+        },
+        {
+          "type": "number",
+          "const": 0.1
+        }
       ]
     },
     "output_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "output_scale": {
       "type": "number",
@@ -360,29 +435,64 @@
       ]
     },
     "sensor_autocalibration": {
-      "type": "boolean",
       "default": true,
       "description": [
         "Specify true or false to enable or disable sensor auto-calibration (NODD) algorithm. This also activates the automated smile correction for appropriate sensors. This calibration is not compatible with MSI sensor types. The default is false."
-      ]
+      ],
+      "type": "boolean"
     },
     "sensor_cal_feature_list": {
       "type": "array",
       "items": {
-        "type": "string",
-        "enum": [
-          "CO2_2040",
-          "H2O_940",
-          "O2_763",
-          "CO2_1614",
-          "H2O_820",
-          "H2O_1130",
-          "O2_691",
-          "O2_1266",
-          "Solar_H_434",
-          "Solar_H_486",
-          "Solar_Mg_517",
-          "Solar_H_656"
+        "anyOf": [
+          {
+            "type": "string",
+            "const": "CO2_2040"
+          },
+          {
+            "type": "string",
+            "const": "H2O_940"
+          },
+          {
+            "type": "string",
+            "const": "O2_763"
+          },
+          {
+            "type": "string",
+            "const": "CO2_1614"
+          },
+          {
+            "type": "string",
+            "const": "H2O_820"
+          },
+          {
+            "type": "string",
+            "const": "H2O_1130"
+          },
+          {
+            "type": "string",
+            "const": "O2_691"
+          },
+          {
+            "type": "string",
+            "const": "O2_1266"
+          },
+          {
+            "type": "string",
+            "const": "Solar_H_434"
+          },
+          {
+            "type": "string",
+            "const": "Solar_H_486"
+          },
+          {
+            "type": "string",
+            "const": "Solar_Mg_517"
+          },
+          {
+            "type": "string",
+            "const": "Solar_H_656"
+          }
         ]
       },
       "description": [
@@ -390,26 +500,13 @@
       ]
     },
     "sensor_cal_precision": {
-      "type": "number",
       "default": 0.15,
       "description": [
         "Set a minimum accuracy threshold for the sensor autocalibration. This parameter determines whether or not a spectral absorption feature will contribute to the calibration adjustment, based on the variance of the estimated wavelength shift local to that feature. The default value is 0.150000."
-      ]
+      ],
+      "type": "number"
     },
     "sensor_type": {
-      "type": "string",
-      "enum": [
-        "AVIRIS",
-        "HYDICE",
-        "HyMap",
-        "Hyperion",
-        "NVIS",
-        "Compass",
-        "Hycas",
-        "Mars",
-        "Multispectral",
-        "Unknown"
-      ],
       "default": "Unknown",
       "description": [
         "Set the name of the sensor as one of the following:",
@@ -424,6 +521,48 @@
         "Mars",
         "Multispectral",
         "Unknown (default)"
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "AVIRIS"
+        },
+        {
+          "type": "string",
+          "const": "HYDICE"
+        },
+        {
+          "type": "string",
+          "const": "HyMap"
+        },
+        {
+          "type": "string",
+          "const": "Hyperion"
+        },
+        {
+          "type": "string",
+          "const": "NVIS"
+        },
+        {
+          "type": "string",
+          "const": "Compass"
+        },
+        {
+          "type": "string",
+          "const": "Hycas"
+        },
+        {
+          "type": "string",
+          "const": "Mars"
+        },
+        {
+          "type": "string",
+          "const": "Multispectral"
+        },
+        {
+          "type": "string",
+          "const": "Unknown"
+        }
       ]
     },
     "solar_azimuth": {
@@ -443,12 +582,6 @@
       ]
     },
     "use_adjacency": {
-      "type": "string",
-      "enum": [
-        "Disabled",
-        "Legacy exponential scattering kernel",
-        "Wavelength-dependent scattering kernel"
-      ],
       "default": "Wavelength-dependent scattering kernel",
       "description": [
         "Enable or disable compensation for adjacency effects with one of the following:",
@@ -456,18 +589,23 @@
         "Disabled",
         "Legacy exponential scattering kernel",
         "Wavelength-dependent scattering kernel (default)"
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "Disabled"
+        },
+        {
+          "type": "string",
+          "const": "Legacy exponential scattering kernel"
+        },
+        {
+          "type": "string",
+          "const": "Wavelength-dependent scattering kernel"
+        }
       ]
     },
     "use_aerosol": {
-      "type": "string",
-      "enum": [
-        "Disabled",
-        "Automatic Selection",
-        "Vegetation Based Retrieval",
-        "Water Based Retrieval",
-        "Wavelength Dependent Water Based Retrieval",
-        "Linear Regression Retrieval"
-      ],
       "default": "Automatic Selection",
       "description": [
         "Enable or disable an aerosol retrieval algorithm to obtain a scene visibility with one of the following:",
@@ -478,15 +616,35 @@
         "Water Based Retrieval",
         "Wavelength Dependent Water Based Retrieval",
         "Linear Regression Retrieval"
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "Disabled"
+        },
+        {
+          "type": "string",
+          "const": "Automatic Selection"
+        },
+        {
+          "type": "string",
+          "const": "Vegetation Based Retrieval"
+        },
+        {
+          "type": "string",
+          "const": "Water Based Retrieval"
+        },
+        {
+          "type": "string",
+          "const": "Wavelength Dependent Water Based Retrieval"
+        },
+        {
+          "type": "string",
+          "const": "Linear Regression Retrieval"
+        }
       ]
     },
     "use_polishing": {
-      "type": "string",
-      "enum": [
-        "Disabled",
-        "Polish using reference materials",
-        "Polish using statistical detection of spectral artifacts"
-      ],
       "default": "Disabled",
       "description": [
         "Specify whether to enable or disable spectral polishing with one of the following. Polishing is incompatible with MSI sensors.",
@@ -494,16 +652,23 @@
         "Disabled (default)",
         "Polish using reference materials",
         "Polish using statistical detection of spectral artifacts"
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "Disabled"
+        },
+        {
+          "type": "string",
+          "const": "Polish using reference materials"
+        },
+        {
+          "type": "string",
+          "const": "Polish using statistical detection of spectral artifacts"
+        }
       ]
     },
     "water_abs_choice": {
-      "type": "string",
-      "enum": [
-        "820",
-        "940",
-        "1130",
-        "Automatic Selection"
-      ],
       "default": "Automatic Selection",
       "description": [
         "Set the water absorption feature to use with the water vapor retrieval with one of the following\"",
@@ -512,36 +677,54 @@
         "940",
         "820",
         "Automated Selection (default)"
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "820"
+        },
+        {
+          "type": "string",
+          "const": "940"
+        },
+        {
+          "type": "string",
+          "const": "1130"
+        },
+        {
+          "type": "string",
+          "const": "Automatic Selection"
+        }
       ]
     },
     "water_mult": {
+      "minItems": 2,
+      "maxItems": 2,
       "type": "array",
       "items": {
-        "type": "number",
         "default": [
           0.01,
           1
-        ]
+        ],
+        "type": "number"
       },
-      "minItems": 2,
-      "maxItems": 2,
       "description": [
         "Specify the minimum and maximum water column multiplier for selected MODTRAN atmosphere. The default value is 0.0100000."
       ]
     },
     "water_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "water_vapor_preset": {
-      "type": "number",
       "default": 0,
       "description": [
         "Specify a value to override the water retrieval with a constant scale factor. A positive value will disable the water vapor retrieval. The default value is 0."
-      ]
+      ],
+      "type": "number"
     }
   },
   "required": [

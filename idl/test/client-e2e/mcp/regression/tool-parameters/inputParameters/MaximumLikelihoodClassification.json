@@ -4,12 +4,12 @@
     "class_colors": {
       "type": "array",
       "items": {
+        "minItems": 3,
+        "maxItems": 3,
         "type": "array",
         "items": {
           "type": "number"
-        },
-        "minItems": 3,
-        "maxItems": 3
+        }
       },
       "description": [
         "This is an array of RGB triplets representing the class colors as defined by the input vector."
@@ -94,29 +94,20 @@
       ]
     },
     "output_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "output_rule_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     },
     "regularization_method": {
-      "type": "string",
-      "enum": [
-        "Diagonal",
-        "Dominant",
-        "None",
-        "Shrink",
-        "Threshold",
-        "Truncate"
-      ],
       "default": "Truncate",
       "description": [
         "Specify a method for regularizing the covariance matrix:",
@@ -127,6 +118,32 @@
         "Shrink: Shrinkage of singular values based on the tolerance value.",
         "Threshold: Singular values less than the tolerance value are set to the tolerance value.",
         "Truncate (default): Singular values less than the tolerance value are set to zero."
+      ],
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "Diagonal"
+        },
+        {
+          "type": "string",
+          "const": "Dominant"
+        },
+        {
+          "type": "string",
+          "const": "None"
+        },
+        {
+          "type": "string",
+          "const": "Shrink"
+        },
+        {
+          "type": "string",
+          "const": "Threshold"
+        },
+        {
+          "type": "string",
+          "const": "Truncate"
+        }
       ]
     },
     "regularization_tolerance": {
@@ -145,12 +162,12 @@
     "threshold_probability": {
       "type": "array",
       "items": {
-        "type": "number",
-        "minimum": 0,
-        "maximum": 1,
         "default": [
           0
-        ]
+        ],
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
       },
       "description": [
         "Enter a scalar value for all classes or array of values, one per class, from 0.0 to 1.0. For arrays, the number of elements must equal the number of classes. Pixels with a value lower than the threshold will not be classified. The default value is 0.0. The threshold is a probability minimum for inclusion in a class. For example, a value of 0.9 will include fewer pixels in a class than a value of 0.5 because a 90 percent probability requirement is more strict than allowing a pixel in a class based on a chance of 50 percent."
