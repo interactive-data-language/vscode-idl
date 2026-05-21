@@ -12,6 +12,7 @@ import { RunMCPTestWorkflowCorrectOutput } from './tools/envi/envi-modeler/mcp-t
 import { RunMCPTestWorkflowDatamanagerView } from './tools/envi/envi-modeler/mcp-test-workflow-datamanager-view';
 import { RunMCPTestWorkflowDatasetIndex } from './tools/envi/envi-modeler/mcp-test-workflow-dataset-index';
 import { RunMCPTestWorkflowDeepLearning } from './tools/envi/envi-modeler/mcp-test-workflow-deep-learning';
+import { RunMCPTestWorkflowFileExistsError } from './tools/envi/envi-modeler/mcp-test-workflow-file-exists-error';
 import { RunMCPTestWorkflowImageClassificationML } from './tools/envi/envi-modeler/mcp-test-workflow-image-classification-ml';
 import { RunMCPTestWorkflowImageRegistration } from './tools/envi/envi-modeler/mcp-test-workflow-image-registration';
 import { RunMCPTestWorkflowIsodataWithUri } from './tools/envi/envi-modeler/mcp-test-workflow-isodata-with-uri';
@@ -383,6 +384,12 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowIsodataWithUri,
   name: 'Create workflow: ISODATA with URI',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestWorkflowFileExistsError,
+  name: 'Create workflow: File exists error',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 

@@ -7,7 +7,7 @@ import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { dirname } from 'path';
 import { z } from 'zod';
 
@@ -213,6 +213,19 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
             {
               type: 'text',
               text: `Invalid workflow: ${errors.join('; ')}`,
+            },
+          ],
+        };
+      }
+
+      // check if file already exists
+      if (existsSync(output_path)) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text: `Model file already exists. Each workflow must have a unique filename.`,
             },
           ],
         };
