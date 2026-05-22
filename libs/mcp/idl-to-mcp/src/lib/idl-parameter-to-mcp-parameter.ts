@@ -12,9 +12,6 @@ import { MCP_Number } from './types/mcp-number';
 
 /**
  * Actually convert our parameter to an MCP parameter
- *
- * This recurses if we have an array, can be updated to manage
- * multiple types like we get from IDL code.
  */
 function IDLParameterToMCPParameter_Recurser(
   param: IParameterOrPropertyDetails,
@@ -26,135 +23,167 @@ function IDLParameterToMCPParameter_Recurser(
     type = param.type;
   }
 
-  /** Extract the first type */
-  const firstType = type[0];
-
-  /** Get type name as a string */
-  const firstTypeString = firstType.name.toLowerCase();
-
-  /** Initialize return value */
-  let res: undefined | z.ZodType;
+  /** Accumulate a resolved zod type per IDL type element */
+  const results: z.ZodType[] = [];
 
   /**
-   * Convert to ZOD
+   * Track a docs override set by URI type cases; the last URI type wins
+   * so the description reflects what the caller will actually receive.
    */
-  switch (true) {
+  let docsOverride: string | undefined;
+
+  /**
+   * Iterate over every element in the type array and attempt to convert
+   * each one. If any element cannot be mapped we bail out immediately.
+   */
+  for (let i = 0; i < type.length; i++) {
+    const currentType = type[i];
+    const currentTypeString = currentType.name.toLowerCase();
+
+    /** Result for this individual type element */
+    let res: undefined | z.ZodType;
+
     /**
-     * Handle arrays of values and recurse
+     * Convert to ZOD
      */
-    case firstTypeString === IDL_TYPE_LOOKUP.ARRAY.toLowerCase(): {
-      /** Get type arguments for arrays (i.e. Array<TypeArg>) */
-      const typeArgs = IDLTypeHelper.getAllTypeArgs([firstType]);
+    switch (true) {
+      /**
+       * Handle arrays of values and recurse
+       */
+      case currentTypeString === IDL_TYPE_LOOKUP.ARRAY.toLowerCase(): {
+        /** Get type arguments for arrays (i.e. Array<TypeArg>) */
+        const typeArgs = IDLTypeHelper.getAllTypeArgs([currentType]);
 
-      /** Attempt to map our parameter - dont pass in docs, set below */
-      const arrayType = IDLParameterToMCPParameter_Recurser(
-        param,
-        '',
-        typeArgs,
-      );
+        /** Attempt to map our parameter - dont pass in docs, set below */
+        const arrayType = IDLParameterToMCPParameter_Recurser(
+          param,
+          '',
+          typeArgs,
+        );
 
-      // see if we mapped a parameter or not
-      if (arrayType) {
-        /** Check for dimensions */
-        const dims = type[0].meta.dimensions || ['*'];
+        // see if we mapped a parameter or not
+        if (arrayType) {
+          /** Check for dimensions */
+          const dims = currentType.meta.dimensions || ['*'];
 
-        /**
-         * Populate the dimension
-         *
-         * Note that this *REVERSES* the dimension order from IDL because
-         * we set the innermost dimension to the outermost which changes
-         * the row/column major-ness from IDL and JS
-         *
-         * In IDL we also have a transpose from list to array to match what IDL
-         * expects.
-         */
-        let current = arrayType;
-        for (let g = 0; g < dims.length; g++) {
-          if (dims[g] === '*') {
-            current = z.array(current);
-          } else {
-            current = z.array(current).length(dims[g] as number);
+          /**
+           * Populate the dimension
+           *
+           * Note that this *REVERSES* the dimension order from IDL because
+           * we set the innermost dimension to the outermost which changes
+           * the row/column major-ness from IDL and JS
+           *
+           * In IDL we also have a transpose from list to array to match what IDL
+           * expects.
+           */
+          let current = arrayType;
+          for (let g = 0; g < dims.length; g++) {
+            if (dims[g] === '*') {
+              current = z.array(current);
+            } else {
+              current = z.array(current).length(dims[g] as number);
+            }
           }
+          res = current;
         }
-        res = current;
+        break;
       }
-      break;
+
+      /**
+       * ENVI URI - Folder
+       */
+      case currentType.meta.isUri && currentType.meta.isFolder:
+        res = MCP_ENVIURI();
+        docsOverride =
+          'Fully-qualified path to the output folder, default is "!" which indicates a temporary location will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing folder on disk. You may need to examine the output location to find specific datasets.';
+        break;
+
+      /**
+       * ENVI URI - File
+       */
+      case currentType.meta.isUri:
+        res = MCP_ENVIURI();
+        docsOverride =
+          'Fully-qualified path to the output dataset, default is "!" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk.';
+        break;
+
+      /**
+       * Is there a type in our lookup?
+       */
+      case currentTypeString in MCP_TYPE_FACTORIES:
+        res = MCP_TYPE_FACTORIES[currentTypeString](currentType);
+        break;
+
+      /**
+       * Numbers
+       */
+      case currentTypeString === IDL_TYPE_LOOKUP.NUMBER.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.BIG_INTEGER.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.DOUBLE.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.FLOAT.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.UNSIGNED_LONG64.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.LONG64.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.UNSIGNED_LONG.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.LONG.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.UNSIGNED_INTEGER.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.INTEGER.toLowerCase():
+      case currentTypeString === IDL_TYPE_LOOKUP.BYTE.toLowerCase():
+        res = MCP_Number(
+          currentType.value,
+          currentType.meta.min,
+          currentType.meta.max,
+        );
+        break;
+
+      default:
+        break;
     }
 
     /**
-     * ENVI URI - Folder
+     * If any single type element could not be mapped the whole parameter
+     * cannot be represented — return undefined immediately.
      */
-    case firstType.meta.isUri && firstType.meta.isFolder:
-      res = MCP_ENVIURI();
-      cleanDocs =
-        'Fully-qualified path to the output folder, default is "!" which indicates a temporary location will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing folder on disk. You may need to examine the output location to find specific datasets.';
-      break;
+    if (res === undefined) {
+      return undefined;
+    }
 
-    /**
-     * ENVI URI - Folder
-     */
-    case firstType.meta.isUri:
-      res = MCP_ENVIURI();
-      cleanDocs =
-        'Fully-qualified path to the output dataset, default is "!" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk.';
-      break;
+    // apply per-element default before accumulating
+    if (typeof currentType.meta.default !== 'undefined') {
+      res = res.default(currentType.meta.default);
+    }
 
-    /**
-     * Is there a type in our lookup?
-     */
-    case firstTypeString in MCP_TYPE_FACTORIES:
-      res = MCP_TYPE_FACTORIES[firstTypeString](firstType);
-      break;
+    // save result
+    results.push(res);
+  }
 
-    /**
-     * Numbers
-     */
-    case firstTypeString === IDL_TYPE_LOOKUP.NUMBER.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.BIG_INTEGER.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.DOUBLE.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.FLOAT.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.UNSIGNED_LONG64.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.LONG64.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.UNSIGNED_LONG.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.LONG.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.UNSIGNED_INTEGER.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.INTEGER.toLowerCase():
-    case firstTypeString === IDL_TYPE_LOOKUP.BYTE.toLowerCase():
-      res = MCP_Number(firstType.value, firstType.meta.min, firstType.meta.max);
-      break;
-
-    default:
-      break;
+  // nothing resolved (empty type array)
+  // should be handled above, but sanity check
+  if (results.length === 0) {
+    return undefined;
   }
 
   /**
-   * Populate some additional root-level properties based on the first type
-   * metadata and parameter docs
+   * Combine all resolved types. A single result is used as-is; multiple
+   * results are wrapped in a zod union.
    */
-  if (res) {
-    // check for default
-    if (typeof firstType.meta.default !== 'undefined') {
-      res = res.default(firstType.meta.default);
-    }
+  let finalRes: z.ZodType =
+    results.length === 1 ? results[0] : z.union(results);
 
-    // add description if we have one
-    const trimmed = cleanDocs.trim();
-    if (trimmed) {
-      res = res.describe(trimmed);
-    }
+  // add description if we have one (URI overrides take precedence)
+  const trimmed = (docsOverride || cleanDocs).trim();
+  if (trimmed) {
+    finalRes = finalRes.describe(trimmed);
   }
 
-  return res;
+  return finalRes;
 }
 
 /**
  * Converts a parameter to an MCP Parameter
  *
- * Assumes that we only have one type for the input parameter because
- * that's what we have for tasks.
- *
- * Could be updated to support any IDL type with unions and iterating
- * through all possible types, but we don't need that right now.
+ * Iterates over all IDL types for the parameter. If any type cannot be
+ * mapped the result is undefined. Multiple types are combined into a zod
+ * union.
  */
 export function IDLParameterToMCPParameter(
   param: IParameterOrPropertyDetails,
