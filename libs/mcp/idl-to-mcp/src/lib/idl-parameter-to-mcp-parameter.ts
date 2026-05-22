@@ -1,40 +1,4 @@
-import {
-  MCP_ENVIAgCrops,
-  MCP_ENVIAgZones,
-  MCP_ENVIAnnotationSet,
-  MCP_ENVICoordSys,
-  MCP_ENVIDeepLearningKerasModel,
-  MCP_ENVIDeepLearningLabelRaster,
-  MCP_ENVIDeepLearningObjectDetectionRaster,
-  MCP_ENVIDeepLearningONNXModel,
-  MCP_ENVIDeepLearningRaster,
-  MCP_ENVIFeatureCount,
-  MCP_ENVIGCPSet,
-  MCP_ENVIGeoJSON,
-  MCP_ENVIGridDefinition,
-  MCP_ENVIMachineLearningModel,
-  MCP_ENVIPointCloud,
-  MCP_ENVIPointCloudProductsInfo,
-  MCP_ENVIPointCloudSpatialRef,
-  MCP_ENVIPseudoRasterSpatialref,
-  MCP_ENVIRaster,
-  MCP_ENVIRasterSeries,
-  MCP_ENVIROI,
-  MCP_ENVIRPCRasterSpatialref,
-  MCP_ENVISecureString,
-  MCP_ENVISpatialref,
-  MCP_ENVISpectralIndex,
-  MCP_ENVISpectralLibrary,
-  MCP_ENVISpectralSignature,
-  MCP_ENVIStandardRasterSpatialref,
-  MCP_ENVIStretchParameters,
-  MCP_ENVITiePointSet,
-  MCP_ENVITime,
-  MCP_ENVIURI,
-  MCP_ENVIVariant,
-  MCP_ENVIVector,
-  MCP_SARscapeData,
-} from '@idl/mcp/envi-to-mcp';
+import { MCP_ENVIURI } from '@idl/mcp/envi-to-mcp';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   IDL_TYPE_LOOKUP,
@@ -43,11 +7,8 @@ import {
 } from '@idl/types/idl-data-types';
 import { z } from 'zod';
 
-import { MCP_Boolean } from './types/mcp-boolean';
-import { MCP_List } from './types/mcp-list';
+import { MCP_TYPE_FACTORIES } from './mcp-type-factory-lookup';
 import { MCP_Number } from './types/mcp-number';
-import { MCP_Object } from './types/mcp-object';
-import { MCP_String } from './types/mcp-string';
 
 /**
  * Actually convert our parameter to an MCP parameter
@@ -68,6 +29,9 @@ function IDLParameterToMCPParameter_Recurser(
   /** Extract the first type */
   const firstType = type[0];
 
+  /** Get type name as a string */
+  const firstTypeString = firstType.name.toLowerCase();
+
   /** Initialize return value */
   let res: undefined | z.ZodType;
 
@@ -78,9 +42,9 @@ function IDLParameterToMCPParameter_Recurser(
     /**
      * Handle arrays of values and recurse
      */
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.ARRAY): {
+    case firstTypeString === IDL_TYPE_LOOKUP.ARRAY.toLowerCase(): {
       /** Get type arguments for arrays (i.e. Array<TypeArg>) */
-      const typeArgs = IDLTypeHelper.getAllTypeArgs(type);
+      const typeArgs = IDLTypeHelper.getAllTypeArgs([firstType]);
 
       /** Attempt to map our parameter - dont pass in docs, set below */
       const arrayType = IDLParameterToMCPParameter_Recurser(
@@ -136,291 +100,26 @@ function IDLParameterToMCPParameter_Recurser(
       break;
 
     /**
-     * Any type of spatial reference
+     * Is there a type in our lookup?
      */
-    case IDLTypeHelper.isType(type, '_envispatialref'):
-      res = MCP_ENVISpatialref();
-      break;
-
-    /**
-     * Crop counting results
-     */
-    case IDLTypeHelper.isType(type, 'enviagcrops'):
-      res = MCP_ENVIAgCrops();
-      break;
-
-    /**
-     * Field zones
-     */
-    case IDLTypeHelper.isType(type, 'enviagzones'):
-      res = MCP_ENVIAgZones();
-      break;
-
-    /**
-     * Annotation sets
-     */
-    case IDLTypeHelper.isType(type, 'enviannotationset'):
-      res = MCP_ENVIAnnotationSet();
-      break;
-
-    /**
-     * Coordinate system
-     */
-    case IDLTypeHelper.isType(type, 'envicoordsys'):
-      res = MCP_ENVICoordSys();
-      break;
-
-    /**
-     * Deep Learning Keras model
-     */
-    case IDLTypeHelper.isType(type, 'envideeplearningkerasmodel'):
-      res = MCP_ENVIDeepLearningKerasModel();
-      break;
-
-    /**
-     * Deep Learning Label Raster for Pixel training
-     */
-    case IDLTypeHelper.isType(type, 'envideeplearninglabelraster'):
-      res = MCP_ENVIDeepLearningLabelRaster();
-      break;
-
-    /**
-     * Deep Learning raster for OD training
-     */
-    case IDLTypeHelper.isType(type, 'envideeplearningobjectdetectionraster'):
-      res = MCP_ENVIDeepLearningObjectDetectionRaster();
-      break;
-
-    /**
-     * Deep Learning ONNX model
-     */
-    case IDLTypeHelper.isType(type, 'envideeplearningonnxmodel'):
-      res = MCP_ENVIDeepLearningONNXModel();
-      break;
-
-    /**
-     * Deep Learning Label Raster for Pixel training
-     */
-    case IDLTypeHelper.isType(type, 'envideeplearningraster'):
-      res = MCP_ENVIDeepLearningRaster();
-      break;
-
-    /**
-     * FeatureCount
-     */
-    case IDLTypeHelper.isType(type, 'envifeaturecount'):
-      res = MCP_ENVIFeatureCount();
-      break;
-
-    /**
-     * GCP Set
-     */
-    case IDLTypeHelper.isType(type, 'envigcpset'):
-      res = MCP_ENVIGCPSet();
-      break;
-
-    /**
-     * GeoJSON
-     */
-    case IDLTypeHelper.isType(type, 'envigeojson'):
-      res = MCP_ENVIGeoJSON();
-      break;
-
-    /**
-     * GridDefinitions
-     */
-    case IDLTypeHelper.isType(type, 'envigriddefinition'):
-      res = MCP_ENVIGridDefinition();
-      break;
-
-    /**
-     * Machine Learning model
-     */
-    case IDLTypeHelper.isType(type, 'envimachinelearningmodel'):
-      res = MCP_ENVIMachineLearningModel();
-      break;
-
-    /**
-     * Point cloud
-     */
-    case IDLTypeHelper.isType(type, 'envipointcloudbase'):
-    case IDLTypeHelper.isType(type, 'envipointcloud'):
-      res = MCP_ENVIPointCloud();
-      break;
-
-    /**
-     * Point cloud product info
-     */
-    case IDLTypeHelper.isType(type, 'envipointcloudproductsinfo'):
-      res = MCP_ENVIPointCloudProductsInfo();
-      break;
-
-    /**
-     * Point cloud spatial reference
-     */
-    case IDLTypeHelper.isType(type, 'envipointcloudspatialref'):
-      res = MCP_ENVIPointCloudSpatialRef();
-      break;
-
-    /**
-     * ENVI pseudo raster spatial ref
-     */
-    case IDLTypeHelper.isType(type, 'envipseudorasterspatialref'):
-      res = MCP_ENVIPseudoRasterSpatialref();
-      break;
-
-    /**
-     * Raster
-     */
-    case IDLTypeHelper.isType(type, 'enviraster'):
-      res = MCP_ENVIRaster();
-      break;
-
-    /**
-     * Raster series
-     */
-    case IDLTypeHelper.isType(type, 'envirasterseries'):
-      res = MCP_ENVIRasterSeries();
-      break;
-
-    /**
-     * ROI
-     */
-    case IDLTypeHelper.isType(type, 'enviroi'):
-      res = MCP_ENVIROI();
-      break;
-
-    /**
-     * RPC spatial ref
-     */
-    case IDLTypeHelper.isType(type, 'envirpcrasterspatialref'):
-      res = MCP_ENVIRPCRasterSpatialref();
-      break;
-
-    /**
-     * Passwords - map to proper parameters when we
-     * run the task
-     */
-    case IDLTypeHelper.isType(type, 'envisecurestring'):
-      res = MCP_ENVISecureString();
-      break;
-
-    /**
-     * ENVI spectral index
-     */
-    case IDLTypeHelper.isType(type, 'envispectralindex'):
-      res = MCP_ENVISpectralIndex();
-      break;
-
-    /**
-     * ENVI spectral library
-     */
-    case IDLTypeHelper.isType(type, 'envispectrallibrary'):
-      res = MCP_ENVISpectralLibrary();
-      break;
-
-    /**
-     * ENVI Spectral Signature
-     */
-    case IDLTypeHelper.isType(type, 'envispectralsignature'):
-      res = MCP_ENVISpectralSignature();
-      break;
-
-    /**
-     * Standard spatial ref
-     */
-    case IDLTypeHelper.isType(type, 'envistandardrasterspatialref'):
-      res = MCP_ENVIStandardRasterSpatialref();
-      break;
-
-    /**
-     * Stretch parameters
-     */
-    case IDLTypeHelper.isType(type, 'envistretchparameters'):
-      res = MCP_ENVIStretchParameters();
-      break;
-
-    /**
-     * Tie points
-     */
-    case IDLTypeHelper.isType(type, 'envitiepointset'):
-      res = MCP_ENVITiePointSet();
-      break;
-
-    /**
-     * Time
-     */
-    case IDLTypeHelper.isType(type, 'envitime'):
-      res = MCP_ENVITime();
-      break;
-
-    /**
-     * Variant (i.e. publish to repo)
-     */
-    case IDLTypeHelper.isType(type, 'variant'):
-      res = MCP_ENVIVariant();
-      break;
-
-    /**
-     * Vector
-     */
-    case IDLTypeHelper.isType(type, 'envivector'):
-      res = MCP_ENVIVector();
-      break;
-
-    /**
-     * SARscapeData -
-     */
-    case IDLTypeHelper.isType(type, 'sarscapedata'):
-      res = MCP_SARscapeData();
-      break;
-
-    /**
-     * String
-     */
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.STRING):
-      res = MCP_String(firstType?.value);
-      break;
-
-    /**
-     * Bool
-     */
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BOOLEAN):
-      res = MCP_Boolean();
-      break;
-
-    /**
-     * List
-     *
-     * TODO: Get actual types for literal arguments
-     */
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.LIST):
-      res = MCP_List();
-      break;
-
-    /**
-     * Objects/hashes
-     */
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.HASH):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.ORDERED_HASH):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.DICTIONARY):
-      res = MCP_Object();
+    case firstTypeString in MCP_TYPE_FACTORIES:
+      res = MCP_TYPE_FACTORIES[firstTypeString](firstType);
       break;
 
     /**
      * Numbers
      */
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.NUMBER):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BIG_INTEGER):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.DOUBLE):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.FLOAT):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.UNSIGNED_LONG64):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.LONG64):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.UNSIGNED_LONG):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.LONG):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.UNSIGNED_INTEGER):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.INTEGER):
-    case IDLTypeHelper.isType(type, IDL_TYPE_LOOKUP.BYTE):
+    case firstTypeString === IDL_TYPE_LOOKUP.NUMBER.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.BIG_INTEGER.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.DOUBLE.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.FLOAT.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.UNSIGNED_LONG64.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.LONG64.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.UNSIGNED_LONG.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.LONG.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.UNSIGNED_INTEGER.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.INTEGER.toLowerCase():
+    case firstTypeString === IDL_TYPE_LOOKUP.BYTE.toLowerCase():
       res = MCP_Number(firstType.value, firstType.meta.min, firstType.meta.max);
       break;
 

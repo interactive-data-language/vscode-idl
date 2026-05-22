@@ -6,6 +6,4 @@ When adding new parameters, make sure you make changes in the appropriate locati
 
 libs\types\idl-data-types\src\lib\custom-type-display-names.interface.ts
 
-3. Add the type _alphabetically_ to the routine that converts types to MCP parameters:
-
-libs\mcp\idl-to-mcp\src\lib\idl-parameter-to-mcp-parameter.ts
+3. Add the type _alphabetically_ to the MCP factory lookup so it can convert task types
