@@ -58,6 +58,11 @@ export async function TestsForENVIModeler(
   strings.push(`  },`);
   strings.push(`});`);
   strings.push(``);
+  strings.push(`// disable logs`);
+  strings.push(`logManager.setInterceptor(() => {`);
+  strings.push(`  // do nothing`);
+  strings.push(`});`);
+  strings.push(``);
   strings.push(`// create index`);
   strings.push(`const index = new IDLIndex(logManager, 1, false);`);
   strings.push(``);
@@ -84,9 +89,17 @@ export async function TestsForENVIModeler(
       // do nothing
     },
   });
+
+  // create index
   const genIndex = new IDLIndex(genLogManager, 1, false);
+
+  // load globals so we know about ENVI
   genIndex.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
+
+  // create task registry
   const genRegistry = new MCPTaskRegistry(genLogManager);
+
+  // load the global tokens
   genRegistry.registerTasksFromGlobalTokens(
     genIndex.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.FUNCTION],
     genIndex.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.STRUCTURE],

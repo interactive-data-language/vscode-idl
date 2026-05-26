@@ -15,6 +15,11 @@ const logManager = new LogManager({
   },
 });
 
+// disable logs
+logManager.setInterceptor(() => {
+  // do nothing
+});
+
 // create index
 const index = new IDLIndex(logManager, 1, false);
 
