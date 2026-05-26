@@ -56,7 +56,7 @@
     "start-webview": "nx build idl-webview --watch",
     "test-everything": "npm-run-all test-libs make-integration-tests test-integration",
     "test-integration": "node dist/apps/vscode-e2e-runner/main.js",
-    "test-libs": "nx run-many --target=test --runInBand --projects=\"tests*\" --parallel=5 && nx run-many --target=test --runInBand --projects=parsing-tokenizer --parallel=5",
+    "test-libs": "nx run-many --target=test --runInBand --projects=\"tests*\" --exclude=tests-envi-modeler --parallel=5 && nx run-many --target=test --runInBand --projects=tokenizer-tokenizer,idl-type-tokens --parallel=4 && nx run tests-envi-modeler:test",
     "test-perf": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 ./dist/apps/performance/main.js",
     "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/performance/main.js"
   },
