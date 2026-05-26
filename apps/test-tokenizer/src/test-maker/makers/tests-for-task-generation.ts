@@ -35,9 +35,7 @@ export async function TestsForTaskGeneration(
   strings.push(
     `import { GenerateIDLTask, GenerateIDLTaskMainLevelProgram, } from '@idl/generators/idl-task';`,
   );
-  strings.push(
-    `import { GenerateTaskResult } from '@idl/generators/tasks-shared';`,
-  );
+  strings.push(`import { GenerateTaskResult } from '@idl/types/generators';`);
   strings.push(`import { GetExtensionPath } from '@idl/idl/files';`);
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(
