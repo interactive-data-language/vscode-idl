@@ -1,10 +1,12 @@
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import {
   IDL_LOGGER,
   LogCommandError,
   LogCommandInfo,
 } from '@idl/vscode/logger';
+import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
@@ -22,6 +24,9 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.TERMINAL.START, async () => {
       try {
+        VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          idl_command: IDL_COMMANDS.TERMINAL.START,
+        });
         LogCommandInfo('Starting IDL terminal');
         await SendCommandToIDLTerminal({ label: 'Open' });
         return true;
@@ -39,6 +44,9 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.TERMINAL.COMPILE, async () => {
       try {
+        VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          idl_command: IDL_COMMANDS.TERMINAL.COMPILE,
+        });
         LogCommandInfo('Compiling file in IDL terminal');
         return await SendCommandToIDLTerminal({ label: 'Compile' });
       } catch (err) {
@@ -55,11 +63,14 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.TERMINAL.RUN, async () => {
       try {
+        VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          idl_command: IDL_COMMANDS.TERMINAL.RUN,
+        });
         LogCommandInfo('Running file in terminal');
         return await SendCommandToIDLTerminal({ label: 'Run' });
       } catch (err) {
         LogCommandError(
-          'Error while running file in IDL temrinal',
+          'Error while running file in IDL terminal',
           err,
           cmdErrors.terminal.runFile,
         );
@@ -73,11 +84,14 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
       IDL_COMMANDS.TERMINAL.EXECUTE_BATCH,
       async () => {
         try {
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.TERMINAL.EXECUTE_BATCH,
+          });
           LogCommandInfo('Execute batch file in IDL terminal');
           return await SendCommandToIDLTerminal({ label: 'Execute' });
         } catch (err) {
           LogCommandError(
-            'Error while executing batch file in IDL temrinal',
+            'Error while executing batch file in IDL terminal',
             err,
             cmdErrors.terminal.executeBatchFile,
           );
@@ -90,6 +104,9 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.TERMINAL.RESET, async () => {
       try {
+        VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          idl_command: IDL_COMMANDS.TERMINAL.RESET,
+        });
         LogCommandInfo('Reset IDL');
         await SendCommandToIDLTerminal({ label: 'Reset' });
         return true;
@@ -107,6 +124,9 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.TERMINAL.PAUSE, async () => {
       try {
+        VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          idl_command: IDL_COMMANDS.TERMINAL.PAUSE,
+        });
         LogCommandInfo('Stopping execution in IDL terminal');
         await SendCommandToIDLTerminal({ label: 'Stop' });
         return true;
@@ -126,12 +146,15 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
       IDL_COMMANDS.TERMINAL.CONTINUE,
       async () => {
         try {
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.TERMINAL.CONTINUE,
+          });
           LogCommandInfo('Continue execution in IDL terminal');
           await SendCommandToIDLTerminal({ label: 'Continue' });
           return true;
         } catch (err) {
           LogCommandError(
-            'Error while continuing execution in IDL temrinal',
+            'Error while continuing execution in IDL terminal',
             err,
             cmdErrors.terminal.continueExecution,
           );
@@ -144,12 +167,15 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
   ctx.subscriptions.push(
     vscode.commands.registerCommand(IDL_COMMANDS.TERMINAL.STEP_IN, async () => {
       try {
+        VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+          idl_command: IDL_COMMANDS.TERMINAL.STEP_IN,
+        });
         LogCommandInfo('Step in IDL terminal');
         await SendCommandToIDLTerminal({ label: 'Step In' });
         return true;
       } catch (err) {
         LogCommandError(
-          'Error while steping in IDL terminal',
+          'Error while stepping in IDL terminal',
           err,
           cmdErrors.terminal.stepIn,
         );
@@ -163,6 +189,9 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
       IDL_COMMANDS.TERMINAL.STEP_OVER,
       async () => {
         try {
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.TERMINAL.STEP_OVER,
+          });
           LogCommandInfo('Step over IDL terminal');
           await SendCommandToIDLTerminal({ label: 'Step Over' });
           return true;
@@ -183,6 +212,9 @@ export function RegisterTerminalCommands(ctx: ExtensionContext) {
       IDL_COMMANDS.TERMINAL.STEP_OUT,
       async () => {
         try {
+          VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+            idl_command: IDL_COMMANDS.TERMINAL.STEP_OUT,
+          });
           LogCommandInfo('Step out IDL terminal');
           await SendCommandToIDLTerminal({ label: 'Step Out' });
           return true;

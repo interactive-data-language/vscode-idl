@@ -1,11 +1,11 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
+import { PopulateENVIError } from '@idl/mcp/envi';
 import { IENVISuccess } from '@idl/types/vscode-debug';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { OutputEvent } from '@vscode/debugadapter';
 import * as vscode from 'vscode';
 
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
-import { PopulateENVIError } from './populate-envi-error';
 
 /**
  * Checks an ENVI result for our success message from ENVI
@@ -40,7 +40,9 @@ export async function HandleENVISuccess(
     IDL_DEBUG_ADAPTER.sendEvent(new OutputEvent(`${parsed.error}`, 'stderr'));
 
     // alert user
-    vscode.window.showErrorMessage(parsed.reason);
+    if (parsed.reason) {
+      vscode.window.showErrorMessage(parsed.reason);
+    }
   }
 
   return parsed;

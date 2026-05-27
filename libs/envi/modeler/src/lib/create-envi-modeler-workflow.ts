@@ -1,5 +1,6 @@
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
+import { copy } from 'fast-copy';
 
 import {
   LAYOUT_BASE_X,
@@ -11,17 +12,26 @@ import { BuildIdMap } from './helpers/build-id-map';
 import { BuildNodeJSON } from './helpers/build-node-json';
 import { ComputeLayout } from './helpers/compute-layout';
 import { RemoveSingletonNodes } from './helpers/remove-singleton-nodes';
+import { SanitizeNodeText } from './helpers/sanitize-node-text';
 
 /**
  * Creates an ENVI Modeler Workflow (JSON) from nodes and edges
  *
- * Assumes that you have run `ValidateENVIModelerNodes` before executing this
+ * Assumes that you have run `ValidateENVIModelerWorkflow` before executing this
  */
 export function CreateENVIModelerWorkflow(
-  nodes: ENVIModelerNode[],
-  edges: ENVIModelerEdge[],
+  inNodes: ENVIModelerNode[],
+  inEdges: ENVIModelerEdge[],
   registry: MCPTaskRegistry,
 ): Record<string, unknown> {
+  /** Copy so we can edit in place */
+  const nodes = copy(inNodes);
+  /** Copy so we can edit in place */
+  const edges = copy(inEdges);
+
+  // sanitize text in nodes to remove emojis and control characters
+  SanitizeNodeText(nodes);
+
   /**
    * Preprocess nodes to simplify and automatically resolve errors
    */

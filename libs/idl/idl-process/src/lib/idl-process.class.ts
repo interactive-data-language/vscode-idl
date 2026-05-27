@@ -61,7 +61,7 @@ export class IDLProcess extends EventEmitter {
   evaluating = false;
 
   /** Reference to our child process */
-  idl: ChildProcess;
+  idl!: ChildProcess;
 
   /** Information about our current IDL session */
   idlInfo = copy(DEFAULT_IDL_INFO);
@@ -340,7 +340,7 @@ export class IDLProcess extends EventEmitter {
 
     // add a path for the directory
     if (!('IDL_PATH' in args.env)) {
-      args.env.IDL_PATH = `+${this.vscodeProDir}`;
+      args.env.IDL_PATH = `+${this.vscodeProDir}${delimiter}<IDL_DEFAULT>${delimiter}`;
     } else {
       args.env.IDL_PATH =
         `+${this.vscodeProDir}` + delimiter + args.env.IDL_PATH;
@@ -424,7 +424,7 @@ export class IDLProcess extends EventEmitter {
     });
 
     // launch IDL with the environment from our parent process and in the specified folder
-    this.idl = spawn(cmd, null, {
+    this.idl = spawn(cmd, undefined, {
       env: args.env,
       cwd: args.cwd,
       stdio: ['pipe', 'pipe', 'pipe'],
@@ -482,6 +482,7 @@ export class IDLProcess extends EventEmitter {
 
     // listen for closing
     this.idl.stdout.on('close', (code: number, signal: string) => {
+      (this.idl as any) = undefined;
       switch (true) {
         case this.closing:
           // do nothing because we are closing IDL
@@ -496,6 +497,7 @@ export class IDLProcess extends EventEmitter {
             ],
             alert: IDL_TRANSLATION.debugger.errors.unableToLicenseIDL,
           });
+          this.capturedOutput += '\n\nFailed to license IDL';
           this.emit(
             IDL_EVENT_LOOKUP.FAILED_START,
             IDL_TRANSLATION.debugger.errors.unableToLicenseIDL,
@@ -528,7 +530,7 @@ export class IDLProcess extends EventEmitter {
       }
 
       // reset properties
-      this.stop();
+      this.stop(false);
       this.closing = false;
     });
   }
@@ -536,12 +538,12 @@ export class IDLProcess extends EventEmitter {
   /**
    * Stops our IDL debug session
    */
-  stop() {
+  stop(notify = true) {
     this.closing = true;
     this.started = false;
     switch (this.processType) {
       case 'machine':
-        this._machine.stop();
+        this._machine.stop(notify);
         break;
       case 'ws':
         this._ws.stop();
@@ -568,7 +570,7 @@ export class IDLProcess extends EventEmitter {
     // check for traceback information
     const reasons: StopReason[] = [];
     const traceback: IDLCallStackItem[] = [];
-    let m: RegExpExecArray;
+    let m: null | RegExpExecArray;
     while ((m = REGEX_STOP_DETECTION.exec(output)) !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
       if (m.index === REGEX_STOP_DETECTION.lastIndex) {

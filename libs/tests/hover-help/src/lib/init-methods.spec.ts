@@ -33,7 +33,7 @@ describe(`[auto generated] Verify hover-help for`, () => {
       '',
       '```idl',
       ';+',
-      '; :Returns: MyClass',
+      '; :Returns: myclass',
       ';-',
       'result = MyClass( $',
       '  /kw2)',

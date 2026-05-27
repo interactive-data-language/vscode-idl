@@ -2,6 +2,7 @@ import { GetExtensionPath } from '@idl/idl/files';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_CODES,
+  IDLProblemCode,
 } from '@idl/types/problem-codes';
 import { existsSync, writeFileSync } from 'fs';
 import { join } from 'path';
@@ -20,7 +21,7 @@ export function MakeDocsFiles() {
   /**
    * Get the problem codes
    */
-  const codes = Object.values(IDL_PROBLEM_CODES);
+  const codes = Object.values(IDL_PROBLEM_CODES) as IDLProblemCode[];
 
   const strings: string[] = [
     `import { DefaultTheme } from 'vitepress';`,

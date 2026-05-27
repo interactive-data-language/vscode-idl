@@ -1,13 +1,13 @@
 import {
   CreateENVIModelerWorkflow,
-  ValidateENVIModelerNodes,
+  ValidateENVIModelerWorkflow,
 } from '@idl/envi/modeler';
 import { MCPServer } from '@idl/mcp/server';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { dirname } from 'path';
 import { z } from 'zod';
 
@@ -66,10 +66,10 @@ const nodeSchema = z.object({
     .optional()
     .describe('ENVI Task revision string (e.g. "1.0.0"). Omit to use latest.'),
   static_input: z
-    .record(z.unknown())
+    .record(z.string(), z.unknown())
     .optional()
     .describe(
-      `Hardcoded task parameters NOT exposed to the user. Only include values that differ from task defaults, use '${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS}' to check defaults.`,
+      `Hardcoded task input parameters. Only include values that differ from task defaults, use '${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS}' to check defaults.`,
     ),
   parameters: z
     .array(inputParameterSchema)
@@ -77,10 +77,10 @@ const nodeSchema = z.object({
     .describe(
       "For type='inputparameters': parameters the user fills in at runtime.",
     ),
-  value: z
-    .array(z.unknown())
-    .optional()
-    .describe("For type='arrayvalues': the literal values in the array."),
+  // value: z
+  //   .array(z.unknown())
+  //   .optional()
+  //   .describe("For type='arrayvalues': the literal values in the array."),
   data_type: z
     .string()
     .optional()
@@ -199,7 +199,7 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
     },
     async (id, { output_path, nodes, edges }) => {
       /** Validate the nodes and check for errors */
-      const errors = ValidateENVIModelerNodes(
+      const errors = ValidateENVIModelerWorkflow(
         nodes as ENVIModelerNode[],
         edges as ENVIModelerEdge[],
         registry,
@@ -213,6 +213,19 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
             {
               type: 'text',
               text: `Invalid workflow: ${errors.join('; ')}`,
+            },
+          ],
+        };
+      }
+
+      // check if file already exists
+      if (existsSync(output_path)) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text: `Model file already exists. Each workflow must have a unique filename.`,
             },
           ],
         };
@@ -242,12 +255,24 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
         };
       }
 
+      // send request to open the ENVI Modeler Workflow
+      const resp = await server.sendIDLRequest(
+        id,
+        MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
+        { code: `vscode_openENVIModelerWorkflow, '${output_path}'` },
+      );
+
+      let msgAdd = '';
+      if (!resp.success) {
+        msgAdd = `\n\nCreated, but encountered error while opening in ENVI, details: ${JSON.stringify(resp)}`;
+      }
+
       return {
         isError: false,
         content: [
           {
             type: 'text',
-            text: `ENVI Modeler workflow written to: ${output_path}\n\n${modelContent}`,
+            text: `ENVI Modeler workflow written to: ${output_path}${msgAdd}`,
           },
         ],
       };

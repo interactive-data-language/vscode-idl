@@ -136,7 +136,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
                   args: [
                     [
                       {
-                        name: 'BuildMosaicRaster',
+                        name: 'buildmosaicraster',
                         display: 'BuildMosaicRaster',
                         serialized: 'BuildMosaicRaster',
                         args: [],
@@ -153,7 +153,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],
@@ -180,14 +180,14 @@ describe(`[auto generated] Verify type parsing for`, () => {
               type: [
                 {
                   name: 'idls3_downloadtask',
-                  display: 'IDLTask<S3_Download>',
-                  serialized: 'IDLTask<S3_Download>',
+                  display: 'IDLTask<s3_download>',
+                  serialized: 'IDLTask<s3_download>',
                   args: [
                     [
                       {
-                        name: 'S3_Download',
-                        display: 'S3_Download',
-                        serialized: 'S3_Download',
+                        name: 's3_download',
+                        display: 's3_download',
+                        serialized: 's3_download',
                         args: [],
                         meta: {},
                       },
@@ -217,7 +217,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
                   args: [
                     [
                       {
-                        name: 'BuildMosaicRaster',
+                        name: 'buildmosaicraster',
                         display: 'BuildMosaicRaster',
                         serialized: 'BuildMosaicRaster',
                         args: [],
@@ -318,7 +318,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
                   args: [
                     [
                       {
-                        name: 'BuildMosaicRaster',
+                        name: 'buildmosaicraster',
                         display: 'BuildMosaicRaster',
                         serialized: 'BuildMosaicRaster',
                         args: [],
@@ -335,7 +335,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],
@@ -359,14 +359,14 @@ describe(`[auto generated] Verify type parsing for`, () => {
               type: [
                 {
                   name: 'idls3_downloadtask',
-                  display: 'IDLTask<S3_Download>',
-                  serialized: 'IDLTask<S3_Download>',
+                  display: 'IDLTask<s3_download>',
+                  serialized: 'IDLTask<s3_download>',
                   args: [
                     [
                       {
-                        name: 'S3_Download',
-                        display: 'S3_Download',
-                        serialized: 'S3_Download',
+                        name: 's3_download',
+                        display: 's3_download',
+                        serialized: 's3_download',
                         args: [],
                         meta: {},
                       },
@@ -393,7 +393,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
                   args: [
                     [
                       {
-                        name: 'BuildMosaicRaster',
+                        name: 'buildmosaicraster',
                         display: 'BuildMosaicRaster',
                         serialized: 'BuildMosaicRaster',
                         args: [],
@@ -411,7 +411,7 @@ describe(`[auto generated] Verify type parsing for`, () => {
               pos: [14, 34, 4],
             },
           },
-          docs: '\n```idl\npro3, arg1, arg2, arg3, arg4, arg5\n```\n\n\n\n\n### Arguments\n\n- **arg1**: in, required, ENVITask\\<any\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, IDLTask\\<any\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, ENVITask\\<BuildMosaicRaster\\> | ENVITask\\<SubsetRaster\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, IDLTask\\<S3_Download\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, ENVITask\\<BuildMosaicRaster\\>\n\n  Placeholder docs for argument, keyword, or property\n\n',
+          docs: '\n```idl\npro3, arg1, arg2, arg3, arg4, arg5\n```\n\n\n\n\n### Arguments\n\n- **arg1**: in, required, ENVITask\\<any\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg2**: in, required, IDLTask\\<any\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg3**: in, required, ENVITask\\<BuildMosaicRaster\\> | ENVITask\\<SubsetRaster\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg4**: in, required, IDLTask\\<s3_download\\>\n\n  Placeholder docs for argument, keyword, or property\n\n- **arg5**: in, required, ENVITask\\<BuildMosaicRaster\\>\n\n  Placeholder docs for argument, keyword, or property\n\n',
           docsLookup: { default: '' },
           display: 'pro3',
           kws: {},

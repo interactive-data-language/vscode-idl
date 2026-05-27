@@ -48,7 +48,7 @@ export function RegisterNotebookSymbolProvider() {
         (item) =>
           new vscode.DocumentSymbol(
             item.name,
-            item.detail,
+            item.detail || '',
             item.kind as vscode.SymbolKind,
             new vscode.Range(
               new vscode.Position(

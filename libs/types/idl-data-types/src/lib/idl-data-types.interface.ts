@@ -241,7 +241,7 @@ export const IDL_TYPE_LOOKUP: IIDLTypeLookup = {
 export interface ICreateIDLDataType {
   /** Sub-types */
   args: IDLDataType[];
-  /** Name of the type for internal purposes, after parsing is always normalized */
+  /** Name of the type for internal purposes, after parsing is normalized */
   name: string;
   /**
    * The value of a type (if it can be inferred or if it is literal)

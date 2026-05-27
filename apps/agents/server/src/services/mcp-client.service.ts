@@ -7,13 +7,20 @@ import type {
 } from '@modelcontextprotocol/sdk/types.js';
 
 /**
+ * Default timeout for long-running MCP tool operations (10 minutes)
+ */
+const TOOL_REQUEST_TIMEOUT_MS = 1800000;
+
+/**
  * Configuration for MCPClient
  */
 export interface MCPClientConfig {
   /** MCP server host (default: localhost) */
   host?: string;
-  /** MCP server port (default: 9194) */
+  /** MCP server port (default: 3000, co-hosted with the main API server) */
   port?: number;
+  /** Timeout in milliseconds for tool requests (default: 600000 / 10 minutes) */
+  toolTimeout?: number;
 }
 
 /**
@@ -22,15 +29,17 @@ export interface MCPClientConfig {
  */
 export class MCPClient {
   private client: Client;
-  private config: Required<MCPClientConfig>;
+  private clientProxy: Client;
+  private config: { toolTimeout: number } & Required<MCPClientConfig>;
   private connected = false;
   private toolCache: Tool[] = [];
-  private transport: StreamableHTTPClientTransport;
+  private transport!: StreamableHTTPClientTransport;
 
   constructor(config: MCPClientConfig = {}) {
     this.config = {
       host: config.host || 'localhost',
-      port: config.port || 9194,
+      port: config.port || 3000,
+      toolTimeout: config.toolTimeout || TOOL_REQUEST_TIMEOUT_MS,
     };
 
     this.client = new Client(
@@ -61,6 +70,29 @@ export class MCPClient {
         },
       },
     );
+
+    // Create a proxy that wraps the client to inject custom timeout for tool calls
+    this.clientProxy = new Proxy(this.client, {
+      get: (target, prop) => {
+        if (prop === 'callTool') {
+          // Intercept callTool to add custom timeout
+          return async (
+            params: Parameters<typeof target.callTool>[0],
+            resultSchema?: Parameters<typeof target.callTool>[1],
+            options?: Parameters<typeof target.callTool>[2],
+          ) => {
+            // Merge provided options with our default timeout
+            const mergedOptions = {
+              timeout: this.config.toolTimeout,
+              ...options,
+            };
+            return target.callTool(params, resultSchema, mergedOptions);
+          };
+        }
+        // For all other properties, return the original value
+        return Reflect.get(target, prop);
+      },
+    }) as Client;
   }
 
   /**
@@ -142,10 +174,10 @@ export class MCPClient {
   }
 
   /**
-   * Get the underlying MCP SDK Client instance
+   * Get the underlying MCP SDK Client instance (with timeout proxy)
    */
   getClient(): Client {
-    return this.client;
+    return this.clientProxy;
   }
 
   /**

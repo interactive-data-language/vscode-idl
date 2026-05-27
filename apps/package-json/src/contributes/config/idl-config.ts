@@ -21,7 +21,7 @@ export function AddIDLConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.idl%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation

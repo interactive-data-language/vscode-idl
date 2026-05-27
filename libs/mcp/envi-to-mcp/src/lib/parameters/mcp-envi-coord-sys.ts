@@ -15,7 +15,7 @@ export function MCP_ENVICoordSys() {
   return z.object({
     factory: z.literal('CoordSys'),
     coord_sys_code: z
-      .string()
-      .describe(`The EPSG code for the coordinate system`),
+      .number()
+      .describe(`The EPSG code for the coordinate system as a number`),
   });
 }

@@ -1,7 +1,8 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
+import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';
+import { IGlobalsToTrack } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
@@ -23,7 +24,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         meta: {
           display: 'IDLQueryTaskTask',
           source: 'user',
-          docs: "\nThis task returns a hash that describes the properties of an IDL task.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<QueryTask>\n;-\nmyTask = IDLTask('QueryTask')\n\n; set input parameters\nmyTask.task_name = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\ndefinition = myTask.definition\n\n```\n\n\n### Input Parameters\n\n- **task_name**: String\n\n  The name of a task that will be queried for its definition.\n\n\n\n### Output Parameters\n\n- **definition**: IDLTASKINFO\n\n  An IDLTaskInfo hash that describes the properties of an IDL task.\n\n",
+          docs: "\nThis task returns a hash that describes the properties of an IDL task.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<QueryTask>\n;-\nmyTask = IDLTask('QueryTask')\n\n; set input parameters\nmyTask.task_name = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\ndefinition = myTask.definition\n\n```\n\n\n### Input Parameters\n\n- **task_name**: String\n\n  The name of a task that will be queried for its definition.\n\n\n\n### Output Parameters\n\n- **definition**: idltaskinfo\n\n  An IDLTaskInfo hash that describes the properties of an IDL task.\n\n",
           private: false,
           returns: [
             {
@@ -56,8 +57,9 @@ describe(`[auto generated] Correctly parse task file`, () => {
         pos: [0, 0, 0],
         meta: {
           display: 'IDLQueryTaskTask',
+          readableName: 'Query Task',
           source: 'user',
-          docs: 'This task returns a hash that describes the properties of an IDL task.\n\n\n### Properties\n\n- **task_name**: String\n\n  The name of a task that will be queried for its definition.\n\n- **definition**: IDLTASKINFO\n\n  An IDLTaskInfo hash that describes the properties of an IDL task.\n\n',
+          docs: 'This task returns a hash that describes the properties of an IDL task.\n\n\n### Properties\n\n- **task_name**: String\n\n  The name of a task that will be queried for its definition.\n\n- **definition**: idltaskinfo\n\n  An IDLTaskInfo hash that describes the properties of an IDL task.\n\n',
           private: false,
           inherits: ['idltask'],
           docsLookup: {},
@@ -69,6 +71,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'in',
               private: false,
               display: 'task_name',
+              readableName: 'Task Name',
               docs: 'The name of a task that will be queried for its definition.',
               type: [
                 {
@@ -88,12 +91,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'out',
               private: false,
               display: 'definition',
+              readableName: 'Definition',
               docs: 'An IDLTaskInfo hash that describes the properties of an IDL task.',
               type: [
                 {
-                  name: 'IDLTASKINFO',
-                  display: 'IDLTASKINFO',
-                  serialized: 'IDLTASKINFO',
+                  name: 'idltaskinfo',
+                  display: 'idltaskinfo',
+                  serialized: 'idltaskinfo',
                   args: [],
                   meta: {},
                 },
@@ -101,6 +105,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               req: true,
             },
           },
+          tags: ['IDL', 'Task Processing'],
         },
       },
     };

@@ -66,7 +66,7 @@ export async function LoadTask(
   if (!valid) {
     let errAdd = '';
     // check for error details
-    if (validator.errors !== undefined) {
+    if (Array.isArray(validator.errors)) {
       // get useful error information
       const useErrors = validator.errors.map((val) => {
         return {

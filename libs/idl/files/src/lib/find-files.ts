@@ -1,5 +1,5 @@
 import { ALL_FILES_GLOB_PATTERN } from '@idl/shared/extension';
-import { glob } from 'fast-glob';
+import glob from 'fast-glob';
 import { existsSync, realpathSync } from 'fs';
 import { join } from 'path';
 

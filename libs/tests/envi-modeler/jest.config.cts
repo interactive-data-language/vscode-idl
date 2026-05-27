@@ -2,6 +2,8 @@ module.exports = {
   displayName: 'tests-envi-modeler',
   preset: '../../../jest.preset.js',
   testEnvironment: 'node',
+  maxWorkers: 1,
+  workerIdleMemoryLimit: 500,
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },

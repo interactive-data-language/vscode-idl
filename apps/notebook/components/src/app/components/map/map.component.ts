@@ -8,8 +8,8 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   OnDestroy,
-  SkipSelf,
   ViewChild,
 } from '@angular/core';
 import { Deck, FlyToInterpolator, WebMercatorViewport } from '@deck.gl/core';
@@ -24,9 +24,7 @@ import {
 import { IDLNotebookMap } from '@idl/types/notebooks';
 import { copy } from 'fast-copy';
 
-import { VSCodeRendererMessenger } from '../../services/vscode-renderer-messenger.service';
 import { BaseRendererComponent } from '../base-renderer.component';
-import { DataSharingService } from '../data-sharing.service';
 
 /**
  * Initial view state
@@ -96,6 +94,9 @@ export class MapComponent
    */
   private deck!: Deck;
 
+  private el = inject(ElementRef<HTMLElement>);
+
+  private http = inject(HttpClient);
   /**
    * Interval callback to make sure we render
    *
@@ -112,13 +113,8 @@ export class MapComponent
    * We can access the latest data directly through our dataService which tracks
    * the last value on $embed
    */
-  constructor(
-    @SkipSelf() dataService: DataSharingService,
-    messenger: VSCodeRendererMessenger,
-    private el: ElementRef<HTMLElement>,
-    private http: HttpClient,
-  ) {
-    super(dataService, messenger);
+  constructor() {
+    super();
     window.addEventListener('resize', this.resizeCb);
     this._subscriptions.add(
       this.messenger.themeChange$.subscribe((isDark) => {

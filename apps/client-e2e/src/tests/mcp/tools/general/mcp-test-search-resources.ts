@@ -3,6 +3,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../helpers/get-text-content';
 
 /**
  * Makes sure we error when we get resources
@@ -22,39 +23,42 @@ export const RunMCPTestSearchResources: RunnerFunction = async (init) => {
   expect(searchNoQuery.content.length).toEqual(1);
 
   // init variable
-  let noQueryResourcesrces: string[];
+  let noQueryResources!: string[];
 
   // attempt to parse
   try {
-    noQueryResourcesrces = JSON.parse(searchNoQuery.content[0].text as string);
+    noQueryResources = JSON.parse(GetTextContent(searchNoQuery.content));
   } catch (err) {
     // do nothing
   }
 
   // make sure we parsed
-  expect(noQueryResourcesrces).toBeTruthy();
+  expect(noQueryResources).toBeTruthy();
 
   // make sure no matches since no queries
-  expect(noQueryResourcesrces.length).toEqual(0);
+  expect(noQueryResources.length).toEqual(0);
 
   // Call a tool
-  const functonResources = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_RESOURCES, {
-    queries: ['function'],
-  });
+  const functionResources = await CallMCPTool(
+    MCP_TOOL_LOOKUP.SEARCH_RESOURCES,
+    {
+      queries: ['function'],
+    },
+  );
 
   // make sure the tool runs
-  expect(functonResources.isError).toBeFalsy();
+  expect(functionResources.isError).toBeFalsy();
 
   // verify we get one block of content back
-  expect(functonResources.content.length).toEqual(1);
+  expect(functionResources.content.length).toEqual(1);
 
   // init variable
-  let parsedFunctionResources: string[];
+  let parsedFunctionResources!: string[];
 
   // attempt to parse
   try {
     parsedFunctionResources = JSON.parse(
-      functonResources.content[0].text as string,
+      GetTextContent(functionResources.content),
     );
   } catch (err) {
     // do nothing

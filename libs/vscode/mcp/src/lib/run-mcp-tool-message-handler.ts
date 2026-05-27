@@ -15,6 +15,7 @@ import { RunMCPTool_ListENVIToolWorkflows } from './tools/envi/run-mcp-tool-list
 import { RunMCPTool_OpenDatasetsInENVI } from './tools/envi/run-mcp-tool-open-datasets-in-envi';
 import { RunMCPTool_QueryDatasetWithENVI } from './tools/envi/run-mcp-tool-query-dataset-with-envi';
 import { RunMCPTool_RunENVITool } from './tools/envi/run-mcp-tool-run-envi-tool';
+import { RunMCPTool_TakeENVIScreenshot } from './tools/envi/run-mcp-tool-take-envi-screenshot';
 import { RunMCPTool_CreateIDLNotebook } from './tools/idl/run-mcp-tool-create-idl-notebook';
 import { RunMCPTool_ExecuteIDLCode } from './tools/idl/run-mcp-tool-execute-idl-code';
 import { RunMCPTool_ExecuteIDLFile } from './tools/idl/run-mcp-tool-execute-idl-file';
@@ -39,6 +40,7 @@ export const RUN_MCP_TOOL_LOOKUP: {
   'query-dataset-with-envi': RunMCPTool_QueryDatasetWithENVI,
   'return-notes': RunMCPTool_ReturnNotes,
   'run-envi-tool': RunMCPTool_RunENVITool,
+  'take-envi-screenshot': RunMCPTool_TakeENVIScreenshot,
 };
 
 /**
@@ -88,7 +90,7 @@ export async function RunMCPToolMessageHandler(
           asString = JSON.stringify(err);
           break;
         default:
-          asString = JSON.stringify(ObjectifyError(err));
+          asString = JSON.stringify(ObjectifyError(err as Error));
           break;
       }
 

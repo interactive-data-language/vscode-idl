@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, SkipSelf } from '@angular/core';
+import { Component, inject, Input, OnDestroy } from '@angular/core';
 import {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
@@ -34,7 +34,7 @@ export class BaseRendererComponent<T extends IDLNotebook_EmbedType>
   /**
    * Reference to the data service for our entry component
    */
-  dataService: DataSharingService;
+  dataService = inject(DataSharingService, { skipSelf: true });
 
   /**
    * Track if we set data or not
@@ -44,7 +44,7 @@ export class BaseRendererComponent<T extends IDLNotebook_EmbedType>
   /**
    * Reference to our VSCode messenger class
    */
-  messenger: VSCodeRendererMessenger;
+  messenger = inject(VSCodeRendererMessenger);
 
   /**
    * Item we are embedding
@@ -58,13 +58,8 @@ export class BaseRendererComponent<T extends IDLNotebook_EmbedType>
     this.hasData = true;
   }
 
-  constructor(
-    @SkipSelf() dataService: DataSharingService,
-    messenger: VSCodeRendererMessenger,
-  ) {
-    this.dataService = dataService;
-    this.messenger = messenger;
-    this.canMessage = messenger.canPostMessage();
+  constructor() {
+    this.canMessage = this.messenger.canPostMessage();
   }
 
   ngOnDestroy() {

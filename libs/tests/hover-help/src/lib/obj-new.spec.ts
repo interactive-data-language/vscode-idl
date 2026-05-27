@@ -126,7 +126,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
       '',
       '### Keywords',
       '',
-      '- **auxiliary_spatialref**: in, optional, ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef',
+      '- **auxiliary_spatialref**: in, optional, ENVIStandardRasterSpatialref | ENVIRPCRasterSpatialref | ENVIPseudoRasterSpatialref | ENVIGLTRasterSpatialRef',
       '',
       '    ',
       '',
@@ -204,7 +204,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
       '',
       '    ',
       '',
-      '- **spatialref**: in, optional, ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef',
+      '- **spatialref**: in, optional, ENVIStandardRasterSpatialref | ENVIRPCRasterSpatialref | ENVIPseudoRasterSpatialref | ENVIGLTRasterSpatialRef',
       '',
       '    ',
       '',
@@ -321,7 +321,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
     // define expected token we extract
     const expectedFound_0: string[] = [
       '```idl',
-      'kw spatialref: ENVIStandardRasterSpatialRef | ENVIRPCRasterSpatialRef | ENVIPseudoRasterSpatialRef | ENVIGLTRasterSpatialRef',
+      'kw spatialref: ENVIStandardRasterSpatialref | ENVIRPCRasterSpatialref | ENVIPseudoRasterSpatialref | ENVIGLTRasterSpatialRef',
       '```',
     ];
 

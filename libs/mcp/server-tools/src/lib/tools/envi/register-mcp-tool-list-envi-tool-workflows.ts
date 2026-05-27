@@ -77,7 +77,7 @@ export function RegisterMCPTool_ListENVIToolWorkflows(server: MCPServer) {
           ENVI_TOOL_WORKFLOW_REGISTRY.addManyToolWorkflows(resp.workflows);
           LOADED_NOTES = true;
         } else {
-          LOAD_FAILURE = resp.err;
+          LOAD_FAILURE = resp.err || '';
           return {
             isError: true,
             content: [{ type: 'text', text: JSON.stringify(resp) }],

@@ -11,11 +11,11 @@
     "target": "es2022",
     "module": "esnext",
     "lib": ["es2019", "dom"],
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "zod": ["node_modules/zod/v3"],
       "@idl/assembler": ["libs/assembling/assembler/src/index.ts"],
       "@idl/assembling/code-actions": [
         "libs/assembling/code-actions/src/index.ts"
@@ -204,7 +204,11 @@
       "@idl/mcp/idl-machine": ["libs/mcp/idl-machine/src/index.ts"],
       "@idl/envi/modeler": ["libs/envi/modeler/src/index.ts"],
       "@idl/types/envi/modeler": ["libs/types/envi/modeler/src/index.ts"],
-      "tests-envi-modeler": ["libs/tests/envi-modeler/src/index.ts"]
+      "@idl/mcp/envi": ["libs/mcp/envi/src/index.ts"],
+      "@idl/mcp/idl": ["libs/mcp/idl/src/index.ts"],
+      "@idl/mcp/common": ["libs/mcp/common/src/index.ts"],
+      "@idl/types/generators": ["libs/types/generators/src/index.ts"],
+      "@idl/parsing/tasks": ["libs/parsing/tasks/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

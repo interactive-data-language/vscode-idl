@@ -33,3 +33,9 @@ export interface MCPToolResponse_RunENVITool
     [key: string]: any;
   };
 }
+
+/**
+ * Simplified output returned by the MCP tool — just the output parameters object
+ */
+export type MCPToolOutput_RunENVITool =
+  MCPToolResponse_RunENVITool['outputParameters'];

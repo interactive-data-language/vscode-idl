@@ -15,6 +15,7 @@ ProcessPackage(json, NLS)
 
     // write our changes back to disk - extra line for linting
     writeFileSync(PACKAGE_URI, JSON.stringify(json, null, 2) + '\n');
+    process.exit(0);
   })
   .catch((err) => {
     console.log(err);

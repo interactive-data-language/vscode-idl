@@ -1,0 +1,17 @@
+{
+  "name": "my_test_task",
+  "base_class": "IDLTaskFromProcedure",
+  "routine": "my_test_task_routine",
+  "description": "A test task without display_name to verify fallback logic.",
+  "revision": "1.0.0",
+  "schema": "idltask_1.2",
+  "parameters": [
+    {
+      "name": "input_value",
+      "type": "String",
+      "direction": "input",
+      "required": true,
+      "description": "A test input parameter."
+    }
+  ]
+}

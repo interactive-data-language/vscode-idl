@@ -118,9 +118,11 @@ export class IDLMachine {
                 /**
                  * Get what we send back
                  */
-                const result = await this._customRequestHandlers.handlers[
-                  (parsed as JSONRPCRequest).method
-                ]((parsed as JSONRPCRequest).params);
+                const result = await (
+                  this._customRequestHandlers.handlers as any
+                )[(parsed as JSONRPCRequest).method](
+                  (parsed as JSONRPCRequest).params,
+                );
 
                 // send message
                 this._writeResponse((parsed as JSONRPCRequest).id, result);
@@ -129,15 +131,11 @@ export class IDLMachine {
                   `Error responding to request with custom handler`,
                   err,
                 );
-                const resp: JSONRPCResponse = {
-                  jsonrpc: '2.0',
-                  id: (parsed as JSONRPCRequest).id,
-                  error: {
-                    code: -32000,
-                    message: JSON.stringify(ObjectifyError(err)),
-                  },
-                };
-                this.idl.stdin.write(JSON.stringify(resp));
+                this._writeError(
+                  (parsed as JSONRPCRequest).id,
+                  -32000,
+                  JSON.stringify(ObjectifyError(err as any)),
+                );
               }
               break;
 
@@ -157,15 +155,11 @@ export class IDLMachine {
                 this._writeResponse((parsed as JSONRPCRequest).id, result);
               } catch (err) {
                 console.log(`Error responding to request`, err);
-                const resp: JSONRPCResponse = {
-                  jsonrpc: '2.0',
-                  id: (parsed as JSONRPCRequest).id,
-                  error: {
-                    code: -32000,
-                    message: JSON.stringify(ObjectifyError(err)),
-                  },
-                };
-                this.idl.stdin.write(JSON.stringify(resp));
+                this._writeError(
+                  (parsed as JSONRPCRequest).id,
+                  -32000,
+                  JSON.stringify(ObjectifyError(err as any)),
+                );
               }
               break;
           }
@@ -174,15 +168,12 @@ export class IDLMachine {
           /**
            * Alert if we have no handler to send a response back
            */
-          const resp: JSONRPCResponse = {
-            jsonrpc: '2.0',
-            id: (parsed as JSONRPCRequest).id,
-            error: {
-              code: -32601,
-              message: 'Unhandled method',
-            },
-          };
-          this.idl.stdin.write(JSON.stringify(resp));
+
+          this._writeError(
+            (parsed as JSONRPCRequest).id,
+            -32601,
+            'Unhandled method',
+          );
         }
         break;
 
@@ -237,6 +228,10 @@ export class IDLMachine {
 
   constructor(idl: ChildProcess) {
     this.idl = idl;
+
+    if (!idl.stdout) {
+      throw new Error('Unable to listen to stdout on IDL process');
+    }
 
     // handle output from IDL
     idl.stdout.on('data', (data: Buffer) => {
@@ -318,42 +313,76 @@ export class IDLMachine {
   }
 
   /**
+   * Writes an error message via JSON RPC
+   *
+   * Dedicated helper so all writing comes from the same place (neighboring
+   * methods)
+   */
+  private _writeError(id: number, code: number, message: string) {
+    try {
+      const resp: JSONRPCResponse = {
+        jsonrpc: '2.0',
+        id,
+        error: {
+          code,
+          message,
+        },
+      };
+      this.idl?.stdin?.write(JSON.stringify(resp));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  /**
    * Writes a JSON RPC notification message
    */
   private _writeNotification(method: string, params: any) {
-    this.idl.stdin.write(
-      JSON.stringify({
-        jsonrpc: '2.0',
-        method,
-        params,
-      }),
-    );
+    try {
+      this.idl?.stdin?.write(
+        JSON.stringify({
+          jsonrpc: '2.0',
+          method,
+          params,
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   /**
    * Writes a JSON RPC notification message
    */
   private _writeRequest(id: number, method: string, params: any) {
-    this.idl.stdin.write(
-      JSON.stringify({
-        jsonrpc: '2.0',
-        id,
-        method,
-        params,
-      }),
-    );
+    try {
+      this.idl?.stdin?.write(
+        JSON.stringify({
+          jsonrpc: '2.0',
+          id,
+          method,
+          params,
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   /**
    * Writes out a JSON RPC response to the IDL Machine
    */
   private _writeResponse(id: number, result: any) {
-    this.idl.stdin.write(
-      JSON.stringify({
-        jsonrpc: '2.0',
-        id,
-        result,
-      }),
-    );
+    try {
+      this.idl?.stdin?.write(
+        JSON.stringify({
+          jsonrpc: '2.0',
+          id,
+          result,
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+    }
   }
 }

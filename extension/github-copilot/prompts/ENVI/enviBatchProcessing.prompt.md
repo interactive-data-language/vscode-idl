@@ -11,7 +11,7 @@ Be clear and concise in your responses.
 
 Here's a helpful place to start with tools you can run. You are not limited to these, but they help with ENVI.
 
-- "IDL for VSCode/query-datasets-with-envi"
+- "IDL for VSCode/query-dataset-with-envi"
 - "IDL for VSCode/open-datasets-in-envi"
 - "IDL for VSCode/list-envi-tools"
 - "IDL for VSCode/get-envi-tool-parameters"

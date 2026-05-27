@@ -45,7 +45,7 @@ export async function StartIDL(show = true): Promise<IStartIDL> {
   }
 
   // check for a workspace folder
-  let folder: vscode.WorkspaceFolder;
+  let folder: undefined | vscode.WorkspaceFolder;
 
   // verify we have a workspace folder opened
   if (vscode.workspace.workspaceFolders !== undefined) {
@@ -118,7 +118,7 @@ export function VerifyIDLHasStarted(alert = true): boolean {
           console.error(err);
         },
       );
-    return undefined;
+    return false;
   }
 
   return started;

@@ -13,7 +13,6 @@ import {
   IDLDataType,
   IDLDataTypeBase,
   IDLTypes,
-  TYPE_ALIASES,
 } from '@idl/types/idl-data-types';
 import { SyntaxProblems } from '@idl/types/problem-codes';
 import { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
@@ -22,10 +21,15 @@ import { copy } from 'fast-copy';
 import { GetTaskDisplayName } from '../helpers/get-task-display-name';
 import { ReduceIDLDataType } from '../helpers/reduce-types';
 import { ARRAY_SHORTHAND_TYPES } from './array-shorthand-types.interface';
+import { NormalizeTypeName } from './normalize-type-name';
 import { UpdateNumberBaseType } from './number-to-literal';
-import { TASK_REGEX, TASK_REGEX_GLOBAL } from './parse-idl-type.interface';
-import { PopulateTypeDisplayName } from './populate-type-display-name';
-import { SetDefaultTypes } from './set-default-types';
+import {
+  ARRAY_REGEX_GLOBAL,
+  TASK_REGEX,
+  TASK_REGEX_GLOBAL,
+} from './parse-idl-type.interface';
+import { PopulateTypeProperties } from './populate-type-properties';
+import { SetDefaultTypesAndNormalizeNames } from './set-default-types-and-normalize-names';
 
 /** Tokens we skip for now */
 const SKIP: { [key: string]: undefined } = {};
@@ -67,7 +71,9 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
     const isFunction = tree[i].name === TOKEN_NAMES.TYPE_FUNCTION;
 
     /** Init type */
-    let baseType = isFunction ? tree[i].match[1].trim() : tree[i].match[0];
+    let baseType = isFunction
+      ? (tree[i].match[1] || '').trim()
+      : tree[i].match[0];
 
     /** Init display name */
     let displayType = baseType;
@@ -90,6 +96,9 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
       meta: {},
     };
 
+    // normalize the type name
+    thisType.name = NormalizeTypeName(thisType.name);
+
     /**
      * Check for a literal type
      */
@@ -97,7 +106,7 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
       switch (true) {
         case tree[i].name in STRING_TYPES:
           baseType = LITERAL_TYPE_MAP[tree[i].name];
-          thisType.value = [tree[i].match[1]];
+          thisType.value = [tree[i].match[1] || ''];
           break;
         case tree[i].name === TOKEN_NAMES.NUMBER:
           UpdateNumberBaseType(thisType, tree[i].match[0]);
@@ -111,11 +120,6 @@ function TypeParserRecursor(tree: SyntaxTree, parsedType: IDLDataType) {
 
       thisType.name = baseType;
       thisType.display = baseType;
-    }
-
-    // set the name of the data type
-    if (thisType.name.toLowerCase() in TYPE_ALIASES) {
-      thisType.name = TYPE_ALIASES[thisType.name.toLowerCase()];
     }
 
     // check if we recurse and get type arguments or not
@@ -159,7 +163,7 @@ export function PostProcessIDLType(type: IDLDataType, makeCopy = true) {
   }
 
   // set type defaults
-  SetDefaultTypes(type);
+  SetDefaultTypesAndNormalizeNames(type);
 
   // remove duplicates and return the top level
   const reduced = ReduceIDLDataType(type);
@@ -171,8 +175,8 @@ export function PostProcessIDLType(type: IDLDataType, makeCopy = true) {
     }
   }
 
-  // set display names
-  PopulateTypeDisplayName(reduced);
+  // set name, display, and serialized
+  PopulateTypeProperties(reduced);
 
   return reduced;
 }
@@ -191,6 +195,13 @@ export function ParseIDLType(type: string) {
   if (use === '') {
     return parsedType;
   }
+
+  /**
+   * Normalize array types from StringArray to Array<String>
+   */
+  use = use.replace(ARRAY_REGEX_GLOBAL, (match, g1) => {
+    return `Array<${g1}>`;
+  });
 
   /**
    * Normalize any task types since we support two flavors

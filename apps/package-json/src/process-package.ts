@@ -102,7 +102,7 @@ export async function ProcessPackage(
 
   // sort constrib
   const oldContrib = packageJSON['contributes'];
-  const newContrib = {};
+  const newContrib: { [key: string]: any } = {};
   const keys = Object.keys(oldContrib).sort();
   for (let i = 0; i < keys.length; i++) {
     newContrib[keys[i]] = oldContrib[keys[i]];

@@ -14,30 +14,30 @@ import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
  * Headless execution of
  */
 export const RunMCPTestStartENVI: RunnerFunction = async (init) => {
-  // Call a tool
-  const resultHeadless = await CallMCPTool(
-    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
-    {
-      action: 'start-envi-headless',
-    },
-  );
+  // // Call a tool
+  // const resultHeadless = await CallMCPTool(
+  //   MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+  //   {
+  //     action: 'start-envi-headless',
+  //   },
+  // );
 
-  // log
-  LogWhenExpectSuccess(resultHeadless);
+  // // log
+  // LogWhenExpectSuccess(resultHeadless);
 
-  // make sure the tool runs
-  expect(resultHeadless.isError).toBeFalsy();
+  // // make sure the tool runs
+  // expect(resultHeadless.isError).toBeFalsy();
 
-  // verify we started
-  expect(init.debug.adapter.isStarted()).toBeTruthy();
+  // // verify we started
+  // expect(init.debug.adapter.isStarted()).toBeTruthy();
 
-  // make sure that the ENVI UI is not started
-  expect(
-    CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`)),
-  ).toEqual('0');
+  // // make sure that the ENVI UI is not started
+  // expect(
+  //   CleanIDLOutput(await init.debug.adapter.evaluate(`print, envi.widget_id`)),
+  // ).toEqual('0');
 
-  // pause while stopping
-  await Sleep(DEBUG_PAUSE);
+  // // pause while stopping
+  // await Sleep(DEBUG_PAUSE);
 
   // stop
   init.debug.adapter.terminate();

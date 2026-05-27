@@ -30,6 +30,7 @@ import { MCPTool_OpenDatasetsInENVI } from './vscode/mcp-tool-open-datasets-in-e
 import { MCPTool_QueryDatasetWithENVI } from './vscode/mcp-tool-query-dataset-with-envi.interface';
 import { MCPTool_ReturnNotes } from './vscode/mcp-tool-return-notes.interface';
 import { MCPTool_RunENVITool } from './vscode/mcp-tool-run-envi-tool.interface';
+import { MCPTool_TakeENVIScreenshot } from './vscode/mcp-tool-take-envi-screenshot.interface';
 
 /**
  * All MCP tools
@@ -105,6 +106,8 @@ interface IMCPToolLookup {
   SEARCH_FOR_ROUTINE: MCPTool_SearchForRoutine;
   /** Search all resources */
   SEARCH_RESOURCES: MCPTool_SearchResources;
+  /** Take a screenshot of the ENVI display */
+  TAKE_ENVI_SCREENSHOT: MCPTool_TakeENVIScreenshot;
 }
 
 /**
@@ -132,4 +135,5 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   SEARCH_FOR_ROUTINE: 'search-for-routine',
   LIST_PROMPTS: 'list-prompts',
   SEARCH_RESOURCES: 'search-resources',
+  TAKE_ENVI_SCREENSHOT: 'take-envi-screenshot',
 };

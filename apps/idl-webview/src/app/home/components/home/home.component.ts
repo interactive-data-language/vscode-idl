@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { VSCodeService } from '../../../services/services/vscode.service';
 
@@ -9,7 +9,7 @@ import { VSCodeService } from '../../../services/services/vscode.service';
   standalone: false,
 })
 export class HomeComponent {
-  constructor(public vscode: VSCodeService) {}
+  vscode = inject(VSCodeService);
 
   /**
    * Flips the flag that we show our UI on startup

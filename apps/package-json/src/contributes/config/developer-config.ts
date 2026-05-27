@@ -19,7 +19,7 @@ export function AddDeveloperConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.developer%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation

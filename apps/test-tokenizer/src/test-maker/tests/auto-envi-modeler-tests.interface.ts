@@ -1,4 +1,22 @@
 import { IAutoENVIModelerTest } from '../tests.interface';
+import { AUTO_ENVI_MODELER_TEST_ADD_AGGREGATORS } from './envi-modeler-workflows/add-aggregators';
+import { AUTO_ENVI_MODELER_TEST_BAD_DIRECTION } from './envi-modeler-workflows/bad-direction';
+import { AUTO_ENVI_MODELER_TEST_BAD_EDGES } from './envi-modeler-workflows/bad-edges';
+import { AUTO_ENVI_MODELER_TEST_CHANGE_DETECTION } from './envi-modeler-workflows/change-detection';
+import { AUTO_ENVI_MODELER_TEST_CHANGE_DETECTION_ML } from './envi-modeler-workflows/change-detection-ml';
+import { AUTO_ENVI_MODELER_TEST_CORRECT_OUTPUT } from './envi-modeler-workflows/correct-output';
+import { AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION } from './envi-modeler-workflows/datamanager-view-validation';
+import { AUTO_ENVI_MODELER_TEST_DATASET_INDEX } from './envi-modeler-workflows/dataset-index';
+import { AUTO_ENVI_MODELER_TEST_DEEP_LEARNING } from './envi-modeler-workflows/deep-learning';
+import { AUTO_ENVI_MODELER_TEST_IMAGE_CLASSIFICATION_ML } from './envi-modeler-workflows/image-classification-ml';
+import { AUTO_ENVI_MODELER_TEST_IMAGE_REGISTRATION } from './envi-modeler-workflows/image-registration';
+import { AUTO_ENVI_MODELER_TEST_ISODATA_WITH_URI } from './envi-modeler-workflows/isodata-with-uri';
+import { AUTO_ENVI_MODELER_TEST_ORTHORECTIFICATION } from './envi-modeler-workflows/orthorectification';
+import { AUTO_ENVI_MODELER_TEST_PARAMS_BAD } from './envi-modeler-workflows/params-bad';
+import { AUTO_ENVI_MODELER_TEST_SELECTIVE_DOWNSAMPLING } from './envi-modeler-workflows/selective-downsampling';
+import { AUTO_ENVI_MODELER_TEST_SPECTRAL_INDEX_ISODATA } from './envi-modeler-workflows/spectral-index-isodata';
+import { AUTO_ENVI_MODELER_TEST_STATIC_INPUT } from './envi-modeler-workflows/static-input';
+import { AUTO_ENVI_MODELER_TEST_TEXT_SANITIZATION } from './envi-modeler-workflows/text-sanitization';
 
 /**
  * Automated tests for ENVI Modeler validation and workflow creation.
@@ -7,168 +25,22 @@ import { IAutoENVIModelerTest } from '../tests.interface';
  * in libs/tests/envi-modeler/src/lib/ via the test-tokenizer generator.
  */
 export const AUTO_ENVI_MODELER_TESTS: IAutoENVIModelerTest[] = [
-  {
-    suiteName: 'Parameter error tests',
-    fileName: 'params-bad.1.spec.ts',
-    tests: [
-      {
-        name: 'For machine learning',
-        nodes: [
-          {
-            id: 'inputs',
-            type: 'inputparameters',
-            parameters: [
-              {
-                name: 'time1_raster',
-                display_name: 'Time 1 Image',
-                description: 'Pre-event raster image',
-                type: 'ENVIRaster',
-              },
-              {
-                name: 'time2_raster',
-                display_name: 'Time 2 Image',
-                description: 'Post-event raster image',
-                type: 'ENVIRaster',
-              },
-              {
-                name: 'training_rois',
-                display_name: 'Training ROIs',
-                description:
-                  'ROIs with Background (no change) and Change classes',
-                type: 'ENVIROIArray',
-              },
-            ],
-          },
-          {
-            id: 'intersection',
-            type: 'task',
-            display_name: 'Image Intersection',
-            task_name: 'ImageIntersection',
-          },
-          {
-            id: 'bandstack',
-            type: 'task',
-            display_name: 'Build Band Stack',
-            task_name: 'BuildBandStack',
-          },
-          {
-            id: 'normstats',
-            type: 'task',
-            display_name: 'Normalization Statistics',
-            task_name: 'NormalizationStatistics',
-          },
-          {
-            id: 'trainingdata',
-            type: 'task',
-            display_name: 'Extract Training Data',
-            task_name: 'MLTrainingDataFromROIs',
-          },
-          {
-            id: 'trainmodel',
-            type: 'task',
-            display_name: 'Train Random Forest Model',
-            task_name: 'TrainRandomForest',
-          },
-          {
-            id: 'classify',
-            type: 'task',
-            display_name: 'ML Classification',
-            task_name: 'MachineLearningClassification',
-          },
-          {
-            id: 'smoothing',
-            type: 'task',
-            display_name: 'Classification Smoothing',
-            task_name: 'ClassificationSmoothing',
-          },
-          {
-            id: 'outputs',
-            type: 'outputparameters',
-            display_name: 'Workflow Outputs',
-          },
-          { id: 'view_result', type: 'view', display_name: 'View Result' },
-        ],
-        edges: [
-          {
-            from: 'inputs',
-            from_parameters: ['time1_raster', 'time2_raster'],
-            to: 'intersection',
-            to_parameters: ['input_raster1', 'input_raster2'],
-          },
-          {
-            from: 'intersection',
-            from_parameters: ['output_raster1', 'output_raster2'],
-            to: 'bandstack',
-            to_parameters: ['input_raster1', 'input_raster2'],
-          },
-          {
-            from: 'bandstack',
-            from_parameters: ['output_raster'],
-            to: 'normstats',
-            to_parameters: ['input_raster'],
-          },
-          {
-            from: 'bandstack',
-            from_parameters: ['output_raster'],
-            to: 'trainingdata',
-            to_parameters: ['input_raster'],
-          },
-          {
-            from: 'inputs',
-            from_parameters: ['training_rois'],
-            to: 'trainingdata',
-            to_parameters: ['input_roi'],
-          },
-          {
-            from: 'trainingdata',
-            from_parameters: ['output_training_data'],
-            to: 'trainmodel',
-            to_parameters: ['input_training_data'],
-          },
-          {
-            from: 'normstats',
-            from_parameters: ['output_normalization_statistics'],
-            to: 'trainmodel',
-            to_parameters: ['input_normalization_statistics'],
-          },
-          {
-            from: 'bandstack',
-            from_parameters: ['output_raster'],
-            to: 'classify',
-            to_parameters: ['input_raster'],
-          },
-          {
-            from: 'trainmodel',
-            from_parameters: ['output_model'],
-            to: 'classify',
-            to_parameters: ['input_model'],
-          },
-          {
-            from: 'normstats',
-            from_parameters: ['output_normalization_statistics'],
-            to: 'classify',
-            to_parameters: ['input_normalization_statistics'],
-          },
-          {
-            from: 'classify',
-            from_parameters: ['output_raster'],
-            to: 'smoothing',
-            to_parameters: ['input_raster'],
-          },
-          {
-            from: 'smoothing',
-            from_parameters: ['output_raster'],
-            to: 'outputs',
-            to_parameters: [''],
-          },
-          {
-            from: 'smoothing',
-            from_parameters: ['output_raster'],
-            to: 'view_result',
-            to_parameters: ['input_raster'],
-          },
-        ],
-      },
-    ],
-  },
+  AUTO_ENVI_MODELER_TEST_ADD_AGGREGATORS,
+  AUTO_ENVI_MODELER_TEST_BAD_DIRECTION,
+  AUTO_ENVI_MODELER_TEST_BAD_EDGES,
+  AUTO_ENVI_MODELER_TEST_CHANGE_DETECTION,
+  AUTO_ENVI_MODELER_TEST_CHANGE_DETECTION_ML,
+  AUTO_ENVI_MODELER_TEST_CORRECT_OUTPUT,
+  AUTO_ENVI_MODELER_TEST_DATAMANAGER_VIEW_VALIDATION,
+  AUTO_ENVI_MODELER_TEST_DATASET_INDEX,
+  AUTO_ENVI_MODELER_TEST_DEEP_LEARNING,
+  AUTO_ENVI_MODELER_TEST_IMAGE_CLASSIFICATION_ML,
+  AUTO_ENVI_MODELER_TEST_IMAGE_REGISTRATION,
+  AUTO_ENVI_MODELER_TEST_ISODATA_WITH_URI,
+  AUTO_ENVI_MODELER_TEST_ORTHORECTIFICATION,
+  AUTO_ENVI_MODELER_TEST_PARAMS_BAD,
+  AUTO_ENVI_MODELER_TEST_SELECTIVE_DOWNSAMPLING,
+  AUTO_ENVI_MODELER_TEST_SPECTRAL_INDEX_ISODATA,
+  AUTO_ENVI_MODELER_TEST_STATIC_INPUT,
+  AUTO_ENVI_MODELER_TEST_TEXT_SANITIZATION,
 ];

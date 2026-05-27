@@ -35,19 +35,22 @@ const kill = require('tree-kill');
  */
 export class IDLMachineWrapper {
   /** last debug send */
-  lastDebugSend: FromIDLMachineNotificationParams<'debugSend'>;
+  lastDebugSend: FromIDLMachineNotificationParams<'debugSend'> = {
+    system: [],
+    stack: {
+      changed: false,
+      frames: [],
+    },
+  };
 
   /** Track the last interpreter stopped params */
-  lastStop: FromIDLMachineNotificationParams<'interpreterStopped'>;
+  lastStop: FromIDLMachineNotificationParams<'interpreterStopped'> | undefined;
 
   /** Flag that we are expecting a stop or end to command running */
   private expectingStop = false;
 
-  /** The IDL process */
-  private idl: ChildProcess;
-
   /** The IDL Machine */
-  private machine: IDLMachine;
+  private machine!: IDLMachine;
 
   /**
    * Parent class that handles primary logic that we plug into
@@ -95,7 +98,13 @@ export class IDLMachineWrapper {
     });
 
     /** Track last debug send parameters */
-    this.lastDebugSend = undefined;
+    this.lastDebugSend = {
+      system: [],
+      stack: {
+        changed: false,
+        frames: [],
+      },
+    };
 
     this.machine.onNotification('debugSend', (params) => {
       // reverse the order from IDL to match VSCode
@@ -205,18 +214,24 @@ export class IDLMachineWrapper {
         };
       }
 
-      // check if we are expecting to stop or not
-      if (this.expectingStop) {
-        // emit that IDL is ready
-        setTimeout(() => {
-          this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, res);
-        }, 10);
-      } else {
-        this.process.emit(
-          IDL_EVENT_LOOKUP.STOP,
-          res.stopped.reason,
-          res.stopped.stack,
-        );
+      // determine how to handle our stop
+      switch (true) {
+        // emit that ready
+        case this.expectingStop:
+          setTimeout(() => {
+            this.process.emit(IDL_EVENT_LOOKUP.PROMPT_READY, res);
+          }, 10);
+          break;
+        // if we stopped, emit it
+        case !!res.stopped:
+          this.process.emit(
+            IDL_EVENT_LOOKUP.STOP,
+            res.stopped.reason,
+            res.stopped.stack,
+          );
+          break;
+        default:
+          break;
       }
     });
 
@@ -273,7 +288,7 @@ export class IDLMachineWrapper {
      * If we don't do this, then we don't always detect that IDL has stopped.
      */
     this.machine.onNotification('serverExit', () => {
-      this.stop();
+      this.stop(false);
     });
 
     /**
@@ -395,10 +410,12 @@ export class IDLMachineWrapper {
       switch (counter) {
         case 1:
           return '!null = 42';
-        case 2:
+        // case 2:
+        //   counter = 0;
+        //   return 'end';
+        default:
           counter = 0;
           return 'end';
-        default:
           break;
       }
     });
@@ -503,7 +520,7 @@ export class IDLMachineWrapper {
   async evaluate(command: string): Promise<IDLOutput> {
     return new Promise((resolve, reject) => {
       // handle errors writing to stdin
-      if (!this.idl.stdin.writable) {
+      if (!this.process?.idl.stdin?.writable) {
         reject(new Error('no stdin available'));
       }
 
@@ -551,7 +568,6 @@ export class IDLMachineWrapper {
    */
   listen(idl: ChildProcess) {
     // save IDL prop
-    this.idl = idl;
     this.machine = new IDLMachine(idl);
 
     // register listeners for our notifications and requests
@@ -592,12 +608,21 @@ export class IDLMachineWrapper {
   /**
    * Stops our IDL debug session
    */
-  stop() {
-    this.machine.sendNotification('exit', undefined);
+  stop(notify = true) {
+    // return if the process was closed
+    // resolves EPIPE errors when there's a race condition
+    // for properties like stdio being defined, but invalid
+    if (this.process.idl === undefined) {
+      return;
+    }
+
+    if (notify) {
+      this.machine.sendNotification('exit', undefined);
+    }
 
     // short timeout to make sure it shuts down
     setTimeout(() => {
-      kill(this.idl.pid);
+      kill(this.process.idl.pid);
     }, 100);
   }
 

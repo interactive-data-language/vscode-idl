@@ -16,6 +16,7 @@ import {
   ServerNotification,
   ServerRequest,
 } from '@modelcontextprotocol/sdk/types';
+import type { Application } from 'express';
 import { ZodRawShape } from 'zod';
 
 /**
@@ -45,6 +46,8 @@ export type MCPRegistryToolInfo<Args extends ZodRawShape> = {
  * Options for starting the MCPServer
  */
 export interface IMCPServerOptions {
+  /** Optional external Express app to mount MCP routes on (skips creating a standalone server) */
+  app?: Application;
   /** Callback when the server encounters a fatal error */
   failCallback: (err: any) => void;
   /** Callback when IDL/ENVI tools need to run */

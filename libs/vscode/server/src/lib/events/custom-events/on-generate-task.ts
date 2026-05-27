@@ -1,7 +1,7 @@
-import { GenerateTaskResult } from '@idl/generators/tasks-shared';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDLFileHelper, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
+import { GenerateTaskResult } from '@idl/types/generators';
 import {
   GenerateTaskMessage,
   LanguageServerPayload,

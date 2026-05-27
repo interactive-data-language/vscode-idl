@@ -164,7 +164,7 @@ export function AddCodeConfig(nls: IPackageNLS) {
     type: 'object',
     title: '%configuration.titles.formatting%',
     additionalProperties: false,
-    properties: {},
+    properties: {} as { [key: string]: any },
   };
 
   // verify our translation

@@ -21,7 +21,7 @@ export async function RegisterMCPTaskTools(server: MCPServer, index: IDLIndex) {
   });
 
   /** Create task registry */
-  const registry = new MCPTaskRegistry(server.logManager);
+  const registry = new MCPTaskRegistry(server.logManager, false);
 
   // listen for task changes
   index.onParse.on('envi-task', (parsed) => {

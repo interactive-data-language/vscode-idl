@@ -1,0 +1,17 @@
+{
+  "name": "my_envi_test_task",
+  "base_class": "ENVITaskFromProcedure",
+  "routine": "my_envi_test_task_routine",
+  "description": "A test ENVI task without display_name to verify fallback logic.",
+  "revision": "1.0.0",
+  "schema": "envitask_3.3",
+  "parameters": [
+    {
+      "name": "input_raster",
+      "type": "ENVIRaster",
+      "direction": "input",
+      "required": true,
+      "description": "A test input raster parameter."
+    }
+  ]
+}

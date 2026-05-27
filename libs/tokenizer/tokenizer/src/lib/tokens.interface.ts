@@ -621,7 +621,7 @@ export interface ITokenDef<T extends TokenName> {
    * For example: for, foreach, and while are one regex
    * For example: if, then, and else are one regex
    */
-  getTokenName?: (matches: TokenStartMatches<T>) => T;
+  getTokenName?(matches: TokenStartMatches<T>): T;
   /** RegExp for the start or whole token */
   match: RegExp;
   /** Name of the token */
@@ -641,5 +641,5 @@ export interface ITokenDef<T extends TokenName> {
   /**
    * Optional post-processing for token matches. Called AFTER getTokenName
    */
-  postProcessMatches?: (name: T, matches: string[]) => TokenStartMatches<T>;
+  postProcessMatches?(name: T, matches: string[]): TokenStartMatches<T>;
 }

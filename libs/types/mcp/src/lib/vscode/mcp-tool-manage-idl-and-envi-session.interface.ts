@@ -9,10 +9,10 @@ export type MCPTool_ManageIDLAndENVISession = 'manage-idl-and-envi-session';
  * Action to take on the ENVI and IDL session
  */
 export type MCPToolParams_ManageIDLAndENVISession_Action =
-  | 'restart-envi-headless'
+  // | 'restart-envi-headless'
   | 'restart-envi'
   | 'restart-idl'
-  | 'start-envi-headless'
+  // | 'start-envi-headless'
   | 'start-envi'
   | 'start-idl'
   | 'stop';

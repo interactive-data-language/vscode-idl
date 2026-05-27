@@ -1,4 +1,8 @@
-import { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types';
+import {
+  CallToolResult,
+  ImageContent,
+  TextContent,
+} from '@modelcontextprotocol/sdk/types';
 
 import {
   MCPTool_CreateENVIModelerWorkflow,
@@ -102,7 +106,7 @@ export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
  */
 export type MCPToolHTTPResponse_HTTP = {
   /** Content returned */
-  content: TextContent[];
+  content: (ImageContent | TextContent)[];
   /** If an error */
   isError: boolean; // make sure it is included
 } & Omit<CallToolResult, 'content'>;

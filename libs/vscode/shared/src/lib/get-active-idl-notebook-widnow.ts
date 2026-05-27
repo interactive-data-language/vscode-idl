@@ -13,17 +13,18 @@ export function GetActiveIDLNotebookWindow(
   // get active editor
   const editor = vscode.window.activeNotebookEditor;
 
+  // make sure we have an editor
+  if (!editor) {
+    if (alert) {
+      vscode.window.showInformationMessage(
+        IDL_TRANSLATION.notifications.noIDLNotebook,
+      );
+    }
+    return undefined;
+  }
+
   // check how to proceed
   switch (true) {
-    // no editor
-    case !editor:
-      if (alert) {
-        vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noIDLNotebook,
-        );
-      }
-      return undefined;
-
     // IDL notebook
     case editor.notebook.notebookType === IDL_NOTEBOOK_LANGUAGE_NAME:
       return editor.notebook;

@@ -28,7 +28,7 @@ import {
  */
 export class LogManager implements ILogManagerOptions {
   /** Callback when we have an error */
-  alert: LogAlertCallback;
+  alert!: LogAlertCallback;
 
   /** Are we debug mode or not? */
   debug = DEFAULT_IDL_EXTENSION_CONFIG.debugMode;
@@ -155,7 +155,7 @@ export class LogManager implements ILogManagerOptions {
     const useOptions = { ...DEFAULT_LOGGER_OPTIONS, ...options };
 
     // get the lower case name
-    const useName = useOptions.log.toLowerCase();
+    const useName = (useOptions.log || '').toLowerCase();
 
     // check how to proceed
     switch (true) {

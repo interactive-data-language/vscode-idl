@@ -73,9 +73,9 @@ export type ENVITaskLegacy<T extends ENVITaskLegacyVersion> = {
   /** Name of the task when calling via the ENVI API */
   name: string;
   /** Name of the task that gets displayed in the ENVI UI */
-  displayName: string;
+  displayName?: string;
   /** Description of what the task does */
-  description: string;
+  description?: string;
   /** Type of the task, should be "ENVITaskFromProcedure" */
   baseClass: string;
   /** Name of our routine */

@@ -1,4 +1,5 @@
 import { TaskToMarkdown } from '@idl/parsing/syntax-tree';
+import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { LoadTask } from '@idl/schemas/tasks';
 import { TASK_FILE_GLOB_PATTERN } from '@idl/shared/extension';
 import {
@@ -8,8 +9,8 @@ import {
   GlobalTokens,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { ParsedTask, TaskToGlobalToken } from '@idl/types/tasks';
-import * as glob from 'fast-glob';
+import { ParsedTask } from '@idl/types/tasks';
+import glob from 'fast-glob';
 import { join } from 'path';
 
 import { ENVI_DIR } from '../idl-dir.interface';

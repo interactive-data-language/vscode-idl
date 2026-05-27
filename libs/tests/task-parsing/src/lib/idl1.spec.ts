@@ -1,7 +1,8 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
+import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';
+import { IGlobalsToTrack } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
@@ -58,6 +59,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         pos: [0, 0, 0],
         meta: {
           display: 'IDLDownload_S3_URLTask',
+          readableName: 'Download S3 URL',
           source: 'user',
           docs: 'This task downloads a resource specified by an S3 URL into a local file.\n\n\n### Properties\n\n- **s3_url**: String\n\n  The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.\n\n- **local_file**: String\n\n  The local file in which to download the S3 resource.\n\n',
           private: false,
@@ -71,6 +73,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'in',
               private: false,
               display: 's3_url',
+              readableName: 'S3 URL',
               docs: 'The S3 URL to download.  This must use the HTTP[S] scheme, not S3 scheme.',
               type: [
                 {
@@ -90,6 +93,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'in',
               private: false,
               display: 'local_file',
+              readableName: 'Local Filename',
               docs: 'The local file in which to download the S3 resource.',
               type: [
                 {

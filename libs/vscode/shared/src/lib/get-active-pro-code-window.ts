@@ -13,17 +13,18 @@ export function GetActivePROCodeWindow(
   // get active editor
   const editor = vscode.window.activeTextEditor;
 
+  // make sure we have an editor
+  if (!editor) {
+    if (alert) {
+      vscode.window.showInformationMessage(
+        IDL_TRANSLATION.notifications.noProCode,
+      );
+    }
+    return undefined;
+  }
+
   // check how to proceeed
   switch (true) {
-    // no editor
-    case !editor:
-      if (alert) {
-        vscode.window.showInformationMessage(
-          IDL_TRANSLATION.notifications.noProCode,
-        );
-      }
-      return undefined;
-
     // PRO code
     case editor.document.uri.fsPath.endsWith(PRO_FILE_EXTENSION):
       return editor.document;

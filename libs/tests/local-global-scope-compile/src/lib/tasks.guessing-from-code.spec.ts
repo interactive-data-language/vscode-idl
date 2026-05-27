@@ -71,7 +71,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
                 args: [
                   [
                     {
-                      name: 'BuildMosaicRaster',
+                      name: 'buildmosaicraster',
                       display: 'BuildMosaicRaster',
                       serialized: 'BuildMosaicRaster',
                       args: [],
@@ -103,7 +103,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
                 args: [
                   [
                     {
-                      name: 'BuildMosaicRaster',
+                      name: 'buildmosaicraster',
                       display: 'BuildMosaicRaster',
                       serialized: 'BuildMosaicRaster',
                       args: [],
@@ -166,7 +166,7 @@ describe(`[auto generated] Verify behaviors for task types`, () => {
                 args: [
                   [
                     {
-                      name: 'BuildMosaicRaster',
+                      name: 'buildmosaicraster',
                       display: 'BuildMosaicRaster',
                       serialized: 'BuildMosaicRaster',
                       args: [],

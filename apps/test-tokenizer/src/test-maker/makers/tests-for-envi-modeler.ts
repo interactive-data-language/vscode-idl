@@ -1,6 +1,6 @@
 import {
   CreateENVIModelerWorkflow,
-  ValidateENVIModelerNodes,
+  ValidateENVIModelerWorkflow,
 } from '@idl/envi/modeler';
 import { LogManager } from '@idl/logger';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
@@ -30,7 +30,7 @@ export async function TestsForENVIModeler(
 
   // --- imports ---
   strings.push(
-    `import { CreateENVIModelerWorkflow, ValidateENVIModelerNodes } from '@idl/envi/modeler';`,
+    `import { CreateENVIModelerWorkflow, ValidateENVIModelerWorkflow } from '@idl/envi/modeler';`,
   );
   strings.push(`import { LogManager } from '@idl/logger';`);
   strings.push(`import { MCPTaskRegistry } from '@idl/mcp/tasks';`);
@@ -56,6 +56,11 @@ export async function TestsForENVIModeler(
   strings.push(`  alert: () => {`);
   strings.push(`    // do nothing`);
   strings.push(`  },`);
+  strings.push(`});`);
+  strings.push(``);
+  strings.push(`// disable logs`);
+  strings.push(`logManager.setInterceptor(() => {`);
+  strings.push(`  // do nothing`);
   strings.push(`});`);
   strings.push(``);
   strings.push(`// create index`);
@@ -84,9 +89,17 @@ export async function TestsForENVIModeler(
       // do nothing
     },
   });
+
+  // create index
   const genIndex = new IDLIndex(genLogManager, 1, false);
+
+  // load globals so we know about ENVI
   genIndex.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
+
+  // create task registry
   const genRegistry = new MCPTaskRegistry(genLogManager);
+
+  // load the global tokens
   genRegistry.registerTasksFromGlobalTokens(
     genIndex.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.FUNCTION],
     genIndex.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.STRUCTURE],
@@ -100,7 +113,7 @@ export async function TestsForENVIModeler(
     const testName = test.name;
 
     // run validation at generation time to capture expected outputs
-    const errors = ValidateENVIModelerNodes(
+    const errors = ValidateENVIModelerWorkflow(
       test.nodes,
       test.edges,
       genRegistry,
@@ -124,7 +137,7 @@ export async function TestsForENVIModeler(
     strings.push(``);
     strings.push(`    // validate nodes`);
     strings.push(
-      `    const errors = ValidateENVIModelerNodes(nodes, edges, registry);`,
+      `    const errors = ValidateENVIModelerWorkflow(nodes, edges, registry);`,
     );
     strings.push(``);
     strings.push(`    // define expected errors`);

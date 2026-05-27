@@ -10,9 +10,26 @@ This section of the CHANGELOG documents features that have been added to the ext
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
-## Unreleased
+## 6.1.0
+
+New feature for ENVI Agent: ability to create ENVI Modeler Workflows! You can now ask questions like:
+
+- Help me create an ENVI Modeler Workflow to detect change detection using spectral indices. Have the spectral index as an input option.
+- [After you run processing] Can you generate an ENVI Modeler Workflow from the processing steps that we just walked through?
+
+Added a new MCP tool called "Take ENVI Screenshot" which will grab a screenshot of the ENVI display and return it to the LLM. As long as you are using a multi-modal model, the LLM will be able to interpret what is in your display.
 
 Fixed an issue where the "Restart" debug toolbar item only reset IDL and did not, in fact, restart IDL. It now stops and launches a new session.
+
+Refined the ENVI instructions to include more detail about how and when to use different tools.
+
+Updated the ENVI instructions to better support opening the correct files in ENVI. ENVI Agent should now review files in a location, check against known formats, and open the right one for processing. This should hep improve how frequently ENVI Agent selects the right file.
+
+Fixed an issue where a semi-colon was added to IDL_DEFAULT search path on mac and Linux.
+
+Fixed an issue with ENVI Coord Sys where it was a string instead of a number.
+
+Changed the "manage-id-and-envi-session" MCP tool to only start the ENVI UI. Headless was causing some issues when trying to interact with the UI, so narrowing the capabilities for now.
 
 ## 6.0.2 - March 2026
 

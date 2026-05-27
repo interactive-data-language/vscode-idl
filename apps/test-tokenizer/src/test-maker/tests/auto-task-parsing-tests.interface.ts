@@ -46,6 +46,16 @@ export const AUTO_TASK_PARSING_TESTS: ITaskParsingTests[] = [
   },
   {
     suiteName: `Correctly parse task file`,
+    fileName: `envi5.spec.ts`,
+    tests: [
+      {
+        name: `envi`,
+        file: `idl/test/task-parsing/maskfxrasterstats.task`,
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly parse task file`,
     fileName: `idl1.spec.ts`,
     tests: [
       {
@@ -71,6 +81,46 @@ export const AUTO_TASK_PARSING_TESTS: ITaskParsingTests[] = [
       {
         name: `idl`,
         file: `idl/test/task-parsing/QueryTask.task`,
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly parse task file`,
+    fileName: `idl4.spec.ts`,
+    tests: [
+      {
+        name: `idl`,
+        file: `idl/test/task-parsing/addition_example.task`,
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly parse task without display_name`,
+    fileName: `idl-no-display-name.spec.ts`,
+    tests: [
+      {
+        name: `idl`,
+        file: `idl/test/task-parsing/test_task_no_display_name_idl.task`,
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly parse task without display_name`,
+    fileName: `envi-no-display-name.spec.ts`,
+    tests: [
+      {
+        name: `envi`,
+        file: `idl/test/task-parsing/test_task_no_display_name_envi.task`,
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly parse task without displayName`,
+    fileName: `legacy-envi-no-display-name.spec.ts`,
+    tests: [
+      {
+        name: `envi`,
+        file: `idl/test/task-parsing/test_task_no_display_name_legacy.task`,
       },
     ],
   },

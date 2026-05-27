@@ -1,4 +1,3 @@
-import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDL_EXTENSION_CONFIG_KEYS,
@@ -20,7 +19,7 @@ export function AddIDLPreferences(nls: IPackageNLS) {
   const keyBase = IDL_EXTENSION_CONFIG_KEYS.IDLPreferences;
 
   // should our extension run in debug mode
-  EXTENSION_CONFIG[`${IDL_LANGUAGE_NAME}.${keyBase}`] = {
+  EXTENSION_CONFIG.push({
     type: 'object',
     description: TranslationFromConfiguration(
       IDL_EXTENSION_CONFIG_KEYS.IDLPreferences,
@@ -173,5 +172,5 @@ export function AddIDLPreferences(nls: IPackageNLS) {
         ),
       },
     },
-  };
+  });
 }

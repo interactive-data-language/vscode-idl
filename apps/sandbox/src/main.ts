@@ -1,7 +1,7 @@
 // import { AnalyticsRepositoryRegistry } from '@idl/mcp/analytics-repository';
 import {
   CreateENVIModelerWorkflow,
-  ValidateENVIModelerNodes,
+  ValidateENVIModelerWorkflow,
 } from '@idl/envi/modeler';
 import { LogManager } from '@idl/logger';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
@@ -204,7 +204,7 @@ async function Main() {
     index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.STRUCTURE],
   );
 
-  const errs = ValidateENVIModelerNodes(
+  const errs = ValidateENVIModelerWorkflow(
     model.nodes as ENVIModelerNode[],
     model.edges as ENVIModelerEdge[],
     registry,

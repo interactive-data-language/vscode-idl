@@ -50,7 +50,7 @@ export class MCPHistory {
       }
 
       // save
-      resp[this.history[i].tool].push(this.history[i].params as any);
+      resp[this.history[i].tool]?.push(this.history[i].params as any);
     }
 
     return resp;

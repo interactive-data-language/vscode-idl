@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Host,
+  inject,
   Input,
 } from '@angular/core';
 import {
@@ -80,10 +80,8 @@ export class EntryComponent implements AfterViewInit {
     }
   }
 
-  constructor(
-    @Host() private dataShare: DataSharingService,
-    private el: ElementRef<HTMLElement>,
-  ) {}
+  private dataShare = inject(DataSharingService, { host: true });
+  private el = inject(ElementRef<HTMLElement>);
 
   ngAfterViewInit() {
     this.el.nativeElement.onmousedown = () => {

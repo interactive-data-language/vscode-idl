@@ -31,6 +31,9 @@ export class IDLMCPExecutionManager {
   /** Reference to our IDL class, manages process and input/output */
   _runtime: IDLInteractionManager;
 
+  /** Detail about the current IDL session */
+  idlVersion: IDLVersionInfo | undefined;
+
   /** Whether we are currently subscribed to runtime events */
   private listening = false;
 
@@ -116,7 +119,7 @@ export class IDLMCPExecutionManager {
    * @param config Full IDL start configuration
    * @returns      `true` when IDL started and is ready; `false` on failure
    */
-  async launch(title: string, config: IStartIDLConfig): Promise<boolean> {
+  async launch(config: IStartIDLConfig): Promise<boolean> {
     // Tear down any existing listeners so we get a clean state
     if (this.listening) {
       this._runtime.removeAllListeners();
@@ -148,6 +151,9 @@ export class IDLMCPExecutionManager {
         try {
           const parsed = JSON.parse(versionRaw) as IDLVersionInfo;
 
+          // Store version info on the instance
+          this.idlVersion = parsed;
+
           // Require IDL 8.8.0 or newer — same boundary as the notebook manager
           if (compareVersions(parsed.release, '9.2.0') === -1) {
             this.log.log({
@@ -164,15 +170,15 @@ export class IDLMCPExecutionManager {
 
           this.log.log({
             type: 'debug',
-            content: [`${title}: IDL ${parsed.release} started successfully`],
+            content: [`IDL ${parsed.release} started successfully`],
           });
         } catch (err) {
           // Non-fatal — version check failed but we can still proceed
           this.log.log({
             type: 'warn',
             content: [
-              `${title}: Failed to parse IDL version info`,
-              ObjectifyError(err),
+              `Failed to parse IDL version info`,
+              ObjectifyError(err as Error),
             ],
           });
         }
@@ -251,7 +257,7 @@ export class IDLMCPExecutionManager {
     // Short pause — avoids a race where the new start call races cleanup
     await Sleep(100);
 
-    const ok = await this.launch('Resetting IDL session', config);
+    const ok = await this.launch(config);
 
     if (!ok) {
       throw new Error('Failed to restart IDL');
@@ -316,7 +322,10 @@ export class IDLMCPExecutionManager {
         } catch (err) {
           this.log.log({
             type: 'error',
-            content: ['readIOLine handler threw an error', ObjectifyError(err)],
+            content: [
+              'readIOLine handler threw an error',
+              ObjectifyError(err as Error),
+            ],
           });
         }
       }

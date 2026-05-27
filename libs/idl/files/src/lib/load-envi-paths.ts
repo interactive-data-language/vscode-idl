@@ -70,7 +70,7 @@ export function LoadENVIPaths(bin: string) {
     }
 
     /** Check for custom code environment variable */
-    if ('ENVI_CUSTOM_CODE' in process.env) {
+    if (process.env['ENVI_CUSTOM_CODE']) {
       if (existsSync(process.env['ENVI_CUSTOM_CODE'])) {
         paths.push(process.env['ENVI_CUSTOM_CODE']);
       }

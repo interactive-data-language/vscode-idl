@@ -1,81 +1,21 @@
-import { Sleep } from '@idl/shared/extension';
+import { ManageENVIAndIDLSession } from '@idl/mcp/idl';
 import {
   MCPTool_ManageIDLAndENVISession,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
-import { IDL_DEBUG_ADAPTER } from '@idl/vscode/debug';
 
 import { VSCodeSendMCPNotification } from '../helpers/vscode-send-mcp-notification';
-import { RunMCPTool_StartENVI } from './envi/run-mcp-tool-start-envi';
-import { RunMCPTool_StartIDL } from './idl/run-mcp-tool-start-idl';
+import { MCP_EXECUTION_BACKEND } from '../initialize-mcp-vscode';
 
 /**
- * Manages ENVI and IDL session
+ * Manages ENVI and IDL session (VS Code wrapper)
  */
 export async function RunMCPTool_ManageENVIAndIDLSession(
   id: string,
   params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
 ): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {
-  /**
-   * Check if we are starting
-   */
-  switch (params.action) {
-    case 'start-envi':
-      return RunMCPTool_StartENVI(id, params);
-    case 'start-envi-headless':
-      return RunMCPTool_StartENVI(id, params);
-    case 'start-idl':
-      return RunMCPTool_StartIDL(id, params);
-    default:
-      break;
-  }
-
-  /**
-   * If not starting, then we are restarting
-   */
-
-  // Check if IDL is running
-  if (!IDL_DEBUG_ADAPTER.isStarted()) {
-    return {
-      success: false,
-      err: 'No active IDL or ENVI session to stop',
-    };
-  }
-
-  VSCodeSendMCPNotification(id, {
-    message: 'Stopping IDL session',
-  });
-
-  // Stop the session
-  IDL_DEBUG_ADAPTER.terminate();
-
-  // if we are only stopping, then stop
-  if (params.action === 'stop') {
-    return {
-      success: true,
-      idlOutput: 'ENVI and IDL session stopped successfully',
-    };
-  }
-
-  // short pause for everything to catch up
-  // we have to do the same thing in our tests
-  await Sleep(1000);
-
-  /**
-   * Determine how to restart
-   */
-  switch (params.action) {
-    case 'restart-envi':
-      return RunMCPTool_StartENVI(id, params);
-    case 'restart-envi-headless':
-      return RunMCPTool_StartENVI(id, params);
-    case 'restart-idl':
-      return RunMCPTool_StartIDL(id, params);
-    default:
-      return {
-        success: false,
-        err: `Unknown restart option of "${params.action}"`,
-      };
-  }
+  return ManageENVIAndIDLSession(MCP_EXECUTION_BACKEND, params, (msg) =>
+    VSCodeSendMCPNotification(id, { message: msg }),
+  );
 }

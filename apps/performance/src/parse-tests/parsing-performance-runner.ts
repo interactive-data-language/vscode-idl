@@ -14,7 +14,7 @@ import {
 import { Tokenizer } from '@idl/tokenizer';
 import { readFileSync } from 'fs';
 import { performance } from 'perf_hooks';
-import * as progressBar from 'progress';
+import progressBar from 'progress';
 
 import { IParsingPerformanceRunnerOpts } from './options.interface';
 

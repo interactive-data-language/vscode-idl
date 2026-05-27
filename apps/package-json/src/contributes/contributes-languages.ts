@@ -93,7 +93,7 @@ export function ProcessLanguages(packageJSON: IPackageJSON, nls: IPackageNLS) {
     const language = LANGUAGES[i];
 
     // check if we have a language configuration
-    if ('configuration' in language) {
+    if (language.configuration) {
       // make sure that the theme file exists
       const languageUri = join(process.cwd(), language.configuration);
       if (!existsSync(languageUri)) {

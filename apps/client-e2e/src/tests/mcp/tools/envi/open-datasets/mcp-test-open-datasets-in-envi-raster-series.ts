@@ -8,6 +8,7 @@ import expect from 'expect';
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { ENVITestDatasets } from '../../../helpers/envi-test-datasets.class';
+import { GetTextContent } from '../../../helpers/get-text-content';
 import { LogWhenExpectSuccess } from '../../../helpers/test-loggers';
 
 /**
@@ -33,11 +34,11 @@ export const RunMCPTestOpenDatasetsInENVI_RasterSeries: RunnerFunction = async (
   expect((result.content as any[])?.length).toEqual(1);
 
   // init variable
-  let results: MCPToolResponse<MCPTool_OpenDatasetsInENVI>;
+  let results!: MCPToolResponse<MCPTool_OpenDatasetsInENVI>;
 
   // attempt to parse
   try {
-    results = JSON.parse(result.content[0].text as string);
+    results = JSON.parse(GetTextContent(result.content));
   } catch (err) {
     // do nothing
   }

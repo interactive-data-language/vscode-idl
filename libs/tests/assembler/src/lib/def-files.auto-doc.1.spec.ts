@@ -165,7 +165,7 @@ describe(`[auto generated] Automatically add docs`, () => {
       // define expected problems
       const expectedFormatting: string[] = [
         `;+`,
-        `; :Returns: VSCodeENVIMessageInterceptor`,
+        `; :Returns: vscodeenvimessageinterceptor`,
         `;`,
         `; :Keywords:`,
         `;   verbose: bidirectional, optional, any`,

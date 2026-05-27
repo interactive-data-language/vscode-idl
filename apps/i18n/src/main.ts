@@ -4,9 +4,9 @@ import * as path from 'path';
 
 // helper that will flatten our object and preserve the path for vscode
 // orginally from https://stackoverflow.com/a/33158929
-function flattenWithPath(obj, objectPath = '') {
+function flattenWithPath(obj: { [key: string]: any }, objectPath = '') {
   // init result
-  const flat = {};
+  const flat: { [key: string]: any } = {};
 
   // process our key
   Object.keys(obj).forEach((key) => {

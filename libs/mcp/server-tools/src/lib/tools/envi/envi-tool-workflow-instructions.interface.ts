@@ -6,4 +6,6 @@ To request details on ENVI Tool Workflows, follow these instructions:
 1. ${MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS} - Use this to get descritive names of ENVI Tool Workflows.
 
 2. ${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_WORKFLOW} - Use the descriptive name returned from step one to retrieve the text for the ENVI Tool Workflow.
+
+If a workflow starts with "sarscape", then it requires that a user has sarscape installed. When you check tool parameters you will quickly see that the tools are unknown if sarscape is not installed.
 `;

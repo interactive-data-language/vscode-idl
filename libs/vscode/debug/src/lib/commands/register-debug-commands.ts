@@ -193,7 +193,9 @@ export function RegisterDebugCommands(ctx: ExtensionContext) {
           const strings = await StopProfiling();
           IDLWebView.createOrShow(ctx.extensionPath);
           const panel = IDLWebView.currentPanel;
-          panel.sendCommand({ command: 'profiler', data: strings });
+          if (panel) {
+            panel.sendCommand({ command: 'profiler', data: strings });
+          }
           return true;
         } catch (err) {
           LogCommandError(

@@ -1,0 +1,58 @@
+{
+    "name": "MaskFXRasterStats",
+    "version": "5.3",
+    "baseClass": "ENVITaskFromProcedure",
+    "routine": "maskfxrasterstats",
+    "displayName": "Mask FX Raster Stats",
+    "description": "Simple task that changes the VALID_DATA array of the FX raster statistics based on simple thresholding options. It returns a modified copy of the original statistics with updates segment flags.",
+    "parameters": [
+        {
+            "name": "INPUT_STATS",
+            "displayName": "Input Stats",
+            "description": "Specify the previously calculated FX statistics that you want to apply masking to.",
+            "direction": "input",
+            "parameterType": "required",
+            "dataType": "hash"
+        },
+        {
+            "name": "MEAN_MAX",
+            "displayName": "Mean Max",
+            "description": "Specify the upper bound for the mean pixel value that can exist for each segment.",
+            "direction": "input",
+            "parameterType": "optional",
+            "dataType": "double"
+        },
+        {
+            "name": "MEAN_MIN",
+            "displayName": "Mean Min",
+            "description": "Specify the lower bound for the mean pixel value that can exist for each segment.",
+            "direction": "input",
+            "parameterType": "optional",
+            "dataType": "double"   
+        },
+        {
+            "name": "OUTPUT_STATS",
+            "displayName": "Output Stats",
+            "description": "A reference to the masked raster statistics.",
+            "direction": "output",
+            "parameterType": "required",
+            "dataType": "hash"
+        },
+        {
+            "name": "SIZE_MAX",
+            "displayName": "Size Max",
+            "description": "Specify the maximum size that a segment can be. Assumed units are in m^2. If no spatial reference is present then units are assumed to be pixels.",
+            "direction": "input",
+            "parameterType": "optional",
+            "dataType": "double"
+        },
+        {
+            "name": "SIZE_MIN",
+            "displayName": "Size Min",
+            "description": "Specify the minimum size that a segment can be. Assumed units are in m^2. If no spatial reference is present then units are assumed to be pixels.",
+            "direction": "input",
+            "parameterType": "optional",
+            "dataType": "double"
+        }
+    ]
+}

@@ -51,7 +51,7 @@ export function RegisterNotebookHoverProvider() {
       /**
        * Init range for hover help
        */
-      let range: vscode.Range;
+      let range: undefined | vscode.Range = undefined;
 
       // populate if we have a range property
       if (hovered?.range !== undefined) {

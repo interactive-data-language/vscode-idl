@@ -4,6 +4,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../../helpers/get-text-content';
 
 /**
  * Search for files with one extension
@@ -26,12 +27,12 @@ export const RunMCPTestSearchForFiles_Single: RunnerFunction = async (init) => {
   expect(basicSearch.content.length).toEqual(1);
 
   // init variable
-  let basicSearchFiles: string[];
+  let basicSearchFiles!: string[];
 
   // attempt to parse
   try {
-    basicSearchFiles = JSON.parse(basicSearch.content[0].text as string).map(
-      (file) => file.replace(basicDir, ''),
+    basicSearchFiles = JSON.parse(GetTextContent(basicSearch.content)).map(
+      (file: string) => file.replace(basicDir, ''),
     );
   } catch (err) {
     // do nothing

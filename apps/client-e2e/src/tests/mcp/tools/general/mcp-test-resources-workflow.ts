@@ -3,6 +3,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../helpers/get-text-content';
 
 /**
  * Makes sure we can list and request resources as expected
@@ -21,11 +22,11 @@ export const RunMCPTestResourcesWorkflow: RunnerFunction = async (init) => {
   expect(listResources.content.length).toEqual(1);
 
   // init variable
-  let parsedResourceNames: string[];
+  let parsedResourceNames!: string[];
 
   // attempt to parse
   try {
-    parsedResourceNames = JSON.parse(listResources.content[0].text as string);
+    parsedResourceNames = JSON.parse(GetTextContent(listResources.content));
   } catch (err) {
     // do nothing
   }
@@ -53,11 +54,11 @@ export const RunMCPTestResourcesWorkflow: RunnerFunction = async (init) => {
   expect(getResource.content.length).toEqual(1);
 
   // init variable
-  let parsedResources: { [key: string]: any };
+  let parsedResources!: { [key: string]: any };
 
   // attempt to parse
   try {
-    parsedResources = JSON.parse(getResource.content[0].text as string);
+    parsedResources = JSON.parse(GetTextContent(getResource.content));
   } catch (err) {
     // do nothing
   }

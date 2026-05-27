@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 
 import { DOCS_SERVER_CONFIG } from './docs-server.interface';
 

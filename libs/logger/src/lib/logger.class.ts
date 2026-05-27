@@ -1,5 +1,5 @@
 import { ObjectifyError } from '@idl/error-shared';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 import { LogInterceptor } from './log-manager.interface';
 import {
@@ -122,7 +122,7 @@ export class Logger {
     }
 
     // log information
-    this.logItem(options.type, options.content);
+    this.logItem(options.type || 'info', options.content);
 
     // check if we have something to alert
     if (options.alert) {

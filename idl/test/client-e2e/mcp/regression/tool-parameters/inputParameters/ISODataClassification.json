@@ -2,13 +2,13 @@
   "type": "object",
   "properties": {
     "change_threshold_percent": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 100,
       "default": 2,
       "description": [
         "The change threshold percentage that determines when to complete the classification. When the percentage of pixels that change classes during an iteration is less than the threshold value, the classification completes. The default value is 2.0."
-      ]
+      ],
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
     },
     "input_raster": {
       "type": "object",
@@ -53,27 +53,27 @@
       ]
     },
     "iterations": {
-      "type": "number",
-      "minimum": 1,
       "default": 10,
       "description": [
         "The maximum iterations to perform. If the change threshold percent is not met before the maximum number of iterations is reached, the classification completes. The default value is 10."
-      ]
+      ],
+      "type": "number",
+      "minimum": 1
     },
     "number_of_classes": {
-      "type": "number",
-      "minimum": 2,
       "default": 5,
       "description": [
         "Specify the number of classes to generate. The default value is 5."
-      ]
+      ],
+      "type": "number",
+      "minimum": 2
     },
     "output_raster_uri": {
-      "type": "string",
       "default": "!",
       "description": [
         "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
-      ]
+      ],
+      "type": "string"
     }
   },
   "required": [

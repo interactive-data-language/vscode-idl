@@ -4,7 +4,7 @@ import {
   IAssemblerInputOptions,
   IAssemblerOptions,
 } from '@idl/assembling/config';
-import * as merge from 'deepmerge';
+import merge from 'deepmerge';
 
 /**
  * Merges user-specified configuration values with defaults to make

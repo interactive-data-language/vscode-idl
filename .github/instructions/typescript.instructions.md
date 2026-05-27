@@ -80,7 +80,6 @@ import { basename, dirname, join } from 'path';
 **Star (`* as`) imports only** for modules without good typings or where the whole namespace is needed:
 ```ts
 import * as vscode from 'vscode';
-import * as chalk from 'chalk';
 ```
 
 **CJS interop** uses `= require()` syntax:

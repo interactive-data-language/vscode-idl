@@ -143,9 +143,9 @@ describe(`[auto generated] Add function for`, () => {
               source: 'user',
               type: [
                 {
-                  name: 'MyClass',
-                  display: 'MyClass',
-                  serialized: 'MyClass',
+                  name: 'myclass',
+                  display: 'myclass',
+                  serialized: 'myclass',
                   args: [],
                   meta: {},
                 },
@@ -280,9 +280,9 @@ describe(`[auto generated] Add function for`, () => {
           private: false,
           returns: [
             {
-              name: 'MyClass',
-              display: 'MyClass',
-              serialized: 'MyClass',
+              name: 'myclass',
+              display: 'myclass',
+              serialized: 'myclass',
               args: [],
               meta: {},
             },
@@ -384,9 +384,9 @@ describe(`[auto generated] Add function for`, () => {
           private: false,
           returns: [
             {
-              name: 'MyClass',
-              display: 'MyClass',
-              serialized: 'MyClass',
+              name: 'myclass',
+              display: 'myclass',
+              serialized: 'myclass',
               args: [],
               meta: {},
             },

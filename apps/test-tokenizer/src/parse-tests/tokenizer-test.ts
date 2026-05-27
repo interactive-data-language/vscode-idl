@@ -6,7 +6,7 @@ import { TimeItAsync } from '@idl/shared/extension';
 import { Tokenizer } from '@idl/tokenizer';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import * as progressBar from 'progress';
+import progressBar from 'progress';
 
 import { ExportPopularity } from './routine-popularity';
 

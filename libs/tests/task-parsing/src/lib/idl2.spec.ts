@@ -1,7 +1,8 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
+import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IGlobalsToTrack, TaskToGlobalToken } from '@idl/types/tasks';
+import { IGlobalsToTrack } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
@@ -25,7 +26,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
         meta: {
           display: 'IDLQueryAllTasksTask',
           source: 'user',
-          docs: "\nThis task returns a hash where each key is the task name and each task name key contains a hash of the task's properties.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<QueryAllTasks>\n;-\nmyTask = IDLTask('QueryAllTasks')\n\n; set input parameters\nmyTask.filter_tags = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\ntask_definitions = myTask.task_definitions\n\n```\n\n\n### Input Parameters\n\n- **filter_tags**: Array\\<String\\>\n\n  An array of tags to filter the tasks to query on. Only tasks that have all tags set in this array will be returned. The search is case-insensitive. Default is to perform no filtering.\n\n\n\n### Output Parameters\n\n- **task_definitions**: IDLTASKCATALOG\n\n  An IDLTaskCatalog hash that describes all tasks and their properties for each task.\n\n",
+          docs: "\nThis task returns a hash where each key is the task name and each task name key contains a hash of the task's properties.\n\n### Syntax\n\n```idl\n;+\n; :Returns: IDLTask<QueryAllTasks>\n;-\nmyTask = IDLTask('QueryAllTasks')\n\n; set input parameters\nmyTask.filter_tags = value\n\n; run the task\nmyTask.execute\n\n; get output parameters\ntask_definitions = myTask.task_definitions\n\n```\n\n\n### Input Parameters\n\n- **filter_tags**: Array\\<String\\>\n\n  An array of tags to filter the tasks to query on. Only tasks that have all tags set in this array will be returned. The search is case-insensitive. Default is to perform no filtering.\n\n\n\n### Output Parameters\n\n- **task_definitions**: idltaskcatalog\n\n  An IDLTaskCatalog hash that describes all tasks and their properties for each task.\n\n",
           private: false,
           returns: [
             {
@@ -58,8 +59,9 @@ describe(`[auto generated] Correctly parse task file`, () => {
         pos: [0, 0, 0],
         meta: {
           display: 'IDLQueryAllTasksTask',
+          readableName: 'Query All Tasks',
           source: 'user',
-          docs: "This task returns a hash where each key is the task name and each task name key contains a hash of the task's properties.\n\n\n### Properties\n\n- **filter_tags**: Array\\<String\\>\n\n  An array of tags to filter the tasks to query on. Only tasks that have all tags set in this array will be returned. The search is case-insensitive. Default is to perform no filtering.\n\n- **task_definitions**: IDLTASKCATALOG\n\n  An IDLTaskCatalog hash that describes all tasks and their properties for each task.\n\n",
+          docs: "This task returns a hash where each key is the task name and each task name key contains a hash of the task's properties.\n\n\n### Properties\n\n- **filter_tags**: Array\\<String\\>\n\n  An array of tags to filter the tasks to query on. Only tasks that have all tags set in this array will be returned. The search is case-insensitive. Default is to perform no filtering.\n\n- **task_definitions**: idltaskcatalog\n\n  An IDLTaskCatalog hash that describes all tasks and their properties for each task.\n\n",
           private: false,
           inherits: ['idltask'],
           docsLookup: {},
@@ -71,6 +73,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'in',
               private: false,
               display: 'filter_tags',
+              readableName: 'Filter Tags',
               docs: 'An array of tags to filter the tasks to query on. Only tasks that have all tags set in this array will be returned. The search is case-insensitive. Default is to perform no filtering.',
               type: [
                 {
@@ -100,12 +103,13 @@ describe(`[auto generated] Correctly parse task file`, () => {
               direction: 'out',
               private: false,
               display: 'task_definitions',
+              readableName: 'Task Definitions',
               docs: 'An IDLTaskCatalog hash that describes all tasks and their properties for each task.',
               type: [
                 {
-                  name: 'IDLTASKCATALOG',
-                  display: 'IDLTASKCATALOG',
-                  serialized: 'IDLTASKCATALOG',
+                  name: 'idltaskcatalog',
+                  display: 'idltaskcatalog',
+                  serialized: 'idltaskcatalog',
                   args: [],
                   meta: {},
                 },
@@ -113,6 +117,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
               req: true,
             },
           },
+          tags: ['IDL', 'Task Processing'],
         },
       },
     };

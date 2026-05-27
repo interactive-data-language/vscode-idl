@@ -10,7 +10,7 @@ import { BuildConnectionMap } from './build-connection-map';
  * The modified nodes and edges are returned as new arrays; the original
  * arrays are not mutated.
  *
- * Call this after ValidateENVIModelerNodes (so type errors are reported first)
+ * Call this after ValidateENVIModelerWorkflow (so type errors are reported first)
  * and before CreateENVIModelerWorkflow.
  */
 export function InjectAggregatorNodes(

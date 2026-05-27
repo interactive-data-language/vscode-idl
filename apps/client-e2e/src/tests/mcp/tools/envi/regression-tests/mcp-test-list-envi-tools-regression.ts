@@ -6,6 +6,7 @@ import { join } from 'path';
 
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../../helpers/get-text-content';
 import { REGRESSION_TEST_THESE } from './regression-test-these.interface';
 
 /**
@@ -32,16 +33,19 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
   expect((result.content as any[])?.length).toEqual(1);
 
   // init variable
-  let toolsList: { [key: string]: string };
+  let toolsList!: { [key: string]: string };
 
   // attempt to parse
   try {
     toolsList = JSON.parse(
-      (result.content[0].text as string).replace(/^All tools: /, ''),
+      GetTextContent(result.content).replace(/^All tools: /, ''),
     );
   } catch (err) {
     // do nothing
   }
+
+  // make sure we have
+  expect(toolsList).toBeTruthy();
 
   const toolDescriptionDir = join(
     GetExtensionPath('idl/test/client-e2e/mcp/regression'),
@@ -70,7 +74,7 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
     // write regression test to disk
     writeFileSync(
       join(toolDescriptionDir, `${toolName}.json`),
-      JSON.stringify(toolsList[key].split(/\n/g), undefined, 2),
+      JSON.stringify(toolsList[key as string].split(/\n/g), undefined, 2),
     );
   }
 };

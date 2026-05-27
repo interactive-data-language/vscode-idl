@@ -8,9 +8,8 @@ import {
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import Ajv from 'ajv';
-import { z, ZodRawShape } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+import draft2020 from 'ajv/dist/2020';
+import { toJSONSchema, z } from 'zod';
 
 import { FilterMCPENVITasks } from './helpers/filter-mcp-envi-tasks';
 import { GetCleanDescription } from './helpers/get-clean-description';
@@ -32,8 +31,19 @@ import {
  * All task names are tracked by lower case
  */
 export class MCPTaskRegistry {
-  /** Create instance of AJV */
-  private ajv = new Ajv({ allErrors: true, allowUnionTypes: true });
+  /** Create instance of AJV with Draft 2020-12 support */
+  private ajv = new draft2020({
+    allErrors: true,
+    allowUnionTypes: true,
+    /**
+     * Zod v4's toJSONSchema uses JSON Schema Draft 2020-12's prefixItems
+     * for tuples, but doesn't add the strict metadata (minItems, maxItems,
+     * items: false) that AJV's strict mode expects. Since the validation
+     * works fine without these extra properties, disabling strictTuples is
+     * the cleanest solution.
+     */
+    strictTuples: false,
+  });
 
   /**
    * Logger
@@ -186,12 +196,12 @@ export class MCPTaskRegistry {
     /**
      * Track input parameters
      */
-    const inputArgs: ZodRawShape = {};
+    const inputArgs: Record<string, z.ZodTypeAny> = {};
 
     /**
      * Track output parameters
      */
-    const outputArgs: ZodRawShape = {};
+    const outputArgs: Record<string, z.ZodTypeAny> = {};
 
     /** Get task properties */
     const props = taskStructure.meta.props;
@@ -209,7 +219,7 @@ export class MCPTaskRegistry {
       }
 
       /** Track args to add to */
-      let addToArgs = inputArgs;
+      let addToArgs: Record<string, z.ZodTypeAny> = inputArgs;
 
       // if output, then add to output arguments
       if (prop.direction === 'out') {
@@ -264,7 +274,7 @@ export class MCPTaskRegistry {
     }
 
     // create input parameters schema
-    const inputParameters = zodToJsonSchema(
+    const inputParameters = toJSONSchema(
       z
         .object(inputArgs)
         .describe(
@@ -273,7 +283,7 @@ export class MCPTaskRegistry {
     );
 
     // create output parameters schema
-    const outputParameters = zodToJsonSchema(
+    const outputParameters = toJSONSchema(
       z
         .object(outputArgs)
         .describe(

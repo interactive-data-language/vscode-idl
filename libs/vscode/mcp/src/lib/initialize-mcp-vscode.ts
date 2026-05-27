@@ -8,8 +8,10 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import * as vscode from 'vscode';
 
+import { FetchWithRetry } from './helpers/fetch-with-retry';
 import { MCPHistory } from './helpers/mcp-history.class';
 import { RemoveLegacyMCPConfig } from './helpers/remove-legacy-mcp-config';
+import { VSCodeExecutionBackend } from './helpers/vscode-execution-backend';
 import { IInitializeMCPResult } from './initialize-mcp-vscode.interface';
 import { RunMCPToolMessageHandler } from './run-mcp-tool-message-handler';
 
@@ -19,6 +21,11 @@ export const MCP_CHANGE_EVENT_EMITTER = new vscode.EventEmitter<void>();
  * Class to track history of running MCP tools
  */
 export const MCP_HISTORY = new MCPHistory();
+
+/**
+ * Execution backend for MCP tools
+ */
+export const MCP_EXECUTION_BACKEND = new VSCodeExecutionBackend();
 
 /**
  * Initializes MCP server for VSCode
@@ -102,21 +109,10 @@ export function InitializeMCPVSCode(
 
         // try to get health check and make sure good response
         try {
-          // set timeout for 2 seconds
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 2000); // timeout
-
-          // attempt to fetch
-          const response = await fetch(
+          // attempt to fetch with retry logic
+          const response = await FetchWithRetry(
             `http://localhost:${SERVER_PORTS.mcp}/health-check`,
-            {
-              method: 'GET',
-              signal: controller.signal,
-            },
           );
-
-          // remove timeout
-          clearTimeout(timeoutId);
 
           // check if we did not get a good response from the server
           if (!response.ok) {
@@ -138,12 +134,7 @@ export function InitializeMCPVSCode(
           IDL_LOGGER.log({
             log: IDL_MCP_VSCODE_LOG,
             type: 'error',
-            content: [
-              err.name === 'AbortError'
-                ? 'Failed to connect to MCP server because of connection timeout'
-                : 'Unknown error while connecting to MCP server',
-              err,
-            ],
+            content: ['Error while connecting to MCP server', err],
             alert: IDL_TRANSLATION.mcp.errors.failedConnect,
           });
           return undefined;

@@ -369,7 +369,7 @@ pro vscode_BuildWorkspace, workspace, $
   vscode_BuildWorkspace_resolve, bdg, toProcess, processed, unresolved
 
   ; add object classes for resolving
-  processed['awesomeenviprogress__define'] = !true
+  ; processed['awesomeenviprogress__define'] = !true
 
   ; process each dependency
   foreach routine, processed.keys() do begin

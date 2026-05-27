@@ -1,5 +1,5 @@
 import { MCPServer } from '@idl/mcp/server';
-import { MCPTaskRegistry } from '@idl/mcp/tasks';
+import { ITaskInformation, MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
@@ -79,7 +79,7 @@ export function RegisterMCPTool_GetENVIToolParameters(
       }
 
       /** Get detail for our task */
-      const detail = registry.getTaskDetail(toolName);
+      const detail = registry.getTaskDetail(toolName) as ITaskInformation;
 
       // create content
       const content = [

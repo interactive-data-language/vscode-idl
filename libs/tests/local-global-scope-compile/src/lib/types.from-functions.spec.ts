@@ -94,7 +94,7 @@ describe(`[auto generated] Types from`, () => {
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],
@@ -353,7 +353,7 @@ describe(`[auto generated] Types from`, () => {
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],
@@ -385,7 +385,7 @@ describe(`[auto generated] Types from`, () => {
                   args: [
                     [
                       {
-                        name: 'SubsetRaster',
+                        name: 'subsetraster',
                         display: 'SubsetRaster',
                         serialized: 'SubsetRaster',
                         args: [],

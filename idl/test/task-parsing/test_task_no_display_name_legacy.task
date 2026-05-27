@@ -1,0 +1,16 @@
+{
+  "name": "MyLegacyTestTask",
+  "baseClass": "ENVITaskFromProcedure",
+  "routine": "my_legacy_test_task",
+  "description": "A test legacy ENVI task without displayName to verify fallback logic.",
+  "version": "5.3.2",
+  "parameters": [
+    {
+      "name": "input_value",
+      "dataType": "String",
+      "direction": "input",
+      "parameterType": "required",
+      "description": "A test input parameter."
+    }
+  ]
+}

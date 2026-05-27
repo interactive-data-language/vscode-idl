@@ -9,6 +9,7 @@ import expect from 'expect';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../helpers/get-text-content';
 import {
   LogWhenExpectError,
   LogWhenExpectSuccess,
@@ -34,14 +35,14 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
 
   // parse result
   const parsedSuccess = JSON.parse(
-    resSuccess.content[0].text,
+    GetTextContent(resSuccess.content),
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
   expect(parsedSuccess.success).toBeTruthy();
 
   // make sure we have "foo" as the cleaned text
-  expect(CleanIDLOutput(parsedSuccess.idlOutput)).toEqual('foo');
+  expect(CleanIDLOutput(parsedSuccess.idlOutput || '')).toEqual('foo');
 
   /**
    * Run a file that has a runtime error
@@ -62,7 +63,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
 
   // parse result
   const parsedRuntimeErr = JSON.parse(
-    resRuntimeErr.content[0].text,
+    GetTextContent(resRuntimeErr.content),
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
@@ -84,7 +85,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
 
   // parse result
   const parsedSyntaxErr = JSON.parse(
-    resSyntaxErr.content[0].text,
+    GetTextContent(resSyntaxErr.content),
   ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag

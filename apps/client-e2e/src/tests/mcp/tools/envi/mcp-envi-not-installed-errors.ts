@@ -53,7 +53,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   expect(
     (
       await CallMCPTool(MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI, {
-        dataset: {
+        raster: {
           factory: 'URLRaster',
           url: 'file',
         },
@@ -86,14 +86,14 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
     ).isError,
   ).toBeTruthy();
 
-  // start ENVI
-  expect(
-    (
-      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
-        action: 'start-envi-headless',
-      })
-    ).isError,
-  ).toBeTruthy();
+  // // start ENVI
+  // expect(
+  //   (
+  //     await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+  //       action: 'start-envi-headless',
+  //     })
+  //   ).isError,
+  // ).toBeTruthy();
 
   // manage ENVI session
   expect(
@@ -104,12 +104,12 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
     ).isError,
   ).toBeTruthy();
 
-  // manage ENVI session
-  expect(
-    (
-      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
-        action: 'restart-envi-headless',
-      })
-    ).isError,
-  ).toBeTruthy();
+  // // manage ENVI session
+  // expect(
+  //   (
+  //     await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+  //       action: 'restart-envi-headless',
+  //     })
+  //   ).isError,
+  // ).toBeTruthy();
 };

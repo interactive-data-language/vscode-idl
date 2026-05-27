@@ -4,6 +4,7 @@ import { RegisterMCPTool_GetENVIToolWorkflow } from './tools/envi/register-mcp-t
 import { RegisterMCPTool_ListENVIToolWorkflows } from './tools/envi/register-mcp-tool-list-envi-tool-workflows';
 import { RegisterMCPTool_OpenDatasetsInENVI } from './tools/envi/register-mcp-tool-open-datasets-in-envi';
 import { RegisterMCPTool_QueryDatasetWithENVI } from './tools/envi/register-mcp-tool-query-dataset-with-envi';
+import { RegisterMCPTool_TakeENVIScreenshot } from './tools/envi/register-mcp-tool-take-envi-screenshot';
 import { RegisterMCPTool_CreateIDLNotebook } from './tools/idl/register-mcp-tool-create-idl-notebook';
 import { RegisterMCPTool_ExecuteIDLCode } from './tools/idl/register-mcp-tool-execute-idl-code';
 import { RegisterMCPTool_ExecuteIDLFile } from './tools/idl/register-mcp-tool-execute-idl-file';
@@ -71,6 +72,7 @@ export function RegisterAllMCPTools(isEnviInstalled: boolean) {
   RegisterMCPTool_ListENVIToolWorkflows(server);
   RegisterMCPTool_OpenDatasetsInENVI(server);
   RegisterMCPTool_QueryDatasetWithENVI(server);
+  RegisterMCPTool_TakeENVIScreenshot(server);
 
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;

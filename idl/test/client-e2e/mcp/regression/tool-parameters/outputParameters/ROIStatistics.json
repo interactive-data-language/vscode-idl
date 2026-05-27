@@ -55,12 +55,12 @@
     "roi_colors": {
       "type": "array",
       "items": {
+        "minItems": 3,
+        "maxItems": 3,
         "type": "array",
         "items": {
           "type": "number"
-        },
-        "minItems": 3,
-        "maxItems": 3
+        }
       },
       "description": [
         "This is an array of RGB triplets representing the ROI colors as defined by the ENVIROIs."

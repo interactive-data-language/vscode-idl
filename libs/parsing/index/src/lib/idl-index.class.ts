@@ -4,7 +4,7 @@ import {
   IAssemblerOptions,
 } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IFolderRecursion } from '@idl/idl/files';
+import { GetExtensionPath, IFolderRecursion } from '@idl/idl/files';
 import {
   IDL_LSP_LOG,
   IDL_WORKER_THREAD_CONSOLE,
@@ -13,6 +13,7 @@ import {
 import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
 import { GetIncludeFile } from '@idl/parsing/syntax-tree';
+import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_FILE_TYPE_LOOKUP, IDLFileHelper } from '@idl/shared/extension';
@@ -30,7 +31,6 @@ import {
   SyntaxProblems,
 } from '@idl/types/problem-codes';
 import { IParsed, TreeToken } from '@idl/types/syntax-tree';
-import { TaskToGlobalToken } from '@idl/types/tasks';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDLExtensionConfig,
@@ -55,7 +55,7 @@ import { copy } from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
-import { basename, dirname, join } from 'path';
+import { basename, dirname } from 'path';
 import { performance } from 'perf_hooks';
 import {
   DocumentSymbol,
@@ -92,7 +92,7 @@ import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';
 import { OnParseEventManager } from './on-parse-event-manager.class';
 import { GetCodeOutline } from './outline/get-code-outline';
 import { PostProcessParsed } from './post-process/post-process-parsed';
-import { GetTokenDefinition } from './token-definiton/get-token-definition';
+import { GetTokenDefinition } from './token-definition/get-token-definition';
 
 /**
  * Auto-pick the number of workers. On higher-end machines, doesn't
@@ -225,7 +225,7 @@ export class IDLIndex {
     // create all of our workers
     for (let i = 0; i < nWorkers; i++) {
       workers.push(
-        new Worker(join(dirname(__dirname), 'parsing-worker/main.js'), {
+        new Worker(GetExtensionPath('dist/apps/parsing-worker/main.js'), {
           resourceLimits: {
             maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
             maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
@@ -1707,27 +1707,26 @@ export class IDLIndex {
       // return global token
       return [global.function, global.structure];
     } catch (err) {
-      console.log(err);
+      this.log.log({
+        log: IDL_LSP_LOG,
+        type: 'warn',
+        content: [
+          `${IDL_TRANSLATION.tasks.parsing.errors.failedParse}: "${file}"`,
+          err,
+        ],
+        //   /**
+        //    * Silently error for now, JSON errors should appear if they open the file
+        //    */
+        //   // alert: `${IDL_TRANSLATION.tasks.parsing.errors.failedParse}: "${file}"`,
+        //   // alertMeta: {
+        //   //   file,
+        //   // },
+      });
       /**
-       * Silently ignore errors as we coul have many while
+       * Silently ignore errors as we could have many while
        * people are editing or changing task files
        */
       return [];
-      // this.log.log({
-      //   log: IDL_LSP_LOG,
-      //   type: 'error',
-      //   content: [
-      //     `${IDL_TRANSLATION.tasks.parsing.errors.failedParse}: "${file}"`,
-      //     err,
-      //   ],
-      //   /**
-      //    * Silently error for now, JSON errors should appear if they open the file
-      //    */
-      //   // alert: `${IDL_TRANSLATION.tasks.parsing.errors.failedParse}: "${file}"`,
-      //   // alertMeta: {
-      //   //   file,
-      //   // },
-      // });
     }
   }
 
