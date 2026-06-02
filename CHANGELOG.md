@@ -10,6 +10,10 @@ This section of the CHANGELOG documents features that have been added to the ext
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
+## Unreleased
+
+[In stash, not added] Updated the ENVI instructions to better support opening the correct files in ENVI. ENVI Agent should now review files in a location, check against known formats, and open the right one for processing. This should hep improve how frequently ENVI Agent selects the right file.
+
 ## 6.1.0 - May 2025
 
 New feature for ENVI Agent: ability to create ENVI Modeler Workflows! You can now ask questions like:

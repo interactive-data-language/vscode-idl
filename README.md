@@ -65,7 +65,7 @@ Check out our [official docs site](https://interactive-data-language.github.io/v
 
 You do not need IDL installed to write code with this extension. If you are using IDL Notebooks, the debug sessions of IDL, or running IDL in a terminal window, you will need to have IDL installed on the same machine where VSCode is running.
 
-While there are many versions of IDL out there, we test the extension against the two latest versions of IDL. As of right now, that would be IDL 9.1 and IDL 9.0. Any other version is use-at-your-own-risk and may not work (you need lists, hashes, and ordered hashes for it to function).
+While there are many versions of IDL out there, we test the extension against the two latest 1-2 versions of IDL.
 
 IDL Notebooks have specific version requirements for IDL and ENVI:
 
