@@ -26,7 +26,7 @@ import express from 'express';
 import { nanoid } from 'nanoid';
 import { ZodRawShape } from 'zod';
 
-import { LOCAL_IPS } from './local-ips.interface';
+import { IsLoopbackHost, LOCAL_IPS } from './local-ips.interface';
 import {
   IMCPConnection,
   IMCPServerOptions,
@@ -461,15 +461,31 @@ export class MCPServer {
       const ip = req.ip || req.socket.remoteAddress || '';
       const isLocalhost = ip in LOCAL_IPS || ip.startsWith('127.');
 
-      if (!isLocalhost) {
+      /**
+       * Validate the Host header to defend against DNS-rebinding: the source IP
+       * can be made to look local, but a rebinding attack still carries the
+       * attacker's domain in the Host header.
+       */
+      const hostOk = IsLoopbackHost(req.headers.host);
+
+      /**
+       * If an Origin header is present (a browser made the request) it must also
+       * be loopback. Legitimate local MCP clients do not send an Origin header.
+       */
+      const origin = req.headers.origin as string | undefined;
+      const originOk = origin === undefined || IsLoopbackHost(origin);
+
+      if (!isLocalhost || !hostOk || !originOk) {
         this.logManager.log({
           log: IDL_MCP_LOG,
           type: 'warn',
-          content: `Rejected request from non-localhost IP: ${ip}`,
+          content: `Rejected non-local MCP request (ip: ${ip}, host: ${
+            req.headers.host ?? 'none'
+          }, origin: ${origin ?? 'none'})`,
         });
         res
           .status(403)
-          .json('Forbidden: Only localhost connections are allowed');
+          .json('Forbidden: Only local loopback connections are allowed');
         return;
       }
 
@@ -635,7 +651,10 @@ export class MCPServer {
           content: `Attempting to start MCP server on port ${this.mcpPort}`,
         });
 
-        this.appInstance = this.app.listen(this.mcpPort, (err) => {
+        // Bind to the loopback interface only so the server is never exposed on
+        // the network. The trusted MCP client connects via "localhost", which
+        // resolves to 127.0.0.1 (Node prefers IPv4 loopback via Happy Eyeballs).
+        this.appInstance = this.app.listen(this.mcpPort, '127.0.0.1', () => {
           this.logManager.log({
             log: IDL_MCP_LOG,
             type: 'info',
