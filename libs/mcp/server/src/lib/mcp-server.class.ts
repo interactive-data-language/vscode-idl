@@ -24,7 +24,7 @@ import {
 } from '@modelcontextprotocol/sdk/types';
 import express from 'express';
 import { nanoid } from 'nanoid';
-import { ZodRawShape } from 'zod';
+import { z, ZodRawShape } from 'zod';
 
 import { LOCAL_IPS } from './local-ips.interface';
 import {
@@ -233,12 +233,17 @@ export class MCPServer {
       }
     }) as ToolCallback<Args>;
 
+    const normalizedInfo: MCPRegistryToolInfo<Args> = {
+      ...info,
+      inputSchema: z.strictObject(info.inputSchema) as any,
+    };
+
     // Store in registry
-    this.tools[name] = { info, wrappedCb };
+    this.tools[name] = { info: normalizedInfo, wrappedCb };
 
     // Register on all active connections
     for (const conn of this.connections.values()) {
-      conn.mcpServer.registerTool(name, info, wrappedCb);
+      conn.mcpServer.registerTool(name, normalizedInfo, wrappedCb);
     }
   }
 
