@@ -14,6 +14,10 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 [In stash, not added] Updated the ENVI instructions to better support opening the correct files in ENVI. ENVI Agent should now review files in a location, check against known formats, and open the right one for processing. This should hep improve how frequently ENVI Agent selects the right file.
 
+Updated the MCP server to add strict checking on all input parameters to tools. This helps LLMs course-correct when they hallicunate and pass in parameters that are not valid.
+
+Updated the "open-datasets-in-envi" MCP tool to validate that datasets are passed in. If no datasets are provided, then an error is thrown.
+
 ## 6.1.0 - May 2025
 
 New feature for ENVI Agent: ability to create ENVI Modeler Workflows! You can now ask questions like:

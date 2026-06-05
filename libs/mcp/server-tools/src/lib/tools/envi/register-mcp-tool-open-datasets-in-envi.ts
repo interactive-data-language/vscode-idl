@@ -105,6 +105,19 @@ export function RegisterMCPTool_OpenDatasetsInENVI(server: MCPServer) {
       // extract datasets
       const datasets = tagged.map(([, item]) => item);
 
+      // make sure that we got one of our data type input parameters
+      if (datasets.length === 0) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text: 'You must specify one or more of "rasters", "rasterSeries", or "vectors"',
+            },
+          ],
+        };
+      }
+
       const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,

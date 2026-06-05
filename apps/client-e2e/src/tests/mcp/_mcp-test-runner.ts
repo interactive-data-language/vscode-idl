@@ -40,6 +40,7 @@ import { RunMCPTestTakeENVIScreenshot } from './tools/envi/mcp-test-take-envi-sc
 import { RunMCPTestOpenDatasetsInENVI_Raster } from './tools/envi/open-datasets/mcp-test-open-datasets-in-envi-raster';
 import { RunMCPTestOpenDatasetsInENVI_RasterSeries } from './tools/envi/open-datasets/mcp-test-open-datasets-in-envi-raster-series';
 import { RunMCPTestOpenDatasetsInENVI_Vector } from './tools/envi/open-datasets/mcp-test-open-datasets-in-envi-vector';
+import { RunMCPTestOpenDatasetsInENVI_NoInput } from './tools/envi/open-datasets/mcp-test-open-datasets-no-input';
 import { RunMCPTestQueryDatasetWithENVI_Raster } from './tools/envi/query-dataset/mcp-test-query-dataset-with-envi-raster';
 import { RunMCPTestQueryDatasetWithENVI_ROI } from './tools/envi/query-dataset/mcp-test-query-dataset-with-envi-roi';
 import { RunMCPTestQueryDatasetWithENVI_SpectralLibrary } from './tools/envi/query-dataset/mcp-test-query-dataset-with-envi-spectral-library';
@@ -448,6 +449,12 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_Vector,
   name: 'Query dataset works (Vector)',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestOpenDatasetsInENVI_NoInput,
+  name: 'Open dataset (fail when no datasets)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
