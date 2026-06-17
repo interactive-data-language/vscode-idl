@@ -17,6 +17,7 @@ import {
 } from '@idl/types/idl/idl-process';
 import { ChildProcess } from 'child_process';
 import { deepEqual } from 'fast-equals';
+import { performance } from 'perf_hooks';
 
 import { IDLProcess } from '../idl-process.class';
 import {
@@ -518,6 +519,7 @@ export class IDLMachineWrapper {
    * class which manage the queue for IDL doing work.
    */
   async evaluate(command: string): Promise<IDLOutput> {
+    const t0 = performance.now();
     return new Promise((resolve, reject) => {
       // handle errors writing to stdin
       if (!this.process?.idl.stdin?.writable) {
@@ -534,6 +536,7 @@ export class IDLMachineWrapper {
       // listen for our event returning back to the command prompt
       this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (idlOutput) => {
         this.expectingStop = false;
+        console.log(`Took ${performance.now() - t0} ms to process`);
         resolve(idlOutput);
       });
 

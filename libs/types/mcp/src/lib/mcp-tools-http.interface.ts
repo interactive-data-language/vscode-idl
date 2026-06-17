@@ -41,6 +41,10 @@ import {
   MCPToolParams_ListPrompts,
 } from './http/mcp-tool-list-prompts.interface';
 import {
+  MCPTool_SearchENVITools,
+  MCPToolParams_SearchENVITools,
+} from './http/mcp-tool-search-envi-tools.interface';
+import {
   MCPTool_SearchForFiles,
   MCPToolParams_SearchForFiles,
 } from './http/mcp-tool-search-for-files.interface';
@@ -68,6 +72,7 @@ export type MCPTools_HTTP =
   | MCPTool_ListPrompts
   | MCPTool_SearchForFiles
   | MCPTool_SearchForRoutine
+  | MCPTool_SearchENVITools
   | MCPTool_SearchResources;
 
 /**
@@ -99,7 +104,9 @@ export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
                         ? MCPToolParams_ListPrompts
                         : T extends MCPTool_SearchResources
                           ? MCPToolParams_SearchResources
-                          : never;
+                          : T extends MCPTool_SearchENVITools
+                            ? MCPToolParams_SearchENVITools
+                            : never;
 
 /**
  * CallToolResult with content restricted to TextContent only

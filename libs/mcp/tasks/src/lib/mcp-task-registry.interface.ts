@@ -33,3 +33,7 @@ export interface ITaskRegistryEntry {
 export interface ITaskInformation extends ITaskRegistryEntry {
   notes?: string[];
 }
+
+export const TAG_FILTER: { [key: string]: boolean } = {};
+TAG_FILTER['envi'] = true;
+TAG_FILTER['sarscape'] = true;

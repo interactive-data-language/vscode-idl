@@ -81,6 +81,7 @@
     "fast-copy": "^4.0.2",
     "fast-equals": "^6.0.0",
     "fast-glob": "^3.3.2",
+    "fastembed": "^2.1.0",
     "flexsearch": "^0.8.212",
     "fuzzysort": "^3.0.2",
     "glob-to-regexp": "^0.4.1",

@@ -1,3 +1,4 @@
+import { Indexer } from '@idl/indexing/indexer';
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
@@ -17,6 +18,7 @@ import { StrictCheck } from './helpers/strict-check';
 import {
   ITaskInformation,
   ITaskRegistryEntry,
+  TAG_FILTER,
 } from './mcp-task-registry.interface';
 import {
   TaskLocation,
@@ -46,6 +48,11 @@ export class MCPTaskRegistry {
   });
 
   /**
+   * Optional indexer for semantic search over task names and descriptions
+   */
+  private indexer: Indexer | undefined;
+
+  /**
    * Logger
    */
   private logger: LogManager;
@@ -65,9 +72,10 @@ export class MCPTaskRegistry {
    */
   private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
-  constructor(logger: LogManager, strict = true) {
+  constructor(logger: LogManager, strict = true, indexer?: Indexer) {
     this.logger = logger;
     this.strict = strict;
+    this.indexer = indexer;
   }
 
   /**
@@ -98,6 +106,14 @@ export class MCPTaskRegistry {
 
     // save
     this.notes[lc] = this.notes[lc].concat(useNotes);
+  }
+
+  /**
+   * Builds (or rebuilds) embeddings for everything added recently. Only
+   * adds for items that have an update applied
+   */
+  async buildSearchIndex(): Promise<void> {
+    await this.indexer?.buildEmbeddings();
   }
 
   /**
@@ -244,6 +260,15 @@ export class MCPTaskRegistry {
       /** Make zod parameter */
       const param = IDLParameterToMCPParameter(prop, docs);
 
+      // work around sarscape data type issue
+      if (
+        !prop.req &&
+        IDLTypeHelper.serializeIDLType(prop.type).toLowerCase() ===
+          'sarscapecoordsys'
+      ) {
+        continue;
+      }
+
       // check if unknown parameter
       if (!param) {
         toolError.push(
@@ -313,12 +338,22 @@ export class MCPTaskRegistry {
       location,
       structure: taskStructure,
     };
+
+    // index for semantic search
+    const tags = (taskStructure.meta.tags || []).filter(
+      (tag) => !(tag.toLowerCase() in TAG_FILTER),
+    );
+
+    this.indexer?.add(
+      taskName,
+      `${taskDisplay} ${tags.length > 0 ? '[' + tags.join(',') + ']' : ''} ${description}`,
+    );
   }
 
   /**
    * Loads tasks from global tokens (i.e. after we index a location)
    */
-  registerTasksFromGlobalTokens(
+  async registerTasksFromGlobalTokens(
     functions: {
       [key: string]: IGlobalIndexedToken<GlobalFunctionToken>[];
     },
@@ -358,6 +393,9 @@ export class MCPTaskRegistry {
     // remove from unified registry
     delete this.tasks[lc];
 
+    // remove from semantic index
+    this.indexer?.remove(lc);
+
     return true;
   }
 
@@ -367,6 +405,31 @@ export class MCPTaskRegistry {
    */
   sanitizeOutputParameters(outputParameters: { [key: string]: any }) {
     FixENVIFactory(outputParameters);
+  }
+
+  /**
+   * Searches for tasks using vector similarity against natural language queries.
+   *
+   * Returns an empty array when no indexer/provider is configured or no
+   * results are found. The returned details include the same fields as
+   * getTaskDetail().
+   */
+  async searchTasks(query: string, limit = 10): Promise<ITaskInformation[]> {
+    if (!this.indexer?.hasEmbeddingProvider()) {
+      return [];
+    }
+
+    const matches = await this.indexer.semanticSearchIds(query, limit);
+
+    const results: ITaskInformation[] = [];
+    for (let i = 0; i < matches.length; i++) {
+      const detail = this.getTaskDetail(matches[i]);
+      if (detail) {
+        results.push(detail);
+      }
+    }
+
+    return results;
   }
 
   /**

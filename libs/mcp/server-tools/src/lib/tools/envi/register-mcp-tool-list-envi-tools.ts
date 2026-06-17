@@ -48,7 +48,7 @@ export function RegisterMCPTool_ListENVITools(
              *
              * See this: apps\client-e2e\src\tests\mcp\tools\envi\regression-tests\mcp-test-list-envi-tools-regression.ts
              */
-            text: `All tools: ${JSON.stringify(registry.getDescriptions())}`,
+            text: `${JSON.stringify(registry.getDescriptions())}`,
           },
         ],
       };

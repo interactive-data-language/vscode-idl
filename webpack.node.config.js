@@ -26,5 +26,26 @@ module.exports = composePlugins(withNx(), (config) => {
   // tsCheckerPlugin.options.async = false;
   // }
 
+  // Native Node.js addon binaries (.node files) cannot be bundled by webpack.
+  // Packages like onnxruntime-node and @anush008/tokenizers use napi-rs and
+  // ship pre-compiled platform-specific binaries that must be loaded at runtime
+  // from node_modules. A function-based external catches all of them by pattern.
+  const existingExternals = config.externals ?? [];
+  config.externals = [
+    ...(Array.isArray(existingExternals)
+      ? existingExternals
+      : [existingExternals]),
+    ({ request }, callback) => {
+      if (
+        request === 'onnxruntime-node' ||
+        /^@anush008\/tokenizers/.test(request) ||
+        request.endsWith('.node')
+      ) {
+        return callback(null, 'commonjs ' + request);
+      }
+      callback();
+    },
+  ];
+
   return config;
 });

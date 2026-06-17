@@ -27,6 +27,7 @@ export const MCPToolNames_EN: ValsOfToStrings<MCPTools> = {
   'run-envi-tool': 'Run ENVI Tool',
   'search-for-files': 'Search for Files',
   'search-for-routine': 'Search for Routine',
+  'search-envi-tools': 'Search ENVI Tools',
   'list-prompts': 'List Prompts',
   'search-resources': 'Search Resources',
   'take-envi-screenshot': 'Take ENVI Screenshot',
