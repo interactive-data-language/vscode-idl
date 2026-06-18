@@ -244,6 +244,15 @@ export class MCPTaskRegistry {
       /** Make zod parameter */
       const param = IDLParameterToMCPParameter(prop, docs);
 
+      // work around sarscape data type issue
+      if (
+        !prop.req &&
+        IDLTypeHelper.serializeIDLType(prop.type).toLowerCase() ===
+          'sarscapecoordsys'
+      ) {
+        continue;
+      }
+
       // check if unknown parameter
       if (!param) {
         toolError.push(

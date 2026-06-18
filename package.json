@@ -61,9 +61,7 @@
     "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/performance/main.js"
   },
   "dependencies": {
-    "@langchain/core": "^1.1.38",
-    "@langchain/mcp-adapters": "^1.1.3",
-    "@langchain/openai": "^1.4.1",
+    "@github/copilot-sdk": "^1.0.2",
     "@modelcontextprotocol/sdk": "^1.21.1",
     "@vscode/debugadapter": "^1.66.0",
     "@vscode/debugprotocol": "^1.66.0",

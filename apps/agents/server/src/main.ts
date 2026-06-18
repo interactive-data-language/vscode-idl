@@ -29,7 +29,26 @@ async function main() {
     await MCPLanguageServer(app);
 
     // Initialize services
-    const chatService = new ChatService(env.OPENAI_API_KEY, port);
+    const chatService = new ChatService({
+      copilotGitHubToken: env.COPILOT_GITHUB_TOKEN,
+      openaiApiKey: env.OPENAI_API_KEY,
+      provider: env.CHAT_PROVIDER,
+      serverPort: port,
+    });
+
+    // Graceful shutdown — stop the Copilot SDK client so on-disk state flushes
+    const shutdown = async (signal: NodeJS.Signals) => {
+      console.log(`[server] Received ${signal}, shutting down...`);
+      try {
+        await chatService.disconnect();
+      } catch (err) {
+        console.error('[server] Error during shutdown:', err);
+      } finally {
+        process.exit(0);
+      }
+    };
+    process.on('SIGINT', shutdown);
+    process.on('SIGTERM', shutdown);
 
     // Routes
     app.get('/', (_req, res) => {
@@ -56,6 +75,7 @@ async function main() {
 
     app.listen(port, host, () => {
       console.log(`[ ready ] http://${host}:${port}`);
+      console.log(`[ info ] chat provider: ${env.CHAT_PROVIDER}`);
       console.log(`[ info ] API endpoints:`);
       console.log(`         - GET  /api/chat/models`);
       console.log(`         - POST /api/chat/message`);

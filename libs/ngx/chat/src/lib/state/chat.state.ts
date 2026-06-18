@@ -28,7 +28,7 @@ const defaultState: ChatStateModel = {
   sessions: [],
   pendingPrompt: 'envi',
   loading: false,
-  selectedModel: 'gpt-4o-mini', // Default to cheapest model
+  selectedModel: 'gpt-5.4', // Default to cheapest model
 };
 
 @State<ChatStateModel>({

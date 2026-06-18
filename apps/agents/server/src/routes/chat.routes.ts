@@ -1,33 +1,7 @@
-import type {
-  AvailableModelsResponse,
-  ChatMessageRequest,
-} from '@idl/types/chat';
+import type { ChatMessageRequest } from '@idl/types/chat';
 import { Router } from 'express';
 
 import { ChatService } from '../services/chat.service';
-
-/**
- * Available OpenAI models for chat completions
- */
-const AVAILABLE_MODELS: AvailableModelsResponse = {
-  models: [
-    {
-      id: 'gpt-4o',
-      name: 'GPT-4o',
-      description: 'Most capable model, best for complex tasks',
-    },
-    {
-      id: 'gpt-4o-mini',
-      name: 'GPT-4o Mini',
-      description: 'Fast and affordable, great for most tasks',
-    },
-    {
-      id: 'gpt-3.5-turbo',
-      name: 'GPT-3.5 Turbo',
-      description: 'Legacy model, fastest and cheapest',
-    },
-  ],
-};
 
 /**
  * Create chat routes
@@ -37,10 +11,18 @@ export function createChatRoutes(chatService: ChatService): Router {
 
   /**
    * GET /api/chat/models
-   * Returns list of available models
+   * Returns list of available models from the configured provider.
    */
-  router.get('/models', (_req, res) => {
-    res.json(AVAILABLE_MODELS);
+  router.get('/models', async (_req, res) => {
+    try {
+      const models = await chatService.listModels();
+      res.json({ models });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        error: error instanceof Error ? error.message : 'Failed to list models',
+      });
+    }
   });
 
   /**

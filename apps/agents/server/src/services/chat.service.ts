@@ -1,35 +1,29 @@
+﻿import {
+  approveAll,
+  CopilotClient,
+  type CopilotSession,
+  type ResumeSessionConfig,
+  type SessionConfig,
+  type SessionEvent,
+} from '@github/copilot-sdk';
 import { GetExtensionPath } from '@idl/idl/files';
 import type {
-  ChatMessage,
+  AvailableModel,
   ChatMessageRequest,
   ChatPromptType,
   ChatStreamChunk,
   TodoItem,
 } from '@idl/types/chat';
-import {
-  AIMessage,
-  AIMessageChunk,
-  type BaseMessage,
-  HumanMessage,
-  SystemMessage,
-  ToolMessage,
-} from '@langchain/core/messages';
-import type { DynamicStructuredTool } from '@langchain/core/tools';
-import { loadMcpTools } from '@langchain/mcp-adapters';
-import { ChatOpenAI } from '@langchain/openai';
 import { readFileSync } from 'fs';
+import { OpenAI } from 'openai';
+import { homedir } from 'os';
 import { join } from 'path';
 
+import type { ChatProvider } from '../config/env.config';
 import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
 } from '../mcp-tools/register-mcp-tools-for-todos';
-import { MCPClient } from './mcp-client.service';
-
-/**
- * Maximum number of agentic loop iterations to prevent infinite loops
- */
-const MAX_ITERATIONS = 30;
 
 /**
  * Interval (in milliseconds) for emitting keepalive chunks during long tool execution
@@ -37,76 +31,104 @@ const MAX_ITERATIONS = 30;
 const KEEPALIVE_INTERVAL_MS = 15000;
 
 /**
- * Service for handling chat completions using LangChain and OpenAI
+ * Client name reported to the Copilot runtime in the User-Agent header.
+ */
+const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
+
+/**
+ * Configuration accepted by {@link ChatService}.
+ */
+export interface IChatServiceConfig {
+  /** GitHub token used by the Copilot SDK client when `provider === 'copilot'`. */
+  copilotGitHubToken?: string;
+  /** OpenAI API key — required when `provider === 'openai'`, optional otherwise. */
+  openaiApiKey?: string;
+  /** Chat provider backend selected via the `CHAT_PROVIDER` env var. */
+  provider: ChatProvider;
+  /** Port the Express app is listening on (used to wire the local MCP HTTP server). */
+  serverPort?: number;
+}
+
+/**
+ * Streaming chat completion service backed by the GitHub Copilot SDK.
+ *
+ * Sessions persist on disk under `COPILOT_HOME` keyed by the frontend
+ * `sessionId`, so multi-turn conversations resume cheaply without replaying
+ * history through the agent loop. Tools come from the co-hosted local MCP
+ * server plus a small set of internal to-do tools that mutate per-request
+ * state.
  */
 export class ChatService {
-  mcpClient: MCPClient;
-  private mcpReady = false;
-  private mcpTools: DynamicStructuredTool[] = [];
-  private openaiApiKey: string;
+  private readonly client: CopilotClient;
+  private clientStarted: Promise<void> | undefined;
+  private readonly config: IChatServiceConfig;
 
-  constructor(openaiApiKey: string, serverPort?: number) {
-    this.openaiApiKey = openaiApiKey;
-    this.mcpClient = new MCPClient({ port: serverPort });
-    this.initializeMCP();
+  constructor(config: IChatServiceConfig) {
+    this.config = config;
+    this.client = new CopilotClient({
+      // `empty` mode disables all Copilot CLI ambient tools (git, curl, etc.)
+      // so only the tools explicitly registered via `availableTools` on each
+      // session are exposed to the model. Required for server-based usage.
+      // `empty` mode requires an explicit baseDirectory for session persistence.
+      baseDirectory: join(homedir(), '.copilot'),
+      logLevel: 'error',
+      mode: 'empty',
+      ...(config.provider === 'copilot' && config.copilotGitHubToken
+        ? { gitHubToken: config.copilotGitHubToken }
+        : {}),
+    });
   }
 
   /**
-   * Disconnect the MCP client
+   * Stop the underlying Copilot SDK client. Idempotent.
    */
   async disconnect(): Promise<void> {
-    await this.mcpClient.disconnect();
-    this.mcpReady = false;
+    if (this.clientStarted === undefined) {
+      return;
+    }
+    try {
+      await this.clientStarted;
+      await this.client.stop();
+    } catch (err) {
+      console.error('[ChatService] Error during shutdown:', err);
+    } finally {
+      this.clientStarted = undefined;
+    }
   }
 
   /**
-   * Gets chat messages
+   * Return the list of models available from the configured provider.
+   *
+   * For the Copilot provider, delegates to the SDK runtime. For the OpenAI
+   * BYOK provider, the Copilot runtime is not authenticated so we query the
+   * OpenAI models API directly and filter to chat-completion-capable models.
+   * `description` is not provided by either source so it defaults to an
+   * empty string.
    */
-  async getMessages(request: ChatMessageRequest) {
-    /** Init messages */
-    const messages: BaseMessage[] = [
-      new SystemMessage(this.loadInstructions('todo')),
-    ];
-
-    // Prepend system instructions if a prompt type is specified
-    if (request.prompt !== 'none') {
-      messages.push(new SystemMessage(this.loadInstructions(request.prompt)));
+  async listModels(): Promise<AvailableModel[]> {
+    if (this.config.provider === 'openai' && this.config.openaiApiKey) {
+      const openai = new OpenAI({ apiKey: this.config.openaiApiKey });
+      const page = await openai.models.list();
+      return page.data
+        .filter((m) => m.id.startsWith('gpt-5'))
+        .sort((a, b) => a.id.localeCompare(b.id))
+        .map((m) => ({ description: '', id: m.id, name: m.id }));
     }
 
-    // add all previous session messages
-    messages.push(
-      ...this.convertToLangChainMessages(request.conversationHistory),
-    );
-
-    // add reminder for the to-dos
-    if (Array.isArray(request.currentTodos)) {
-      const todoMessage = this.formatTodoListMessage(request.currentTodos);
-      if (todoMessage) {
-        messages.push(new SystemMessage(todoMessage));
-      }
-    }
-
-    // add the new user message
-    messages.push(
-      new HumanMessage(this.extractMessageContent(request.message)),
-    );
-
-    return messages;
+    await this.ensureClientStarted();
+    const models = await this.client.listModels();
+    return models.map((m) => ({
+      description: '',
+      id: m.id,
+      name: m.name,
+    }));
   }
 
   /**
-   * Gets all of the tools for the model
-   */
-  async getTools(request: ChatMessageRequest) {
-    /** Get current to-dos, the tools require these */
-    const todos: TodoItem[] = request.currentTodos || [];
-
-    // concat tools and return
-    return [...this.mcpTools, ...RegisterMCPToolsForToDos(todos)];
-  }
-
-  /**
-   * Stream a chat completion from OpenAI with agentic tool calling
+   * Stream a chat completion using the Copilot SDK.
+   *
+   * Subscribes to the session event stream and translates SDK events into the
+   * existing `ChatStreamChunk` SSE wire contract used by the frontend.
    *
    * @param request - The chat message request with history and model selection
    * @yields Chat stream chunks (tokens, tool calls, tool results, done signal, or errors)
@@ -114,349 +136,305 @@ export class ChatService {
   async *streamChatCompletion(
     request: ChatMessageRequest,
   ): AsyncIterable<ChatStreamChunk> {
-    try {
-      // Wait for MCP to be ready
-      await this.waitForMCP();
+    /** Active session for this request — disconnected in finally. */
+    let session: CopilotSession | undefined;
 
-      // Initialize ChatOpenAI with streaming enabled
-      const model = new ChatOpenAI({
-        apiKey: this.openaiApiKey,
-        model: request.model,
-        streaming: true,
-        temperature: 0.7,
+    /** Active keepalive timer — cleared in finally. */
+    let keepaliveTimer: NodeJS.Timeout | undefined;
+
+    try {
+      await this.ensureClientStarted();
+
+      // Title generation for the very first turn.
+      if (request.conversationHistory.length === 0) {
+        const title = await this.generateTitle(request.message);
+        if (title) {
+          yield { type: 'title', title };
+        }
+      }
+
+      // Per-request to-do list, mutated in place by the todo tools.
+      const todos: TodoItem[] = request.currentTodos
+        ? [...request.currentTodos]
+        : [];
+
+      session = await this.getOrCreateSession(request, todos);
+
+      /** Buffered event queue feeding the async iterator. */
+      const queue: (ChatStreamChunk | null)[] = [];
+      let resolveNext: (() => void) | undefined;
+
+      const enqueue = (chunk: ChatStreamChunk | null) => {
+        queue.push(chunk);
+        if (resolveNext !== undefined) {
+          const fn = resolveNext;
+          resolveNext = undefined;
+          fn();
+        }
+      };
+
+      /** Map of in-flight tool call id -> tool name (start-event names are authoritative). */
+      const toolNameById = new Map<string, string>();
+      const activeToolCalls = new Set<string>();
+
+      const startKeepalive = () => {
+        if (keepaliveTimer !== undefined) return;
+        keepaliveTimer = setInterval(() => {
+          enqueue({ type: 'keepalive' });
+        }, KEEPALIVE_INTERVAL_MS);
+      };
+      const stopKeepalive = () => {
+        if (keepaliveTimer !== undefined) {
+          clearInterval(keepaliveTimer);
+          keepaliveTimer = undefined;
+        }
+      };
+
+      session.on((event: SessionEvent) => {
+        switch (event.type) {
+          case 'assistant.message_delta': {
+            const delta = event.data.deltaContent;
+            if (typeof delta === 'string' && delta.length > 0) {
+              enqueue({ type: 'text_chunk', content: delta });
+            }
+            break;
+          }
+          case 'session.error': {
+            enqueue({ type: 'error', error: event.data.message });
+            enqueue(null);
+            break;
+          }
+          case 'session.idle': {
+            enqueue(null);
+            break;
+          }
+          case 'tool.execution_complete': {
+            const { toolCallId, success } = event.data;
+            const toolName =
+              toolNameById.get(toolCallId) ??
+              event.data.toolDescription?.name ??
+              '';
+            toolNameById.delete(toolCallId);
+            activeToolCalls.delete(toolCallId);
+            if (activeToolCalls.size === 0) {
+              stopKeepalive();
+            }
+
+            if (TODO_TOOL_NAMES.has(toolName)) {
+              // todo tools mutate the shared list directly inside their handler
+              enqueue({ type: 'todo_update', todos: [...todos] });
+            } else if (success) {
+              enqueue({
+                toolError: false,
+                toolName,
+                toolOutput: event.data.result?.content ?? '',
+                type: 'tool_result',
+              });
+            } else {
+              enqueue({
+                toolError: true,
+                toolName,
+                toolOutput:
+                  event.data.error?.message ?? 'Tool execution failed',
+                type: 'tool_result',
+              });
+            }
+            break;
+          }
+          case 'tool.execution_start': {
+            const { toolCallId, toolName } = event.data;
+            console.log(toolName, toolCallId);
+            toolNameById.set(toolCallId, toolName);
+            activeToolCalls.add(toolCallId);
+            startKeepalive();
+            if (!TODO_TOOL_NAMES.has(toolName)) {
+              enqueue({
+                toolArgs: (event.data.arguments ?? {}) as Record<
+                  string,
+                  unknown
+                >,
+                toolName,
+                type: 'tool_call',
+              });
+            }
+            break;
+          }
+          default:
+            break;
+        }
       });
 
-      /**
-       * If our first message, generate a title for the chat
-       */
-      if (request.conversationHistory.length === 0) {
-        /** Make title */
-        const title = await this.generateTitle(request.message);
+      // Fire the message but do not await — the event stream drives the iterator.
+      const sendPromise = session
+        .send({ prompt: request.message })
+        .catch((err: unknown) => {
+          enqueue({
+            error:
+              err instanceof Error ? err.message : 'Failed to send message',
+            type: 'error',
+          });
+          enqueue(null);
+        });
 
-        // verify we got one and not an empty string
-        if (title) {
-          yield {
-            type: 'title',
-            title,
-          };
+      // Drain the queue until a terminator (null) is encountered.
+      drain: while (true) {
+        if (queue.length === 0) {
+          await new Promise<void>((resolve) => {
+            resolveNext = resolve;
+          });
         }
+        const next = queue.shift();
+        if (next === undefined) continue;
+        if (next === null) break drain;
+        yield next;
+        if (next.type === 'error') break drain;
       }
 
-      /** Get messages */
-      const messages = await this.getMessages(request);
-
-      /** Get tools */
-      const allTools = await this.getTools(request);
-
-      // Initialize per-request to-do list from frontend state (stateless pattern)
-      const todos: TodoItem[] = request.currentTodos || [];
-
-      // Bind MCP tools + todo tools to the model
-      const modelWithTools =
-        allTools.length > 0 ? model.bindTools(allTools) : model;
-
-      // Agentic loop: keep calling the model until it stops using tools
-      let iteration = 0;
-      let continueLoop = true;
-
-      // loop through requests
-      while (continueLoop && iteration < MAX_ITERATIONS) {
-        // increase iteration counter
-        iteration++;
-
-        // Stream the completion
-        const stream = await modelWithTools.stream(messages);
-
-        // Accumulate chunks using LangChain's built-in concat
-        let accumulated: AIMessageChunk | null = null;
-
-        // handle output from the LLM
-        for await (const chunk of stream) {
-          accumulated = accumulated ? accumulated.concat(chunk) : chunk;
-
-          // Handle text content - yield chunks as they arrive
-          if (typeof chunk.content === 'string' && chunk.content) {
-            yield {
-              type: 'text_chunk',
-              content: chunk.content,
-            };
-          }
-        }
-
-        // If we got no response, exit
-        if (!accumulated) {
-          continueLoop = false;
-          break;
-        }
-
-        // Check for tool calls from the accumulated message
-        const toolCalls = accumulated.tool_calls || [];
-
-        // Convert AIMessageChunk to a proper AIMessage before adding to history.
-        // AIMessageChunk may not serialize tool_calls correctly for the API on
-        // subsequent iterations, causing the model to miss tool call context.
-        if (toolCalls.length > 0) {
-          messages.push(
-            new AIMessage({
-              content:
-                typeof accumulated.content === 'string'
-                  ? accumulated.content
-                  : '',
-              tool_calls: toolCalls.map((tc) => ({
-                id: tc.id || `tool_${Date.now()}_${Math.random()}`,
-                name: tc.name,
-                args: tc.args,
-              })),
-            }),
-          );
-        } else {
-          messages.push(accumulated);
-        }
-
-        // If no tool calls, we're done
-        if (toolCalls.length === 0) {
-          continueLoop = false;
-          break;
-        }
-
-        // Use the tool call IDs from the message we just pushed
-        const aiMsg = messages[messages.length - 1] as AIMessage;
-        const resolvedToolCalls = aiMsg.tool_calls || [];
-
-        // Execute tool calls using the LangChain tools from loadMcpTools
-        const toolsByName = new Map(allTools.map((t) => [t.name, t]));
-
-        for (const toolCall of resolvedToolCalls) {
-          // Notify user that we're calling a tool if it is not a to-do
-          if (TODO_TOOL_NAMES.has(toolCall.name)) {
-            // decrease counter because it is only a todo, not serious logic
-            iteration--;
-          } else {
-            yield {
-              type: 'tool_call',
-              toolName: toolCall.name,
-              toolArgs: toolCall.args as Record<string, unknown>,
-            };
-          }
-
-          /** get the tool */
-          const tool = toolsByName.get(toolCall.name);
-
-          /**
-           * Attempt to run the tool+
-           */
-          try {
-            if (!tool) {
-              throw new Error(`Unknown tool: ${toolCall.name}`);
-            }
-
-            /** init tool result */
-            let result: any;
-
-            // try to run with heartbeat to keep HTTP connection alive
-            try {
-              // Iterate through heartbeat chunks
-              for await (const chunk of this.invokeToolWithHeartbeat(
-                tool,
-                toolCall.args,
-              )) {
-                if (chunk.type === 'keepalive') {
-                  // Emit keepalive to keep HTTP stream alive
-                  yield { type: 'keepalive' };
-                } else {
-                  // Got the final result
-                  result = chunk.value;
-                }
-              }
-            } catch (invokeError) {
-              // if we fail, see if it is because of a connection error
-              if (this.isSessionExpiredError(invokeError)) {
-                // reconnect
-                await this.reinitializeMCP();
-
-                // fetch tool again
-                const freshTool = new Map(
-                  this.mcpTools.map((t) => [t.name, t]),
-                ).get(toolCall.name);
-
-                // verify tool still exists
-                if (!freshTool) {
-                  throw new Error(
-                    `Tool "${toolCall.name}" not found after reconnect`,
-                  );
-                }
-
-                // run with new connection and heartbeat
-                for await (const chunk of this.invokeToolWithHeartbeat(
-                  freshTool,
-                  toolCall.args,
-                )) {
-                  if (chunk.type === 'keepalive') {
-                    // Emit keepalive to keep HTTP stream alive
-                    yield { type: 'keepalive' };
-                  } else {
-                    // Got the final result
-                    result = chunk.value;
-                  }
-                }
-              } else {
-                throw invokeError;
-              }
-            }
-
-            // Build a ToolMessage from the result
-            if (result === undefined) {
-              throw new Error(
-                `Tool "${toolCall.name}" completed without returning a result`,
-              );
-            }
-
-            const resultContent =
-              typeof result === 'string' ? result : JSON.stringify(result);
-
-            // save result in messages
-            messages.push(
-              new ToolMessage({
-                content: resultContent,
-                tool_call_id: toolCall.id || '',
-              }),
-            );
-
-            /**
-             * If we have a todo tool, alert user, but don't send tool update
-             */
-            if (TODO_TOOL_NAMES.has(toolCall.name)) {
-              yield { type: 'todo_update', todos: [...todos] };
-            } else {
-              // alert tool result
-              yield {
-                type: 'tool_result',
-                toolName: toolCall.name,
-                toolError: false,
-                toolOutput: resultContent,
-              };
-            }
-          } catch (error) {
-            // Handle tool execution errors
-            let errorMessage =
-              error instanceof Error ? error.message : 'Unknown error';
-
-            // Augment schema validation errors with a human-readable field diff
-            if (errorMessage.includes('did not match expected schema')) {
-              const jsonSchema = tool?.schema as {
-                properties?: Record<string, unknown>;
-                required?: string[];
-              };
-              const required = jsonSchema?.required || [];
-              const received = Object.keys(toolCall.args as object);
-              const missing = required.filter(
-                (k) => !(k in (toolCall.args as object)),
-              );
-              const unexpected = received.filter(
-                (k) => !jsonSchema?.properties?.[k],
-              );
-              const lines: string[] = [
-                `Schema mismatch for tool '${toolCall.name}':`,
-              ];
-              if (missing.length > 0)
-                lines.push(`  Missing required: [${missing.join(', ')}]`);
-              if (unexpected.length > 0)
-                lines.push(`  Unexpected fields: [${unexpected.join(', ')}]`);
-              lines.push(`  Received fields: [${received.join(', ')}]`);
-              const schemaExpected = JSON.stringify(jsonSchema, null, 2);
-              errorMessage = `${lines.join('\n')}\n${errorMessage}\n\nExpected parameter schema: ${schemaExpected}`;
-            }
-
-            // Add error as tool result so the model can handle it
-            messages.push(
-              new ToolMessage({
-                content: `Error executing tool: ${errorMessage}`,
-                tool_call_id: toolCall.id || '',
-              }),
-            );
-
-            // Notify user of error
-            yield {
-              type: 'tool_result',
-              toolName: toolCall.name,
-              toolError: true,
-              toolOutput: errorMessage,
-            };
-          }
-        }
-      }
-
-      // Check if we hit max iterations
-      if (iteration >= MAX_ITERATIONS) {
-        console.warn('[ChatService] Max iterations reached in agentic loop');
-        yield {
-          type: 'text_chunk',
-          content: '\n\n[Maximum reasoning steps reached]',
-        };
-      }
-
-      // Signal completion
+      await sendPromise;
       yield { type: 'done' };
     } catch (error) {
-      // Handle errors gracefully
-      console.error('Chat completion error:', error);
+      console.error('[ChatService] Chat completion error:', error);
       yield {
-        type: 'error',
         error:
           error instanceof Error ? error.message : 'Unknown error occurred',
+        type: 'error',
+      };
+    } finally {
+      if (keepaliveTimer !== undefined) {
+        clearInterval(keepaliveTimer);
+      }
+      if (session !== undefined) {
+        try {
+          await session.disconnect();
+        } catch (err) {
+          console.error('[ChatService] Error disconnecting session:', err);
+        }
+      }
+    }
+  }
+
+  /**
+   * Build the shared session configuration used for both resume and create.
+   * Excludes the create-only `sessionId` field.
+   */
+  private buildSessionConfig(
+    request: ChatMessageRequest,
+    todos: TodoItem[],
+  ): ResumeSessionConfig {
+    const tools = RegisterMCPToolsForToDos(todos);
+    const port = this.config.serverPort ?? 3000;
+
+    const sessionConfig: ResumeSessionConfig = {
+      // Restrict the agent to MCP-sourced tools plus our custom todo tools —
+      // mirrors the prior behavior where only those tools were bound.
+      availableTools: ['mcp:*', 'custom:*'],
+      clientName: DEFAULT_CLIENT_NAME,
+      mcpServers: {
+        'idl-mcp': {
+          type: 'http',
+          url: `http://localhost:${port}/mcp`,
+          tools: ['*'], // "*" = all tools, [] = none, or list specific tools
+        },
+      },
+      model: request.model,
+      onPermissionRequest: approveAll,
+      streaming: true,
+      systemMessage: {
+        content: this.formatTodoListMessage(todos),
+        mode: 'customize',
+        sections: {
+          custom_instructions: {
+            action: 'append',
+            content: this.composeInstructions(request.prompt),
+          },
+        },
+      },
+      tools,
+    };
+
+    if (this.config.provider === 'openai' && this.config.openaiApiKey) {
+      sessionConfig.provider = {
+        apiKey: this.config.openaiApiKey,
+        baseUrl: 'https://api.openai.com/v1',
+        type: 'openai',
       };
     }
+
+    return sessionConfig;
   }
 
   /**
-   * Wait for MCP to be ready (with timeout)
+   * Concatenate the standing to-do instructions with any prompt-specific
+   * instruction file(s) selected by the caller.
    */
-  async waitForMCP(): Promise<boolean> {
-    await this.mcpClient.connect();
-    return this.mcpReady;
-  }
+  private composeInstructions(prompt: 'todo' | ChatPromptType): string {
+    const base = 'extension/github-copilot/instructions';
+    const todo = readFileSync(
+      GetExtensionPath(
+        join('extension/standalone-mcp', 'todo.instructions.md'),
+      ),
+      'utf-8',
+    );
 
-  /**
-   * Convert chat messages to LangChain message format
-   */
-  private convertToLangChainMessages(messages: ChatMessage[]): BaseMessage[] {
-    return messages.map((msg) => {
-      const content = this.extractMessageContent(
-        msg.content.map((c) => c.payload).join('\n'),
-      );
-
-      if (msg.type === 'system') {
-        return new SystemMessage(content);
-      } else if (msg.type === 'user') {
-        return new HumanMessage(content);
-      } else {
-        return new AIMessage(content);
-      }
-    });
-  }
-
-  /**
-   * Extract plain text content from message
-   */
-  private extractMessageContent(content: string): string {
-    return content.trim();
-  }
-
-  /**
-   * Format the to-do list as a markdown checklist for inclusion in system messages
-   */
-  private formatTodoListMessage(todos: TodoItem[]): string {
-    // return if no to-dos
-    if (todos.length === 0) {
-      return '';
+    const parts: string[] = [todo];
+    switch (prompt) {
+      case 'envi':
+        parts.push(
+          readFileSync(
+            GetExtensionPath(join(base, 'envi.instructions.md')),
+            'utf-8',
+          ),
+        );
+        break;
+      case 'idl':
+        parts.push(
+          readFileSync(
+            GetExtensionPath(join(base, 'idl.instructions.md')),
+            'utf-8',
+          ),
+        );
+        break;
+      case 'idl-envi':
+        parts.push(
+          readFileSync(
+            GetExtensionPath(join(base, 'idl.instructions.md')),
+            'utf-8',
+          ),
+        );
+        parts.push(
+          readFileSync(
+            GetExtensionPath(join(base, 'envi.instructions.md')),
+            'utf-8',
+          ),
+        );
+        break;
+      default:
+        break;
     }
 
-    /** get number done */
+    return parts.join('\n\n---\n\n');
+  }
+
+  /**
+   * Lazily start the Copilot SDK client on first use and cache the start
+   * promise so subsequent calls reuse the same connection.
+   */
+  private async ensureClientStarted(): Promise<void> {
+    if (this.clientStarted === undefined) {
+      this.clientStarted = this.client.start();
+    }
+    await this.clientStarted;
+  }
+
+  /**
+   * Format the to-do list as a markdown checklist for inclusion in the
+   * system prompt's runtime "content" field.
+   */
+  private formatTodoListMessage(todos: TodoItem[]): string {
+    if (todos.length === 0) return '';
+
     const doneCount = todos.filter((t) => t.status === 'done').length;
-
-    /** get completed */
     const total = todos.length;
-
     const statusSymbol: Record<TodoItem['status'], string> = {
       done: '[x]',
       'in-progress': '[~]',
@@ -471,170 +449,57 @@ export class ChatService {
   }
 
   /**
-   * Generate a short session title from the first user message
+   * Generate a short session title from the first user message.
+   *
+   * Uses the OpenAI REST API directly when an `OPENAI_API_KEY` is available
+   * (both providers); returns an empty string otherwise so the caller can
+   * skip the `title` chunk.
    */
   private async generateTitle(firstMessage: string): Promise<string> {
+    if (!this.config.openaiApiKey) {
+      return '';
+    }
     try {
-      const model = new ChatOpenAI({
-        apiKey: this.openaiApiKey,
+      const openai = new OpenAI({ apiKey: this.config.openaiApiKey });
+      const completion = await openai.chat.completions.create({
+        messages: [
+          {
+            content:
+              `Create a concise 4-6 word title for a chat session that starts with this message. ` +
+              `Reply with only the title, no quotes, no punctuation at the end:\n\n${firstMessage}`,
+            role: 'user',
+          },
+        ],
         model: 'gpt-4o-mini',
-        streaming: false,
         temperature: 0,
       });
-      const response = await model.invoke([
-        new HumanMessage(
-          `Create a concise 4-6 word title for a chat session that starts with this message. ` +
-            `Reply with only the title, no quotes, no punctuation at the end:\n\n${firstMessage}`,
-        ),
-      ]);
-      return typeof response.content === 'string'
-        ? response.content.trim()
-        : '';
+      const content = completion.choices[0]?.message?.content;
+      return typeof content === 'string' ? content.trim() : '';
     } catch (err) {
-      console.log(`[McpChatService] Error while getting title for chat`);
-      console.log(err);
+      console.log('[ChatService] Error while getting title for chat:', err);
       return '';
     }
   }
 
   /**
-   * Initialize our MCP connection
+   * Resume the session by id, falling back to creating a new one when it
+   * doesn't exist on disk yet.
    */
-  private async initializeMCP(): Promise<void> {
+  private async getOrCreateSession(
+    request: ChatMessageRequest,
+    todos: TodoItem[],
+  ): Promise<CopilotSession> {
+    const baseConfig = this.buildSessionConfig(request, todos);
+
     try {
-      await this.mcpClient.connect();
-
-      // Load MCP tools as LangChain tools
-      this.mcpTools = await loadMcpTools(
-        'idl-mcp',
-        this.mcpClient.getClient(),
-        {
-          throwOnLoadError: false,
-        },
-      );
-
-      // Enable detailed schema validation errors on each tool so failures
-      // report which fields are missing/invalid instead of a generic message
-      for (const tool of this.mcpTools) {
-        tool.verboseParsingErrors = true;
-      }
-
-      this.mcpReady = true;
-      console.log(
-        `[ChatService] MCP client ready with ${this.mcpTools.length} tools`,
-      );
-    } catch (error) {
-      console.error('[ChatService] Failed to initialize MCP client:', error);
-      console.warn('[ChatService] Chat will continue without tools');
-      this.mcpReady = false;
-    }
-  }
-
-  /**
-   * Invoke a tool with periodic keepalive heartbeats to prevent HTTP timeout
-   * during long-running tool execution.
-   *
-   * Yields keepalive chunks every KEEPALIVE_INTERVAL_MS until the tool completes,
-   * then yields the final result.
-   *
-   * @param tool - The tool to invoke
-   * @param args - Arguments to pass to the tool
-   * @yields Keepalive chunks during execution, then a result chunk with the tool output
-   */
-  private async *invokeToolWithHeartbeat(
-    tool: DynamicStructuredTool,
-    args: Record<string, unknown>,
-  ): AsyncIterable<{ type: 'keepalive' } | { type: 'result'; value: any }> {
-    // Start the tool invocation
-    const toolPromise = tool.invoke(args);
-
-    // Race tool completion against keepalive intervals so we return immediately
-    // when the tool finishes rather than always waiting the full interval
-    while (true) {
-      const outcome = await Promise.race([
-        toolPromise.then((value) => ({ tag: 'done' as const, value })),
-        new Promise<{ tag: 'timeout' }>((resolve) =>
-          setTimeout(() => resolve({ tag: 'timeout' }), KEEPALIVE_INTERVAL_MS),
-        ),
-      ]);
-
-      if (outcome.tag === 'timeout') {
-        yield { type: 'keepalive' };
-      } else {
-        if (outcome.value === undefined) {
-          throw new Error('Tool completed without returning a result');
-        }
-        yield { type: 'result', value: outcome.value };
-        return;
-      }
-    }
-  }
-
-  /**
-   * Detect errors caused by an expired or missing MCP session
-   */
-  private isSessionExpiredError(error: unknown): boolean {
-    const msg = error instanceof Error ? error.message : String(error);
-    return (
-      msg.includes('404') ||
-      msg.includes('Session not found') ||
-      msg.includes('not initialized') ||
-      msg.includes('Not connected')
-    );
-  }
-
-  /**
-   * Load instruction file content for the given prompt type.
-   * For 'idl-envi', both files are concatenated with a separator.
-   */
-  private loadInstructions(prompt: 'todo' | ChatPromptType): string {
-    const base = 'extension/github-copilot/instructions';
-    switch (prompt) {
-      case 'envi':
-        return readFileSync(
-          GetExtensionPath(join(base, 'envi.instructions.md')),
-          'utf-8',
-        );
-      case 'idl':
-        return readFileSync(
-          GetExtensionPath(join(base, 'idl.instructions.md')),
-          'utf-8',
-        );
-      case 'idl-envi':
-        return [
-          readFileSync(
-            GetExtensionPath(join(base, 'idl.instructions.md')),
-            'utf-8',
-          ),
-          readFileSync(
-            GetExtensionPath(join(base, 'envi.instructions.md')),
-            'utf-8',
-          ),
-        ].join('\n\n---\n\n');
-      case 'todo':
-        return readFileSync(
-          GetExtensionPath(
-            join('extension/standalone-mcp', 'todo.instructions.md'),
-          ),
-          'utf-8',
-        );
-      default:
-        return '';
-    }
-  }
-
-  /**
-   * Disconnect and reconnect the MCP client, reloading all tools.
-   * Called when a tool invocation fails due to session expiry.
-   */
-  private async reinitializeMCP(): Promise<void> {
-    this.mcpReady = false;
-    this.mcpTools = [];
-    try {
-      await this.mcpClient.disconnect();
+      return await this.client.resumeSession(request.sessionId, baseConfig);
     } catch {
-      // ignore — we're tearing down anyway
+      // Session does not exist yet — create it with the same id.
+      const createConfig: SessionConfig = {
+        sessionId: request.sessionId,
+        ...baseConfig,
+      };
+      return await this.client.createSession(createConfig);
     }
-    await this.initializeMCP();
   }
 }
