@@ -17,7 +17,7 @@ export function RegisterMCPTool_TakeENVIScreenshot(server: MCPServer) {
           MCP_TOOL_LOOKUP.TAKE_ENVI_SCREENSHOT
         ],
       description:
-        'Takes a screenshot of the current ENVI display and returns the image as a base64-encoded PNG. ENVI must already be running with an active display.',
+        'Takes a screenshot of the current ENVI display and returns the image as a base64-encoded PNG. ENVI must already be running with an active display. **CRITICAL**: Run a sub-agent to retrieve the image and analyze it to reduce token costs.',
       inputSchema: {},
     },
     async (id) => {
