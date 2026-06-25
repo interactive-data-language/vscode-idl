@@ -23,6 +23,8 @@ Updated "take-envi-screenshot" MCP tool to do a few things:
 1. Instructions now state to use a sub-agent for analysis to help reduce context for follow-on messages
 2. For now, all screenshots are resized to a maximum of 512 x 512 (with aspect ratio preserved), to reduce token usage.
 
+Fixed an issue where the prompt folder for ENVI Agent and IDL Agent wasn't getting populated all the time.
+
 ## 6.1.0 - May 2025
 
 New feature for ENVI Agent: ability to create ENVI Modeler Workflows! You can now ask questions like:
