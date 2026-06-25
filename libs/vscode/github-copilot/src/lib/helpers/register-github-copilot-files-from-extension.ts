@@ -5,7 +5,8 @@ import {
   USER_COPILOT_INSTRUCTIONS_FOLDER,
   USER_COPILOT_PROMPTS_FOLDER,
 } from '@idl/idl/files';
-import { existsSync, rmSync } from 'fs';
+import { existsSync, readdirSync, unlinkSync } from 'fs';
+import { join } from 'path';
 import * as vscode from 'vscode';
 
 import { HomeRelativePath } from './home-relative-path';
@@ -43,9 +44,19 @@ export async function RegisterGitHubCopilotFilesFromExtension(
       ? USER_COPILOT_INSTRUCTIONS_FOLDER
       : USER_COPILOT_PROMPTS_FOLDER;
 
-  // clean up
+  /**
+   * Clean up existing files
+   *
+   * Don't just nuke the folder - it get's locked sometimes by VSCode when prompts
+   * are registered (or at least it looks like that)
+   */
   if (existsSync(destinationDir)) {
-    rmSync(destinationDir, { recursive: true });
+    const existingFiles = readdirSync(destinationDir).map((file) =>
+      join(destinationDir, file),
+    );
+    for (let i = 0; i < existingFiles.length; i++) {
+      unlinkSync(existingFiles[i]);
+    }
   }
 
   // relative path for destination
