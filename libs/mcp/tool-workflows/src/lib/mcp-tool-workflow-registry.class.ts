@@ -34,6 +34,8 @@ export class MCPToolWorkflowRegistry {
 
   /**
    * Gets a tool workflow by name
+   *
+   * Returns an empty string if no matching workflow (use hasWorkflow() to check first)
    */
   getWorkflow(workflowName: string): string {
     /** Get lower case name */
@@ -41,7 +43,7 @@ export class MCPToolWorkflowRegistry {
 
     // return if no match
     if (!(lc in this.workflows)) {
-      return;
+      return '';
     }
 
     return this.workflows[lc];
