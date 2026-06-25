@@ -1,4 +1,4 @@
-import { USER_COPILOT_INSTRUCTIONS_FOLDER } from '@idl/idl/files';
+import { USER_AGENT_INSTRUCTIONS_FOLDER } from '@idl/idl/files';
 import { IDL_COPILOT_VSCODE_LOG } from '@idl/logger';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { join } from 'path';
@@ -19,7 +19,7 @@ let fileDebounceTimer: NodeJS.Timeout | undefined;
  * @returns The file content, or null if the file doesn't exist or can't be read
  */
 export async function readInstructions(): Promise<null | string> {
-  const filePath = join(USER_COPILOT_INSTRUCTIONS_FOLDER, INSTRUCTIONS_FILE);
+  const filePath = join(USER_AGENT_INSTRUCTIONS_FOLDER, INSTRUCTIONS_FILE);
   const fileUri = vscode.Uri.file(filePath);
   try {
     const fileData = await vscode.workspace.fs.readFile(fileUri);
@@ -91,7 +91,7 @@ export function watchCustomInstructionsFileChanges(): vscode.Disposable {
   // Create a file watcher for the instructions file
   const watcher = vscode.workspace.createFileSystemWatcher(
     new vscode.RelativePattern(
-      USER_COPILOT_INSTRUCTIONS_FOLDER,
+      USER_AGENT_INSTRUCTIONS_FOLDER,
       INSTRUCTIONS_FILE,
     ),
   );
@@ -129,7 +129,7 @@ export async function syncInstructionsFromSettingToFile() {
     const value = config.get<string>(SETTING_KEY, '');
 
     // Write: before + marker + user content
-    const filePath = join(USER_COPILOT_INSTRUCTIONS_FOLDER, INSTRUCTIONS_FILE);
+    const filePath = join(USER_AGENT_INSTRUCTIONS_FOLDER, INSTRUCTIONS_FILE);
     const fileUri = vscode.Uri.file(filePath);
     const newContent = `${beforeMarker}\n\n${MARKER}\n\n${value}`;
     const encoded = new TextEncoder().encode(newContent);

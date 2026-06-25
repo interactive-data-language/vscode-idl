@@ -1,3 +1,4 @@
+export * from './lib/agent-folders.interface';
 export * from './lib/create-random-filename';
 export * from './lib/dot-idl-folder.interface';
 export * from './lib/find-files';
@@ -9,6 +10,4 @@ export * from './lib/get-fs-path';
 export * from './lib/idl-dirs.interface';
 export * from './lib/load-envi-paths';
 export * from './lib/load-idl-search-paths';
-export * from './lib/mcp-folders.interface';
 export * from './lib/notebook-folders.interface';
-export * from './lib/user-github-copilot-folders.interface';

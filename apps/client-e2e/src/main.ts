@@ -12,6 +12,7 @@ import expect from 'expect';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
 
+import { TestSetup, TestTeardown } from './test-setup';
 import { ResetSettingsForTests } from './tests/helpers/reset-settings-for-tests';
 import { TestRunner } from './tests/test-runner';
 
@@ -33,7 +34,7 @@ const DEBUG_LOGS = false;
 /**
  * IDL install folder for extension testing
  */
-export let IDL_DIR: string;
+export let IDL_DIR: string | undefined;
 /**
  * Test runner
  *
@@ -42,6 +43,9 @@ export let IDL_DIR: string;
 export async function run(): Promise<void> {
   /** Overall exit code, indicating if we passed or failed tests */
   let code = 0;
+
+  // run setup
+  await TestSetup();
 
   // run our tests
   try {
@@ -80,6 +84,11 @@ export async function run(): Promise<void> {
 
     // get extension
     const ext = vscode.extensions.getExtension(EXTENSION_FULL_NAME);
+
+    // validate we know where it is
+    if (!ext) {
+      throw new Error('Unable to retrieve extension');
+    }
 
     // activate extension
     ACTIVATION_RESULT = await ext.activate();
@@ -161,6 +170,8 @@ export async function run(): Promise<void> {
   } catch (err) {
     code = 1;
     console.log(err);
+  } finally {
+    await TestTeardown();
   }
 
   // sleep before exit, otherwise console output does not always get returned

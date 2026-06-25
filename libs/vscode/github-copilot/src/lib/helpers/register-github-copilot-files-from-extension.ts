@@ -1,9 +1,9 @@
 import {
   FindFiles,
   GetExtensionPath,
-  USER_COPILOT_FOLDER,
-  USER_COPILOT_INSTRUCTIONS_FOLDER,
-  USER_COPILOT_PROMPTS_FOLDER,
+  USER_AGENT_INSTRUCTIONS_FOLDER,
+  USER_AGENT_PROMPTS_FOLDER,
+  USER_AGENTS_FOLDER,
 } from '@idl/idl/files';
 import { existsSync, readdirSync, unlinkSync } from 'fs';
 import { join } from 'path';
@@ -41,8 +41,8 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   /** Folder that our instructions should go into */
   const destinationDir =
     type === 'instructions'
-      ? USER_COPILOT_INSTRUCTIONS_FOLDER
-      : USER_COPILOT_PROMPTS_FOLDER;
+      ? USER_AGENT_INSTRUCTIONS_FOLDER
+      : USER_AGENT_PROMPTS_FOLDER;
 
   /**
    * Clean up existing files
@@ -84,7 +84,7 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   for (let i = 0; i < existing.length; i++) {
     if (
       // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
-      existing[i].startsWith(USER_COPILOT_FOLDER) ||
+      existing[i].startsWith(USER_AGENTS_FOLDER) ||
       existing[i].startsWith(destinationRelative)
     ) {
       states[existing[i]] = filesLocations[existing[i]];

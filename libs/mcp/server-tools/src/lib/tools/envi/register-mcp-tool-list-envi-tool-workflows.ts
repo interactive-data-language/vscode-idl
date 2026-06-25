@@ -1,3 +1,4 @@
+import { USER_ENVI_WORKFLOWS_FOLDER } from '@idl/idl/files';
 import { MCPServer } from '@idl/mcp/server';
 import { MCPToolWorkflowRegistry } from '@idl/mcp/tool-workflows';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -10,7 +11,9 @@ import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructio
 /**
  * ENVI tool workflow registry
  */
-export const ENVI_TOOL_WORKFLOW_REGISTRY = new MCPToolWorkflowRegistry();
+export const ENVI_TOOL_WORKFLOW_REGISTRY = new MCPToolWorkflowRegistry(
+  USER_ENVI_WORKFLOWS_FOLDER,
+);
 
 /**
  * Track if we loaded notes or not

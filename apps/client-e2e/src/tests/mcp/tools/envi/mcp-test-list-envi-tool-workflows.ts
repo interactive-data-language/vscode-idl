@@ -1,6 +1,7 @@
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
+import { USER_TOOL_WORKFLOW } from '../../../../test-setup.interface';
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../helpers/get-text-content';
@@ -39,4 +40,7 @@ export const RunMCPTestListENVIToolWorkflows: RunnerFunction = async (init) => {
 
   // verify we have tools named
   expect(toolsList.length).toBeGreaterThan(0);
+
+  // verify our test workflow is in the list
+  expect(toolsList).toContain(USER_TOOL_WORKFLOW);
 };
