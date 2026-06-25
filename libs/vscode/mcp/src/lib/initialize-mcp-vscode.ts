@@ -32,6 +32,7 @@ export const MCP_EXECUTION_BACKEND = new VSCodeExecutionBackend();
  */
 export function InitializeMCPVSCode(
   ctx: vscode.ExtensionContext,
+  devMode = false,
 ): IInitializeMCPResult {
   IDL_LOGGER.log({
     log: IDL_MCP_VSCODE_LOG,
@@ -62,6 +63,13 @@ export function InitializeMCPVSCode(
     },
   );
 
+  /** Get the version for the server - in dev this is randomized for tool refreshing */
+  const version = devMode
+    ? `${VERSION}.${Math.floor(100 * Math.random())}.${Math.floor(
+        100 * Math.random(),
+      )}.${Math.floor(100 * Math.random())}`
+    : VERSION;
+
   /**
    * Register our MCP server with VSCode
    */
@@ -86,10 +94,7 @@ export function InitializeMCPVSCode(
             IDL_TRANSLATION.packageJSON.displayName,
             vscode.Uri.parse(`http://localhost:${SERVER_PORTS.mcp}/mcp`),
             {},
-            VERSION,
-            // `${VERSION}.${Math.floor(100 * Math.random())}.${Math.floor(
-            //   100 * Math.random()
-            // )}.${Math.floor(100 * Math.random())}`
+            version,
           ),
         );
 
