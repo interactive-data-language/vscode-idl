@@ -2,7 +2,7 @@
 description: Instructions for how to work with ENVI, remote sensing, image analysis, or similar problem sets
 ---
 
-# GITHUB COPILOT OPERATIONAL GUIDELINES
+# AGENT OPERATIONAL GUIDELINES
 
 ## ENVI DIRECTIVE
 

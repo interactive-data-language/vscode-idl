@@ -3,7 +3,7 @@ applyTo: '**/*.pro,**/*.idlnb'
 description: 'Guidelines for programming with IDL and writing code or creating IDL Notebooks'
 ---
 
-# GITHUB COPILOT OPERATIONAL GUIDELINES
+# AGENT OPERATIONAL GUIDELINES
 
 ## IDL DIRECTIVE
 
