@@ -1,4 +1,5 @@
 import { LogManager } from '@idl/logger';
+import { RegistryLocationHelpers } from '@idl/mcp/shared';
 
 import {
   MCPPromptLookup,
@@ -71,17 +72,19 @@ export class MCPPromptRegistry {
 
   /**
    * Gets a prompt set by name
+   *
+   * Returns a null string if no matching prompt name
    */
-  getPrompt(name: string) {
+  getPrompt(name: string): string {
     /** Get lower case name */
     const lc = name.toLowerCase();
 
     // return if no match
     if (!(lc in this.prompts)) {
-      return;
+      return '';
     }
 
-    return this.prompts[lc].prompt;
+    return RegistryLocationHelpers.retrieveContent(this.prompts[lc].location);
   }
 
   /**

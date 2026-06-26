@@ -6,7 +6,6 @@ import {
   RegisterMCPTool_GetPrompt,
   RegisterMCPTool_ListPrompts,
 } from '@idl/mcp/server-tools';
-import { readFileSync } from 'fs';
 import { join } from 'path';
 
 /**
@@ -36,27 +35,48 @@ export function RegisterMCPPromptTools(server: MCPServer) {
     name: 'envi',
     description:
       'Describes how to use ENVI to solve remote sensing and image processing problems. Use when individuals are working with imagery, remote sensing, or image analysis problems.',
-    prompt: readFileSync(join(enviDir, 'envi.prompt.md'), 'utf-8'),
+    location: {
+      type: 'file',
+      meta: {
+        path: join(enviDir, 'envi.prompt.md'),
+      },
+    },
     type: 'envi',
   });
   registry.addPrompt({
     name: 'enviBatchProcessing',
     description:
       'Describes how to use ENVI to perform batch processing. Use when individuals are working with imagery, remote sensing, or image analysis problems and have more than one image or set of images to process.',
-    prompt: readFileSync(
-      join(enviDir, 'enviBatchProcessing.prompt.md'),
-      'utf-8',
-    ),
+    location: {
+      type: 'file',
+      meta: {
+        path: join(enviDir, 'enviBatchProcessing.prompt.md'),
+      },
+    },
     type: 'envi',
   });
   registry.addPrompt({
     name: 'enviModelerWorkflow',
     description:
       'Describes how to design and create an ENVI Modeler workflow file (.model) that automates a chain of ENVI Tasks. Use when a user wants to save a processing pipeline as a reusable, graphical ENVI Modeler workflow.',
-    prompt: readFileSync(
-      join(enviDir, 'enviModelerWorkflow.prompt.md'),
-      'utf-8',
-    ),
+    location: {
+      type: 'file',
+      meta: {
+        path: join(enviDir, 'enviModelerWorkflow.prompt.md'),
+      },
+    },
+    type: 'envi',
+  });
+  registry.addPrompt({
+    name: 'enviSaveENVIToolWorkflow', // update "register-mcp-tool-save-envi-tool-workflow" with this name if it changes
+    description:
+      'Describes how to summarize and save an ENVI processing workflow for future re-use',
+    location: {
+      type: 'file',
+      meta: {
+        path: join(enviDir, 'enviSaveENVIToolWorkflow.prompt.md'),
+      },
+    },
     type: 'envi',
   });
 
@@ -70,7 +90,12 @@ export function RegisterMCPPromptTools(server: MCPServer) {
     name: 'idl-plotting',
     description:
       'Describes how to use routines in IDL to create plots. A focus on newer routines to use for modern IDL programming.',
-    prompt: readFileSync(join(idlDir, 'idlCreate2DPlot.prompt.md'), 'utf-8'),
+    location: {
+      type: 'file',
+      meta: {
+        path: join(idlDir, 'idlCreate2DPlot.prompt.md'),
+      },
+    },
     type: 'idl',
   });
 
