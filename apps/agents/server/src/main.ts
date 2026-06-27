@@ -31,6 +31,7 @@ async function main() {
     // Initialize services
     const chatService = new ChatService({
       copilotGitHubToken: env.COPILOT_GITHUB_TOKEN,
+      ollamaBaseUrl: env.OLLAMA_BASE_URL,
       openaiApiKey: env.OPENAI_API_KEY,
       provider: env.CHAT_PROVIDER,
       serverPort: port,

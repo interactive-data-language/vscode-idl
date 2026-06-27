@@ -41,6 +41,8 @@ const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
 export interface IChatServiceConfig {
   /** GitHub token used by the Copilot SDK client when `provider === 'copilot'`. */
   copilotGitHubToken?: string;
+  /** Base URL of a local Ollama instance (e.g. `http://localhost:11434`). Only used when `provider === 'ollama'`. */
+  ollamaBaseUrl?: string;
   /** OpenAI API key — required when `provider === 'openai'`, optional otherwise. */
   openaiApiKey?: string;
   /** Chat provider backend selected via the `CHAT_PROVIDER` env var. */
@@ -115,6 +117,18 @@ export class ChatService {
         .map((m) => ({ description: '', id: m.id, name: m.id }));
     }
 
+    if (this.config.provider === 'ollama') {
+      const ollamaBase = this.config.ollamaBaseUrl ?? 'http://localhost:11434';
+      const openai = new OpenAI({
+        apiKey: 'ollama',
+        baseURL: `${ollamaBase}/v1`,
+      });
+      const page = await openai.models.list();
+      return page.data
+        .sort((a, b) => a.id.localeCompare(b.id))
+        .map((m) => ({ description: '', id: m.id, name: m.id }));
+    }
+
     await this.ensureClientStarted();
     const models = await this.client.listModels();
     return models.map((m) => ({
@@ -147,7 +161,7 @@ export class ChatService {
 
       // Title generation for the very first turn.
       if (request.conversationHistory.length === 0) {
-        const title = await this.generateTitle(request.message);
+        const title = await this.generateTitle(request.message, request.model);
         if (title) {
           yield { type: 'title', title };
         }
@@ -358,6 +372,12 @@ export class ChatService {
         baseUrl: 'https://api.openai.com/v1',
         type: 'openai',
       };
+    } else if (this.config.provider === 'ollama') {
+      const ollamaBase = this.config.ollamaBaseUrl ?? 'http://localhost:11434';
+      sessionConfig.provider = {
+        baseUrl: `${ollamaBase}/v1`,
+        type: 'openai',
+      };
     }
 
     return sessionConfig;
@@ -455,7 +475,41 @@ export class ChatService {
    * (both providers); returns an empty string otherwise so the caller can
    * skip the `title` chunk.
    */
-  private async generateTitle(firstMessage: string): Promise<string> {
+  private async generateTitle(
+    firstMessage: string,
+    model?: string,
+  ): Promise<string> {
+    if (this.config.provider === 'ollama') {
+      const ollamaBase = this.config.ollamaBaseUrl ?? 'http://localhost:11434';
+      const titleModel = model ?? 'llama3.2';
+      try {
+        const openai = new OpenAI({
+          apiKey: 'ollama',
+          baseURL: `${ollamaBase}/v1`,
+        });
+        const completion = await openai.chat.completions.create({
+          messages: [
+            {
+              content:
+                `Create a concise 4-6 word title for a chat session that starts with this message. ` +
+                `Reply with only the title, no quotes, no punctuation at the end:\n\n${firstMessage}`,
+              role: 'user',
+            },
+          ],
+          model: titleModel,
+          temperature: 0,
+        });
+        const content = completion.choices[0]?.message?.content;
+        return typeof content === 'string' ? content.trim() : '';
+      } catch (err) {
+        console.log(
+          '[ChatService] Error while getting title for chat (ollama):',
+          err,
+        );
+        return '';
+      }
+    }
+
     if (!this.config.openaiApiKey) {
       return '';
     }
