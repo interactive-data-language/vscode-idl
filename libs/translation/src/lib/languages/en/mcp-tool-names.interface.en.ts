@@ -25,6 +25,7 @@ export const MCPToolNames_EN: ValsOfToStrings<MCPTools> = {
   'query-dataset-with-envi': 'Query Dataset with ENVI',
   'return-notes': 'Return Notes',
   'run-envi-tool': 'Run ENVI Tool',
+  'save-envi-tool-workflow': 'Save ENVI Tool Workflow',
   'search-for-files': 'Search for Files',
   'search-for-routine': 'Search for Routine',
   'list-prompts': 'List Prompts',

@@ -7,6 +7,7 @@ import { MCPTool_GetRoutineDocs } from './http/mcp-tool-get-routine-docs.interfa
 import { MCPTool_ListAllResources } from './http/mcp-tool-list-all-resources.interface';
 import { MCPTool_ListENVITools } from './http/mcp-tool-list-envi-tools.interface';
 import { MCPTool_ListPrompts } from './http/mcp-tool-list-prompts.interface';
+import { MCPTool_SaveENVIToolWorkflow } from './http/mcp-tool-save-envi-tool-workflow.interface';
 import { MCPTool_SearchForFiles } from './http/mcp-tool-search-for-files.interface';
 import { MCPTool_SearchForRoutine } from './http/mcp-tool-search-for-routine.interface';
 import { MCPTool_SearchResources } from './http/mcp-tool-search-resources.interface';
@@ -100,6 +101,8 @@ interface IMCPToolLookup {
   RETURN_NOTES: MCPTool_ReturnNotes;
   /** Run ENVI Task */
   RUN_ENVI_TOOL: MCPTool_RunENVITool;
+  /** Save an ENVI Tool Workflow to disk */
+  SAVE_ENVI_TOOL_WORKFLOW: MCPTool_SaveENVIToolWorkflow;
   /** Search a location for files */
   SEARCH_FOR_FILES: MCPTool_SearchForFiles;
   /** Search for a particular routine */
@@ -131,6 +134,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',
   RETURN_NOTES: 'return-notes',
   RUN_ENVI_TOOL: 'run-envi-tool',
+  SAVE_ENVI_TOOL_WORKFLOW: 'save-envi-tool-workflow',
   SEARCH_FOR_FILES: 'search-for-files',
   SEARCH_FOR_ROUTINE: 'search-for-routine',
   LIST_PROMPTS: 'list-prompts',

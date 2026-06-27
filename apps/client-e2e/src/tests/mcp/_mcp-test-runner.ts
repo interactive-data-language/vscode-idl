@@ -35,6 +35,10 @@ import { RunMCPTestListENVIToolWorkflows } from './tools/envi/mcp-test-list-envi
 import { RunMCPTestListENVITools } from './tools/envi/mcp-test-list-envi-tools';
 import { RunMCPTestGetENVIToolWorkflow } from './tools/envi/mcp-test-list-get-envi-tool-workflow';
 import { RunMCPTestRunENVITool } from './tools/envi/mcp-test-run-envi-tool';
+import {
+  RunMCPTestSaveENVIToolWorkflow,
+  RunMCPTestSaveENVIToolWorkflow_DuplicateError,
+} from './tools/envi/mcp-test-save-envi-tool-workflow';
 import { RunMCPTestStartENVI } from './tools/envi/mcp-test-start-envi';
 import { RunMCPTestTakeENVIScreenshot } from './tools/envi/mcp-test-take-envi-screenshot';
 import { RunMCPTestOpenDatasetsInENVI_Raster } from './tools/envi/open-datasets/mcp-test-open-datasets-in-envi-raster';
@@ -310,6 +314,18 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestInvalidENVIToolWorkflowName,
   name: 'Verify retrieving workflows with bad name fails',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestSaveENVIToolWorkflow,
+  name: 'Verify we can save an ENVI Tool Workflow via MCP',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestSaveENVIToolWorkflow_DuplicateError,
+  name: 'Verify saving a duplicate ENVI Tool Workflow name fails',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 

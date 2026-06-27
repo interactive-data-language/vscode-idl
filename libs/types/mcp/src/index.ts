@@ -7,6 +7,7 @@ export * from './lib/http/mcp-tool-get-routine-docs.interface';
 export * from './lib/http/mcp-tool-list-all-resources.interface';
 export * from './lib/http/mcp-tool-list-envi-tools.interface';
 export * from './lib/http/mcp-tool-list-prompts.interface';
+export * from './lib/http/mcp-tool-save-envi-tool-workflow.interface';
 export * from './lib/http/mcp-tool-search-for-files.interface';
 export * from './lib/http/mcp-tool-search-for-routine.interface';
 export * from './lib/http/mcp-tool-search-resources.interface';
