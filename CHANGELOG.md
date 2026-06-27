@@ -25,6 +25,89 @@ Updated "take-envi-screenshot" MCP tool to do a few things:
 
 Fixed an issue where the prompt folder for ENVI Agent and IDL Agent wasn't getting populated all the time.
 
+Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
+
+1. Create a new markdown file with the name of the file being the name of the workflow (Ex: "Process imagery with ship detection deep learning model.md")
+
+2. Populate with the content for your workflow. Here's an example for image registration:
+
+```markdown
+## OVERVIEW
+
+Align two images to one another by finding matching features and warping one image to match the other.
+
+## REQUIREMENTS
+
+**Required Data**:
+
+- Base image (reference with accurate georeferencing)
+- Warp image (image to be corrected/aligned)
+
+**Data Best Practices**:
+
+- Base image should have higher quality georeferencing (e.g., orthophoto, standard projection)
+- Images should have overlapping coverage area
+- Images should contain identifiable common features
+
+## KEY CONCEPTS
+
+**Base vs. Warp**: The base image is the "truth" reference. The warp image gets resampled to match the base image's coordinate system and pixel grid.
+
+**Tie Points**: Matching pixel locations between images. Automated methods find hundreds of candidates, but filtering is critical to remove false matches.
+
+**Transform Types**: Different geometric corrections suit different distortion types:
+
+- **RST (Rotation, Scale, Translation)**: Simple shifts and rotations
+- **Polynomial**: Handles shearing and non-linear distortions
+- **Triangulation**: Best for local terrain-induced distortions
+
+## WORKFLOW
+
+Execute all steps in order for accurate registration.
+
+### Step 1: Assign Image Roles
+
+Establish reference (Base) and image to correct (Warp) by reviewing map information for both images.
+
+**Notes:**
+
+- **INPUT_RASTER1 (Base)**: Assign image with better georeferencing (orthophoto, standard projection)
+- **INPUT_RASTER2 (Warp)**: Assign image needing correction (raw aerial photo, arbitrary projection)
+
+### Step 2: Generate Tie Points
+
+Automatically find matching features between images by selecting method based on sensor types.
+
+**For similar sensors (Optical-to-Optical)**, run **GenerateTiePointsByCrossCorrelation**.
+
+**Notes:**
+
+- Standard method for same-modality registration
+- Finds features with similar pixel intensity patterns
+
+**For different sensors (Multi-Modal)**, run **GenerateTiePointsByMutualInformation**.
+
+**Notes:**
+
+- Use for SAR-to-Optical, Thermal-to-Visible, or other cross-sensor registration
+- Works when pixel values don't correlate linearly
+
+### Step 3: Filter Tie Points
+
+Remove false matches (outliers) that would distort final image by running **FilterTiePointsByGlobalTransform**.
+
+### Step 4: Warp Image
+
+Resample warp image to match base image's coordinate grid by running **ImageToImageRegistration**.
+
+**Notes:**
+
+- **WARPING = 'Triangulation'**: Best for terrain-induced local distortions (recommended)
+- **WARPING = 'Polynomial'**: Smoother global fit for systematic distortions
+```
+
+3. Restart VSCode for changes to be applied. When you update the file, you will need to restart VSCode to get the latest changes.
+
 ## 6.1.0 - May 2025
 
 New feature for ENVI Agent: ability to create ENVI Modeler Workflows! You can now ask questions like:
