@@ -1,6 +1,11 @@
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
+import {
+  RegistryLocation,
+  RegistryLocation_File,
+  RegistryLocationKind,
+} from '@idl/mcp/shared';
 import { IDLTypeHelper, TASK_REGEX } from '@idl/parsing/type-parser';
 import {
   GlobalFunctionToken,
@@ -18,11 +23,6 @@ import {
   ITaskInformation,
   ITaskRegistryEntry,
 } from './mcp-task-registry.interface';
-import {
-  TaskLocation,
-  TaskLocation_File,
-  TaskLocationKind,
-} from './task-location.interface';
 
 /**
  * Class that tracks and organizes tasks for ENVI and IDL
@@ -301,7 +301,7 @@ export class MCPTaskRegistry {
     );
 
     // create location metadata if we have a file
-    let location: TaskLocation<TaskLocationKind> | undefined;
+    let location: RegistryLocation<RegistryLocationKind> | undefined;
     if (taskStructure.file) {
       /** Create metadata so its strictly types */
       location = {
@@ -309,7 +309,7 @@ export class MCPTaskRegistry {
         meta: {
           path: taskStructure.file,
         },
-      } as TaskLocation<TaskLocation_File>;
+      } as RegistryLocation<RegistryLocation_File>;
     }
 
     // save in unified registry

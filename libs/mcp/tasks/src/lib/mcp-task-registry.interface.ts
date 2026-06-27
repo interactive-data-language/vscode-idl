@@ -1,11 +1,10 @@
+import { RegistryLocation, RegistryLocationKind } from '@idl/mcp/shared';
 import {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import { ValidateFunction } from 'ajv';
 import { JsonSchema7Type } from 'zod-to-json-schema';
-
-import { TaskLocation, TaskLocationKind } from './task-location.interface';
 
 /**
  * Internal registry entry that stores all information about a single task
@@ -20,7 +19,7 @@ export interface ITaskRegistryEntry {
   /** Validation function for input parameters */
   inputValidator: ValidateFunction<any>;
   /** Location of the task if we know it */
-  location?: TaskLocation<TaskLocationKind>;
+  location?: RegistryLocation<RegistryLocationKind>;
   /** Output parameters for task */
   outputParameters: JsonSchema7Type;
   /** The task structure */

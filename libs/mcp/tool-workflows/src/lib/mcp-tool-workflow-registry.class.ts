@@ -1,4 +1,10 @@
-import { existsSync, mkdirSync, readdirSync, readFileSync } from 'fs';
+import {
+  RegistryLocation,
+  RegistryLocation_File,
+  RegistryLocation_Memory,
+  RegistryLocationHelpers,
+} from '@idl/mcp/shared';
+import { existsSync, mkdirSync, readdirSync } from 'fs';
 import { basename, join } from 'path';
 
 /**
@@ -16,7 +22,11 @@ export class MCPToolWorkflowRegistry {
    * No description, the names should be short, concise, and descriptive
    * like a title to a web page
    */
-  private workflows: { [key: string]: string } = {};
+  private workflows: {
+    [key: string]: RegistryLocation<
+      RegistryLocation_File | RegistryLocation_Memory
+    >;
+  } = {};
 
   constructor(localDir: string) {
     this.localDir = localDir;
@@ -27,13 +37,15 @@ export class MCPToolWorkflowRegistry {
     }
 
     // load any markdown files from the local directory as workflows
-    const files = readdirSync(this.localDir).filter((f) =>
-      f.toLowerCase().endsWith('.md'),
-    );
+    const files = readdirSync(this.localDir)
+      .filter((f) => f.toLowerCase().endsWith('.md'))
+      .map((file) => {
+        return join(this.localDir, file);
+      });
+
+    // add all
     for (let i = 0; i < files.length; i++) {
-      const workflowName = basename(files[i], '.md');
-      const workflowText = readFileSync(join(this.localDir, files[i]), 'utf-8');
-      this.addToolWorkflow(workflowName, workflowText);
+      this.addToolWorkflowFromFile(files[i]);
     }
   }
 
@@ -61,7 +73,33 @@ export class MCPToolWorkflowRegistry {
     }
 
     // make sure we have an array of notes
-    this.workflows[lc] = workflowText;
+    this.workflows[lc] = {
+      type: 'memory',
+      meta: {
+        content: workflowText,
+      },
+    };
+  }
+
+  /**
+   * Adds a tool workflow from a file
+   */
+  addToolWorkflowFromFile(filePath: string, replace = false) {
+    // get lower case
+    const lc = basename(filePath, '.md').toLowerCase();
+
+    // skip if already exists
+    if (!replace && lc in this.workflows) {
+      return;
+    }
+
+    // make sure we have an array of notes
+    this.workflows[lc] = {
+      type: 'file',
+      meta: {
+        path: filePath,
+      },
+    };
   }
 
   /**
@@ -78,7 +116,7 @@ export class MCPToolWorkflowRegistry {
       return '';
     }
 
-    return this.workflows[lc];
+    return RegistryLocationHelpers.retrieveContent(this.workflows[lc]);
   }
 
   /**
