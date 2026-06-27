@@ -38,7 +38,7 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
   // attempt to parse
   try {
     toolsList = JSON.parse(
-      GetTextContent(result.content).replace(/^All tools: /, ''),
+      GetTextContent(result.content), // .replace(/^All tools: /, ''),
     );
   } catch (err) {
     // do nothing
