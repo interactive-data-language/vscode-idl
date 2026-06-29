@@ -8,6 +8,17 @@ import { DOT_IDL_FOLDER } from './dot-idl-folder.interface';
 export const USER_AGENTS_FOLDER = join(DOT_IDL_FOLDER, 'agents');
 
 /**
+ * Legacy folder for agents
+ *
+ * @deprecated
+ */
+export const OLD_USER_AGENTS_FOLDER = join(
+  DOT_IDL_FOLDER,
+  'vscode',
+  'github-copilot',
+);
+
+/**
  * User folder for agent instructions that we manage with the extension
  */
 export const USER_AGENT_INSTRUCTIONS_FOLDER = join(

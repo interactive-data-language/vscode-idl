@@ -1,6 +1,7 @@
 import {
   FindFiles,
   GetExtensionPath,
+  OLD_USER_AGENTS_FOLDER,
   USER_AGENT_INSTRUCTIONS_FOLDER,
   USER_AGENT_PROMPTS_FOLDER,
   USER_AGENTS_FOLDER,
@@ -62,6 +63,9 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   // relative path for destination
   const destinationRelative = HomeRelativePath(destinationDir);
 
+  /** Get old relative path for agents content */
+  const oldRelative = HomeRelativePath(OLD_USER_AGENTS_FOLDER);
+
   /**
    * Get prompt files
    *
@@ -82,6 +86,12 @@ export async function RegisterGitHubCopilotFilesFromExtension(
 
   // remove any existing files from settings in case we deleted/removed prompts
   for (let i = 0; i < existing.length; i++) {
+    // check if old location to clean up setting
+    if (existing[i].startsWith(oldRelative)) {
+      delete filesLocations[existing[i]];
+      continue;
+    }
+
     if (
       // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
       existing[i].startsWith(USER_AGENTS_FOLDER) ||
@@ -108,6 +118,8 @@ export async function RegisterGitHubCopilotFilesFromExtension(
     filesLocations[destinationRelative] =
       destinationRelative in states ? states[destinationRelative] : true;
   }
+
+  console.log(filesLocations);
 
   // Update the configuration globally
   await config.update(
