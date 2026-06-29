@@ -30,6 +30,7 @@ async function main() {
 
     // Initialize services
     const chatService = new ChatService({
+      chatEngine: env.CHAT_ENGINE,
       copilotGitHubToken: env.COPILOT_GITHUB_TOKEN,
       ollamaBaseUrl: env.OLLAMA_BASE_URL,
       openaiApiKey: env.OPENAI_API_KEY,
@@ -77,6 +78,7 @@ async function main() {
     app.listen(port, host, () => {
       console.log(`[ ready ] http://${host}:${port}`);
       console.log(`[ info ] chat provider: ${env.CHAT_PROVIDER}`);
+      console.log(`[ info ] chat engine:   ${env.CHAT_ENGINE}`);
       console.log(`[ info ] API endpoints:`);
       console.log(`         - GET  /api/chat/models`);
       console.log(`         - POST /api/chat/message`);

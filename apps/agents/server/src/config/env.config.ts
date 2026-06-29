@@ -9,6 +9,13 @@ import { z } from 'zod';
 export type ChatProvider = 'copilot' | 'ollama' | 'openai';
 
 /**
+ * Selectable chat engine.
+ * - `copilot`: Use the `@github/copilot-sdk` agentic runtime (disk-backed sessions).
+ * - `langchain`: Use LangChain + OpenAI-compatible client (stateless per-request; works with Ollama).
+ */
+export type ChatEngine = 'copilot' | 'langchain';
+
+/**
  * Environment variable schema validation
  */
 const envSchema = z
@@ -21,6 +28,13 @@ const envSchema = z
       .enum(['openai', 'copilot', 'ollama'])
       .optional()
       .default('openai'),
+
+    /**
+     * Chat engine. Defaults to `copilot` (the Copilot SDK agentic runtime).
+     * Set to `langchain` to use LangChain instead — recommended for Ollama
+     * and any provider where the Copilot SDK has compatibility issues.
+     */
+    CHAT_ENGINE: z.enum(['copilot', 'langchain']).optional().default('copilot'),
 
     /**
      * OpenAI API key. Required when `CHAT_PROVIDER=openai`; also used as the
@@ -80,7 +94,7 @@ export function validateEnv(): EnvConfig {
         console.error(`  - ${issue.path.join('.')}: ${issue.message}`);
       });
       console.error(
-        '\n💡 Set CHAT_PROVIDER (openai|copilot|ollama) plus the matching auth env var (OPENAI_API_KEY for openai, optional COPILOT_GITHUB_TOKEN for copilot, optional OLLAMA_BASE_URL for ollama).',
+        '\n💡 Set CHAT_PROVIDER (openai|copilot|ollama) plus the matching auth env var (OPENAI_API_KEY for openai, optional COPILOT_GITHUB_TOKEN for copilot, optional OLLAMA_BASE_URL for ollama).\n   Set CHAT_ENGINE (copilot|langchain) to choose the runtime engine (default: copilot).',
       );
       process.exit(1);
     }
