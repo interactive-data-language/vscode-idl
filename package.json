@@ -907,7 +907,14 @@
             "default": "",
             "editPresentation": "multilineText",
             "description": "%configuration.descriptions.copilot.customInstructions%",
-            "scope": "machine"
+            "scope": "machine-overridable"
+          },
+          "idl.copilot.customInstructionsENVI": {
+            "type": "string",
+            "default": "",
+            "editPresentation": "multilineText",
+            "description": "%configuration.descriptions.copilot.customInstructionsENVI%",
+            "scope": "machine-overridable"
           }
         }
       },

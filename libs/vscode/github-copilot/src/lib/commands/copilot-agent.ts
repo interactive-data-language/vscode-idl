@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { readInstructions } from '../helpers/synch-additional-instructions';
+import { InstructionsSync } from '../helpers/instructions-sync.class';
 
 /** Max rounds of tool-calling before stopping */
 const MAX_TOOL_ROUNDS = 20;
@@ -67,7 +67,12 @@ export class SimulatedCopilotChatAgent {
 
     // inject instructions as system context
     if (options.includeInstructions) {
-      const instructions = await readInstructions();
+      const sync = new InstructionsSync({
+        configNamespace: 'idl',
+        instructionsFile: 'idl.instructions.md',
+        settingKey: 'copilot.customInstructions',
+      });
+      const instructions = await sync.readInstructions();
       if (instructions) {
         messages.push(vscode.LanguageModelChatMessage.User(instructions));
       }

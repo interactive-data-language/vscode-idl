@@ -3,14 +3,10 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { RegisterCopilotCommands } from './commands/register-copilot-commands';
+import { InstructionsSync } from './helpers/instructions-sync.class';
 import { RegisterGitHubCopilotFilesFromExtension } from './helpers/register-github-copilot-files-from-extension';
 import { RegisterGitHubCopilotFilesFromIDLPackages } from './helpers/register-github-copilot-files-from-idl-packages';
 import { RegisterGitHubCopilotFilesFromUser } from './helpers/register-github-copilot-files-from-user';
-import {
-  syncInstructionsFromSettingToFile,
-  watchCustomInstructionsChanges,
-  watchCustomInstructionsFileChanges,
-} from './helpers/synch-additional-instructions';
 
 /**
  * Initializes our GitHub Copilot VSCode integration
@@ -46,14 +42,29 @@ export async function InitializeVSCodeGitHubCopilot(
   }
 
   /**
-   * Set up bidirectional sync between instructions file and settings
+   * Set up bidirectional sync between instructions files and settings
    */
-  // fire once.
-  await syncInstructionsFromSettingToFile();
+  const idlSync = new InstructionsSync({
+    configNamespace: 'idl',
+    instructionsFile: 'idl.instructions.md',
+    settingKey: 'copilot.customInstructions',
+  });
 
-  // set up our watchers. These keep the file and settings in lockstep.
-  ctx.subscriptions.push(watchCustomInstructionsFileChanges());
-  ctx.subscriptions.push(watchCustomInstructionsChanges());
+  const enviSync = new InstructionsSync({
+    configNamespace: 'idl',
+    instructionsFile: 'envi.instructions.md',
+    settingKey: 'copilot.customInstructionsENVI',
+  });
+
+  // fire once for each.
+  await idlSync.syncFromSettingToFile();
+  await enviSync.syncFromSettingToFile();
+
+  // set up our watchers. These keep the files and settings in lockstep.
+  ctx.subscriptions.push(idlSync.watchFileChanges());
+  ctx.subscriptions.push(idlSync.watchSettingChanges());
+  ctx.subscriptions.push(enviSync.watchFileChanges());
+  ctx.subscriptions.push(enviSync.watchSettingChanges());
 
   /**
    * Attempt to add prompt files to VSCode

@@ -7,6 +7,7 @@ import {
 import { IPackageNLS } from '../../package.interface';
 import { EXTENSION_CONFIG } from '../contributes-configuration.interface';
 import { VerifyNLS } from '../helpers/verify-nls';
+import { IDL_CONFIG_SCOPE } from './idl-config-scope.interface';
 import { TranslationFromConfiguration } from './translation-from-configuration';
 
 /**
@@ -36,7 +37,21 @@ export function AddCopilotConfig(nls: IPackageNLS) {
       IDL_EXTENSION_CONFIG_KEYS.copilotCustomInstructions,
       nls,
     ),
-    scope: 'machine',
+    scope: IDL_CONFIG_SCOPE,
+  };
+
+  // custom instructions
+  ourConfig.properties[
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.copilotCustomInstructionsENVI}`
+  ] = {
+    type: 'string',
+    default: DEFAULT_IDL_EXTENSION_CONFIG.copilot.customInstructionsENVI,
+    editPresentation: 'multilineText',
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.copilotCustomInstructionsENVI,
+      nls,
+    ),
+    scope: IDL_CONFIG_SCOPE,
   };
 
   // save in overall extension config
