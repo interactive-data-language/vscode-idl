@@ -5,6 +5,8 @@ import * as vscode from 'vscode';
 /**
  * Sets up GitHub Copilot instructions in the workspace
  * @param versionsAreDifferent If true, skips the overwrite confirmation dialog
+ *
+ * @deprecated We don't use this anymore, we turn on by default
  */
 export async function SetupCopilotInstructions(
   ctx: vscode.ExtensionContext,
@@ -55,9 +57,7 @@ export async function SetupCopilotInstructions(
 
     // Get template from extension
     const idlInstructionsTemplateUri = vscode.Uri.file(
-      GetExtensionPath(
-        'extension/github-copilot/instructions/idl.instructions.md',
-      ),
+      GetExtensionPath('extension/agents/instructions/idl.instructions.md'),
     );
 
     // Read template content

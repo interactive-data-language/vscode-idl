@@ -378,7 +378,7 @@ export class CopilotChatService {
    * instruction file(s) selected by the caller.
    */
   private composeInstructions(prompt: 'todo' | ChatPromptType): string {
-    const base = 'extension/github-copilot/instructions';
+    const base = 'extension/agents/instructions';
     const todo = readFileSync(
       GetExtensionPath(
         join('extension/standalone-mcp', 'todo.instructions.md'),

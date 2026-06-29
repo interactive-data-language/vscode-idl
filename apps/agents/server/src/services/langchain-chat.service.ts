@@ -536,7 +536,7 @@ export class LangChainChatService {
    * Load instruction file content for the given prompt type.
    */
   private loadInstructions(prompt: 'todo' | ChatPromptType): string {
-    const base = 'extension/github-copilot/instructions';
+    const base = 'extension/agents/instructions';
     switch (prompt) {
       case 'envi':
         return readFileSync(

@@ -32,8 +32,8 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   /** Get the folder our extensions live in */
   const extensionDir =
     type === 'instructions'
-      ? 'extension/github-copilot/instructions'
-      : 'extension/github-copilot/prompts';
+      ? 'extension/agents/instructions'
+      : 'extension/agents/prompts';
 
   /** Get the file extension we search for */
   const fileExtensions =

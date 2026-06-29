@@ -30,7 +30,7 @@ export function MCPTrackResources(logger: LogManager) {
   // track additional AI resources folder
   MCPTrackResourcesInFolder(
     logger,
-    GetExtensionPath('extension/github-copilot/resources'),
+    GetExtensionPath('extension/agents/resources'),
     true,
     'resource',
     {
