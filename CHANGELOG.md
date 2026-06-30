@@ -12,7 +12,7 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ## Unreleased
 
-[In stash, not added] Updated the ENVI instructions to better support opening the correct files in ENVI. ENVI Agent should now review files in a location, check against known formats, and open the right one for processing. This should hep improve how frequently ENVI Agent selects the right file.
+Fixed an emerging issue with the "list-envi-tools" MCP tool that GitHub Copilot could no longer easily work with. The tool now returns proper JSON. This was a non-issue before because context didn't matter much, but the token pricing changes have negatively impacted this tool.
 
 Re-organized the folder structure for agentic tools. We now use "agents" in your .idl folder instead of "github-copilot" and we do the same for some files included in the extension.
 
