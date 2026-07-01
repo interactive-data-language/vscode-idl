@@ -51,7 +51,5 @@ export function CreateIDLBackend(
     },
   );
 
-  // regi
-
   return backend;
 }

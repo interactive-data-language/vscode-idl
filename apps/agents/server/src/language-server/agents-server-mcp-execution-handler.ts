@@ -23,7 +23,7 @@ import { MCP_TOOL_LOOKUP, MCPSendRequestCallback } from '@idl/types/mcp';
  * This is the **standalone** path — it does not route through
  * the VS Code extension host or language server IPC.
  */
-export function CreateStandaloneExecutionCallback(
+export function AgentsServerMCPExecutionHandler(
   backend: IIDLExecutionBackend,
   prepareCode: PrepareIDLCodeCallback,
 ): MCPSendRequestCallback {

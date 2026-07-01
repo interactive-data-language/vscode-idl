@@ -18,8 +18,8 @@ import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import type { Application } from 'express';
 
+import { AgentsServerMCPExecutionHandler } from './agents-server-mcp-execution-handler';
 import { CreateIDLBackend } from './create-idl-backend';
-import { CreateStandaloneExecutionCallback } from './create-standalone-execution-callback';
 
 /**
  * Starts the language server for our dedicated MCP server - so we can re-use our MCP
@@ -75,7 +75,7 @@ export async function MCPLanguageServer(app: Application) {
    * Create the standalone execution callback that dispatches
    * tool calls directly to the core functions
    */
-  const idlExecutionCallback = CreateStandaloneExecutionCallback(
+  const idlExecutionCallback = AgentsServerMCPExecutionHandler(
     backend,
     async (code) => {
       return await index.indexerPool.workerio.postAndReceiveMessage(
