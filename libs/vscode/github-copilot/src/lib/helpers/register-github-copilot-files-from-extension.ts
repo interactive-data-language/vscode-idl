@@ -119,8 +119,6 @@ export async function RegisterGitHubCopilotFilesFromExtension(
       destinationRelative in states ? states[destinationRelative] : true;
   }
 
-  console.log(filesLocations);
-
   // Update the configuration globally
   await config.update(
     settingKey,
