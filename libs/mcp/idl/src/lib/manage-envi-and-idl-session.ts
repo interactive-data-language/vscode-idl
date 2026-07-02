@@ -39,7 +39,7 @@ export async function ManageENVIAndIDLSession(
   if (!backend.isStarted()) {
     return {
       success: false,
-      err: 'No active IDL or ENVI session to stop',
+      result: { err: 'No active IDL or ENVI session to stop' },
     };
   }
 
@@ -50,7 +50,7 @@ export async function ManageENVIAndIDLSession(
   if (params.action === 'stop') {
     return {
       success: true,
-      idlOutput: 'ENVI and IDL session stopped successfully',
+      result: 'ENVI and IDL session stopped successfully',
     };
   }
 
@@ -68,7 +68,7 @@ export async function ManageENVIAndIDLSession(
     default:
       return {
         success: false,
-        err: `Unknown restart option of "${params.action}"`,
+        result: { err: `Unknown restart option of "${params.action}"` },
       };
   }
 }

@@ -20,35 +20,20 @@ export async function ListENVIToolWorkflows(
   if (!started.started) {
     return {
       success: false,
-      err: started.reason,
-      workflows: {},
+      result: {
+        err: started?.reason || ' Failed to start',
+      },
     };
   }
 
   if (!backend.verifyIDLVersion()) {
     return {
       success: false,
-      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
-      workflows: {},
+      result: { err: IDL_TRANSLATION.mcp.errors.badIDLVersion },
     };
   }
 
-  const workflows = await backend.evaluateENVICommand(
+  return await backend.evaluateENVICommand<MCPTool_ListENVIToolWorkflows>(
     `vscode_retrieveENVITaskWorkflows`,
   );
-
-  if (!workflows.succeeded) {
-    return {
-      success: workflows.succeeded,
-      err: workflows.error,
-      workflows: {},
-      idlOutput: workflows.idlOutput,
-    };
-  }
-
-  return {
-    success: started.started,
-    err: workflows.error,
-    workflows: workflows.payload as any,
-  };
 }

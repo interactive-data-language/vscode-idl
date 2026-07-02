@@ -1,20 +1,23 @@
-import {
-  IENVICommandResult,
-  IIDLExecutionBackend,
-  IIDLStartResult,
-} from '@idl/mcp/idl-machine';
+import { IIDLExecutionBackend } from '@idl/mcp/idl-machine';
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
-import { IDLVersionInfo, IENVISuccess } from '@idl/types/vscode-debug';
+import {
+  DEFAULT_ENVI_MCP_TOOL_RESPONSE,
+  ENVIMCPToolResponse,
+  MCPToolResponse,
+  MCPTools_VSCode,
+} from '@idl/types/mcp';
+import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 import {
   IDebugEvaluateOptions,
   IDL_DEBUG_ADAPTER,
-  LAST_ENVI_SUCCESS_MESSAGE,
+  LAST_ENVI_MCP_MESSAGE,
   StartIDL,
 } from '@idl/vscode/debug';
 import { compareVersions } from 'compare-versions';
+import { copy } from 'fast-copy';
 
-const DEFAULT_SUCCESS: IENVISuccess = { succeeded: false };
+const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
 
 /**
  * Implementation of `IIDLExecutionBackend` backed by the VS Code
@@ -37,21 +40,23 @@ export class VSCodeExecutionBackend implements IIDLExecutionBackend {
     return IDL_DEBUG_ADAPTER.evaluate(command, options);
   }
 
-  async evaluateENVICommand(
+  async evaluateENVICommand<T extends MCPTools_VSCode>(
     command: string,
     options?: IDebugEvaluateOptions,
-  ): Promise<IENVICommandResult> {
+  ): Promise<MCPToolResponse<T>> {
     const idlOutput = await IDL_DEBUG_ADAPTER.evaluate(command, options);
 
-    const res: IENVISuccess = {
-      ...(LAST_ENVI_SUCCESS_MESSAGE || DEFAULT_SUCCESS),
+    const res: ENVIMCPToolResponse = {
+      ...(LAST_ENVI_MCP_MESSAGE || DEFAULT_SUCCESS),
     };
 
-    if (!res.succeeded) {
-      res.error = `${res.reason || ''}\n\n${res.error || ''}`.trim();
+    if (!res.success) {
+      res.result = {
+        err: `${res.result.reason || ''}\n\n${res.result.err || ''}`.trim(),
+      };
     }
 
-    return { idlOutput, ...res };
+    return { idlOutput, ...res } as MCPToolResponse<T>;
   }
 
   getErrorsByFile(): IDLSyntaxErrorLookup {

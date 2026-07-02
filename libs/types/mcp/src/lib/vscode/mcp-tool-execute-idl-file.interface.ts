@@ -18,8 +18,4 @@ export interface MCPToolParams_ExecuteIDLFile {
 /**
  * Response for running IDL code within a file
  */
-export interface MCPToolResponse_ExecuteIDLFile
-  extends IMCPToolVSCode_BaseResponse {
-  /** Output from IDL */
-  idlOutput?: string;
-}
+export type MCPToolResponse_ExecuteIDLFile = IMCPToolVSCode_BaseResponse;

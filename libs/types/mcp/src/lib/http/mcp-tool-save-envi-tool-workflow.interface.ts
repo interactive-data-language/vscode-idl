@@ -1,5 +1,3 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
-
 /**
  * Save an ENVI Tool Workflow to disk for re-use
  */
@@ -18,8 +16,7 @@ export interface MCPToolParams_SaveENVIToolWorkflow {
 /**
  * Response for Save ENVI Tool Workflow
  */
-export interface MCPToolResponse_SaveENVIToolWorkflow
-  extends IMCPToolVSCode_BaseResponse {
+export interface MCPToolResponse_SaveENVIToolWorkflow {
   /** The absolute path to the saved workflow file */
   filePath?: string;
 }

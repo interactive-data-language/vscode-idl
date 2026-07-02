@@ -14,4 +14,9 @@ export interface IChatServiceConfig {
   provider: ChatProvider;
   /** Port the Express app is listening on (used to wire the local MCP HTTP server). */
   serverPort?: number;
+  /**
+   * When true, the Copilot session's MCP tool allowlist is restricted to
+   * the WebSocket-mode tool set. Defaults to false.
+   */
+  websocketMode?: boolean;
 }

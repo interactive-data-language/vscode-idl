@@ -118,7 +118,7 @@ export function RegisterMCPTool_RunENVITool(
       )) as MCPToolResponse<MCPTool_RunENVITool>;
 
       // sanitize the output parameters
-      registry.sanitizeOutputParameters(resp.outputParameters);
+      registry.sanitizeOutputParameters(resp.result || {});
 
       return {
         isError: !resp.success,

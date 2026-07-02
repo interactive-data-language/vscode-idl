@@ -29,9 +29,9 @@ export interface MCPToolParams_OpenDatasetsInENVI {
 
 /**
  * Response for opening an image in ENVI
+ *
+ * On success, result is string saying datasets are open, nothing special
+ * right now
  */
-export interface MCPToolResponse_OpenDatasetsInENVI
-  extends IMCPToolVSCode_BaseResponse {
-  /** output from IDL */
-  idlOutput?: string;
-}
+export type MCPToolResponse_OpenDatasetsInENVI =
+  IMCPToolVSCode_BaseResponse<string>;

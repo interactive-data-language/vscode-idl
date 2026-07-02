@@ -1,10 +1,4 @@
-export interface IMCPToolVSCode_BaseResponse {
-  /**
-   * String version of error that was caught
-   */
-  err?: string;
-  /**
-   * Did our process finish successfully or not?
-   */
-  success: boolean;
-}
+import { ENVIMCPToolResponse } from './vscode/envi-mcp-tool-response.interface';
+
+export type IMCPToolVSCode_BaseResponse<TResult = string> =
+  ENVIMCPToolResponse<TResult>;

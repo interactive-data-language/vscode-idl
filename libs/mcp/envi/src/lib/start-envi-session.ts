@@ -22,15 +22,17 @@ export async function StartENVISession(
   onProgress?.('Starting IDL');
 
   const started = await backend.start(false);
-
   if (!started.started) {
-    return { success: false, err: started.reason };
+    return {
+      success: false,
+      result: { err: started?.reason || 'Failed to start' },
+    };
   }
 
   if (!backend.verifyIDLVersion()) {
     return {
       success: false,
-      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
+      result: { err: IDL_TRANSLATION.mcp.errors.badIDLVersion },
     };
   }
 
@@ -42,13 +44,7 @@ export async function StartENVISession(
   //   ? true
   //   : false;
 
-  const res = await backend.evaluateENVICommand(
+  return await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
     `vscode_startENVI, headless = ${headless ? '!true' : '!false'}`,
   );
-
-  return {
-    success: res.succeeded,
-    err: res.error,
-    idlOutput: res.idlOutput,
-  };
 }

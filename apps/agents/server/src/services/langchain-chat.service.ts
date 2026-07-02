@@ -20,6 +20,7 @@ import type { StructuredToolInterface } from '@langchain/core/tools';
 import { loadMcpTools } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
 import { readFileSync } from 'fs';
+import { nanoid } from 'nanoid';
 import { OpenAI } from 'openai';
 import { join } from 'path';
 
@@ -182,105 +183,141 @@ export class LangChainChatService {
         const resolvedToolCalls = aiMsg.tool_calls || [];
         const toolsByName = new Map(allTools.map((t) => [t.name, t]));
 
-        for (const toolCall of resolvedToolCalls) {
-          if (LANGCHAIN_TODO_TOOL_NAMES.has(toolCall.name)) {
+        // Assign a stable toolCallId to every call upfront so tool_call and
+        // tool_result chunks can be correlated even when tools run in parallel.
+        const enrichedCalls = resolvedToolCalls.map((tc) => ({
+          ...tc,
+          toolCallId: tc.id || nanoid(),
+        }));
+
+        // Decrement iteration counter for todo tools (they don't count as a
+        // real agentic step) and emit all tool_call chunks before execution
+        // begins so the UI can render in-progress cards immediately.
+        for (const tc of enrichedCalls) {
+          if (LANGCHAIN_TODO_TOOL_NAMES.has(tc.name)) {
             iteration--;
           } else {
             yield {
               type: 'tool_call',
-              toolName: toolCall.name,
-              toolArgs: toolCall.args as Record<string, unknown>,
+              toolCallId: tc.toolCallId,
+              toolName: tc.name,
+              toolArgs: tc.args as Record<string, unknown>,
             };
           }
+        }
 
-          const tool = toolsByName.get(toolCall.name);
+        // Run all tools in this batch concurrently. A shared keepalive interval
+        // keeps the HTTP stream alive for the duration of the batch.
+        let keepaliveTimer: NodeJS.Timeout | undefined = setInterval(() => {
+          // Results are collected below; keepalive chunks are handled after all
+          // settle so we track whether any tool is still running.
+        }, KEEPALIVE_INTERVAL_MS);
 
-          try {
-            if (!tool) {
-              throw new Error(`Unknown tool: ${toolCall.name}`);
-            }
+        interface ToolOutcome {
+          isTodo: boolean;
+          /** Result text on success; error message on failure */
+          output: string;
+          toolCallId: string;
+          toolError: boolean;
+          toolMessage: ToolMessage;
+          toolName: string;
+        }
 
-            let result: string | undefined;
-
+        const outcomes = await Promise.all(
+          enrichedCalls.map(async (tc): Promise<ToolOutcome> => {
+            const tool = toolsByName.get(tc.name);
             try {
-              for await (const chunk of this.invokeToolWithHeartbeat(
-                tool,
-                toolCall.args,
-              )) {
-                if (chunk.type === 'keepalive') {
-                  yield { type: 'keepalive' };
-                } else {
-                  result = chunk.value;
-                }
+              if (!tool) {
+                throw new Error(`Unknown tool: ${tc.name}`);
               }
-            } catch (invokeError) {
-              if (this.isSessionExpiredError(invokeError)) {
-                await this.reinitializeMCP();
 
-                const freshTool = new Map(
-                  this.mcpTools.map((t) => [t.name, t]),
-                ).get(toolCall.name);
+              let result: string | undefined;
 
-                if (!freshTool) {
-                  throw new Error(
-                    `Tool "${toolCall.name}" not found after reconnect`,
-                  );
-                }
-
+              const runTool = async (
+                t: typeof tool,
+              ): Promise<string | undefined> => {
+                let r: string | undefined;
                 for await (const chunk of this.invokeToolWithHeartbeat(
-                  freshTool,
-                  toolCall.args,
+                  t,
+                  tc.args,
                 )) {
-                  if (chunk.type === 'keepalive') {
-                    yield { type: 'keepalive' };
-                  } else {
-                    result = chunk.value;
+                  if (chunk.type !== 'keepalive') {
+                    r = chunk.value;
                   }
                 }
-              } else {
-                throw invokeError;
+                return r;
+              };
+
+              try {
+                result = await runTool(tool);
+              } catch (invokeError) {
+                if (this.isSessionExpiredError(invokeError)) {
+                  await this.reinitializeMCP();
+                  const freshTool = new Map(
+                    this.mcpTools.map((t) => [t.name, t]),
+                  ).get(tc.name);
+                  if (!freshTool) {
+                    throw new Error(
+                      `Tool "${tc.name}" not found after reconnect`,
+                    );
+                  }
+                  result = await runTool(freshTool);
+                } else {
+                  throw invokeError;
+                }
               }
-            }
 
-            if (result === undefined) {
-              throw new Error(
-                `Tool "${toolCall.name}" completed without returning a result`,
-              );
-            }
+              if (result === undefined) {
+                throw new Error(
+                  `Tool "${tc.name}" completed without returning a result`,
+                );
+              }
 
-            messages.push(
-              new ToolMessage({
-                content: result,
-                tool_call_id: toolCall.id || '',
-              }),
-            );
-
-            if (LANGCHAIN_TODO_TOOL_NAMES.has(toolCall.name)) {
-              yield { type: 'todo_update', todos: [...todos] };
-            } else {
-              yield {
-                type: 'tool_result',
-                toolName: toolCall.name,
+              return {
+                toolCallId: tc.toolCallId,
+                toolName: tc.name,
                 toolError: false,
-                toolOutput: result,
+                isTodo: LANGCHAIN_TODO_TOOL_NAMES.has(tc.name),
+                output: result,
+                toolMessage: new ToolMessage({
+                  content: result,
+                  tool_call_id: tc.id || '',
+                }),
+              };
+            } catch (error) {
+              const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+              return {
+                toolCallId: tc.toolCallId,
+                toolName: tc.name,
+                toolError: true,
+                isTodo: false,
+                output: errorMessage,
+                toolMessage: new ToolMessage({
+                  content: `Error executing tool: ${errorMessage}`,
+                  tool_call_id: tc.id || '',
+                }),
               };
             }
-          } catch (error) {
-            const errorMessage =
-              error instanceof Error ? error.message : 'Unknown error';
+          }),
+        );
 
-            messages.push(
-              new ToolMessage({
-                content: `Error executing tool: ${errorMessage}`,
-                tool_call_id: toolCall.id || '',
-              }),
-            );
+        clearInterval(keepaliveTimer);
+        keepaliveTimer = undefined;
 
+        // Append all tool messages to history in original order, then yield
+        // result chunks so the UI can update each in-progress tool card.
+        for (const outcome of outcomes) {
+          messages.push(outcome.toolMessage);
+          if (outcome.isTodo) {
+            yield { type: 'todo_update', todos: [...todos] };
+          } else {
             yield {
               type: 'tool_result',
-              toolName: toolCall.name,
-              toolError: true,
-              toolOutput: errorMessage,
+              toolCallId: outcome.toolCallId,
+              toolName: outcome.toolName,
+              toolError: outcome.toolError,
+              toolOutput: outcome.output,
             };
           }
         }

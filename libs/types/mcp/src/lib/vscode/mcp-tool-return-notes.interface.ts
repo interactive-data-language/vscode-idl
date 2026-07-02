@@ -13,14 +13,10 @@ export interface MCPToolParams_ReturnNotes {}
 
 /**
  * Response for running IDL code
+ *
+ * On success, returns notes for ENVI Tasks and IDL Tasks by task name
  */
-export interface MCPToolResponse_ReturnNotes
-  extends IMCPToolVSCode_BaseResponse {
-  /** Output from IDL */
-  idlOutput?: string;
-  /** The notes for tasks */
-  notes: {
-    envi: { [key: string]: string[] };
-    idl: { [key: string]: string[] };
-  };
-}
+export type MCPToolResponse_ReturnNotes = IMCPToolVSCode_BaseResponse<{
+  envi: { [key: string]: string[] };
+  idl: { [key: string]: string[] };
+}>;

@@ -63,6 +63,15 @@ const envSchema = z
      * Server port (optional, defaults to 3000)
      */
     PORT: z.string().optional().default('3000'),
+
+    /**
+     * When `true`, tool execution is routed through a WebSocket bridge at
+     * `ws://HOST:PORT/ws` instead of a local IDL Machine process. Only a
+     * limited set of ENVI tools is exposed to the model in this mode. The
+     * local IDL/ENVI install is still required for indexing and task-tool
+     * registration.
+     */
+    WEBSOCKET_ENABLED: z.enum(['true', 'false']).optional().default('false'),
   })
   .superRefine((data, ctx) => {
     if (data.CHAT_PROVIDER === 'openai' && !data.OPENAI_API_KEY) {

@@ -25,9 +25,9 @@ export interface MCPToolParams_QueryDatasetWithENVI {
 
 /**
  * Response for querying an image with ENVI
+ *
+ * On success, returns JSON metadata for the dataset
  */
-export interface MCPToolResponse_QueryDatasetWithENVI
-  extends IMCPToolVSCode_BaseResponse {
-  /** Information about the dataset that we return to the agent, array of values */
-  info: { [key: string]: any }[];
-}
+export type MCPToolResponse_QueryDatasetWithENVI = IMCPToolVSCode_BaseResponse<
+  { [key: string]: any }[]
+>;

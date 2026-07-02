@@ -74,7 +74,7 @@ export function RegisterMCPTool_GetENVIToolParameters(
 
         // try to load based on the response
         if (resp.success) {
-          registry.addNotesForManyTasks(resp.notes.envi);
+          registry.addNotesForManyTasks(resp.result?.envi || {});
         }
       }
 

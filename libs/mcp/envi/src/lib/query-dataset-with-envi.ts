@@ -6,6 +6,8 @@ import {
 } from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  ENVIMCPToolResponse_Failure,
+  MCPTool_ManageIDLAndENVISession,
   MCPTool_QueryDatasetWithENVI,
   MCPToolParams,
   MCPToolResponse,
@@ -34,8 +36,9 @@ export async function QueryDatasetWithENVI(
   if (!dataset) {
     return {
       success: false,
-      err: 'No dataset provided. Specify exactly one of: raster, vector, roi, spectralLibrary, deepLearningModel, or machineLearningModel.',
-      info: [{}],
+      result: {
+        err: 'No dataset provided. Specify exactly one of: raster, vector, roi, spectralLibrary, deepLearningModel, or machineLearningModel.',
+      },
     };
   }
 
@@ -44,45 +47,51 @@ export async function QueryDatasetWithENVI(
   const started = await backend.start(false);
 
   if (!started.started) {
-    return { success: false, err: started.reason, info: [{}] };
+    return {
+      success: false,
+      result: {
+        err: started?.reason || ' Failed to start',
+      },
+    };
   }
 
   if (!backend.verifyIDLVersion()) {
     return {
       success: false,
-      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
-      info: [{}],
+      result: { err: IDL_TRANSLATION.mcp.errors.badIDLVersion },
     };
   }
 
   onProgress?.('Starting ENVI');
 
-  const start = await backend.evaluateENVICommand(`vscode_startENVI`);
+  const start =
+    await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
+      `vscode_startENVI`,
+    );
 
-  if (!start.succeeded) {
+  if (!start.success) {
     return {
-      success: start.succeeded,
-      err: `${start.error}, IDL Output: ${start.idlOutput}`,
-      info: [{}],
+      success: false,
+      result: {
+        err:
+          (start as any as ENVIMCPToolResponse_Failure)?.result?.reason ||
+          ' Failed to start',
+      },
     };
   }
 
   onProgress?.('Querying dataset');
 
-  const res = await backend.evaluateENVICommand(
+  const res = await backend.evaluateENVICommand<MCPTool_QueryDatasetWithENVI>(
     `vscode_queryDataset, '${MCPSerializeJSON(dataset)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false },
   );
 
-  if (!res.payload) {
-    res.payload = [{}];
+  if (!res.result) {
+    res.result = [{}];
   }
 
-  FixENVIFactory(res.payload);
+  FixENVIFactory(res.result);
 
-  return {
-    success: res.succeeded,
-    err: res.error,
-    info: res.payload,
-  };
+  return res;
 }

@@ -23,7 +23,9 @@ import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
 } from '../mcp-tools/register-mcp-tools-for-todos';
+import { WEBSOCKET_ENABLED_MCP_TOOLS } from '../websocket/websocket-tools.interface';
 import type { IChatServiceConfig } from './chat.interface';
+import { COPILOT_ALLOWED_TOOLS } from './copilot-chat.interface';
 
 /**
  * Interval (in milliseconds) for emitting keepalive chunks during long tool execution
@@ -223,6 +225,7 @@ export class CopilotChatService {
               enqueue({ type: 'todo_update', todos: [...todos] });
             } else if (success) {
               enqueue({
+                toolCallId,
                 toolError: false,
                 toolName,
                 toolOutput: event.data.result?.content || '',
@@ -230,6 +233,7 @@ export class CopilotChatService {
               });
             } else {
               enqueue({
+                toolCallId,
                 toolError: true,
                 toolName,
                 toolOutput:
@@ -241,7 +245,6 @@ export class CopilotChatService {
           }
           case 'tool.execution_start': {
             const { toolCallId, toolName } = event.data;
-            console.log(toolName, toolCallId);
             toolNameById.set(toolCallId, toolName);
             activeToolCalls.add(toolCallId);
             startKeepalive();
@@ -251,6 +254,7 @@ export class CopilotChatService {
                   string,
                   unknown
                 >,
+                toolCallId,
                 toolName,
                 type: 'tool_call',
               });
@@ -328,13 +332,16 @@ export class CopilotChatService {
     const sessionConfig: ResumeSessionConfig = {
       // Restrict the agent to MCP-sourced tools plus our custom todo tools —
       // mirrors the prior behavior where only those tools were bound.
-      availableTools: ['mcp:*', 'custom:*'],
+      availableTools: ['mcp:*', 'custom:*', ...COPILOT_ALLOWED_TOOLS],
+      // then use excludedTools to block write/shell
       clientName: DEFAULT_CLIENT_NAME,
       mcpServers: {
         'idl-mcp': {
           type: 'http',
           url: `http://localhost:${port}/mcp`,
-          tools: ['*'], // "*" = all tools, [] = none, or list specific tools
+          tools: this.config.websocketMode
+            ? [...WEBSOCKET_ENABLED_MCP_TOOLS]
+            : ['*'], // "*" = all tools, [] = none, or list specific tools
         },
       },
       model: request.model,
@@ -351,6 +358,9 @@ export class CopilotChatService {
         },
       },
       tools,
+      largeOutput: {
+        enabled: false,
+      },
     };
 
     if (this.config.provider === 'openai' && this.config.openaiApiKey) {

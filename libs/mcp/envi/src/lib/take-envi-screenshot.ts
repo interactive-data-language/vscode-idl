@@ -26,28 +26,30 @@ export async function TakeENVIScreenshot(
   onProgress?.('Starting IDL');
 
   const started = await backend.start(false);
-
   if (!started.started) {
-    return { success: false, err: started.reason };
+    return {
+      success: false,
+      result: {
+        err: started?.reason || 'Failed to start',
+      },
+    };
   }
 
-  // envi tools need to check IDL version
   if (!backend.verifyIDLVersion()) {
     return {
       success: false,
-      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
+      result: { err: IDL_TRANSLATION.mcp.errors.badIDLVersion },
     };
   }
 
   onProgress?.('Taking screenshot');
 
-  /** Take screenshot */
-  const res = await backend.evaluateENVICommand(`vscode_TakeENVIScreenshot`);
-
-  return {
-    success: res.succeeded,
-    err: res.error,
-    idlOutput: res.idlOutput,
-    screenshotBase64: res.payload?.screenshotBase64,
-  };
+  /**
+   * Taking screenshot will fail when UI isn't present
+   *
+   * We don't need to check it
+   */
+  return await backend.evaluateENVICommand<MCPTool_TakeENVIScreenshot>(
+    `vscode_TakeENVIScreenshot`,
+  );
 }

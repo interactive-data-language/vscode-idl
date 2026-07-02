@@ -22,20 +22,15 @@ export interface MCPToolParams_RunENVITool {
 }
 
 /**
- * Response for starting ENVI
+ * Response for running an ENVI tool
+ *
+ * On success, result is a JSON object of all parameters dehydrated + stringified
  */
-export interface MCPToolResponse_RunENVITool
-  extends IMCPToolVSCode_BaseResponse {
-  /** output from IDL */
-  idlOutput?: string;
-  /** output parameters */
-  outputParameters: {
-    [key: string]: any;
-  };
-}
+export type MCPToolResponse_RunENVITool = IMCPToolVSCode_BaseResponse<{
+  [key: string]: any;
+}>;
 
 /**
  * Simplified output returned by the MCP tool — just the output parameters object
  */
-export type MCPToolOutput_RunENVITool =
-  MCPToolResponse_RunENVITool['outputParameters'];
+export type MCPToolOutput_RunENVITool = MCPToolResponse_RunENVITool['result'];

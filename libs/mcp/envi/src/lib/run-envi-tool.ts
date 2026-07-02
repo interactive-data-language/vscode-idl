@@ -5,6 +5,8 @@ import {
 } from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  ENVIMCPToolResponse_Failure,
+  MCPTool_ManageIDLAndENVISession,
   MCPTool_RunENVITool,
   MCPToolParams,
   MCPToolResponse,
@@ -23,44 +25,37 @@ export async function RunENVITool(
   onProgress?.('Starting IDL');
 
   const started = await backend.start(false);
-
   if (!started.started) {
-    return { success: false, err: started.reason, outputParameters: {} };
+    return {
+      success: false,
+      result: {
+        err: started?.reason || ' Failed to start',
+      },
+    };
   }
 
   onProgress?.('Starting ENVI');
 
-  const start = await backend.evaluateENVICommand(`vscode_startENVI`);
+  const start =
+    await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
+      `vscode_startENVI`,
+    );
 
-  if (!start.succeeded) {
-    return {
-      success: start.succeeded,
-      err: start.error,
-      outputParameters: {},
-      idlOutput: start.idlOutput,
-    };
-  }
-
-  if (!backend.verifyIDLVersion()) {
+  if (!start.success) {
     return {
       success: false,
-      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
-      outputParameters: {},
-      idlOutput: '',
+      result: {
+        err:
+          (start as any as ENVIMCPToolResponse_Failure)?.result?.reason ||
+          ' Failed to start',
+      },
     };
   }
 
-  onProgress?.('Running task');
+  onProgress?.('Running tool');
 
-  const res = await backend.evaluateENVICommand(
+  return await backend.evaluateENVICommand<MCPTool_RunENVITool>(
     `vscode_runENVITool, '${MCPSerializeJSON(params)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false },
   );
-
-  return {
-    success: res.succeeded,
-    err: res.error,
-    outputParameters: res.payload || {},
-    idlOutput: res.idlOutput,
-  };
 }

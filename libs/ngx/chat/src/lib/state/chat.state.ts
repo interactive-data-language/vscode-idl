@@ -152,7 +152,9 @@ export class ChatState {
     );
 
     // Track the latest tool message ID so tool_result can update it
-    let currentToolMessageId: null | string = null;
+    // Map from toolCallId -> message ID so concurrent tool calls each resolve
+    // to the correct in-progress tool card in the UI.
+    const toolMessageIdByCallId = new Map<string, string>();
 
     // Track the current system message accumulating LLM text. After each
     // tool_result a new system message is created so text and tool calls
@@ -260,9 +262,10 @@ export class ChatState {
 
             case 'tool_call': {
               // Append the tool message after whatever text has accumulated
-              currentToolMessageId = nanoid();
+              const toolMessageId = nanoid();
+              toolMessageIdByCallId.set(chunk.toolCallId, toolMessageId);
               const toolMessage: ChatMessage = {
-                id: currentToolMessageId,
+                id: toolMessageId,
                 type: 'tool',
                 content: [
                   {
@@ -278,25 +281,31 @@ export class ChatState {
               break;
             }
 
-            case 'tool_result':
-              if (currentToolMessageId) {
+            case 'tool_result': {
+              const targetMessageId = toolMessageIdByCallId.get(
+                chunk.toolCallId,
+              );
+              if (targetMessageId) {
                 const contentType = chunk.toolError
                   ? 'tool_error'
                   : 'tool_result';
                 this.appendContentToMessage(
                   ctx,
                   action.sessionId,
-                  currentToolMessageId,
+                  targetMessageId,
                   {
                     type: contentType,
                     payload: chunk.toolOutput,
                   },
                 );
-                currentToolMessageId = null;
-                // Next text_chunk should open a new system message
-                needsNewSystemMessage = true;
+                toolMessageIdByCallId.delete(chunk.toolCallId);
+                // Open a new system message once all in-flight tools complete
+                if (toolMessageIdByCallId.size === 0) {
+                  needsNewSystemMessage = true;
+                }
               }
               break;
+            }
 
             default:
               break;

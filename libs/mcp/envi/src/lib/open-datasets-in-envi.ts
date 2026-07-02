@@ -5,6 +5,8 @@ import {
 } from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  ENVIMCPToolResponse_Failure,
+  MCPTool_ManageIDLAndENVISession,
   MCPTool_OpenDatasetsInENVI,
   MCPToolParams,
   MCPToolResponse,
@@ -21,33 +23,43 @@ export async function OpenDatasetsInENVI(
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_OpenDatasetsInENVI>> {
   const started = await backend.start(false);
-
   if (!started.started) {
-    return { success: false, err: started.reason };
+    return {
+      success: false,
+      result: {
+        err: started?.reason || ' Failed to start',
+      },
+    };
   }
 
   if (!backend.verifyIDLVersion()) {
     return {
       success: false,
-      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
+      result: { err: IDL_TRANSLATION.mcp.errors.badIDLVersion },
     };
   }
 
   onProgress?.('Starting ENVI');
 
-  const start = await backend.evaluateENVICommand(`vscode_startENVI`);
+  const start =
+    await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
+      `vscode_startENVI`,
+    );
 
-  if (!start.succeeded) {
+  if (!start.success) {
     return {
-      success: start.succeeded,
-      err: start.error,
-      idlOutput: start.idlOutput,
+      success: false,
+      result: {
+        err:
+          (start as any as ENVIMCPToolResponse_Failure)?.result?.reason ||
+          ' Failed to start',
+      },
     };
   }
 
   onProgress?.('Opening datasets');
 
-  const res = await backend.evaluateENVICommand(
+  return await backend.evaluateENVICommand<MCPTool_OpenDatasetsInENVI>(
     `vscode_displayDatasets, '${MCPSerializeJSON(
       params.datasets,
     )}', automatic_zoom = '${params.automaticZoom}', reset = ${
@@ -55,10 +67,4 @@ export async function OpenDatasetsInENVI(
     }`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: false },
   );
-
-  return {
-    success: res.succeeded,
-    err: res.error,
-    idlOutput: res.idlOutput,
-  };
 }

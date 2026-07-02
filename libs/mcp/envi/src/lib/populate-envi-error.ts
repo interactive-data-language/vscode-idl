@@ -1,13 +1,19 @@
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IENVISuccess } from '@idl/types/vscode-debug';
+import {
+  ENVIMCPToolResponse,
+  ENVIMCPToolResponse_Failure,
+} from '@idl/types/mcp';
 
 /**
  * Checks a message from ENVI and, if we have an error, maps
  * the error reason to something more tangible
  */
-export function PopulateENVIError(msg: IENVISuccess) {
+export function PopulateENVIError(msg: ENVIMCPToolResponse) {
   // return if we dont have a reason
-  if (msg.succeeded || !msg.reason) {
+  if (
+    msg.success ||
+    !(msg as any as ENVIMCPToolResponse_Failure).result?.reason
+  ) {
     return;
   }
 
@@ -17,7 +23,7 @@ export function PopulateENVIError(msg: IENVISuccess) {
   /**
    * Handle our failure cases
    */
-  switch (msg.reason) {
+  switch ((msg as any as ENVIMCPToolResponse_Failure).result?.reason) {
     // generic ENVI error
     case 'envi-error':
       errMsg = IDL_TRANSLATION.envi.defaultError;
@@ -52,5 +58,6 @@ export function PopulateENVIError(msg: IENVISuccess) {
   }
 
   // update
-  msg.reason = `${errMsg}. Original reason: "${msg.reason}"`;
+  (msg as any as ENVIMCPToolResponse_Failure).result.reason =
+    `${errMsg}. Original reason: "${(msg as any as ENVIMCPToolResponse_Failure).result?.reason}"`;
 }

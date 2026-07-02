@@ -77,10 +77,10 @@ export function RegisterMCPTool_ListENVIToolWorkflows(server: MCPServer) {
 
         // try to load based on the response
         if (resp.success) {
-          ENVI_TOOL_WORKFLOW_REGISTRY.addManyToolWorkflows(resp.workflows);
+          ENVI_TOOL_WORKFLOW_REGISTRY.addManyToolWorkflows(resp.result || {});
           LOADED_WORKFLOWS = true;
         } else {
-          LOAD_FAILURE = resp.err || '';
+          LOAD_FAILURE = resp.result?.err || '';
           return {
             isError: true,
             content: [{ type: 'text', text: JSON.stringify(resp) }],

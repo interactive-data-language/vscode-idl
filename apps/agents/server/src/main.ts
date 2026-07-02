@@ -5,12 +5,14 @@ import { validateEnv } from './config/env.config';
 import { MCPLanguageServer } from './language-server/mcp-language-server';
 import { createChatRoutes } from './routes/chat.routes';
 import { ChatService } from './services/chat.service';
+import { WebSocketToolBridge } from './websocket/websocket-tool-bridge.class';
 
 // Validate environment variables
 const env = validateEnv();
 
 const host = env.HOST;
 const port = Number(env.PORT);
+const websocketEnabled = env.WEBSOCKET_ENABLED === 'true';
 
 async function main() {
   try {
@@ -25,8 +27,13 @@ async function main() {
     );
     app.use(express.json());
 
+    // Optional WebSocket bridge for remote tool execution
+    const websocketBridge = websocketEnabled
+      ? new WebSocketToolBridge()
+      : undefined;
+
     // Initialize MCP language server (IDL indexing + MCP tools on this Express app)
-    await MCPLanguageServer(app);
+    await MCPLanguageServer(app, { websocketBridge });
 
     // Initialize services
     const chatService = new ChatService({
@@ -36,12 +43,16 @@ async function main() {
       openaiApiKey: env.OPENAI_API_KEY,
       provider: env.CHAT_PROVIDER,
       serverPort: port,
+      websocketMode: websocketEnabled,
     });
 
     // Graceful shutdown — stop the Copilot SDK client so on-disk state flushes
     const shutdown = async (signal: NodeJS.Signals) => {
       console.log(`[server] Received ${signal}, shutting down...`);
       try {
+        if (websocketBridge !== undefined) {
+          await websocketBridge.close();
+        }
         await chatService.disconnect();
       } catch (err) {
         console.error('[server] Error during shutdown:', err);
@@ -75,7 +86,7 @@ async function main() {
       },
     );
 
-    app.listen(port, host, () => {
+    const server = app.listen(port, host, () => {
       console.log(`[ ready ] http://${host}:${port}`);
       console.log(`[ info ] chat provider: ${env.CHAT_PROVIDER}`);
       console.log(`[ info ] chat engine:   ${env.CHAT_ENGINE}`);
@@ -83,7 +94,14 @@ async function main() {
       console.log(`         - GET  /api/chat/models`);
       console.log(`         - POST /api/chat/message`);
       console.log(`         - POST /mcp (MCP protocol)`);
+      if (websocketBridge !== undefined) {
+        console.log(`         - WS   ws://${host}:${port}/ws (bridge)`);
+      }
     });
+
+    if (websocketBridge !== undefined) {
+      websocketBridge.attach(server, '/ws');
+    }
   } catch (err) {
     console.log(err);
     process.exit(1);

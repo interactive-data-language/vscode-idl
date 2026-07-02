@@ -30,7 +30,10 @@ export async function ExecuteIDLCode(
   const started = await backend.start(false);
 
   if (!started.started) {
-    return { success: false, err: started.reason };
+    return {
+      success: false,
+      result: { err: started?.reason || 'Failed to start' },
+    };
   }
 
   /** PRO file for where we write the code to disk */
@@ -47,14 +50,16 @@ export async function ExecuteIDLCode(
   if (!resp) {
     return {
       success: false,
-      err: IDL_TRANSLATION.mcp.errors.failedCodePrepare,
+      result: { err: IDL_TRANSLATION.mcp.errors.failedCodePrepare },
     };
   }
 
   if (resp.emptyMain) {
     return {
       success: false,
-      err: 'While not a problem, code was not run because we did not find a main level program to execute',
+      result: {
+        err: 'While not a problem, code was not run because we did not find a main level program to execute',
+      },
     };
   }
 
@@ -87,14 +92,6 @@ export async function ExecuteIDLCode(
   // get syntax errors
   const errsWithPrint = backend.getErrorsByFile();
 
-  /**
-   * If we didnt fail, but we have a batch file, then we
-   * need to append the cell output
-   */
-  if (resp.isBatch) {
-    return { success: true, idlOutput: firstOutput };
-  }
-
   // reset quiet flag
   if (resp.isBatch) {
     await backend.evaluate(`!quiet = 1`);
@@ -104,9 +101,11 @@ export async function ExecuteIDLCode(
   if (Object.keys(errsWithPrint).length > 0) {
     return {
       success: false,
-      err: `Detected syntax errors in IDL code. Details: ${JSON.stringify(
-        errsWithPrint,
-      )}`,
+      result: {
+        err: `Detected syntax errors in IDL code. Details: ${JSON.stringify(
+          errsWithPrint,
+        )}`,
+      },
     };
   }
 
@@ -114,13 +113,16 @@ export async function ExecuteIDLCode(
   if (resp.isBatch && COMPILE_FILE_ERROR.test(firstOutput)) {
     return {
       success: false,
-      err: `Failed to execute code as IDL batch file using the "@" syntax. Please see IDL Console for more details.`,
+      result: {
+        err: `Failed to execute code as IDL batch file using the "@" syntax. Please see IDL Console for more details.`,
+      },
     };
   }
 
   switch (true) {
     // dont do anything else if our batch file
     case resp.isBatch:
+      return { success: true, idlOutput: firstOutput };
       break;
     // if main, execute
     case resp.hasMain: {
@@ -137,14 +139,18 @@ export async function ExecuteIDLCode(
           return {
             success: false,
             idlOutput,
-            err: `An error message was reported:\n\n  ${lastMessage}`,
+            result: {
+              err: `An error message was reported:\n\n  ${lastMessage}`,
+            },
           };
 
         case !backend.isAtMain():
           return {
             success: false,
             idlOutput,
-            err: `The IDL process ran, but likely stopped somewhere, meaning that the code did not finish executing and may have runtime errors that need to be fixed.`,
+            result: {
+              err: `The IDL process ran, but likely stopped somewhere, meaning that the code did not finish executing and may have runtime errors that need to be fixed.`,
+            },
           };
 
         default:
@@ -158,5 +164,8 @@ export async function ExecuteIDLCode(
       break;
   }
 
-  return { success: started.started, err: started.reason };
+  return {
+    success: false,
+    result: { err: 'Unhandled logic when executing IDL code' },
+  };
 }

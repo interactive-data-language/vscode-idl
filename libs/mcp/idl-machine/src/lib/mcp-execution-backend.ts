@@ -4,24 +4,28 @@ import {
   IDLSyntaxErrorLookup,
   IStartIDLConfig,
 } from '@idl/types/idl/idl-process';
-import { IDLVersionInfo, IENVISuccess } from '@idl/types/vscode-debug';
-import { compareVersions } from 'compare-versions';
-
 import {
-  IENVICommandResult,
-  IIDLExecutionBackend,
-  IIDLStartResult,
-} from './idl-execution-backend.interface';
+  DEFAULT_ENVI_MCP_TOOL_RESPONSE,
+  ENVIMCPToolResponse,
+  ENVIMCPToolResponse_Failure,
+  MCPToolResponse,
+  MCPTools_VSCode,
+} from '@idl/types/mcp';
+import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
+import { compareVersions } from 'compare-versions';
+import { copy } from 'fast-copy';
+
+import { IIDLExecutionBackend } from './idl-execution-backend.interface';
 import { IDLMCPExecutionManager } from './idl-mcp-execution-manager.class';
 
-const DEFAULT_SUCCESS: IENVISuccess = { succeeded: false };
+const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
 
 /**
  * Callback invoked when an `envi_success` or `envi_failure`
  * notification arrives. Used by `RegisterENVINotifyHandlers`
  * to store the latest message on this backend instance.
  */
-export type MCPBackendENVIHandler = (msg: IENVISuccess) => void;
+export type MCPBackendENVIHandler = (msg: ENVIMCPToolResponse) => void;
 
 /**
  * Implementation of `IIDLExecutionBackend` backed by an
@@ -37,7 +41,7 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
    * Updated by `envi_success` / `envi_failure` IDL Notify handlers
    * registered via `RegisterENVINotifyHandlers()` from `@idl/mcp/envi`.
    */
-  lastENVISuccessMessage: IENVISuccess | undefined;
+  lastENVIMessage: ENVIMCPToolResponse | undefined;
 
   /**
    * Launch configuration for IDL. When set, `start()` will use this
@@ -72,21 +76,23 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
     return this.manager.evaluate(command, options);
   }
 
-  async evaluateENVICommand(
+  async evaluateENVICommand<T extends MCPTools_VSCode>(
     command: string,
     options?: IDLEvaluateOptions,
-  ): Promise<IENVICommandResult> {
+  ): Promise<MCPToolResponse<T>> {
     const idlOutput = await this.manager.evaluate(command, options);
 
-    const res: IENVISuccess = {
-      ...(this.lastENVISuccessMessage || DEFAULT_SUCCESS),
+    const res: ENVIMCPToolResponse = {
+      ...(this.lastENVIMessage || DEFAULT_SUCCESS),
     };
 
-    if (!res.succeeded) {
-      res.error = `${res.reason || ''}\n\n${res.error || ''}`.trim();
+    if (!res.success) {
+      res.result = {
+        err: `${(res as any as ENVIMCPToolResponse_Failure).result?.reason || ''}\n\n${(res as any as ENVIMCPToolResponse_Failure).result?.err || ''}`.trim(),
+      };
     }
 
-    return { idlOutput, ...res };
+    return { idlOutput, ...res } as MCPToolResponse<T>;
   }
 
   getErrorsByFile(): IDLSyntaxErrorLookup {

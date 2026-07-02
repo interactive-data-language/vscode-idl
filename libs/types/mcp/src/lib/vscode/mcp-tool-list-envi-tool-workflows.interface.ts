@@ -13,11 +13,9 @@ export interface MCPToolParams_ListENVIToolWorkflows {}
 
 /**
  * Response for listing ENVI Tool workflows
+ *
+ * On success, lists workflows by name and then
+ * the content for the workflows
  */
-export interface MCPToolResponse_ListENVIToolWorkflows
-  extends IMCPToolVSCode_BaseResponse {
-  /** Output from IDL */
-  idlOutput?: string;
-  /** The known workflows by name and value */
-  workflows: { [key: string]: string };
-}
+export type MCPToolResponse_ListENVIToolWorkflows =
+  IMCPToolVSCode_BaseResponse<{ [key: string]: string }>;

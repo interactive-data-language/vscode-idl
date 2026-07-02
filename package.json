@@ -100,6 +100,7 @@
     "vscode-languageserver-textdocument": "^1.0.12",
     "vscode-textmate": "^9.1.0",
     "vscode-uri": "^3.0.8",
+    "ws": "^8.18.0",
     "zod": "^4.3.6",
     "zone.js": "0.16.1"
   },
@@ -169,6 +170,7 @@
     "@types/vscode": "^1.105.0",
     "@types/vscode-notebook-renderer": "^1.72.4",
     "@types/web": "^0.0.339",
+    "@types/ws": "^8.5.10",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "@typescript-eslint/utils": "^7.16.0",

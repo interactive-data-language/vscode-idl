@@ -1,5 +1,6 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
+import { IIDLStartResult } from '@idl/types/vscode-debug';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { copy } from 'fast-copy';
 import * as vscode from 'vscode';
@@ -7,12 +8,11 @@ import * as vscode from 'vscode';
 import { IsIDLDirValid } from '../helpers/is-idl-dir-valid';
 import { DEFAULT_IDL_DEBUG_CONFIGURATION } from '../idl-debug-adapter.interface';
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
-import { IStartIDL } from './start-idl.interface';
 
 /**
  * Starts debugging session of IDL
  */
-export async function StartIDL(show = true): Promise<IStartIDL> {
+export async function StartIDL(show = true): Promise<IIDLStartResult> {
   // return if we have started
   if (IsIDLStarted()) {
     // display debug window if already started
@@ -66,7 +66,9 @@ export async function StartIDL(show = true): Promise<IStartIDL> {
   );
 
   // return that IDL has started
-  return { started: IsIDLStarted() };
+  return IsIDLStarted()
+    ? { started: true }
+    : { started: false, reason: 'IDL is not started' };
 }
 
 /**

@@ -46,7 +46,7 @@ export function CreateIDLBackend(
     },
     () => {
       RegisterENVINotifyHandlers(backend, (msg) => {
-        backend.lastENVISuccessMessage = msg;
+        backend.lastENVIMessage = msg;
       });
     },
   );

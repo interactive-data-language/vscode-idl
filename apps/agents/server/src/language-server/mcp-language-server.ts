@@ -18,8 +18,23 @@ import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import type { Application } from 'express';
 
+import { WebSocketToolBridge } from '../websocket/websocket-tool-bridge.class';
 import { AgentsServerMCPExecutionHandler } from './agents-server-mcp-execution-handler';
 import { CreateIDLBackend } from './create-idl-backend';
+import { WebSocketMCPExecutionHandler } from './websocket-mcp-execution-handler';
+
+/**
+ * Optional configuration for the MCP language server.
+ */
+export interface IMCPLanguageServerOptions {
+  /**
+   * When provided, tool execution is routed through this WebSocket bridge
+   * instead of a local IDL Machine process. The IDL/ENVI install is still
+   * required for indexing and task-tool registration; only the runtime
+   * backend is skipped.
+   */
+  websocketBridge?: WebSocketToolBridge;
+}
 
 /**
  * Starts the language server for our dedicated MCP server - so we can re-use our MCP
@@ -27,7 +42,10 @@ import { CreateIDLBackend } from './create-idl-backend';
  *
  * Mounts MCP routes on the provided Express app instead of creating a standalone server.
  */
-export async function MCPLanguageServer(app: Application) {
+export async function MCPLanguageServer(
+  app: Application,
+  options?: IMCPLanguageServerOptions,
+) {
   const logManager = new LogManager({
     alert: () => {
       //
@@ -67,26 +85,24 @@ export async function MCPLanguageServer(app: Application) {
   index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
 
   /**
-   * Create the IDL execution backend (IDL launches on demand via backend.start())
+   * Create the execution callback. In WebSocket mode we skip launching the
+   * local IDL Machine process entirely and forward the small set of allowed
+   * ENVI tools to the connected WS client instead.
    */
-  const backend = CreateIDLBackend(logManager, idlPath);
-
-  /**
-   * Create the standalone execution callback that dispatches
-   * tool calls directly to the core functions
-   */
-  const idlExecutionCallback = AgentsServerMCPExecutionHandler(
-    backend,
-    async (code) => {
-      return await index.indexerPool.workerio.postAndReceiveMessage(
-        index.getNextWorkerID(),
-        LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
-        {
-          code,
+  const idlExecutionCallback = options?.websocketBridge
+    ? WebSocketMCPExecutionHandler(options.websocketBridge)
+    : AgentsServerMCPExecutionHandler(
+        CreateIDLBackend(logManager, idlPath),
+        async (code) => {
+          return await index.indexerPool.workerio.postAndReceiveMessage(
+            index.getNextWorkerID(),
+            LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
+            {
+              code,
+            },
+          ).response;
         },
-      ).response;
-    },
-  );
+      );
 
   // start the MCP server with the execution callback, mounting on the provided Express app
   MCPServer.start({

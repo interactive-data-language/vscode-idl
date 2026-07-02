@@ -20,7 +20,10 @@ export async function ExecuteIDLFile(
   const started = await backend.start(false);
 
   if (!started.started) {
-    return { success: false, err: started.reason };
+    return {
+      success: false,
+      result: { err: started?.reason || 'Failed to start' },
+    };
   }
 
   // set compile option and make sure we are at the main level
@@ -45,7 +48,9 @@ export async function ExecuteIDLFile(
   if (Object.keys(errs).length > 0) {
     return {
       success: false,
-      err: `Detected syntax errors in IDL file. Details: ${JSON.stringify(errs)}`,
+      result: {
+        err: `Detected syntax errors in IDL file. Details: ${JSON.stringify(errs)}`,
+      },
       idlOutput: compileOutput,
     };
   }
@@ -62,14 +67,14 @@ export async function ExecuteIDLFile(
       return {
         success: false,
         idlOutput,
-        err: `An error message was reported:\n\n  ${lastMessage}`,
+        result: { err: `An error message was reported:\n\n  ${lastMessage}` },
       };
 
     case !backend.isAtMain():
       return {
         success: false,
         idlOutput,
-        err: IDL_TRANSLATION.debugger.commandErrors.idlStopped,
+        result: { err: IDL_TRANSLATION.debugger.commandErrors.idlStopped },
       };
 
     default:

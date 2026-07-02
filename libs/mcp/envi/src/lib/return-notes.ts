@@ -16,37 +16,23 @@ export async function ReturnNotes(
   params: MCPToolParams<MCPTool_ReturnNotes>,
 ): Promise<MCPToolResponse<MCPTool_ReturnNotes>> {
   const started = await backend.start();
-
   if (!started.started) {
     return {
       success: false,
-      err: started.reason,
-      notes: { envi: {}, idl: {} },
+      result: {
+        err: started?.reason || ' Failed to start',
+      },
     };
   }
 
   if (!backend.verifyIDLVersion()) {
     return {
       success: false,
-      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
-      notes: { envi: {}, idl: {} },
+      result: { err: IDL_TRANSLATION.mcp.errors.badIDLVersion },
     };
   }
 
-  const notes = await backend.evaluateENVICommand(`vscode_retrieveNotes`);
-
-  if (!notes.succeeded) {
-    return {
-      success: notes.succeeded,
-      err: notes.error,
-      notes: { envi: {}, idl: {} },
-      idlOutput: notes.idlOutput,
-    };
-  }
-
-  return {
-    success: started.started,
-    err: started.reason,
-    notes: notes.payload as any,
-  };
+  return await backend.evaluateENVICommand<MCPTool_ReturnNotes>(
+    `vscode_retrieveNotes`,
+  );
 }

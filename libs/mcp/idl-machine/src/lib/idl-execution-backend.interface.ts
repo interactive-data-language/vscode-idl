@@ -3,33 +3,13 @@ import {
   IDLEvaluateOptions,
   IDLSyntaxErrorLookup,
 } from '@idl/types/idl/idl-process';
-import { IDLVersionInfo, IENVISuccess } from '@idl/types/vscode-debug';
+import { MCPToolResponse, MCPTools_VSCode } from '@idl/types/mcp';
+import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 
 /**
  * Callback to send progress notifications during MCP tool execution
  */
 export type MCPProgressCallback = (message: string) => void;
-
-/**
- * Result of starting IDL, returned by `IIDLExecutionBackend.start()`
- */
-export interface IIDLStartResult {
-  /** Reason we did not start */
-  reason?: string;
-  /** If we started or not */
-  started: boolean;
-}
-
-/**
- * Result of evaluating an ENVI command through the backend.
- *
- * Combines the raw IDL output with the ENVI success/failure status
- * that arrives via IDL Notify.
- */
-export interface IENVICommandResult extends IENVISuccess {
-  /** Raw output from IDL */
-  idlOutput: string;
-}
 
 /**
  * Abstraction over an IDL execution environment.
@@ -50,10 +30,10 @@ export interface IIDLExecutionBackend {
    * Implementations are responsible for reading the ENVI success/failure
    * notification state after running the command.
    */
-  evaluateENVICommand(
+  evaluateENVICommand<T extends MCPTools_VSCode>(
     command: string,
     options?: IDLEvaluateOptions,
-  ): Promise<IENVICommandResult>;
+  ): Promise<MCPToolResponse<T>>;
 
   /**
    * Returns syntax errors tracked by file after the last evaluation.
