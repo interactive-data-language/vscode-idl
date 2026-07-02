@@ -129,6 +129,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   LIST_ALL_RESOURCES: 'list-all-resources',
   LIST_ENVI_TOOL_WORKFLOWS: 'list-envi-tool-workflows',
   LIST_ENVI_TOOLS: 'list-envi-tools',
+  LIST_PROMPTS: 'list-prompts',
   MANAGE_IDL_AND_ENVI_SESSION: 'manage-idl-and-envi-session',
   OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',
@@ -137,7 +138,6 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   SAVE_ENVI_TOOL_WORKFLOW: 'save-envi-tool-workflow',
   SEARCH_FOR_FILES: 'search-for-files',
   SEARCH_FOR_ROUTINE: 'search-for-routine',
-  LIST_PROMPTS: 'list-prompts',
   SEARCH_RESOURCES: 'search-resources',
   TAKE_ENVI_SCREENSHOT: 'take-envi-screenshot',
 };
