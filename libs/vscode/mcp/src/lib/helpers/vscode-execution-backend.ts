@@ -4,6 +4,7 @@ import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
 import {
   DEFAULT_ENVI_MCP_TOOL_RESPONSE,
   ENVIMCPToolResponse,
+  ENVIMCPToolResponse_Failure,
   MCPToolResponse,
   MCPTools_VSCode,
 } from '@idl/types/mcp';
@@ -52,7 +53,7 @@ export class VSCodeExecutionBackend implements IIDLExecutionBackend {
 
     if (!res.success) {
       res.result = {
-        err: `${res.result.reason || ''}\n\n${res.result.err || ''}`.trim(),
+        err: `${(res as ENVIMCPToolResponse_Failure).result.reason || ''}\n\n${(res as ENVIMCPToolResponse_Failure).result.err || ''}`.trim(),
       };
     }
 

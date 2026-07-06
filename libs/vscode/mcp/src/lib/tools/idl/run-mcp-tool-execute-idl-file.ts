@@ -26,7 +26,7 @@ export async function RunMCPTool_ExecuteIDLFile(
   const started = await MCP_EXECUTION_BACKEND.start();
 
   if (!started.started) {
-    return { success: false, err: started.reason };
+    return { success: false, result: { err: started.reason || '' } };
   }
 
   /**
@@ -51,7 +51,11 @@ export async function RunMCPTool_ExecuteIDLFile(
 
   // return if we didnt finish
   if (!result.success) {
-    return result;
+    return {
+      success: false,
+      result: { err: result.err || 'Failed to execute IDL code' },
+      idlOutput: result.idlOutput,
+    };
   }
 
   /** Check output from last message to see if we had an error */
@@ -66,14 +70,14 @@ export async function RunMCPTool_ExecuteIDLFile(
       return {
         ...result,
         success: false,
-        err: `An error message was reported:\n\n  ${lastMessage}`,
+        result: { err: `An error message was reported:\n\n  ${lastMessage}` },
       };
 
     case !MCP_EXECUTION_BACKEND.isAtMain():
       return {
         success: false,
         idlOutput: result.idlOutput,
-        err: IDL_TRANSLATION.debugger.commandErrors.idlStopped,
+        result: { err: IDL_TRANSLATION.debugger.commandErrors.idlStopped },
       };
 
     default:

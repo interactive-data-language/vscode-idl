@@ -97,7 +97,9 @@ export async function RunMCPToolMessageHandler(
       // return that we failed
       return {
         success: false,
-        err: `There was an unhandled error during the execution of the tool: "${asString}"`,
+        result: {
+          err: `There was an unhandled error during the execution of the tool: "${asString}"`,
+        },
       };
     }
   } else {
@@ -111,7 +113,7 @@ export async function RunMCPToolMessageHandler(
     // also return that we failed
     return {
       success: false,
-      err: 'Attempt to run an unknown tool',
+      result: { err: 'Attempt to run an unknown tool' },
     };
   }
 }

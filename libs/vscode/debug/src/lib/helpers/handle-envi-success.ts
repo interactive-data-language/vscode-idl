@@ -1,6 +1,9 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { PopulateENVIError } from '@idl/mcp/envi';
-import { ENVIMCPToolResponse } from '@idl/types/mcp';
+import {
+  ENVIMCPToolResponse,
+  ENVIMCPToolResponse_Failure,
+} from '@idl/types/mcp';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { OutputEvent } from '@vscode/debugadapter';
 import * as vscode from 'vscode';
@@ -38,12 +41,17 @@ export async function HandleENVISuccess(
 
     // send reason to IDL console
     IDL_DEBUG_ADAPTER.sendEvent(
-      new OutputEvent(`${parsed.result.err}`, 'stderr'),
+      new OutputEvent(
+        `${(parsed as ENVIMCPToolResponse_Failure).result.err}`,
+        'stderr',
+      ),
     );
 
     // alert user
-    if (parsed.result.reason) {
-      vscode.window.showErrorMessage(parsed.result.reason);
+    if ((parsed as ENVIMCPToolResponse_Failure).result.reason) {
+      vscode.window.showErrorMessage(
+        (parsed as ENVIMCPToolResponse_Failure).result.reason as string,
+      );
     }
   }
 
