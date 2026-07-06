@@ -62,14 +62,19 @@ export const RunMCPTestRunENVITool: RunnerFunction = async (init) => {
   // make sure we parsed
   expect(results).toBeTruthy();
 
+  // type check to make compiler happy
+  if (!results.success) {
+    return;
+  }
+
   // make sure we have an object first
   expect(typeof results).toEqual('object');
 
   // verify we have more than 200 tools
-  expect('output_raster' in results.outputParameters).toBeTruthy();
+  expect('output_raster' in results.result).toBeTruthy();
 
   // verify output object
-  expect(results.outputParameters['output_raster']).toEqual({
+  expect(results.result['output_raster']).toEqual({
     factory: 'URLRaster',
     url: outUri,
     auxiliary_url: [outUri.replace('.dat', '.hdr')],

@@ -1,5 +1,6 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import {
+  ENVIMCPToolResponse_Failure,
   MCP_TOOL_LOOKUP,
   MCPTool_ExecuteIDLCode,
   MCPToolResponse_VSCode,
@@ -80,7 +81,9 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 
   // make sure we have "foo" as the cleaned text
   expect(
-    CleanIDLOutput(parsedSyntaxError.err || '')
+    CleanIDLOutput(
+      (parsedSyntaxError as ENVIMCPToolResponse_Failure)?.result?.err || '',
+    )
       .toLowerCase()
       .includes(' compilation error(s)'),
   ).toBeTruthy();

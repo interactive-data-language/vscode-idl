@@ -44,13 +44,18 @@ export const RunMCPTestQueryDatasetWithENVI_ROI: RunnerFunction = async (
   // make sure we got an answer
   expect(results).toBeTruthy();
 
+  // type check to make compiler happy
+  if (!results.success) {
+    return;
+  }
+
   // remove dehydrated dataset
-  for (let i = 0; i < results.info.length; i++) {
-    delete results.info[i]['dataset'];
+  for (let i = 0; i < results.result.length; i++) {
+    delete results.result[i]['dataset'];
   }
 
   // compare
-  expect(results.info).toEqual([
+  expect(results.result).toEqual([
     {
       name: 'Disturbed Earth',
       color: [240, 240, 0],

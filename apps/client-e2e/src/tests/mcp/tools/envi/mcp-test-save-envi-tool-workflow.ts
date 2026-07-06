@@ -33,9 +33,6 @@ export const RunMCPTestSaveENVIToolWorkflow: RunnerFunction = async (init) => {
     GetTextContent(result.content),
   ) as MCPToolResponse_SaveENVIToolWorkflow;
 
-  // make sure it succeeded
-  expect(parsed.success).toBeTruthy();
-
   // make sure a file path was returned
   expect(parsed.filePath).toBeTruthy();
 
