@@ -11,7 +11,8 @@ import {
  * Core logic for executing an IDL file.
  *
  * Independent of VS Code — compiles and runs the file directly
- * through the backend without opening it in an editor.
+ * through the backend without opening it in an editor or re-using our
+ * run command
  */
 export async function ExecuteIDLFile(
   backend: IIDLExecutionBackend,
@@ -80,6 +81,7 @@ export async function ExecuteIDLFile(
     default:
       return {
         success: true,
+        result: 'Executed file, see idlOutput for more details',
         idlOutput,
       };
   }

@@ -7,7 +7,7 @@ export type ENVIMCPToolResponse<TResult = string> = {
 /** Parameters from ENVI report */
 export interface ENVIMCPToolResponse_Success<TResult = string> {
   /** Success response, likely array, object, string, or combination of each */
-  result?: TResult;
+  result: TResult;
   /** If we succeeded or not */
   success: true;
 }

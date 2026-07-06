@@ -122,7 +122,11 @@ export async function ExecuteIDLCode(
   switch (true) {
     // dont do anything else if our batch file
     case resp.isBatch:
-      return { success: true, idlOutput: firstOutput };
+      return {
+        success: true,
+        result: 'Ran code as batch file',
+        idlOutput: firstOutput,
+      };
       break;
     // if main, execute
     case resp.hasMain: {
@@ -156,6 +160,7 @@ export async function ExecuteIDLCode(
         default:
           return {
             success: true,
+            result: 'Executed code, see idlOutput',
             idlOutput,
           };
       }

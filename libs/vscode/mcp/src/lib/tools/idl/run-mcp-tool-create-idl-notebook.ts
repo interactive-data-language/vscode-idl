@@ -31,5 +31,5 @@ export async function RunMCPTool_CreateIDLNotebook(
   // format the notebook
   await vscode.commands.executeCommand(VSCODE_COMMANDS.FORMAT_NOTEBOOK);
 
-  return { success: true };
+  return { success: true, result: 'Created notebook' };
 }

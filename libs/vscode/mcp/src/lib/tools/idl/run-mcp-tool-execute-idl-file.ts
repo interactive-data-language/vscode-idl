@@ -83,6 +83,7 @@ export async function RunMCPTool_ExecuteIDLFile(
     default:
       return {
         success: true,
+        result: 'Executed file, see idlOutput for more details',
         idlOutput: result.idlOutput,
       };
   }

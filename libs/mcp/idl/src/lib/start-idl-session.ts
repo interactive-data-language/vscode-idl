@@ -23,6 +23,6 @@ export async function StartIDLSession(
   const started = await backend.start();
 
   return started.started
-    ? { success: true }
+    ? { success: true, result: 'Started IDL' }
     : { success: false, result: { err: started?.reason || 'Failed to start' } };
 }

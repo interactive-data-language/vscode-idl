@@ -25,5 +25,5 @@ export async function CreateIDLNotebook(
 
   writeFileSync(params.uri, nbAsBytes);
 
-  return { success: true };
+  return { success: true, result: 'Created IDL notebook' };
 }
