@@ -35,6 +35,7 @@ const DEBUG_LOGS = false;
  * IDL install folder for extension testing
  */
 export let IDL_DIR: string | undefined;
+
 /**
  * Test runner
  *
