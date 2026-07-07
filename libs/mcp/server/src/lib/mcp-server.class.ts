@@ -493,12 +493,20 @@ export class MCPServer {
 
     // POST /mcp — main entry point for MCP protocol messages
     router.post('/mcp', async (req: express.Request, res: express.Response) => {
+      /** MCP connection */
+      let conn: IMCPConnection;
+
       // Create interval to keep connection alive during long-running tool executions
       // Sends SSE-style heartbeat messages to prevent timeouts
       const keepAliveInterval = setInterval(() => {
         // Check if the connection is still open using the socket's writable state
         if (!res.writableEnded && !res.writableFinished) {
           res.write(':beat\n\n');
+
+          // for long-running tools, make sure to update our last activity
+          if (conn) {
+            conn.lastActivity = Date.now();
+          }
         } else {
           clearInterval(keepAliveInterval);
         }
@@ -507,7 +515,6 @@ export class MCPServer {
       try {
         // Check for existing session
         const sessionId = req.headers['mcp-session-id'] as string;
-        let conn: IMCPConnection;
 
         switch (true) {
           /**
