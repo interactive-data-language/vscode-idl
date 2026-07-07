@@ -12,20 +12,7 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ## Unreleased
 
-Fixed an emerging issue with the "list-envi-tools" MCP tool that GitHub Copilot could no longer easily work with. The tool now returns proper JSON. This was a non-issue before because context didn't matter much, but the token pricing changes have negatively impacted this tool.
-
-Fix an issue with the MCP server connection cleaning up active tool sessions that would end with the agent hanging and not being alerted when a tool has finished or closed.
-
 Re-organized the folder structure for agentic tools. We now use "agents" in your .idl folder instead of "github-copilot" and we do the same for some files included in the extension.
-
-Updated the MCP server to add strict checking on all input parameters to tools. This helps LLMs course-correct when they hallucinate and pass in parameters that are not valid.
-
-Updated the "open-datasets-in-envi" MCP tool to validate that datasets are passed in. If no datasets are provided, then an error is thrown.
-
-Updated "take-envi-screenshot" MCP tool to do a few things:
-
-1. Instructions now state to use a sub-agent for analysis to help reduce context for follow-on messages
-2. For now, all screenshots are resized to a maximum of 512 x 512 (with aspect ratio preserved), to reduce token usage.
 
 Fixed an issue where the prompt folder for ENVI Agent and IDL Agent wasn't getting populated all the time.
 
@@ -111,6 +98,22 @@ Resample warp image to match base image's coordinate grid by running **ImageToIm
 ```
 
 3. Restart VSCode for changes to be applied. When you update the file, you will need to restart VSCode to get the latest changes.
+
+## 6.1.2 - July 2026
+
+Resolved an issue where tools calls would appear to hang to GitHub Copilot when it has been more than 5 minutes.
+
+Resolved an issue with the "list-all-envi-tools" MCP tool which now returns true JSON to match GitHUb Copilots new desire to try and minimize context.
+
+Changed the MCP Tool "take-envi-screenshot" to now do two things:
+
+GitHub Copilot should use a sub-agent to analyze the image so it doesn't linger in the context of your chat
+
+Screenshot maximum size limited to 512 x 512 for now to reduce token costs
+
+Updated the MCP server to add strict checking on all input parameters to tools. This helps LLMs course-correct when they hallucinate and pass in parameters that are not valid.
+
+Updated the "open-datasets-in-envi" MCP tool to validate that datasets are passed in. If no datasets are provided, then an error is thrown.
 
 ## 6.1.0 - May 2025
 
