@@ -24,7 +24,7 @@ import {
 } from '@modelcontextprotocol/sdk/types';
 import express from 'express';
 import { nanoid } from 'nanoid';
-import { ZodRawShape } from 'zod';
+import { z, ZodRawShape } from 'zod';
 
 import { LOCAL_IPS } from './local-ips.interface';
 import {
@@ -233,12 +233,17 @@ export class MCPServer {
       }
     }) as ToolCallback<Args>;
 
+    const normalizedInfo: MCPRegistryToolInfo<Args> = {
+      ...info,
+      inputSchema: z.strictObject(info.inputSchema) as any,
+    };
+
     // Store in registry
-    this.tools[name] = { info, wrappedCb };
+    this.tools[name] = { info: normalizedInfo, wrappedCb };
 
     // Register on all active connections
     for (const conn of this.connections.values()) {
-      conn.mcpServer.registerTool(name, info, wrappedCb);
+      conn.mcpServer.registerTool(name, normalizedInfo, wrappedCb);
     }
   }
 
@@ -488,12 +493,20 @@ export class MCPServer {
 
     // POST /mcp — main entry point for MCP protocol messages
     router.post('/mcp', async (req: express.Request, res: express.Response) => {
+      /** MCP connection */
+      let conn: IMCPConnection;
+
       // Create interval to keep connection alive during long-running tool executions
       // Sends SSE-style heartbeat messages to prevent timeouts
       const keepAliveInterval = setInterval(() => {
         // Check if the connection is still open using the socket's writable state
         if (!res.writableEnded && !res.writableFinished) {
           res.write(':beat\n\n');
+
+          // for long-running tools, make sure to update our last activity
+          if (conn) {
+            conn.lastActivity = Date.now();
+          }
         } else {
           clearInterval(keepAliveInterval);
         }
@@ -502,7 +515,6 @@ export class MCPServer {
       try {
         // Check for existing session
         const sessionId = req.headers['mcp-session-id'] as string;
-        let conn: IMCPConnection;
 
         switch (true) {
           /**

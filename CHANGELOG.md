@@ -10,11 +10,23 @@ This section of the CHANGELOG documents features that have been added to the ext
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
-## Unreleased
+## 6.1.2 - July 2026
 
-[In stash, not added] Updated the ENVI instructions to better support opening the correct files in ENVI. ENVI Agent should now review files in a location, check against known formats, and open the right one for processing. This should hep improve how frequently ENVI Agent selects the right file.
+Resolved an issue where tools calls would appear to hang to GitHub Copilot when it has been more than 5 minutes.
 
-## 6.1.0 - May 2025
+Resolved an issue with the "list-all-envi-tools" MCP tool which now returns true JSON to match GitHUb Copilots new desire to try and minimize context.
+
+Changed the MCP Tool "take-envi-screenshot" to now do two things:
+
+1. GitHub Copilot should use a sub-agent to analyze the image so it doesn't linger in the context of your chat
+
+2. Screenshot maximum size limited to 512 x 512 for now to reduce token costs
+
+Updated the MCP server to add strict checking on all input parameters to tools. This helps LLMs course-correct when they hallucinate and pass in parameters that are not valid.
+
+Updated the "open-datasets-in-envi" MCP tool to validate that datasets are passed in. If no datasets are provided, then an error is thrown.
+
+## 6.1.0 - May 2026
 
 New feature for ENVI Agent: ability to create ENVI Modeler Workflows! You can now ask questions like:
 

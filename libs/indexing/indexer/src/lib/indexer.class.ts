@@ -100,10 +100,10 @@ export class Indexer {
     // make sure we exist
     if (contentGroupId in this.contentGroups) {
       /** Get content IDs */
-      const ids = this.addContentGroup[contentGroupId];
+      const ids = this.contentGroups[contentGroupId];
 
       // clean up
-      delete this.contentGroups;
+      delete this.contentGroups[contentGroupId];
 
       // remove each item
       for (let i = 0; i < ids.length; i++) {
