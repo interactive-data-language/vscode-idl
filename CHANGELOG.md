@@ -10,7 +10,7 @@ This section of the CHANGELOG documents features that have been added to the ext
 
 Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
 
-## Unreleased
+## 6.2.0 - Unreleased
 
 Re-organized the folder structure for agentic tools. We now use "agents" in your .idl folder instead of "github-copilot" and we do the same for some files included in the extension.
 
