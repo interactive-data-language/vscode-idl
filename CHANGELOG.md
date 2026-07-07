@@ -101,9 +101,9 @@ Resample warp image to match base image's coordinate grid by running **ImageToIm
 
 ## 6.1.2 - July 2026
 
-Resolved an issue where tools calls would appear to hang to GitHub Copilot when it has been more than 5 minutes.
+Resolved an issue where tool calls would appear to hang to GitHub Copilot when it has been more than 5 minutes.
 
-Resolved an issue with the "list-all-envi-tools" MCP tool which now returns true JSON to match GitHUb Copilots new desire to try and minimize context.
+Resolved an issue with the "list-all-envi-tools" MCP tool which now returns true JSON to match GitHub Copilot's new desire to try and minimize context.
 
 Changed the MCP Tool "take-envi-screenshot" to now do two things:
 
