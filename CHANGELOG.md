@@ -14,6 +14,8 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 Fixed an emerging issue with the "list-envi-tools" MCP tool that GitHub Copilot could no longer easily work with. The tool now returns proper JSON. This was a non-issue before because context didn't matter much, but the token pricing changes have negatively impacted this tool.
 
+Fix an issue with the MCP server connection cleaning up active tool sessions that would end with the agent hanging and not being alerted when a tool has finished or closed.
+
 Re-organized the folder structure for agentic tools. We now use "agents" in your .idl folder instead of "github-copilot" and we do the same for some files included in the extension.
 
 Updated the MCP server to add strict checking on all input parameters to tools. This helps LLMs course-correct when they hallucinate and pass in parameters that are not valid.
