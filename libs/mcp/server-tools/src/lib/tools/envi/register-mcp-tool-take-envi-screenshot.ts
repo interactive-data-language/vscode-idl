@@ -47,8 +47,8 @@ export function RegisterMCPTool_TakeENVIScreenshot(server: MCPServer) {
           ? [
               {
                 type: 'image',
-                data: resp.result || '',
-                mimeType: 'image/png',
+                data: resp.result as string,
+                mimeType: 'image/jpeg',
               },
             ]
           : [

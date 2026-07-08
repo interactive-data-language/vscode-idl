@@ -14,7 +14,7 @@ export interface MCPToolParams_TakeENVIScreenshot {}
 /**
  * Response for Take ENVI Screenshot
  *
- * On success, result is a base64-encoded PNG
+ * On success, result is a base64-encoded JPEG
  * content of the screenshot for direct use by an LLM
  */
 export type MCPToolResponse_TakeENVIScreenshot =
