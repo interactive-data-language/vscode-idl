@@ -51,10 +51,13 @@ export function MCP_ENVIGridDefinition() {
       tie_point_pixel: z
         .array(z.number())
         .length(2)
-        .default([0, 0])
-        .optional()
+        /**
+         * See MCP Task Registry for notes on why this is commented out
+         */
+        // .default([0, 0])
+        // .optional()
         .describe(
-          'Specify a two-element array with the pixel coordinates of the tie point. If you set this property, you must also specify tie_point_map, nrows, ncolumns, and pixel_size.',
+          'Specify a two-element array with the pixel coordinates of the tie point. Default of [0, 0] works and then the coordinates would be the top-left of the image.',
         ),
       pixel_size: z
         .array(z.number())

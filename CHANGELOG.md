@@ -16,6 +16,8 @@ Re-organized the folder structure for agentic tools. We now use "agents" in your
 
 Fixed an issue where the prompt folder for ENVI Agent and IDL Agent wasn't getting populated all the time.
 
+Fixed an issue where ENVI Tool parameters with defaults were marked as required when they should be optional with default values passed through.
+
 Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
 
 1. Create a new markdown file with the name of the file being the name of the workflow (Ex: "Process imagery with ship detection deep learning model.md")

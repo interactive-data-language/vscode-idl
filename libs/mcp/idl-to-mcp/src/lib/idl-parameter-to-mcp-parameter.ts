@@ -149,7 +149,7 @@ function IDLParameterToMCPParameter_Recurser(
 
     // apply per-element default before accumulating
     if (typeof currentType.meta.default !== 'undefined') {
-      res = res.default(currentType.meta.default);
+      res = res.default(currentType.meta.default).optional();
     }
 
     // save result

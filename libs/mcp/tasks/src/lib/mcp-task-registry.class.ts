@@ -43,6 +43,22 @@ export class MCPTaskRegistry {
      * the cleanest solution.
      */
     strictTuples: false,
+    /**
+     * Mutate the validated object in-place, populating any missing
+     * properties that have a "default" value in the JSON schema.
+     *
+     * WARNING: Any union types (only from some of the JSON schemas we create),
+     * this causes problems with default values inside of the unions
+     *
+     * MCP_ENVIGridDefinition is one example where we had to remove a default
+     * value
+     */
+    useDefaults: true,
+    // /**
+    //  * Disable strict mode so AJV does not throw when a "default" appears
+    //  * inside a union (anyOf/oneOf) where it cannot be automatically applied.
+    //  */
+    // strict: false,
   });
 
   /**
