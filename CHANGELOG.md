@@ -20,6 +20,8 @@ Fixed an issue where ENVI Tool parameters with defaults were marked as required 
 
 Fixed an issue with an incorrect image encoding being returned by the MCP server when taking a screenshot in ENVI.
 
+Fixed an issue where post-processing IDL code would fail.
+
 Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
 
 1. Create a new markdown file with the name of the file being the name of the workflow (Ex: "Process imagery with ship detection deep learning model.md")
