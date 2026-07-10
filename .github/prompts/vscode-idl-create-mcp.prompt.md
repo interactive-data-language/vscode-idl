@@ -333,7 +333,10 @@ export async function MyMCPTool(
 }
 ```
 
-Lastly, add an entry in `apps\agents\server\src\language-server\create-standalone-execution-callback.ts` for the new function so that the MCP tool can be called outside of VSCode as well.
+In the "runMCPTool" method for these files, add a new entry for the function created above:
+
+- libs\mcp\idl-machine\src\lib\idl-machine-execution-backend.ts
+- libs\vscode\mcp\src\lib\tools\vscode-mcp-execution-backend.ts
 
 ## Adding Integration Tests
 
