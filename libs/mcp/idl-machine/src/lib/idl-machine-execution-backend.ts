@@ -20,6 +20,7 @@ import {
 } from '@idl/types/idl/idl-process';
 import {
   DEFAULT_ENVI_MCP_TOOL_RESPONSE,
+  DEFAULT_MCP_EVALUATE_OPTIONS,
   ENVIMCPToolResponse,
   ENVIMCPToolResponse_Failure,
   IIDLMCPExecutionBackend,
@@ -102,9 +103,11 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
 
   async evaluateENVICommand<T extends MCPTools_VSCode>(
     command: string,
-    options?: IDLEvaluateOptions,
   ): Promise<MCPToolResponse<T>> {
-    const idlOutput = await this.manager.evaluate(command, options);
+    const idlOutput = await this.manager.evaluate(
+      command,
+      DEFAULT_MCP_EVALUATE_OPTIONS,
+    );
 
     const res: ENVIMCPToolResponse = {
       ...(this.lastENVIMessage || DEFAULT_SUCCESS),

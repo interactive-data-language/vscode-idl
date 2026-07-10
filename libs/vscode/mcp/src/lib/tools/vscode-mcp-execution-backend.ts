@@ -11,6 +11,7 @@ import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
 import {
   DEFAULT_ENVI_MCP_TOOL_RESPONSE,
+  DEFAULT_MCP_EVALUATE_OPTIONS,
   ENVIMCPToolResponse,
   ENVIMCPToolResponse_Failure,
   IIDLMCPExecutionBackend,
@@ -64,9 +65,11 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
 
   async evaluateENVICommand<T extends MCPTools_VSCode>(
     command: string,
-    options?: IDebugEvaluateOptions,
   ): Promise<MCPToolResponse<T>> {
-    const idlOutput = await IDL_DEBUG_ADAPTER.evaluate(command, options);
+    const idlOutput = await IDL_DEBUG_ADAPTER.evaluate(
+      command,
+      DEFAULT_MCP_EVALUATE_OPTIONS,
+    );
 
     const res: ENVIMCPToolResponse = {
       ...(LAST_ENVI_MCP_MESSAGE || DEFAULT_SUCCESS),

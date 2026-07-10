@@ -15,6 +15,13 @@ import { MCPTools_VSCode } from './mcp-tools-vscode.interface';
 export type MCPProgressCallback = (message: string) => void;
 
 /**
+ * Default options when evaluating tools via MCP
+ */
+export const DEFAULT_MCP_EVALUATE_OPTIONS: Partial<IDLEvaluateOptions> = {
+  silent: true,
+};
+
+/**
  * Abstraction over an IDL execution environment.
  *
  * Both the VS Code debug adapter path and the standalone
