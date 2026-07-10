@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 
 import { validateEnv } from './config/env.config';
-import { CreateStandaloneMCPServer } from './mcp-tools/standalone-mcp-server';
+import { CreateStandaloneMCPServer } from './mcp-tools/create-standalone-mcp-server';
 import { createChatRoutes } from './routes/chat.routes';
 import { ChatService } from './services/chat.service';
 
