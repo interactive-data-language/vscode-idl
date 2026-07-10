@@ -1,6 +1,6 @@
-import { IIDLExecutionBackend } from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  IIDLMCPExecutionBackend,
   MCPTool_ListENVIToolWorkflows,
   MCPToolParams,
   MCPToolResponse,
@@ -9,10 +9,10 @@ import {
 /**
  * Core logic for listing ENVI tool workflows.
  *
- * Independent of VS Code — works with any `IIDLExecutionBackend`.
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
 export async function ListENVIToolWorkflows(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ListENVIToolWorkflows>,
 ): Promise<MCPToolResponse<MCPTool_ListENVIToolWorkflows>> {
   const started = await backend.start();

@@ -1,8 +1,5 @@
-import {
-  MCPToolParams_VSCode,
-  MCPToolResponse_VSCode,
-  MCPTools_VSCode,
-} from './mcp-tools-vscode.interface';
+import { MCPToolParams, MCPToolResponse } from './mcp-tools.interface';
+import { MCPTools_VSCode } from './mcp-tools-vscode.interface';
 
 /**
  * Callback for sending a request from the MCP server to something
@@ -15,5 +12,5 @@ import {
 export type MCPSendRequestCallback = <T extends MCPTools_VSCode>(
   executionId: string,
   tool: T,
-  params: MCPToolParams_VSCode<T>,
-) => Promise<MCPToolResponse_VSCode<T>>;
+  params: MCPToolParams<T>,
+) => Promise<MCPToolResponse<T>>;

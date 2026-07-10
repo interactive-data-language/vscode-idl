@@ -1,12 +1,10 @@
 import { MCPSerializeJSON } from '@idl/mcp/common';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
-import {
-  IIDLExecutionBackend,
-  MCPProgressCallback,
-} from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   ENVIMCPToolResponse_Failure,
+  IIDLMCPExecutionBackend,
+  MCPProgressCallback,
   MCPTool_ManageIDLAndENVISession,
   MCPTool_QueryDatasetWithENVI,
   MCPToolParams,
@@ -16,10 +14,10 @@ import {
 /**
  * Core logic for querying a dataset with ENVI.
  *
- * Independent of VS Code — works with any `IIDLExecutionBackend`.
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
 export async function QueryDatasetWithENVI(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_QueryDatasetWithENVI>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_QueryDatasetWithENVI>> {

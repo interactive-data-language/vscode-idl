@@ -1,11 +1,9 @@
 import { MCPSerializeJSON } from '@idl/mcp/common';
-import {
-  IIDLExecutionBackend,
-  MCPProgressCallback,
-} from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   ENVIMCPToolResponse_Failure,
+  IIDLMCPExecutionBackend,
+  MCPProgressCallback,
   MCPTool_ManageIDLAndENVISession,
   MCPTool_RunENVITool,
   MCPToolParams,
@@ -15,10 +13,10 @@ import {
 /**
  * Core logic for running an ENVI tool.
  *
- * Independent of VS Code — works with any `IIDLExecutionBackend`.
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
 export async function RunENVITool(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_RunENVITool>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_RunENVITool>> {

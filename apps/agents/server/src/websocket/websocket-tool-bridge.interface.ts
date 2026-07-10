@@ -1,5 +1,5 @@
 import {
-  MCPToolParams_VSCode,
+  MCPToolParams,
   MCPToolResponse_VSCode,
   MCPTools_VSCode,
 } from '@idl/types/mcp';
@@ -22,7 +22,7 @@ export const SINGLE_CONNECTION_CLOSE_REASON =
  */
 export interface IWebSocketNotification<T extends MCPTools_VSCode> {
   /** Typed tool parameters for the dispatched tool. */
-  params: MCPToolParams_VSCode<T>;
+  params: MCPToolParams<T>;
   /** MCP tool name being dispatched. */
   tool: T;
 }

@@ -7,8 +7,8 @@ import {
   MCPSendRequestCallback,
   MCPToolHTTPResponse,
   MCPToolInvokedCallback,
-  MCPToolParams_VSCode,
-  MCPToolResponse_VSCode,
+  MCPToolParams,
+  MCPToolResponse,
   MCPTools,
   MCPTools_VSCode,
 } from '@idl/types/mcp';
@@ -253,8 +253,8 @@ export class MCPServer {
   async sendIDLRequest<T extends MCPTools_VSCode>(
     executionId: string,
     tool: T,
-    params: MCPToolParams_VSCode<T>,
-  ): Promise<MCPToolResponse_VSCode<T>> {
+    params: MCPToolParams<T>,
+  ): Promise<MCPToolResponse<T>> {
     return this.idlExecutionCallback(executionId, tool, params);
   }
 

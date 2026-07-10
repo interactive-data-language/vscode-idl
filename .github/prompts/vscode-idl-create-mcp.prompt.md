@@ -289,7 +289,7 @@ Create a file with the name "my-mcp-tool.ts" in the right library and fill out a
 
 ```typescript
 import {
-  IIDLExecutionBackend,
+  IIDLMCPExecutionBackend,
   MCPProgressCallback,
 } from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -300,7 +300,7 @@ import {
 } from '@idl/types/mcp';
 
 export async function MyMCPTool(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_MyMCPTool>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_MyMCPTool>> {

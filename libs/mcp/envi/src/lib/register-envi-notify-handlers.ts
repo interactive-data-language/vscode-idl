@@ -6,7 +6,7 @@ import { PopulateENVIError } from './populate-envi-error';
 /**
  * Minimal interface required by `RegisterENVINotifyHandlers`.
  *
- * Both `IIDLExecutionBackend` and `IDLInteractionManager` satisfy this,
+ * Both `IIDLMCPExecutionBackend` and `IDLInteractionManager` satisfy this,
  * so the function can be used in VS Code and standalone contexts alike.
  */
 interface IENVINotifyBackend {

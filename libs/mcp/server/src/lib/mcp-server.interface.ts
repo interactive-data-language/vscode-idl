@@ -50,7 +50,7 @@ export interface IMCPServerOptions {
   app?: Application;
   /** Callback when the server encounters a fatal error */
   failCallback: (err: any) => void;
-  /** Callback when IDL/ENVI tools need to run */
+  /** Callback when an MCP tool runs that requires communication with IDL or ENVI */
   idlExecutionCallback: MCPSendRequestCallback;
   /** Log manager instance */
   logManager: LogManager;

@@ -1,6 +1,6 @@
 import {
-  MCPToolParams_VSCode,
-  MCPToolResponse_VSCode,
+  MCPToolParams,
+  MCPToolResponse,
   MCPTools_VSCode,
 } from '@idl/types/mcp';
 import type { Server as HttpServer } from 'http';
@@ -94,7 +94,7 @@ export class WebSocketToolBridge {
    */
   sendNotification<T extends MCPTools_VSCode>(
     tool: T,
-    params: MCPToolParams_VSCode<T>,
+    params: MCPToolParams<T>,
   ): void {
     const client = this.client;
     if (client === undefined || client.readyState !== WebSocket.OPEN) {
@@ -112,8 +112,8 @@ export class WebSocketToolBridge {
    */
   sendRequest<T extends MCPTools_VSCode>(
     tool: T,
-    params: MCPToolParams_VSCode<T>,
-  ): Promise<MCPToolResponse_VSCode<T>> {
+    params: MCPToolParams<T>,
+  ): Promise<MCPToolResponse<T>> {
     const client = this.client;
     if (client === undefined || client.readyState !== WebSocket.OPEN) {
       return Promise.reject(new Error(NO_WEBSOCKET_CLIENT_ERROR));
@@ -122,7 +122,7 @@ export class WebSocketToolBridge {
     const id = nanoid();
     const request: IWebSocketRequest<T> = { id, tool, params };
 
-    return new Promise<MCPToolResponse_VSCode<T>>((resolve, reject) => {
+    return new Promise<MCPToolResponse<T>>((resolve, reject) => {
       this.pending.set(id, { tool, resolve, reject });
       try {
         client.send(JSON.stringify(request));

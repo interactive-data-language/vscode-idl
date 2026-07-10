@@ -1,10 +1,8 @@
 import { StartENVISession } from '@idl/mcp/envi';
-import {
-  IIDLExecutionBackend,
-  MCPProgressCallback,
-} from '@idl/mcp/idl-machine';
 import { Sleep } from '@idl/shared/extension';
 import {
+  IIDLMCPExecutionBackend,
+  MCPProgressCallback,
   MCPTool_ManageIDLAndENVISession,
   MCPToolParams,
   MCPToolResponse,
@@ -15,10 +13,10 @@ import { StartIDLSession } from './start-idl-session';
 /**
  * Core logic for managing ENVI and IDL sessions (start/stop/restart).
  *
- * Independent of VS Code — works with any `IIDLExecutionBackend`.
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
 export async function ManageENVIAndIDLSession(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {

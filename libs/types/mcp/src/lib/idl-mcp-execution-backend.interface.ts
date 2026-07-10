@@ -3,8 +3,11 @@ import {
   IDLEvaluateOptions,
   IDLSyntaxErrorLookup,
 } from '@idl/types/idl/idl-process';
-import { MCPToolResponse, MCPTools_VSCode } from '@idl/types/mcp';
 import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
+
+import { IPrepareIDLCodeResult } from './execute-idl-code.interface';
+import { MCPToolParams, MCPToolResponse } from './mcp-tools.interface';
+import { MCPTools_VSCode } from './mcp-tools-vscode.interface';
 
 /**
  * Callback to send progress notifications during MCP tool execution
@@ -18,7 +21,7 @@ export type MCPProgressCallback = (message: string) => void;
  * `IDLMCPExecutionManager` path implement this interface so that
  * MCP tool logic can be written once and run in either context.
  */
-export interface IIDLExecutionBackend {
+export interface IIDLMCPExecutionBackend {
   /**
    * Evaluate an IDL command and return the string output.
    */
@@ -57,6 +60,11 @@ export interface IIDLExecutionBackend {
   isStarted(): boolean;
 
   /**
+   * Prepares code for processing
+   */
+  prepareCode(code: string): Promise<IPrepareIDLCodeResult | undefined>;
+
+  /**
    * Register a handler for IDL Notify events (e.g. `envi_success`).
    */
   registerIDLNotifyHandler(
@@ -78,6 +86,18 @@ export interface IIDLExecutionBackend {
    * Reset the main-level program so a new execution can begin cleanly.
    */
   resetMain(): Promise<void>;
+
+  /**
+   * Runs an MCP tool and returns the proper response
+   *
+   * Available tools may be limited based on runtime
+   */
+  runMCPTool<T extends MCPTools_VSCode>(
+    executionId: string,
+    tool: T,
+    params: MCPToolParams<T>,
+    onProgress?: MCPProgressCallback,
+  ): Promise<MCPToolResponse<T>>;
 
   /**
    * Start IDL if it is not already running.

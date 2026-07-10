@@ -2,9 +2,10 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_DEBUG_LOG, LogManager } from '@idl/logger';
 import { RegisterENVINotifyHandlers } from '@idl/mcp/envi';
 import {
+  IDLMachineExecutionBackend,
   IDLMCPExecutionManager,
-  MCPExecutionBackend,
 } from '@idl/mcp/idl-machine';
+import { PrepareIDLCodeCallback } from '@idl/types/mcp';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { copy } from 'fast-copy';
 
@@ -15,10 +16,11 @@ import { copy } from 'fast-copy';
  * Does **not** launch IDL eagerly — the backend holds the config and
  * `start()` will call `manager.launch()` when an MCP tool needs it.
  */
-export function CreateIDLBackend(
+export function CreateIDLMachineBackend(
   logManager: LogManager,
   idlBinDir: string,
-): MCPExecutionBackend {
+  codePrepare: PrepareIDLCodeCallback,
+): IDLMachineExecutionBackend {
   /** Path to the auxiliary PRO files shipped with the extension */
   const vscodeProDir = GetExtensionPath('idl/vscode');
 
@@ -38,7 +40,7 @@ export function CreateIDLBackend(
   (config as any).IDL.directory = idlBinDir;
 
   /** Create the backend wrapper */
-  const backend = new MCPExecutionBackend(
+  const backend = new IDLMachineExecutionBackend(
     manager,
     {
       config,
@@ -49,6 +51,7 @@ export function CreateIDLBackend(
         backend.lastENVIMessage = msg;
       });
     },
+    codePrepare,
   );
 
   return backend;

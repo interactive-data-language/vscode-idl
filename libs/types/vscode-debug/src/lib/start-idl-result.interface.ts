@@ -1,5 +1,5 @@
 /**
- * Result of starting IDL, returned by `IIDLExecutionBackend.start()`
+ * Result of starting IDL, returned by `IIDLMCPExecutionBackend.start()`
  */
 export type IIDLStartResult = {
   /** Reason we did not start */

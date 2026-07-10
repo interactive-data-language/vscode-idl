@@ -11,9 +11,9 @@ import * as vscode from 'vscode';
 import { FetchWithRetry } from './helpers/fetch-with-retry';
 import { MCPHistory } from './helpers/mcp-history.class';
 import { RemoveLegacyMCPConfig } from './helpers/remove-legacy-mcp-config';
-import { VSCodeExecutionBackend } from './helpers/vscode-execution-backend';
+import { VSCodeSendMCPNotification } from './helpers/vscode-send-mcp-notification';
 import { IInitializeMCPResult } from './initialize-mcp-vscode.interface';
-import { RunMCPToolMessageHandler } from './run-mcp-tool-message-handler';
+import { VSCodeMCPExecutionBackend } from './tools/vscode-mcp-execution-backend';
 
 export const MCP_CHANGE_EVENT_EMITTER = new vscode.EventEmitter<void>();
 
@@ -25,7 +25,7 @@ export const MCP_HISTORY = new MCPHistory();
 /**
  * Execution backend for MCP tools
  */
-export const MCP_EXECUTION_BACKEND = new VSCodeExecutionBackend();
+export const MCP_VSCODE_EXECUTION_BACKEND = new VSCodeMCPExecutionBackend();
 
 /**
  * Initializes MCP server for VSCode
@@ -46,7 +46,14 @@ export function InitializeMCPVSCode(
   // listen for MCP tool requests - needs to be done here to avoid circular dependencies
   LANGUAGE_SERVER_MESSENGER.onRequest(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP,
-    RunMCPToolMessageHandler,
+    (payload) => {
+      return MCP_VSCODE_EXECUTION_BACKEND.runMCPTool(
+        payload.id,
+        payload.tool,
+        payload.params,
+        (msg) => VSCodeSendMCPNotification(payload.id, { message: msg }),
+      );
+    },
   );
 
   // track notifications for MCP tools being ran

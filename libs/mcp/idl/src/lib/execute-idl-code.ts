@@ -1,29 +1,28 @@
 import { CreateRandomFilename, MCP_IDL_FOLDER } from '@idl/idl/files';
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
-import { IIDLExecutionBackend } from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { COMPILE_FILE_ERROR } from '@idl/types/idl/idl-process';
 import {
+  IIDLMCPExecutionBackend,
   MCPTool_ExecuteIDLCode,
   MCPToolParams,
   MCPToolResponse,
+  PrepareIDLCodeCallback,
 } from '@idl/types/mcp';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { PrepareIDLCodeCallback } from './execute-idl-code.interface';
-
 /**
  * Core logic for executing IDL code.
  *
- * Independent of VS Code — works with any `IIDLExecutionBackend`.
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  *
  * @param backend       The IDL execution backend
  * @param params        Tool parameters (code to execute)
  * @param prepareCode   Callback to prepare/transform code before execution
  */
 export async function ExecuteIDLCode(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ExecuteIDLCode>,
   prepareCode: PrepareIDLCodeCallback,
 ): Promise<MCPToolResponse<MCPTool_ExecuteIDLCode>> {

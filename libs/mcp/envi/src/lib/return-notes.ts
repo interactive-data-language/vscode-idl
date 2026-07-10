@@ -1,6 +1,6 @@
-import { IIDLExecutionBackend } from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  IIDLMCPExecutionBackend,
   MCPTool_ReturnNotes,
   MCPToolParams,
   MCPToolResponse,
@@ -9,10 +9,10 @@ import {
 /**
  * Core logic for retrieving notes from IDL and ENVI.
  *
- * Independent of VS Code — works with any `IIDLExecutionBackend`.
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
 export async function ReturnNotes(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ReturnNotes>,
 ): Promise<MCPToolResponse<MCPTool_ReturnNotes>> {
   const started = await backend.start();

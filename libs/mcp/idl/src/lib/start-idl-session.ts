@@ -1,8 +1,6 @@
 import {
-  IIDLExecutionBackend,
+  IIDLMCPExecutionBackend,
   MCPProgressCallback,
-} from '@idl/mcp/idl-machine';
-import {
   MCPTool_ManageIDLAndENVISession,
   MCPToolParams,
   MCPToolResponse,
@@ -11,10 +9,10 @@ import {
 /**
  * Core logic for starting IDL.
  *
- * Independent of VS Code — works with any `IIDLExecutionBackend`.
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
 export async function StartIDLSession(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {

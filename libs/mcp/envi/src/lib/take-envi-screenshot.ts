@@ -1,9 +1,7 @@
-import {
-  IIDLExecutionBackend,
-  MCPProgressCallback,
-} from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  IIDLMCPExecutionBackend,
+  MCPProgressCallback,
   MCPTool_TakeENVIScreenshot,
   MCPToolParams,
   MCPToolResponse,
@@ -12,14 +10,14 @@ import {
 /**
  * Core logic for taking a screenshot of the ENVI display.
  *
- * Independent of VS Code — works with any `IIDLExecutionBackend`.
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  *
  * @TODO Implement the actual IDL/ENVI screenshot logic. The screenshot
  * should be saved to a PNG file and returned as a base64-encoded string
  * so that LLMs can consume it directly.
  */
 export async function TakeENVIScreenshot(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_TakeENVIScreenshot>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_TakeENVIScreenshot>> {

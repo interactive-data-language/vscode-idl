@@ -1,3 +1,17 @@
+import {
+  ListENVIToolWorkflows,
+  OpenDatasetsInENVI,
+  QueryDatasetWithENVI,
+  ReturnNotes,
+  RunENVITool,
+  TakeENVIScreenshot,
+} from '@idl/mcp/envi';
+import {
+  CreateIDLNotebook,
+  ExecuteIDLCode,
+  ExecuteIDLFile,
+  ManageENVIAndIDLSession,
+} from '@idl/mcp/idl';
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import {
   IDLEvaluateOptions,
@@ -8,14 +22,19 @@ import {
   DEFAULT_ENVI_MCP_TOOL_RESPONSE,
   ENVIMCPToolResponse,
   ENVIMCPToolResponse_Failure,
+  IIDLMCPExecutionBackend,
+  IPrepareIDLCodeResult,
+  MCP_TOOL_LOOKUP,
+  MCPProgressCallback,
+  MCPToolParams,
   MCPToolResponse,
   MCPTools_VSCode,
+  PrepareIDLCodeCallback,
 } from '@idl/types/mcp';
 import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 import { compareVersions } from 'compare-versions';
 import { copy } from 'fast-copy';
 
-import { IIDLExecutionBackend } from './idl-execution-backend.interface';
 import { IDLMCPExecutionManager } from './idl-mcp-execution-manager.class';
 
 const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
@@ -28,13 +47,13 @@ const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
 export type MCPBackendENVIHandler = (msg: ENVIMCPToolResponse) => void;
 
 /**
- * Implementation of `IIDLExecutionBackend` backed by an
+ * Implementation of `IIDLMCPExecutionBackend` backed by an
  * `IDLMCPExecutionManager` — no VS Code dependency.
  *
  * The caller owns the `IDLMCPExecutionManager` lifecycle; this
  * wrapper simply delegates through the interface contract.
  */
-export class MCPExecutionBackend implements IIDLExecutionBackend {
+export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
   /**
    * Tracks the latest ENVI success/failure notification.
    *
@@ -56,6 +75,9 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
   /** Underlying manager that owns the IDL process */
   private manager: IDLMCPExecutionManager;
 
+  /** Callback to prepare code */
+  private onCodePrepare: PrepareIDLCodeCallback;
+
   /** Callback executed when we launch IDL */
   private onLaunch: () => void;
 
@@ -63,10 +85,12 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
     manager: IDLMCPExecutionManager,
     launchConfig: IStartIDLConfig,
     onLaunch: () => void,
+    onCodePrepare: PrepareIDLCodeCallback,
   ) {
     this.manager = manager;
     this.launchConfig = launchConfig;
     this.onLaunch = onLaunch;
+    this.onCodePrepare = onCodePrepare;
   }
 
   async evaluate(
@@ -112,6 +136,10 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
     return this.manager.isStarted();
   }
 
+  prepareCode(code: string): Promise<IPrepareIDLCodeResult | undefined> {
+    return this.onCodePrepare(code);
+  }
+
   registerIDLNotifyHandler(
     event: string,
     handler: FromIDLMachineRequestHandler<'idlNotify'>,
@@ -136,6 +164,48 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
       return;
     }
     await this.manager.evaluate('.run');
+  }
+
+  async runMCPTool<T extends MCPTools_VSCode>(
+    executionId: string,
+    tool: T,
+    params: MCPToolParams<T>,
+    onProgress?: MCPProgressCallback,
+  ): Promise<MCPToolResponse<T>> {
+    switch (tool) {
+      case MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK:
+        return CreateIDLNotebook(params as any) as any;
+
+      case MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE:
+        return ExecuteIDLCode(this, params as any, this.prepareCode) as any;
+
+      case MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE:
+        return ExecuteIDLFile(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS:
+        return ListENVIToolWorkflows(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
+        return ManageENVIAndIDLSession(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI:
+        return OpenDatasetsInENVI(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI:
+        return QueryDatasetWithENVI(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.RETURN_NOTES:
+        return ReturnNotes(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.RUN_ENVI_TOOL:
+        return RunENVITool(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.TAKE_ENVI_SCREENSHOT:
+        return TakeENVIScreenshot(this, params as any) as any;
+
+      default:
+        return { success: false, err: `Unknown tool: ${tool}` } as any;
+    }
   }
 
   async start(): Promise<IIDLStartResult> {
@@ -164,7 +234,7 @@ export class MCPExecutionBackend implements IIDLExecutionBackend {
   }
 
   verifyIDLVersion(): boolean {
-    const info = this.manager.idlVersion;
+    const info = this.idlVersion;
     if (info === undefined) {
       return false;
     }

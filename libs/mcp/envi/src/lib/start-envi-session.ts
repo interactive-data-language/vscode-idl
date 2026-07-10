@@ -1,9 +1,7 @@
-import {
-  IIDLExecutionBackend,
-  MCPProgressCallback,
-} from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
+  IIDLMCPExecutionBackend,
+  MCPProgressCallback,
   MCPTool_ManageIDLAndENVISession,
   MCPToolParams,
   MCPToolResponse,
@@ -12,10 +10,10 @@ import {
 /**
  * Core logic for starting ENVI.
  *
- * Independent of VS Code — works with any `IIDLExecutionBackend`.
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
 export async function StartENVISession(
-  backend: IIDLExecutionBackend,
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {
