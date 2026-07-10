@@ -7,6 +7,7 @@ import {
   type SessionEvent,
 } from '@github/copilot-sdk';
 import { GetExtensionPath } from '@idl/idl/files';
+import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
 import type {
   AvailableModel,
   ChatMessageRequest,
@@ -23,8 +24,7 @@ import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
 } from '../mcp-tools/register-mcp-tools-for-todos';
-import { WEBSOCKET_ENABLED_MCP_TOOLS } from '../websocket/websocket-tools.interface';
-import type { IChatServiceConfig } from './chat.interface';
+import type { IChatServiceConfig } from '../services/chat.interface';
 import { COPILOT_ALLOWED_TOOLS } from './copilot-chat.interface';
 
 /**

@@ -13,6 +13,10 @@ import {
 import { MCPServer } from '@idl/mcp/server';
 import { RegisterStaticMCPResources } from '@idl/mcp/server-resources';
 import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
+import {
+  WebSocketExecutionBackend,
+  WebSocketToolBridge,
+} from '@idl/mcp/websocket';
 import { IDLIndex } from '@idl/parsing/index';
 import {
   IIDLMCPExecutionBackend,
@@ -22,8 +26,6 @@ import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import type { Application } from 'express';
 
-import { WebSocketExecutionBackend } from '../websocket/websocket-execution-backend';
-import { WebSocketToolBridge } from '../websocket/websocket-tool-bridge.class';
 import { CreateIDLMachineBackend } from './create-idl-machine-backend';
 
 /**
@@ -45,7 +47,7 @@ export interface IMCPLanguageServerOptions {
  *
  * Mounts MCP routes on the provided Express app instead of creating a standalone server.
  */
-export async function MCPLanguageServer(
+export async function CreateStandaloneMCPServer(
   app: Application,
   options?: IMCPLanguageServerOptions,
 ) {

@@ -28,8 +28,8 @@ import {
   LANGCHAIN_TODO_TOOL_NAMES,
   RegisterLangChainToolsForToDos,
 } from '../mcp-tools/register-langchain-tools-for-todos';
-import type { IChatServiceConfig } from './chat.interface';
-import { MCPClient } from './mcp-client.service';
+import type { IChatServiceConfig } from '../services/chat.interface';
+import { MCPClient } from '../services/mcp-client.service';
 
 /**
  * Maximum number of agentic loop iterations to prevent infinite loops

@@ -5,9 +5,9 @@
 } from '@idl/types/chat';
 
 import type { ChatEngine } from '../config/env.config';
+import { CopilotChatService } from '../orchestrators/copilot-chat.service';
+import { LangChainChatService } from '../orchestrators/langchain-chat.service';
 import type { IChatServiceConfig } from './chat.interface';
-import { CopilotChatService } from './copilot-chat.service';
-import { LangChainChatService } from './langchain-chat.service';
 
 export type { IChatServiceConfig } from './chat.interface';
 

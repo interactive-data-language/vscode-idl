@@ -209,7 +209,8 @@
       "@idl/mcp/common": ["libs/mcp/common/src/index.ts"],
       "@idl/types/generators": ["libs/types/generators/src/index.ts"],
       "@idl/parsing/tasks": ["libs/parsing/tasks/src/index.ts"],
-      "@idl/mcp/shared": ["libs/mcp/shared/src/index.ts"]
+      "@idl/mcp/shared": ["libs/mcp/shared/src/index.ts"],
+      "@idl/mcp/websocket": ["libs/mcp/websocket/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

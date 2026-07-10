@@ -1,11 +1,11 @@
+import { WebSocketToolBridge } from '@idl/mcp/websocket';
 import cors from 'cors';
 import express from 'express';
 
 import { validateEnv } from './config/env.config';
-import { MCPLanguageServer } from './language-server/mcp-language-server';
+import { CreateStandaloneMCPServer } from './mcp-tools/standalone-mcp-server';
 import { createChatRoutes } from './routes/chat.routes';
 import { ChatService } from './services/chat.service';
-import { WebSocketToolBridge } from './websocket/websocket-tool-bridge.class';
 
 // Validate environment variables
 const env = validateEnv();
@@ -33,7 +33,7 @@ async function main() {
       : undefined;
 
     // Initialize MCP language server (IDL indexing + MCP tools on this Express app)
-    await MCPLanguageServer(app, { websocketBridge });
+    await CreateStandaloneMCPServer(app, { websocketBridge });
 
     // Initialize services
     const chatService = new ChatService({
