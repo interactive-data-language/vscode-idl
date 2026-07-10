@@ -111,12 +111,21 @@ export async function CreateStandaloneMCPServer(
     ? new WebSocketExecutionBackend(options?.websocketBridge, codePrepare)
     : CreateIDLMachineBackend(logManager, idlPath, codePrepare);
 
+  // eslint-disable-next-line prefer-const
+  let mcpServer: MCPServer;
+
   // start the MCP server with the execution callback, mounting on the provided Express app
   MCPServer.start({
     app,
     logManager,
-    idlExecutionCallback: (...params) => {
-      return backend.runMCPTool(...params);
+    idlExecutionCallback: (id, tool, params) => {
+      return backend.runMCPTool(id, tool, params, (message) => {
+        if (mcpServer) {
+          mcpServer.sendToolExecutionNotification(id, {
+            message,
+          });
+        }
+      });
     },
     failCallback: (err) => {
       logManager.log({
@@ -131,7 +140,7 @@ export async function CreateStandaloneMCPServer(
   });
 
   /** Get reference to the server singleton */
-  const mcpServer = MCPServer.instance;
+  mcpServer = MCPServer.instance;
 
   // register static resources (documentation links)
   RegisterStaticMCPResources();
