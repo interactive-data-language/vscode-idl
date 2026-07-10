@@ -189,22 +189,22 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
         return ListENVIToolWorkflows(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
-        return ManageENVIAndIDLSession(this, params as any) as any;
+        return ManageENVIAndIDLSession(this, params as any, onProgress) as any;
 
       case MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI:
-        return OpenDatasetsInENVI(this, params as any) as any;
+        return OpenDatasetsInENVI(this, params as any, onProgress) as any;
 
       case MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI:
-        return QueryDatasetWithENVI(this, params as any) as any;
+        return QueryDatasetWithENVI(this, params as any, onProgress) as any;
 
       case MCP_TOOL_LOOKUP.RETURN_NOTES:
         return ReturnNotes(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.RUN_ENVI_TOOL:
-        return RunENVITool(this, params as any) as any;
+        return RunENVITool(this, params as any, onProgress) as any;
 
       case MCP_TOOL_LOOKUP.TAKE_ENVI_SCREENSHOT:
-        return TakeENVIScreenshot(this, params as any) as any;
+        return TakeENVIScreenshot(this, params as any, onProgress) as any;
 
       default:
         return { success: false, err: `Unknown tool: ${tool}` } as any;
