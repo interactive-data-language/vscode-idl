@@ -64,7 +64,7 @@ export function PostProcessIterator(
     if (topToken.name in RECURSE_INTO) {
       // update variables that we are tracking
       SetVariablesForIterators(
-        topToken.scopeTokens === undefined ? topToken : topToken.scopeTokens[0],
+        (topToken?.scopeTokens || [])[0] || topToken,
         parsed,
         variables,
       );
