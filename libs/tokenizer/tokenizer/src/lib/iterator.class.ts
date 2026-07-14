@@ -141,7 +141,7 @@ export class Iterator {
     if (match !== undefined) {
       return {
         line: this.current.line,
-        index: this.current.linePosition + match.index,
+        index: this.current.linePosition + (match.index || 0),
         length: match[0].length,
       };
     } else {
@@ -273,7 +273,7 @@ export class Iterator {
     if (match !== undefined) {
       return {
         line: this.current.line,
-        index: this.current.linePosition + match.index,
+        index: this.current.linePosition + (match.index || 0),
       };
     } else {
       return {
@@ -290,7 +290,7 @@ export class Iterator {
     if (match !== undefined) {
       return [
         this.current.line,
-        this.current.linePosition + match.index,
+        this.current.linePosition + (match.index || 0),
         match[0].length,
       ];
     } else {
