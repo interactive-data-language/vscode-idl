@@ -34,6 +34,6 @@ export async function ListENVIToolWorkflows(
   }
 
   return await backend.evaluateENVICommand<MCPTool_ListENVIToolWorkflows>(
-    `vscode_retrieveENVITaskWorkflows`,
+    `vscode_retrieveENVIToolWorkflows, /sar`,
   );
 }

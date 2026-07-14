@@ -38,14 +38,7 @@ export function RegisterENVINotifyHandlers(
   backend: IENVINotifyBackend,
   onMessage: ENVISuccessHandler,
 ): void {
-  backend.registerIDLNotifyHandler('envi_success', async (msg) => {
-    const parsed: ENVIMCPToolResponse = JSON.parse(msg.param1);
-    PopulateENVIError(parsed);
-    onMessage(parsed);
-    return 1;
-  });
-
-  backend.registerIDLNotifyHandler('envi_failure', async (msg) => {
+  backend.registerIDLNotifyHandler('envi_mcp', async (msg) => {
     const parsed: ENVIMCPToolResponse = JSON.parse(msg.param1);
     PopulateENVIError(parsed);
     onMessage(parsed);
