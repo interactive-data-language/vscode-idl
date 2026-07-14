@@ -52,7 +52,7 @@ export function Assembler<T extends FormatterType>(
   // style and format code
   if (useOptions.styleAndFormat) {
     // apply styling
-    ApplyStyle(parsed, cancel, useOptions.style, options.vanilla);
+    ApplyStyle(parsed, cancel, useOptions.style, options.vanilla || false);
 
     // apply formatting
     ApplyFormatter(parsed, cancel, useOptions.formatter);
