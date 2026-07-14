@@ -696,4 +696,148 @@ describe(`[auto generated] Verify string literal processing`, () => {
 
     expect(StripIDs(tokenized.tokens)).toEqual(expected);
   });
+
+  it(`[auto generated] Regression for comment block detection in iterator`, () => {
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `;-`,
+      `pro TestFormat`,
+      `  compile_opt idl2`,
+      `  code = \``,
+      `;+`,
+      `; Copyright (c) NV5 Geospatial Solutions, Inc. All rights reserved.`,
+      `;`,
+      `; Unauthorized reproduction and use is prohibited.`,
+      `;-`,
+      `\``,
+      `end`,
+      ``,
+    ];
+
+    // extract tokens
+    const tokenized = Tokenizer(code, new CancellationToken());
+
+    // define expected tokens
+    const expected: IBaseToken<TokenName>[] = [
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.COMMENT,
+        pos: [0, 0, 2],
+        matches: [`;+`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.COMMENT,
+        pos: [1, 0, 2],
+        matches: [`;-`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.ROUTINE_PROCEDURE,
+        pos: [2, 0, 4],
+        matches: [`pro `, `pro`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.ROUTINE_NAME,
+        pos: [2, 4, 10],
+        matches: [`TestFormat`],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.ROUTINE_NAME,
+        pos: [2, 14, 0],
+        matches: [``],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.CONTROL_COMPILE_OPT,
+        pos: [3, 2, 11],
+        matches: [`compile_opt`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.VARIABLE,
+        pos: [3, 14, 4],
+        matches: [`idl2`],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.CONTROL_COMPILE_OPT,
+        pos: [3, 18, 0],
+        matches: [``],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.VARIABLE,
+        pos: [4, 2, 4],
+        matches: [`code`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [4, 7, 1],
+        matches: [`=`],
+      },
+      {
+        type: TOKEN_TYPES.START,
+        name: TOKEN_NAMES.STRING_TEMPLATE_LITERAL,
+        pos: [4, 9, 1],
+        matches: [`\``],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.STRING_TEMPLATE_STRING,
+        pos: [5, 0, 2],
+        matches: [`;+`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.STRING_TEMPLATE_STRING,
+        pos: [6, 0, 67],
+        matches: [
+          `; Copyright (c) NV5 Geospatial Solutions, Inc. All rights reserved.`,
+        ],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.STRING_TEMPLATE_STRING,
+        pos: [7, 0, 1],
+        matches: [`;`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.STRING_TEMPLATE_STRING,
+        pos: [8, 0, 50],
+        matches: [`; Unauthorized reproduction and use is prohibited.`],
+      },
+      {
+        type: TOKEN_TYPES.BASIC,
+        name: TOKEN_NAMES.STRING_TEMPLATE_STRING,
+        pos: [9, 0, 2],
+        matches: [`;-`],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.STRING_TEMPLATE_LITERAL,
+        pos: [10, 0, 1],
+        matches: [`\``],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.ASSIGNMENT,
+        pos: [10, 1, 0],
+        matches: [``],
+      },
+      {
+        type: TOKEN_TYPES.END,
+        name: TOKEN_NAMES.ROUTINE_PROCEDURE,
+        pos: [11, 0, 3],
+        matches: [`end`],
+      },
+    ];
+
+    expect(StripIDs(tokenized.tokens)).toEqual(expected);
+  });
 });

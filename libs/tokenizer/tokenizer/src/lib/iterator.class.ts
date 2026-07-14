@@ -216,6 +216,15 @@ export class Iterator {
       if (this.process[i]) {
         break;
       } else {
+        // if we are in a template literal, dont check for comments
+        if (
+          this.current.parents.length > 0 &&
+          this.current.parents[this.current.parents.length - 1] ===
+            TOKEN_NAMES.STRING_TEMPLATE_LITERAL
+        ) {
+          break;
+        }
+
         // check for comment-only on our line
         if (COMMENT_ONLY_TEST.test(this.split[i])) {
           const match = COMMENT.match.exec(this.split[i]);
