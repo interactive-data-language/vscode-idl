@@ -1135,6 +1135,12 @@ export class IDLIndex {
     okToLoad[GLOBAL_TOKEN_SOURCE_LOOKUP.USER] = true;
     okToLoad[GLOBAL_TOKEN_SOURCE_LOOKUP.INTERNAL] = true;
 
+    /**
+     * @TODO make a preference
+     */
+    okToLoad[GLOBAL_TOKEN_SOURCE_LOOKUP.ENVI_FA] = true;
+    okToLoad[GLOBAL_TOKEN_SOURCE_LOOKUP.ENVI_SE] = true;
+
     // load from our preferences
     if (!config.developer.IDL) {
       okToLoad[GLOBAL_TOKEN_SOURCE_LOOKUP.IDL] = true;

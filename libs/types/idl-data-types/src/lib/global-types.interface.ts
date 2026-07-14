@@ -68,6 +68,10 @@ type ENVITokenSource = 'envi';
 type ENVIDLTokenSource = 'envi-dl';
 /** ENVI ML code, part of ENVI DL */
 type ENVIMLTokenSource = 'envi-ml';
+/** Source from ENVI Feature Assistant, standalone module */
+type ENVIFeatureAssistantSource = 'envi-fa';
+/** When our source is SAR essentials */
+type ENVISAREssentialsSource = 'sar-e';
 /** User code */
 type UserTokenSource = 'user';
 
@@ -76,17 +80,26 @@ type UserTokenSource = 'user';
  */
 export type GlobalTokenSource =
   | ENVIDLTokenSource
+  | ENVIFeatureAssistantSource
   | ENVIMLTokenSource
+  | ENVISAREssentialsSource
   | ENVITokenSource
   | IDLTokenSource
   | InternalTokenSource
   | UserTokenSource;
 
 interface IGlobalTokenSourceLookup {
+  /** Comes from core ENVI */
   ENVI: ENVITokenSource;
+  /** Comes from ENVI DL */
   ENVI_DL: ENVIDLTokenSource;
+  /** Feature assistant */
+  ENVI_FA: ENVIFeatureAssistantSource;
   /** ENVI machine learning */
   ENVI_ML: ENVIMLTokenSource;
+  /** ENVI SAR Essentials */
+  ENVI_SE: ENVISAREssentialsSource;
+  /** Core IDL */
   IDL: IDLTokenSource;
   /** Native (i.e. C, C++, or something we don't have PRO code for) */
   INTERNAL: InternalTokenSource;
@@ -102,7 +115,9 @@ export const GLOBAL_TOKEN_SOURCE_LOOKUP: IGlobalTokenSourceLookup = {
   IDL: 'idl',
   ENVI: 'envi',
   ENVI_DL: 'envi-dl',
+  ENVI_FA: 'envi-fa',
   ENVI_ML: 'envi-ml',
+  ENVI_SE: 'sar-e',
   USER: 'user',
 };
 
