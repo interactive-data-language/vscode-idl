@@ -271,6 +271,8 @@ export const EN: ITranslation = {
         'Custom instructions that will be automatically appended for IDL. These will be included under "## Additional Instructions". These are preserved between extension updates.',
       'copilot.customInstructionsENVI':
         'Custom instructions that will be automatically appended for ENVI. These will be included under "## Additional Instructions". These are preserved between extension updates.',
+      'copilot.registerENVIInstructions':
+        "If enabled, ENVI's instructions will be automatically configured for GitHub Copilot. When this setting changes, a restart is needed for it to take effect.",
 
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',

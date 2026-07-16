@@ -30,6 +30,8 @@ Added missing properties for IDLffShape resulting in errors for missing keywords
 
 For all structures provided by IDL and ENVI, added `getProperty` and `setProperty` procedure methods. These were not always covered by our documentation parsing, and they exist for most classes.
 
+Added a new setting under GitHub Copilot for the extension that allows you to disable automatically registering the ENVI instructions for GitHub Copilot. If you disable this setting, you need to restart VSCode in order for the changes to take effect.
+
 Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
 
 1. Create a new markdown file with the name of the file being the name of the workflow (Ex: "Process imagery with ship detection deep learning model.md")

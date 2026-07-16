@@ -1,4 +1,5 @@
 import { IDL_COPILOT_VSCODE_LOG } from '@idl/logger';
+import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
@@ -49,22 +50,26 @@ export async function InitializeVSCodeGitHubCopilot(
     instructionsFile: 'idl.instructions.md',
     settingKey: 'copilot.customInstructions',
   });
-
-  const enviSync = new InstructionsSync({
-    configNamespace: 'idl',
-    instructionsFile: 'envi.instructions.md',
-    settingKey: 'copilot.customInstructionsENVI',
-  });
-
-  // fire once for each.
   await idlSync.syncFromSettingToFile();
-  await enviSync.syncFromSettingToFile();
 
   // set up our watchers. These keep the files and settings in lockstep.
   ctx.subscriptions.push(idlSync.watchFileChanges());
   ctx.subscriptions.push(idlSync.watchSettingChanges());
-  ctx.subscriptions.push(enviSync.watchFileChanges());
-  ctx.subscriptions.push(enviSync.watchSettingChanges());
+
+  // only update ENVI instructions if enabled
+  if (IDL_EXTENSION_CONFIG.copilot.registerENVIInstructions) {
+    const enviSync = new InstructionsSync({
+      configNamespace: 'idl',
+      instructionsFile: 'envi.instructions.md',
+      settingKey: 'copilot.customInstructionsENVI',
+    });
+
+    // fire once for each.
+    await enviSync.syncFromSettingToFile();
+
+    ctx.subscriptions.push(enviSync.watchFileChanges());
+    ctx.subscriptions.push(enviSync.watchSettingChanges());
+  }
 
   /**
    * Attempt to add prompt files to VSCode

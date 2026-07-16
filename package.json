@@ -904,6 +904,12 @@
         "title": "%configuration.titles.copilot%",
         "additionalProperties": false,
         "properties": {
+          "idl.copilot.registerENVIInstructions": {
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.descriptions.copilot.registerENVIInstructions%",
+            "scope": "machine-overridable"
+          },
           "idl.copilot.customInstructions": {
             "type": "string",
             "default": "",
