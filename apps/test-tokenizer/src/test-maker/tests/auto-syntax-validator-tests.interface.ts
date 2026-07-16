@@ -4633,7 +4633,7 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           ``,
           `; no error`,
           `shp = idlffshape()`,
-          `shape.getProperty, attribute_names = attNames, n_entities = nEnts`,
+          `shp.getProperty, attribute_names = attNames, n_entities = nEnts`,
           ``,
           `end`,
         ],
@@ -5288,6 +5288,23 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
       {
         name: `is not var`,
         code: [`compile_opt idl3`, `on_ioerror, jumpy`, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Unused variable`,
+    fileName: `code.104.unused-var.get-set.spec.ts`,
+    tests: [
+      {
+        name: `behavior for get/set methods`,
+        code: [
+          'compile_opt idl2',
+          '',
+          'shp = IDLffShape()',
+          'shp.getProperty, entity_type = foo',
+          'shp.setProperty, entity_type = bar',
+          'end',
+        ],
       },
     ],
   },

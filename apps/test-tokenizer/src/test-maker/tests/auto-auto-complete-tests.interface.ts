@@ -645,6 +645,40 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           },
         ],
       },
+      {
+        name: `but not when you have a keyword as a parent`,
+        file: `idl/test/auto-complete/keywords.pro`,
+        position: [
+          {
+            line: 4,
+            character: 36,
+          },
+          {
+            line: 5,
+            character: 35,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly provide hover help for`,
+    fileName: `keywords.get-set.spec.ts`,
+    tests: [
+      {
+        name: `keywords in get/set`,
+        file: `idl/test/auto-complete/get_set_methods.pro`,
+        position: [
+          {
+            line: 4,
+            character: 36,
+          },
+          {
+            line: 5,
+            character: 35,
+          },
+        ],
+      },
     ],
   },
   {

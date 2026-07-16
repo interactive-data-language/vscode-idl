@@ -281,6 +281,26 @@ export const AUTO_HOVER_HELP_TESTS: IHoverHelpTests[] = [
     ],
   },
   {
+    suiteName: `Correctly provide hover help for`,
+    fileName: `keywords.get-set.spec.ts`,
+    tests: [
+      {
+        name: `keywords in get/set`,
+        file: `idl/test/auto-complete/get_set_methods.pro`,
+        position: [
+          {
+            line: 4,
+            character: 23,
+          },
+          {
+            line: 5,
+            character: 23,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Correctly display help for literal types`,
     fileName: `literal-types.spec.ts`,
     tests: [

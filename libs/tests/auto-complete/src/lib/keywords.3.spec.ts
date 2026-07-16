@@ -312,4 +312,357 @@ describe(`[auto generated] Correctly include keywords`, () => {
       ).slice(0, 50),
     );
   });
+
+  it(`[auto generated] but not when you have a keyword as a parent`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0,
+    );
+
+    // specify filepath
+    const filepath = GetExtensionPath('idl/test/auto-complete/keywords.pro');
+
+    // add file to index
+    await index.indexFile(filepath);
+
+    // define position
+    const position_0: Position = { line: 4, character: 36 };
+
+    // define expected token we extract
+    const expectedFound_0: CompletionItem[] = [
+      {
+        label: 'a',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      {
+        label: 'b',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      {
+        label: 'p',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      {
+        label: 'e',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      {
+        label: 'var',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!z', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!c', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!d', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!order', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!p', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!color', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!const', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!dpi', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!dtor', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!false', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!map', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!null', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!pi', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!radeg', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!true', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!values', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!err', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!error_state',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!error', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!err_string',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!except', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!mouse', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!msg_prefix',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!syserror',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!syserr_string',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!warn', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!cpu', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!debug_process_events',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!dir', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!dlm_path',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!edit_input',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!help_path',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!journal',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!make_dll',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!more', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!package_path',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!version',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: 'ENVITensorBoard',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure',
+      },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
+    ];
+
+    // verify results
+    expect(expectedFound_0).toEqual(
+      (
+        await index.getAutoComplete(
+          filepath,
+          await readFile(filepath, 'utf-8'),
+          position_0,
+        )
+      ).slice(0, 50),
+    );
+    // define position
+    const position_1: Position = { line: 5, character: 35 };
+
+    // define expected token we extract
+    const expectedFound_1: CompletionItem[] = [
+      {
+        label: 'a',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      {
+        label: 'b',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      {
+        label: 'p',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      {
+        label: 'e',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      {
+        label: 'var',
+        kind: 6,
+        sortText: '20',
+        detail: 'Variable',
+        documentation: '',
+      },
+      { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!z', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!c', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!d', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!order', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!p', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!color', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!const', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!dpi', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!dtor', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!false', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!map', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!null', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!pi', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!radeg', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!true', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!values', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!err', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!error_state',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!error', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!err_string',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!except', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!mouse', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!msg_prefix',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!syserror',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!syserr_string',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!warn', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!cpu', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!debug_process_events',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!dir', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!dlm_path',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!edit_input',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!help_path',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!journal',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: '!make_dll',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!more', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!package_path',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      { label: '!path', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!prompt', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!quiet', kind: 21, sortText: '90', detail: 'System Variable' },
+      { label: '!theme', kind: 21, sortText: '90', detail: 'System Variable' },
+      {
+        label: '!version',
+        kind: 21,
+        sortText: '90',
+        detail: 'System Variable',
+      },
+      {
+        label: 'ENVITensorBoard',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure',
+      },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
+    ];
+
+    // verify results
+    expect(expectedFound_1).toEqual(
+      (
+        await index.getAutoComplete(
+          filepath,
+          await readFile(filepath, 'utf-8'),
+          position_1,
+        )
+      ).slice(0, 50),
+    );
+  });
 });

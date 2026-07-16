@@ -775,4 +775,147 @@ describe(`[auto generated] Types from`, () => {
     // verify results
     expect(tokenized.compile).toEqual(expectedCompile);
   });
+
+  it(`[auto generated] Get/set property`, async () => {
+    // create index
+    const index = new IDLIndex(
+      new LogManager({
+        alert: () => {
+          // do nothing
+        },
+      }),
+      0,
+    );
+
+    // test code to extract tokens from
+    const code = [
+      `compile_opt idl2`,
+      ``,
+      `shp = IDLffShape()`,
+      `shp.getProperty, entity_type = foo`,
+      `shp.setProperty, entity_type = bar`,
+      `end`,
+    ];
+
+    // extract tokens
+    const tokenized = await index.getParsedProCode(
+      'not-real',
+      code,
+      new CancellationToken(),
+      { postProcess: true },
+    );
+
+    // define expected local variables
+    const expectedVars: ILocalTokens = {
+      func: {},
+      pro: {},
+      main: {
+        shp: {
+          type: 'v',
+          name: 'shp',
+          pos: [2, 0, 3],
+          meta: {
+            display: 'shp',
+            isDefined: true,
+            canReset: true,
+            usage: [
+              [2, 0, 3],
+              [3, 0, 3],
+              [4, 0, 3],
+            ],
+            docs: '',
+            source: 'user',
+            type: [
+              {
+                name: 'IDLffShape',
+                display: 'IDLffShape',
+                serialized: 'IDLffShape',
+                args: [],
+                meta: {},
+              },
+            ],
+          },
+        },
+        foo: {
+          type: 'v',
+          name: 'foo',
+          pos: [3, 31, 3],
+          meta: {
+            display: 'foo',
+            isDefined: true,
+            canReset: true,
+            usage: [[3, 31, 3]],
+            docs: '',
+            source: 'user',
+            type: [
+              {
+                display: 'Long',
+                name: 'Long',
+                serialized: 'Long',
+                args: [],
+                meta: {},
+              },
+            ],
+          },
+        },
+        bar: {
+          type: 'v',
+          name: 'bar',
+          pos: [4, 31, 3],
+          meta: {
+            display: 'bar',
+            isDefined: false,
+            canReset: true,
+            usage: [[4, 31, 3]],
+            docs: '',
+            source: 'user',
+            type: [
+              {
+                display: 'any',
+                name: 'any',
+                serialized: 'any',
+                args: [],
+                meta: {},
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    // verify results
+    expect(tokenized.local).toEqual(expectedVars);
+
+    // define expected global variables
+    const expectedGlobal: GlobalTokens = [
+      {
+        type: 'p',
+        name: '$main$',
+        pos: [0, 0, 11],
+        range: { start: [0, 0, 11], end: [5, 0, 3] },
+        meta: {
+          display: '$main$',
+          docs: 'Main level program',
+          docsLookup: {},
+          args: {},
+          kws: {},
+          source: 'user',
+          struct: [],
+        },
+      },
+    ];
+
+    // verify results
+    expect(tokenized.global).toEqual(expectedGlobal);
+
+    // define expected compile options
+    const expectedCompile: ICompileOptions = {
+      func: {},
+      pro: {},
+      main: ['idl2'],
+    };
+
+    // verify results
+    expect(tokenized.compile).toEqual(expectedCompile);
+  });
 });
