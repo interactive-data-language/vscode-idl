@@ -2,7 +2,7 @@
 
 All notable changes to the "idl" extension will be documented in this file.
 
-For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
+For much more detail on incremental work for large features, see the developer docs in the `extension/docs/developer/dev-notes` of the source repo.
 
 ## Preview Features
 
