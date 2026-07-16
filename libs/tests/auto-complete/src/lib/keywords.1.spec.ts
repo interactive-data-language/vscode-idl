@@ -1018,7 +1018,11 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'Set this property to 1 to start the application without creating the user interface. The WIDGET\\_ID property is 0 when running ENVI in headless mode.',
+        },
       },
       {
         label: 'language = ',
@@ -1026,7 +1030,11 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value:
+            "_Note:_ Windows only\n\nSet this property to a string specifying the name of the language to use for the user interface. This property affects components such as menus, buttons and messages. You can also specify the three-character [ISO 639-3 language code](https://iso639-3.sil.org/code%5Ftables/639/data) (for example, jpn for Japanese).\n\nThe following example shows how to set the interface language to Japanese:\n\n```idl\n  e = envi(language = 'jpn')\n```",
+        },
       },
       {
         label: 'layout = ',
@@ -1043,6 +1051,18 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
         sortText: '10',
         detail: 'Keyword',
         documentation: '',
+      },
+      {
+        label: 'preferences = ',
+        insertText: 'preferences',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'This property retrieves the [ENVIPreferences](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPreferences/ENVIPreferences.htm%22%7D) class associated with the ENVI application. At application start-up, set the PREFERENCES keyword to the URI of a JSON file in which ENVI will load and save preferences.',
+        },
       },
     ];
 

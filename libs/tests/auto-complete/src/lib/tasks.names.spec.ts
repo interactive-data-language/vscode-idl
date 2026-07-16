@@ -32,6 +32,25 @@ describe(`[auto generated] Task auto complete`, () => {
     // define expected token we extract
     const expectedFound_0: CompletionItem[] = [
       {
+        label: 'description = ',
+        insertText: 'description = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: { kind: 'markdown', value: 'Text describing the task.' },
+      },
+      {
+        label: 'display_name = ',
+        insertText: 'display_name = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value: 'The name of the task as it appears in the user interface.',
+        },
+      },
+      {
         label: 'error = ',
         insertText: 'error = ',
         kind: 20,
@@ -44,6 +63,14 @@ describe(`[auto generated] Task auto complete`, () => {
         },
       },
       {
+        label: 'name = ',
+        insertText: 'name = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: { kind: 'markdown', value: 'The name of the task.' },
+      },
+      {
         label: 'revision = ',
         insertText: 'revision = ',
         kind: 20,
@@ -53,6 +80,30 @@ describe(`[auto generated] Task auto complete`, () => {
           kind: 'markdown',
           value:
             'A string with the semantic revision number of the task. As the task definition evolves over time, the changes will affect how the revision number is incremented.',
+        },
+      },
+      {
+        label: 'source_uri = ',
+        insertText: 'source_uri = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'The path and filename of the `.task` file that defines the task. If the task was created programmatically using OBJ\\_NEW, then SOURCE\\_URI will be an empty string.',
+        },
+      },
+      {
+        label: 'tags = ',
+        insertText: 'tags = ',
+        kind: 20,
+        sortText: '10',
+        detail: 'Keyword',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A scalar string or an array of strings that help categorize the task. It can be empty with a value of !NULL.',
         },
       },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
@@ -162,42 +213,6 @@ describe(`[auto generated] Task auto complete`, () => {
         kind: 21,
         sortText: '90',
         detail: 'System Variable',
-      },
-      {
-        label: "ENVITask('DeepLearningPixelClassification')",
-        insertText: "ENVITask('DeepLearningPixelClassification')",
-        kind: 3,
-        sortText: '40',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('BuildLabelRasterFromClassification')",
-        insertText: "ENVITask('BuildLabelRasterFromClassification')",
-        kind: 3,
-        sortText: '40',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('ClassActivationToPolylineShapefile')",
-        insertText: "ENVITask('ClassActivationToPolylineShapefile')",
-        kind: 3,
-        sortText: '40',
-        detail: 'Function',
-      },
-      {
-        label: "ENVITask('ClassActivationToPixelROI')",
-        insertText: "ENVITask('ClassActivationToPixelROI')",
-        kind: 3,
-        sortText: '40',
-        detail: 'Function',
-      },
-      {
-        label: 'ENVIBoundingBoxSet()',
-        insertText: 'ENVIBoundingBoxSet()',
-        kind: 3,
-        sortText: '40',
-        detail: 'Function',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
     ];
 

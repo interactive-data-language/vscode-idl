@@ -533,6 +533,13 @@ describe(`[auto generated] Verify types being used for`, () => {
         detail: 'Procedure Method',
       },
       {
+        label: 'ENVIRaster::getProperty',
+        insertText: 'getProperty',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure Method',
+      },
+      {
         label: 'ENVIRaster::save',
         insertText: 'save',
         kind: 3,
@@ -542,6 +549,13 @@ describe(`[auto generated] Verify types being used for`, () => {
       {
         label: 'ENVIRaster::setData',
         insertText: 'setData',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure Method',
+      },
+      {
+        label: 'ENVIRaster::setProperty',
+        insertText: 'setProperty',
         kind: 3,
         sortText: '40',
         detail: 'Procedure Method',

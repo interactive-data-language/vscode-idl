@@ -277,7 +277,11 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'An integer or string specifying the raster data type (strings are not case-sensitive). When retrieving the property, a string is returned.\n\n| String | Value | Data Type                                 |\n| ------ | ----- | ----------------------------------------- |\n| byte   | 1     | Byte (8 bits)                             |\n| double | 5     | Double-precision floating point (64 bits) |\n| float  | 4     | Floating point (32 bits)                  |\n| int    | 2     | Integer (16 bits)                         |\n| long   | 3     | Long integer (32 bits)                    |\n| uint   | 12    | Unsigned integer (16 bits)                |\n| ulong  | 13    | Unsigned long integer (32 bits)           |\n\nYou cannot create or modify an ENVIRaster that contains complex data.',
+        },
       },
       {
         label: 'error = ',
@@ -309,7 +313,11 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string specifying the interleave of the raster.\n\n| String | Interleave                | Data Array                        |\n| ------ | ------------------------- | --------------------------------- |\n| bil    | Band interleaved by line  | \\[_ncolumns_, _nbands_, _nrows_\\] |\n| bip    | Band interleaved by pixel | \\[_nbands_, _ncolumns_, _nrows_\\] |\n| bsq    | Band sequential           | \\[_ncolumns_, _nrows_, _nbands_\\] |',
+        },
       },
       {
         label: 'metadata = ',
@@ -317,7 +325,11 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'This property retrieves a reference to the [ENVIRasterMetadata](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRasterMetadata/ENVIRasterMetaData.htm%22%7D) object. If METADATA and INHERITS\\_FROM are both set, the new raster will have the union of both sets of metadata. The METADATA values override those from INHERITS\\_FROM if there is a conflict.',
+        },
       },
       {
         label: 'nbands = ',
@@ -325,7 +337,10 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value: 'The number of bands in the raster.',
+        },
       },
       {
         label: 'ncolumns = ',
@@ -333,7 +348,10 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value: 'The number of columns in the raster.',
+        },
       },
       {
         label: 'nrows = ',
@@ -341,7 +359,10 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value: 'The number of rows in the raster.',
+        },
       },
       {
         label: 'pyramid_exists = ',
@@ -365,7 +386,11 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'This property retrieves a reference to an [ENVIGLTRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIGLTRasterSpatialRef/ENVIGLTRasterSpatialRef.htm%22%7D), [ENVIPseudoRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPseudoRasterSpatialRef/ENVIPseudoRasterSpatialRef.htm%22%7D), [ENVIRPCRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIRPCRasterSpatialRef/ENVIRPCRasterSpatialRef.htm%22%7D), or [ENVIStandardRasterSpatialRef](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIStandardRasterSpatialRef/ENVIStandardRasterSpatialRef.htm%22%7D) object.',
+        },
       },
       {
         label: 'time = ',
@@ -373,7 +398,11 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'This property retrieves a reference to the [ENVITime](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVITime/ENVITime.htm%22%7D) object.',
+        },
       },
       {
         label: 'uri = ',
@@ -381,7 +410,11 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
         kind: 20,
         sortText: '10',
         detail: 'Keyword',
-        documentation: '',
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A string that is a fully qualified raster file path. If not set on initialization, a temporary file will be generated.',
+        },
       },
       { label: '!x', kind: 21, sortText: '90', detail: 'System Variable' },
       { label: '!y', kind: 21, sortText: '90', detail: 'System Variable' },

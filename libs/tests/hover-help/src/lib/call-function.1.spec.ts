@@ -41,7 +41,8 @@ describe(`[auto generated] Basic checks for call_function() hover help`, () => {
       '  /headless $',
       '  language = value $',
       '  layout = value $',
-      '  log_file = value)',
+      '  log_file = value $',
+      '  preferences = value)',
       '```',
       '',
       'The ENVI function launches the ENVI application and returns an object reference to the application.',
@@ -63,11 +64,19 @@ describe(`[auto generated] Basic checks for call_function() hover help`, () => {
       '',
       '- **headless**: in, optional, Boolean',
       '',
-      '    ',
+      '    Set this property to 1 to start the application without creating the user interface. The WIDGET\\_ID property is 0 when running ENVI in headless mode.',
       '',
       '- **language**: in, optional, String',
       '',
+      '    _Note:_ Windows only',
       '    ',
+      '    Set this property to a string specifying the name of the language to use for the user interface. This property affects components such as menus, buttons and messages. You can also specify the three-character [ISO 639-3 language code](https://iso639-3.sil.org/code%5Ftables/639/data) (for example, jpn for Japanese).',
+      '    ',
+      '    The following example shows how to set the interface language to Japanese:',
+      '    ',
+      '    ```idl',
+      "      e = envi(language = 'jpn')",
+      '    ```',
       '',
       '- **layout**: in, optional, Array\\<Number\\>',
       '',
@@ -76,6 +85,10 @@ describe(`[auto generated] Basic checks for call_function() hover help`, () => {
       '- **log_file**: in, optional, String',
       '',
       '    ',
+      '',
+      '- **preferences**: bidirectional, optional, any',
+      '',
+      '    This property retrieves the [ENVIPreferences](command:idl.docs.openLink?%7B%22link%22:%22IDL_DOCS/../Subsystems/envi/Content/ExtendCustomize/ENVIPreferences/ENVIPreferences.htm%22%7D) class associated with the ENVI application. At application start-up, set the PREFERENCES keyword to the URI of a JSON file in which ENVI will load and save preferences.',
       '',
       '',
       '',
@@ -170,7 +183,13 @@ describe(`[auto generated] Basic checks for call_function() hover help`, () => {
     const position_0: Position = { line: 3, character: 34 };
 
     // define expected token we extract
-    const expectedFound_0: string[] = ['```idl', 'kw headless: Boolean', '```'];
+    const expectedFound_0: string[] = [
+      '```idl',
+      'kw headless: Boolean',
+      '```',
+      '',
+      'Set this property to 1 to start the application without creating the user interface. The WIDGET\\_ID property is 0 when running ENVI in headless mode.',
+    ];
 
     // get hover help
     const hoverHelp_0 = await index.getHoverHelp(
