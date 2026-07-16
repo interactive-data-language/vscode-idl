@@ -859,12 +859,18 @@ export async function RoutineToGlobal(
  * have hard-coded docs, but we found methods for the class
  */
 export function RoutineToGlobalAddMissingStructures(global: GlobalTokens) {
+  const funcs = global.filter(
+    (item) => item.type === GLOBAL_TOKEN_TYPES.FUNCTION,
+  ) as IGlobalIndexedToken<GlobalFunctionToken>[];
+
   const keys = Object.keys(ADD_STRUCTURES);
   for (let i = 0; i < keys.length; i++) {
     // skip if not a real structure
     if (keys[i].includes('::')) {
       continue;
     }
+
+    const found = funcs.find((item) => item.name === keys[i]);
 
     // initialize our metadata
     const struct: IGlobalIndexedToken<GlobalStructureToken> = {
@@ -879,11 +885,14 @@ export function RoutineToGlobalAddMissingStructures(global: GlobalTokens) {
         source: ADD_STRUCTURES[keys[i]].source,
         docs: '',
         inherits: InheritanceGuess(keys[i]),
-        props: MergeEntries(
-          {},
-          STRUCTURE_OVERRIDE[keys[i]]?.properties || {},
-          IDL_STRUCTURE_TYPE_OVERRIDES[keys[i]]?.properties || {},
-          true,
+        props: Object.assign(
+          found?.meta?.kws || {},
+          MergeEntries(
+            {},
+            STRUCTURE_OVERRIDE[keys[i]]?.properties || {},
+            IDL_STRUCTURE_TYPE_OVERRIDES[keys[i]]?.properties || {},
+            true,
+          ),
         ),
       },
     };
