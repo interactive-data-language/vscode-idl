@@ -8,20 +8,16 @@ import {
   IKeywordCompletionOptions,
   KeywordCompletion,
 } from '@idl/types/auto-complete';
-import {
-  GlobalIndexedRoutineToken,
-  IDL_TYPE_LOOKUP,
-  IParameterLookup,
-} from '@idl/types/idl-data-types';
+import { IDL_TYPE_LOOKUP, IParameterLookup } from '@idl/types/idl-data-types';
 import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { CompletionItemKind } from 'vscode-languageserver';
 
 import { FindKeyword } from '../../helpers/get-keyword';
+import { GetKeywords } from '../../helpers/get-keywords';
 import {
   CALL_ROUTINE_TOKENS,
   CallRoutineToken,
 } from '../../helpers/get-keywords.interface';
-import { GetRoutine } from '../../helpers/get-routine';
 import { IDLIndex } from '../../idl-index.class';
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
@@ -41,14 +37,13 @@ export function GetKeywordCompletionOptions(
   index: IDLIndex,
   token: TreeToken<TokenName>,
 ): IKeywordCompletionOptions {
-  /** Get matching global token */
-  const global = GetRoutine(index, parsed, token, true);
+  const kws = GetKeywords(index, parsed, token, true);
 
   /** Defined keywords */
-  const defined: IParameterLookup = global.length > 0 ? global[0].meta.kws : {};
+  const defined: IParameterLookup = kws?.keywords || {};
 
   // find the right parent
-  let local: CallRoutineToken =
+  let local: CallRoutineToken | undefined =
     token.name in CALL_ROUTINE_TOKENS ? (token as CallRoutineToken) : undefined;
 
   // check if we need to search up our scop eto find a place where keywords
@@ -98,7 +93,7 @@ export function GetKeywordCompletionOptions(
           );
 
   return {
-    global: global[0],
+    keywords: defined,
     used,
     binaryAdd,
     forceBinary,
@@ -111,26 +106,8 @@ export function GetKeywordCompletionOptions(
 export function BuildKeywordCompletionItems(
   arg: BuildCompletionItemsArg<KeywordCompletion>,
 ) {
-  // get our defined keywords
-  let defined: IParameterLookup = {};
-
-  /**
-   * Find global token in our lookup
-   */
-  if (arg.options.global) {
-    /**
-     * Specify type which matches from up above
-     */
-    const global: GlobalIndexedRoutineToken[] =
-      arg.index.globalIndex.findMatchingGlobalToken(
-        arg.options.global.type,
-        arg.options.global.name,
-      );
-
-    if (global.length > 0) {
-      defined = global[0].meta.kws;
-    }
-  }
+  /** Extract keywords */
+  const defined = arg.options.keywords;
 
   // add all of our defined keywords
   let kws: string[] = Object.keys(defined);
