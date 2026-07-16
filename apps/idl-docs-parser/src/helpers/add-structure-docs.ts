@@ -17,10 +17,7 @@ export function AddStructureDocs(global: GlobalTokens) {
       const token = global[i] as IGlobalIndexedToken<GlobalStructureToken>;
 
       // create documentation
-      token.meta.docs = DocsToMarkdown(MARKDOWN_TYPE_LOOKUP.STRUCTURE, {
-        name: token.name,
-        meta: token.meta,
-      });
+      token.meta.docs = DocsToMarkdown(MARKDOWN_TYPE_LOOKUP.STRUCTURE, token);
     }
   }
 }
