@@ -26,6 +26,10 @@ Fixed an issue where we incorrectly parsed comment blocks in template literal st
 
 Updated auto-complete to send keywords when typing in the middle of a variable.
 
+Added missing properties for IDLffShape resulting in errors for missing keywords in IDLffShape::GetProperty.
+
+For all structures provided by IDL and ENVI, added `getProperty` and `setProperty` procedure methods. These were not always covered by our documentation parsing, and they exist for most classes.
+
 Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
 
 1. Create a new markdown file with the name of the file being the name of the workflow (Ex: "Process imagery with ship detection deep learning model.md")
