@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 
 import { AddStructureDocs } from './helpers/add-structure-docs';
+import { CreateGetSetPropertyMethods } from './helpers/create-get-set-property-methods';
 import { ParsedToGlobal } from './helpers/parsed-to-global';
 import { SetTaskTypes } from './helpers/set-task-types';
 import { IDL_DIR } from './idl-dir.interface';
@@ -30,6 +31,9 @@ async function Main() {
 
   // properly handle all task files
   await SetTaskTypes(global);
+
+  // set all get/set property methods
+  CreateGetSetPropertyMethods(global);
 
   // make sure all structures have docs
   AddStructureDocs(global);
