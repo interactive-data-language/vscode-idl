@@ -264,6 +264,11 @@ export async function ParseDocsHTML(docsFile: string) {
           if (inKeywordsSection) {
             theseKws[useTitle] = propChildren;
           }
+
+          // check if we also have a keyword that we can specify on init
+          if (/\(Init|Init\)$|Set\)/gim.test(title)) {
+            theseKws[useTitle] = propChildren;
+          }
           break;
         }
         case element.tagName === 'h2': {
