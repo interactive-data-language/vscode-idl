@@ -113,6 +113,8 @@ Resample warp image to match base image's coordinate grid by running **ImageToIm
 
 3. Restart VSCode for changes to be applied. When you update the file, you will need to restart VSCode to get the latest changes.
 
+Resolved some broken links in the documentation.
+
 ## 6.1.2 - July 2026
 
 Resolved an issue where tool calls would appear to hang to GitHub Copilot when it has been more than 5 minutes.
