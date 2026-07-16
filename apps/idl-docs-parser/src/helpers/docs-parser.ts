@@ -143,6 +143,9 @@ export async function ParseDocsHTML(docsFile: string) {
   /** Flag if we have docs along the line of "Name Properties" so we only have properties */
   let onlyProperties = false;
 
+  /** Flag tracking whether we are inside a "Keywords" h2 section */
+  let inKeywordsSection = false;
+
   // process our children
   if (content !== undefined) {
     // get all of our children
@@ -233,6 +236,9 @@ export async function ParseDocsHTML(docsFile: string) {
             current = 'none';
           }
 
+          // reset keywords section tracking for the new routine
+          inKeywordsSection = false;
+
           break;
         }
         // section name
@@ -251,6 +257,13 @@ export async function ParseDocsHTML(docsFile: string) {
 
           propChildren = [];
           theseProps[useTitle] = propChildren;
+
+          // when inside a Keywords section, these h3.Property elements are also
+          // keywords of the method (e.g. IDLffShape constructor keywords
+          // DBF_ONLY/ENTITY_TYPE/UPDATE, or GetProperty keyword properties)
+          if (inKeywordsSection) {
+            theseKws[useTitle] = propChildren;
+          }
           break;
         }
         case element.tagName === 'h2': {
@@ -288,17 +301,21 @@ export async function ParseDocsHTML(docsFile: string) {
           switch (compareTitle) {
             case 'Arguments':
               current = 'arg';
+              inKeywordsSection = false;
               break;
             case 'Keywords':
               current = 'kw';
+              inKeywordsSection = true;
               break;
             case 'Properties':
               current = 'prop';
+              inKeywordsSection = false;
               // reset prop children
               // some "properties" are goofy and dont have property names - see ENVIIsoDataClassification docs with "Properties" after properties
               propChildren = [];
               break;
             default: {
+              inKeywordsSection = false;
               children = [];
 
               // get a unique title
