@@ -23,4 +23,7 @@ pro keywords
   help, var.
   help, var
   help, 5
+
+  ; keywords on var
+  p = plot(b)
 end

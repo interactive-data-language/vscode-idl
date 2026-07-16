@@ -632,6 +632,22 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Correctly include keywords`,
+    fileName: `keywords.3.spec.ts`,
+    tests: [
+      {
+        name: `for variables`,
+        file: `idl/test/auto-complete/keywords.pro`,
+        position: [
+          {
+            line: 27,
+            character: 12,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Methods`,
     fileName: `methods.spec.ts`,
     tests: [
