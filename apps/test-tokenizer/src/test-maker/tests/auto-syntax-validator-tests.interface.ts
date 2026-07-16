@@ -4622,6 +4622,25 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
+    suiteName: `Regression for IDLffShape`,
+    fileName: `code.97.unknown-kw.exceptions5.spec.ts`,
+    tests: [
+      {
+        name: `to not throw errors`,
+        code: [
+          `; main`,
+          `compile_opt idl2`,
+          ``,
+          `; no error`,
+          `shp = idlffshape()`,
+          `shape.getProperty, attribute_names = attNames, n_entities = nEnts`,
+          ``,
+          `end`,
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Check for incomplete ternary`,
     fileName: `code.98.incomplete-ternary.spec.ts`,
     tests: [
