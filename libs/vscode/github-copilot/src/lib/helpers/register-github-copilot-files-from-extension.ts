@@ -6,6 +6,7 @@ import {
   USER_AGENT_PROMPTS_FOLDER,
   USER_AGENTS_FOLDER,
 } from '@idl/idl/files';
+import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { existsSync, readdirSync, unlinkSync } from 'fs';
 import { join } from 'path';
 import * as vscode from 'vscode';
@@ -103,7 +104,17 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   }
 
   /** Find prompt files that we should automatically register */
-  const files = await FindFiles(dir, fileExtensions);
+  let files = await FindFiles(dir, fileExtensions);
+
+  /**
+   * Exclude ENVI items from being auto copied/updated
+   */
+  if (
+    !IDL_EXTENSION_CONFIG.copilot.registerENVIInstructions &&
+    type === 'instructions'
+  ) {
+    files = files.filter((item) => !item.toLowerCase().includes('envi'));
+  }
 
   // Move all files
   // we need a absolute path for operations like copy/move/read/write. But we want to register the home-relative path with copilot settings to be compliant.

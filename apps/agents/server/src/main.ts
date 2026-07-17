@@ -9,6 +9,7 @@ import { ChatService } from './services/chat.service';
 
 // Validate environment variables
 const env = validateEnv();
+env.WEBSOCKET_ENABLED = 'false';
 
 const host = env.HOST;
 const port = Number(env.PORT);

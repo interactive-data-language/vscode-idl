@@ -136,7 +136,7 @@ The IDL extension for VSCode collects anonymous usage data on the extension. The
 >
 > To disable reporting usage metrics for VSCode, see [here](https://code.visualstudio.com/docs/getstarted/telemetry#_disable-telemetry-reporting) for more information.
 
-To learn more about what we collect and why, view our [USAGE_METRICS](./extension/docs/general/USAGE_METRICS.md) guide.
+To learn more about what we collect and why, view our [usage metrics](https://interactive-data-language.github.io/vscode-idl/getting-started/usage_metrics.html) guide.
 
 ## Legal
 

@@ -8,7 +8,7 @@ import {
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { chatMarkdownFactory, ChatState } from '@idl/ngx/chat';
 import { ThemeState } from '@idl/ngx/theme';
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
@@ -21,7 +21,7 @@ import { appRoutes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes, withHashLocation()),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
     provideStore(

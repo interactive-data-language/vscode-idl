@@ -28,6 +28,8 @@ export interface IDLExtensionsConfigKeys {
   readonly copilotCustomInstructions: 'copilot.customInstructions';
   /** Custom instructions for ENVI */
   readonly copilotCustomInstructionsENVI: 'copilot.customInstructionsENVI';
+  /** Do we automatically add ENVI instructions? */
+  readonly copilotRegisterENVIInstructions: 'copilot.registerENVIInstructions';
 
   /** Full debug logs for everything */
   readonly debugMode: 'debugMode';
@@ -237,6 +239,8 @@ export interface ICopilotConfig {
   readonly customInstructions: string;
   /** Custom instructions for ENVI */
   readonly customInstructionsENVI: string;
+  /** Do we automatically add ENVI instructions? */
+  readonly registerENVIInstructions: boolean;
 }
 
 /**
@@ -354,6 +358,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
   copilot: 'copilot',
   copilotCustomInstructions: 'copilot.customInstructions',
   copilotCustomInstructionsENVI: 'copilot.customInstructionsENVI',
+  copilotRegisterENVIInstructions: 'copilot.registerENVIInstructions',
 
   notebooks: 'notebooks',
   notebooksQuietMode: 'notebooks.quietMode',
@@ -432,6 +437,7 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
     enabled: true,
   },
   copilot: {
+    registerENVIInstructions: true,
     customInstructions: '',
     customInstructionsENVI: '',
   },
