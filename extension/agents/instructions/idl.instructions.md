@@ -1,6 +1,6 @@
 ---
 applyTo: '**/*.pro,**/*.idlnb'
-description: 'Guidelines for programming with IDL and writing code or creating IDL Notebooks'
+description: 'Guidelines for programming with IDL, writing IDL code, creating IDL Notebooks, and utilizing the Python version included with IDL and ENVI'
 ---
 
 # AGENT OPERATIONAL GUIDELINES
@@ -87,5 +87,53 @@ You have access to comprehensive IDL resources via MCP tools provided by the IDL
 5. **Offer additional routines** that may help accomplish the user's goal based on what you learned from the resources
 
 **If MCP tools fail or are genuinely unavailable:** Use workspace tools (semantic_search, grep_search, read_file) to find relevant code and documentation. Do NOT simply claim tools are unavailable without attempting to use them first.
+
+## Accessing Embedded Python
+
+IDL and ENVI include a Python installation. Note that you need ENVI 6.3/IDL 9.3 in order for these rules to apply. Here's some quick tips and tricks for working with IDL in ENVI:
+
+- List installed Python packages:
+
+  `PyUtils.PipList`
+
+- Install Python package:
+
+  `PyUtils.PipInstall, 'beautifulsoup4'`
+
+- Uninstall Python package:
+
+  `PyUtils.PipUninstall, 'beautifulsoup4'`
+
+- Loading a Python module and calling from IDL:
+
+  ```idl
+  np = Python.Import('numpy')
+  arr = np.random.rand(100) ; call "rand" method
+  print, np.mean(arr)
+  print, np.std(arr, dtype='float32') ; pass keyword
+  ```
+
+  Alternatively, run Python code:
+
+  ```idl
+  Python.Run, 'import numpy.random as ran'
+  Python.Run, 'arr = ran.rand(100)'
+  Python.Run, 'print(arr.mean())'
+  Python.Run, 'print(arr.std(dtype="float32"))'
+  ```
+
+  and access the variables in IDL:
+
+  ```idl
+  arr = Python.arr
+  ```
+
+To access Python directly, you just need the path to the Python executable:
+
+- To get the path, run this IDL command `PyUtils.Load` which will load the Python environment configured by default and print the folder that the Python.exe lives within.
+
+  Note: If you make changes to packages, IDL may need a restart (to fully restart Python and detect changes).
+
+- Once you have the folder/executable, you can run Python scripts using the embedded Python.
 
 ## ADDITIONAL INSTRUCTIONS

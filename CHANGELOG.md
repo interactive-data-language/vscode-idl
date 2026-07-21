@@ -12,6 +12,8 @@ Auto-complete for blocks re-work: Partial implementation of auto-complete for bl
 
 ## 6.2.0 - Unreleased
 
+IDL Agent can now access and use the Python included with IDL and ENVI installations. It should be able to: install packages, run python code, and write IDL routines that mix/match with Python.
+
 Re-organized the folder structure for agentic tools. We now use "agents" in your .idl folder instead of "github-copilot" and we do the same for some files included in the extension.
 
 Fixed an issue where the prompt folder for ENVI Agent and IDL Agent wasn't getting populated all the time.
