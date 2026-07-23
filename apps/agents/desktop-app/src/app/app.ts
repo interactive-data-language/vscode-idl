@@ -1,15 +1,21 @@
+import {
+  IStartAgentsServerResult,
+  StartAgentsServer,
+} from '@idl/mcp/standalone-server';
 import { BrowserWindow, shell, screen } from 'electron';
-import { rendererAppName, rendererAppPort } from './constants';
-import { environment } from '../environments/environment';
 import { join } from 'path';
 import { format } from 'url';
+
+import { environment } from '../environments/environment';
+import { rendererAppName, rendererAppPort } from './constants';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when the JavaScript object is garbage collected.
-  static mainWindow: BrowserWindow | null = null;
+  static agentsServer: IStartAgentsServerResult | undefined = undefined;
   static application: Electron.App;
   static BrowserWindow: typeof BrowserWindow;
+  static mainWindow: BrowserWindow | null = null;
 
   public static isDevelopmentMode() {
     const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
@@ -42,10 +48,18 @@ export default class App {
     }
   }
 
-  private static onReady() {
+  private static async onReady() {
     // This method will be called when Electron has finished
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
+
+    // Start the embedded agents server (MCP + chat routes)
+    try {
+      App.agentsServer = await StartAgentsServer({ port: 4142 });
+    } catch (err) {
+      console.error('[desktop-app] Failed to start agents server:', err);
+    }
+
     if (rendererAppName) {
       App.initMainWindow();
       App.loadMainWindow();
@@ -126,5 +140,10 @@ export default class App {
     App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
     App.application.on('ready', App.onReady); // App is ready to load data
     App.application.on('activate', App.onActivate); // App is activated
+    App.application.on('before-quit', async () => {
+      if (App.agentsServer !== undefined) {
+        await App.agentsServer.stop();
+      }
+    });
   }
 }

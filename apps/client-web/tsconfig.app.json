@@ -200,6 +200,7 @@
       "@idl/parsing/tasks": ["libs/parsing/tasks/src/index.ts"],
       "@idl/mcp/shared": ["libs/mcp/shared/src/index.ts"],
       "@idl/mcp/websocket": ["libs/mcp/websocket/src/index.ts"],
+      "@idl/mcp/standalone-server": ["libs/mcp/standalone-server/src/index.ts"],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],

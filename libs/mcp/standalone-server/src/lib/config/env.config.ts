@@ -71,7 +71,7 @@ const envSchema = z
      * local IDL/ENVI install is still required for indexing and task-tool
      * registration.
      */
-    WEBSOCKET_ENABLED: z.enum(['true', 'false']).optional().default('false'),
+    WEBSOCKET_ENABLED: z.enum(['true', 'false']).optional().default('true'),
   })
   .superRefine((data, ctx) => {
     if (data.CHAT_PROVIDER === 'openai' && !data.OPENAI_API_KEY) {

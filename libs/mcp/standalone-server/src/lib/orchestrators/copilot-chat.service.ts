@@ -342,6 +342,8 @@ export class CopilotChatService {
           tools: this.config.websocketMode
             ? [...WEBSOCKET_ENABLED_MCP_TOOLS]
             : ['*'], // "*" = all tools, [] = none, or list specific tools
+          // 60-minute timeout to accommodate long-running IDL/ENVI tools
+          timeout: 60 * 60 * 1000,
         },
       },
       model: request.model,
