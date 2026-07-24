@@ -13,6 +13,11 @@ const ARRAY_REGEX = /array$|\[.*]?$/i;
 const CLEAN_URI_REGEX = /enviuri|ENVIVirtualizableURI/i;
 
 /**
+ * Regex to detect virtual URI which must always have default value set
+ */
+const VIRTUAL_URI_REGEX = /ENVIVirtualizableURI/i;
+
+/**
  * Gets array values or keys for a choice list in a task parameter
  */
 function GetArrayOrKeys(value: unknown): any[] {
@@ -55,6 +60,9 @@ export function TaskTypeToIDLType(
 ) {
   /** Check for URI parameter */
   const isUri = CLEAN_URI_REGEX.test(type);
+
+  /** Check if virtual */
+  const isVirtualUri = VIRTUAL_URI_REGEX.test(type);
 
   /** Check for array data type */
   const isArray = ARRAY_REGEX.test(type);
@@ -104,6 +112,12 @@ export function TaskTypeToIDLType(
   // save if we are a URI
   if (isUri) {
     created[0].meta.isUri = true;
+  }
+
+  // always make sure virtual has default set
+  // this is for MCP logic
+  if (isVirtualUri) {
+    created[0].meta.default = '!';
   }
 
   // check if we need to prompt to an array
