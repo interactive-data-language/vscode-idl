@@ -1148,6 +1148,8 @@ export const EN: ITranslation = {
         'Detected a "not" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `~` operator is preferred as the behavior might not match what you expect.',
       '113':
         'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
+      '114':
+        "Ambiguous keyword detected. This keyword's name matches the start of another named keyword",
     },
   },
   statusBar: {

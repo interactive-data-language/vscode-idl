@@ -226,6 +226,8 @@ type LogicalOrDetectedCode = 111;
 type LogicalNotDetectedCode = 112;
 /** When logical predicate is engaged and we detect "xor" within logical statements */
 type LogicalXOrDetectedCode = 113;
+/** When we have keyword names that will be ambiguous when used */
+type AmbiguousKeywordDefinitionCode = 114;
 
 /**
  * Union type of all allowed problem codes for IDL
@@ -233,6 +235,7 @@ type LogicalXOrDetectedCode = 113;
 export type IDLProblemCode =
   | AfterMainEndCode
   | AmbiguousKeywordAbbreviationCode
+  | AmbiguousKeywordDefinitionCode
   | ArgMissingFromDocsCode
   | ArgsFirstCode
   | BadBreakLocationCode
@@ -361,6 +364,8 @@ interface IProblemLookup {
   AFTER_MAIN: AfterMainEndCode;
   /** When we use shorthand notation for a keyword that is ambiguous */
   AMBIGUOUS_KEYWORD_ABBREVIATION: AmbiguousKeywordAbbreviationCode;
+  /** When we have keyword names that will be ambiguous when used */
+  AMBIGUOUS_KEYWORD_DEFINITION: AmbiguousKeywordDefinitionCode;
   /** When arguments are not defined first */
   ARGS_FIRST: ArgsFirstCode;
   /** When a routine has arguments, but the ":Args:" section is missing from docs */
@@ -705,4 +710,5 @@ export const IDL_PROBLEM_CODES: IProblemLookup = {
   LOGICAL_OR: 111,
   LOGICAL_NOT: 112,
   LOGICAL_XOR: 113,
+  AMBIGUOUS_KEYWORD_DEFINITION: 114,
 };

@@ -5987,6 +5987,20 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
+    suiteName: 'Ambiguous KW def',
+    fileName: 'code.114.ambiguous-kw-def.spec.ts',
+    tests: [
+      {
+        name: 'For main problem case',
+        code: [
+          'pro foo, output_parameters = output_parameters, debug = debug, output = output',
+          '  compile_opt idl2',
+          'end',
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Def files ignore`,
     fileName: `def-regression.1.spec.ts`,
     tests: [
