@@ -48,6 +48,6 @@ export async function TakeENVIScreenshot(
    * We don't need to check it
    */
   return await backend.evaluateENVICommand<MCPTool_TakeENVIScreenshot>(
-    `vscode_TakeENVIScreenshot`,
+    `agent_takeENVIScreenshot`,
   );
 }

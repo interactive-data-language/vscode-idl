@@ -41,7 +41,7 @@ export async function OpenDatasetsInENVI(
 
   const start =
     await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
-      `vscode_startENVI`,
+      `agent_startENVI`,
     );
 
   if (!start.success) {
@@ -58,11 +58,7 @@ export async function OpenDatasetsInENVI(
   onProgress?.('Opening datasets');
 
   return await backend.evaluateENVICommand<MCPTool_OpenDatasetsInENVI>(
-    `vscode_displayDatasets, '${MCPSerializeJSON(
-      params.datasets,
-    )}', automatic_zoom = '${params.automaticZoom}', reset = ${
-      params.resetView ? '!true' : '!false'
-    }`,
+    `agent_openDatasetsInENVI, '${MCPSerializeJSON(params)}`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: false },
   );
 }

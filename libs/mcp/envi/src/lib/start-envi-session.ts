@@ -43,6 +43,6 @@ export async function StartENVISession(
   //   : false;
 
   return await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
-    `vscode_startENVI, headless = ${headless ? '!true' : '!false'}`,
+    `agent_startENVI, headless = ${headless ? '!true' : '!false'}`,
   );
 }

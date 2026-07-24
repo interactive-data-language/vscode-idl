@@ -64,7 +64,7 @@ export async function QueryDatasetWithENVI(
 
   const start =
     await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
-      `vscode_startENVI`,
+      `agent_startENVI`,
     );
 
   if (!start.success) {
@@ -81,7 +81,7 @@ export async function QueryDatasetWithENVI(
   onProgress?.('Querying dataset');
 
   const res = await backend.evaluateENVICommand<MCPTool_QueryDatasetWithENVI>(
-    `vscode_queryDataset, '${MCPSerializeJSON(dataset)}'`,
+    `agent_queryDatasetWithENVI, '${MCPSerializeJSON(dataset)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false },
   );
 

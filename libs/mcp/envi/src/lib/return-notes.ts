@@ -33,6 +33,6 @@ export async function ReturnNotes(
   }
 
   return await backend.evaluateENVICommand<MCPTool_ReturnNotes>(
-    `vscode_retrieveNotes`,
+    `agent_returnNotes`,
   );
 }

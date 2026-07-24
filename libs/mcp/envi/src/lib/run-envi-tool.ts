@@ -36,7 +36,7 @@ export async function RunENVITool(
 
   const start =
     await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
-      `vscode_startENVI`,
+      `agent_startENVI`,
     );
 
   if (!start.success) {
@@ -53,7 +53,7 @@ export async function RunENVITool(
   onProgress?.('Running tool');
 
   return await backend.evaluateENVICommand<MCPTool_RunENVITool>(
-    `vscode_runENVITool, '${MCPSerializeJSON(params)}'`,
+    `agent_runENVITool, '${MCPSerializeJSON(params)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.taskText, silent: false },
   );
 }

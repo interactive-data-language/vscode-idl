@@ -259,7 +259,7 @@ export function RegisterMCPTool_CreateENVIModelerWorkflow(
       const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
-        { code: `vscode_openENVIModelerWorkflow, '${output_path}'` },
+        { code: `agent_openENVIModelerWorkflow, '${output_path}'` },
       );
 
       let msgAdd = '';
