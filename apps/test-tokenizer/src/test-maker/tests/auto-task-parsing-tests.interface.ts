@@ -55,6 +55,16 @@ export const AUTO_TASK_PARSING_TESTS: ITaskParsingTests[] = [
     ],
   },
   {
+    suiteName: `Correctly parse URI parameters and set defaults`,
+    fileName: `envi-defaults.spec.ts`,
+    tests: [
+      {
+        name: `envi`,
+        file: `idl/test/task-parsing/SARsBasicFeFloodingClassification.task`,
+      },
+    ],
+  },
+  {
     suiteName: `Correctly parse task file`,
     fileName: `idl1.spec.ts`,
     tests: [
