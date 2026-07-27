@@ -36,17 +36,8 @@ export class MCPToolWorkflowRegistry {
       mkdirSync(this.localDir, { recursive: true });
     }
 
-    // load any markdown files from the local directory as workflows
-    const files = readdirSync(this.localDir)
-      .filter((f) => f.toLowerCase().endsWith('.md'))
-      .map((file) => {
-        return join(this.localDir, file);
-      });
-
-    // add all
-    for (let i = 0; i < files.length; i++) {
-      this.addToolWorkflowFromFile(files[i]);
-    }
+    // load workflows
+    this.loadWorkflowsFromFolder(this.localDir);
   }
 
   /**
@@ -131,5 +122,29 @@ export class MCPToolWorkflowRegistry {
    */
   hasWorkflow(workflowName: string) {
     return workflowName.toLowerCase() in this.workflows;
+  }
+
+  /**
+   * Loads files from a folder, not-recursive
+   */
+  loadWorkflowsFromFolder(folder: string, replace = false) {
+    // load any markdown files from the local directory as workflows
+    const files = readdirSync(folder)
+      .filter((f) => f.toLowerCase().endsWith('.md'))
+      .map((file) => {
+        return join(folder, file);
+      });
+
+    // add all
+    for (let i = 0; i < files.length; i++) {
+      this.addToolWorkflowFromFile(files[i], replace);
+    }
+  }
+
+  /**
+   * Refresh the local workflow list
+   */
+  refreshLocalWorkflowList() {
+    this.loadWorkflowsFromFolder(this.localDir, true);
   }
 }
