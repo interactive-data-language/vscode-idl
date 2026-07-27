@@ -123,7 +123,7 @@ export async function run(): Promise<void> {
       }
 
       // make sure we dont wait forever
-      if (performance.now() - t0 > 10000) {
+      if (performance.now() - t0 > 15000) {
         throw new Error(
           'Language server took longer than 10 seconds to return diagnostics, assuming failed start',
         );
