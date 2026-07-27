@@ -5,12 +5,11 @@ import {
 import expect from 'expect';
 import { existsSync } from 'fs';
 
+import { USER_TOOL_WORKFLOW_WRITE } from '../../../../test-setup.interface';
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../helpers/get-text-content';
-
-/** Name of the test workflow created during this test */
-const TEST_WORKFLOW_NAME = 'mcp test save workflow';
+import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
 
 /**
  * Verifies that we can save a new ENVI Tool Workflow via MCP
@@ -20,10 +19,13 @@ export const RunMCPTestSaveENVIToolWorkflow: RunnerFunction = async (init) => {
    * Save a new workflow
    */
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.SAVE_ENVI_TOOL_WORKFLOW, {
-    workflowName: TEST_WORKFLOW_NAME,
+    workflowName: USER_TOOL_WORKFLOW_WRITE,
     workflowContent:
       '## OVERVIEW\n\nTest workflow for MCP integration test.\n\n## WORKFLOW\n\n### Step 1: Test step\n\nDo something.',
   });
+
+  // sanity logging
+  LogWhenExpectSuccess(result);
 
   // make sure the tool ran without error
   expect(result.isError).toBeFalsy();
@@ -49,7 +51,7 @@ export const RunMCPTestSaveENVIToolWorkflow_DuplicateError: RunnerFunction =
      * Attempt to save the same workflow name a second time (should fail)
      */
     const result = await CallMCPTool(MCP_TOOL_LOOKUP.SAVE_ENVI_TOOL_WORKFLOW, {
-      workflowName: TEST_WORKFLOW_NAME,
+      workflowName: USER_TOOL_WORKFLOW_WRITE,
       workflowContent: '## OVERVIEW\n\nDuplicate workflow.',
     });
 

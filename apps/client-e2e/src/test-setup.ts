@@ -1,12 +1,19 @@
 import { USER_ENVI_WORKFLOWS_FOLDER } from '@idl/idl/files';
+import { Sleep } from '@idl/shared/extension';
 import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'fs';
 
-import { USER_TOOL_WORKFLOW_FS } from './test-setup.interface';
+import {
+  USER_TOOL_WORKFLOW_FS,
+  USER_TOOL_WORKFLOW_WRITE_FS,
+} from './test-setup.interface';
 
 /**
  * Set up tests
  */
 export async function TestSetup() {
+  // always run tear-down in case we are in a bad state
+  await TestTeardown();
+
   /**
    * Set up user test workflow
    */
@@ -15,6 +22,8 @@ export async function TestSetup() {
   }
 
   writeFileSync(USER_TOOL_WORKFLOW_FS, 'Test content for test workflow');
+
+  await Sleep(500);
 }
 
 /**
@@ -23,5 +32,8 @@ export async function TestSetup() {
 export async function TestTeardown() {
   if (existsSync(USER_TOOL_WORKFLOW_FS)) {
     unlinkSync(USER_TOOL_WORKFLOW_FS);
+  }
+  if (existsSync(USER_TOOL_WORKFLOW_WRITE_FS)) {
+    unlinkSync(USER_TOOL_WORKFLOW_WRITE_FS);
   }
 }
