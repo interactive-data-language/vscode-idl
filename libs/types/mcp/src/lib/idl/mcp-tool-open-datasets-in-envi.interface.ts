@@ -6,9 +6,9 @@ import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 export type MCPTool_OpenDatasetsInENVI = 'open-datasets-in-envi';
 
 /**
- * Parameters for opening an image in ENVI
+ * Base parameters for opening datasets in ENVI
  */
-export interface MCPToolParams_OpenDatasetsInENVI {
+export interface MCPToolParams_HTTPOpenDatasetsInENVI_Base {
   /**
    * For a single dataset, do we zoom to the extent of the layer?
    *
@@ -18,13 +18,20 @@ export interface MCPToolParams_OpenDatasetsInENVI {
    */
   automaticZoom: 'all-layers' | 'last-layer' | 'none';
   /**
-   * The dehydrated datasets to open
-   */
-  datasets: { [key: string]: any }[];
-  /**
    * Do we reset the display or not?
    */
   resetView: boolean;
+}
+
+/**
+ * Parameters for opening an image in ENVI
+ */
+export interface MCPToolParams_OpenDatasetsInENVI
+  extends MCPToolParams_HTTPOpenDatasetsInENVI_Base {
+  /**
+   * The dehydrated datasets to open
+   */
+  datasets: { [key: string]: any }[];
 }
 
 /**

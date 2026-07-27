@@ -65,10 +65,11 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   expect(
     (
       await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {
-        datasets: [
+        rasters: [
           {
             factory: 'URLRaster',
             url: 'file',
+            order: 0,
           },
         ],
         automaticZoom: 'all-layers',

@@ -19,7 +19,7 @@ export const RunMCPTestOpenDatasetsInENVI_RasterSeries: RunnerFunction = async (
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {
-    datasets: [ENVITestDatasets.rasterSeries()],
+    rasterSeries: [{ ...ENVITestDatasets.rasterSeries(), order: 0 }],
     automaticZoom: 'all-layers',
     resetView: true,
   });

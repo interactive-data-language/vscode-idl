@@ -19,7 +19,7 @@ export const RunMCPTestOpenDatasetsInENVI_Vector: RunnerFunction = async (
 ) => {
   // Call a tool
   const result = await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {
-    datasets: [ENVITestDatasets.vector()],
+    vectors: [{ ...ENVITestDatasets.vector(), order: 0 }],
     automaticZoom: 'all-layers',
     resetView: true,
   });

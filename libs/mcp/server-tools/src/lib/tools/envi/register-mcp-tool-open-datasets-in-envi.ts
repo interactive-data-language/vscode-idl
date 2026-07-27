@@ -22,6 +22,12 @@ const ORDER_FIELD = z
 
 /**
  * Registers a tool that allows us to open an image in ENVI
+ *
+ * @note The types for these input parameters should match the
+ * file: libs\types\mcp\src\lib\override\mcp-tool-open-datasets-in-envi.interface.ts
+ *
+ * That file contains types that we override for this tool as there is a delta
+ * between HTTP parameters and what is sent to IDL
  */
 export function RegisterMCPTool_OpenDatasetsInENVI(server: MCPServer) {
   server.registerTool(

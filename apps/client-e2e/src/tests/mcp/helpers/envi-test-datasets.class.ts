@@ -1,3 +1,10 @@
+import {
+  ENVIRaster,
+  ENVIRasterSeries,
+  ENVIROI,
+  ENVISpectralLibrary,
+  ENVIVector,
+} from '@idl/types/envi/datasets';
 import { basename, dirname, join } from 'path';
 
 import { IDL_DIR } from './../../../main';
@@ -14,7 +21,7 @@ export class ENVITestDatasets {
    */
   static getENVIDir() {
     /** If ENVI + IDL, go up 3 folders from the bin directory */
-    const enviDir = dirname(dirname(dirname(IDL_DIR)));
+    const enviDir = dirname(dirname(dirname(IDL_DIR || '')));
 
     // make sure we have ENVI install location
     if (!basename(enviDir).toLowerCase().startsWith('envi')) {
@@ -28,12 +35,12 @@ export class ENVITestDatasets {
   /**
    * Returns a dehydrated raster that contains multiple datasets
    */
-  static multiRaster(dataset_index?: number) {
+  static multiRaster(dataset_index?: number): ENVIRaster {
     /** Get ENVI install */
     const envi = this.getENVIDir();
 
     /** Make base dataset */
-    const dataset = {
+    const dataset: ENVIRaster = {
       factory: 'URLRaster',
       url: join(envi, 'data', 'NITFExamples', 'MultiSegmentExample.ntf'),
     };
@@ -50,7 +57,7 @@ export class ENVITestDatasets {
   /**
    * Returns a dehydrated raster
    */
-  static raster() {
+  static raster(): ENVIRaster {
     /** Get ENVI install */
     const envi = this.getENVIDir();
 
@@ -64,7 +71,7 @@ export class ENVITestDatasets {
   /**
    * Returns a dehydrated raster series
    */
-  static rasterSeries() {
+  static rasterSeries(): ENVIRasterSeries {
     /** Get ENVI install */
     const envi = this.getENVIDir();
 
@@ -77,7 +84,7 @@ export class ENVITestDatasets {
   /**
    * Returns a dehydrated ROI
    */
-  static roi() {
+  static roi(): ENVIROI {
     /** Get ENVI install */
     const envi = this.getENVIDir();
 
@@ -90,7 +97,7 @@ export class ENVITestDatasets {
   /**
    * Returns a dehydrated spectral library
    */
-  static spectralLibrary() {
+  static spectralLibrary(): ENVISpectralLibrary {
     /** Get ENVI install */
     const envi = this.getENVIDir();
 
@@ -110,7 +117,7 @@ export class ENVITestDatasets {
   /**
    * Returns a dehydrated vector (shapefile)
    */
-  static vector() {
+  static vector(): ENVIVector {
     /** Get ENVI install */
     const envi = this.getENVIDir();
 

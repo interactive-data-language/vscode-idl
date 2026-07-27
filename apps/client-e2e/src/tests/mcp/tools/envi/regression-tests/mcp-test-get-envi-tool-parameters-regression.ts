@@ -1,12 +1,13 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import { mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 import { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { SplitDescription } from '../../../helpers/split-description';
+import { LogWhenExpectSuccess } from '../../../helpers/test-loggers';
 import { REGRESSION_TEST_THESE } from './regression-test-these.interface';
 
 /**
@@ -23,25 +24,26 @@ export const RunMCPTestGetENVIToolParametersRegression: RunnerFunction = async (
 
   const toolParametersDir = join(rootDir, 'tool-parameters');
 
-  // clean up
-  if (existsSync(toolParametersDir)) {
-    rmSync(toolParametersDir, { recursive: true, force: true });
-  }
-
   // re-create folder
   mkdirSync(toolParametersDir, { recursive: true });
 
   // dir for input parameters
   const inputDir = join(toolParametersDir, 'inputParameters');
-  mkdirSync(inputDir, { recursive: true });
 
   // dir for output parameters
   const outputDir = join(toolParametersDir, 'outputParameters');
-  mkdirSync(outputDir, { recursive: true });
 
   // dir for notes
   const notesDir = join(toolParametersDir, 'notes');
-  mkdirSync(notesDir, { recursive: true });
+
+  // ensure all folders exist, then clear any existing files so removed
+  // tools don't persist between runs
+  for (const dir of [inputDir, outputDir, notesDir]) {
+    mkdirSync(dir, { recursive: true });
+    for (const file of readdirSync(dir)) {
+      unlinkSync(join(dir, file));
+    }
+  }
 
   // add regression tests
   for (let i = 0; i < REGRESSION_TEST_THESE.length; i++) {
@@ -52,6 +54,9 @@ export const RunMCPTestGetENVIToolParametersRegression: RunnerFunction = async (
     const result = await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS, {
       toolName,
     });
+
+    // log if we fail
+    LogWhenExpectSuccess(result);
 
     // make sure the tool runs
     expect(result.isError).toBeFalsy();

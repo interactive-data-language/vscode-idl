@@ -1,7 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import { mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 import { RunnerFunction } from '../../../../runner.interface';
@@ -55,13 +55,13 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
 
   const toolDescriptionDir = join(rootDir, 'tool-descriptions');
 
-  // clean up
-  if (existsSync(toolDescriptionDir)) {
-    rmSync(toolDescriptionDir, { recursive: true, force: true });
-  }
-
-  // re-create folder
+  // ensure folder exists
   mkdirSync(toolDescriptionDir, { recursive: true });
+
+  // clear any existing files so removed tools don't persist
+  for (const file of readdirSync(toolDescriptionDir)) {
+    unlinkSync(join(toolDescriptionDir, file));
+  }
 
   // add regression tests
   for (let i = 0; i < REGRESSION_TEST_THESE.length; i++) {
