@@ -33,6 +33,6 @@ export function GetExtensionPath(file: string) {
     case existsSync(join(TEST_URI, file)):
       return join(TEST_URI, file);
     default:
-      throw new Error(`Unable to locate file: "${file}"`);
+      throw new Error(`Unable to locate file or folder: "${file}"`);
   }
 }
