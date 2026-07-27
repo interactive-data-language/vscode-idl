@@ -50,7 +50,6 @@
       ]
     },
     "nitf_compression": {
-      "default": "No Compression",
       "description": [
         "Specifies the NITF compression type. The choices are as follows:",
         "",
@@ -71,6 +70,7 @@
         "",
         "The default value is No Compression."
       ],
+      "default": "No Compression",
       "anyOf": [
         {
           "type": "string",
@@ -115,10 +115,13 @@
       ]
     },
     "output_raster_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified filename and path of the associated OUTPUT_RASTER.",
+        "",
+        "If you do not specify this parameter, or set it to an exclamation symbol (!), ENVI creates a temporary file.",
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
       ],
+      "default": "!",
       "type": "string"
     }
   },

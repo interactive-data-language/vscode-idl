@@ -94,21 +94,29 @@
       ]
     },
     "output_raster_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified filename and path to export the associated OUTPUT_RASTER.",
+        "",
+        "If you do not specify this parameter, the OUTPUT_RASTER will not be created.",
+        "If you set this parameter to an asterisk symbol (*), the OUTPUT_RASTER will be virtual and not written to disk.",
+        "To force the creation of a temporary file, set this parameter to an exclamation symbol (!).",
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
       ],
+      "default": "!",
       "type": "string"
     },
     "output_rule_raster_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified filename and path of the associated OUTPUT_RULE_RASTER.",
+        "",
+        "If you do not specify this parameter, the OUTPUT_RULE_RASTER will not be created.",
+        "To force the creation of a temporary file set the parameter to an exclamation symbol (!).",
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
       ],
+      "default": "!",
       "type": "string"
     },
     "regularization_method": {
-      "default": "Truncate",
       "description": [
         "Specify a method for regularizing the covariance matrix:",
         "",
@@ -119,6 +127,7 @@
         "Threshold: Singular values less than the tolerance value are set to the tolerance value.",
         "Truncate (default): Singular values less than the tolerance value are set to zero."
       ],
+      "default": "Truncate",
       "anyOf": [
         {
           "type": "string",

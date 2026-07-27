@@ -94,8 +94,8 @@ function IDLParameterToMCPParameter_Recurser(
        */
       case currentType.meta.isUri && currentType.meta.isFolder:
         res = MCP_ENVIURI();
-        docsOverride =
-          'Fully-qualified path to the output folder, default is "!" which indicates a temporary location will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing folder on disk. You may need to examine the output location to find specific datasets.';
+        // docsOverride =
+        //   'Fully-qualified path to the output folder, default is "!" which indicates a temporary location will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing folder on disk. You may need to examine the output location to find specific datasets.';
         break;
 
       /**
@@ -103,8 +103,8 @@ function IDLParameterToMCPParameter_Recurser(
        */
       case currentType.meta.isUri:
         res = MCP_ENVIURI();
-        docsOverride =
-          'Fully-qualified path to the output dataset, default is "!" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk.';
+        // docsOverride =
+        //   'Fully-qualified path to the output dataset, default is "!" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk.';
         break;
 
       /**
