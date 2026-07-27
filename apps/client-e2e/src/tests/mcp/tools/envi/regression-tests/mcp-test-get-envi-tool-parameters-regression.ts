@@ -15,10 +15,13 @@ import { REGRESSION_TEST_THESE } from './regression-test-these.interface';
 export const RunMCPTestGetENVIToolParametersRegression: RunnerFunction = async (
   init,
 ) => {
-  const toolParametersDir = join(
-    GetExtensionPath('idl/test/client-e2e/mcp/regression'),
-    'tool-parameters',
+  /** Get root MCP dir that should always exist */
+  const rootDir = join(
+    GetExtensionPath('idl/test/client-e2e/mcp'),
+    'regression',
   );
+
+  const toolParametersDir = join(rootDir, 'tool-parameters');
 
   // clean up
   if (existsSync(toolParametersDir)) {

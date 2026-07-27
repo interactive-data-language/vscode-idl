@@ -47,10 +47,13 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
   // make sure we have
   expect(toolsList).toBeTruthy();
 
-  const toolDescriptionDir = join(
-    GetExtensionPath('idl/test/client-e2e/mcp/regression'),
-    'tool-descriptions',
+  /** Get root MCP dir that should always exist */
+  const rootDir = join(
+    GetExtensionPath('idl/test/client-e2e/mcp'),
+    'regression',
   );
+
+  const toolDescriptionDir = join(rootDir, 'tool-descriptions');
 
   // clean up
   if (existsSync(toolDescriptionDir)) {
