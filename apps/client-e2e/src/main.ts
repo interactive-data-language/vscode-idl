@@ -8,7 +8,9 @@ import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
+import { spawnSync } from 'child_process';
 import expect from 'expect';
+import { join } from 'path';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
 
@@ -63,6 +65,21 @@ export async function run(): Promise<void> {
     // alert user which IDL we are using
     console.log(` `);
     console.log(`Test are using this IDL: "${IDL_DIR}"`);
+
+    // basic smoke-test: start idl.exe, print 'foo', verify output ends with 'foo'
+    console.log(` `);
+    console.log('Verifying IDL can start and execute a statement');
+    const idlSmokeTest = spawnSync(
+      join(IDL_DIR, 'idl'),
+      ['-e', "print, 'foo'"],
+      { encoding: 'utf8' },
+    );
+    const smokeOutput = (idlSmokeTest.stdout || '').trim();
+    if (!smokeOutput.endsWith('foo')) {
+      throw new Error(
+        `IDL smoke-test failed. Are you licensed? Expected output to end with "foo" but got: "${smokeOutput}"`,
+      );
+    }
 
     // wait for language server to start
     console.log(` `);
