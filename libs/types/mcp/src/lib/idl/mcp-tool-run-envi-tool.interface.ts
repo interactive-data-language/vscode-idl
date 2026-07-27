@@ -1,4 +1,4 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Message when we run an ENVI Task
@@ -26,7 +26,7 @@ export interface MCPToolParams_RunENVITool {
  *
  * On success, result is a JSON object of all parameters dehydrated + stringified
  */
-export type MCPToolResponse_RunENVITool = IMCPToolVSCode_BaseResponse<{
+export type MCPToolResponse_RunENVITool = IMCPToolIDL_BaseResponse<{
   [key: string]: any;
 }>;
 

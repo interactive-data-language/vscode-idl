@@ -1,5 +1,5 @@
 import { MCPToolParams, MCPToolResponse } from './mcp-tools.interface';
-import { MCPTools_VSCode } from './mcp-tools-vscode.interface';
+import { MCPTools_IDL } from './mcp-tools-idl.interface';
 
 /**
  * Callback for sending a request from the MCP server to something
@@ -9,7 +9,7 @@ import { MCPTools_VSCode } from './mcp-tools-vscode.interface';
  * (like `VSCodeLanguageServerMessenger`) so the server can be reused
  * in other contexts.
  */
-export type MCPSendRequestCallback = <T extends MCPTools_VSCode>(
+export type MCPSendRequestCallback = <T extends MCPTools_IDL>(
   executionId: string,
   tool: T,
   params: MCPToolParams<T>,

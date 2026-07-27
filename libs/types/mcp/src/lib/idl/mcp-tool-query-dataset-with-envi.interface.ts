@@ -1,4 +1,4 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Message when querying a dataset for more information
@@ -28,6 +28,6 @@ export interface MCPToolParams_QueryDatasetWithENVI {
  *
  * On success, returns JSON metadata for the dataset
  */
-export type MCPToolResponse_QueryDatasetWithENVI = IMCPToolVSCode_BaseResponse<
+export type MCPToolResponse_QueryDatasetWithENVI = IMCPToolIDL_BaseResponse<
   { [key: string]: any }[]
 >;

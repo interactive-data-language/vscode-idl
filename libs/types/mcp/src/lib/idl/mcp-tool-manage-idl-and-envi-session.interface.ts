@@ -1,4 +1,4 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Manage ENVI and IDL Session
@@ -33,4 +33,4 @@ export interface MCPToolParams_ManageIDLAndENVISession {
  * Response for managing ENVI and IDL session
  */
 export type MCPToolResponse_ManageIDLAndENVISession =
-  IMCPToolVSCode_BaseResponse;
+  IMCPToolIDL_BaseResponse;

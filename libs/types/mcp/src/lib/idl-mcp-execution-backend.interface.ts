@@ -7,7 +7,7 @@ import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 
 import { IPrepareIDLCodeResult } from './execute-idl-code.interface';
 import { MCPToolParams, MCPToolResponse } from './mcp-tools.interface';
-import { MCPTools_VSCode } from './mcp-tools-vscode.interface';
+import { MCPTools_IDL } from './mcp-tools-idl.interface';
 
 /**
  * Callback to send progress notifications during MCP tool execution
@@ -40,7 +40,7 @@ export interface IIDLMCPExecutionBackend {
    * Implementations are responsible for reading the ENVI success/failure
    * notification state after running the command.
    */
-  evaluateENVICommand<T extends MCPTools_VSCode>(
+  evaluateENVICommand<T extends MCPTools_IDL>(
     command: string,
     options?: IDLEvaluateOptions,
   ): Promise<MCPToolResponse<T>>;
@@ -99,7 +99,7 @@ export interface IIDLMCPExecutionBackend {
    *
    * Available tools may be limited based on runtime
    */
-  runMCPTool<T extends MCPTools_VSCode>(
+  runMCPTool<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
     params: MCPToolParams<T>,

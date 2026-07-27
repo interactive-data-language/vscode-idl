@@ -10,7 +10,7 @@ import {
   MCPToolParams,
   MCPToolResponse,
   MCPTools,
-  MCPTools_VSCode,
+  MCPTools_IDL,
 } from '@idl/types/mcp';
 import {
   McpServer,
@@ -250,7 +250,7 @@ export class MCPServer {
   /**
    * Sends a request run MCP tools that require IDL or ENVI
    */
-  async sendIDLRequest<T extends MCPTools_VSCode>(
+  async sendIDLRequest<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
     params: MCPToolParams<T>,

@@ -1,4 +1,4 @@
-import { ENVIMCPToolResponse } from './vscode/envi-mcp-tool-response.interface';
+import { ENVIMCPToolResponse } from './idl/envi-mcp-tool-response.interface';
 
-export type IMCPToolVSCode_BaseResponse<TResult = string> =
+export type IMCPToolIDL_BaseResponse<TResult = string> =
   ENVIMCPToolResponse<TResult>;

@@ -8,57 +8,57 @@ import {
   MCPTool_CreateIDLNotebook,
   MCPToolParams_CreateIDLNotebook,
   MCPToolResponse_CreateIDLNotebook,
-} from './vscode/mcp-tool-create-idl-notebook.interface';
+} from './idl/mcp-tool-create-idl-notebook.interface';
 import {
   MCPTool_ExecuteIDLCode,
   MCPToolParams_ExecuteIDLCode,
   MCPToolResponse_ExecuteIDLCode,
-} from './vscode/mcp-tool-execute-idl-code.interface';
+} from './idl/mcp-tool-execute-idl-code.interface';
 import {
   MCPTool_ExecuteIDLFile,
   MCPToolParams_ExecuteIDLFile,
   MCPToolResponse_ExecuteIDLFile,
-} from './vscode/mcp-tool-execute-idl-file.interface';
+} from './idl/mcp-tool-execute-idl-file.interface';
 import {
   MCPTool_ListENVIToolWorkflows,
   MCPToolParams_ListENVIToolWorkflows,
   MCPToolResponse_ListENVIToolWorkflows,
-} from './vscode/mcp-tool-list-envi-tool-workflows.interface';
+} from './idl/mcp-tool-list-envi-tool-workflows.interface';
 import {
   MCPTool_ManageIDLAndENVISession,
   MCPToolParams_ManageIDLAndENVISession,
   MCPToolResponse_ManageIDLAndENVISession,
-} from './vscode/mcp-tool-manage-idl-and-envi-session.interface';
+} from './idl/mcp-tool-manage-idl-and-envi-session.interface';
 import {
   MCPTool_OpenDatasetsInENVI,
   MCPToolParams_OpenDatasetsInENVI,
   MCPToolResponse_OpenDatasetsInENVI,
-} from './vscode/mcp-tool-open-datasets-in-envi.interface';
+} from './idl/mcp-tool-open-datasets-in-envi.interface';
 import {
   MCPTool_QueryDatasetWithENVI,
   MCPToolParams_QueryDatasetWithENVI,
   MCPToolResponse_QueryDatasetWithENVI,
-} from './vscode/mcp-tool-query-dataset-with-envi.interface';
+} from './idl/mcp-tool-query-dataset-with-envi.interface';
 import {
   MCPTool_ReturnNotes,
   MCPToolParams_ReturnNotes,
   MCPToolResponse_ReturnNotes,
-} from './vscode/mcp-tool-return-notes.interface';
+} from './idl/mcp-tool-return-notes.interface';
 import {
   MCPTool_RunENVITool,
   MCPToolParams_RunENVITool,
   MCPToolResponse_RunENVITool,
-} from './vscode/mcp-tool-run-envi-tool.interface';
+} from './idl/mcp-tool-run-envi-tool.interface';
 import {
   MCPTool_TakeENVIScreenshot,
   MCPToolParams_TakeENVIScreenshot,
   MCPToolResponse_TakeENVIScreenshot,
-} from './vscode/mcp-tool-take-envi-screenshot.interface';
+} from './idl/mcp-tool-take-envi-screenshot.interface';
 
 /**
- * MCP Tools that run in VSCode
+ * MCP Tools that run in IDL
  */
-export type MCPTools_VSCode =
+export type MCPTools_IDL =
   | MCPTool_CreateIDLNotebook
   | MCPTool_ExecuteIDLCode
   | MCPTool_ExecuteIDLFile
@@ -71,10 +71,10 @@ export type MCPTools_VSCode =
   | MCPTool_TakeENVIScreenshot;
 
 /**
- * MCP parameters and payload sent to VSCode to run an MCP tool
+ * MCP parameters and payload sent to IDL to run an MCP tool
  * that requires ENVI or IDL
  */
-export type MCPToolParams_VSCode<T extends MCPTools_VSCode> =
+export type MCPToolParams_IDL<T extends MCPTools_IDL> =
   T extends MCPTool_CreateIDLNotebook
     ? MCPToolParams_CreateIDLNotebook
     : T extends MCPTool_ExecuteIDLCode
@@ -98,9 +98,9 @@ export type MCPToolParams_VSCode<T extends MCPTools_VSCode> =
                       : never;
 
 /**
- * Responses from MCP tools that run in VSCode for ENVI and IDL
+ * Responses from MCP tools that run in IDL for ENVI and IDL
  */
-export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
+export type MCPToolResponse_IDL<T extends MCPTools_IDL> =
   T extends MCPTool_CreateIDLNotebook
     ? MCPToolResponse_CreateIDLNotebook
     : T extends MCPTool_ExecuteIDLCode
@@ -124,11 +124,11 @@ export type MCPToolResponse_VSCode<T extends MCPTools_VSCode> =
                       : never;
 
 /**
- * Response from tools that run in VSCode
+ * Response from tools that run in IDL
  */
-export type MCPToolHTTPResponse_VSCode = {
+export type MCPToolHTTPResponse_IDL = {
   /**
-   * Content that we return, text should be JSON of MCPToolResponse_VSCode, but not always
+   * Content that we return, text should be JSON of MCPToolResponse_IDL, but not always
    *
    * A handful of tools have error checking and validation before they run, and if
    * there in pre-error checking and a failure, then this will have a text-based

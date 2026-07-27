@@ -1,4 +1,4 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Message when we want to run IDL code within a file
@@ -18,4 +18,4 @@ export interface MCPToolParams_ExecuteIDLFile {
 /**
  * Response for running IDL code within a file
  */
-export type MCPToolResponse_ExecuteIDLFile = IMCPToolVSCode_BaseResponse;
+export type MCPToolResponse_ExecuteIDLFile = IMCPToolIDL_BaseResponse;

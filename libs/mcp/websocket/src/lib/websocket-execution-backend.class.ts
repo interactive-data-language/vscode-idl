@@ -11,7 +11,7 @@ import {
   MCPProgressCallback,
   MCPToolParams,
   MCPToolResponse,
-  MCPTools_VSCode,
+  MCPTools_IDL,
   PrepareIDLCodeCallback,
 } from '@idl/types/mcp';
 import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
@@ -62,7 +62,7 @@ export class WebSocketExecutionBackend implements IIDLMCPExecutionBackend {
     throw new Error('Method not supported in websocket mode');
   }
 
-  async evaluateENVICommand<T extends MCPTools_VSCode>(
+  async evaluateENVICommand<T extends MCPTools_IDL>(
     command: string,
     options?: IDLEvaluateOptions,
   ): Promise<MCPToolResponse<T>> {
@@ -104,7 +104,7 @@ export class WebSocketExecutionBackend implements IIDLMCPExecutionBackend {
     throw new Error('Method not supported in websocket mode');
   }
 
-  async runMCPTool<T extends MCPTools_VSCode>(
+  async runMCPTool<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
     params: MCPToolParams<T>,

@@ -1,4 +1,4 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Message when we list known ENVI Tool workflows
@@ -18,4 +18,4 @@ export interface MCPToolParams_ListENVIToolWorkflows {}
  * the content for the workflows
  */
 export type MCPToolResponse_ListENVIToolWorkflows =
-  IMCPToolVSCode_BaseResponse<{ [key: string]: string }>;
+  IMCPToolIDL_BaseResponse<{ [key: string]: string }>;

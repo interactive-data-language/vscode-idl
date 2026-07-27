@@ -1,4 +1,4 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Message when we return notes for IDL and ENVI Tasks
@@ -16,7 +16,7 @@ export interface MCPToolParams_ReturnNotes {}
  *
  * On success, returns notes for ENVI Tasks and IDL Tasks by task name
  */
-export type MCPToolResponse_ReturnNotes = IMCPToolVSCode_BaseResponse<{
+export type MCPToolResponse_ReturnNotes = IMCPToolIDL_BaseResponse<{
   envi: { [key: string]: string[] };
   idl: { [key: string]: string[] };
 }>;

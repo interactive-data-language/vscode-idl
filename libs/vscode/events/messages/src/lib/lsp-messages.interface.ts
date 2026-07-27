@@ -1,5 +1,5 @@
 import { ILogOptions } from '@idl/logger';
-import { MCPTools, MCPTools_VSCode } from '@idl/types/mcp';
+import { MCPTools, MCPTools_IDL } from '@idl/types/mcp';
 import { IUsageMetricAndPayload, UsageMetric } from '@idl/usage-metrics';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
@@ -123,7 +123,7 @@ export type LanguageServerPayload<T extends LanguageServerMessage> =
                   : T extends LoggingMessage
                     ? ILogOptions
                     : T extends MCP_LSP_Message
-                      ? MCP_LSP_MessagePayload<MCPTools_VSCode>
+                      ? MCP_LSP_MessagePayload<MCPTools_IDL>
                       : T extends MCPHistory_Message
                         ? MCPHistory_MessagePayload<MCPTools>
                         : T extends MCPProgress_LSP_Message
@@ -151,7 +151,7 @@ export type LanguageServerResponse<T extends LanguageServerMessage> =
   T extends FormatWorkspaceMessage
     ? FormatWorkspaceResponse
     : T extends MCP_LSP_Message
-      ? MCP_LSP_MessageResponse<MCPTools_VSCode>
+      ? MCP_LSP_MessageResponse<MCPTools_IDL>
       : T extends MigrateCodeLSPMessage
         ? MigrateCodeLSPResponse
         : T extends NotebookToProCodeMessage

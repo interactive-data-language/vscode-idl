@@ -1,7 +1,7 @@
 import {
   MCPToolParams,
-  MCPToolResponse_VSCode,
-  MCPTools_VSCode,
+  MCPToolResponse_IDL,
+  MCPTools_IDL,
 } from '@idl/types/mcp';
 
 /**
@@ -20,7 +20,7 @@ export const SINGLE_CONNECTION_CLOSE_REASON =
 /**
  * Shape of an outgoing tool-dispatch request sent to the WS client.
  */
-export interface IWebSocketNotification<T extends MCPTools_VSCode> {
+export interface IWebSocketNotification<T extends MCPTools_IDL> {
   /** Typed tool parameters for the dispatched tool. */
   params: MCPToolParams<T>;
   /** MCP tool name being dispatched. */
@@ -30,7 +30,7 @@ export interface IWebSocketNotification<T extends MCPTools_VSCode> {
 /**
  * Shape of an outgoing tool-dispatch request sent to the WS client.
  */
-export interface IWebSocketRequest<T extends MCPTools_VSCode>
+export interface IWebSocketRequest<T extends MCPTools_IDL>
   extends IWebSocketNotification<T> {
   /** Correlation id (server-generated UUID). */
   id: string;
@@ -39,15 +39,15 @@ export interface IWebSocketRequest<T extends MCPTools_VSCode>
 /**
  * Shape of an incoming reply from the WS client. Discriminated on `succeeded`.
  * The bridge translates this `IENVISuccess` wire shape to
- * `IMCPToolVSCode_BaseResponse` before resolving the dispatch promise.
+ * `IMCPToolIDL_BaseResponse` before resolving the dispatch promise.
  *
  * The `payload` field should match the corresponding `IENVIPayload_*` interface
  * from `@idl/types/mcp` for the tool being invoked. See `envi-payload.interface.ts`
  * for the expected payload shapes per tool.
  */
-export type WebSocketToolResponse<T extends MCPTools_VSCode> = {
+export type WebSocketToolResponse<T extends MCPTools_IDL> = {
   id: string;
-} & MCPToolResponse_VSCode<T>;
+} & MCPToolResponse_IDL<T>;
 
 /**
  * Pending in-flight request awaiting a response from the WS client.

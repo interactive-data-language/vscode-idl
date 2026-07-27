@@ -15,12 +15,12 @@ Your goal is to create the boilerplate code for a new MCP tool in this code base
 
 3. Create the type definitions:
 
-For a tool named "My MCP Tool" we will create a new file in "libs\types\mcp\src\lib\vscode" that should be named "mcp-tool-my-mcp-tool.interface.ts" 
+For a tool named "My MCP Tool" we will create a new file in "libs\types\mcp\src\lib\idl" that should be named "mcp-tool-my-mcp-tool.interface.ts" 
 
 Initialize the file with this content (replace names with tool names):
 
 ```typescript
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * My MCP Tool
@@ -41,7 +41,7 @@ export interface MCPToolParams_MyMCPTool {
  * @TODO
  */
 export interface MCPToolResponse_MyMCPTool
-  extends IMCPToolVSCode_BaseResponse {
+  extends IMCPToolIDL_BaseResponse {
   /** Output from IDL */
   idlOutput?: string;
 }
@@ -49,13 +49,13 @@ export interface MCPToolResponse_MyMCPTool
 
 Add the new type to the export in "libs\types\mcp\src\index.ts"
 
-4. Update the union types and union parameter types in "libs\types\mcp\src\lib\mcp-tools-vscode.interface.ts" (make changes alphabetically)
+4. Update the union types and union parameter types in "libs\types\mcp\src\lib\mcp-tools-idl.interface.ts" (make changes alphabetically)
 
-Add type type from step 3 to the union type "MCPTools_VSCode"
+Add type type from step 3 to the union type "MCPTools_IDL"
 
-Add a new conditional type to MCPToolParams_VSCode with the input parameters from step 3.
+Add a new conditional type to MCPToolParams_IDL with the input parameters from step 3.
 
-Add a new conditional type to MCPToolResponse_VSCode with the output parameters from step 3.
+Add a new conditional type to MCPToolResponse_IDL with the output parameters from step 3.
 
 ### Steps for No ENVI and IDL
 
@@ -358,7 +358,7 @@ import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_ExecuteIDLCode,
-  MCPToolResponse_VSCode,
+  MCPToolResponse_IDL,
 } from '@idl/types/mcp';
 import expect from 'expect';
 
@@ -385,7 +385,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsed = JSON.parse(
     result.content[0].text,
-  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
+  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLCode>;
 
   // make sure we have "foo" as the cleaned text
   expect(CleanIDLOutput(parsed.idlOutput)).toEqual('foo');

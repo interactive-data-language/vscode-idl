@@ -21,7 +21,7 @@ import {
   MCPTool_RunENVITool,
   MCPToolParams,
   MCPToolResponse,
-  MCPTools_VSCode,
+  MCPTools_IDL,
 } from '@idl/types/mcp';
 import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
@@ -63,7 +63,7 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
     return IDL_DEBUG_ADAPTER.evaluate(command, options);
   }
 
-  async evaluateENVICommand<T extends MCPTools_VSCode>(
+  async evaluateENVICommand<T extends MCPTools_IDL>(
     command: string,
   ): Promise<MCPToolResponse<T>> {
     const idlOutput = await IDL_DEBUG_ADAPTER.evaluate(
@@ -122,7 +122,7 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
     await IDL_DEBUG_ADAPTER.resetMain();
   }
 
-  async runMCPTool<T extends MCPTools_VSCode>(
+  async runMCPTool<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
     params: MCPToolParams<T>,

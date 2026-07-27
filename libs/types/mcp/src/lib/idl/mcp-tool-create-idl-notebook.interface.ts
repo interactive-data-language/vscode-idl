@@ -1,4 +1,4 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Message when we want to create an IDL Notebook
@@ -20,4 +20,4 @@ export interface MCPToolParams_CreateIDLNotebook {
 /**
  * Response for creating an IDL Notebook
  */
-export type MCPToolResponse_CreateIDLNotebook = IMCPToolVSCode_BaseResponse;
+export type MCPToolResponse_CreateIDLNotebook = IMCPToolIDL_BaseResponse;

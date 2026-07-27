@@ -1,7 +1,7 @@
 import {
   MCPToolParams,
   MCPToolResponse,
-  MCPTools_VSCode,
+  MCPTools_IDL,
 } from '@idl/types/mcp';
 
 /** Message to execute an MCP action through our language server (server to client) */
@@ -10,7 +10,7 @@ export type MCP_LSP_Message = 'mcp';
 /**
  * Payloads when we send messages from the server to the client
  */
-export type MCP_LSP_MessagePayload<T extends MCPTools_VSCode> = {
+export type MCP_LSP_MessagePayload<T extends MCPTools_IDL> = {
   /** ID of the tool run */
   id: string;
   /** Tool we are running */
@@ -22,5 +22,5 @@ export type MCP_LSP_MessagePayload<T extends MCPTools_VSCode> = {
 /**
  * Payloads when we send messages from the server to the client
  */
-export type MCP_LSP_MessageResponse<T extends MCPTools_VSCode> =
+export type MCP_LSP_MessageResponse<T extends MCPTools_IDL> =
   MCPToolResponse<T>;

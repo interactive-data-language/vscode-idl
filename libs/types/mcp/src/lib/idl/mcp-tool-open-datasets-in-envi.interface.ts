@@ -1,4 +1,4 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Message when opening an image in ENVI
@@ -34,4 +34,4 @@ export interface MCPToolParams_OpenDatasetsInENVI {
  * right now
  */
 export type MCPToolResponse_OpenDatasetsInENVI =
-  IMCPToolVSCode_BaseResponse<string>;
+  IMCPToolIDL_BaseResponse<string>;

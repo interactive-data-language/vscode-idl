@@ -1,7 +1,7 @@
 import {
   MCPToolParams,
   MCPToolResponse,
-  MCPTools_VSCode,
+  MCPTools_IDL,
 } from '@idl/types/mcp';
 import type { Server as HttpServer } from 'http';
 import { nanoid } from 'nanoid';
@@ -92,7 +92,7 @@ export class WebSocketToolBridge {
    * reply. Rejects immediately if no client is connected, and rejects any
    * in-flight promise if the client disconnects before replying.
    */
-  sendNotification<T extends MCPTools_VSCode>(
+  sendNotification<T extends MCPTools_IDL>(
     tool: T,
     params: MCPToolParams<T>,
   ): void {
@@ -110,7 +110,7 @@ export class WebSocketToolBridge {
    * reply. Rejects immediately if no client is connected, and rejects any
    * in-flight promise if the client disconnects before replying.
    */
-  sendRequest<T extends MCPTools_VSCode>(
+  sendRequest<T extends MCPTools_IDL>(
     tool: T,
     params: MCPToolParams<T>,
   ): Promise<MCPToolResponse<T>> {
@@ -173,7 +173,7 @@ export class WebSocketToolBridge {
    * Parse an incoming client message and resolve or reject the matching
    * pending request. Malformed or unknown-id messages are logged and dropped.
    */
-  private handleMessage<T extends MCPTools_VSCode>(
+  private handleMessage<T extends MCPTools_IDL>(
     ws: WebSocket,
     raw: string,
   ): void {

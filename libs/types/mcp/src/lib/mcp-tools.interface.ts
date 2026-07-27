@@ -17,48 +17,48 @@ import {
   MCPTools_HTTP,
 } from './mcp-tools-http.interface';
 import {
-  MCPToolHTTPResponse_VSCode,
-  MCPToolParams_VSCode,
-  MCPToolResponse_VSCode,
-  MCPTools_VSCode,
-} from './mcp-tools-vscode.interface';
-import { MCPTool_CreateIDLNotebook } from './vscode/mcp-tool-create-idl-notebook.interface';
-import { MCPTool_ExecuteIDLCode } from './vscode/mcp-tool-execute-idl-code.interface';
-import { MCPTool_ExecuteIDLFile } from './vscode/mcp-tool-execute-idl-file.interface';
-import { MCPTool_ListENVIToolWorkflows } from './vscode/mcp-tool-list-envi-tool-workflows.interface';
-import { MCPTool_ManageIDLAndENVISession } from './vscode/mcp-tool-manage-idl-and-envi-session.interface';
-import { MCPTool_OpenDatasetsInENVI } from './vscode/mcp-tool-open-datasets-in-envi.interface';
-import { MCPTool_QueryDatasetWithENVI } from './vscode/mcp-tool-query-dataset-with-envi.interface';
-import { MCPTool_ReturnNotes } from './vscode/mcp-tool-return-notes.interface';
-import { MCPTool_RunENVITool } from './vscode/mcp-tool-run-envi-tool.interface';
-import { MCPTool_TakeENVIScreenshot } from './vscode/mcp-tool-take-envi-screenshot.interface';
+  MCPToolHTTPResponse_IDL,
+  MCPToolParams_IDL,
+  MCPToolResponse_IDL,
+  MCPTools_IDL,
+} from './mcp-tools-idl.interface';
+import { MCPTool_CreateIDLNotebook } from './idl/mcp-tool-create-idl-notebook.interface';
+import { MCPTool_ExecuteIDLCode } from './idl/mcp-tool-execute-idl-code.interface';
+import { MCPTool_ExecuteIDLFile } from './idl/mcp-tool-execute-idl-file.interface';
+import { MCPTool_ListENVIToolWorkflows } from './idl/mcp-tool-list-envi-tool-workflows.interface';
+import { MCPTool_ManageIDLAndENVISession } from './idl/mcp-tool-manage-idl-and-envi-session.interface';
+import { MCPTool_OpenDatasetsInENVI } from './idl/mcp-tool-open-datasets-in-envi.interface';
+import { MCPTool_QueryDatasetWithENVI } from './idl/mcp-tool-query-dataset-with-envi.interface';
+import { MCPTool_ReturnNotes } from './idl/mcp-tool-return-notes.interface';
+import { MCPTool_RunENVITool } from './idl/mcp-tool-run-envi-tool.interface';
+import { MCPTool_TakeENVIScreenshot } from './idl/mcp-tool-take-envi-screenshot.interface';
 
 /**
  * All MCP tools
  */
-export type MCPTools = MCPTools_HTTP | MCPTools_VSCode;
+export type MCPTools = MCPTools_HTTP | MCPTools_IDL;
 
 /**
  * All MCP tool parameters
  */
 export type MCPToolParams<T extends MCPTools> = T extends MCPTools_HTTP
   ? MCPToolParams_HTTP<T>
-  : T extends MCPTools_VSCode
-    ? MCPToolParams_VSCode<T>
+  : T extends MCPTools_IDL
+    ? MCPToolParams_IDL<T>
     : never;
 
 /**
  * Payloads for all MCP messages
  */
-export type MCPToolResponse<T extends MCPTools> = T extends MCPTools_VSCode
-  ? MCPToolResponse_VSCode<T>
+export type MCPToolResponse<T extends MCPTools> = T extends MCPTools_IDL
+  ? MCPToolResponse_IDL<T>
   : never;
 
 /** What is the data type returned from our MCP call over HTTP */
 export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_HTTP
   ? MCPToolHTTPResponse_HTTP
-  : T extends MCPTools_VSCode
-    ? MCPToolHTTPResponse_VSCode
+  : T extends MCPTools_IDL
+    ? MCPToolHTTPResponse_IDL
     : never;
 
 /**

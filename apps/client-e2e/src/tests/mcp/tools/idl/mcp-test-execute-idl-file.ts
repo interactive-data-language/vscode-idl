@@ -3,7 +3,7 @@ import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_ExecuteIDLFile,
-  MCPToolResponse_VSCode,
+  MCPToolResponse_IDL,
 } from '@idl/types/mcp';
 import expect from 'expect';
 
@@ -36,7 +36,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   // parse result
   const parsedSuccess = JSON.parse(
     GetTextContent(resSuccess.content),
-  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
+  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
   expect(parsedSuccess.success).toBeTruthy();
@@ -64,7 +64,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   // parse result
   const parsedRuntimeErr = JSON.parse(
     GetTextContent(resRuntimeErr.content),
-  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
+  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
   expect(parsedRuntimeErr.success).toBeFalsy();
@@ -86,7 +86,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   // parse result
   const parsedSyntaxErr = JSON.parse(
     GetTextContent(resSyntaxErr.content),
-  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLFile>;
+  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLFile>;
 
   // verify we returned a success flag
   expect(parsedSyntaxErr.success).toBeFalsy();

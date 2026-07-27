@@ -29,7 +29,7 @@ import {
   MCPProgressCallback,
   MCPToolParams,
   MCPToolResponse,
-  MCPTools_VSCode,
+  MCPTools_IDL,
   PrepareIDLCodeCallback,
 } from '@idl/types/mcp';
 import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
@@ -101,7 +101,7 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     return this.manager.evaluate(command, options);
   }
 
-  async evaluateENVICommand<T extends MCPTools_VSCode>(
+  async evaluateENVICommand<T extends MCPTools_IDL>(
     command: string,
   ): Promise<MCPToolResponse<T>> {
     const idlOutput = await this.manager.evaluate(
@@ -169,7 +169,7 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     await this.manager.evaluate('.run');
   }
 
-  async runMCPTool<T extends MCPTools_VSCode>(
+  async runMCPTool<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
     params: MCPToolParams<T>,

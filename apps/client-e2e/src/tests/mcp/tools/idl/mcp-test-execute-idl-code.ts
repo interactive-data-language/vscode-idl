@@ -3,7 +3,7 @@ import {
   ENVIMCPToolResponse_Failure,
   MCP_TOOL_LOOKUP,
   MCPTool_ExecuteIDLCode,
-  MCPToolResponse_VSCode,
+  MCPToolResponse_IDL,
 } from '@idl/types/mcp';
 import expect from 'expect';
 
@@ -31,7 +31,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsed = JSON.parse(
     GetTextContent(result.content),
-  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
+  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLCode>;
 
   // make sure we have "foo" as the cleaned text
   expect(CleanIDLOutput(parsed.idlOutput || '')).toEqual('foo');
@@ -50,7 +50,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsedRuntimeError = JSON.parse(
     GetTextContent(runtimeError.content),
-  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
+  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLCode>;
 
   // make sure we catch in the IDL MCP tool
   expect(parsedRuntimeError.success).toBeFalsy();
@@ -74,7 +74,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsedSyntaxError = JSON.parse(
     GetTextContent(syntaxError.content),
-  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
+  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLCode>;
 
   // make sure we catch in the IDL MCP tool
   expect(parsedSyntaxError.success).toBeFalsy();

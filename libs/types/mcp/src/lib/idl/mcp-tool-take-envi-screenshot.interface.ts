@@ -1,4 +1,4 @@
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Take ENVI Screenshot
@@ -18,4 +18,4 @@ export interface MCPToolParams_TakeENVIScreenshot {}
  * content of the screenshot for direct use by an LLM
  */
 export type MCPToolResponse_TakeENVIScreenshot =
-  IMCPToolVSCode_BaseResponse<string>;
+  IMCPToolIDL_BaseResponse<string>;
