@@ -36,6 +36,8 @@ Added a new setting under GitHub Copilot for the extension that allows you to di
 
 Added a new problem code that detects when named keywords in a routine definition will be ambiguous and cause runtime/execution errors.
 
+Resolved an issue where we were setting all ENVI URI input parameters to have a default, temporary filename generated when this was not always the right case. We now only do that when the parameters are connected to a raster/vector output (or similar).
+
 Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
 
 1. Create a new markdown file with the name of the file being the name of the workflow (Ex: "Process imagery with ship detection deep learning model.md")
