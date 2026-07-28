@@ -38,6 +38,8 @@ Added a new problem code that detects when named keywords in a routine definitio
 
 Resolved an issue where we were setting all ENVI URI input parameters to have a default, temporary filename generated when this was not always the right case. We now only do that when the parameters are connected to a raster/vector output (or similar).
 
+Resolved an issue where the extension would not always properly detect if IDL or ENVI has been installed or not. Uninstalled versions of IDL or ENVI kept folders around, and we now check for the presence of the IDL executable instead of the folders.
+
 Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
 
 1. Create a new markdown file with the name of the file being the name of the workflow (Ex: "Process imagery with ship detection deep learning model.md")

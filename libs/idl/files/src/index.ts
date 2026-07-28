@@ -11,3 +11,4 @@ export * from './lib/idl-dirs.interface';
 export * from './lib/load-envi-paths';
 export * from './lib/load-idl-search-paths';
 export * from './lib/notebook-folders.interface';
+export * from './lib/validate-idl-dir';
