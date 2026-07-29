@@ -172,4 +172,14 @@ If you do not load a prompt, here's additional steps to take:
 6. (Optional) Open relevant results in ENVI
 7. (Optional) Create an IDL Notebook or IDL file with code that automates the processing you walked through, based on user reqeust
 
+## Interpreting Errors
+
+If you are trying to run SAR based tools, users must have ENVI SARscape 6.3.1 or newer installed.
+
+Here's a few errors you may encounter that indicate sarscape is not installed or configured properly:
+
+- Structure type not defined: ENVISARSCAPEDATA
+
+- "Unknown tool" when getting tool parameters for a SAR processing workflow
+
 ## ADDITIONAL INSTRUCTIONS
