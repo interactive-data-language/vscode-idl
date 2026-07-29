@@ -22,6 +22,7 @@ import { StrictCheck } from './helpers/strict-check';
 import {
   ITaskInformation,
   ITaskRegistryEntry,
+  ITaskRegistryFilters,
 } from './mcp-task-registry.interface';
 
 /**
@@ -62,6 +63,11 @@ export class MCPTaskRegistry {
   });
 
   /**
+   * Blacklist of lowercase task names excluded from getDescriptions()
+   */
+  private blacklist: Set<string> = new Set();
+
+  /**
    * Logger
    */
   private logger: LogManager;
@@ -81,9 +87,22 @@ export class MCPTaskRegistry {
    */
   private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
-  constructor(logger: LogManager, strict = true) {
+  /**
+   * Whitelist of lowercase task names included in getDescriptions().
+   * When empty, all tasks are included (unless blacklisted).
+   */
+  private whitelist: Set<string> = new Set();
+
+  constructor(
+    logger: LogManager,
+    strict = true,
+    filters?: ITaskRegistryFilters,
+  ) {
     this.logger = logger;
     this.strict = strict;
+    if (filters !== undefined) {
+      this.updateFilters(filters);
+    }
   }
 
   /**
@@ -117,13 +136,45 @@ export class MCPTaskRegistry {
   }
 
   /**
-   * Returns all task descriptions by task name
+   * Adds a single name to the blacklist
+   */
+  addToBlacklist(name: string) {
+    this.blacklist.add(name.toLowerCase());
+  }
+
+  /**
+   * Adds a single name to the whitelist
+   */
+  addToWhitelist(name: string) {
+    this.whitelist.add(name.toLowerCase());
+  }
+
+  /**
+   * Clears all entries from the blacklist
+   */
+  clearBlacklist() {
+    this.blacklist.clear();
+  }
+
+  /**
+   * Clears all entries from the whitelist
+   */
+  clearWhitelist() {
+    this.whitelist.clear();
+  }
+
+  /**
+   * Returns all task descriptions by task name, filtered by the current
+   * whitelist and blacklist
    */
   getDescriptions() {
     const descriptions: { [key: string]: string } = {};
-    const tasks = Object.values(this.tasks);
-    for (let i = 0; i < tasks.length; i++) {
-      descriptions[tasks[i].displayName] = tasks[i].description;
+    const entries = Object.entries(this.tasks);
+    for (let i = 0; i < entries.length; i++) {
+      if (!this.IsAllowedByFilters(entries[i][0])) {
+        continue;
+      }
+      descriptions[entries[i][1].displayName] = entries[i][1].description;
     }
     return descriptions;
   }
@@ -367,6 +418,20 @@ export class MCPTaskRegistry {
   }
 
   /**
+   * Removes a single name from the blacklist
+   */
+  removeFromBlacklist(name: string) {
+    this.blacklist.delete(name.toLowerCase());
+  }
+
+  /**
+   * Removes a single name from the whitelist
+   */
+  removeFromWhitelist(name: string) {
+    this.whitelist.delete(name.toLowerCase());
+  }
+
+  /**
    * Remove a task from the registry
    *
    * Deletes entry from the unified registry
@@ -392,6 +457,34 @@ export class MCPTaskRegistry {
    */
   sanitizeOutputParameters(outputParameters: { [key: string]: any }) {
     FixENVIFactory(outputParameters);
+  }
+
+  /**
+   * Replaces the blacklist entirely
+   */
+  setBlacklist(names: string[]) {
+    this.blacklist = new Set(names.map((name) => name.toLowerCase()));
+  }
+
+  /**
+   * Replaces the whitelist entirely
+   */
+  setWhitelist(names: string[]) {
+    this.whitelist = new Set(names.map((name) => name.toLowerCase()));
+  }
+
+  /**
+   * Replaces both the whitelist and blacklist at once.
+   *
+   * If a key is omitted from `filters`, the corresponding set is cleared.
+   */
+  updateFilters(filters: ITaskRegistryFilters) {
+    this.whitelist = new Set(
+      (filters.whitelist || []).map((name) => name.toLowerCase()),
+    );
+    this.blacklist = new Set(
+      (filters.blacklist || []).map((name) => name.toLowerCase()),
+    );
   }
 
   /**
@@ -453,5 +546,22 @@ export class MCPTaskRegistry {
 
     // made it here, so our schema is valid
     return { success: true };
+  }
+
+  /**
+   * Returns true if the given lowercase task name passes the current
+   * whitelist and blacklist filters
+   */
+  private IsAllowedByFilters(taskName: string): boolean {
+    switch (true) {
+      case this.whitelist.size > 0 && !this.whitelist.has(taskName):
+        return false;
+        break;
+      case this.blacklist.has(taskName):
+        return false;
+      default:
+        return true;
+        break;
+    }
   }
 }
