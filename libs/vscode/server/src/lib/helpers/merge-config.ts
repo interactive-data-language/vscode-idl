@@ -167,12 +167,16 @@ export function MergeConfig() {
     // check if we need to run our MCP server
     mcpEnabled = mcpEnabled || el.mcp.enabled;
 
-    // collect ENVI tool whitelist/blacklist entries
-    for (let j = 0; j < el.mcp.enviToolWhitelist.length; j++) {
-      enviToolWhitelistSet.add(el.mcp.enviToolWhitelist[j]);
+    // get whitelist - setting is hidden, so it may not be set
+    const thisWhitelist = el.mcp.enviToolWhitelist || [];
+    for (let j = 0; j < thisWhitelist.length; j++) {
+      enviToolWhitelistSet.add(thisWhitelist[j]);
     }
-    for (let j = 0; j < el.mcp.enviToolBlacklist.length; j++) {
-      enviToolBlacklistSet.add(el.mcp.enviToolBlacklist[j]);
+
+    // get blacklist - setting is hidden, so it may not be set
+    const thisBlacklist = el.mcp.enviToolBlacklist || [];
+    for (let j = 0; j < thisBlacklist.length; j++) {
+      enviToolBlacklistSet.add(thisBlacklist[j]);
     }
 
     // check for full parse
