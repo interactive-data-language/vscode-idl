@@ -102,6 +102,11 @@ export interface IDLExtensionsConfigKeys {
   readonly mcp: 'mcp';
   /** Do we enable the MCP server or not? */
   readonly mcpEnabled: 'mcp.enabled';
+  /** Blacklist of ENVI tools to hide from MCP tools */
+  readonly mcpENVIToolBlacklist: 'mcp.enviToolBlacklist';
+  /** Whitelist of ENVI tools to expose as MCP tools */
+  readonly mcpENVIToolWhitelist: 'mcp.enviToolWhitelist';
+
   /** Key for notebook preferences */
   readonly notebooks: 'notebooks';
 
@@ -232,6 +237,10 @@ export interface IDeveloperConfig {
 export interface IMCPConfig {
   /** Do we enable the MCP server or not? */
   readonly enabled: boolean;
+  /** Blacklist of ENVI tools to hide from MCP tools */
+  readonly enviToolBlacklist: string[];
+  /** Whitelist of ENVI tools to expose as MCP tools (empty = all allowed) */
+  readonly enviToolWhitelist: string[];
 }
 
 export interface ICopilotConfig {
@@ -354,6 +363,8 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
 
   mcp: 'mcp',
   mcpEnabled: 'mcp.enabled',
+  mcpENVIToolWhitelist: 'mcp.enviToolWhitelist',
+  mcpENVIToolBlacklist: 'mcp.enviToolBlacklist',
 
   copilot: 'copilot',
   copilotCustomInstructions: 'copilot.customInstructions',
@@ -435,6 +446,8 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   },
   mcp: {
     enabled: true,
+    enviToolWhitelist: [],
+    enviToolBlacklist: [],
   },
   copilot: {
     registerENVIInstructions: true,
