@@ -1,5 +1,6 @@
 import { existsSync } from 'fs';
 import { platform } from 'os';
+import { join } from 'path';
 
 /**
  * Validates the IDL directory and returns true/false if present
@@ -19,7 +20,7 @@ export function ValidateIDLDir(dir: string | undefined): boolean {
   }
 
   // validate idl executable
-  const idlExe = platform() === 'win32' ? 'idl.exe' : 'idl';
+  const idlExe = join(dir, platform() === 'win32' ? 'idl.exe' : 'idl');
 
   // make sure exists
   return existsSync(idlExe);
