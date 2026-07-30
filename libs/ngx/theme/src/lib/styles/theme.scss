@@ -54,6 +54,36 @@ $dark-theme: mat.m2-define-dark-theme(
 // Apply the dark theme when the dark-theme class is present
 .dark-theme {
   @include mat.all-component-colors($dark-theme);
+
+  // Override all hardcoded M2 background values with darker equivalents
+  --mat-app-background-color: #121212;
+  --mat-sidenav-content-background-color: #121212;
+  --mat-autocomplete-background-color: #1e1e1e;
+  --mat-bottom-sheet-container-background-color: #1e1e1e;
+  --mat-button-filled-container-color: #1e1e1e;
+  --mat-button-protected-container-color: #1e1e1e;
+  --mat-button-toggle-background-color: #1e1e1e;
+  --mat-button-toggle-disabled-state-background-color: #1e1e1e;
+  --mat-button-toggle-legacy-disabled-state-background-color: #1e1e1e;
+  --mat-button-tonal-container-color: #1e1e1e;
+  --mat-card-elevated-container-color: #1e1e1e;
+  --mat-card-filled-container-color: #1e1e1e;
+  --mat-card-outlined-container-color: #1e1e1e;
+  --mat-datepicker-calendar-container-background-color: #1e1e1e;
+  --mat-dialog-container-color: #1e1e1e;
+  --mat-expansion-container-background-color: #1e1e1e;
+  --mat-fab-container-color: #1e1e1e;
+  --mat-fab-small-container-color: #1e1e1e;
+  --mat-menu-container-color: #1e1e1e;
+  --mat-paginator-container-background-color: #1e1e1e;
+  --mat-select-panel-background-color: #1e1e1e;
+  --mat-sidenav-container-background-color: #1e1e1e;
+  --mat-stepper-container-color: #1e1e1e;
+  --mat-table-background-color: #1e1e1e;
+  --mat-timepicker-container-background-color: #1e1e1e;
+  --mat-toolbar-container-background-color: #1a1a1a;
+  --mat-tree-container-background-color: #1e1e1e;
+
   --accent-color: #{mat.m2-get-color-from-palette($dark-accent, default)};
   --accent-color-lighter: #{mat.m2-get-color-from-palette(
       $dark-accent,
