@@ -907,6 +907,24 @@
             "default": true,
             "description": "%configuration.descriptions.mcp.enabled%",
             "scope": "machine-overridable"
+          },
+          "idl.mcp.enviToolWhitelist": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": [],
+            "description": "%configuration.descriptions.mcp.enviToolWhitelist%",
+            "scope": "machine-overridable"
+          },
+          "idl.mcp.enviToolBlacklist": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": [],
+            "description": "%configuration.descriptions.mcp.enviToolBlacklist%",
+            "scope": "machine-overridable"
           }
         }
       },

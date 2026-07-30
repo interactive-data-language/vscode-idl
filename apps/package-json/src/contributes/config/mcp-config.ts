@@ -39,33 +39,33 @@ export function AddMCPConfig(nls: IPackageNLS) {
     scope: IDL_CONFIG_SCOPE,
   };
 
-  // // ENVI tool whitelist
-  // ourConfig.properties[
-  //   `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.mcpENVIToolWhitelist}`
-  // ] = {
-  //   type: 'array',
-  //   items: { type: 'string' },
-  //   default: DEFAULT_IDL_EXTENSION_CONFIG.mcp.enviToolWhitelist,
-  //   description: TranslationFromConfiguration(
-  //     IDL_EXTENSION_CONFIG_KEYS.mcpENVIToolWhitelist,
-  //     nls,
-  //   ),
-  //   scope: IDL_CONFIG_SCOPE,
-  // };
+  // ENVI tool whitelist
+  ourConfig.properties[
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.mcpENVIToolWhitelist}`
+  ] = {
+    type: 'array',
+    items: { type: 'string' },
+    default: DEFAULT_IDL_EXTENSION_CONFIG.mcp.enviToolWhitelist,
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.mcpENVIToolWhitelist,
+      nls,
+    ),
+    scope: IDL_CONFIG_SCOPE,
+  };
 
-  // // ENVI tool blacklist
-  // ourConfig.properties[
-  //   `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.mcpENVIToolBlacklist}`
-  // ] = {
-  //   type: 'array',
-  //   items: { type: 'string' },
-  //   default: DEFAULT_IDL_EXTENSION_CONFIG.mcp.enviToolBlacklist,
-  //   description: TranslationFromConfiguration(
-  //     IDL_EXTENSION_CONFIG_KEYS.mcpENVIToolBlacklist,
-  //     nls,
-  //   ),
-  //   scope: IDL_CONFIG_SCOPE,
-  // };
+  // ENVI tool blacklist
+  ourConfig.properties[
+    `${IDL_LANGUAGE_NAME}.${IDL_EXTENSION_CONFIG_KEYS.mcpENVIToolBlacklist}`
+  ] = {
+    type: 'array',
+    items: { type: 'string' },
+    default: DEFAULT_IDL_EXTENSION_CONFIG.mcp.enviToolBlacklist,
+    description: TranslationFromConfiguration(
+      IDL_EXTENSION_CONFIG_KEYS.mcpENVIToolBlacklist,
+      nls,
+    ),
+    scope: IDL_CONFIG_SCOPE,
+  };
 
   // save in overall extension config
   EXTENSION_CONFIG.push(ourConfig);

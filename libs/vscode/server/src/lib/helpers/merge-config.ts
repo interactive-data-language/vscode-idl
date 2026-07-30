@@ -168,15 +168,13 @@ export function MergeConfig() {
     mcpEnabled = mcpEnabled || el.mcp.enabled;
 
     // get whitelist - setting is hidden, so it may not be set
-    const thisWhitelist = el.mcp.enviToolWhitelist || [];
-    for (let j = 0; j < thisWhitelist.length; j++) {
-      enviToolWhitelistSet.add(thisWhitelist[j]);
+    for (let j = 0; j < el.mcp.enviToolWhitelist.length; j++) {
+      enviToolWhitelistSet.add(el.mcp.enviToolWhitelist[j]);
     }
 
     // get blacklist - setting is hidden, so it may not be set
-    const thisBlacklist = el.mcp.enviToolBlacklist || [];
-    for (let j = 0; j < thisBlacklist.length; j++) {
-      enviToolBlacklistSet.add(thisBlacklist[j]);
+    for (let j = 0; j < el.mcp.enviToolBlacklist.length; j++) {
+      enviToolBlacklistSet.add(el.mcp.enviToolBlacklist[j]);
     }
 
     // check for full parse
