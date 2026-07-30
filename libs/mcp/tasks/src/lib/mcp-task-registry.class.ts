@@ -63,7 +63,7 @@ export class MCPTaskRegistry {
   });
 
   /**
-   * Blacklist of lowercase task names excluded from getDescriptions()
+   * Lower-case list of task names that we are excludes from listing descriptions
    */
   private blacklist: Set<string> = new Set();
 
@@ -88,8 +88,8 @@ export class MCPTaskRegistry {
   private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
   /**
-   * Whitelist of lowercase task names included in getDescriptions().
-   * When empty, all tasks are included (unless blacklisted).
+   * Lower-case list of task names that we are allowed return descriptions for
+   * when present
    */
   private whitelist: Set<string> = new Set();
 
@@ -556,12 +556,10 @@ export class MCPTaskRegistry {
     switch (true) {
       case this.whitelist.size > 0 && !this.whitelist.has(taskName):
         return false;
-        break;
       case this.blacklist.has(taskName):
         return false;
       default:
         return true;
-        break;
     }
   }
 }
