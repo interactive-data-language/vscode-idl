@@ -47,10 +47,15 @@ export function createChatRoutes(chatService: ChatService): Router {
       res.setHeader('Connection', 'keep-alive');
       res.setHeader('X-Accel-Buffering', 'no'); // Disable nginx buffering
 
-      // Stream the response — let the generator run to exhaustion so the
-      // optional 'title' chunk (emitted after 'done') is also sent.
-      for await (const chunk of chatService.streamChatCompletion(request)) {
-        // Format as SSE
+      const controller = new AbortController();
+      const { signal } = controller;
+      req.on('close', () => controller.abort());
+
+      for await (const chunk of chatService.streamChatCompletion(
+        request,
+        signal,
+      )) {
+        if (signal.aborted) break;
         const sseData = `data: ${JSON.stringify(chunk)}\n\n`;
         res.write(sseData);
 

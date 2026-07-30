@@ -35,6 +35,8 @@ export class ChatApiService {
    */
   sendMessage(request: ChatMessageRequest): Observable<ChatStreamChunk> {
     return new Observable<ChatStreamChunk>((subscriber) => {
+      const controller = new AbortController();
+
       // Use fetch with EventSource for SSE streaming
       fetch(`${this.baseUrl}/message`, {
         method: 'POST',
@@ -42,6 +44,7 @@ export class ChatApiService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(request),
+        signal: controller.signal,
       })
         .then(async (response) => {
           if (!response.ok) {
@@ -100,9 +103,15 @@ export class ChatApiService {
           subscriber.complete();
         })
         .catch((error) => {
+          if ((error as { name?: string }).name === 'AbortError') {
+            subscriber.complete();
+            return;
+          }
           console.error('Stream error:', error);
           subscriber.error(error);
         });
+
+      return () => controller.abort();
     });
   }
 }

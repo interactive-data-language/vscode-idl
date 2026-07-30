@@ -7,11 +7,13 @@ import {
 } from '@idl/types/chat';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { nanoid } from 'nanoid';
+import { Subscription } from 'rxjs';
 
 import { ChatApiService } from '../services/chat-api.service';
 import {
   AddChatSession,
   AddMessageToSession,
+  CancelChatSession,
   DeleteChatSession,
   LoadChatSessions,
   SelectChatSession,
@@ -37,6 +39,7 @@ const defaultState: ChatStateModel = {
 })
 @Injectable()
 export class ChatState {
+  private readonly activeSubscriptions = new Map<string, Subscription>();
   private readonly chatApiService = inject(ChatApiService);
 
   /**
@@ -162,7 +165,7 @@ export class ChatState {
     let currentSystemMessageId = systemMessageId;
     let needsNewSystemMessage = false;
 
-    this.chatApiService
+    const sub = this.chatApiService
       .sendMessage({
         sessionId: action.sessionId,
         message: action.message.content.map((c) => c.payload).join('\n'),
@@ -313,6 +316,7 @@ export class ChatState {
         },
         error: (error) => {
           console.error('API call error:', error);
+          this.activeSubscriptions.delete(action.sessionId);
           this.setMessageError(
             ctx,
             action.sessionId,
@@ -320,7 +324,12 @@ export class ChatState {
             error.message || 'Failed to connect to API',
           );
         },
+        complete: () => {
+          this.activeSubscriptions.delete(action.sessionId);
+        },
       });
+
+    this.activeSubscriptions.set(action.sessionId, sub);
   }
 
   /**
@@ -336,6 +345,19 @@ export class ChatState {
       sessions: [...state.sessions, session],
       pendingPrompt: undefined,
     });
+  }
+
+  /**
+   * Cancel an in-progress chat response
+   */
+  @Action(CancelChatSession)
+  cancelSession(ctx: StateContext<ChatStateModel>, action: CancelChatSession) {
+    const sub = this.activeSubscriptions.get(action.sessionId);
+    if (sub) {
+      sub.unsubscribe();
+      this.activeSubscriptions.delete(action.sessionId);
+    }
+    this.updateSession(ctx, action.sessionId, { status: 'ready' });
   }
 
   /**

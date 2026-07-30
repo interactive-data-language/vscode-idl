@@ -105,6 +105,7 @@ export class LangChainChatService {
    */
   async *streamChatCompletion(
     request: ChatMessageRequest,
+    signal?: AbortSignal,
   ): AsyncIterable<ChatStreamChunk> {
     try {
       await this.waitForMCP();
@@ -135,14 +136,16 @@ export class LangChainChatService {
       const continueLoop = true;
 
       while (continueLoop && iteration < MAX_ITERATIONS) {
+        if (signal?.aborted) break;
         iteration++;
 
         console.log('Stream');
-        const stream = await modelWithTools.stream(messages);
+        const stream = await modelWithTools.stream(messages, { signal });
 
         let accumulated: AIMessageChunk | null = null;
 
         for await (const chunk of stream) {
+          if (signal?.aborted) break;
           console.log(chunk);
           accumulated = accumulated ? accumulated.concat(chunk) : chunk;
 
@@ -323,16 +326,18 @@ export class LangChainChatService {
         }
       }
 
-      if (iteration >= MAX_ITERATIONS) {
-        console.warn('[LangChainChatService] Max iterations reached');
-        yield {
-          type: 'text_chunk',
-          content: '\n\n[Maximum reasoning steps reached]',
-        };
+      if (!signal?.aborted) {
+        if (iteration >= MAX_ITERATIONS) {
+          console.warn('[LangChainChatService] Max iterations reached');
+          yield {
+            type: 'text_chunk',
+            content: '\n\n[Maximum reasoning steps reached]',
+          };
+        }
+        yield { type: 'done' };
       }
-
-      yield { type: 'done' };
     } catch (error) {
+      if (signal?.aborted) return;
       console.error('[LangChainChatService] Chat completion error:', error);
       yield {
         type: 'error',

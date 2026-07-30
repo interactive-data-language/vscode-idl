@@ -13,16 +13,15 @@
       rows="3"
       [disabled]="isDisabled()"
     ></textarea>
-
-    <!-- <button
-      mat-mini-fab
-      color="primary"
-      class="send-button"
-      (click)="sendMessage()"
-      [disabled]="!inputText().trim() || !sessionId()"
-      aria-label="Send message"
-    >
-      <mat-icon>send</mat-icon>
-    </button> -->
   </mat-form-field>
+  @if (isDisabled()) {
+    <button
+      mat-icon-button
+      class="cancel-button"
+      (click)="cancelMessage()"
+      aria-label="Cancel response"
+    >
+      <mat-icon>stop_circle</mat-icon>
+    </button>
+  }
 </div>

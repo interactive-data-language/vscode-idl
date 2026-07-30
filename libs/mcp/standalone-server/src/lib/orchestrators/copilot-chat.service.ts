@@ -135,6 +135,7 @@ export class CopilotChatService {
    */
   async *streamChatCompletion(
     request: ChatMessageRequest,
+    signal?: AbortSignal,
   ): AsyncIterable<ChatStreamChunk> {
     /** Active session for this request — disconnected in finally. */
     let session: CopilotSession | undefined;
@@ -172,6 +173,16 @@ export class CopilotChatService {
           fn();
         }
       };
+
+      let aborted = false;
+      signal?.addEventListener(
+        'abort',
+        () => {
+          aborted = true;
+          enqueue(null);
+        },
+        { once: true },
+      );
 
       /** Map of in-flight tool call id -> tool name (start-event names are authoritative). */
       const toolNameById = new Map<string, string>();
@@ -292,8 +303,10 @@ export class CopilotChatService {
         if (next.type === 'error') break drain;
       }
 
-      await sendPromise;
-      yield { type: 'done' };
+      if (!aborted) {
+        await sendPromise;
+        yield { type: 'done' };
+      }
     } catch (error) {
       console.error('[CopilotChatService] Chat completion error:', error);
       yield {
