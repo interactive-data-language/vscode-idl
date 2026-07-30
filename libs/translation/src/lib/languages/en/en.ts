@@ -266,9 +266,9 @@ export const EN: ITranslation = {
       'mcp.enabled':
         'Do we automatically launch the MCP server on language server startup? If enabled in one workspace, enabled for all.',
       'mcp.enviToolWhitelist':
-        'If non-empty, only ENVI tools whose names are in this list will be available as MCP tools. Values are combined (union) across all open workspaces.',
+        'When specified, only ENVI tools whose names are in this list will be available as MCP tools for ENVI Agent. Case-insensitive and values are combined across all open workspaces.',
       'mcp.enviToolBlacklist':
-        'ENVI tools whose names appear in this list will not be available as MCP tools. Values are combined (union) across all open workspaces.',
+        'Specify the names of ENVI tools that will be hidden from ENVI Agent. Case-insensitive and values are combined across all open workspaces.',
 
       copilot: 'Preferences for GitHub Copilot integration',
       'copilot.customInstructions':
