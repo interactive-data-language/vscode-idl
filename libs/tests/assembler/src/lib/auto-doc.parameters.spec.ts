@@ -227,6 +227,13 @@ describe(`[auto generated] Verify parameter formatting`, () => {
         canReport: true,
       },
       {
+        code: 114,
+        info: "Ambiguous keyword detected. This keyword's name matches the start of another named keyword",
+        start: [12, 22, 2],
+        end: [12, 22, 2],
+        canReport: true,
+      },
+      {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [12, 17, 3],
