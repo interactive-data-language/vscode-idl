@@ -11,7 +11,6 @@ import {
   DEFAULT_IDL_EVALUATE_OPTIONS,
   DEFAULT_IDL_INFO,
   IDL_EVENT_LOOKUP,
-  IDLBreakpoint,
   IDLCallStack,
   IDLCallStackItem,
   IDLCodeCoverage,
@@ -22,7 +21,6 @@ import {
   IDLSyntaxError,
   IDLSyntaxErrorLookup,
   IDLVariable,
-  IRawBreakpoint,
   IStartIDLConfig,
   REGEX_SYNTAX_ERROR,
 } from '@idl/types/idl/idl-process';
@@ -219,37 +217,6 @@ export class IDLInteractionManager {
    */
   executing(): boolean {
     return this._processing !== undefined;
-  }
-
-  /**
-   * Get all the breakpoints currently set in IDL
-   */
-  async getBreakpoints(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    filepath?: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    lineNumber?: number,
-  ): Promise<IDLBreakpoint[]> {
-    // get the strings for our breakpoints
-    const resp = await this.evaluate('  vscode_getBreakpoints', {
-      silent: true,
-      idlInfo: false,
-    });
-
-    // parse the response
-    const res: IRawBreakpoint[] = JSON.parse(resp);
-
-    // initialize output breakpoints
-    const bps: IDLBreakpoint[] = [];
-
-    // map to easier-to-read-format
-    for (let i = 0; i < res.length; i++) {
-      const bp = res[i];
-      bps.push({ id: `${bp.i}`, path: bp.f, line: bp.l });
-    }
-
-    // return our breakpoints
-    return bps;
   }
 
   /**

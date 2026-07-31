@@ -1,11 +1,9 @@
 import { CleanPath, IDLFileHelper } from '@idl/shared/extension';
+import { IDLBreakpoint } from '@idl/types/idl/idl-process';
 import { Breakpoint, BreakpointEvent, Source } from '@vscode/debugadapter';
 import { DebugProtocol } from '@vscode/debugprotocol';
 
-import {
-  IDL_BREAKPOINT_REGEX,
-  IDLBreakpoint,
-} from './idl-breakpoint-manager.interface';
+import { IDL_BREAKPOINT_REGEX } from './idl-breakpoint-manager.interface';
 import { IDLDebugAdapter } from './idl-debug-adapter.class';
 import { IDebugEvaluateOptions } from './idl-debug-adapter.interface';
 
@@ -160,7 +158,7 @@ export class IDLBreakpointManager {
     }
 
     /** Get file */
-    const file = CleanPath(bps.source.path);
+    const file = CleanPath(bps.source.path || '');
 
     // because we might not have a path (no idea why) return if missing
     if (!file) {
