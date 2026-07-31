@@ -46,8 +46,7 @@ export class ChatService {
 
   streamChatCompletion(
     request: ChatMessageRequest,
-    signal?: AbortSignal,
   ): AsyncIterable<ChatStreamChunk> {
-    return this.engine.streamChatCompletion(request, signal);
+    return this.engine.streamChatCompletion(request);
   }
 }

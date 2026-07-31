@@ -20,7 +20,6 @@ import { nanoid } from 'nanoid';
 import {
   AddChatSession,
   AddMessageToSession,
-  CancelChatSession,
   SelectChatSession,
 } from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
@@ -71,13 +70,6 @@ export class ChatInputComponent {
   );
 
   private readonly snackBar = inject(MatSnackBar);
-
-  protected cancelMessage(): void {
-    const sessionId = this.sessionId();
-    if (sessionId) {
-      this.store.dispatch(new CancelChatSession(sessionId));
-    }
-  }
 
   /**
    * Handle keyboard events (Enter to send, Shift+Enter for new line)

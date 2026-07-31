@@ -76,11 +76,3 @@ export class SetPendingPrompt {
   static readonly type = '[Chat] Set Pending Prompt';
   constructor(public prompt: ChatPromptType) {}
 }
-
-/**
- * Cancel an in-progress chat response for a session
- */
-export class CancelChatSession {
-  static readonly type = '[Chat] Cancel Session';
-  constructor(public sessionId: string) {}
-}
