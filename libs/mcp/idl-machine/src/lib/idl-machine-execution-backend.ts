@@ -11,10 +11,13 @@ import {
   ExecuteIDLCode,
   ExecuteIDLFile,
   ManageENVIAndIDLSession,
+  QueryIDLSession,
 } from '@idl/mcp/idl';
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import {
+  IDLBreakpoint,
   IDLEvaluateOptions,
+  IDLScopeItem,
   IDLSyntaxErrorLookup,
   IStartIDLConfig,
 } from '@idl/types/idl/idl-process';
@@ -94,6 +97,26 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     this.onCodePrepare = onCodePrepare;
   }
 
+  async clearBreakpoint(): Promise<void> {
+    throw new Error('Method not currently supported in standalone mode');
+  }
+
+  async debugContinue(): Promise<void> {
+    throw new Error('Method not currently supported in standalone mode');
+  }
+
+  async debugStepIn(): Promise<void> {
+    throw new Error('Method not currently supported in standalone mode');
+  }
+
+  async debugStepOut(): Promise<void> {
+    throw new Error('Method not currently supported in standalone mode');
+  }
+
+  async debugStepOver(): Promise<void> {
+    throw new Error('Method not currently supported in standalone mode');
+  }
+
   async evaluate(
     command: string,
     options?: IDLEvaluateOptions,
@@ -126,6 +149,10 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     return this.manager._runtime.getErrorsByFile();
   }
 
+  async getTraceback(): Promise<IDLScopeItem[]> {
+    throw new Error('Method not currently supported in standalone mode');
+  }
+
   isAtMain(): boolean {
     const info = this.manager._runtime.getIDLInfo();
 
@@ -137,6 +164,10 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
 
   isStarted(): boolean {
     return this.manager.isStarted();
+  }
+
+  async listBreakpoints(): Promise<IDLBreakpoint[]> {
+    throw new Error('Method not currently supported in standalone mode');
   }
 
   prepareCode(code: string): Promise<IPrepareIDLCodeResult | undefined> {
@@ -169,6 +200,10 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     await this.manager.evaluate('.run');
   }
 
+  async setBreakpoint(): Promise<void> {
+    throw new Error('Method not currently supported in standalone mode');
+  }
+
   async runMCPTool<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
@@ -191,11 +226,22 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
       case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
         return ManageENVIAndIDLSession(this, params as any, onProgress) as any;
 
+      case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
+        return {
+          success: false,
+          result: {
+            err: 'The manage-idl-debugger tool is only available in VS Code (requires the debug adapter).',
+          },
+        } as any;
+
       case MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI:
         return OpenDatasetsInENVI(this, params as any, onProgress) as any;
 
       case MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI:
         return QueryDatasetWithENVI(this, params as any, onProgress) as any;
+
+      case MCP_TOOL_LOOKUP.QUERY_IDL_SESSION:
+        return QueryIDLSession(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.RETURN_NOTES:
         return ReturnNotes(this, params as any) as any;

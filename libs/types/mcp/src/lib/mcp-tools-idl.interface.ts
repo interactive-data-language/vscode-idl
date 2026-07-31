@@ -30,6 +30,11 @@ import {
   MCPToolResponse_ManageIDLAndENVISession,
 } from './idl/mcp-tool-manage-idl-and-envi-session.interface';
 import {
+  MCPTool_ManageIDLDebugger,
+  MCPToolParams_ManageIDLDebugger,
+  MCPToolResponse_ManageIDLDebugger,
+} from './idl/mcp-tool-manage-idl-debugger.interface';
+import {
   MCPTool_OpenDatasetsInENVI,
   MCPToolParams_OpenDatasetsInENVI,
   MCPToolResponse_OpenDatasetsInENVI,
@@ -39,6 +44,11 @@ import {
   MCPToolParams_QueryDatasetWithENVI,
   MCPToolResponse_QueryDatasetWithENVI,
 } from './idl/mcp-tool-query-dataset-with-envi.interface';
+import {
+  MCPTool_QueryIDLSession,
+  MCPToolParams_QueryIDLSession,
+  MCPToolResponse_QueryIDLSession,
+} from './idl/mcp-tool-query-idl-session.interface';
 import {
   MCPTool_ReturnNotes,
   MCPToolParams_ReturnNotes,
@@ -64,8 +74,10 @@ export type MCPTools_IDL =
   | MCPTool_ExecuteIDLFile
   | MCPTool_ListENVIToolWorkflows
   | MCPTool_ManageIDLAndENVISession
+  | MCPTool_ManageIDLDebugger
   | MCPTool_OpenDatasetsInENVI
   | MCPTool_QueryDatasetWithENVI
+  | MCPTool_QueryIDLSession
   | MCPTool_ReturnNotes
   | MCPTool_RunENVITool
   | MCPTool_TakeENVIScreenshot;
@@ -85,11 +97,15 @@ export type MCPToolParams_IDL<T extends MCPTools_IDL> =
           ? MCPToolParams_ListENVIToolWorkflows
           : T extends MCPTool_ManageIDLAndENVISession
             ? MCPToolParams_ManageIDLAndENVISession
-            : T extends MCPTool_OpenDatasetsInENVI
+            : T extends MCPTool_ManageIDLDebugger
+              ? MCPToolParams_ManageIDLDebugger
+              : T extends MCPTool_OpenDatasetsInENVI
               ? MCPToolParams_OpenDatasetsInENVI
               : T extends MCPTool_QueryDatasetWithENVI
                 ? MCPToolParams_QueryDatasetWithENVI
-                : T extends MCPTool_ReturnNotes
+                  : T extends MCPTool_QueryIDLSession
+                    ? MCPToolParams_QueryIDLSession
+                    : T extends MCPTool_ReturnNotes
                   ? MCPToolParams_ReturnNotes
                   : T extends MCPTool_RunENVITool
                     ? MCPToolParams_RunENVITool
@@ -111,11 +127,15 @@ export type MCPToolResponse_IDL<T extends MCPTools_IDL> =
           ? MCPToolResponse_ListENVIToolWorkflows
           : T extends MCPTool_ManageIDLAndENVISession
             ? MCPToolResponse_ManageIDLAndENVISession
-            : T extends MCPTool_OpenDatasetsInENVI
+            : T extends MCPTool_ManageIDLDebugger
+              ? MCPToolResponse_ManageIDLDebugger
+              : T extends MCPTool_OpenDatasetsInENVI
               ? MCPToolResponse_OpenDatasetsInENVI
               : T extends MCPTool_QueryDatasetWithENVI
                 ? MCPToolResponse_QueryDatasetWithENVI
-                : T extends MCPTool_ReturnNotes
+                  : T extends MCPTool_QueryIDLSession
+                    ? MCPToolResponse_QueryIDLSession
+                    : T extends MCPTool_ReturnNotes
                   ? MCPToolResponse_ReturnNotes
                   : T extends MCPTool_RunENVITool
                     ? MCPToolResponse_RunENVITool

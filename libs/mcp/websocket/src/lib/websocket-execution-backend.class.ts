@@ -1,6 +1,8 @@
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import {
+  IDLBreakpoint,
   IDLEvaluateOptions,
+  IDLScopeItem,
   IDLSyntaxErrorLookup,
 } from '@idl/types/idl/idl-process';
 import {
@@ -62,6 +64,26 @@ export class WebSocketExecutionBackend implements IIDLMCPExecutionBackend {
     throw new Error('Method not supported in websocket mode');
   }
 
+  async clearBreakpoint(): Promise<void> {
+    throw new Error('Method not supported in websocket mode');
+  }
+
+  async debugContinue(): Promise<void> {
+    throw new Error('Method not supported in websocket mode');
+  }
+
+  async debugStepIn(): Promise<void> {
+    throw new Error('Method not supported in websocket mode');
+  }
+
+  async debugStepOut(): Promise<void> {
+    throw new Error('Method not supported in websocket mode');
+  }
+
+  async debugStepOver(): Promise<void> {
+    throw new Error('Method not supported in websocket mode');
+  }
+
   async evaluateENVICommand<T extends MCPTools_IDL>(
     command: string,
     options?: IDLEvaluateOptions,
@@ -73,12 +95,20 @@ export class WebSocketExecutionBackend implements IIDLMCPExecutionBackend {
     throw new Error('Method not supported in websocket mode');
   }
 
+  async getTraceback(): Promise<IDLScopeItem[]> {
+    throw new Error('Method not supported in websocket mode');
+  }
+
   isAtMain(): boolean {
     throw new Error('Method not supported in websocket mode');
   }
 
   isStarted(): boolean {
     return this.bridge.isConnected();
+  }
+
+  async listBreakpoints(): Promise<IDLBreakpoint[]> {
+    throw new Error('Method not supported in websocket mode');
   }
 
   prepareCode(code: string): Promise<IPrepareIDLCodeResult | undefined> {
@@ -101,6 +131,10 @@ export class WebSocketExecutionBackend implements IIDLMCPExecutionBackend {
   }
 
   async resetMain(): Promise<void> {
+    throw new Error('Method not supported in websocket mode');
+  }
+
+  async setBreakpoint(): Promise<void> {
     throw new Error('Method not supported in websocket mode');
   }
 
