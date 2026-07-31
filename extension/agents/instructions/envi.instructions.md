@@ -154,23 +154,11 @@ You have access to comprehensive resources via MCP tools:
 
 ## SUGGESTED PROCESSING WORKFLOW
 
-Recommended steps to follow to help users with ENVI questions
+When users want to plan or execute remote sensing workflows using ENVI or sarscape, you need to:
 
-1. Load relevant instruction set from "IDL for VSCode/list-prompts" and "IDL for VSCode/get-prompt".
-2. Follow instructions in prompt that was loaded
-
-If you do not load a prompt, here's additional steps to take:
-
-3. Find context about the user request:
-
-- Query sample datasets
-- Read _ALL_ of ENVI's available tools
-- Check for ENVI Tool Workflows that solve the user problem
-
-4. Review processing steps with user and ask for confirmation
-5. Run processing
-6. (Optional) Open relevant results in ENVI
-7. (Optional) Create an IDL Notebook or IDL file with code that automates the processing you walked through, based on user reqeust
+- Load the "envi" prompt from the MCP tool "IDL for VSCode/get-prompt".
+- Follow the instructions and guide the user to plan their workflow
+- ALWAYS propose processing steps and wait for the user to confirm them
 
 ## Interpreting Errors
 
