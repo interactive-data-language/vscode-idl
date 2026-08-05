@@ -16,6 +16,7 @@ import { MCPTool_ExecuteIDLCode } from './idl/mcp-tool-execute-idl-code.interfac
 import { MCPTool_ExecuteIDLFile } from './idl/mcp-tool-execute-idl-file.interface';
 import { MCPTool_ListENVIToolWorkflows } from './idl/mcp-tool-list-envi-tool-workflows.interface';
 import { MCPTool_ManageIDLAndENVISession } from './idl/mcp-tool-manage-idl-and-envi-session.interface';
+import { MCPTool_InspectIDLState } from './idl/mcp-tool-inspect-idl-state.interface';
 import { MCPTool_ManageIDLDebugger } from './idl/mcp-tool-manage-idl-debugger.interface';
 import { MCPTool_OpenDatasetsInENVI } from './idl/mcp-tool-open-datasets-in-envi.interface';
 import { MCPTool_QueryDatasetWithENVI } from './idl/mcp-tool-query-dataset-with-envi.interface';
@@ -95,6 +96,8 @@ interface IMCPToolLookup {
   LIST_PROMPTS: MCPTool_ListPrompts;
   /** Manage ENVI and IDL session */
   MANAGE_IDL_AND_ENVI_SESSION: MCPTool_ManageIDLAndENVISession;
+  /** Read-only inspection of IDL session state */
+  INSPECT_IDL_STATE: MCPTool_InspectIDLState;
   /** Manage IDL debugger (breakpoints, stepping) */
   MANAGE_IDL_DEBUGGER: MCPTool_ManageIDLDebugger;
   /** Open a dataset in ENVI */
@@ -137,6 +140,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   LIST_ENVI_TOOLS: 'list-envi-tools',
   LIST_PROMPTS: 'list-prompts',
   MANAGE_IDL_AND_ENVI_SESSION: 'manage-idl-and-envi-session',
+  INSPECT_IDL_STATE: 'inspect-idl-state',
   MANAGE_IDL_DEBUGGER: 'manage-idl-debugger',
   OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',

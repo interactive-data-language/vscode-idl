@@ -30,6 +30,11 @@ import {
   MCPToolResponse_ManageIDLAndENVISession,
 } from './idl/mcp-tool-manage-idl-and-envi-session.interface';
 import {
+  MCPTool_InspectIDLState,
+  MCPToolParams_InspectIDLState,
+  MCPToolResponse_InspectIDLState,
+} from './idl/mcp-tool-inspect-idl-state.interface';
+import {
   MCPTool_ManageIDLDebugger,
   MCPToolParams_ManageIDLDebugger,
   MCPToolResponse_ManageIDLDebugger,
@@ -74,6 +79,7 @@ export type MCPTools_IDL =
   | MCPTool_ExecuteIDLFile
   | MCPTool_ListENVIToolWorkflows
   | MCPTool_ManageIDLAndENVISession
+  | MCPTool_InspectIDLState
   | MCPTool_ManageIDLDebugger
   | MCPTool_OpenDatasetsInENVI
   | MCPTool_QueryDatasetWithENVI
@@ -97,7 +103,9 @@ export type MCPToolParams_IDL<T extends MCPTools_IDL> =
           ? MCPToolParams_ListENVIToolWorkflows
           : T extends MCPTool_ManageIDLAndENVISession
             ? MCPToolParams_ManageIDLAndENVISession
-            : T extends MCPTool_ManageIDLDebugger
+            : T extends MCPTool_InspectIDLState
+              ? MCPToolParams_InspectIDLState
+              : T extends MCPTool_ManageIDLDebugger
               ? MCPToolParams_ManageIDLDebugger
               : T extends MCPTool_OpenDatasetsInENVI
               ? MCPToolParams_OpenDatasetsInENVI
@@ -127,7 +135,9 @@ export type MCPToolResponse_IDL<T extends MCPTools_IDL> =
           ? MCPToolResponse_ListENVIToolWorkflows
           : T extends MCPTool_ManageIDLAndENVISession
             ? MCPToolResponse_ManageIDLAndENVISession
-            : T extends MCPTool_ManageIDLDebugger
+            : T extends MCPTool_InspectIDLState
+              ? MCPToolResponse_InspectIDLState
+              : T extends MCPTool_ManageIDLDebugger
               ? MCPToolResponse_ManageIDLDebugger
               : T extends MCPTool_OpenDatasetsInENVI
               ? MCPToolResponse_OpenDatasetsInENVI

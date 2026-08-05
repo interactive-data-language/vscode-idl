@@ -1,9 +1,12 @@
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import {
   IDLBreakpoint,
+  IDLCodeCoverage,
   IDLEvaluateOptions,
+  IDLInfo,
   IDLScopeItem,
   IDLSyntaxErrorLookup,
+  IDLVariable,
 } from '@idl/types/idl/idl-process';
 import {
   DEFAULT_ENVI_MCP_TOOL_RESPONSE,
@@ -92,6 +95,22 @@ export class WebSocketExecutionBackend implements IIDLMCPExecutionBackend {
   }
 
   getErrorsByFile(): IDLSyntaxErrorLookup {
+    throw new Error('Method not supported in websocket mode');
+  }
+
+  getIDLInfo(): IDLInfo {
+    throw new Error('Method not supported in websocket mode');
+  }
+
+  getVariables(_frameId: number): Promise<IDLVariable[]> {
+    throw new Error('Method not supported in websocket mode');
+  }
+
+  getCapturedOutput(): string {
+    throw new Error('Method not supported in websocket mode');
+  }
+
+  getCodeCoverage(_file: string): Promise<IDLCodeCoverage> {
     throw new Error('Method not supported in websocket mode');
   }
 

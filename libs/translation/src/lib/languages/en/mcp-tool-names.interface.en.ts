@@ -21,6 +21,7 @@ export const MCPToolNames_EN: ValsOfToStrings<MCPTools> = {
   'list-envi-tool-workflows': 'List ENVI Tool Workflows',
   'list-envi-tools': 'List ENVI Tools',
   'manage-idl-and-envi-session': 'Manage IDL and ENVI Session',
+  'inspect-idl-state': 'Inspect IDL State',
   'manage-idl-debugger': 'Manage IDL Debugger',
   'open-datasets-in-envi': 'Open Datasets in ENVI',
   'query-dataset-with-envi': 'Query Dataset with ENVI',

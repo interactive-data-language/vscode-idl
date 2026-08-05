@@ -1,9 +1,12 @@
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import {
   IDLBreakpoint,
+  IDLCodeCoverage,
   IDLEvaluateOptions,
+  IDLInfo,
   IDLScopeItem,
   IDLSyntaxErrorLookup,
+  IDLVariable,
 } from '@idl/types/idl/idl-process';
 import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 
@@ -76,6 +79,26 @@ export interface IIDLMCPExecutionBackend {
    * Returns syntax errors tracked by file after the last evaluation.
    */
   getErrorsByFile(): IDLSyntaxErrorLookup;
+
+  /**
+   * Returns current IDL session info: scope, call stack, variables.
+   */
+  getIDLInfo(): IDLInfo;
+
+  /**
+   * Returns variables at the given scope frame (0 = current).
+   */
+  getVariables(frameId: number): Promise<IDLVariable[]>;
+
+  /**
+   * Returns raw captured output from the IDL process.
+   */
+  getCapturedOutput(): string;
+
+  /**
+   * Returns code coverage data for a file.
+   */
+  getCodeCoverage(file: string): Promise<IDLCodeCoverage>;
 
   /**
    * Get the current call stack (traceback) as a string.

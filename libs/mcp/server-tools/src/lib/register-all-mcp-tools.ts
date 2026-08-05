@@ -9,6 +9,7 @@ import { RegisterMCPTool_TakeENVIScreenshot } from './tools/envi/register-mcp-to
 import { RegisterMCPTool_CreateIDLNotebook } from './tools/idl/register-mcp-tool-create-idl-notebook';
 import { RegisterMCPTool_ExecuteIDLCode } from './tools/idl/register-mcp-tool-execute-idl-code';
 import { RegisterMCPTool_ExecuteIDLFile } from './tools/idl/register-mcp-tool-execute-idl-file';
+import { RegisterMCPTool_InspectIDLState } from './tools/idl/register-mcp-tool-inspect-idl-state';
 import { RegisterMCPTool_ManageIDLDebugger } from './tools/idl/register-mcp-tool-manage-idl-debugger';
 import { RegisterMCPTool_QueryIDLSession } from './tools/idl/register-mcp-tool-query-idl-session';
 import { RegisterMCPTool_GetResource } from './tools/register-mcp-tool-get-resource';
@@ -60,6 +61,7 @@ export function RegisterAllMCPTools(isEnviInstalled: boolean) {
   RegisterMCPTool_CreateIDLNotebook(server);
   RegisterMCPTool_ExecuteIDLCode(server);
   RegisterMCPTool_ExecuteIDLFile(server);
+  RegisterMCPTool_InspectIDLState(server);
   RegisterMCPTool_ManageIDLDebugger(server);
   RegisterMCPTool_QueryIDLSession(server);
 

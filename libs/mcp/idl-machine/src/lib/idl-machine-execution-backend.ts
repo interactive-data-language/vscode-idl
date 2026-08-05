@@ -10,6 +10,7 @@ import {
   CreateIDLNotebook,
   ExecuteIDLCode,
   ExecuteIDLFile,
+  InspectIDLState,
   ManageENVIAndIDLSession,
   QueryIDLSession,
 } from '@idl/mcp/idl';
@@ -149,6 +150,22 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     return this.manager._runtime.getErrorsByFile();
   }
 
+  getIDLInfo() {
+    return this.manager._runtime.getIDLInfo();
+  }
+
+  getVariables(frameId: number) {
+    return this.manager._runtime.getVariables(frameId);
+  }
+
+  getCapturedOutput() {
+    return this.manager._runtime.getCapturedOutput();
+  }
+
+  async getCodeCoverage(file: string) {
+    return this.manager._runtime.getCodeCoverage(file);
+  }
+
   async getTraceback(): Promise<IDLScopeItem[]> {
     throw new Error('Method not currently supported in standalone mode');
   }
@@ -225,6 +242,9 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
 
       case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
         return ManageENVIAndIDLSession(this, params as any, onProgress) as any;
+
+      case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
+        return InspectIDLState(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
         return {

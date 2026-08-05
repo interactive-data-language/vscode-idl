@@ -39,6 +39,7 @@ import { copy } from 'fast-copy';
 
 import { RunMCPTool_CreateIDLNotebook } from './run-mcp-tool-create-idl-notebook';
 import { RunMCPTool_ExecuteIDLFile } from './run-mcp-tool-execute-idl-file';
+import { RunMCPTool_InspectIDLState } from './idl/run-mcp-tool-inspect-idl-state';
 import { RunMCPTool_ManageIDLDebugger } from './idl/run-mcp-tool-manage-idl-debugger';
 
 const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
@@ -112,6 +113,22 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
 
   getErrorsByFile(): IDLSyntaxErrorLookup {
     return IDL_DEBUG_ADAPTER._runtime.getErrorsByFile();
+  }
+
+  getIDLInfo() {
+    return IDL_DEBUG_ADAPTER._runtime.getIDLInfo();
+  }
+
+  getVariables(frameId: number) {
+    return IDL_DEBUG_ADAPTER._runtime.getVariables(frameId);
+  }
+
+  getCapturedOutput() {
+    return IDL_DEBUG_ADAPTER._runtime.getCapturedOutput();
+  }
+
+  async getCodeCoverage(file: string) {
+    return IDL_DEBUG_ADAPTER.getCodeCoverage(file);
   }
 
   async getTraceback(){
@@ -190,10 +207,15 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
       case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
         return ManageENVIAndIDLSession(this, params as any) as any;
 
+      case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
+        return RunMCPTool_InspectIDLState(
+          this,
+          params as any,
+        ) as any;
+
       case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
         return RunMCPTool_ManageIDLDebugger(
           this,
-          executionId,
           params as any,
         ) as any;
 

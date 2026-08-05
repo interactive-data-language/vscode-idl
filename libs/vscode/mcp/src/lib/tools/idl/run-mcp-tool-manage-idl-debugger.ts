@@ -5,9 +5,7 @@ import {
   MCPToolResponse,
 } from '@idl/types/mcp';
 
-/**
- * Executes a stepping command and returns the current debug location.
- */
+// Executes a stepping command and returns the current debug location.
 async function StepAndGetLocation(
   backend: IIDLMCPExecutionBackend,
   step: () => Promise<void>,
@@ -32,7 +30,6 @@ async function StepAndGetLocation(
  */
 export async function RunMCPTool_ManageIDLDebugger(
   backend: IIDLMCPExecutionBackend,
-  id: string,
   params: MCPToolParams<MCPTool_ManageIDLDebugger>,
 ): Promise<MCPToolResponse<MCPTool_ManageIDLDebugger>> {
   // IDL must be running.
