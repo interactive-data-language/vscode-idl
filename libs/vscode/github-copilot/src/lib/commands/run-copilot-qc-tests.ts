@@ -290,14 +290,12 @@ export async function RunCopilotQCTests() {
 
   output.appendLine('');
   output.appendLine('-----------------------------------------');
+  output.appendLine('  (as of 8/5/2026, after idl-query tool was added)');
   output.appendLine(
-    '  At time of writing the test infrastructure we had an average of:',
+    '    Code:             Full 88.1%  Baseline 54.8%  Improvement +60.9%',
   );
   output.appendLine(
-    '    Code:             Full 82.7%  Baseline 61.5%  Improvement +34.4%',
-  );
-  output.appendLine(
-    '    Code + Knowledge: Full 81.8%  Baseline 69.7%  Improvement +17.6%',
+    '    Code + Knowledge: Full 81.0%  Baseline 67.6%  Improvement +19.7%',
   );
   output.appendLine('-----------------------------------------');
 }
@@ -305,139 +303,113 @@ export async function RunCopilotQCTests() {
 // =========================================
 //   Code Results
 // =========================================
-//   Full:     11/13  84.6%
-//   Baseline: 8/13  61.5%
-//   Improvement: +37.5%
-
-// =========================================
-//   Code + Knowledge Results
-// =========================================
-//   Full:     27/33  81.8%
-//   Baseline: 24/33  72.7%
-//   Improvement: +12.5%
-// =========================================
-
-// Failed (Full):
-//   - Q6: Integer loop overflow
-//   - Q12: TOTAL dimension keyword
-//   - Q13: FLTARR trailing dimensions
-//   - Q16: CONVOL edge handling
-//   - Code 3: Safe WHERE pattern
-//   - Code 10: Cumulative distribution with TOTAL
-
-// Failed (Baseline):
-//   - Q1: REBIN expansion edge behavior
-//   - Q6: Integer loop overflow
-//   - Q12: TOTAL dimension keyword
-//   - Q16: CONVOL edge handling
-//   - Code 0: Purposefully fail to test error handling
-//   - Code 2: Neighborhood average downsample
-//   - Code 6: Type-safe large array accumulation
-//   - Code 10: Cumulative distribution with TOTAL
-//   - Code 11: Masked median filter
-
-// =========================================
-//   Code Results
-// =========================================
-//   Full:     10/13  76.9%
-//   Baseline: 8/13  61.5%
-//   Improvement: +25.0%
-
-// =========================================
-//   Code + Knowledge Results
-// =========================================
-//   Full:     24/33  72.7%
-//   Baseline: 23/33  69.7%
-//   Improvement: +4.3%
-// =========================================
-
-// Failed (Full):
-//   - Q1: REBIN expansion edge behavior
-//   - Q6: Integer loop overflow
-//   - Q12: TOTAL dimension keyword
-//   - Q13: FLTARR trailing dimensions
-//   - Q14: INDGEN dimension order
-//   - Q18: String concatenation with +
-//   - Code 2: Neighborhood average downsample
-//   - Code 3: Safe WHERE pattern
-//   - Code 10: Cumulative distribution with TOTAL
-
-// Failed (Baseline):
-//   - Q1: REBIN expansion edge behavior
-//   - Q6: Integer loop overflow
-//   - Q7: Matrix multiply # vs ##
-//   - Q12: TOTAL dimension keyword
-//   - Q16: CONVOL edge handling
-//   - Code 0: Purposefully fail to test error handling
-//   - Code 2: Neighborhood average downsample
-//   - Code 6: Type-safe large array accumulation
-//   - Code 10: Cumulative distribution with TOTAL
-//   - Code 11: Masked median filter
-
-// =========================================
-//   Code Results
-// =========================================
-//   Full:     10/13  76.9%
-//   Baseline: 8/13  61.5%
-//   Improvement: +25.0%
-
-// =========================================
-//   Code + Knowledge Results
-// =========================================
-//   Full:     28/33  84.8%
-//   Baseline: 23/33  69.7%
-//   Improvement: +21.7%
-// =========================================
-
-// Failed (Full):
-//   - Q6: Integer loop overflow
-//   - Q18: String concatenation with +
-//   - Code 3: Safe WHERE pattern
-//   - Code 6: Type-safe large array accumulation
-//   - Code 10: Cumulative distribution with TOTAL
-
-// Failed (Baseline):
-//   - Q1: REBIN expansion edge behavior
-//   - Q6: Integer loop overflow
-//   - Q7: Matrix multiply # vs ##
-//   - Q12: TOTAL dimension keyword
-//   - Q16: CONVOL edge handling
-//   - Code 0: Purposefully fail to test error handling
-//   - Code 2: Neighborhood average downsample
-//   - Code 6: Type-safe large array accumulation
-//   - Code 10: Cumulative distribution with TOTAL
-//   - Code 11: Masked median filter
-
-// =========================================
-//   Code Results
-// =========================================
-//   Full:     12/13  92.3%
-//   Baseline: 8/13  61.5%
+//   Full:     12/14  85.7%
+//   Baseline: 8/14  57.1%
 //   Improvement: +50.0%
 
 // =========================================
 //   Code + Knowledge Results
 // =========================================
-//   Full:     29/33  87.9%
-//   Baseline: 22/33  66.7%
-//   Improvement: +31.8%
+//   Full:     29/35  82.9%
+//   Baseline: 24/35  68.6%
+//   Improvement: +20.8%
 // =========================================
 
 // Failed (Full):
 //   - Q6: Integer loop overflow
 //   - Q12: TOTAL dimension keyword
 //   - Q13: FLTARR trailing dimensions
-//   - Code 2: Neighborhood average downsample
+//   - Q21: Python bridge variable case sensitivity
+//   - Code 6: Type-safe large array accumulation
+//   - Code 10: Cumulative distribution with TOTAL
 
 // Failed (Baseline):
 //   - Q1: REBIN expansion edge behavior
 //   - Q6: Integer loop overflow
-//   - Q7: Matrix multiply # vs ##
 //   - Q12: TOTAL dimension keyword
 //   - Q16: CONVOL edge handling
-//   - Q17: REBIN compression averaging
+//   - Q21: Python bridge variable case sensitivity
 //   - Code 0: Purposefully fail to test error handling
 //   - Code 2: Neighborhood average downsample
 //   - Code 6: Type-safe large array accumulation
 //   - Code 10: Cumulative distribution with TOTAL
 //   - Code 11: Masked median filter
+//   - Code 12: numpy statistics via Python bridge
+
+// 8/5/2026 - after idl-query tool was added
+// =========================================
+//   Code Results
+// =========================================
+//   Full:     13/14  92.9%
+//   Baseline: 7/14  50.0%
+//   Improvement: +85.7%
+
+// =========================================
+//   Code + Knowledge Results
+// =========================================
+//   Full:     28/35  80.0%
+//   Baseline: 23/35  65.7%
+//   Improvement: +21.7%
+// =========================================
+
+// Failed (Full):
+//   - Q1: REBIN expansion edge behavior
+//   - Q6: Integer loop overflow
+//   - Q9: WHERE returns -1 on no match
+//   - Q12: TOTAL dimension keyword
+//   - Q13: FLTARR trailing dimensions
+//   - Q18: String concatenation with +
+//   - Code 10: Cumulative distribution with TOTAL
+
+// Failed (Baseline):
+//   - Q1: REBIN expansion edge behavior
+//   - Q6: Integer loop overflow
+//   - Q12: TOTAL dimension keyword
+//   - Q16: CONVOL edge handling
+//   - Q21: Python bridge variable case sensitivity
+//   - Code 0: Purposefully fail to test error handling
+//   - Code 1b: IDL Math test (VALUE_LOCATE)
+
+// =========================================
+//   Code Results
+// =========================================
+//   Full:     12/14  85.7%
+//   Baseline: 8/14  57.1%
+//   Improvement: +50.0%
+
+// =========================================
+//   Code + Knowledge Results
+// =========================================
+//   Full:     28/35  80.0%
+//   Baseline: 24/35  68.6%
+//   Improvement: +16.7%
+// =========================================
+
+// Failed (Full):
+//   - Q6: Integer loop overflow
+//   - Q12: TOTAL dimension keyword
+//   - Q13: FLTARR trailing dimensions
+//   - Q18: String concatenation with +
+//   - Q21: Python bridge variable case sensitivity
+//   - Code 10: Cumulative distribution with TOTAL
+//   - Code 11: Masked median filter
+
+// Failed (Baseline):
+//   - Q6: Integer loop overflow
+//   - Q7: Matrix multiply # vs ##
+//   - Q12: TOTAL dimension keyword
+//   - Q16: CONVOL edge handling
+//   - Q21: Python bridge variable case sensitivity
+//   - Code 0: Purposefully fail to test error handling
+//   - Code 2: Neighborhood average downsample
+//   - Code 6: Type-safe large array accumulation
+//   - Code 10: Cumulative distribution with TOTAL
+//   - Code 11: Masked median filter
+//   - Code 12: numpy statistics via Python bridge
+
+
+
+// Note. 
+// This is the original improvemement after the first MCP tests.
+//output.appendLine('    Code:             Full 82.7%  Baseline 61.5%  Improvement +34.4%');
+//output.appendLine('   Code + Knowledge: Full 81.8%  Baseline 69.7%  Improvement +17.6%');
