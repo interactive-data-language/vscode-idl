@@ -1,5 +1,5 @@
-import { MCPSerializeJSON } from '@idl/mcp/common';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
+import { MCPSerializeJSON } from '@idl/mcp/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   ENVIMCPToolResponse_Failure,
