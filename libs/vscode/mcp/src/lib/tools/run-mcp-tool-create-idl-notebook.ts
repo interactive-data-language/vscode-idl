@@ -1,4 +1,4 @@
-import { CreateIDLNotebook } from '@idl/mcp/idl';
+import { RunMCPTool_CreateIDLNotebook as RunMCPTool_CreateIDLNotebookCore } from '@idl/mcp/idl';
 import {
   MCPTool_CreateIDLNotebook,
   MCPToolParams,
@@ -11,7 +11,7 @@ import * as vscode from 'vscode';
 /**
  * Create an IDL Notebook (VS Code wrapper)
  *
- * Delegates notebook creation to the core `CreateIDLNotebook`
+ * Delegates notebook creation to the core `RunMCPTool_CreateIDLNotebook`
  * function, then opens and formats it in VS Code.
  */
 export async function RunMCPTool_CreateIDLNotebook(
@@ -19,7 +19,7 @@ export async function RunMCPTool_CreateIDLNotebook(
   params: MCPToolParams<MCPTool_CreateIDLNotebook>,
 ): Promise<MCPToolResponse<MCPTool_CreateIDLNotebook>> {
   // create the notebook file on disk
-  const result = await CreateIDLNotebook(params);
+  const result = await RunMCPTool_CreateIDLNotebookCore(params);
 
   if (!result.success) {
     return result;

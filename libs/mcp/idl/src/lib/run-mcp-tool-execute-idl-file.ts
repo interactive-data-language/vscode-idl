@@ -14,7 +14,7 @@ import {
  * through the backend without opening it in an editor or re-using our
  * run command
  */
-export async function ExecuteIDLFile(
+export async function RunMCPTool_ExecuteIDLFile(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ExecuteIDLFile>,
 ): Promise<MCPToolResponse<MCPTool_ExecuteIDLFile>> {

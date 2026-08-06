@@ -12,7 +12,7 @@ import {
  *
  * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
-export async function StartENVISession(
+export async function RunMCPTool_StartENVISession(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
   onProgress?: MCPProgressCallback,

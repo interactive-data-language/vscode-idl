@@ -13,7 +13,7 @@ import {
  * so that output is captured and returned but never echoed to
  * the user's debug console.
  */
-export async function QueryIDLSession(
+export async function RunMCPTool_QueryIDLSession(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_QueryIDLSession>,
 ): Promise<MCPToolResponse<MCPTool_QueryIDLSession>> {

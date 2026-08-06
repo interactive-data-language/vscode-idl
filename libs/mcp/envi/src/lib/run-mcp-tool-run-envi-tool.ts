@@ -15,7 +15,7 @@ import {
  *
  * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
-export async function RunENVITool(
+export async function RunMCPTool_RunENVITool(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_RunENVITool>,
   onProgress?: MCPProgressCallback,

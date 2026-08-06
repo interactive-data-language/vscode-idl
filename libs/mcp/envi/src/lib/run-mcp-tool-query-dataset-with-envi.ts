@@ -16,7 +16,7 @@ import {
  *
  * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
-export async function QueryDatasetWithENVI(
+export async function RunMCPTool_QueryDatasetWithENVI(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_QueryDatasetWithENVI>,
   onProgress?: MCPProgressCallback,

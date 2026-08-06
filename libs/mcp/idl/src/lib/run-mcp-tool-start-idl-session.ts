@@ -11,7 +11,7 @@ import {
  *
  * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
-export async function StartIDLSession(
+export async function RunMCPTool_StartIDLSession(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
   onProgress?: MCPProgressCallback,

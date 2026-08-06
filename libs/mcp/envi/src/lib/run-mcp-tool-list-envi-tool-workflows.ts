@@ -11,7 +11,7 @@ import {
  *
  * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
-export async function ListENVIToolWorkflows(
+export async function RunMCPTool_ListENVIToolWorkflows(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ListENVIToolWorkflows>,
 ): Promise<MCPToolResponse<MCPTool_ListENVIToolWorkflows>> {

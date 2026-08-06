@@ -1,12 +1,17 @@
 import {
-  ListENVIToolWorkflows,
-  OpenDatasetsInENVI,
-  QueryDatasetWithENVI,
-  ReturnNotes,
-  RunENVITool,
-  TakeENVIScreenshot,
+  RunMCPTool_ListENVIToolWorkflows,
+  RunMCPTool_OpenDatasetsInENVI,
+  RunMCPTool_QueryDatasetWithENVI,
+  RunMCPTool_ReturnNotes,
+  RunMCPTool_RunENVITool,
+  RunMCPTool_TakeENVIScreenshot,
 } from '@idl/mcp/envi';
-import { ExecuteIDLCode, ManageENVIAndIDLSession, QueryIDLSession } from '@idl/mcp/idl';
+import {
+  RunMCPTool_ExecuteIDLCode,
+  RunMCPTool_InspectIDLState,
+  RunMCPTool_ManageENVIAndIDLSession,
+  RunMCPTool_QueryIDLSession,
+} from '@idl/mcp/idl';
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
 import {
@@ -37,10 +42,9 @@ import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { compareVersions } from 'compare-versions';
 import { copy } from 'fast-copy';
 
+import { RunMCPTool_ManageIDLDebugger } from './idl/run-mcp-tool-manage-idl-debugger';
 import { RunMCPTool_CreateIDLNotebook } from './run-mcp-tool-create-idl-notebook';
 import { RunMCPTool_ExecuteIDLFile } from './run-mcp-tool-execute-idl-file';
-import { RunMCPTool_InspectIDLState } from './idl/run-mcp-tool-inspect-idl-state';
-import { RunMCPTool_ManageIDLDebugger } from './idl/run-mcp-tool-manage-idl-debugger';
 
 const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
 
@@ -111,18 +115,6 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
     return { idlOutput, ...res } as MCPToolResponse<T>;
   }
 
-  getErrorsByFile(): IDLSyntaxErrorLookup {
-    return IDL_DEBUG_ADAPTER._runtime.getErrorsByFile();
-  }
-
-  getIDLInfo() {
-    return IDL_DEBUG_ADAPTER._runtime.getIDLInfo();
-  }
-
-  getVariables(frameId: number) {
-    return IDL_DEBUG_ADAPTER._runtime.getVariables(frameId);
-  }
-
   getCapturedOutput() {
     return IDL_DEBUG_ADAPTER._runtime.getCapturedOutput();
   }
@@ -131,9 +123,21 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
     return IDL_DEBUG_ADAPTER.getCodeCoverage(file);
   }
 
-  async getTraceback(){
+  getErrorsByFile(): IDLSyntaxErrorLookup {
+    return IDL_DEBUG_ADAPTER._runtime.getErrorsByFile();
+  }
+
+  getIDLInfo() {
+    return IDL_DEBUG_ADAPTER._runtime.getIDLInfo();
+  }
+
+  async getTraceback() {
     const output = await IDL_DEBUG_ADAPTER.getIDLInfo();
-    return (output.scope);
+    return output.scope;
+  }
+
+  getVariables(frameId: number) {
+    return IDL_DEBUG_ADAPTER._runtime.getVariables(frameId);
   }
 
   isAtMain(): boolean {
@@ -148,7 +152,7 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
     await IDL_DEBUG_ADAPTER._breakpoints.syncBreakpointState();
 
     const bps = await IDL_DEBUG_ADAPTER._breakpoints.getBreakpoints();
-    return (bps);
+    return bps;
   }
 
   prepareCode(code: string): Promise<IPrepareIDLCodeResult | undefined> {
@@ -177,10 +181,6 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
     await IDL_DEBUG_ADAPTER.resetMain();
   }
 
-  async setBreakpoint(file: string, line: number): Promise<void> {
-    await IDL_DEBUG_ADAPTER._breakpoints.setBreakpoint(file, line);
-  }
-
   async runMCPTool<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
@@ -192,7 +192,11 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
         return RunMCPTool_CreateIDLNotebook(executionId, params as any) as any;
 
       case MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE:
-        return ExecuteIDLCode(this, params as any, this.prepareCode) as any;
+        return RunMCPTool_ExecuteIDLCode(
+          this,
+          params as any,
+          this.prepareCode,
+        ) as any;
 
       case MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE:
         return RunMCPTool_ExecuteIDLFile(
@@ -201,35 +205,37 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
           params as any,
         ) as any;
 
+      case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
+        return RunMCPTool_InspectIDLState(this, params as any) as any;
+
       case MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS:
-        return ListENVIToolWorkflows(this, params as any) as any;
+        return RunMCPTool_ListENVIToolWorkflows(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
-        return ManageENVIAndIDLSession(this, params as any) as any;
-
-      case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
-        return RunMCPTool_InspectIDLState(
-          this,
-          params as any,
-        ) as any;
+        return RunMCPTool_ManageENVIAndIDLSession(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
-        return RunMCPTool_ManageIDLDebugger(
-          this,
-          params as any,
-        ) as any;
+        return RunMCPTool_ManageIDLDebugger(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI:
-        return OpenDatasetsInENVI(this, params as any, onProgress) as any;
+        return RunMCPTool_OpenDatasetsInENVI(
+          this,
+          params as any,
+          onProgress,
+        ) as any;
 
       case MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI:
-        return QueryDatasetWithENVI(this, params as any, onProgress) as any;
+        return RunMCPTool_QueryDatasetWithENVI(
+          this,
+          params as any,
+          onProgress,
+        ) as any;
 
       case MCP_TOOL_LOOKUP.QUERY_IDL_SESSION:
-        return QueryIDLSession(this, params as any) as any;
+        return RunMCPTool_QueryIDLSession(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.RETURN_NOTES:
-        return ReturnNotes(this, params as any) as any;
+        return RunMCPTool_ReturnNotes(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.RUN_ENVI_TOOL: {
         const typed = params as MCPToolParams<MCPTool_RunENVITool>;
@@ -238,15 +244,23 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
             idl_command: `idl.mcp.${MCP_TOOL_LOOKUP.RUN_ENVI_TOOL}.${typed.toolName}`,
           });
         }
-        return RunENVITool(this, typed, onProgress) as any;
+        return RunMCPTool_RunENVITool(this, typed, onProgress) as any;
       }
 
       case MCP_TOOL_LOOKUP.TAKE_ENVI_SCREENSHOT:
-        return TakeENVIScreenshot(this, params as any, onProgress) as any;
+        return RunMCPTool_TakeENVIScreenshot(
+          this,
+          params as any,
+          onProgress,
+        ) as any;
 
       default:
         return { success: false, err: `Unknown tool: ${tool}` } as any;
     }
+  }
+
+  async setBreakpoint(file: string, line: number): Promise<void> {
+    await IDL_DEBUG_ADAPTER._breakpoints.setBreakpoint(file, line);
   }
 
   async start(show = true): Promise<IIDLStartResult> {

@@ -11,7 +11,7 @@ import {
  *
  * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
-export async function ReturnNotes(
+export async function RunMCPTool_ReturnNotes(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ReturnNotes>,
 ): Promise<MCPToolResponse<MCPTool_ReturnNotes>> {

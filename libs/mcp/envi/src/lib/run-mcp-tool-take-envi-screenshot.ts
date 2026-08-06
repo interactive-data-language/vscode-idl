@@ -16,7 +16,7 @@ import {
  * should be saved to a PNG file and returned as a base64-encoded string
  * so that LLMs can consume it directly.
  */
-export async function TakeENVIScreenshot(
+export async function RunMCPTool_TakeENVIScreenshot(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_TakeENVIScreenshot>,
   onProgress?: MCPProgressCallback,

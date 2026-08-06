@@ -1,18 +1,18 @@
 import {
-  ListENVIToolWorkflows,
-  OpenDatasetsInENVI,
-  QueryDatasetWithENVI,
-  ReturnNotes,
-  RunENVITool,
-  TakeENVIScreenshot,
+  RunMCPTool_ListENVIToolWorkflows,
+  RunMCPTool_OpenDatasetsInENVI,
+  RunMCPTool_QueryDatasetWithENVI,
+  RunMCPTool_ReturnNotes,
+  RunMCPTool_RunENVITool,
+  RunMCPTool_TakeENVIScreenshot,
 } from '@idl/mcp/envi';
 import {
-  CreateIDLNotebook,
-  ExecuteIDLCode,
-  ExecuteIDLFile,
-  InspectIDLState,
-  ManageENVIAndIDLSession,
-  QueryIDLSession,
+  RunMCPTool_CreateIDLNotebook,
+  RunMCPTool_ExecuteIDLCode,
+  RunMCPTool_ExecuteIDLFile,
+  RunMCPTool_InspectIDLState,
+  RunMCPTool_ManageENVIAndIDLSession,
+  RunMCPTool_QueryIDLSession,
 } from '@idl/mcp/idl';
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import {
@@ -146,18 +146,6 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     return { idlOutput, ...res } as MCPToolResponse<T>;
   }
 
-  getErrorsByFile(): IDLSyntaxErrorLookup {
-    return this.manager._runtime.getErrorsByFile();
-  }
-
-  getIDLInfo() {
-    return this.manager._runtime.getIDLInfo();
-  }
-
-  getVariables(frameId: number) {
-    return this.manager._runtime.getVariables(frameId);
-  }
-
   getCapturedOutput() {
     return this.manager._runtime.getCapturedOutput();
   }
@@ -166,8 +154,20 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     return this.manager._runtime.getCodeCoverage(file);
   }
 
+  getErrorsByFile(): IDLSyntaxErrorLookup {
+    return this.manager._runtime.getErrorsByFile();
+  }
+
+  getIDLInfo() {
+    return this.manager._runtime.getIDLInfo();
+  }
+
   async getTraceback(): Promise<IDLScopeItem[]> {
     throw new Error('Method not currently supported in standalone mode');
+  }
+
+  getVariables(frameId: number) {
+    return this.manager._runtime.getVariables(frameId);
   }
 
   isAtMain(): boolean {
@@ -217,10 +217,6 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     await this.manager.evaluate('.run');
   }
 
-  async setBreakpoint(): Promise<void> {
-    throw new Error('Method not currently supported in standalone mode');
-  }
-
   async runMCPTool<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
@@ -229,22 +225,30 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
   ): Promise<MCPToolResponse<T>> {
     switch (tool) {
       case MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK:
-        return CreateIDLNotebook(params as any) as any;
+        return RunMCPTool_CreateIDLNotebook(params as any) as any;
 
       case MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE:
-        return ExecuteIDLCode(this, params as any, this.prepareCode) as any;
+        return RunMCPTool_ExecuteIDLCode(
+          this,
+          params as any,
+          this.prepareCode,
+        ) as any;
 
       case MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE:
-        return ExecuteIDLFile(this, params as any) as any;
-
-      case MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS:
-        return ListENVIToolWorkflows(this, params as any) as any;
-
-      case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
-        return ManageENVIAndIDLSession(this, params as any, onProgress) as any;
+        return RunMCPTool_ExecuteIDLFile(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
-        return InspectIDLState(this, params as any) as any;
+        return RunMCPTool_InspectIDLState(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS:
+        return RunMCPTool_ListENVIToolWorkflows(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
+        return RunMCPTool_ManageENVIAndIDLSession(
+          this,
+          params as any,
+          onProgress,
+        ) as any;
 
       case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
         return {
@@ -255,26 +259,42 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
         } as any;
 
       case MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI:
-        return OpenDatasetsInENVI(this, params as any, onProgress) as any;
+        return RunMCPTool_OpenDatasetsInENVI(
+          this,
+          params as any,
+          onProgress,
+        ) as any;
 
       case MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI:
-        return QueryDatasetWithENVI(this, params as any, onProgress) as any;
+        return RunMCPTool_QueryDatasetWithENVI(
+          this,
+          params as any,
+          onProgress,
+        ) as any;
 
       case MCP_TOOL_LOOKUP.QUERY_IDL_SESSION:
-        return QueryIDLSession(this, params as any) as any;
+        return RunMCPTool_QueryIDLSession(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.RETURN_NOTES:
-        return ReturnNotes(this, params as any) as any;
+        return RunMCPTool_ReturnNotes(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.RUN_ENVI_TOOL:
-        return RunENVITool(this, params as any, onProgress) as any;
+        return RunMCPTool_RunENVITool(this, params as any, onProgress) as any;
 
       case MCP_TOOL_LOOKUP.TAKE_ENVI_SCREENSHOT:
-        return TakeENVIScreenshot(this, params as any, onProgress) as any;
+        return RunMCPTool_TakeENVIScreenshot(
+          this,
+          params as any,
+          onProgress,
+        ) as any;
 
       default:
         return { success: false, err: `Unknown tool: ${tool}` } as any;
     }
+  }
+
+  async setBreakpoint(): Promise<void> {
+    throw new Error('Method not currently supported in standalone mode');
   }
 
   async start(): Promise<IIDLStartResult> {

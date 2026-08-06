@@ -21,7 +21,7 @@ import { join } from 'path';
  * @param params        Tool parameters (code to execute)
  * @param prepareCode   Callback to prepare/transform code before execution
  */
-export async function ExecuteIDLCode(
+export async function RunMCPTool_ExecuteIDLCode(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ExecuteIDLCode>,
   prepareCode: PrepareIDLCodeCallback,

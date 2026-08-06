@@ -15,7 +15,7 @@ import {
  *
  * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
-export async function OpenDatasetsInENVI(
+export async function RunMCPTool_OpenDatasetsInENVI(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_OpenDatasetsInENVI>,
   onProgress?: MCPProgressCallback,

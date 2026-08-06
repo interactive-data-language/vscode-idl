@@ -13,7 +13,7 @@ import { dirname } from 'path';
  * Writes the notebook file to disk. Does not open it in any editor —
  * the VS Code wrapper handles opening and formatting.
  */
-export async function CreateIDLNotebook(
+export async function RunMCPTool_CreateIDLNotebook(
   params: MCPToolParams<MCPTool_CreateIDLNotebook>,
 ): Promise<MCPToolResponse<MCPTool_CreateIDLNotebook>> {
   const nbAsBytes = await CreateNewIDLNotebook(params);

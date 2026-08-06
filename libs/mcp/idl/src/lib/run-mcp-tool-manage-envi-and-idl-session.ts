@@ -1,4 +1,4 @@
-import { StartENVISession } from '@idl/mcp/envi';
+import { RunMCPTool_StartENVISession } from '@idl/mcp/envi';
 import { Sleep } from '@idl/shared/extension';
 import {
   IIDLMCPExecutionBackend,
@@ -8,14 +8,14 @@ import {
   MCPToolResponse,
 } from '@idl/types/mcp';
 
-import { StartIDLSession } from './start-idl-session';
+import { RunMCPTool_StartIDLSession } from './run-mcp-tool-start-idl-session';
 
 /**
  * Core logic for managing ENVI and IDL sessions (start/stop/restart).
  *
  * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
-export async function ManageENVIAndIDLSession(
+export async function RunMCPTool_ManageENVIAndIDLSession(
   backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
   onProgress?: MCPProgressCallback,
@@ -23,11 +23,11 @@ export async function ManageENVIAndIDLSession(
   // Check if we are starting
   switch (params.action) {
     case 'start-envi':
-      return StartENVISession(backend, params, onProgress);
+      return RunMCPTool_StartENVISession(backend, params, onProgress);
     // case 'start-envi-headless':
-    //   return StartENVISession(backend, params, onProgress);
+    //   return RunMCPTool_StartENVISession(backend, params, onProgress);
     case 'start-idl':
-      return StartIDLSession(backend, params, onProgress);
+      return RunMCPTool_StartIDLSession(backend, params, onProgress);
     default:
       break;
   }
@@ -58,11 +58,11 @@ export async function ManageENVIAndIDLSession(
   // determine how to restart
   switch (params.action) {
     case 'restart-envi':
-      return StartENVISession(backend, params, onProgress);
+      return RunMCPTool_StartENVISession(backend, params, onProgress);
     // case 'restart-envi-headless':
-    //   return StartENVISession(backend, params, onProgress);
+    //   return RunMCPTool_StartENVISession(backend, params, onProgress);
     case 'restart-idl':
-      return StartIDLSession(backend, params, onProgress);
+      return RunMCPTool_StartIDLSession(backend, params, onProgress);
     default:
       return {
         success: false,
