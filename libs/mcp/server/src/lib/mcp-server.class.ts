@@ -1,5 +1,6 @@
 import { ObjectifyError } from '@idl/error-shared';
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { IDLIndex } from '@idl/parsing/index';
 import { SimplePromiseQueue, VERSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -69,6 +70,9 @@ export class MCPServer {
   /** The singleton instance */
   private static _instance: MCPServer | undefined;
 
+  /** Access IDL index */
+  idlIndex: IDLIndex;
+
   /** Log manager */
   logManager: LogManager;
 
@@ -120,6 +124,7 @@ export class MCPServer {
   private constructor(options: IMCPServerOptions) {
     this.logManager = options.logManager;
     this.idlExecutionCallback = options.idlExecutionCallback;
+    this.idlIndex = options.idlIndex;
     this.toolInvokedCallback = options.toolInvokedCallback;
     this.failCallback = options.failCallback;
     this.mcpPort = options.port ?? MCP_SERVER_CONFIG.PORT;
