@@ -138,7 +138,7 @@ export async function ParseDocsHTML(docsFile: string) {
   let propChildren: IParsedHTML[] = [];
 
   /** Current arg/keyword that we are parsing */
-  let current: 'arg' | 'kw' | 'none' | 'prop';
+  let current: 'arg' | 'kw' | 'none' | 'prop' = 'none';
 
   /** Flag if we have docs along the line of "Name Properties" so we only have properties */
   let onlyProperties = false;
@@ -249,9 +249,6 @@ export async function ParseDocsHTML(docsFile: string) {
           // get the name of our system variable property
           const title = CleanName(element.children);
 
-          // set that we are handling a property
-          current = 'prop';
-
           // get a clean title to use
           const useTitle = title.replace(/\s*\(.*\)\s*/gim, '').toLowerCase();
 
@@ -263,6 +260,10 @@ export async function ParseDocsHTML(docsFile: string) {
           // DBF_ONLY/ENTITY_TYPE/UPDATE, or GetProperty keyword properties)
           if (inKeywordsSection) {
             theseKws[useTitle] = propChildren;
+            // keep current as 'kw' so subsequent h3.Keyword elements stay in theseKws
+            kwChildren = propChildren;
+          } else {
+            current = 'prop';
           }
 
           // check if we also have a keyword that we can specify on init
