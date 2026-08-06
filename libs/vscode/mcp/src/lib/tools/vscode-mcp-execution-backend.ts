@@ -6,7 +6,7 @@ import {
   RunENVITool,
   TakeENVIScreenshot,
 } from '@idl/mcp/envi';
-import { ExecuteIDLCode, ManageENVIAndIDLSession } from '@idl/mcp/idl';
+import { ExecuteIDLCode, ManageENVIAndIDLSession, QueryIDLSession } from '@idl/mcp/idl';
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
 import {
@@ -39,6 +39,8 @@ import { copy } from 'fast-copy';
 
 import { RunMCPTool_CreateIDLNotebook } from './run-mcp-tool-create-idl-notebook';
 import { RunMCPTool_ExecuteIDLFile } from './run-mcp-tool-execute-idl-file';
+import { RunMCPTool_InspectIDLState } from './idl/run-mcp-tool-inspect-idl-state';
+import { RunMCPTool_ManageIDLDebugger } from './idl/run-mcp-tool-manage-idl-debugger';
 
 const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
 
@@ -54,6 +56,31 @@ const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
 export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
   get idlVersion(): IDLVersionInfo | undefined {
     return IDL_DEBUG_ADAPTER.idlVersion;
+  }
+
+  async clearBreakpoint(file?: string, line?: number): Promise<void> {
+    if (file !== undefined && line !== undefined) {
+      await IDL_DEBUG_ADAPTER._breakpoints.removeBreakpoint(file, line);
+    } else {
+      await IDL_DEBUG_ADAPTER._breakpoints.resetBreakpoints();
+    }
+    await IDL_DEBUG_ADAPTER._breakpoints.syncBreakpointState();
+  }
+
+  async debugContinue(): Promise<void> {
+    await IDL_DEBUG_ADAPTER._breakpoints.debugContinue();
+  }
+
+  async debugStepIn(): Promise<void> {
+    await IDL_DEBUG_ADAPTER._breakpoints.debugStepIn();
+  }
+
+  async debugStepOut(): Promise<void> {
+    await IDL_DEBUG_ADAPTER._breakpoints.debugStepOut();
+  }
+
+  async debugStepOver(): Promise<void> {
+    await IDL_DEBUG_ADAPTER._breakpoints.debugStepOver();
   }
 
   async evaluate(
@@ -88,12 +115,40 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
     return IDL_DEBUG_ADAPTER._runtime.getErrorsByFile();
   }
 
+  getIDLInfo() {
+    return IDL_DEBUG_ADAPTER._runtime.getIDLInfo();
+  }
+
+  getVariables(frameId: number) {
+    return IDL_DEBUG_ADAPTER._runtime.getVariables(frameId);
+  }
+
+  getCapturedOutput() {
+    return IDL_DEBUG_ADAPTER._runtime.getCapturedOutput();
+  }
+
+  async getCodeCoverage(file: string) {
+    return IDL_DEBUG_ADAPTER.getCodeCoverage(file);
+  }
+
+  async getTraceback(){
+    const output = await IDL_DEBUG_ADAPTER.getIDLInfo();
+    return (output.scope);
+  }
+
   isAtMain(): boolean {
     return IDL_DEBUG_ADAPTER.isAtMain();
   }
 
   isStarted(): boolean {
     return IDL_DEBUG_ADAPTER.isStarted();
+  }
+
+  async listBreakpoints() {
+    await IDL_DEBUG_ADAPTER._breakpoints.syncBreakpointState();
+
+    const bps = await IDL_DEBUG_ADAPTER._breakpoints.getBreakpoints();
+    return (bps);
   }
 
   prepareCode(code: string): Promise<IPrepareIDLCodeResult | undefined> {
@@ -122,6 +177,10 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
     await IDL_DEBUG_ADAPTER.resetMain();
   }
 
+  async setBreakpoint(file: string, line: number): Promise<void> {
+    await IDL_DEBUG_ADAPTER._breakpoints.setBreakpoint(file, line);
+  }
+
   async runMCPTool<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
@@ -148,11 +207,26 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
       case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
         return ManageENVIAndIDLSession(this, params as any) as any;
 
+      case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
+        return RunMCPTool_InspectIDLState(
+          this,
+          params as any,
+        ) as any;
+
+      case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
+        return RunMCPTool_ManageIDLDebugger(
+          this,
+          params as any,
+        ) as any;
+
       case MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI:
         return OpenDatasetsInENVI(this, params as any, onProgress) as any;
 
       case MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI:
         return QueryDatasetWithENVI(this, params as any, onProgress) as any;
+
+      case MCP_TOOL_LOOKUP.QUERY_IDL_SESSION:
+        return QueryIDLSession(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.RETURN_NOTES:
         return ReturnNotes(this, params as any) as any;

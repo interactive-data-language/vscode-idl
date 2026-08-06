@@ -601,6 +601,33 @@ export const QC_TESTS: QCTest[] = [
       return passed;
     },
   },
+  {
+    name: 'Q21: Python bridge variable case sensitivity',
+    run: async ({ agent, output, withTools }) => {
+      const result = await agent.sendtoSimulation({
+        prompt:
+          'In IDL, why does this code fail to print the Python variable?\n\n' +
+          '```idl\n' +
+          "python.MyValue = 42\n" +
+          "python.run, 'print(MyValue)'\n" +
+          '```\n\n' +
+          'Put your answer in an IDL code block.',
+        includeInstructions: withTools,
+        includeTools: withTools,
+      });
+      output.appendLine(`  Response: ${result.text}`);
+      const lower = result.text.toLowerCase();
+      const mentionsCase =
+        lower.includes('case') ||
+        lower.includes('lowercase') ||
+        lower.includes('lower case') ||
+        lower.includes('lower-case');
+      const mentionsName =
+        lower.includes('myvalue') || lower.includes('name');
+      const passed = mentionsCase && mentionsName;
+      return passed;
+    },
+  },
 ];
 
 // ── Code Tests ───────────────────────────────────────────────────────
@@ -1587,6 +1614,77 @@ export const QC_CODE_TESTS: QCTest[] = [
       const code = extractCodeBlock(result.text);
       const outDir = join(folders[0].uri.fsPath, TestCodeDirectory);
       const outPath = join(outDir, 'qc_math_test_11.pro');
+
+      await mkdir(outDir, { recursive: true });
+      await writeFile(outPath, code, 'utf-8');
+      output.appendLine(`  Wrote IDL code to: ${outPath}`);
+
+      const runResult = await runIDLFile(outPath, output);
+      if (!runResult) {
+        output.appendLine('  Could not start IDL');
+        return false;
+      }
+
+      if (runResult.success) {
+        output.appendLine('  Executed in IDL successfully');
+        if (runResult.idlOutput) {
+          output.appendLine(`  IDL output: ${runResult.idlOutput}`);
+        }
+        return true;
+      } else {
+        output.appendLine(
+          `  IDL execution failed: ${runResult.err || 'unknown error'}`,
+        );
+        return false;
+      }
+    },
+  },
+  {
+    name: 'Code 12: numpy statistics via Python bridge',
+    run: async ({ agent, output, withTools }) => {
+      const result = await agent.sendtoSimulation({
+        prompt:
+          'In IDL, write a function that uses the Python bridge to compute the mean and ' +
+          'standard deviation of a 1D float array using numpy. ' +
+          'The function takes no parameters — inside, define data = [1.0, 2.0, 3.0, 4.0, 5.0]. ' +
+          'Return a structure {MEAN: 0.0D, STDDEV: 0.0D} populated with the numpy results. ' +
+          'Only output the function called qc_python_test_12, any explanations should be comments. Do not make a file.',
+        includeInstructions: withTools,
+        includeTools: withTools,
+      });
+      output.appendLine(`  Response: ${result.text}`);
+      const lower = result.text.toLowerCase();
+
+      // Must use Python.Import or Python.Run with numpy, not IDL's own MEAN/STDDEV
+      const usesNumpy = lower.includes('numpy') || lower.includes('np');
+      const usesBridge =
+        lower.includes('python.import') ||
+        lower.includes('python.run') ||
+        lower.includes('>>>') ||
+        lower.includes('.mean(') ||
+        lower.includes('.std(');
+      const usesIDLMean =
+        /\bmean\(/.test(lower) && !lower.includes('np.mean') && !lower.includes('.mean(');
+      const usesIDLStddev = /\bstddev\(/.test(lower) || /\bmoment\(/.test(lower);
+
+      if (!usesNumpy || !usesBridge) {
+        output.appendLine('  FAIL: Does not use numpy via the Python bridge');
+        return false;
+      }
+      if (usesIDLMean || usesIDLStddev) {
+        output.appendLine('  FAIL: Uses IDL MEAN/STDDEV instead of numpy');
+        return false;
+      }
+
+      const folders = vscode.workspace.workspaceFolders;
+      if (!folders || folders.length === 0) {
+        output.appendLine('  No workspace folder found');
+        return false;
+      }
+
+      const code = extractCodeBlock(result.text);
+      const outDir = join(folders[0].uri.fsPath, TestCodeDirectory);
+      const outPath = join(outDir, 'qc_python_test_12.pro');
 
       await mkdir(outDir, { recursive: true });
       await writeFile(outPath, code, 'utf-8');

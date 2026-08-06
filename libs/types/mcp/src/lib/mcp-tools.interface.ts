@@ -16,8 +16,11 @@ import { MCPTool_ExecuteIDLCode } from './idl/mcp-tool-execute-idl-code.interfac
 import { MCPTool_ExecuteIDLFile } from './idl/mcp-tool-execute-idl-file.interface';
 import { MCPTool_ListENVIToolWorkflows } from './idl/mcp-tool-list-envi-tool-workflows.interface';
 import { MCPTool_ManageIDLAndENVISession } from './idl/mcp-tool-manage-idl-and-envi-session.interface';
+import { MCPTool_InspectIDLState } from './idl/mcp-tool-inspect-idl-state.interface';
+import { MCPTool_ManageIDLDebugger } from './idl/mcp-tool-manage-idl-debugger.interface';
 import { MCPTool_OpenDatasetsInENVI } from './idl/mcp-tool-open-datasets-in-envi.interface';
 import { MCPTool_QueryDatasetWithENVI } from './idl/mcp-tool-query-dataset-with-envi.interface';
+import { MCPTool_QueryIDLSession } from './idl/mcp-tool-query-idl-session.interface';
 import { MCPTool_ReturnNotes } from './idl/mcp-tool-return-notes.interface';
 import { MCPTool_RunENVITool } from './idl/mcp-tool-run-envi-tool.interface';
 import { MCPTool_TakeENVIScreenshot } from './idl/mcp-tool-take-envi-screenshot.interface';
@@ -93,10 +96,16 @@ interface IMCPToolLookup {
   LIST_PROMPTS: MCPTool_ListPrompts;
   /** Manage ENVI and IDL session */
   MANAGE_IDL_AND_ENVI_SESSION: MCPTool_ManageIDLAndENVISession;
+  /** Read-only inspection of IDL session state */
+  INSPECT_IDL_STATE: MCPTool_InspectIDLState;
+  /** Manage IDL debugger (breakpoints, stepping) */
+  MANAGE_IDL_DEBUGGER: MCPTool_ManageIDLDebugger;
   /** Open a dataset in ENVI */
   OPEN_DATASETS_IN_ENVI: MCPTool_OpenDatasetsInENVI;
   /** Get additional information about a dataset */
   QUERY_DATASET_WITH_ENVI: MCPTool_QueryDatasetWithENVI;
+  /** Query the IDL session without user-visible output */
+  QUERY_IDL_SESSION: MCPTool_QueryIDLSession;
   /** RETURN NOTES FOR ENVI AND IDL TASKS */
   RETURN_NOTES: MCPTool_ReturnNotes;
   /** Run ENVI Task */
@@ -131,8 +140,11 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   LIST_ENVI_TOOLS: 'list-envi-tools',
   LIST_PROMPTS: 'list-prompts',
   MANAGE_IDL_AND_ENVI_SESSION: 'manage-idl-and-envi-session',
+  INSPECT_IDL_STATE: 'inspect-idl-state',
+  MANAGE_IDL_DEBUGGER: 'manage-idl-debugger',
   OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',
+  QUERY_IDL_SESSION: 'query-idl-session',
   RETURN_NOTES: 'return-notes',
   RUN_ENVI_TOOL: 'run-envi-tool',
   SAVE_ENVI_TOOL_WORKFLOW: 'save-envi-tool-workflow',

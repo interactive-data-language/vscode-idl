@@ -1,7 +1,12 @@
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import {
+  IDLBreakpoint,
+  IDLCodeCoverage,
   IDLEvaluateOptions,
+  IDLInfo,
+  IDLScopeItem,
   IDLSyntaxErrorLookup,
+  IDLVariable,
 } from '@idl/types/idl/idl-process';
 import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 
@@ -30,6 +35,31 @@ export const DEFAULT_MCP_EVALUATE_OPTIONS: Partial<IDLEvaluateOptions> = {
  */
 export interface IIDLMCPExecutionBackend {
   /**
+   * Clear all breakpoints, or a single breakpoint at the given file and line.
+   */
+  clearBreakpoint(file?: string, line?: number): Promise<void>;
+
+  /**
+   * Resume execution after a breakpoint or stop.
+   */
+  debugContinue(): Promise<void>;
+
+  /**
+   * Step into the next routine call.
+   */
+  debugStepIn(): Promise<void>;
+
+  /**
+   * Step out of the current routine.
+   */
+  debugStepOut(): Promise<void>;
+
+  /**
+   * Step over the current line.
+   */
+  debugStepOver(): Promise<void>;
+
+  /**
    * Evaluate an IDL command and return the string output.
    */
   evaluate(command: string, options?: IDLEvaluateOptions): Promise<string>;
@@ -51,6 +81,31 @@ export interface IIDLMCPExecutionBackend {
   getErrorsByFile(): IDLSyntaxErrorLookup;
 
   /**
+   * Returns current IDL session info: scope, call stack, variables.
+   */
+  getIDLInfo(): IDLInfo;
+
+  /**
+   * Returns variables at the given scope frame (0 = current).
+   */
+  getVariables(frameId: number): Promise<IDLVariable[]>;
+
+  /**
+   * Returns raw captured output from the IDL process.
+   */
+  getCapturedOutput(): string;
+
+  /**
+   * Returns code coverage data for a file.
+   */
+  getCodeCoverage(file: string): Promise<IDLCodeCoverage>;
+
+  /**
+   * Get the current call stack (traceback) as a string.
+   */
+  getTraceback(): Promise<IDLScopeItem[]>;
+
+  /**
    * Version information about the running IDL session, if available.
    */
   idlVersion: IDLVersionInfo | undefined;
@@ -65,6 +120,11 @@ export interface IIDLMCPExecutionBackend {
    * Returns true if IDL is currently running.
    */
   isStarted(): boolean;
+
+  /**
+   * Returns a string listing all current breakpoints.
+   */
+  listBreakpoints(): Promise<IDLBreakpoint[]>;
 
   /**
    * Prepares code for processing
@@ -105,6 +165,11 @@ export interface IIDLMCPExecutionBackend {
     params: MCPToolParams<T>,
     onProgress?: MCPProgressCallback,
   ): Promise<MCPToolResponse<T>>;
+
+  /**
+   * Set a breakpoint at a specific file and line.
+   */
+  setBreakpoint(file: string, line: number): Promise<void>;
 
   /**
    * Start IDL if it is not already running.

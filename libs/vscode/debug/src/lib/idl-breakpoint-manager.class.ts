@@ -275,7 +275,7 @@ export class IDLBreakpointManager {
    *
    * Line number is one-based
    */
-  private async setBreakpoint(
+  async setBreakpoint(
     file: string,
     line: number,
     sync = true,
@@ -292,5 +292,37 @@ export class IDLBreakpointManager {
     if (sync) {
       await this.syncBreakpointState();
     }
+  }
+
+  /**
+   * Continue execution after a stop.
+   * Should never need to sync
+   */
+  async debugContinue(): Promise<void> {
+    await this.adapter.evaluate('.continue', this._options);
+  }
+
+  /**
+   * Step into the next routine call.
+   * Should never need to sync
+   */
+  async debugStepIn(): Promise<void> {
+    await this.adapter.evaluate('.step', this._options);
+  }
+
+  /**
+   * Step out of the current routine.
+   * Should never need to sync
+   */
+  async debugStepOut(): Promise<void> {
+    await this.adapter.evaluate('.out', this._options);
+  }
+
+  /**
+   * Step over.
+   * Should never need to sync
+   */
+  async debugStepOver(): Promise<void> {
+    await this.adapter.evaluate('.stepover', this._options);
   }
 }

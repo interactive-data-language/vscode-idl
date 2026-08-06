@@ -873,9 +873,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this._configurationDone.notify();
   }
 
-  /**
-   * Continue processing after we have stopped
-   */
   protected async continueRequest(
     response: DebugProtocol.ContinueResponse,
     args: DebugProtocol.ContinueArguments,
@@ -1131,9 +1128,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     }
   }
 
-  /**
-   * Step over routine
-   */
   protected async nextRequest(
     response: DebugProtocol.NextResponse,
     args: DebugProtocol.NextArguments,
@@ -1420,9 +1414,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this._eventHelper.removeStopBlocker();
   }
 
-  /**
-   * Step into routine
-   */
   protected async stepInRequest(
     response: DebugProtocol.StepInResponse,
     args: DebugProtocol.StepInArguments,
@@ -1456,9 +1447,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     }
   }
 
-  /**
-   * Step out of routine
-   */
   protected async stepOutRequest(
     response: DebugProtocol.StepOutResponse,
     args: DebugProtocol.StepOutArguments,
