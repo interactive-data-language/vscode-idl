@@ -1,4 +1,5 @@
 import { LogManager } from '@idl/logger';
+import { IDLIndex } from '@idl/parsing/index';
 import {
   MCPSendRequestCallback,
   MCPToolHTTPResponse,
@@ -52,6 +53,8 @@ export interface IMCPServerOptions {
   failCallback: (err: any) => void;
   /** Callback when an MCP tool runs that requires communication with IDL or ENVI */
   idlExecutionCallback: MCPSendRequestCallback;
+  /** Reference to the IDL index which does parsing */
+  idlIndex: IDLIndex;
   /** Log manager instance */
   logManager: LogManager;
   /** Port to listen on */

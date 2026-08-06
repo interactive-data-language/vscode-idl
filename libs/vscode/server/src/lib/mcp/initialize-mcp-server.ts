@@ -57,6 +57,7 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
           },
         ) as any;
       },
+      idlIndex: IDL_INDEX,
       toolInvokedCallback: (tool, params) => {
         SERVER_MESSENGER.sendNotification(
           LANGUAGE_SERVER_MESSAGE_LOOKUP.MCP_HISTORY,

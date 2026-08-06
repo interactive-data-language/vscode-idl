@@ -127,6 +127,7 @@ export async function CreateStandaloneMCPServer(
         }
       });
     },
+    idlIndex: index,
     failCallback: (err) => {
       logManager.log({
         log: IDL_MCP_LOG,
