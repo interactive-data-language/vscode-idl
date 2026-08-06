@@ -54,7 +54,7 @@ export function RegisterMCPTool_ManageIDLDebugger(server: MCPServer) {
       );
 
       return {
-        isError: !(resp).success,
+        isError: !resp.success,
         content: [
           {
             type: 'text',
