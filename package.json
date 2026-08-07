@@ -237,7 +237,7 @@
   },
   "engines": {
     "vscode": "^1.106.0",
-    "npm": "^10.0 || ^11.0",
+    "npm": "^12.0",
     "node": ">=22.22.0"
   },
   "activationEvents": [
