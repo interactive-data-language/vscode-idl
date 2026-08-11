@@ -2,26 +2,27 @@
  * This module is responsible on handling all the setup events that is submitted by squirrel.
  */
 
-import { app } from 'electron';
 import { spawn } from 'child_process';
-import { resolve, join, basename } from 'path';
+import { app } from 'electron';
+import { basename, join, resolve } from 'path';
+
 import { environment } from '../../environments/environment';
 
 export default class SquirrelEvents {
-  private static isAppFirstRun = false;
-
   // app paths
   private static appFolder = resolve(process.execPath, '..');
+
   private static appRootFolder = resolve(SquirrelEvents.appFolder, '..');
-  private static updateExe = resolve(
-    join(SquirrelEvents.appRootFolder, 'Update.exe'),
-  );
   private static exeName = resolve(
     join(
       SquirrelEvents.appRootFolder,
       'app-' + environment.version,
       basename(process.execPath),
     ),
+  );
+  private static isAppFirstRun = false;
+  private static updateExe = resolve(
+    join(SquirrelEvents.appRootFolder, 'Update.exe'),
   );
 
   static handleEvents(): boolean {
@@ -30,6 +31,16 @@ export default class SquirrelEvents {
     }
 
     switch (process.argv[1]) {
+      case '--squirrel-firstrun':
+        // Check if it the first run of the software
+        SquirrelEvents.isAppFirstRun = true;
+        return false;
+
+      case '--squirrel-obsolete':
+        app.quit();
+        return true;
+
+      // eslint-disable-next-line perfectionist/sort-switch-case
       case '--squirrel-install':
       case '--squirrel-updated':
         // Install desktop and start menu shortcuts
@@ -40,17 +51,7 @@ export default class SquirrelEvents {
       case '--squirrel-uninstall':
         // Remove desktop and start menu shortcuts
         SquirrelEvents.update(['--removeShortcut', SquirrelEvents.exeName]);
-
         return true;
-
-      case '--squirrel-obsolete':
-        app.quit();
-        return true;
-
-      case '--squirrel-firstrun':
-        // Check if it the first run of the software
-        SquirrelEvents.isAppFirstRun = true;
-        return false;
     }
 
     return false;

@@ -2,7 +2,7 @@ import {
   IStartAgentsServerResult,
   StartAgentsServer,
 } from '@idl/mcp/standalone-server';
-import { BrowserWindow, shell, screen } from 'electron';
+import { BrowserWindow, screen, shell } from 'electron';
 import { join } from 'path';
 import { format } from 'url';
 
@@ -25,53 +25,23 @@ export default class App {
     return isEnvironmentSet ? getFromEnvironment() : !environment.production;
   }
 
-  private static onWindowAllClosed() {
-    if (process.platform !== 'darwin') {
-      App.application.quit();
-    }
-  }
+  static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
+    // we pass the Electron.App object and the
+    // Electron.BrowserWindow into this function
+    // so this class has no dependencies. This
+    // makes the code easier to write tests for
 
-  // @ts-ignore - boilerplate method. Can be safely deleted if not needed
-  private static onClose() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    App.mainWindow = null;
-  }
+    App.BrowserWindow = browserWindow;
+    App.application = app;
 
-  // @ts-ignore - boilerplate method. Can be safely deleted if not needed
-  private static onRedirect(event: any, url: string) {
-    if (url !== App.mainWindow!.webContents.getURL()) {
-      // this is a normal external redirect, open it in a new browser window
-      event.preventDefault();
-      shell.openExternal(url);
-    }
-  }
-
-  private static async onReady() {
-    // This method will be called when Electron has finished
-    // initialization and is ready to create browser windows.
-    // Some APIs can only be used after this event occurs.
-
-    // Start the embedded agents server (MCP + chat routes)
-    try {
-      App.agentsServer = await StartAgentsServer({ port: 4142 });
-    } catch (err) {
-      console.error('[desktop-app] Failed to start agents server:', err);
-    }
-
-    if (rendererAppName) {
-      App.initMainWindow();
-      App.loadMainWindow();
-    }
-  }
-
-  private static onActivate() {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (App.mainWindow === null) {
-      App.onReady();
-    }
+    App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
+    App.application.on('ready', App.onReady); // App is ready to load data
+    App.application.on('activate', App.onActivate); // App is activated
+    App.application.on('before-quit', async () => {
+      if (App.agentsServer !== undefined) {
+        await App.agentsServer.stop();
+      }
+    });
   }
 
   private static initMainWindow() {
@@ -128,22 +98,52 @@ export default class App {
     }
   }
 
-  static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
-    // we pass the Electron.App object and the
-    // Electron.BrowserWindow into this function
-    // so this class has no dependencies. This
-    // makes the code easier to write tests for
+  private static onActivate() {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (App.mainWindow === null) {
+      App.onReady();
+    }
+  }
 
-    App.BrowserWindow = browserWindow;
-    App.application = app;
+  // boilerplate method. Can be safely deleted if not needed
+  private static onClose() {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    App.mainWindow = null;
+  }
 
-    App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
-    App.application.on('ready', App.onReady); // App is ready to load data
-    App.application.on('activate', App.onActivate); // App is activated
-    App.application.on('before-quit', async () => {
-      if (App.agentsServer !== undefined) {
-        await App.agentsServer.stop();
-      }
-    });
+  private static async onReady() {
+    // This method will be called when Electron has finished
+    // initialization and is ready to create browser windows.
+    // Some APIs can only be used after this event occurs.
+
+    // Start the embedded agents server (MCP + chat routes)
+    try {
+      App.agentsServer = await StartAgentsServer({ port: 4142 });
+    } catch (err) {
+      console.error('[desktop-app] Failed to start agents server:', err);
+    }
+
+    if (rendererAppName) {
+      App.initMainWindow();
+      App.loadMainWindow();
+    }
+  }
+
+  // boilerplate method. Can be safely deleted if not needed
+  private static onRedirect(event: any, url: string) {
+    if (url !== App.mainWindow!.webContents.getURL()) {
+      // this is a normal external redirect, open it in a new browser window
+      event.preventDefault();
+      shell.openExternal(url);
+    }
+  }
+
+  private static onWindowAllClosed() {
+    if (process.platform !== 'darwin') {
+      App.application.quit();
+    }
   }
 }
