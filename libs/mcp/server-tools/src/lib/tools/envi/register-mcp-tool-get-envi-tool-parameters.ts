@@ -104,7 +104,7 @@ export function RegisterMCPTool_GetENVIToolParameters(
       // override type, gets mad with the extra push
       return {
         isError: false,
-        content: content as any,
+        content: content,
       };
     },
   );
