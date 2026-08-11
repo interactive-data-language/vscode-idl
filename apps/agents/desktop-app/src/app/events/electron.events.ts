@@ -4,6 +4,7 @@
  */
 
 import { app, ipcMain } from 'electron';
+
 import { environment } from '../../environments/environment';
 
 export default class ElectronEvents {

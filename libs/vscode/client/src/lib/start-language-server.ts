@@ -51,8 +51,6 @@ export let LANGUAGE_SERVER_FAILED_START = false;
 /** Message handler between the VSCode client and the language server */
 export let LANGUAGE_SERVER_MESSENGER: VSCodeClientEventManager;
 
-export let DOCS_SERVER_PORT: number;
-
 /**
  * Server ports that we use for configuration
  */

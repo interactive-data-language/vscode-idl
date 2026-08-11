@@ -1,9 +1,17 @@
 import { app, autoUpdater, dialog, MessageBoxOptions } from 'electron';
-import { platform, arch } from 'os';
-import { updateServerUrl } from '../constants';
+import { arch, platform } from 'os';
+
 import App from '../app';
+import { updateServerUrl } from '../constants';
 
 export default class UpdateEvents {
+  // check for updates - most be invoked after initAutoUpdateService() and only in production
+  static checkForUpdates() {
+    if (!App.isDevelopmentMode() && autoUpdater.getFeedURL() !== '') {
+      autoUpdater.checkForUpdates();
+    }
+  }
+
   // initialize auto update service - most be invoked only in production
   static initAutoUpdateService() {
     const platform_arch =
@@ -18,13 +26,6 @@ export default class UpdateEvents {
 
       autoUpdater.setFeedURL(feed);
       UpdateEvents.checkForUpdates();
-    }
-  }
-
-  // check for updates - most be invoked after initAutoUpdateService() and only in production
-  static checkForUpdates() {
-    if (!App.isDevelopmentMode() && autoUpdater.getFeedURL() !== '') {
-      autoUpdater.checkForUpdates();
     }
   }
 }

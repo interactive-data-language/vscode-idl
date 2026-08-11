@@ -211,7 +211,9 @@
       "@idl/mcp/shared": ["libs/mcp/shared/src/index.ts"],
       "@idl/mcp/websocket": ["libs/mcp/websocket/src/index.ts"],
       "@idl/mcp/standalone-server": ["libs/mcp/standalone-server/src/index.ts"],
-      "@idl/types/envi/datasets": ["libs/types/envi/datasets/src/index.ts"]
+      "@idl/types/envi/datasets": ["libs/types/envi/datasets/src/index.ts"],
+      "@idl/ngx/electron": ["libs/ngx/electron/src/index.ts"],
+      "@idl/types/electron": ["libs/types/electron/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
