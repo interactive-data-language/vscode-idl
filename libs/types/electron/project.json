@@ -1,0 +1,9 @@
+{
+  "name": "types-electron",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/types/electron/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project types-electron --web",
+  "targets": {}
+}

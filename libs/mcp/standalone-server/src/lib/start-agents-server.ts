@@ -35,6 +35,8 @@ export interface IStartAgentsServerOptions {
  * down the HTTP server, WebSocket bridge, and chat service.
  */
 export interface IStartAgentsServerResult {
+  /** TCP port the server is listening on. */
+  port: number;
   /** Gracefully shut down the server and all associated resources. */
   stop: () => Promise<void>;
 }
@@ -153,5 +155,5 @@ export async function StartAgentsServer(
     });
   };
 
-  return { stop };
+  return { port, stop };
 }

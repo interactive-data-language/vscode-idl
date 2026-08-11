@@ -2,7 +2,13 @@ import {
   IStartAgentsServerResult,
   StartAgentsServer,
 } from '@idl/mcp/standalone-server';
-import { BrowserWindow, screen, shell } from 'electron';
+import {
+  DEFAULT_ELECTRON_CONFIG,
+  ELECTRON_EVENTS,
+  type IElectronConfig,
+} from '@idl/types/electron';
+import { BrowserWindow, ipcMain, screen, shell } from 'electron';
+import { copy } from 'fast-copy';
 import { join } from 'path';
 import { format } from 'url';
 
@@ -15,6 +21,10 @@ export default class App {
   static agentsServer: IStartAgentsServerResult | undefined = undefined;
   static application: Electron.App;
   static BrowserWindow: typeof BrowserWindow;
+
+  /** Config for the electron app */
+  static config = copy(DEFAULT_ELECTRON_CONFIG);
+
   static mainWindow: BrowserWindow | null = null;
 
   public static isDevelopmentMode() {
@@ -121,10 +131,30 @@ export default class App {
 
     // Start the embedded agents server (MCP + chat routes)
     try {
-      App.agentsServer = await StartAgentsServer({ port: 4142 });
+      App.agentsServer = await StartAgentsServer({
+        port: App.config.agentsPort,
+      });
     } catch (err) {
       console.error('[desktop-app] Failed to start agents server:', err);
     }
+
+    // listen for requests to get our configuration
+    ipcMain.handle(ELECTRON_EVENTS.GET_CONFIG, () => App.config);
+
+    // listen for config updates
+    ipcMain.handle(
+      ELECTRON_EVENTS.SET_CONFIG,
+      (_e, patch: Partial<IElectronConfig>) => {
+        // update config - validate in the future
+        Object.assign(App.config, patch);
+
+        // send complete config back to web app
+        App.mainWindow?.webContents.send(
+          ELECTRON_EVENTS.CONFIG_CHANGED,
+          copy(App.config),
+        );
+      },
+    );
 
     if (rendererAppName) {
       App.initMainWindow();

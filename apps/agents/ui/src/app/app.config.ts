@@ -5,11 +5,14 @@ import {
 import {
   ApplicationConfig,
   importProvidersFrom,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { chatMarkdownFactory, ChatState } from '@idl/ngx/chat';
+import { ElectronConfigService } from '@idl/ngx/electron';
 import { ThemeState } from '@idl/ngx/theme';
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
 import { withNgxsLoggerPlugin } from '@ngxs/logger-plugin';
@@ -21,6 +24,7 @@ import { appRoutes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideAppInitializer(() => inject(ElectronConfigService).init()),
     provideRouter(appRoutes, withHashLocation()),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
