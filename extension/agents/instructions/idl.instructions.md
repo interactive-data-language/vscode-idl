@@ -106,6 +106,6 @@ Code that compiles and runs but returns the wrong answer:
 
 ## Accessing Embedded Python
 
-IDL has a Python bridge. There is very little information in your training on how to use this. For details on using the Python environment bundled with IDL/ENVI, use IDL for VSCode/get-resource with the name resource-embedded-python (requires ENVI 6.3 / IDL 9.3 or later).
+IDL has a Python bridge. There is very little information in your training on how to use this. For details on using the Python environment bundled with IDL/ENVI, use `IDL for VSCode/get-resource` with the name "resource-embedded-python" (requires ENVI 6.3 / IDL 9.3 or later).
 
 ## ADDITIONAL INSTRUCTIONS
