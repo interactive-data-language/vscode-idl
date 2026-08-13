@@ -8,7 +8,9 @@ For much more detail on incremental work for large features, see the developer d
 
 This section of the CHANGELOG documents features that have been added to the extension, but are still in an experimental phase. Feel free to try them out and provide feedback via discussions or issues on our GitHub page.
 
-Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
+New settings for ENVI's MCP Tools:
+
+- Fine-tune which ENVI Tools can be invoked by ENVI Agent with a new whitelist and blacklist option
 
 ## 6.2.0 - Unreleased
 
