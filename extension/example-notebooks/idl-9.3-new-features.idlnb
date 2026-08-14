@@ -43,6 +43,15 @@
       "outputs": []
     },
     {
+      "type": "code",
+      "content": [
+        "; Import Python libraries",
+        "openmeteo = Python.import('openmeteo_requests')"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
       "type": "markdown",
       "content": [
         "### Step 2: Fetch Weather Data for Colorado Cities",
@@ -56,10 +65,7 @@
     {
       "type": "code",
       "content": [
-        "; Import Python libraries using dot notation",
-        "openmeteo = Python.import('openmeteo_requests')",
-        "",
-        "; Setup OpenMeteo API client with cache",
+        "; Setup OpenMeteo API client",
         "om = openmeteo.client()"
       ],
       "metadata": {},
