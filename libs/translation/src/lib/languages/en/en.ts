@@ -801,6 +801,10 @@ export const EN: ITranslation = {
             name: 'Example Notebooks',
             description: '',
             children: {
+              idl93: {
+                name: 'IDL 9.3 New Features',
+                description: '',
+              },
               quickIDL: {
                 name: 'IDL Notebook: Hello World',
                 description: '',

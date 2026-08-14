@@ -42,6 +42,8 @@ Resolved an issue where we were setting all ENVI URI input parameters to have a 
 
 Resolved an issue where the extension would not always properly detect if IDL or ENVI has been installed or not. Uninstalled versions of IDL or ENVI kept folders around, and we now check for the presence of the IDL executable instead of the folders.
 
+Added a new example notebook that shows the new IDL Features. You can find this under the IDL sidebar in: IDL Tutorials => Example Notebooks => IDL 9.3 new Features
+
 Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
 
 1. Create a new markdown file with the name of the file being the name of the workflow (Ex: "Process imagery with ship detection deep learning model.md")

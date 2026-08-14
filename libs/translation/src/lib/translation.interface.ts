@@ -596,6 +596,7 @@ export interface ITranslation {
             children: {
               quickIDL: ITreeInformation;
               quickENVI: ITreeInformation;
+              idl93: ITreeInformation;
             };
           };
         };
