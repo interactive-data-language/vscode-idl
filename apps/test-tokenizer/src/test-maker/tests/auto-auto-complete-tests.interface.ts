@@ -1044,6 +1044,22 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Regression tests`,
+    fileName: `regression.2.spec.ts`,
+    tests: [
+      {
+        name: `for procedures`,
+        file: `idl/test/auto-complete/procedure_regression.pro`,
+        position: [
+          {
+            line: 0,
+            character: 0,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Structures`,
     fileName: `structures-anonymous.spec.ts`,
     tests: [
