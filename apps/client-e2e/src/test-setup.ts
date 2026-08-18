@@ -1,6 +1,6 @@
 import { USER_ENVI_WORKFLOWS_FOLDER } from '@idl/idl/files';
 import { Sleep } from '@idl/shared/extension';
-import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, unlinkSync } from 'fs';
 
 import {
   USER_TOOL_WORKFLOW_FS,
@@ -21,7 +21,10 @@ export async function TestSetup() {
     mkdirSync(USER_ENVI_WORKFLOWS_FOLDER);
   }
 
-  writeFileSync(USER_TOOL_WORKFLOW_FS, 'Test content for test workflow');
+  // make sure user file is deleted
+  if (existsSync(USER_TOOL_WORKFLOW_FS)) {
+    unlinkSync(USER_TOOL_WORKFLOW_FS);
+  }
 
   await Sleep(500);
 }
