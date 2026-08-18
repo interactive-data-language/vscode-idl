@@ -250,7 +250,7 @@ export function MergeConfig() {
   MCP_CONFIG.enviToolBlacklist = Array.from(enviToolBlacklistSet);
 
   // propagate filter changes to the task registry without requiring a server restart
-  MCP_TASK_REGISTRY?.updateFilters({
+  MCP_TASK_REGISTRY?.filters?.updateFilters({
     whitelist: MCP_CONFIG.enviToolWhitelist,
     blacklist: MCP_CONFIG.enviToolBlacklist,
   });

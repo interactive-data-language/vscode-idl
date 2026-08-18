@@ -1,8 +1,11 @@
 import {
+  IRuleBasedFilters,
+  RegistryFileWatcher,
   RegistryLocation,
   RegistryLocation_File,
   RegistryLocation_Memory,
   RegistryLocationHelpers,
+  RuleBasedFilter,
 } from '@idl/mcp/shared';
 import { existsSync, mkdirSync, readdirSync } from 'fs';
 import { basename, join } from 'path';
@@ -11,10 +14,18 @@ import { basename, join } from 'path';
  * Helper class that tracks and manages access to tool workflows
  */
 export class MCPToolWorkflowRegistry {
+  /** Object class that handles filtering items from the task registry */
+  filters = new RuleBasedFilter();
+
   /**
    * Local workflow folder
    */
   private localDir: string;
+
+  /**
+   * Watches the local workflow folder so new/removed files stay in sync
+   */
+  private watcher: RegistryFileWatcher;
 
   /**
    * Lookup of tool workflows by name and value
@@ -28,7 +39,7 @@ export class MCPToolWorkflowRegistry {
     >;
   } = {};
 
-  constructor(localDir: string) {
+  constructor(localDir: string, filters?: Partial<IRuleBasedFilters>) {
     this.localDir = localDir;
 
     // make the local folder if it doesn't exist
@@ -38,6 +49,21 @@ export class MCPToolWorkflowRegistry {
 
     // load workflows
     this.loadWorkflowsFromFolder(this.localDir);
+
+    // keep the registry in sync as workflow files are added/removed on disk
+    this.watcher = new RegistryFileWatcher({
+      folder: this.localDir,
+      filter: /\.md$/i,
+      onCreate: (location) =>
+        this.addToolWorkflowFromFile(location.meta.path, true),
+      onDelete: (location) =>
+        this.removeToolWorkflowFromFile(location.meta.path),
+    });
+
+    // save filters
+    if (filters !== undefined) {
+      this.filters.updateFilters(filters);
+    }
   }
 
   /**
@@ -94,6 +120,13 @@ export class MCPToolWorkflowRegistry {
   }
 
   /**
+   * Stops watching the local workflow folder for changes
+   */
+  dispose() {
+    this.watcher.stop();
+  }
+
+  /**
    * Gets a tool workflow by name
    *
    * Returns an empty string if no matching workflow (use hasWorkflow() to check first)
@@ -114,7 +147,9 @@ export class MCPToolWorkflowRegistry {
    * Returns all workflow names
    */
   getWorkflowNames() {
-    return Object.keys(this.workflows);
+    return Object.keys(this.workflows).filter((itemName) =>
+      this.filters.isAllowedByFilters(itemName),
+    );
   }
 
   /**
@@ -146,5 +181,12 @@ export class MCPToolWorkflowRegistry {
    */
   refreshLocalWorkflowList() {
     this.loadWorkflowsFromFolder(this.localDir, true);
+  }
+
+  /**
+   * Removes a tool workflow that was tracked from a file on disk
+   */
+  removeToolWorkflowFromFile(filePath: string) {
+    delete this.workflows[basename(filePath, '.md').toLowerCase()];
   }
 }

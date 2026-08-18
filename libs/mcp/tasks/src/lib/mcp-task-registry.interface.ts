@@ -32,19 +32,3 @@ export interface ITaskRegistryEntry {
 export interface ITaskInformation extends ITaskRegistryEntry {
   notes?: string[];
 }
-
-/**
- * Optional filters applied when retrieving task descriptions.
- *
- * Whitelist and blacklist entries are matched case-insensitively.
- *
- * - `whitelist`: if provided and non-empty, only tasks whose names appear
- *   in this list will be included in results
- * - `blacklist`: tasks whose names appear in this list are always excluded
- */
-export interface ITaskRegistryFilters {
-  /** Always exclude tasks whose names are in this list (case-insensitive) */
-  blacklist?: string[];
-  /** Only return tasks whose names are in this list (case-insensitive) */
-  whitelist?: string[];
-}

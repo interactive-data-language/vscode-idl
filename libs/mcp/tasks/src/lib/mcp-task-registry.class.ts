@@ -2,9 +2,11 @@ import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
 import {
+  IRuleBasedFilters,
   RegistryLocation,
   RegistryLocation_File,
   RegistryLocationKind,
+  RuleBasedFilter,
 } from '@idl/mcp/shared';
 import { IDLTypeHelper, TASK_REGEX } from '@idl/parsing/type-parser';
 import {
@@ -22,7 +24,6 @@ import { StrictCheck } from './helpers/strict-check';
 import {
   ITaskInformation,
   ITaskRegistryEntry,
-  ITaskRegistryFilters,
 } from './mcp-task-registry.interface';
 
 /**
@@ -32,6 +33,9 @@ import {
  * All task names are tracked by lower case
  */
 export class MCPTaskRegistry {
+  /** Object class that handles filtering items from the task registry */
+  filters = new RuleBasedFilter();
+
   /** Create instance of AJV with Draft 2020-12 support */
   private ajv = new draft2020({
     allErrors: true,
@@ -63,11 +67,6 @@ export class MCPTaskRegistry {
   });
 
   /**
-   * Lower-case list of task names that we are excludes from listing descriptions
-   */
-  private blacklist: Set<string> = new Set();
-
-  /**
    * Logger
    */
   private logger: LogManager;
@@ -87,21 +86,15 @@ export class MCPTaskRegistry {
    */
   private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
-  /**
-   * Lower-case list of task names that we are allowed return descriptions for
-   * when present
-   */
-  private whitelist: Set<string> = new Set();
-
   constructor(
     logger: LogManager,
     strict = true,
-    filters?: ITaskRegistryFilters,
+    filters?: Partial<IRuleBasedFilters>,
   ) {
     this.logger = logger;
     this.strict = strict;
     if (filters !== undefined) {
-      this.updateFilters(filters);
+      this.filters.updateFilters(filters);
     }
   }
 
@@ -136,34 +129,6 @@ export class MCPTaskRegistry {
   }
 
   /**
-   * Adds a single name to the blacklist
-   */
-  addToBlacklist(name: string) {
-    this.blacklist.add(name.toLowerCase());
-  }
-
-  /**
-   * Adds a single name to the whitelist
-   */
-  addToWhitelist(name: string) {
-    this.whitelist.add(name.toLowerCase());
-  }
-
-  /**
-   * Clears all entries from the blacklist
-   */
-  clearBlacklist() {
-    this.blacklist.clear();
-  }
-
-  /**
-   * Clears all entries from the whitelist
-   */
-  clearWhitelist() {
-    this.whitelist.clear();
-  }
-
-  /**
    * Returns all task descriptions by task name, filtered by the current
    * whitelist and blacklist
    */
@@ -171,7 +136,7 @@ export class MCPTaskRegistry {
     const descriptions: { [key: string]: string } = {};
     const entries = Object.entries(this.tasks);
     for (let i = 0; i < entries.length; i++) {
-      if (!this.IsAllowedByFilters(entries[i][0])) {
+      if (!this.filters.isAllowedByFilters(entries[i][0])) {
         continue;
       }
       descriptions[entries[i][1].displayName] = entries[i][1].description;
@@ -418,20 +383,6 @@ export class MCPTaskRegistry {
   }
 
   /**
-   * Removes a single name from the blacklist
-   */
-  removeFromBlacklist(name: string) {
-    this.blacklist.delete(name.toLowerCase());
-  }
-
-  /**
-   * Removes a single name from the whitelist
-   */
-  removeFromWhitelist(name: string) {
-    this.whitelist.delete(name.toLowerCase());
-  }
-
-  /**
    * Remove a task from the registry
    *
    * Deletes entry from the unified registry
@@ -457,34 +408,6 @@ export class MCPTaskRegistry {
    */
   sanitizeOutputParameters(outputParameters: { [key: string]: any }) {
     FixENVIFactory(outputParameters);
-  }
-
-  /**
-   * Replaces the blacklist entirely
-   */
-  setBlacklist(names: string[]) {
-    this.blacklist = new Set(names.map((name) => name.toLowerCase()));
-  }
-
-  /**
-   * Replaces the whitelist entirely
-   */
-  setWhitelist(names: string[]) {
-    this.whitelist = new Set(names.map((name) => name.toLowerCase()));
-  }
-
-  /**
-   * Replaces both the whitelist and blacklist at once.
-   *
-   * If a key is omitted from `filters`, the corresponding set is cleared.
-   */
-  updateFilters(filters: ITaskRegistryFilters) {
-    this.whitelist = new Set(
-      (filters.whitelist || []).map((name) => name.toLowerCase()),
-    );
-    this.blacklist = new Set(
-      (filters.blacklist || []).map((name) => name.toLowerCase()),
-    );
   }
 
   /**
@@ -546,20 +469,5 @@ export class MCPTaskRegistry {
 
     // made it here, so our schema is valid
     return { success: true };
-  }
-
-  /**
-   * Returns true if the given lowercase task name passes the current
-   * whitelist and blacklist filters
-   */
-  private IsAllowedByFilters(taskName: string): boolean {
-    switch (true) {
-      case this.whitelist.size > 0 && !this.whitelist.has(taskName):
-        return false;
-      case this.blacklist.has(taskName):
-        return false;
-      default:
-        return true;
-    }
   }
 }
