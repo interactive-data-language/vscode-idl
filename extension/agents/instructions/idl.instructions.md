@@ -70,6 +70,20 @@ You have access to comprehensive IDL resources via MCP tools provided by the IDL
 - Use `IDL for VSCode/execute-idl-code` to run code and verify solutions
 - Use `IDL for VSCode/create-idl-notebook` to create `.idlnb` files
 
+**Inspect, change, and debug IDL state (no console output to user):**
+
+- Use `IDL for VSCode/inspect-idl-state` to read structured session state without executing or mutating anything:
+  - `get-info` — orientation snapshot: scope, call stack, variables at current frame, session info
+  - `get-variables` — variables at a specific frame (optional `frameId`, defaults to current)
+  - `get-stack` — current call stack (traceback)
+  - `get-output` — raw captured output from the IDL process
+  - `get-errors` — syntax errors tracked by file
+  - `get-coverage` — code coverage for a file (requires `file` param)
+- Use `IDL for VSCode/manage-idl-debugger` to control the IDL debugger:
+  - `set-breakpoint` / `clear-breakpoint` / `clear-all-breakpoints` / `list-breakpoints`
+  - `continue` / `step-in` / `step-over` / `step-out`
+  - `get-stack` — current call stack after a step
+
 ### Traps
 
 Code that compiles and runs but returns the wrong answer:
