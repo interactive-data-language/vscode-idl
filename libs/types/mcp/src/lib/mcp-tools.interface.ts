@@ -14,9 +14,9 @@ import { MCPTool_SearchResources } from './http/mcp-tool-search-resources.interf
 import { MCPTool_CreateIDLNotebook } from './idl/mcp-tool-create-idl-notebook.interface';
 import { MCPTool_ExecuteIDLCode } from './idl/mcp-tool-execute-idl-code.interface';
 import { MCPTool_ExecuteIDLFile } from './idl/mcp-tool-execute-idl-file.interface';
+import { MCPTool_InspectIDLState } from './idl/mcp-tool-inspect-idl-state.interface';
 import { MCPTool_ListENVIToolWorkflows } from './idl/mcp-tool-list-envi-tool-workflows.interface';
 import { MCPTool_ManageIDLAndENVISession } from './idl/mcp-tool-manage-idl-and-envi-session.interface';
-import { MCPTool_InspectIDLState } from './idl/mcp-tool-inspect-idl-state.interface';
 import { MCPTool_ManageIDLDebugger } from './idl/mcp-tool-manage-idl-debugger.interface';
 import { MCPTool_OpenDatasetsInENVI } from './idl/mcp-tool-open-datasets-in-envi.interface';
 import { MCPTool_QueryDatasetWithENVI } from './idl/mcp-tool-query-dataset-with-envi.interface';
@@ -86,6 +86,8 @@ interface IMCPToolLookup {
   GET_RESOURCE: MCPTool_GetResource;
   /** Retrieve docs for a routine */
   GET_ROUTINE_DOCS: MCPTool_GetRoutineDocs;
+  /** Read-only inspection of IDL session state */
+  INSPECT_IDL_STATE: MCPTool_InspectIDLState;
   /** List all resources */
   LIST_ALL_RESOURCES: MCPTool_ListAllResources;
   /** List know ENVI tool workflows */
@@ -96,8 +98,6 @@ interface IMCPToolLookup {
   LIST_PROMPTS: MCPTool_ListPrompts;
   /** Manage ENVI and IDL session */
   MANAGE_IDL_AND_ENVI_SESSION: MCPTool_ManageIDLAndENVISession;
-  /** Read-only inspection of IDL session state */
-  INSPECT_IDL_STATE: MCPTool_InspectIDLState;
   /** Manage IDL debugger (breakpoints, stepping) */
   MANAGE_IDL_DEBUGGER: MCPTool_ManageIDLDebugger;
   /** Open a dataset in ENVI */
