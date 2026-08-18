@@ -4,7 +4,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { COMPILE_FILE_ERROR } from '@idl/types/idl/idl-process';
 import {
   IIDLMCPExecutionBackend,
-  MCPTool_ExecuteIDLCode,
+  MCPTool_RunIDLCode,
   MCPToolParams,
   MCPToolResponse,
   PrepareIDLCodeCallback,
@@ -21,11 +21,11 @@ import { join } from 'path';
  * @param params        Tool parameters (code to execute)
  * @param prepareCode   Callback to prepare/transform code before execution
  */
-export async function RunMCPTool_ExecuteIDLCode(
+export async function RunMCPTool_RunIDLCode(
   backend: IIDLMCPExecutionBackend,
-  params: MCPToolParams<MCPTool_ExecuteIDLCode>,
+  params: MCPToolParams<MCPTool_RunIDLCode>,
   prepareCode: PrepareIDLCodeCallback,
-): Promise<MCPToolResponse<MCPTool_ExecuteIDLCode>> {
+): Promise<MCPToolResponse<MCPTool_RunIDLCode>> {
   const started = await backend.start(false);
 
   if (!started.started) {

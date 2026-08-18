@@ -7,10 +7,10 @@ import {
   RunMCPTool_TakeENVIScreenshot,
 } from '@idl/mcp/envi';
 import {
-  RunMCPTool_ExecuteIDLCode,
+  RunMCPTool_ControlIDLAndENVISession,
   RunMCPTool_InspectIDLState,
-  RunMCPTool_ManageENVIAndIDLSession,
   RunMCPTool_QueryIDLSession,
+  RunMCPTool_RunIDLCode,
 } from '@idl/mcp/idl';
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
@@ -44,8 +44,7 @@ import { copy } from 'fast-copy';
 
 import { RunMCPTool_ManageIDLDebugger } from './idl/run-mcp-tool-manage-idl-debugger';
 import { RunMCPTool_CreateIDLNotebook } from './run-mcp-tool-create-idl-notebook';
-import { RunMCPTool_ExecuteIDLFile } from './run-mcp-tool-execute-idl-file';
-
+import { RunMCPTool_RunIDLFileInVSCode } from './run-mcp-tool-run-idl-file-in-vscode';
 const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
 
 /**
@@ -188,31 +187,17 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
     onProgress?: MCPProgressCallback,
   ): Promise<MCPToolResponse<T>> {
     switch (tool) {
+      case MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION:
+        return RunMCPTool_ControlIDLAndENVISession(this, params as any) as any;
+
       case MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK:
         return RunMCPTool_CreateIDLNotebook(executionId, params as any) as any;
-
-      case MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE:
-        return RunMCPTool_ExecuteIDLCode(
-          this,
-          params as any,
-          this.prepareCode,
-        ) as any;
-
-      case MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE:
-        return RunMCPTool_ExecuteIDLFile(
-          this,
-          executionId,
-          params as any,
-        ) as any;
 
       case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
         return RunMCPTool_InspectIDLState(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS:
         return RunMCPTool_ListENVIToolWorkflows(this, params as any) as any;
-
-      case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
-        return RunMCPTool_ManageENVIAndIDLSession(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
         return RunMCPTool_ManageIDLDebugger(this, params as any) as any;
@@ -246,6 +231,20 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
         }
         return RunMCPTool_RunENVITool(this, typed, onProgress) as any;
       }
+
+      case MCP_TOOL_LOOKUP.RUN_IDL_CODE:
+        return RunMCPTool_RunIDLCode(
+          this,
+          params as any,
+          this.prepareCode,
+        ) as any;
+
+      case MCP_TOOL_LOOKUP.RUN_IDL_FILE:
+        return RunMCPTool_RunIDLFileInVSCode(
+          this,
+          executionId,
+          params as any,
+        ) as any;
 
       case MCP_TOOL_LOOKUP.TAKE_ENVI_SCREENSHOT:
         return RunMCPTool_TakeENVIScreenshot(

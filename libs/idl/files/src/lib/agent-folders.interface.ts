@@ -67,4 +67,4 @@ export const MCP_FOLDER = join(USER_AGENTS_FOLDER, 'mcp');
 /**
  * Folder that contains IDL code that we run through MCP
  */
-export const MCP_IDL_FOLDER = join(MCP_FOLDER, 'execute-idl-code');
+export const MCP_IDL_FOLDER = join(MCP_FOLDER, 'run-idl-code');

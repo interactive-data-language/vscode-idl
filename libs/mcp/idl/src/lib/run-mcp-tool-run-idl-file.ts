@@ -2,7 +2,7 @@ import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IIDLMCPExecutionBackend,
-  MCPTool_ExecuteIDLFile,
+  MCPTool_RunIDLFile,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -14,10 +14,10 @@ import {
  * through the backend without opening it in an editor or re-using our
  * run command
  */
-export async function RunMCPTool_ExecuteIDLFile(
+export async function RunMCPTool_RunIDLFile(
   backend: IIDLMCPExecutionBackend,
-  params: MCPToolParams<MCPTool_ExecuteIDLFile>,
-): Promise<MCPToolResponse<MCPTool_ExecuteIDLFile>> {
+  params: MCPToolParams<MCPTool_RunIDLFile>,
+): Promise<MCPToolResponse<MCPTool_RunIDLFile>> {
   const started = await backend.start(false);
 
   if (!started.started) {

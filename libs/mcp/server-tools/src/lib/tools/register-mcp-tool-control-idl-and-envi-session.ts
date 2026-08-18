@@ -9,13 +9,13 @@ import { ENVI_INSTALL_MESSAGE } from './envi/envi-install-message.interface';
 /**
  * Registers a tool that allows LLMs to manage ENVI and IDL sessions
  */
-export function RegisterMCPTool_ManageIDLAndENVISession(server: MCPServer) {
+export function RegisterMCPTool_ControlIDLAndENVISession(server: MCPServer) {
   server.registerTool(
-    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+    MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION,
     {
       title:
         IDL_TRANSLATION.mcp.tools.displayNames[
-          MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION
+          MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION
         ],
       description:
         'Allows you to manage session of IDL and ENVI including: starting, stopping, or restarting each application. This is a helper tool, running IDL or ENVI tools will automatically start IDL and ENVI.',
@@ -57,7 +57,7 @@ export function RegisterMCPTool_ManageIDLAndENVISession(server: MCPServer) {
 
       const resp = await server.sendIDLRequest(
         id,
-        MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+        MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION,
         {
           action,
         },

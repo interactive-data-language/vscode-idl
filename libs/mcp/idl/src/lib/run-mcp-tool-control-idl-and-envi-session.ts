@@ -3,7 +3,7 @@ import { Sleep } from '@idl/shared/extension';
 import {
   IIDLMCPExecutionBackend,
   MCPProgressCallback,
-  MCPTool_ManageIDLAndENVISession,
+  MCPTool_ControlIDLAndENVISession,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -11,15 +11,15 @@ import {
 import { RunMCPTool_StartIDLSession } from './run-mcp-tool-start-idl-session';
 
 /**
- * Core logic for managing ENVI and IDL sessions (start/stop/restart).
+ * Core logic for controlling ENVI and IDL sessions (start/stop/restart).
  *
  * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
  */
-export async function RunMCPTool_ManageENVIAndIDLSession(
+export async function RunMCPTool_ControlIDLAndENVISession(
   backend: IIDLMCPExecutionBackend,
-  params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
+  params: MCPToolParams<MCPTool_ControlIDLAndENVISession>,
   onProgress?: MCPProgressCallback,
-): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {
+): Promise<MCPToolResponse<MCPTool_ControlIDLAndENVISession>> {
   // Check if we are starting
   switch (params.action) {
     case 'start-envi':

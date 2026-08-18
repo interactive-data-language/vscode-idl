@@ -7,12 +7,12 @@ import {
   RunMCPTool_TakeENVIScreenshot,
 } from '@idl/mcp/envi';
 import {
+  RunMCPTool_ControlIDLAndENVISession,
   RunMCPTool_CreateIDLNotebook,
-  RunMCPTool_ExecuteIDLCode,
-  RunMCPTool_ExecuteIDLFile,
   RunMCPTool_InspectIDLState,
-  RunMCPTool_ManageENVIAndIDLSession,
   RunMCPTool_QueryIDLSession,
+  RunMCPTool_RunIDLCode,
+  RunMCPTool_RunIDLFile,
 } from '@idl/mcp/idl';
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import {
@@ -224,31 +224,21 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
     onProgress?: MCPProgressCallback,
   ): Promise<MCPToolResponse<T>> {
     switch (tool) {
-      case MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK:
-        return RunMCPTool_CreateIDLNotebook(params as any) as any;
-
-      case MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE:
-        return RunMCPTool_ExecuteIDLCode(
+      case MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION:
+        return RunMCPTool_ControlIDLAndENVISession(
           this,
           params as any,
-          this.prepareCode,
+          onProgress,
         ) as any;
 
-      case MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE:
-        return RunMCPTool_ExecuteIDLFile(this, params as any) as any;
+      case MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK:
+        return RunMCPTool_CreateIDLNotebook(params as any) as any;
 
       case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
         return RunMCPTool_InspectIDLState(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS:
         return RunMCPTool_ListENVIToolWorkflows(this, params as any) as any;
-
-      case MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION:
-        return RunMCPTool_ManageENVIAndIDLSession(
-          this,
-          params as any,
-          onProgress,
-        ) as any;
 
       case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
         return {
@@ -280,6 +270,16 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
 
       case MCP_TOOL_LOOKUP.RUN_ENVI_TOOL:
         return RunMCPTool_RunENVITool(this, params as any, onProgress) as any;
+
+      case MCP_TOOL_LOOKUP.RUN_IDL_CODE:
+        return RunMCPTool_RunIDLCode(
+          this,
+          params as any,
+          this.prepareCode,
+        ) as any;
+
+      case MCP_TOOL_LOOKUP.RUN_IDL_FILE:
+        return RunMCPTool_RunIDLFile(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.TAKE_ENVI_SCREENSHOT:
         return RunMCPTool_TakeENVIScreenshot(

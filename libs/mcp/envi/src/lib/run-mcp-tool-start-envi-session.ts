@@ -2,7 +2,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IIDLMCPExecutionBackend,
   MCPProgressCallback,
-  MCPTool_ManageIDLAndENVISession,
+  MCPTool_ControlIDLAndENVISession,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -14,9 +14,9 @@ import {
  */
 export async function RunMCPTool_StartENVISession(
   backend: IIDLMCPExecutionBackend,
-  params: MCPToolParams<MCPTool_ManageIDLAndENVISession>,
+  params: MCPToolParams<MCPTool_ControlIDLAndENVISession>,
   onProgress?: MCPProgressCallback,
-): Promise<MCPToolResponse<MCPTool_ManageIDLAndENVISession>> {
+): Promise<MCPToolResponse<MCPTool_ControlIDLAndENVISession>> {
   onProgress?.('Starting IDL');
 
   const started = await backend.start(false);
@@ -42,7 +42,7 @@ export async function RunMCPTool_StartENVISession(
   //   ? true
   //   : false;
 
-  return await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
+  return await backend.evaluateENVICommand<MCPTool_ControlIDLAndENVISession>(
     `agent_startENVI, headless = ${headless ? '!true' : '!false'}`,
   );
 }

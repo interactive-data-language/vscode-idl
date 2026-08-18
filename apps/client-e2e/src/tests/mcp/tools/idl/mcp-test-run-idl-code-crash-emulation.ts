@@ -7,13 +7,13 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 /**
  * Makes sure we can start IDL through MCP
  */
-export const RunMCPTestExecuteIDLCode_CrashEmulation: RunnerFunction = async (
+export const RunMCPTestRunIDLCode_CrashEmulation: RunnerFunction = async (
   init,
 ) => {
   /**
    * Run code that completes
    */
-  const result = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE, {
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_IDL_CODE, {
     code: `print, 'foo'`,
   });
 
@@ -26,7 +26,7 @@ export const RunMCPTestExecuteIDLCode_CrashEmulation: RunnerFunction = async (
   /**
    * Run code that causes IDL to crash/exit
    */
-  const runtimeError = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE, {
+  const runtimeError = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_IDL_CODE, {
     code: `help, 42\nexit`,
   });
 

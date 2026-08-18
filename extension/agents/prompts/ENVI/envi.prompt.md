@@ -13,14 +13,14 @@ Prefer running ENVI directly through MCP tools instead of writing IDL code or ID
 
 Here's a helpful place to start with tools you can run. You are not limited to these, but they help with ENVI.
 
-- "IDL for VSCode/execute-idl-file"
+- "IDL for VSCode/run-idl-file"
 - "IDL for VSCode/get-envi-tool-parameters"
 - "IDL for VSCode/get-envi-tool-workflow"
 - "IDL for VSCode/get-resource"
 - "IDL for VSCode/list-envi-tools"
 - "IDL for VSCode/list-envi-tool-workflows"
 - "IDL for VSCode/list-all-resources"
-- "IDL for VSCode/manage-idl-and-envi-session"
+- "IDL for VSCode/control-idl-and-envi-session"
 - "IDL for VSCode/open-datasets-in-envi"
 - "IDL for VSCode/query-dataset-with-envi"
 - "IDL for VSCode/run-envi-tool"

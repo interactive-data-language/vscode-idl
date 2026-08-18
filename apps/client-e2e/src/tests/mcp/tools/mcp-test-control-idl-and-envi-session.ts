@@ -11,11 +11,13 @@ import { LogWhenExpectSuccess } from '../helpers/test-loggers';
 /**
  * Makes sure we can manage our session
  */
-export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
+export const RunMCPTestControlIDLAndENVISession: RunnerFunction = async (
+  init,
+) => {
   // make sure IDL is started
   expect(
     (
-      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+      await CallMCPTool(MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION, {
         action: 'start-idl',
       })
     ).isError,
@@ -34,7 +36,7 @@ export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
    */
   console.log(`  Restarting IDL`);
   const respRestartIDL = await CallMCPTool(
-    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+    MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION,
     {
       action: 'restart-idl',
     },
@@ -55,7 +57,7 @@ export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
    */
   console.log(`  Start ENVI`);
   const rspStartENVI = await CallMCPTool(
-    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+    MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION,
     {
       action: 'start-envi',
     },
@@ -84,7 +86,7 @@ export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
   //  */
   // console.log(`  Restarting ENVI headlessly`);
   // const respRestartENVIHeadless = await CallMCPTool(
-  //   MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+  //   MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION,
   //   {
   //     action: 'restart-envi-headless',
   //   },
@@ -110,7 +112,7 @@ export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
    */
   console.log(`  Restarting ENVI with UI`);
   const respRestartENVIU = await CallMCPTool(
-    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+    MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION,
     {
       action: 'restart-envi',
     },
@@ -136,7 +138,7 @@ export const RunMCPManageENVIAndIDLSession: RunnerFunction = async (init) => {
    */
   console.log(`  Stopping`);
   const respStop = await CallMCPTool(
-    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+    MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION,
     {
       action: 'stop',
     },

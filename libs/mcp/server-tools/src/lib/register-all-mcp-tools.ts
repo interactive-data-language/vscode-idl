@@ -7,14 +7,14 @@ import { RegisterMCPTool_QueryDatasetWithENVI } from './tools/envi/register-mcp-
 import { RegisterMCPTool_SaveENVIToolWorkflow } from './tools/envi/register-mcp-tool-save-envi-tool-workflow';
 import { RegisterMCPTool_TakeENVIScreenshot } from './tools/envi/register-mcp-tool-take-envi-screenshot';
 import { RegisterMCPTool_CreateIDLNotebook } from './tools/idl/register-mcp-tool-create-idl-notebook';
-import { RegisterMCPTool_ExecuteIDLCode } from './tools/idl/register-mcp-tool-execute-idl-code';
-import { RegisterMCPTool_ExecuteIDLFile } from './tools/idl/register-mcp-tool-execute-idl-file';
 import { RegisterMCPTool_InspectIDLState } from './tools/idl/register-mcp-tool-inspect-idl-state';
 import { RegisterMCPTool_ManageIDLDebugger } from './tools/idl/register-mcp-tool-manage-idl-debugger';
 import { RegisterMCPTool_QueryIDLSession } from './tools/idl/register-mcp-tool-query-idl-session';
+import { RegisterMCPTool_RunIDLCode } from './tools/idl/register-mcp-tool-run-idl-code';
+import { RegisterMCPTool_RunIDLFile } from './tools/idl/register-mcp-tool-run-idl-file';
+import { RegisterMCPTool_ControlIDLAndENVISession } from './tools/register-mcp-tool-control-idl-and-envi-session';
 import { RegisterMCPTool_GetResource } from './tools/register-mcp-tool-get-resource';
 import { RegisterMCPTool_ListAllResources } from './tools/register-mcp-tool-list-all-resources';
-import { RegisterMCPTool_ManageIDLAndENVISession } from './tools/register-mcp-tool-manage-idl-and-envi-session';
 import { RegisterMCPTool_SearchForFiles } from './tools/register-mcp-tool-search-for-files';
 import { RegisterMCPTool_SearchResources } from './tools/register-mcp-tool-search-resources';
 
@@ -59,8 +59,8 @@ export function RegisterAllMCPTools(isEnviInstalled: boolean) {
    * Register IDL tools
    */
   RegisterMCPTool_CreateIDLNotebook(server);
-  RegisterMCPTool_ExecuteIDLCode(server);
-  RegisterMCPTool_ExecuteIDLFile(server);
+  RegisterMCPTool_RunIDLCode(server);
+  RegisterMCPTool_RunIDLFile(server);
   RegisterMCPTool_InspectIDLState(server);
   RegisterMCPTool_ManageIDLDebugger(server);
   RegisterMCPTool_QueryIDLSession(server);
@@ -68,7 +68,7 @@ export function RegisterAllMCPTools(isEnviInstalled: boolean) {
   /**
    * Register ENVI and IDL shared tools
    */
-  RegisterMCPTool_ManageIDLAndENVISession(server);
+  RegisterMCPTool_ControlIDLAndENVISession(server);
 
   /**
    * ENVI tools

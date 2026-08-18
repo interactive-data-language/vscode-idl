@@ -10,7 +10,7 @@ import { CallMCPTool } from '../../helpers/call-mcp-tool';
 export const RunMCPTestStartIDL: RunnerFunction = async (init) => {
   // Call a tool
   const result = await CallMCPTool(
-    MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION,
+    MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION,
     {
       action: 'start-idl',
     },

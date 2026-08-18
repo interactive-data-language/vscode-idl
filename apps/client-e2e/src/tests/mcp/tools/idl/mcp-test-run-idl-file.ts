@@ -2,7 +2,7 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_ExecuteIDLFile,
+  MCPTool_RunIDLFile,
   MCPToolResponse_IDL,
 } from '@idl/types/mcp';
 import expect from 'expect';
@@ -18,11 +18,11 @@ import {
 /**
  * Makes sure we can start IDL through MCP
  */
-export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
+export const RunMCPTestRunIDLFile: RunnerFunction = async (init) => {
   /**
    * Run a file that works correctly
    */
-  const resSuccess = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
+  const resSuccess = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_IDL_FILE, {
     uri: GetExtensionPath(
       'idl/test/client-e2e/copilot/mcp/idl-file-runs-fine.pro',
     ),
@@ -36,7 +36,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   // parse result
   const parsedSuccess = JSON.parse(
     GetTextContent(resSuccess.content),
-  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLFile>;
+  ) as MCPToolResponse_IDL<MCPTool_RunIDLFile>;
 
   // verify we returned a success flag
   expect(parsedSuccess.success).toBeTruthy();
@@ -47,7 +47,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   /**
    * Run a file that has a runtime error
    */
-  const resRuntimeErr = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
+  const resRuntimeErr = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_IDL_FILE, {
     uri: GetExtensionPath(
       'idl/test/client-e2e/copilot/mcp/idl-file-runtime-error.pro',
     ),
@@ -64,7 +64,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   // parse result
   const parsedRuntimeErr = JSON.parse(
     GetTextContent(resRuntimeErr.content),
-  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLFile>;
+  ) as MCPToolResponse_IDL<MCPTool_RunIDLFile>;
 
   // verify we returned a success flag
   expect(parsedRuntimeErr.success).toBeFalsy();
@@ -72,7 +72,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   /**
    * Run a file with syntax errors
    */
-  const resSyntaxErr = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_FILE, {
+  const resSyntaxErr = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_IDL_FILE, {
     uri: GetExtensionPath(
       'idl/test/client-e2e/copilot/mcp/idl-file-syntax-error.pro',
     ),
@@ -86,7 +86,7 @@ export const RunMCPTestExecuteIDLFile: RunnerFunction = async (init) => {
   // parse result
   const parsedSyntaxErr = JSON.parse(
     GetTextContent(resSyntaxErr.content),
-  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLFile>;
+  ) as MCPToolResponse_IDL<MCPTool_RunIDLFile>;
 
   // verify we returned a success flag
   expect(parsedSyntaxErr.success).toBeFalsy();

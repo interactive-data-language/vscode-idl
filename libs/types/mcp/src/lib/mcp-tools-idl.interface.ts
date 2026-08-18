@@ -5,20 +5,15 @@ import {
 } from '@modelcontextprotocol/sdk/types';
 
 import {
+  MCPTool_ControlIDLAndENVISession,
+  MCPToolParams_ControlIDLAndENVISession,
+  MCPToolResponse_ControlIDLAndENVISession,
+} from './idl/mcp-tool-control-idl-and-envi-session.interface';
+import {
   MCPTool_CreateIDLNotebook,
   MCPToolParams_CreateIDLNotebook,
   MCPToolResponse_CreateIDLNotebook,
 } from './idl/mcp-tool-create-idl-notebook.interface';
-import {
-  MCPTool_ExecuteIDLCode,
-  MCPToolParams_ExecuteIDLCode,
-  MCPToolResponse_ExecuteIDLCode,
-} from './idl/mcp-tool-execute-idl-code.interface';
-import {
-  MCPTool_ExecuteIDLFile,
-  MCPToolParams_ExecuteIDLFile,
-  MCPToolResponse_ExecuteIDLFile,
-} from './idl/mcp-tool-execute-idl-file.interface';
 import {
   MCPTool_InspectIDLState,
   MCPToolParams_InspectIDLState,
@@ -29,11 +24,6 @@ import {
   MCPToolParams_ListENVIToolWorkflows,
   MCPToolResponse_ListENVIToolWorkflows,
 } from './idl/mcp-tool-list-envi-tool-workflows.interface';
-import {
-  MCPTool_ManageIDLAndENVISession,
-  MCPToolParams_ManageIDLAndENVISession,
-  MCPToolResponse_ManageIDLAndENVISession,
-} from './idl/mcp-tool-manage-idl-and-envi-session.interface';
 import {
   MCPTool_ManageIDLDebugger,
   MCPToolParams_ManageIDLDebugger,
@@ -65,6 +55,16 @@ import {
   MCPToolResponse_RunENVITool,
 } from './idl/mcp-tool-run-envi-tool.interface';
 import {
+  MCPTool_RunIDLCode,
+  MCPToolParams_RunIDLCode,
+  MCPToolResponse_RunIDLCode,
+} from './idl/mcp-tool-run-idl-code.interface';
+import {
+  MCPTool_RunIDLFile,
+  MCPToolParams_RunIDLFile,
+  MCPToolResponse_RunIDLFile,
+} from './idl/mcp-tool-run-idl-file.interface';
+import {
   MCPTool_TakeENVIScreenshot,
   MCPToolParams_TakeENVIScreenshot,
   MCPToolResponse_TakeENVIScreenshot,
@@ -74,18 +74,18 @@ import {
  * MCP Tools that run in IDL
  */
 export type MCPTools_IDL =
+  | MCPTool_ControlIDLAndENVISession
   | MCPTool_CreateIDLNotebook
-  | MCPTool_ExecuteIDLCode
-  | MCPTool_ExecuteIDLFile
   | MCPTool_InspectIDLState
   | MCPTool_ListENVIToolWorkflows
-  | MCPTool_ManageIDLAndENVISession
   | MCPTool_ManageIDLDebugger
   | MCPTool_OpenDatasetsInENVI
   | MCPTool_QueryDatasetWithENVI
   | MCPTool_QueryIDLSession
   | MCPTool_ReturnNotes
   | MCPTool_RunENVITool
+  | MCPTool_RunIDLCode
+  | MCPTool_RunIDLFile
   | MCPTool_TakeENVIScreenshot;
 
 /**
@@ -95,14 +95,14 @@ export type MCPTools_IDL =
 export type MCPToolParams_IDL<T extends MCPTools_IDL> =
   T extends MCPTool_CreateIDLNotebook
     ? MCPToolParams_CreateIDLNotebook
-    : T extends MCPTool_ExecuteIDLCode
-      ? MCPToolParams_ExecuteIDLCode
-      : T extends MCPTool_ExecuteIDLFile
-        ? MCPToolParams_ExecuteIDLFile
+    : T extends MCPTool_RunIDLCode
+      ? MCPToolParams_RunIDLCode
+      : T extends MCPTool_RunIDLFile
+        ? MCPToolParams_RunIDLFile
         : T extends MCPTool_ListENVIToolWorkflows
           ? MCPToolParams_ListENVIToolWorkflows
-          : T extends MCPTool_ManageIDLAndENVISession
-            ? MCPToolParams_ManageIDLAndENVISession
+          : T extends MCPTool_ControlIDLAndENVISession
+            ? MCPToolParams_ControlIDLAndENVISession
             : T extends MCPTool_InspectIDLState
               ? MCPToolParams_InspectIDLState
               : T extends MCPTool_ManageIDLDebugger
@@ -127,14 +127,14 @@ export type MCPToolParams_IDL<T extends MCPTools_IDL> =
 export type MCPToolResponse_IDL<T extends MCPTools_IDL> =
   T extends MCPTool_CreateIDLNotebook
     ? MCPToolResponse_CreateIDLNotebook
-    : T extends MCPTool_ExecuteIDLCode
-      ? MCPToolResponse_ExecuteIDLCode
-      : T extends MCPTool_ExecuteIDLFile
-        ? MCPToolResponse_ExecuteIDLFile
+    : T extends MCPTool_RunIDLCode
+      ? MCPToolResponse_RunIDLCode
+      : T extends MCPTool_RunIDLFile
+        ? MCPToolResponse_RunIDLFile
         : T extends MCPTool_ListENVIToolWorkflows
           ? MCPToolResponse_ListENVIToolWorkflows
-          : T extends MCPTool_ManageIDLAndENVISession
-            ? MCPToolResponse_ManageIDLAndENVISession
+          : T extends MCPTool_ControlIDLAndENVISession
+            ? MCPToolResponse_ControlIDLAndENVISession
             : T extends MCPTool_InspectIDLState
               ? MCPToolResponse_InspectIDLState
               : T extends MCPTool_ManageIDLDebugger

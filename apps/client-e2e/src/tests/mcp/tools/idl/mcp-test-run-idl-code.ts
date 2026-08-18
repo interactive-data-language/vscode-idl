@@ -2,7 +2,7 @@ import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import {
   ENVIMCPToolResponse_Failure,
   MCP_TOOL_LOOKUP,
-  MCPTool_ExecuteIDLCode,
+  MCPTool_RunIDLCode,
   MCPToolResponse_IDL,
 } from '@idl/types/mcp';
 import expect from 'expect';
@@ -14,11 +14,11 @@ import { GetTextContent } from '../../helpers/get-text-content';
 /**
  * Makes sure we can start IDL through MCP
  */
-export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
+export const RunMCPTestRunIDLCode: RunnerFunction = async (init) => {
   /**
    * Run code that completes
    */
-  const result = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE, {
+  const result = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_IDL_CODE, {
     code: `print, 'foo'`,
   });
 
@@ -31,7 +31,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsed = JSON.parse(
     GetTextContent(result.content),
-  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLCode>;
+  ) as MCPToolResponse_IDL<MCPTool_RunIDLCode>;
 
   // make sure we have "foo" as the cleaned text
   expect(CleanIDLOutput(parsed.idlOutput || '')).toEqual('foo');
@@ -41,7 +41,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
    *
    * a and b are undefined
    */
-  const runtimeError = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE, {
+  const runtimeError = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_IDL_CODE, {
     code: `foo = a + b`,
   });
 
@@ -50,7 +50,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsedRuntimeError = JSON.parse(
     GetTextContent(runtimeError.content),
-  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLCode>;
+  ) as MCPToolResponse_IDL<MCPTool_RunIDLCode>;
 
   // make sure we catch in the IDL MCP tool
   expect(parsedRuntimeError.success).toBeFalsy();
@@ -65,7 +65,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   /**
    * Run code with a syntax error
    */
-  const syntaxError = await CallMCPTool(MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE, {
+  const syntaxError = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_IDL_CODE, {
     code: `help, 42 + `,
   });
 
@@ -74,7 +74,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsedSyntaxError = JSON.parse(
     GetTextContent(syntaxError.content),
-  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLCode>;
+  ) as MCPToolResponse_IDL<MCPTool_RunIDLCode>;
 
   // make sure we catch in the IDL MCP tool
   expect(parsedSyntaxError.success).toBeFalsy();

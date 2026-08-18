@@ -3,20 +3,18 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { EXECUTE_IDL_CODE_DESCRIPTION } from './register-mcp-tool-execute-idl-code.interface';
+import { RUN_IDL_CODE_DESCRIPTION } from './register-mcp-tool-run-idl-code.interface';
 
 /**
  * Registers a tool that runs IDL code
  */
-export function RegisterMCPTool_ExecuteIDLCode(server: MCPServer) {
+export function RegisterMCPTool_RunIDLCode(server: MCPServer) {
   server.registerTool(
-    MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
+    MCP_TOOL_LOOKUP.RUN_IDL_CODE,
     {
       title:
-        IDL_TRANSLATION.mcp.tools.displayNames[
-          MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE
-        ],
-      description: EXECUTE_IDL_CODE_DESCRIPTION,
+        IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.RUN_IDL_CODE],
+      description: RUN_IDL_CODE_DESCRIPTION,
       inputSchema: {
         code: z
           .string()
@@ -29,7 +27,7 @@ export function RegisterMCPTool_ExecuteIDLCode(server: MCPServer) {
       // send request
       const resp = await server.sendIDLRequest(
         id,
-        MCP_TOOL_LOOKUP.EXECUTE_IDL_CODE,
+        MCP_TOOL_LOOKUP.RUN_IDL_CODE,
         { code },
       );
 

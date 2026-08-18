@@ -1,7 +1,7 @@
 export const QUERY_IDL_SESSION_DESCRIPTION = `
 Runs an IDL command in the running IDL session and returns its output.
 
-Unlike execute-idl-code, this tool does NOT echo output to the user's debug console. Use this when you need to inspect IDL state (variables, system info, help output, etc.) without cluttering the user's terminal.
+Unlike run-idl-code, this tool does NOT echo output to the user's debug console. Use this when you need to inspect IDL state (variables, system info, help output, etc.) without cluttering the user's terminal.
 
 The command runs in the same IDL process and session — all variables, compiled routines, and state are accessible.
 

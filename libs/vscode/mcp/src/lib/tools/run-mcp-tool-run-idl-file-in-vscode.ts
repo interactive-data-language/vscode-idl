@@ -3,7 +3,7 @@ import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IIDLMCPExecutionBackend,
-  MCPTool_ExecuteIDLFile,
+  MCPTool_RunIDLFile,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -16,13 +16,13 @@ import * as vscode from 'vscode';
  *
  * Uses the VS Code debug adapter's "Run" command which requires
  * the file to be open in the editor. For standalone usage, see
- * `ExecuteIDLFile` in `@idl/mcp/idl`.
+ * `RunIDLFile` in `@idl/mcp/idl`.
  */
-export async function RunMCPTool_ExecuteIDLFile(
+export async function RunMCPTool_RunIDLFileInVSCode(
   backend: IIDLMCPExecutionBackend,
   id: string,
-  params: MCPToolParams<MCPTool_ExecuteIDLFile>,
-): Promise<MCPToolResponse<MCPTool_ExecuteIDLFile>> {
+  params: MCPToolParams<MCPTool_RunIDLFile>,
+): Promise<MCPToolResponse<MCPTool_RunIDLFile>> {
   const started = await backend.start();
 
   if (!started.started) {

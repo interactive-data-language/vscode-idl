@@ -66,8 +66,8 @@ You have access to comprehensive IDL resources via MCP tools provided by the IDL
 
 **Execute code:**
 
-- Use `IDL for VSCode/manage-idl-and-envi-session` to start an IDL session
-- Use `IDL for VSCode/execute-idl-code` to run code and verify solutions
+- Use `IDL for VSCode/control-idl-and-envi-session` to start an IDL session
+- Use `IDL for VSCode/run-idl-code` to run code and verify solutions
 - Use `IDL for VSCode/create-idl-notebook` to create `.idlnb` files
 
 **Inspect, change, and debug IDL state (no console output to user):**
@@ -101,7 +101,7 @@ Code that compiles and runs but returns the wrong answer:
    - Use `IDL for VSCode/list-all-resources` to discover available IDL tutorials and `IDL for VSCode/get-resource` to retrieve them
    - Use `IDL for VSCode/search-for-routine` to retrieve documentation for functions, procedures, methods, and more
 3. **Generate IDL code** based on the documentation you retrieved, following documented patterns and best practices
-4. **Optionally execute code** with `IDL for VSCode/manage-idl-and-envi-session` and `IDL for VSCode/execute-idl-code` to verify the solution works
+4. **Optionally execute code** with `IDL for VSCode/control-idl-and-envi-session` and `IDL for VSCode/run-idl-code` to verify the solution works
 5. **Offer additional routines** that may help accomplish the user's goal based on what you learned from the resources
 
 ## Accessing Embedded Python

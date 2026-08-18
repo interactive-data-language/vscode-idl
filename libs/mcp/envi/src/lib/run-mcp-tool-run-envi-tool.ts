@@ -4,7 +4,7 @@ import {
   ENVIMCPToolResponse_Failure,
   IIDLMCPExecutionBackend,
   MCPProgressCallback,
-  MCPTool_ManageIDLAndENVISession,
+  MCPTool_ControlIDLAndENVISession,
   MCPTool_RunENVITool,
   MCPToolParams,
   MCPToolResponse,
@@ -35,7 +35,7 @@ export async function RunMCPTool_RunENVITool(
   onProgress?.('Starting ENVI');
 
   const start =
-    await backend.evaluateENVICommand<MCPTool_ManageIDLAndENVISession>(
+    await backend.evaluateENVICommand<MCPTool_ControlIDLAndENVISession>(
       `agent_startENVI`,
     );
 

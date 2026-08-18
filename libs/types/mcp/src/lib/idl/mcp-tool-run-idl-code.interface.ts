@@ -3,12 +3,12 @@ import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 /**
  * Message when we want to run IDL code
  */
-export type MCPTool_ExecuteIDLCode = 'execute-idl-code';
+export type MCPTool_RunIDLCode = 'run-idl-code';
 
 /**
  * Parameters for running IDL code
  */
-export interface MCPToolParams_ExecuteIDLCode {
+export interface MCPToolParams_RunIDLCode {
   /**
    * The code to run
    */
@@ -18,4 +18,4 @@ export interface MCPToolParams_ExecuteIDLCode {
 /**
  * Response for running IDL code
  */
-export type MCPToolResponse_ExecuteIDLCode = IMCPToolIDL_BaseResponse;
+export type MCPToolResponse_RunIDLCode = IMCPToolIDL_BaseResponse;
