@@ -16,6 +16,8 @@ New settings for ENVI's MCP Tools:
 
 IDL Agent can now access and use the Python included with IDL and ENVI installations. It should be able to: install packages, run python code, and write IDL routines that mix/match with Python.
 
+The debug console now supports auto-complete! This small change helps make the interactive debugging a little more user friendly. The completion triggers are different from normal text editing (tab is accept instead of enter).
+
 Re-organized the folder structure for agentic tools. We now use "agents" in your .idl folder instead of "github-copilot" and we do the same for some files included in the extension.
 
 Fixed an issue where the prompt folder for ENVI Agent and IDL Agent wasn't getting populated all the time.

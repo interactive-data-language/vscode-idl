@@ -4,6 +4,11 @@ import { IUsageMetricAndPayload, UsageMetric } from '@idl/usage-metrics';
 import { DocumentFormattingParams } from 'vscode-languageserver/node';
 
 import {
+  DebugConsoleCompletionMessage,
+  DebugConsoleCompletionPayload,
+  DebugConsoleCompletionResponse,
+} from './messages/debug-console-completion.interface';
+import {
   FolderDeleteMessage,
   IFolderDeletePayload,
 } from './messages/folder-delete.message.interface';
@@ -81,6 +86,7 @@ import {
 /** Allowed types for messages sent to language servers */
 export type LanguageServerMessage =
   | AddDocsMessage
+  | DebugConsoleCompletionMessage
   | FileRenameMessage
   | FolderDeleteMessage
   | FormatFileMessage
@@ -106,68 +112,74 @@ export type LanguageServerMessage =
 export type LanguageServerPayload<T extends LanguageServerMessage> =
   T extends AddDocsMessage
     ? DocumentFormattingParams
-    : T extends FileRenameMessage
-      ? IFileRenamePayload
-      : T extends FolderDeleteMessage
-        ? IFolderDeletePayload
-        : T extends FormatFileMessage
-          ? DocumentFormattingParams
-          : T extends FormatWorkspaceMessage
-            ? FormatWorkspacePayload
-            : T extends GenerateTaskMessage
-              ? IGenerateTaskPayload
-              : T extends IndexingMessage
-                ? IIndexingMessagePayload
-                : T extends InitWorkspaceConfigMessage
-                  ? IInitWorkspaceConfigPayload
-                  : T extends LoggingMessage
-                    ? ILogOptions
-                    : T extends MCP_LSP_Message
-                      ? MCP_LSP_MessagePayload<MCPTools_IDL>
-                      : T extends MCPHistory_Message
-                        ? MCPHistory_MessagePayload<MCPTools>
-                        : T extends MCPProgress_LSP_Message
-                          ? MCPProgress_LSP_MessagePayload
-                          : T extends MigrateCodeLSPMessage
-                            ? MigrateCodeLSPPayload
-                            : T extends NotebookToProCodeMessage
-                              ? INotebookToProCodePayload
-                              : T extends RetrieveDocsMessage
-                                ? IRetrieveDocsPayload
-                                : T extends ProgressMessage
-                                  ? ProgressMessagePayload
-                                  : T extends PrepareIDLCodeMessage
-                                    ? PrepareIDLCodePayload
-                                    : T extends PrepareNotebookCellMessage
-                                      ? PrepareNotebookCellPayload
-                                      : T extends UsageMetricLSPMessage
-                                        ? IUsageMetricAndPayload<UsageMetric>
-                                        : T extends WorkspaceConfigMessage
-                                          ? IWorkspaceConfigPayload
-                                          : any;
+    : T extends DebugConsoleCompletionMessage
+      ? DebugConsoleCompletionPayload
+      : T extends FileRenameMessage
+        ? IFileRenamePayload
+        : T extends FolderDeleteMessage
+          ? IFolderDeletePayload
+          : T extends FormatFileMessage
+            ? DocumentFormattingParams
+            : T extends FormatWorkspaceMessage
+              ? FormatWorkspacePayload
+              : T extends GenerateTaskMessage
+                ? IGenerateTaskPayload
+                : T extends IndexingMessage
+                  ? IIndexingMessagePayload
+                  : T extends InitWorkspaceConfigMessage
+                    ? IInitWorkspaceConfigPayload
+                    : T extends LoggingMessage
+                      ? ILogOptions
+                      : T extends MCP_LSP_Message
+                        ? MCP_LSP_MessagePayload<MCPTools_IDL>
+                        : T extends MCPHistory_Message
+                          ? MCPHistory_MessagePayload<MCPTools>
+                          : T extends MCPProgress_LSP_Message
+                            ? MCPProgress_LSP_MessagePayload
+                            : T extends MigrateCodeLSPMessage
+                              ? MigrateCodeLSPPayload
+                              : T extends NotebookToProCodeMessage
+                                ? INotebookToProCodePayload
+                                : T extends RetrieveDocsMessage
+                                  ? IRetrieveDocsPayload
+                                  : T extends ProgressMessage
+                                    ? ProgressMessagePayload
+                                    : T extends PrepareIDLCodeMessage
+                                      ? PrepareIDLCodePayload
+                                      : T extends PrepareNotebookCellMessage
+                                        ? PrepareNotebookCellPayload
+                                        : T extends UsageMetricLSPMessage
+                                          ? IUsageMetricAndPayload<UsageMetric>
+                                          : T extends WorkspaceConfigMessage
+                                            ? IWorkspaceConfigPayload
+                                            : any;
 
 /** Strictly typed payloads to/from the language server */
 export type LanguageServerResponse<T extends LanguageServerMessage> =
   T extends FormatWorkspaceMessage
     ? FormatWorkspaceResponse
-    : T extends MCP_LSP_Message
-      ? MCP_LSP_MessageResponse<MCPTools_IDL>
-      : T extends MigrateCodeLSPMessage
-        ? MigrateCodeLSPResponse
-        : T extends NotebookToProCodeMessage
-          ? INotebookToProCodeResponse
-          : T extends RetrieveDocsMessage
-            ? IRetrieveDocsResponse
-            : T extends PrepareIDLCodeMessage
-              ? PrepareIDLCodeResponse
-              : T extends PrepareNotebookCellMessage
-                ? PrepareNotebookCellResponse
-                : never;
+    : T extends DebugConsoleCompletionMessage
+      ? DebugConsoleCompletionResponse
+      : T extends MCP_LSP_Message
+        ? MCP_LSP_MessageResponse<MCPTools_IDL>
+        : T extends MigrateCodeLSPMessage
+          ? MigrateCodeLSPResponse
+          : T extends NotebookToProCodeMessage
+            ? INotebookToProCodeResponse
+            : T extends RetrieveDocsMessage
+              ? IRetrieveDocsResponse
+              : T extends PrepareIDLCodeMessage
+                ? PrepareIDLCodeResponse
+                : T extends PrepareNotebookCellMessage
+                  ? PrepareNotebookCellResponse
+                  : never;
 
 /** Strictly typed lookup of language server messages */
 export interface ILanguageServerMessages {
   /** Add/update docs for file */
   ADD_DOCS: AddDocsMessage;
+  /** Message for completion in the debug console */
+  DEBUG_CONSOLE_COMPLETION: DebugConsoleCompletionMessage;
   /** Rename event for files */
   FILE_RENAME: FileRenameMessage;
   /** When we will delete folders */
@@ -218,6 +230,7 @@ export interface ILanguageServerMessages {
  */
 export const LANGUAGE_SERVER_MESSAGE_LOOKUP: ILanguageServerMessages = {
   ADD_DOCS: 'add-docs',
+  DEBUG_CONSOLE_COMPLETION: 'debug-console-completion',
   FILE_RENAME: 'textDocument/didRename',
   FOLDER_DELETE: 'will-delete-folders',
   FORMAT_FILE: 'format-file',

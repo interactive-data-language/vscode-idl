@@ -412,6 +412,7 @@ export interface ITranslation {
       continue: string;
       /** Problem creating history file */
       createHistory: string;
+      debugCompletion: string;
       evaluate: string;
       idlDetails: string;
       launch: string;

@@ -444,6 +444,8 @@ export const EN: ITranslation = {
       continue: 'Error while handling "continue" request',
       createHistory:
         'Error while creating or truncating history file. Does the folder have write permissions?',
+      debugCompletion:
+        'Error while retrieving auto-complete for the debug console',
       evaluate: 'Error while handling "evaluate" request',
       idlDetails:
         'Error getting information about IDL (version, directory, etc.)',
