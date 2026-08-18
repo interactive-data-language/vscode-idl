@@ -12,9 +12,19 @@ New settings for ENVI's MCP Tools:
 
 - Fine-tune which ENVI Tools can be invoked by ENVI Agent with a new whitelist and blacklist option
 
-## 6.2.0 - Unreleased
+## 6.2.0 - August 2026
 
-IDL Agent can now access and use the Python included with IDL and ENVI installations. It should be able to: install packages, run python code, and write IDL routines that mix/match with Python.
+This major release brings some new and renamed MCP tools for agents to use with IDL and ENVI. Here's the breakdown:
+
+- New tool `inspect-idl-state` that allows an agent to learn about variables, call stack, and more for the current IDL session
+
+- New tool `manage-idl-debugger` which allows an agent to debug like a person through setting breakpoints and stepping through code
+
+- New tool `query-idl-session` for running single-line commands at the current scope/location for IDL. This differs from our other MCP tools which run code as a main level program and return from the current location.
+
+- New tool `save-envi-tool-workflow` lets you save a new ENVI-based processing workflow to disk that you can re-use later. The intended use of this tool is to run after you have stepped through an image analysis workflow so you can save it for later. See below for more details.
+
+IDL Agent can now access and use the Python included with IDL and ENVI installations. It should be able to: install packages, run Python code, and write IDL routines that mix/match with Python.
 
 The debug console now supports auto-complete! This small change helps make the interactive debugging a little more user friendly. The completion triggers are different from normal text editing (tab is accept instead of enter).
 
@@ -32,7 +42,7 @@ Fixed an issue where we incorrectly parsed comment blocks in template literal st
 
 Updated auto-complete to send keywords when typing in the middle of a variable.
 
-Added missing properties for IDLffShape resulting in errors for missing keywords in IDLffShape::GetProperty.
+Added missing properties for IDLffShape, resulting in errors for missing keywords in IDLffShape::GetProperty.
 
 For all structures provided by IDL and ENVI, added `getProperty` and `setProperty` procedure methods. These were not always covered by our documentation parsing, and they exist for most classes.
 
@@ -44,7 +54,11 @@ Resolved an issue where we were setting all ENVI URI input parameters to have a 
 
 Resolved an issue where the extension would not always properly detect if IDL or ENVI has been installed or not. Uninstalled versions of IDL or ENVI kept folders around, and we now check for the presence of the IDL executable instead of the folders.
 
-Added a new example notebook that shows the new IDL Features. You can find this under the IDL sidebar in: IDL Tutorials => Example Notebooks => IDL 9.3 new Features
+Added a new example notebook that shows new IDL features. You can find this under the IDL sidebar in: IDL Tutorials => Example Notebooks => IDL 9.3 New Features
+
+Resolved some broken links in the documentation.
+
+### ENVI Tool: Save ENVI Tool Workflows
 
 Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
 
@@ -128,8 +142,6 @@ Resample warp image to match base image's coordinate grid by running **ImageToIm
 ```
 
 3. Restart VSCode for changes to be applied. When you update the file, you will need to restart VSCode to get the latest changes.
-
-Resolved some broken links in the documentation.
 
 ## 6.1.2 - July 2026
 
