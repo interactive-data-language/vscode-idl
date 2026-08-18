@@ -32,5 +32,4 @@ export interface MCPToolParams_ManageIDLAndENVISession {
 /**
  * Response for managing ENVI and IDL session
  */
-export type MCPToolResponse_ManageIDLAndENVISession =
-  IMCPToolIDL_BaseResponse;
+export type MCPToolResponse_ManageIDLAndENVISession = IMCPToolIDL_BaseResponse;

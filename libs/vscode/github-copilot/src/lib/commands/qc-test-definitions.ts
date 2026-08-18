@@ -608,7 +608,7 @@ export const QC_TESTS: QCTest[] = [
         prompt:
           'In IDL, why does this code fail to print the Python variable?\n\n' +
           '```idl\n' +
-          "python.MyValue = 42\n" +
+          'python.MyValue = 42\n' +
           "python.run, 'print(MyValue)'\n" +
           '```\n\n' +
           'Put your answer in an IDL code block.',
@@ -622,8 +622,7 @@ export const QC_TESTS: QCTest[] = [
         lower.includes('lowercase') ||
         lower.includes('lower case') ||
         lower.includes('lower-case');
-      const mentionsName =
-        lower.includes('myvalue') || lower.includes('name');
+      const mentionsName = lower.includes('myvalue') || lower.includes('name');
       const passed = mentionsCase && mentionsName;
       return passed;
     },
@@ -1664,8 +1663,11 @@ export const QC_CODE_TESTS: QCTest[] = [
         lower.includes('.mean(') ||
         lower.includes('.std(');
       const usesIDLMean =
-        /\bmean\(/.test(lower) && !lower.includes('np.mean') && !lower.includes('.mean(');
-      const usesIDLStddev = /\bstddev\(/.test(lower) || /\bmoment\(/.test(lower);
+        /\bmean\(/.test(lower) &&
+        !lower.includes('np.mean') &&
+        !lower.includes('.mean(');
+      const usesIDLStddev =
+        /\bstddev\(/.test(lower) || /\bmoment\(/.test(lower);
 
       if (!usesNumpy || !usesBridge) {
         output.appendLine('  FAIL: Does not use numpy via the Python bridge');

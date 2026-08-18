@@ -20,6 +20,11 @@ import {
   MCPToolResponse_ExecuteIDLFile,
 } from './idl/mcp-tool-execute-idl-file.interface';
 import {
+  MCPTool_InspectIDLState,
+  MCPToolParams_InspectIDLState,
+  MCPToolResponse_InspectIDLState,
+} from './idl/mcp-tool-inspect-idl-state.interface';
+import {
   MCPTool_ListENVIToolWorkflows,
   MCPToolParams_ListENVIToolWorkflows,
   MCPToolResponse_ListENVIToolWorkflows,
@@ -29,11 +34,6 @@ import {
   MCPToolParams_ManageIDLAndENVISession,
   MCPToolResponse_ManageIDLAndENVISession,
 } from './idl/mcp-tool-manage-idl-and-envi-session.interface';
-import {
-  MCPTool_InspectIDLState,
-  MCPToolParams_InspectIDLState,
-  MCPToolResponse_InspectIDLState,
-} from './idl/mcp-tool-inspect-idl-state.interface';
 import {
   MCPTool_ManageIDLDebugger,
   MCPToolParams_ManageIDLDebugger,
@@ -77,9 +77,9 @@ export type MCPTools_IDL =
   | MCPTool_CreateIDLNotebook
   | MCPTool_ExecuteIDLCode
   | MCPTool_ExecuteIDLFile
+  | MCPTool_InspectIDLState
   | MCPTool_ListENVIToolWorkflows
   | MCPTool_ManageIDLAndENVISession
-  | MCPTool_InspectIDLState
   | MCPTool_ManageIDLDebugger
   | MCPTool_OpenDatasetsInENVI
   | MCPTool_QueryDatasetWithENVI
@@ -106,20 +106,20 @@ export type MCPToolParams_IDL<T extends MCPTools_IDL> =
             : T extends MCPTool_InspectIDLState
               ? MCPToolParams_InspectIDLState
               : T extends MCPTool_ManageIDLDebugger
-              ? MCPToolParams_ManageIDLDebugger
-              : T extends MCPTool_OpenDatasetsInENVI
-              ? MCPToolParams_OpenDatasetsInENVI
-              : T extends MCPTool_QueryDatasetWithENVI
-                ? MCPToolParams_QueryDatasetWithENVI
-                  : T extends MCPTool_QueryIDLSession
-                    ? MCPToolParams_QueryIDLSession
-                    : T extends MCPTool_ReturnNotes
-                  ? MCPToolParams_ReturnNotes
-                  : T extends MCPTool_RunENVITool
-                    ? MCPToolParams_RunENVITool
-                    : T extends MCPTool_TakeENVIScreenshot
-                      ? MCPToolParams_TakeENVIScreenshot
-                      : never;
+                ? MCPToolParams_ManageIDLDebugger
+                : T extends MCPTool_OpenDatasetsInENVI
+                  ? MCPToolParams_OpenDatasetsInENVI
+                  : T extends MCPTool_QueryDatasetWithENVI
+                    ? MCPToolParams_QueryDatasetWithENVI
+                    : T extends MCPTool_QueryIDLSession
+                      ? MCPToolParams_QueryIDLSession
+                      : T extends MCPTool_ReturnNotes
+                        ? MCPToolParams_ReturnNotes
+                        : T extends MCPTool_RunENVITool
+                          ? MCPToolParams_RunENVITool
+                          : T extends MCPTool_TakeENVIScreenshot
+                            ? MCPToolParams_TakeENVIScreenshot
+                            : never;
 
 /**
  * Responses from MCP tools that run in IDL for ENVI and IDL
@@ -138,20 +138,20 @@ export type MCPToolResponse_IDL<T extends MCPTools_IDL> =
             : T extends MCPTool_InspectIDLState
               ? MCPToolResponse_InspectIDLState
               : T extends MCPTool_ManageIDLDebugger
-              ? MCPToolResponse_ManageIDLDebugger
-              : T extends MCPTool_OpenDatasetsInENVI
-              ? MCPToolResponse_OpenDatasetsInENVI
-              : T extends MCPTool_QueryDatasetWithENVI
-                ? MCPToolResponse_QueryDatasetWithENVI
-                  : T extends MCPTool_QueryIDLSession
-                    ? MCPToolResponse_QueryIDLSession
-                    : T extends MCPTool_ReturnNotes
-                  ? MCPToolResponse_ReturnNotes
-                  : T extends MCPTool_RunENVITool
-                    ? MCPToolResponse_RunENVITool
-                    : T extends MCPTool_TakeENVIScreenshot
-                      ? MCPToolResponse_TakeENVIScreenshot
-                      : never;
+                ? MCPToolResponse_ManageIDLDebugger
+                : T extends MCPTool_OpenDatasetsInENVI
+                  ? MCPToolResponse_OpenDatasetsInENVI
+                  : T extends MCPTool_QueryDatasetWithENVI
+                    ? MCPToolResponse_QueryDatasetWithENVI
+                    : T extends MCPTool_QueryIDLSession
+                      ? MCPToolResponse_QueryIDLSession
+                      : T extends MCPTool_ReturnNotes
+                        ? MCPToolResponse_ReturnNotes
+                        : T extends MCPTool_RunENVITool
+                          ? MCPToolResponse_RunENVITool
+                          : T extends MCPTool_TakeENVIScreenshot
+                            ? MCPToolResponse_TakeENVIScreenshot
+                            : never;
 
 /**
  * Response from tools that run in IDL

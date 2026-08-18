@@ -26,6 +26,38 @@ export class IDLBreakpointManager {
   constructor(private adapter: IDLDebugAdapter) {}
 
   /**
+   * Continue execution after a stop.
+   * Should never need to sync
+   */
+  async debugContinue(): Promise<void> {
+    await this.adapter.evaluate('.continue', this._options);
+  }
+
+  /**
+   * Step into the next routine call.
+   * Should never need to sync
+   */
+  async debugStepIn(): Promise<void> {
+    await this.adapter.evaluate('.step', this._options);
+  }
+
+  /**
+   * Step out of the current routine.
+   * Should never need to sync
+   */
+  async debugStepOut(): Promise<void> {
+    await this.adapter.evaluate('.out', this._options);
+  }
+
+  /**
+   * Step over.
+   * Should never need to sync
+   */
+  async debugStepOver(): Promise<void> {
+    await this.adapter.evaluate('.stepover', this._options);
+  }
+
+  /**
    * Gets current breakpoints from IDL
    *
    * Updates internal property with this as the latest
@@ -141,6 +173,26 @@ export class IDLBreakpointManager {
 
     // remove them all at once
     await this.adapter.evaluate(commands.join(' & '), this._options);
+  }
+
+  /**
+   * Sets an individual breakpoint for a file and line
+   *
+   * Line number is one-based
+   */
+  async setBreakpoint(file: string, line: number, sync = true): Promise<void> {
+    /**
+     * Add breakpoint via IDL
+     */
+    await this.adapter.evaluate(
+      this._getSetBreakpointCommand(file, line),
+      this._options,
+    );
+
+    // check if we need to sync with VSCode
+    if (sync) {
+      await this.syncBreakpointState();
+    }
   }
 
   /**
@@ -268,61 +320,5 @@ export class IDLBreakpointManager {
   /** Get the command to set a breakpoint */
   private _getSetBreakpointCommand(file: string, line: number) {
     return `breakpoint, /set, '${CleanPath(file)}', ${line}`;
-  }
-
-  /**
-   * Sets an individual breakpoint for a file and line
-   *
-   * Line number is one-based
-   */
-  async setBreakpoint(
-    file: string,
-    line: number,
-    sync = true,
-  ): Promise<void> {
-    /**
-     * Add breakpoint via IDL
-     */
-    await this.adapter.evaluate(
-      this._getSetBreakpointCommand(file, line),
-      this._options,
-    );
-
-    // check if we need to sync with VSCode
-    if (sync) {
-      await this.syncBreakpointState();
-    }
-  }
-
-  /**
-   * Continue execution after a stop.
-   * Should never need to sync
-   */
-  async debugContinue(): Promise<void> {
-    await this.adapter.evaluate('.continue', this._options);
-  }
-
-  /**
-   * Step into the next routine call.
-   * Should never need to sync
-   */
-  async debugStepIn(): Promise<void> {
-    await this.adapter.evaluate('.step', this._options);
-  }
-
-  /**
-   * Step out of the current routine.
-   * Should never need to sync
-   */
-  async debugStepOut(): Promise<void> {
-    await this.adapter.evaluate('.out', this._options);
-  }
-
-  /**
-   * Step over.
-   * Should never need to sync
-   */
-  async debugStepOver(): Promise<void> {
-    await this.adapter.evaluate('.stepover', this._options);
   }
 }

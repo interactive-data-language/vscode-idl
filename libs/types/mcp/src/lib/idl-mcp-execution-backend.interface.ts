@@ -76,21 +76,6 @@ export interface IIDLMCPExecutionBackend {
   ): Promise<MCPToolResponse<T>>;
 
   /**
-   * Returns syntax errors tracked by file after the last evaluation.
-   */
-  getErrorsByFile(): IDLSyntaxErrorLookup;
-
-  /**
-   * Returns current IDL session info: scope, call stack, variables.
-   */
-  getIDLInfo(): IDLInfo;
-
-  /**
-   * Returns variables at the given scope frame (0 = current).
-   */
-  getVariables(frameId: number): Promise<IDLVariable[]>;
-
-  /**
    * Returns raw captured output from the IDL process.
    */
   getCapturedOutput(): string;
@@ -101,9 +86,24 @@ export interface IIDLMCPExecutionBackend {
   getCodeCoverage(file: string): Promise<IDLCodeCoverage>;
 
   /**
+   * Returns syntax errors tracked by file after the last evaluation.
+   */
+  getErrorsByFile(): IDLSyntaxErrorLookup;
+
+  /**
+   * Returns current IDL session info: scope, call stack, variables.
+   */
+  getIDLInfo(): IDLInfo;
+
+  /**
    * Get the current call stack (traceback) as a string.
    */
   getTraceback(): Promise<IDLScopeItem[]>;
+
+  /**
+   * Returns variables at the given scope frame (0 = current).
+   */
+  getVariables(frameId: number): Promise<IDLVariable[]>;
 
   /**
    * Version information about the running IDL session, if available.

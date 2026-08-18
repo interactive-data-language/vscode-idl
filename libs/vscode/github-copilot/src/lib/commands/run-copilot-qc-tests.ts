@@ -407,9 +407,7 @@ export async function RunCopilotQCTests() {
 //   - Code 11: Masked median filter
 //   - Code 12: numpy statistics via Python bridge
 
-
-
-// Note. 
+// Note.
 // This is the original improvemement after the first MCP tests.
-//output.appendLine('    Code:             Full 82.7%  Baseline 61.5%  Improvement +34.4%');
-//output.appendLine('   Code + Knowledge: Full 81.8%  Baseline 69.7%  Improvement +17.6%');
+// output.appendLine('    Code:             Full 82.7%  Baseline 61.5%  Improvement +34.4%');
+// output.appendLine('   Code + Knowledge: Full 81.8%  Baseline 69.7%  Improvement +17.6%');

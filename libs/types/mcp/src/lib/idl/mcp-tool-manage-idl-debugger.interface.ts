@@ -9,15 +9,15 @@ export type MCPTool_ManageIDLDebugger = 'manage-idl-debugger';
  * Actions available for the IDL debugger tool
  */
 export type ManageIDLDebuggerAction =
-  | 'set-breakpoint'
-  | 'clear-breakpoint'
   | 'clear-all-breakpoints'
-  | 'list-breakpoints'
+  | 'clear-breakpoint'
   | 'continue'
+  | 'get-stack'
+  | 'list-breakpoints'
+  | 'set-breakpoint'
   | 'step-in'
-  | 'step-over'
   | 'step-out'
-  | 'get-stack';
+  | 'step-over';
 
 /**
  * Parameters for managing the IDL debugger

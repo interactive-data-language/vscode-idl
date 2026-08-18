@@ -1,8 +1,4 @@
-import {
-  MCPToolParams,
-  MCPToolResponse,
-  MCPTools_IDL,
-} from '@idl/types/mcp';
+import { MCPToolParams, MCPToolResponse, MCPTools_IDL } from '@idl/types/mcp';
 
 /** Message to execute an MCP action through our language server (server to client) */
 export type MCP_LSP_Message = 'mcp';

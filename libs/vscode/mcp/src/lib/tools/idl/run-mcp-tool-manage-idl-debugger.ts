@@ -41,19 +41,12 @@ export async function RunMCPTool_ManageIDLDebugger(
   }
 
   switch (params.action) {
-    case 'set-breakpoint': {
-      if (!params.file || params.line === undefined) {
-        return {
-          success: false,
-          result: { err: 'set-breakpoint requires both "file" and "line" parameters.' },
-        };
-      }
-
-      await backend.setBreakpoint(params.file, params.line);
+    case 'clear-all-breakpoints': {
+      await backend.clearBreakpoint();
 
       return {
         success: true,
-        result: `Breakpoint set at ${params.file}:${params.line}`,
+        result: 'All breakpoints cleared.',
       };
     }
 
@@ -61,7 +54,9 @@ export async function RunMCPTool_ManageIDLDebugger(
       if (!params.file || params.line === undefined) {
         return {
           success: false,
-          result: { err: 'clear-breakpoint requires both "file" and "line" parameters.' },
+          result: {
+            err: 'clear-breakpoint requires both "file" and "line" parameters.',
+          },
         };
       }
 
@@ -69,16 +64,19 @@ export async function RunMCPTool_ManageIDLDebugger(
 
       return {
         success: true,
-        result:`Breakpoint cleared at ${params.file}:${params.line}`,
+        result: `Breakpoint cleared at ${params.file}:${params.line}`,
       };
     }
 
-    case 'clear-all-breakpoints': {
-      await backend.clearBreakpoint();
+    case 'continue':
+      return StepAndGetLocation(backend, () => backend.debugContinue());
+
+    case 'get-stack': {
+      const output = await backend.getTraceback();
 
       return {
         success: true,
-        result: 'All breakpoints cleared.',
+        result: output.length > 0 ? output : 'Execution finished.',
       };
     }
 
@@ -91,26 +89,32 @@ export async function RunMCPTool_ManageIDLDebugger(
       };
     }
 
-    case 'get-stack': {
-      const output = await backend.getTraceback();
+    case 'set-breakpoint': {
+      if (!params.file || params.line === undefined) {
+        return {
+          success: false,
+          result: {
+            err: 'set-breakpoint requires both "file" and "line" parameters.',
+          },
+        };
+      }
+
+      await backend.setBreakpoint(params.file, params.line);
 
       return {
         success: true,
-        result: output.length > 0 ? output : 'Execution finished.',
+        result: `Breakpoint set at ${params.file}:${params.line}`,
       };
     }
-
-    case 'continue':
-      return StepAndGetLocation(backend, () => backend.debugContinue());
 
     case 'step-in':
       return StepAndGetLocation(backend, () => backend.debugStepIn());
 
-    case 'step-over':
-      return StepAndGetLocation(backend, () => backend.debugStepOver());
-
     case 'step-out':
       return StepAndGetLocation(backend, () => backend.debugStepOut());
+
+    case 'step-over':
+      return StepAndGetLocation(backend, () => backend.debugStepOver());
 
     default:
       return {

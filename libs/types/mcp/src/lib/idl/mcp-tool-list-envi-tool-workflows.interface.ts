@@ -17,5 +17,6 @@ export interface MCPToolParams_ListENVIToolWorkflows {}
  * On success, lists workflows by name and then
  * the content for the workflows
  */
-export type MCPToolResponse_ListENVIToolWorkflows =
-  IMCPToolIDL_BaseResponse<{ [key: string]: string }>;
+export type MCPToolResponse_ListENVIToolWorkflows = IMCPToolIDL_BaseResponse<{
+  [key: string]: string;
+}>;
