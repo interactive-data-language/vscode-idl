@@ -1,5 +1,5 @@
 export const CONTROL_IDL_DEBUGGER_DESCRIPTION = `
-Controls the IDL debugger session — set/clear breakpoints, step through code, and inspect the call stack.
+Controls the IDL debugger session — set/clear breakpoints and step through code.
 
 Actions:
 - "set-breakpoint": Set a breakpoint at a specific file and line. Requires "file" and "line" params.
