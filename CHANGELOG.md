@@ -20,7 +20,7 @@ This major release brings some new and renamed MCP tools for agents to use with 
 
 - New tool `control-idl-debugger` which allows an agent to debug like a person through setting breakpoints and stepping through code
 
-- New tool `query-idl-session` for running single-line commands at the current scope/location for IDL. This differs from our other MCP tools which run code as a main level program and return from the current location.
+- New tool `query-idl-session` for running single-line commands at the current scope/location for IDL. This differs from our other MCP tools which run code as a main level program not from the current location.
 
 - New tool `save-envi-tool-workflow` lets you save a new ENVI-based processing workflow to disk that you can re-use later. The intended use of this tool is to run after you have stepped through an image analysis workflow so you can save it for later. See below for more details.
 
