@@ -1,12 +1,23 @@
 export const QUERY_IDL_SESSION_DESCRIPTION = `
-Runs an IDL command in the running IDL session and returns its output.
+This tool runs one or more single-line IDL statements and returns the output for all commands.
 
-Unlike run-idl-code, this tool does NOT echo output to the user's debug console. Use this when you need to inspect IDL state (variables, system info, help output, etc.) without cluttering the user's terminal.
+Use this when you need to inspect IDL (variables, system info, help output, etc.) without cluttering the user's terminal.
 
-The command runs in the same IDL process and session — all variables, compiled routines, and state are accessible.
+Unlike "run-idl-code", this tool runs at the current scope for the IDL process and can be used to get information about what is local.
 
 Examples of good uses:
 - Querying variable values: "print, myVar"
 - Checking system state: "help, /brief"
 - Getting information: "print, !version"
-- Inspecting data: "help, myArray"`;
+- Inspecting data: "help, myArray"
+
+Multiple commands (separated with new line character):
+- "help, /brief\nprint, !version
+- "help, myVar\nprint, myVar
+
+What is not allowed:
+- Commands separated with "&" (use new-line instead)
+- Use of IDL's spawn command 
+- Routines that manipulate the file system
+- Loading/linking 3rd party libraries
+- Use of IDL's "execute()" function`;
