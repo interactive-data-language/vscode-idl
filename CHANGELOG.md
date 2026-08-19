@@ -24,6 +24,12 @@ This major release brings some new and renamed MCP tools for agents to use with 
 
 - New tool `save-envi-tool-workflow` lets you save a new ENVI-based processing workflow to disk that you can re-use later. The intended use of this tool is to run after you have stepped through an image analysis workflow so you can save it for later. See below for more details.
 
+- Renamed `execute-idl-code` to `run-idl-code`
+
+- Renamed `execute-idl-file` to `run-idl-file`
+
+- Renamed `manage-idl-and-envi-session` to `control-idl-and-envi-session`
+
 IDL Agent can now access and use the Python included with IDL and ENVI installations. It should be able to: install packages, run Python code, and write IDL routines that mix/match with Python.
 
 The debug console now supports auto-complete! This small change helps make the interactive debugging a little more user friendly. The completion triggers are different from normal text editing (tab is accept instead of enter).
