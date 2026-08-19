@@ -35,6 +35,9 @@ export class SimulatedCopilotChatAgent {
 
   private model: vscode.LanguageModelChat;
 
+  /** Cumulative tool call counts across all requests */
+  readonly toolCounts: Record<string, number> = {};
+
   constructor(model: vscode.LanguageModelChat) {
     this.model = model;
   }
@@ -119,6 +122,7 @@ export class SimulatedCopilotChatAgent {
         } else if (part instanceof vscode.LanguageModelToolCallPart) {
           toolCallsThisRound.push(part);
           allToolCalls.push({ name: part.name, input: part.input });
+          this.toolCounts[part.name] = (this.toolCounts[part.name] ?? 0) + 1;
         }
       }
 

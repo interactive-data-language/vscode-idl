@@ -63,7 +63,6 @@ export async function run(): Promise<void> {
     }
 
     // alert user which IDL we are using
-    console.log(` `);
     console.log(`Test are using this IDL: "${IDL_DIR}"`);
 
     // basic smoke-test: start idl.exe, print 'foo', verify output ends with 'foo'
