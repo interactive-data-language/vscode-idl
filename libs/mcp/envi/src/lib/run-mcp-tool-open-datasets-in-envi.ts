@@ -58,7 +58,7 @@ export async function RunMCPTool_OpenDatasetsInENVI(
   onProgress?.('Opening datasets');
 
   return await backend.evaluateENVICommand<MCPTool_OpenDatasetsInENVI>(
-    `agent_openDatasetsInENVI, '${MCPSerializeJSON(params)}`,
+    `agent_openDatasetsInENVI, '${MCPSerializeJSON(params)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: false },
   );
 }
