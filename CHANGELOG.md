@@ -147,7 +147,7 @@ Resample warp image to match base image's coordinate grid by running **ImageToIm
 - **WARPING = 'Polynomial'**: Smoother global fit for systematic distortions
 ```
 
-3. Restart VSCode for changes to be applied. When you update the file, you will need to restart VSCode to get the latest changes.
+3. Open a new chat and ask "What ENVI tool workflows do you have available?" and your new workflow should appear.
 
 ## 6.1.2 - July 2026
 
