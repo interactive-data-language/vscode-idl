@@ -9,6 +9,7 @@ import {
 import {
   RunMCPTool_ControlIDLAndENVISession,
   RunMCPTool_InspectIDLState,
+  RunMCPTool_ManageIDLDebugger,
   RunMCPTool_QueryIDLSession,
   RunMCPTool_RunIDLCode,
 } from '@idl/mcp/idl';
@@ -42,8 +43,7 @@ import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { compareVersions } from 'compare-versions';
 import { copy } from 'fast-copy';
 
-import { RunMCPTool_ManageIDLDebugger } from './idl/run-mcp-tool-manage-idl-debugger';
-import { RunMCPTool_CreateIDLNotebook } from './run-mcp-tool-create-idl-notebook';
+import { RunMCPTool_CreateIDLNotebookInVSCode } from './run-mcp-tool-create-idl-notebook-in-vscode';
 import { RunMCPTool_RunIDLFileInVSCode } from './run-mcp-tool-run-idl-file-in-vscode';
 const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
 
@@ -191,7 +191,10 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
         return RunMCPTool_ControlIDLAndENVISession(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK:
-        return RunMCPTool_CreateIDLNotebook(executionId, params as any) as any;
+        return RunMCPTool_CreateIDLNotebookInVSCode(
+          executionId,
+          params as any,
+        ) as any;
 
       case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
         return RunMCPTool_InspectIDLState(this, params as any) as any;
