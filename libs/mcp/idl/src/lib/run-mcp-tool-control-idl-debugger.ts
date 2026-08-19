@@ -1,6 +1,6 @@
 import {
   IIDLMCPExecutionBackend,
-  MCPTool_ManageIDLDebugger,
+  MCPTool_ControlIDLDebugger,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
@@ -9,7 +9,7 @@ import {
 async function StepAndGetLocation(
   backend: IIDLMCPExecutionBackend,
   step: () => Promise<void>,
-): Promise<MCPToolResponse<MCPTool_ManageIDLDebugger>> {
+): Promise<MCPToolResponse<MCPTool_ControlIDLDebugger>> {
   await step();
 
   const stack = await backend.getTraceback();
@@ -21,17 +21,17 @@ async function StepAndGetLocation(
 }
 
 /**
- * Handles the manage-idl-debugger MCP tool in the VS Code extension.
+ * Handles the control-idl-debugger MCP tool in the VS Code extension.
  *
  * The goal is to allow for breakpoint management from the IDL-Agent.
  *
  * Because this is dependent on the VS Code debug adapter it will only work in
  * the VS Code extension.
  */
-export async function RunMCPTool_ManageIDLDebugger(
+export async function RunMCPTool_ControlIDLDebugger(
   backend: IIDLMCPExecutionBackend,
-  params: MCPToolParams<MCPTool_ManageIDLDebugger>,
-): Promise<MCPToolResponse<MCPTool_ManageIDLDebugger>> {
+  params: MCPToolParams<MCPTool_ControlIDLDebugger>,
+): Promise<MCPToolResponse<MCPTool_ControlIDLDebugger>> {
   // IDL must be running.
   if (!backend.isStarted()) {
     return {
@@ -70,15 +70,6 @@ export async function RunMCPTool_ManageIDLDebugger(
 
     case 'continue':
       return StepAndGetLocation(backend, () => backend.debugContinue());
-
-    case 'get-stack': {
-      const output = await backend.getTraceback();
-
-      return {
-        success: true,
-        result: output.length > 0 ? output : 'Execution finished.',
-      };
-    }
 
     case 'list-breakpoints': {
       const output = await backend.listBreakpoints();

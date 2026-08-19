@@ -1,18 +1,17 @@
 import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
- * Message for managing IDL debugger (breakpoints, stepping, etc.)
+ * Message for controlling IDL debugger (breakpoints, stepping, etc.)
  */
-export type MCPTool_ManageIDLDebugger = 'manage-idl-debugger';
+export type MCPTool_ControlIDLDebugger = 'control-idl-debugger';
 
 /**
  * Actions available for the IDL debugger tool
  */
-export type ManageIDLDebuggerAction =
+export type ControlIDLDebuggerAction =
   | 'clear-all-breakpoints'
   | 'clear-breakpoint'
   | 'continue'
-  | 'get-stack'
   | 'list-breakpoints'
   | 'set-breakpoint'
   | 'step-in'
@@ -20,11 +19,11 @@ export type ManageIDLDebuggerAction =
   | 'step-over';
 
 /**
- * Parameters for managing the IDL debugger
+ * Parameters for controlling the IDL debugger
  */
-export interface MCPToolParams_ManageIDLDebugger {
+export interface MCPToolParams_ControlIDLDebugger {
   /** The debugger action to perform */
-  action: ManageIDLDebuggerAction;
+  action: ControlIDLDebuggerAction;
   /** File path (required for set-breakpoint and clear-breakpoint) */
   file?: string;
   /** Line number (required for set-breakpoint and clear-breakpoint) */
@@ -34,4 +33,4 @@ export interface MCPToolParams_ManageIDLDebugger {
 /**
  * Response for the IDL debugger tool
  */
-export type MCPToolResponse_ManageIDLDebugger = IMCPToolIDL_BaseResponse<any>;
+export type MCPToolResponse_ControlIDLDebugger = IMCPToolIDL_BaseResponse<any>;

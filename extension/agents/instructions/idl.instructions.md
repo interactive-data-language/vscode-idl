@@ -73,17 +73,17 @@ You have access to comprehensive IDL resources via MCP tools provided by the IDL
 **Inspect, change, and debug IDL state (no console output to user):**
 
 - Use `IDL for VSCode/query-idl-session` to silently evaluate an IDL expression and capture its output without echoing to the debug console — useful for reading variable values, system info, or help output
-- Use `IDL for VSCode/inspect-idl-state` to read structured session state without executing or mutating anything:
+- Use `IDL for VSCode/get-idl-state` to read structured session state without executing or mutating anything:
   - `get-info` — orientation snapshot: scope, call stack, variables at current frame, session info
   - `get-variables` — variables at a specific frame (optional `frameId`, defaults to current)
   - `get-stack` — current call stack (traceback)
   - `get-output` — raw captured output from the IDL process
   - `get-errors` — syntax errors tracked by file
   - `get-coverage` — code coverage for a file (requires `file` param)
-- Use `IDL for VSCode/manage-idl-debugger` to control the IDL debugger:
+- Use `IDL for VSCode/control-idl-debugger` to control the IDL debugger:
   - `set-breakpoint` / `clear-breakpoint` / `clear-all-breakpoints` / `list-breakpoints`
   - `continue` / `step-in` / `step-over` / `step-out`
-  - `get-stack` — current call stack after a step
+  - To get call stack after a step, use `IDL for VSCode/get-idl-state` with `get-stack` as the `action`
 
 ### Traps
 

@@ -12,10 +12,10 @@ import { MCPTool_SearchForFiles } from './http/mcp-tool-search-for-files.interfa
 import { MCPTool_SearchForRoutine } from './http/mcp-tool-search-for-routine.interface';
 import { MCPTool_SearchResources } from './http/mcp-tool-search-resources.interface';
 import { MCPTool_ControlIDLAndENVISession } from './idl/mcp-tool-control-idl-and-envi-session.interface';
+import { MCPTool_ControlIDLDebugger } from './idl/mcp-tool-control-idl-debugger.interface';
 import { MCPTool_CreateIDLNotebook } from './idl/mcp-tool-create-idl-notebook.interface';
-import { MCPTool_InspectIDLState } from './idl/mcp-tool-inspect-idl-state.interface';
+import { MCPTool_GetIDLState } from './idl/mcp-tool-get-idl-state.interface';
 import { MCPTool_ListENVIToolWorkflows } from './idl/mcp-tool-list-envi-tool-workflows.interface';
-import { MCPTool_ManageIDLDebugger } from './idl/mcp-tool-manage-idl-debugger.interface';
 import { MCPTool_OpenDatasetsInENVI } from './idl/mcp-tool-open-datasets-in-envi.interface';
 import { MCPTool_QueryDatasetWithENVI } from './idl/mcp-tool-query-dataset-with-envi.interface';
 import { MCPTool_QueryIDLSession } from './idl/mcp-tool-query-idl-session.interface';
@@ -70,6 +70,8 @@ export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_HTTP
 interface IMCPToolLookup {
   /** Control ENVI and IDL session */
   CONTROL_IDL_AND_ENVI_SESSION: MCPTool_ControlIDLAndENVISession;
+  /** Control the IDL debugger (breakpoints, stepping) */
+  CONTROL_IDL_DEBUGGER: MCPTool_ControlIDLDebugger;
   /** Create an ENVI Modeler workflow file */
   CREATE_ENVI_MODELER_WORKFLOW: MCPTool_CreateENVIModelerWorkflow;
   /** Create an IDL Notebook */
@@ -78,14 +80,14 @@ interface IMCPToolLookup {
   GET_ENVI_TOOL_PARAMETERS: MCPTool_GetENVIToolParameters;
   /** Get known ENVI workflow */
   GET_ENVI_TOOL_WORKFLOW: MCPTool_GetENVIToolWorkflow;
+  /** Read-only inspection of IDL session state */
+  GET_IDL_STATE: MCPTool_GetIDLState;
   /** Get a prompt (instruction set or tutorial) from the server */
   GET_PROMPT: MCPTool_GetPrompt;
   /** Get a specific resource from the server */
   GET_RESOURCE: MCPTool_GetResource;
   /** Retrieve docs for a routine */
   GET_ROUTINE_DOCS: MCPTool_GetRoutineDocs;
-  /** Read-only inspection of IDL session state */
-  INSPECT_IDL_STATE: MCPTool_InspectIDLState;
   /** List all resources */
   LIST_ALL_RESOURCES: MCPTool_ListAllResources;
   /** List know ENVI tool workflows */
@@ -94,8 +96,6 @@ interface IMCPToolLookup {
   LIST_ENVI_TOOLS: MCPTool_ListENVITools;
   /** List all prompts (instruction sets and tutorials) */
   LIST_PROMPTS: MCPTool_ListPrompts;
-  /** Manage IDL debugger (breakpoints, stepping) */
-  MANAGE_IDL_DEBUGGER: MCPTool_ManageIDLDebugger;
   /** Open a dataset in ENVI */
   OPEN_DATASETS_IN_ENVI: MCPTool_OpenDatasetsInENVI;
   /** Get additional information about a dataset */
@@ -127,10 +127,12 @@ interface IMCPToolLookup {
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   CONTROL_IDL_AND_ENVI_SESSION: 'control-idl-and-envi-session',
+  CONTROL_IDL_DEBUGGER: 'control-idl-debugger',
   CREATE_ENVI_MODELER_WORKFLOW: 'create-envi-modeler-workflow',
   CREATE_IDL_NOTEBOOK: 'create-idl-notebook',
   GET_ENVI_TOOL_PARAMETERS: 'get-envi-tool-parameters',
   GET_ENVI_TOOL_WORKFLOW: 'get-envi-tool-workflow',
+  GET_IDL_STATE: 'get-idl-state',
   GET_PROMPT: 'get-prompt',
   GET_RESOURCE: 'get-resource',
   GET_ROUTINE_DOCS: 'get-routine-docs',
@@ -138,8 +140,6 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   LIST_ENVI_TOOL_WORKFLOWS: 'list-envi-tool-workflows',
   LIST_ENVI_TOOLS: 'list-envi-tools',
   LIST_PROMPTS: 'list-prompts',
-  INSPECT_IDL_STATE: 'inspect-idl-state',
-  MANAGE_IDL_DEBUGGER: 'manage-idl-debugger',
   OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',
   QUERY_IDL_SESSION: 'query-idl-session',

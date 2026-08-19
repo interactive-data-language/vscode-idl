@@ -1,15 +1,15 @@
 import {
   IIDLMCPExecutionBackend,
-  MCPTool_InspectIDLState,
+  MCPTool_GetIDLState,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
 
-/** Core logic for inspecting IDL session state */
-export async function RunMCPTool_InspectIDLState(
+/** Core logic for getting IDL session state */
+export async function RunMCPTool_GetIDLState(
   backend: IIDLMCPExecutionBackend,
-  params: MCPToolParams<MCPTool_InspectIDLState>,
-): Promise<MCPToolResponse<MCPTool_InspectIDLState>> {
+  params: MCPToolParams<MCPTool_GetIDLState>,
+): Promise<MCPToolResponse<MCPTool_GetIDLState>> {
   if (!backend.isStarted()) {
     return {
       success: false,

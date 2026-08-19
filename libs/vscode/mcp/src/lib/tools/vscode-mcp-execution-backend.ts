@@ -8,8 +8,8 @@ import {
 } from '@idl/mcp/envi';
 import {
   RunMCPTool_ControlIDLAndENVISession,
-  RunMCPTool_InspectIDLState,
-  RunMCPTool_ManageIDLDebugger,
+  RunMCPTool_ControlIDLDebugger,
+  RunMCPTool_GetIDLState,
   RunMCPTool_QueryIDLSession,
   RunMCPTool_RunIDLCode,
 } from '@idl/mcp/idl';
@@ -190,20 +190,20 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
       case MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION:
         return RunMCPTool_ControlIDLAndENVISession(this, params as any) as any;
 
+      case MCP_TOOL_LOOKUP.CONTROL_IDL_DEBUGGER:
+        return RunMCPTool_ControlIDLDebugger(this, params as any) as any;
+
       case MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK:
         return RunMCPTool_CreateIDLNotebookInVSCode(
           executionId,
           params as any,
         ) as any;
 
-      case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
-        return RunMCPTool_InspectIDLState(this, params as any) as any;
+      case MCP_TOOL_LOOKUP.GET_IDL_STATE:
+        return RunMCPTool_GetIDLState(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS:
         return RunMCPTool_ListENVIToolWorkflows(this, params as any) as any;
-
-      case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
-        return RunMCPTool_ManageIDLDebugger(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI:
         return RunMCPTool_OpenDatasetsInENVI(

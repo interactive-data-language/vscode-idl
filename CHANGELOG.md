@@ -16,9 +16,9 @@ New settings for ENVI's MCP Tools:
 
 This major release brings some new and renamed MCP tools for agents to use with IDL and ENVI. Here's the breakdown:
 
-- New tool `inspect-idl-state` that allows an agent to learn about variables, call stack, and more for the current IDL session
+- New tool `get-idl-state` that allows an agent to learn about variables, call stack, and more for the current IDL session
 
-- New tool `manage-idl-debugger` which allows an agent to debug like a person through setting breakpoints and stepping through code
+- New tool `control-idl-debugger` which allows an agent to debug like a person through setting breakpoints and stepping through code
 
 - New tool `query-idl-session` for running single-line commands at the current scope/location for IDL. This differs from our other MCP tools which run code as a main level program and return from the current location.
 

@@ -3,18 +3,21 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { INSPECT_IDL_STATE_DESCRIPTION } from './register-mcp-tool-inspect-idl-state.interface';
+import { GET_IDL_STATE_DESCRIPTION } from './register-mcp-tool-get-idl-state.interface';
 
-/** Registers the inspect-idl-state tool */
-export function RegisterMCPTool_InspectIDLState(server: MCPServer) {
+/** 
+ * Registers the get-idl-state tool 
+ * 
+ * Changes to parameters should be reflected in: extension\agents\instructions\idl.instructions.md
+
+ */
+export function RegisterMCPTool_GetIDLState(server: MCPServer) {
   server.registerTool(
-    MCP_TOOL_LOOKUP.INSPECT_IDL_STATE,
+    MCP_TOOL_LOOKUP.GET_IDL_STATE,
     {
       title:
-        IDL_TRANSLATION.mcp.tools.displayNames[
-          MCP_TOOL_LOOKUP.INSPECT_IDL_STATE
-        ],
-      description: INSPECT_IDL_STATE_DESCRIPTION,
+        IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_IDL_STATE],
+      description: GET_IDL_STATE_DESCRIPTION,
       inputSchema: {
         action: z
           .enum([
@@ -41,7 +44,7 @@ export function RegisterMCPTool_InspectIDLState(server: MCPServer) {
     async (id, { action, frameId, file }) => {
       const resp = await server.sendIDLRequest(
         id,
-        MCP_TOOL_LOOKUP.INSPECT_IDL_STATE,
+        MCP_TOOL_LOOKUP.GET_IDL_STATE,
         { action, frameId, file },
       );
 

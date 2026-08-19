@@ -1,4 +1,4 @@
-export const INSPECT_IDL_STATE_DESCRIPTION = `
+export const GET_IDL_STATE_DESCRIPTION = `
 Read-only inspection of the running IDL session. Returns structured state; never mutates the debugger or echoes to the user's console.
 
 Actions:

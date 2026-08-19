@@ -3,20 +3,20 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
-import { MANAGE_IDL_DEBUGGER_DESCRIPTION } from './register-mcp-tool-manage-idl-debugger.interface';
+import { CONTROL_IDL_DEBUGGER_DESCRIPTION } from './register-mcp-tool-control-idl-debugger.interface';
 
 /**
- * Registers the manage-idl-debugger tool
+ * Registers the control-idl-debugger tool
  */
-export function RegisterMCPTool_ManageIDLDebugger(server: MCPServer) {
+export function RegisterMCPTool_ControlIDLDebugger(server: MCPServer) {
   server.registerTool(
-    MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER,
+    MCP_TOOL_LOOKUP.CONTROL_IDL_DEBUGGER,
     {
       title:
         IDL_TRANSLATION.mcp.tools.displayNames[
-          MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER
+          MCP_TOOL_LOOKUP.CONTROL_IDL_DEBUGGER
         ],
-      description: MANAGE_IDL_DEBUGGER_DESCRIPTION,
+      description: CONTROL_IDL_DEBUGGER_DESCRIPTION,
       inputSchema: {
         action: z
           .enum([
@@ -28,7 +28,6 @@ export function RegisterMCPTool_ManageIDLDebugger(server: MCPServer) {
             'step-in',
             'step-over',
             'step-out',
-            'get-stack',
           ])
           .describe('The debugger action to perform.'),
         file: z
@@ -49,7 +48,7 @@ export function RegisterMCPTool_ManageIDLDebugger(server: MCPServer) {
     async (id, { action, file, line }) => {
       const resp = await server.sendIDLRequest(
         id,
-        MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER,
+        MCP_TOOL_LOOKUP.CONTROL_IDL_DEBUGGER,
         { action, file, line },
       );
 

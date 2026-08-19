@@ -9,7 +9,7 @@ import {
 import {
   RunMCPTool_ControlIDLAndENVISession,
   RunMCPTool_CreateIDLNotebook,
-  RunMCPTool_InspectIDLState,
+  RunMCPTool_GetIDLState,
   RunMCPTool_QueryIDLSession,
   RunMCPTool_RunIDLCode,
   RunMCPTool_RunIDLFile,
@@ -231,22 +231,22 @@ export class IDLMachineExecutionBackend implements IIDLMCPExecutionBackend {
           onProgress,
         ) as any;
 
-      case MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK:
-        return RunMCPTool_CreateIDLNotebook(params as any) as any;
-
-      case MCP_TOOL_LOOKUP.INSPECT_IDL_STATE:
-        return RunMCPTool_InspectIDLState(this, params as any) as any;
-
-      case MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS:
-        return RunMCPTool_ListENVIToolWorkflows(this, params as any) as any;
-
-      case MCP_TOOL_LOOKUP.MANAGE_IDL_DEBUGGER:
+      case MCP_TOOL_LOOKUP.CONTROL_IDL_DEBUGGER:
         return {
           success: false,
           result: {
-            err: 'The manage-idl-debugger tool is only available in VS Code (requires the debug adapter).',
+            err: 'The control-idl-debugger tool is only available in VS Code (requires the debug adapter).',
           },
         } as any;
+
+      case MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK:
+        return RunMCPTool_CreateIDLNotebook(params as any) as any;
+
+      case MCP_TOOL_LOOKUP.GET_IDL_STATE:
+        return RunMCPTool_GetIDLState(this, params as any) as any;
+
+      case MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS:
+        return RunMCPTool_ListENVIToolWorkflows(this, params as any) as any;
 
       case MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI:
         return RunMCPTool_OpenDatasetsInENVI(
