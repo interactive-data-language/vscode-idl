@@ -114,9 +114,6 @@
     "zod": "^4.4.3",
     "zone.js": "0.16.1"
   },
-  "optionalDependencies": {
-    "@vis/compliance": "^0.2.3"
-  },
   "devDependencies": {
     "@angular-devkit/build-angular": "21.1.5",
     "@angular-devkit/core": "21.1.5",
