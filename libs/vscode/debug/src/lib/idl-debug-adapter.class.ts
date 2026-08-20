@@ -3,7 +3,7 @@ import {
   IDLInteractionManager,
 } from '@idl/idl/idl-interaction-manager';
 import { IDL_DEBUG_ADAPTER_LOG, IDL_DEBUG_LOG } from '@idl/logger';
-import { Sleep } from '@idl/shared/extension';
+import { COMPLETION_TRIGGER_CHARACTERS, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EVENT_LOOKUP,
@@ -20,8 +20,9 @@ import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { IDLVersionInfo } from '@idl/types/vscode-debug';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
-import { VSCODE_PRO_DIR } from '@idl/vscode/client';
+import { LANGUAGE_SERVER_MESSENGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
+import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { RegisterIDLMachineRequestHandlers } from '@idl/vscode/idl-machine';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
@@ -841,6 +842,42 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     }
   }
 
+  protected async completionsRequest(
+    response: DebugProtocol.CompletionsResponse,
+    args: DebugProtocol.CompletionsArguments,
+    request?: DebugProtocol.Request,
+  ): Promise<void> {
+    try {
+      // request completions
+      response.body = {
+        targets: await LANGUAGE_SERVER_MESSENGER.sendRequest(
+          LANGUAGE_SERVER_MESSAGE_LOOKUP.DEBUG_CONSOLE_COMPLETION,
+          {
+            code: `${args.text}\nend`,
+            position: {
+              line: (args.line || 1) - 1,
+              character: args.column - 1,
+            },
+            variables: (await this._runtime.getVariables(0)).map(
+              (variable) => variable.name,
+            ),
+          },
+        ),
+      };
+    } catch (err) {
+      IDL_LOGGER.log({
+        type: 'error',
+        log: IDL_DEBUG_ADAPTER_LOG,
+        content: [IDL_TRANSLATION.debugger.errors.debugCompletion, err],
+        alert: IDL_TRANSLATION.debugger.errors.debugCompletion,
+      });
+      console.log(err);
+    }
+
+    // send back to VSCode
+    this.sendResponse(response);
+  }
+
   /**
    * Called at the end of the configuration sequence.
    * Indicates that all breakpoints etc. have been sent to the DA and that the 'launch' can start.
@@ -873,9 +910,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this._configurationDone.notify();
   }
 
-  /**
-   * Continue processing after we have stopped
-   */
   protected async continueRequest(
     response: DebugProtocol.ContinueResponse,
     args: DebugProtocol.ContinueArguments,
@@ -1037,8 +1071,8 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     response.body.supportsDataBreakpoints = false;
 
     // make VS Code to support completion in REPL
-    response.body.supportsCompletionsRequest = false;
-    response.body.completionTriggerCharacters = ['.', '['];
+    response.body.supportsCompletionsRequest = true;
+    response.body.completionTriggerCharacters = COMPLETION_TRIGGER_CHARACTERS;
 
     // make VS Code to send cancelRequests
     response.body.supportsCancelRequest = true;
@@ -1131,9 +1165,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     }
   }
 
-  /**
-   * Step over routine
-   */
   protected async nextRequest(
     response: DebugProtocol.NextResponse,
     args: DebugProtocol.NextArguments,
@@ -1420,9 +1451,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     this._eventHelper.removeStopBlocker();
   }
 
-  /**
-   * Step into routine
-   */
   protected async stepInRequest(
     response: DebugProtocol.StepInResponse,
     args: DebugProtocol.StepInArguments,
@@ -1456,9 +1484,6 @@ export class IDLDebugAdapter extends LoggingDebugSession {
     }
   }
 
-  /**
-   * Step out of routine
-   */
   protected async stepOutRequest(
     response: DebugProtocol.StepOutResponse,
     args: DebugProtocol.StepOutArguments,

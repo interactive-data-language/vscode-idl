@@ -2,6 +2,7 @@ import { TokenName } from '@idl/tokenizer';
 import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { IDLIndex } from '../idl-index.class';
+import { GetAllKeywordsForGlobalToken } from './get-all-keywords-for-global-token';
 import { IFoundKeywords } from './get-keywords.interface';
 import { GetRoutine } from './get-routine';
 import { ITokenCache } from './token-cache.interface';
@@ -33,7 +34,7 @@ export function GetKeywords(
   // check for matches
   if (global.length > 0) {
     (token.cache as ITokenCache).keywords = {
-      keywords: global[0].meta.kws,
+      keywords: GetAllKeywordsForGlobalToken(index, global[0]),
       global: global[0],
     };
     return (token.cache as ITokenCache).keywords;

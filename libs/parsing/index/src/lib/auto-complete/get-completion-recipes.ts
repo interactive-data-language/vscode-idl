@@ -513,6 +513,7 @@ export async function GetCompletionRecipes(
 
         // check if we can send procedures or if it needs to be functions
         if (
+          token === undefined ||
           token?.name in PROCEDURES ||
           (isWithinStart && token?.name === TOKEN_NAMES.CALL_PROCEDURE)
         ) {

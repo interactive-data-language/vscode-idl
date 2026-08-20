@@ -7,75 +7,81 @@ import { MCPTool_GetRoutineDocs } from './http/mcp-tool-get-routine-docs.interfa
 import { MCPTool_ListAllResources } from './http/mcp-tool-list-all-resources.interface';
 import { MCPTool_ListENVITools } from './http/mcp-tool-list-envi-tools.interface';
 import { MCPTool_ListPrompts } from './http/mcp-tool-list-prompts.interface';
+import { MCPTool_SaveENVIToolWorkflow } from './http/mcp-tool-save-envi-tool-workflow.interface';
 import { MCPTool_SearchForFiles } from './http/mcp-tool-search-for-files.interface';
 import { MCPTool_SearchForRoutine } from './http/mcp-tool-search-for-routine.interface';
 import { MCPTool_SearchResources } from './http/mcp-tool-search-resources.interface';
+import { MCPTool_ControlIDLAndENVISession } from './idl/mcp-tool-control-idl-and-envi-session.interface';
+import { MCPTool_ControlIDLDebugger } from './idl/mcp-tool-control-idl-debugger.interface';
+import { MCPTool_CreateIDLNotebook } from './idl/mcp-tool-create-idl-notebook.interface';
+import { MCPTool_GetIDLState } from './idl/mcp-tool-get-idl-state.interface';
+import { MCPTool_ListENVIToolWorkflows } from './idl/mcp-tool-list-envi-tool-workflows.interface';
+import { MCPTool_OpenDatasetsInENVI } from './idl/mcp-tool-open-datasets-in-envi.interface';
+import { MCPTool_QueryDatasetWithENVI } from './idl/mcp-tool-query-dataset-with-envi.interface';
+import { MCPTool_QueryIDLSession } from './idl/mcp-tool-query-idl-session.interface';
+import { MCPTool_ReturnNotes } from './idl/mcp-tool-return-notes.interface';
+import { MCPTool_RunENVITool } from './idl/mcp-tool-run-envi-tool.interface';
+import { MCPTool_RunIDLCode } from './idl/mcp-tool-run-idl-code.interface';
+import { MCPTool_RunIDLFile } from './idl/mcp-tool-run-idl-file.interface';
+import { MCPTool_TakeENVIScreenshot } from './idl/mcp-tool-take-envi-screenshot.interface';
 import {
   MCPToolHTTPResponse_HTTP,
   MCPToolParams_HTTP,
   MCPTools_HTTP,
 } from './mcp-tools-http.interface';
 import {
-  MCPToolHTTPResponse_VSCode,
-  MCPToolParams_VSCode,
-  MCPToolResponse_VSCode,
-  MCPTools_VSCode,
-} from './mcp-tools-vscode.interface';
-import { MCPTool_CreateIDLNotebook } from './vscode/mcp-tool-create-idl-notebook.interface';
-import { MCPTool_ExecuteIDLCode } from './vscode/mcp-tool-execute-idl-code.interface';
-import { MCPTool_ExecuteIDLFile } from './vscode/mcp-tool-execute-idl-file.interface';
-import { MCPTool_ListENVIToolWorkflows } from './vscode/mcp-tool-list-envi-tool-workflows.interface';
-import { MCPTool_ManageIDLAndENVISession } from './vscode/mcp-tool-manage-idl-and-envi-session.interface';
-import { MCPTool_OpenDatasetsInENVI } from './vscode/mcp-tool-open-datasets-in-envi.interface';
-import { MCPTool_QueryDatasetWithENVI } from './vscode/mcp-tool-query-dataset-with-envi.interface';
-import { MCPTool_ReturnNotes } from './vscode/mcp-tool-return-notes.interface';
-import { MCPTool_RunENVITool } from './vscode/mcp-tool-run-envi-tool.interface';
-import { MCPTool_TakeENVIScreenshot } from './vscode/mcp-tool-take-envi-screenshot.interface';
+  MCPToolHTTPResponse_IDL,
+  MCPToolParams_IDL,
+  MCPToolResponse_IDL,
+  MCPTools_IDL,
+} from './mcp-tools-idl.interface';
 
 /**
  * All MCP tools
  */
-export type MCPTools = MCPTools_HTTP | MCPTools_VSCode;
+export type MCPTools = MCPTools_HTTP | MCPTools_IDL;
 
 /**
  * All MCP tool parameters
  */
 export type MCPToolParams<T extends MCPTools> = T extends MCPTools_HTTP
   ? MCPToolParams_HTTP<T>
-  : T extends MCPTools_VSCode
-    ? MCPToolParams_VSCode<T>
+  : T extends MCPTools_IDL
+    ? MCPToolParams_IDL<T>
     : never;
 
 /**
  * Payloads for all MCP messages
  */
-export type MCPToolResponse<T extends MCPTools> = T extends MCPTools_VSCode
-  ? MCPToolResponse_VSCode<T>
+export type MCPToolResponse<T extends MCPTools> = T extends MCPTools_IDL
+  ? MCPToolResponse_IDL<T>
   : never;
 
 /** What is the data type returned from our MCP call over HTTP */
 export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_HTTP
   ? MCPToolHTTPResponse_HTTP
-  : T extends MCPTools_VSCode
-    ? MCPToolHTTPResponse_VSCode
+  : T extends MCPTools_IDL
+    ? MCPToolHTTPResponse_IDL
     : never;
 
 /**
  * Strictly typed messages that we can send back and forth
  */
 interface IMCPToolLookup {
+  /** Control ENVI and IDL session */
+  CONTROL_IDL_AND_ENVI_SESSION: MCPTool_ControlIDLAndENVISession;
+  /** Control the IDL debugger (breakpoints, stepping) */
+  CONTROL_IDL_DEBUGGER: MCPTool_ControlIDLDebugger;
   /** Create an ENVI Modeler workflow file */
   CREATE_ENVI_MODELER_WORKFLOW: MCPTool_CreateENVIModelerWorkflow;
   /** Create an IDL Notebook */
   CREATE_IDL_NOTEBOOK: MCPTool_CreateIDLNotebook;
-  /** Run code in IDL */
-  EXECUTE_IDL_CODE: MCPTool_ExecuteIDLCode;
-  /** Run code in IDL that comes from a file */
-  EXECUTE_IDL_FILE: MCPTool_ExecuteIDLFile;
   /** Query parameters for tasks ENVI has */
   GET_ENVI_TOOL_PARAMETERS: MCPTool_GetENVIToolParameters;
   /** Get known ENVI workflow */
   GET_ENVI_TOOL_WORKFLOW: MCPTool_GetENVIToolWorkflow;
+  /** Read-only inspection of IDL session state */
+  GET_IDL_STATE: MCPTool_GetIDLState;
   /** Get a prompt (instruction set or tutorial) from the server */
   GET_PROMPT: MCPTool_GetPrompt;
   /** Get a specific resource from the server */
@@ -90,16 +96,22 @@ interface IMCPToolLookup {
   LIST_ENVI_TOOLS: MCPTool_ListENVITools;
   /** List all prompts (instruction sets and tutorials) */
   LIST_PROMPTS: MCPTool_ListPrompts;
-  /** Manage ENVI and IDL session */
-  MANAGE_IDL_AND_ENVI_SESSION: MCPTool_ManageIDLAndENVISession;
   /** Open a dataset in ENVI */
   OPEN_DATASETS_IN_ENVI: MCPTool_OpenDatasetsInENVI;
   /** Get additional information about a dataset */
   QUERY_DATASET_WITH_ENVI: MCPTool_QueryDatasetWithENVI;
+  /** Query the IDL session without user-visible output */
+  QUERY_IDL_SESSION: MCPTool_QueryIDLSession;
   /** RETURN NOTES FOR ENVI AND IDL TASKS */
   RETURN_NOTES: MCPTool_ReturnNotes;
   /** Run ENVI Task */
   RUN_ENVI_TOOL: MCPTool_RunENVITool;
+  /** Run code in IDL */
+  RUN_IDL_CODE: MCPTool_RunIDLCode;
+  /** Run code in IDL that comes from a file */
+  RUN_IDL_FILE: MCPTool_RunIDLFile;
+  /** Save an ENVI Tool Workflow to disk */
+  SAVE_ENVI_TOOL_WORKFLOW: MCPTool_SaveENVIToolWorkflow;
   /** Search a location for files */
   SEARCH_FOR_FILES: MCPTool_SearchForFiles;
   /** Search for a particular routine */
@@ -114,26 +126,30 @@ interface IMCPToolLookup {
  * Lookup with types of messages
  */
 export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
+  CONTROL_IDL_AND_ENVI_SESSION: 'control-idl-and-envi-session',
+  CONTROL_IDL_DEBUGGER: 'control-idl-debugger',
   CREATE_ENVI_MODELER_WORKFLOW: 'create-envi-modeler-workflow',
   CREATE_IDL_NOTEBOOK: 'create-idl-notebook',
-  EXECUTE_IDL_CODE: 'execute-idl-code',
-  EXECUTE_IDL_FILE: 'execute-idl-file',
   GET_ENVI_TOOL_PARAMETERS: 'get-envi-tool-parameters',
   GET_ENVI_TOOL_WORKFLOW: 'get-envi-tool-workflow',
+  GET_IDL_STATE: 'get-idl-state',
   GET_PROMPT: 'get-prompt',
   GET_RESOURCE: 'get-resource',
   GET_ROUTINE_DOCS: 'get-routine-docs',
   LIST_ALL_RESOURCES: 'list-all-resources',
   LIST_ENVI_TOOL_WORKFLOWS: 'list-envi-tool-workflows',
   LIST_ENVI_TOOLS: 'list-envi-tools',
-  MANAGE_IDL_AND_ENVI_SESSION: 'manage-idl-and-envi-session',
+  LIST_PROMPTS: 'list-prompts',
   OPEN_DATASETS_IN_ENVI: 'open-datasets-in-envi',
   QUERY_DATASET_WITH_ENVI: 'query-dataset-with-envi',
+  QUERY_IDL_SESSION: 'query-idl-session',
   RETURN_NOTES: 'return-notes',
   RUN_ENVI_TOOL: 'run-envi-tool',
+  RUN_IDL_CODE: 'run-idl-code',
+  RUN_IDL_FILE: 'run-idl-file',
+  SAVE_ENVI_TOOL_WORKFLOW: 'save-envi-tool-workflow',
   SEARCH_FOR_FILES: 'search-for-files',
   SEARCH_FOR_ROUTINE: 'search-for-routine',
-  LIST_PROMPTS: 'list-prompts',
   SEARCH_RESOURCES: 'search-resources',
   TAKE_ENVI_SCREENSHOT: 'take-envi-screenshot',
 };

@@ -20,7 +20,7 @@ export function GetVariables(
 ): ILocalTokenLookup {
   if (token.cache) {
     if ('variables' in (token.cache as ITokenCache) && useCache) {
-      return (token.cache as ITokenCache).variables;
+      return (token.cache as ITokenCache).variables || {};
     }
   }
 

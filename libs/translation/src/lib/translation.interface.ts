@@ -412,6 +412,7 @@ export interface ITranslation {
       continue: string;
       /** Problem creating history file */
       createHistory: string;
+      debugCompletion: string;
       evaluate: string;
       idlDetails: string;
       launch: string;
@@ -596,6 +597,7 @@ export interface ITranslation {
             children: {
               quickIDL: ITreeInformation;
               quickENVI: ITreeInformation;
+              idl93: ITreeInformation;
             };
           };
         };

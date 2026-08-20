@@ -4,6 +4,7 @@ import expect from 'expect';
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../helpers/get-text-content';
+import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
 
 /**
  * Makes sure we can list ENVI Tool workflows and return the list
@@ -14,6 +15,9 @@ export const RunMCPTestGetENVIToolWorkflow: RunnerFunction = async (init) => {
     MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
     {},
   );
+
+  // sanity logging
+  LogWhenExpectSuccess(result);
 
   // make sure the tool runs
   expect(result.isError).toBeFalsy();
@@ -44,6 +48,9 @@ export const RunMCPTestGetENVIToolWorkflow: RunnerFunction = async (init) => {
   const result2 = await CallMCPTool(MCP_TOOL_LOOKUP.GET_ENVI_TOOL_WORKFLOW, {
     name: toolsList[0],
   });
+
+  // sanity logging
+  LogWhenExpectSuccess(result);
 
   // make result2 the tool runs
   expect(result.isError).toBeFalsy();

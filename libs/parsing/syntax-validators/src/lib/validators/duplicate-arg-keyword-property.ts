@@ -27,7 +27,8 @@ import { IParsed, TreeToken } from '@idl/types/syntax-tree';
 function CheckForDuplicatesByName(
   parsed: IParsed,
   tokens: TreeToken<TokenName>[],
-  code: IDLProblemCode,
+  duplicateCode: IDLProblemCode,
+  ambiguityCode?: IDLProblemCode,
 ) {
   // name of current token
   let tokenName: string;
@@ -56,10 +57,30 @@ function CheckForDuplicatesByName(
 
       // add problems for all duplicate named entries
       for (let j = 0; j < bad.length; j++) {
-        bad[j].parseProblems.push(code);
+        bad[j].parseProblems.push(duplicateCode);
         parsed.parseProblems.push(
-          SyntaxProblemWithTranslation(code, bad[j].pos, bad[j].pos),
+          SyntaxProblemWithTranslation(duplicateCode, bad[j].pos, bad[j].pos),
         );
+      }
+    }
+  }
+
+  // check if ambiguous
+  if (ambiguityCode !== undefined) {
+    /** Get names */
+    const names = Object.keys(nameLookup);
+    for (let i = 0; i < names.length; i++) {
+      for (let j = 0; j < names.length; j++) {
+        if (i === j) {
+          continue;
+        }
+        if (names[j].startsWith(names[i])) {
+          const token = nameLookup[names[i]][0];
+          token.parseProblems.push(ambiguityCode);
+          parsed.parseProblems.push(
+            SyntaxProblemWithTranslation(ambiguityCode, token.pos, token.pos),
+          );
+        }
       }
     }
   }
@@ -94,6 +115,7 @@ const CALLBACK_DEFS: BranchCallback<
     parsed,
     FindAllBranchChildren(branch, TOKEN_NAMES.KEYWORD_DEFINITION),
     IDL_PROBLEM_CODES.DUPLICATE_KEYWORD_DEF,
+    IDL_PROBLEM_CODES.AMBIGUOUS_KEYWORD_DEFINITION,
   );
 };
 

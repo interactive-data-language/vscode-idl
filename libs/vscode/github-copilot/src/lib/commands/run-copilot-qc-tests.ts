@@ -5,7 +5,19 @@ import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import { SimulatedCopilotChatAgent } from './copilot-agent';
-import { QC_CODE_TESTS, QC_SETUP_TESTS, QC_TESTS } from './qc-test-definitions';
+import {
+  QC_CODE_TESTS,
+  QC_SETUP_TESTS,
+  QC_TESTS,
+} from './qc-test-definitions';
+
+type QCRunMode =
+  | 'all'
+  | 'knowledge'
+  | 'code'
+  | 'pick'
+  | 'full-only'
+  | 'baseline-only';
 
 /** Directory name (relative to workspace root) for generated test code */
 export const TestCodeDirectory = 'tmp';
@@ -154,11 +166,104 @@ async function runTestSuite(
 }
 
 /**
+ * Prints MCP tool usage summary to the output channel.
+ */
+function printToolUsage(
+  agent: SimulatedCopilotChatAgent,
+  output: vscode.OutputChannel,
+) {
+  const sorted = Object.entries(agent.toolCounts).sort((a, b) => b[1] - a[1]);
+  if (sorted.length > 0) {
+    output.appendLine('');
+    output.appendLine('-----------------------------------------');
+    output.appendLine('  MCP Tool Usage Summary');
+    output.appendLine('-----------------------------------------');
+    for (const [tool, count] of sorted) {
+      output.appendLine(`  ${tool}: ${count}`);
+    }
+    output.appendLine('-----------------------------------------');
+    output.appendLine(
+      `  Total: ${sorted.reduce((sum, [, c]) => sum + c, 0)}`,
+    );
+    output.appendLine('-----------------------------------------');
+  }
+}
+
+/**
  * Runs the Copilot QC test suite.
  *
  * Only available in Extension Development Host (dev mode).
  */
 export async function RunCopilotQCTests() {
+  // Ask what to run before doing anything
+  const modeChoice = await vscode.window.showQuickPick(
+    [
+      { label: 'Run All Tests', description: 'Full + Baseline', value: 'all' },
+      {
+        label: 'Knowledge Only',
+        description: 'Full + Baseline knowledge tests',
+        value: 'knowledge',
+      },
+      {
+        label: 'Code Only',
+        description: 'Full + Baseline code tests',
+        value: 'code',
+      },
+      {
+        label: 'Full Only (no baseline)',
+        description: 'Skip the baseline run',
+        value: 'full-only',
+      },
+      {
+        label: 'Baseline Only (no tools)',
+        description: 'Skip the full run',
+        value: 'baseline-only',
+      },
+      {
+        label: 'Pick Individual Tests',
+        description: 'Choose specific tests to run',
+        value: 'pick',
+      },
+    ] as (vscode.QuickPickItem & { value: QCRunMode })[],
+    { placeHolder: 'What do you want to run?' },
+  );
+
+  if (!modeChoice) {
+    return;
+  }
+
+  const mode = (modeChoice as vscode.QuickPickItem & { value: QCRunMode })
+    .value;
+
+  // For "pick" mode, let user select individual tests
+  let pickedTests: QCTest[] | undefined;
+  if (mode === 'pick') {
+    const allTests = [
+      ...QC_SETUP_TESTS.map((t) => ({ ...t, category: 'Setup' })),
+      ...QC_TESTS.map((t) => ({ ...t, category: 'Knowledge' })),
+      ...QC_CODE_TESTS.map((t) => ({ ...t, category: 'Code' })),
+    ];
+
+    const picks = await vscode.window.showQuickPick(
+      allTests.map((t) => ({
+        label: t.name,
+        description: t.category,
+        picked: false,
+      })),
+      {
+        canPickMany: true,
+        placeHolder: 'Select tests to run (Full mode with tools)',
+      },
+    );
+
+    if (!picks || picks.length === 0) {
+      return;
+    }
+
+    const pickedNames = new Set(picks.map((p) => p.label));
+    pickedTests = allTests.filter((t) => pickedNames.has(t.name));
+  }
+
   const output = vscode.window.createOutputChannel('IDL: Copilot QC Tests');
   output.clear();
   output.show(true);
@@ -183,7 +288,7 @@ export async function RunCopilotQCTests() {
   );
   output.appendLine('You may need to click "Allow" to proceed.');
   output.appendLine(' THESE WILL TAKE A WHILE TO RUN... ');
-  output.appendLine('');
+  output.appendLine(`Mode: ${mode}`);
 
   // vscode.lm is a raw LLM API — it doesn't automatically include
   // .instructions.md files or MCP tools like Copilot Chat does.
@@ -191,30 +296,93 @@ export async function RunCopilotQCTests() {
   // to simulate the full Copilot Chat experience programmatically.
 
   const ctx: QCTestContext = { agent, output, withTools: true };
+  const baselineCtx: QCTestContext = { ...ctx, withTools: false };
+
+  const emptyResult = { score: 0, total: 0, failed: [] as string[] };
+
+  // ── Pick mode: run selected tests (Full + Baseline) ──
+  if (mode === 'pick' && pickedTests) {
+    const fullResult = await runTestSuite(
+      'Selected Tests (Full)',
+      pickedTests,
+      ctx,
+    );
+    const baselineResult = await runTestSuite(
+      'Selected Tests (Baseline)',
+      pickedTests,
+      baselineCtx,
+    );
+
+    const fullPct =
+      fullResult.total > 0
+        ? (fullResult.score / fullResult.total) * 100
+        : 0;
+    const basePct =
+      baselineResult.total > 0
+        ? (baselineResult.score / baselineResult.total) * 100
+        : 0;
+    const improvement =
+      basePct > 0 ? ((fullPct - basePct) / basePct) * 100 : 0;
+
+    output.appendLine('=========================================');
+    output.appendLine('  Selected Test Results');
+    output.appendLine('=========================================');
+    output.appendLine(
+      `  Full:     ${fullResult.score}/${fullResult.total}  ${fullPct.toFixed(1)}%`,
+    );
+    output.appendLine(
+      `  Baseline: ${baselineResult.score}/${baselineResult.total}  ${basePct.toFixed(1)}%`,
+    );
+    output.appendLine(
+      `  Improvement: ${improvement >= 0 ? '+' : ''}${improvement.toFixed(1)}%`,
+    );
+
+    if (fullResult.failed.length > 0) {
+      output.appendLine('');
+      output.appendLine('Failed (Full):');
+      output.appendLine(fullResult.failed.map((n) => `  - ${n}`).join('\n'));
+    }
+    if (baselineResult.failed.length > 0) {
+      output.appendLine('');
+      output.appendLine('Failed (Baseline):');
+      output.appendLine(
+        baselineResult.failed.map((n) => `  - ${n}`).join('\n'),
+      );
+    }
+
+    printToolUsage(agent, output);
+    return;
+  }
+
+  const runFull = mode !== 'baseline-only';
+  const runBaseline = mode !== 'full-only';
+  const runKnowledge = mode === 'all' || mode === 'knowledge' || mode === 'full-only' || mode === 'baseline-only';
+  const runCode = mode === 'all' || mode === 'code' || mode === 'full-only' || mode === 'baseline-only';
 
   // ── Setup tests (run once, full only) ──
-  const setup = await runTestSuite('Setup Tests', QC_SETUP_TESTS, ctx);
+  const setup = runFull
+    ? await runTestSuite('Setup Tests', QC_SETUP_TESTS, ctx)
+    : emptyResult;
 
-  // ── Full run (with instructions + tools) ──
-  const fullKnowledge = await runTestSuite(
-    'Full: Knowledge Tests',
-    QC_TESTS,
-    ctx,
-  );
-  const fullCode = await runTestSuite('Full: Code Tests', QC_CODE_TESTS, ctx);
+  // ── Full run ──
+  const fullKnowledge =
+    runFull && runKnowledge
+      ? await runTestSuite('Full: Knowledge Tests', QC_TESTS, ctx)
+      : emptyResult;
+  const fullCode =
+    runFull && runCode
+      ? await runTestSuite('Full: Code Tests', QC_CODE_TESTS, ctx)
+      : emptyResult;
 
-  // ── Baseline run (no instructions/tools) ──
-  const baselineCtx = { ...ctx, withTools: false };
-  const baselineKnowledge = await runTestSuite(
-    'Baseline: Knowledge Tests',
-    QC_TESTS,
-    baselineCtx,
-  );
-  const baselineCode = await runTestSuite(
-    'Baseline: Code Tests',
-    QC_CODE_TESTS,
-    baselineCtx,
-  );
+  // ── Baseline run ──
+  const baselineKnowledge =
+    runBaseline && runKnowledge
+      ? await runTestSuite('Baseline: Knowledge Tests', QC_TESTS, baselineCtx)
+      : emptyResult;
+  const baselineCode =
+    runBaseline && runCode
+      ? await runTestSuite('Baseline: Code Tests', QC_CODE_TESTS, baselineCtx)
+      : emptyResult;
 
   // ── Code-only scores ──
   const codeFullPct =
@@ -288,16 +456,16 @@ export async function RunCopilotQCTests() {
     output.appendLine(baselineFailed.map((n) => `  - ${n}`).join('\n'));
   }
 
+  printToolUsage(agent, output);
+
   output.appendLine('');
   output.appendLine('-----------------------------------------');
+  output.appendLine('  (as of 8/5/2026, after idl-query tool was added)');
   output.appendLine(
-    '  At time of writing the test infrastructure we had an average of:',
+    '    Code:             Full 88.1%  Baseline 54.8%  Improvement +60.9%',
   );
   output.appendLine(
-    '    Code:             Full 82.7%  Baseline 61.5%  Improvement +34.4%',
-  );
-  output.appendLine(
-    '    Code + Knowledge: Full 81.8%  Baseline 69.7%  Improvement +17.6%',
+    '    Code + Knowledge: Full 81.0%  Baseline 67.6%  Improvement +19.7%',
   );
   output.appendLine('-----------------------------------------');
 }
@@ -305,139 +473,111 @@ export async function RunCopilotQCTests() {
 // =========================================
 //   Code Results
 // =========================================
-//   Full:     11/13  84.6%
-//   Baseline: 8/13  61.5%
-//   Improvement: +37.5%
-
-// =========================================
-//   Code + Knowledge Results
-// =========================================
-//   Full:     27/33  81.8%
-//   Baseline: 24/33  72.7%
-//   Improvement: +12.5%
-// =========================================
-
-// Failed (Full):
-//   - Q6: Integer loop overflow
-//   - Q12: TOTAL dimension keyword
-//   - Q13: FLTARR trailing dimensions
-//   - Q16: CONVOL edge handling
-//   - Code 3: Safe WHERE pattern
-//   - Code 10: Cumulative distribution with TOTAL
-
-// Failed (Baseline):
-//   - Q1: REBIN expansion edge behavior
-//   - Q6: Integer loop overflow
-//   - Q12: TOTAL dimension keyword
-//   - Q16: CONVOL edge handling
-//   - Code 0: Purposefully fail to test error handling
-//   - Code 2: Neighborhood average downsample
-//   - Code 6: Type-safe large array accumulation
-//   - Code 10: Cumulative distribution with TOTAL
-//   - Code 11: Masked median filter
-
-// =========================================
-//   Code Results
-// =========================================
-//   Full:     10/13  76.9%
-//   Baseline: 8/13  61.5%
-//   Improvement: +25.0%
-
-// =========================================
-//   Code + Knowledge Results
-// =========================================
-//   Full:     24/33  72.7%
-//   Baseline: 23/33  69.7%
-//   Improvement: +4.3%
-// =========================================
-
-// Failed (Full):
-//   - Q1: REBIN expansion edge behavior
-//   - Q6: Integer loop overflow
-//   - Q12: TOTAL dimension keyword
-//   - Q13: FLTARR trailing dimensions
-//   - Q14: INDGEN dimension order
-//   - Q18: String concatenation with +
-//   - Code 2: Neighborhood average downsample
-//   - Code 3: Safe WHERE pattern
-//   - Code 10: Cumulative distribution with TOTAL
-
-// Failed (Baseline):
-//   - Q1: REBIN expansion edge behavior
-//   - Q6: Integer loop overflow
-//   - Q7: Matrix multiply # vs ##
-//   - Q12: TOTAL dimension keyword
-//   - Q16: CONVOL edge handling
-//   - Code 0: Purposefully fail to test error handling
-//   - Code 2: Neighborhood average downsample
-//   - Code 6: Type-safe large array accumulation
-//   - Code 10: Cumulative distribution with TOTAL
-//   - Code 11: Masked median filter
-
-// =========================================
-//   Code Results
-// =========================================
-//   Full:     10/13  76.9%
-//   Baseline: 8/13  61.5%
-//   Improvement: +25.0%
-
-// =========================================
-//   Code + Knowledge Results
-// =========================================
-//   Full:     28/33  84.8%
-//   Baseline: 23/33  69.7%
-//   Improvement: +21.7%
-// =========================================
-
-// Failed (Full):
-//   - Q6: Integer loop overflow
-//   - Q18: String concatenation with +
-//   - Code 3: Safe WHERE pattern
-//   - Code 6: Type-safe large array accumulation
-//   - Code 10: Cumulative distribution with TOTAL
-
-// Failed (Baseline):
-//   - Q1: REBIN expansion edge behavior
-//   - Q6: Integer loop overflow
-//   - Q7: Matrix multiply # vs ##
-//   - Q12: TOTAL dimension keyword
-//   - Q16: CONVOL edge handling
-//   - Code 0: Purposefully fail to test error handling
-//   - Code 2: Neighborhood average downsample
-//   - Code 6: Type-safe large array accumulation
-//   - Code 10: Cumulative distribution with TOTAL
-//   - Code 11: Masked median filter
-
-// =========================================
-//   Code Results
-// =========================================
-//   Full:     12/13  92.3%
-//   Baseline: 8/13  61.5%
+//   Full:     12/14  85.7%
+//   Baseline: 8/14  57.1%
 //   Improvement: +50.0%
 
 // =========================================
 //   Code + Knowledge Results
 // =========================================
-//   Full:     29/33  87.9%
-//   Baseline: 22/33  66.7%
-//   Improvement: +31.8%
+//   Full:     29/35  82.9%
+//   Baseline: 24/35  68.6%
+//   Improvement: +20.8%
 // =========================================
 
 // Failed (Full):
 //   - Q6: Integer loop overflow
 //   - Q12: TOTAL dimension keyword
 //   - Q13: FLTARR trailing dimensions
-//   - Code 2: Neighborhood average downsample
+//   - Q21: Python bridge variable case sensitivity
+//   - Code 6: Type-safe large array accumulation
+//   - Code 10: Cumulative distribution with TOTAL
 
 // Failed (Baseline):
 //   - Q1: REBIN expansion edge behavior
 //   - Q6: Integer loop overflow
-//   - Q7: Matrix multiply # vs ##
 //   - Q12: TOTAL dimension keyword
 //   - Q16: CONVOL edge handling
-//   - Q17: REBIN compression averaging
+//   - Q21: Python bridge variable case sensitivity
 //   - Code 0: Purposefully fail to test error handling
 //   - Code 2: Neighborhood average downsample
 //   - Code 6: Type-safe large array accumulation
 //   - Code 10: Cumulative distribution with TOTAL
 //   - Code 11: Masked median filter
+//   - Code 12: numpy statistics via Python bridge
+
+// 8/5/2026 - after idl-query tool was added
+// =========================================
+//   Code Results
+// =========================================
+//   Full:     13/14  92.9%
+//   Baseline: 7/14  50.0%
+//   Improvement: +85.7%
+
+// =========================================
+//   Code + Knowledge Results
+// =========================================
+//   Full:     28/35  80.0%
+//   Baseline: 23/35  65.7%
+//   Improvement: +21.7%
+// =========================================
+
+// Failed (Full):
+//   - Q1: REBIN expansion edge behavior
+//   - Q6: Integer loop overflow
+//   - Q9: WHERE returns -1 on no match
+//   - Q12: TOTAL dimension keyword
+//   - Q13: FLTARR trailing dimensions
+//   - Q18: String concatenation with +
+//   - Code 10: Cumulative distribution with TOTAL
+
+// Failed (Baseline):
+//   - Q1: REBIN expansion edge behavior
+//   - Q6: Integer loop overflow
+//   - Q12: TOTAL dimension keyword
+//   - Q16: CONVOL edge handling
+//   - Q21: Python bridge variable case sensitivity
+//   - Code 0: Purposefully fail to test error handling
+//   - Code 1b: IDL Math test (VALUE_LOCATE)
+
+// =========================================
+//   Code Results
+// =========================================
+//   Full:     12/14  85.7%
+//   Baseline: 8/14  57.1%
+//   Improvement: +50.0%
+
+// =========================================
+//   Code + Knowledge Results
+// =========================================
+//   Full:     28/35  80.0%
+//   Baseline: 24/35  68.6%
+//   Improvement: +16.7%
+// =========================================
+
+// Failed (Full):
+//   - Q6: Integer loop overflow
+//   - Q12: TOTAL dimension keyword
+//   - Q13: FLTARR trailing dimensions
+//   - Q18: String concatenation with +
+//   - Q21: Python bridge variable case sensitivity
+//   - Code 10: Cumulative distribution with TOTAL
+//   - Code 11: Masked median filter
+
+// Failed (Baseline):
+//   - Q6: Integer loop overflow
+//   - Q7: Matrix multiply # vs ##
+//   - Q12: TOTAL dimension keyword
+//   - Q16: CONVOL edge handling
+//   - Q21: Python bridge variable case sensitivity
+//   - Code 0: Purposefully fail to test error handling
+//   - Code 2: Neighborhood average downsample
+//   - Code 6: Type-safe large array accumulation
+//   - Code 10: Cumulative distribution with TOTAL
+//   - Code 11: Masked median filter
+//   - Code 12: numpy statistics via Python bridge
+
+// Note.
+// This is the original improvemement after the first MCP tests.
+// output.appendLine('    Code:             Full 82.7%  Baseline 61.5%  Improvement +34.4%');
+// output.appendLine('   Code + Knowledge: Full 81.8%  Baseline 69.7%  Improvement +17.6%');

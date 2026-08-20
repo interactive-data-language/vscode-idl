@@ -41,6 +41,10 @@ import {
   MCPToolParams_ListPrompts,
 } from './http/mcp-tool-list-prompts.interface';
 import {
+  MCPTool_SaveENVIToolWorkflow,
+  MCPToolParams_SaveENVIToolWorkflow,
+} from './http/mcp-tool-save-envi-tool-workflow.interface';
+import {
   MCPTool_SearchForFiles,
   MCPToolParams_SearchForFiles,
 } from './http/mcp-tool-search-for-files.interface';
@@ -66,6 +70,7 @@ export type MCPTools_HTTP =
   | MCPTool_ListAllResources
   | MCPTool_ListENVITools
   | MCPTool_ListPrompts
+  | MCPTool_SaveENVIToolWorkflow
   | MCPTool_SearchForFiles
   | MCPTool_SearchForRoutine
   | MCPTool_SearchResources;
@@ -91,15 +96,17 @@ export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
                 ? MCPToolParams_ListAllResources
                 : T extends MCPTool_ListENVITools
                   ? MCPToolParams_ListENVITools
-                  : T extends MCPTool_SearchForFiles
-                    ? MCPToolParams_SearchForFiles
-                    : T extends MCPTool_SearchForRoutine
-                      ? MCPToolParams_SearchForRoutine
-                      : T extends MCPTool_ListPrompts
-                        ? MCPToolParams_ListPrompts
-                        : T extends MCPTool_SearchResources
-                          ? MCPToolParams_SearchResources
-                          : never;
+                  : T extends MCPTool_SaveENVIToolWorkflow
+                    ? MCPToolParams_SaveENVIToolWorkflow
+                    : T extends MCPTool_SearchForFiles
+                      ? MCPToolParams_SearchForFiles
+                      : T extends MCPTool_SearchForRoutine
+                        ? MCPToolParams_SearchForRoutine
+                        : T extends MCPTool_ListPrompts
+                          ? MCPToolParams_ListPrompts
+                          : T extends MCPTool_SearchResources
+                            ? MCPToolParams_SearchResources
+                            : never;
 
 /**
  * CallToolResult with content restricted to TextContent only

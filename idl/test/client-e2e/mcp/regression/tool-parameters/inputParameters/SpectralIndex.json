@@ -162,10 +162,14 @@
       ]
     },
     "output_raster_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified filename and path to export the associated OUTPUT_RASTER.",
+        "",
+        "If you set this parameter to an asterisk symbol (*), the output raster will be virtual and not written to disk.",
+        "If you do not specify this parameter, or set it to an exclamation symbol (!), a temporary file will be created.",
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
       ],
+      "default": "!",
       "type": "string"
     }
   },

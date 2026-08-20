@@ -43,6 +43,22 @@ export function RegisterMCPTool_CreateIDLNotebook(server: MCPServer) {
       },
     },
     async (id, { uri, cells }) => {
+      /**
+       * Note: This "sends and IDL request" meaning that it
+       * doesn't actually invoke anything in IDL.
+       *
+       * This is primarily here for VSCode user experience which enables
+       * us to create and open the notebook in VSCode
+       *
+       * Sending IDL a request here enables us to access VSCode directly
+       * because VSCode APIs are available where IDL is running there
+       *
+       * For the standalone MCP server without VSCode, we utilize our helper
+       * function to create the notebook without opening in VSCOde, so there
+       * are two paths
+       *
+       * This is the helper we use: libs\mcp\idl\src\lib\create-idl-notebook.ts
+       */
       const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK,

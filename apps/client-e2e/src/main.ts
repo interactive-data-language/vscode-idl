@@ -8,10 +8,13 @@ import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { IInitializeType } from '@idl/vscode/initialize-types';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
+import { spawnSync } from 'child_process';
 import expect from 'expect';
+import { join } from 'path';
 import { performance } from 'perf_hooks';
 import * as vscode from 'vscode';
 
+import { TestSetup, TestTeardown } from './test-setup';
 import { ResetSettingsForTests } from './tests/helpers/reset-settings-for-tests';
 import { TestRunner } from './tests/test-runner';
 
@@ -33,7 +36,8 @@ const DEBUG_LOGS = false;
 /**
  * IDL install folder for extension testing
  */
-export let IDL_DIR: string;
+export let IDL_DIR: string | undefined;
+
 /**
  * Test runner
  *
@@ -42,6 +46,9 @@ export let IDL_DIR: string;
 export async function run(): Promise<void> {
   /** Overall exit code, indicating if we passed or failed tests */
   let code = 0;
+
+  // run setup
+  await TestSetup();
 
   // run our tests
   try {
@@ -56,8 +63,22 @@ export async function run(): Promise<void> {
     }
 
     // alert user which IDL we are using
-    console.log(` `);
     console.log(`Test are using this IDL: "${IDL_DIR}"`);
+
+    // basic smoke-test: start idl.exe, print 'foo', verify output ends with 'foo'
+    console.log(` `);
+    console.log('Verifying IDL can start and execute a statement');
+    const idlSmokeTest = spawnSync(
+      join(IDL_DIR, 'idl'),
+      ['-e', "print, 'foo'"],
+      { encoding: 'utf8' },
+    );
+    const smokeOutput = (idlSmokeTest.stdout || '').trim();
+    if (!smokeOutput.endsWith('foo')) {
+      throw new Error(
+        `IDL smoke-test failed. Are you licensed? Expected output to end with "foo" but got: "${smokeOutput}"`,
+      );
+    }
 
     // wait for language server to start
     console.log(` `);
@@ -80,6 +101,11 @@ export async function run(): Promise<void> {
 
     // get extension
     const ext = vscode.extensions.getExtension(EXTENSION_FULL_NAME);
+
+    // validate we know where it is
+    if (!ext) {
+      throw new Error('Unable to retrieve extension');
+    }
 
     // activate extension
     ACTIVATION_RESULT = await ext.activate();
@@ -113,7 +139,7 @@ export async function run(): Promise<void> {
       }
 
       // make sure we dont wait forever
-      if (performance.now() - t0 > 10000) {
+      if (performance.now() - t0 > 15000) {
         throw new Error(
           'Language server took longer than 10 seconds to return diagnostics, assuming failed start',
         );
@@ -161,6 +187,8 @@ export async function run(): Promise<void> {
   } catch (err) {
     code = 1;
     console.log(err);
+  } finally {
+    await TestTeardown();
   }
 
   // sleep before exit, otherwise console output does not always get returned

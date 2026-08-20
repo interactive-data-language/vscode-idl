@@ -65,10 +65,11 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   expect(
     (
       await CallMCPTool(MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI, {
-        datasets: [
+        rasters: [
           {
             factory: 'URLRaster',
             url: 'file',
+            order: 0,
           },
         ],
         automaticZoom: 'all-layers',
@@ -80,7 +81,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   // start ENVI
   expect(
     (
-      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+      await CallMCPTool(MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION, {
         action: 'start-envi',
       })
     ).isError,
@@ -89,7 +90,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   // // start ENVI
   // expect(
   //   (
-  //     await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+  //     await CallMCPTool(MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION, {
   //       action: 'start-envi-headless',
   //     })
   //   ).isError,
@@ -98,7 +99,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   // manage ENVI session
   expect(
     (
-      await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+      await CallMCPTool(MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION, {
         action: 'restart-envi',
       })
     ).isError,
@@ -107,7 +108,7 @@ export const RunMCPENVINotInstalledErrors: RunnerFunction = async (init) => {
   // // manage ENVI session
   // expect(
   //   (
-  //     await CallMCPTool(MCP_TOOL_LOOKUP.MANAGE_IDL_AND_ENVI_SESSION, {
+  //     await CallMCPTool(MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION, {
   //       action: 'restart-envi-headless',
   //     })
   //   ).isError,

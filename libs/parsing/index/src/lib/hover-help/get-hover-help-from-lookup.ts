@@ -12,6 +12,7 @@ import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 import { Hover } from 'vscode-languageserver';
 
+import { GetAllKeywordsForGlobalToken } from '../helpers/get-all-keywords-for-global-token';
 import { GetPropertyDisplayName } from '../helpers/get-property-display-name';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
 import { IDLIndex } from '../idl-index.class';
@@ -120,7 +121,11 @@ export async function GetHoverHelpFromLookup(
            * Keyword
            */
           case lookup.kw !== undefined && lookup.type in ROUTINE_GLOBAL_TYPES: {
-            const kw = (global as GlobalRoutineToken).meta.kws[lookup.kw];
+            const kws = GetAllKeywordsForGlobalToken(
+              index,
+              global as GlobalRoutineToken,
+            );
+            const kw = kws[lookup.kw];
             if (kw !== undefined) {
               help = IDLTypeHelper.addTypeToDocs(
                 kw.display,

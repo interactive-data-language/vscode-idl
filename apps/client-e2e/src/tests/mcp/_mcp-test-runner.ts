@@ -35,6 +35,10 @@ import { RunMCPTestListENVIToolWorkflows } from './tools/envi/mcp-test-list-envi
 import { RunMCPTestListENVITools } from './tools/envi/mcp-test-list-envi-tools';
 import { RunMCPTestGetENVIToolWorkflow } from './tools/envi/mcp-test-list-get-envi-tool-workflow';
 import { RunMCPTestRunENVITool } from './tools/envi/mcp-test-run-envi-tool';
+import {
+  RunMCPTestSaveENVIToolWorkflow,
+  RunMCPTestSaveENVIToolWorkflow_DuplicateError,
+} from './tools/envi/mcp-test-save-envi-tool-workflow';
 import { RunMCPTestStartENVI } from './tools/envi/mcp-test-start-envi';
 import { RunMCPTestTakeENVIScreenshot } from './tools/envi/mcp-test-take-envi-screenshot';
 import { RunMCPTestOpenDatasetsInENVI_Raster } from './tools/envi/open-datasets/mcp-test-open-datasets-in-envi-raster';
@@ -62,16 +66,16 @@ import { RunMCPTestSearchForFiles_NoRecursion } from './tools/general/search-for
 import { RunMCPTestSearchForFiles_RecursionAll } from './tools/general/search-for-files/mcp-test-search-for-files-recursion-all';
 import { RunMCPTestSearchForFiles_Single } from './tools/general/search-for-files/mcp-test-search-for-files-single';
 import { RunMCPTestCreateIDLNotebook } from './tools/idl/mcp-test-create-idl-notebook';
-import { RunMCPTestExecuteIDLCode } from './tools/idl/mcp-test-execute-idl-code';
-import { RunMCPTestExecuteIDLCode_CrashEmulation } from './tools/idl/mcp-test-execute-idl-code-crash-emulation';
-import { RunMCPTestExecuteIDLFile } from './tools/idl/mcp-test-execute-idl-file';
+import { RunMCPTestRunIDLCode } from './tools/idl/mcp-test-run-idl-code';
+import { RunMCPTestRunIDLCode_CrashEmulation } from './tools/idl/mcp-test-run-idl-code-crash-emulation';
+import { RunMCPTestRunIDLFile } from './tools/idl/mcp-test-run-idl-file';
 import { RunMCPTestStartIDL } from './tools/idl/mcp-test-start-idl';
+import { RunMCPTestControlIDLAndENVISession } from './tools/mcp-test-control-idl-and-envi-session';
 import { RunMCPTestListGetPrompts } from './tools/mcp-test-list-get-prompt';
 import {
   RunMCPTestListAllPrompts,
   RunMCPTestListPromptsWithFilters,
 } from './tools/mcp-test-list-prompts';
-import { RunMCPManageENVIAndIDLSession } from './tools/mcp-test-manage-idl-and-envi-session';
 
 /*
  * Logger to be used for tests related to debugging
@@ -216,19 +220,19 @@ MCP_TEST_RUNNER.addTest({
 });
 
 MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestExecuteIDLCode,
+  fn: RunMCPTestRunIDLCode,
   name: 'Execute snippet of IDL code',
   critical: true,
 });
 
 MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestExecuteIDLCode_CrashEmulation,
+  fn: RunMCPTestRunIDLCode_CrashEmulation,
   name: 'Execute snippet of IDL code that shuts down IDL',
   critical: true,
 });
 
 MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestExecuteIDLFile,
+  fn: RunMCPTestRunIDLFile,
   name: 'Execute file that contains IDL code',
 });
 
@@ -310,6 +314,18 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestInvalidENVIToolWorkflowName,
   name: 'Verify retrieving workflows with bad name fails',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestSaveENVIToolWorkflow,
+  name: 'Verify we can save an ENVI Tool Workflow via MCP',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestSaveENVIToolWorkflow_DuplicateError,
+  name: 'Verify saving a duplicate ENVI Tool Workflow name fails',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
@@ -483,7 +499,7 @@ MCP_TEST_RUNNER.addTest({
 });
 
 MCP_TEST_RUNNER.addTest({
-  fn: RunMCPManageENVIAndIDLSession,
+  fn: RunMCPTestControlIDLAndENVISession,
   name: 'Make sure we can properly manage our ENVI and IDL sessions',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });

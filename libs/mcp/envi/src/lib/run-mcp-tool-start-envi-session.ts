@@ -1,0 +1,48 @@
+import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  IIDLMCPExecutionBackend,
+  MCPProgressCallback,
+  MCPTool_ControlIDLAndENVISession,
+  MCPToolParams,
+  MCPToolResponse,
+} from '@idl/types/mcp';
+
+/**
+ * Core logic for starting ENVI.
+ *
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
+ */
+export async function RunMCPTool_StartENVISession(
+  backend: IIDLMCPExecutionBackend,
+  params: MCPToolParams<MCPTool_ControlIDLAndENVISession>,
+  onProgress?: MCPProgressCallback,
+): Promise<MCPToolResponse<MCPTool_ControlIDLAndENVISession>> {
+  onProgress?.('Starting IDL');
+
+  const started = await backend.start(false);
+  if (!started.started) {
+    return {
+      success: false,
+      result: { err: started?.reason || 'Failed to start' },
+    };
+  }
+
+  if (!backend.verifyIDLVersion()) {
+    return {
+      success: false,
+      result: { err: IDL_TRANSLATION.mcp.errors.badIDLVersion },
+    };
+  }
+
+  onProgress?.('Starting ENVI');
+
+  const headless = false;
+  // params.action === 'restart-envi-headless' ||
+  // params.action === 'start-envi-headless'
+  //   ? true
+  //   : false;
+
+  return await backend.evaluateENVICommand<MCPTool_ControlIDLAndENVISession>(
+    `agent_startENVI, headless = ${headless ? '!true' : '!false'}`,
+  );
+}

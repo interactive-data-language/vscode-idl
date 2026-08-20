@@ -43,12 +43,12 @@ export function RegisterMCPTool_TakeENVIScreenshot(server: MCPServer) {
 
       return {
         isError: !resp.success,
-        content: resp.screenshotBase64
+        content: resp.success
           ? [
               {
                 type: 'image',
-                data: resp.screenshotBase64,
-                mimeType: 'image/png',
+                data: resp.result as string,
+                mimeType: 'image/jpeg',
               },
             ]
           : [

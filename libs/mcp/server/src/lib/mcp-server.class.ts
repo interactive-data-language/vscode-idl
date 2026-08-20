@@ -1,5 +1,6 @@
 import { ObjectifyError } from '@idl/error-shared';
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { IDLIndex } from '@idl/parsing/index';
 import { SimplePromiseQueue, VERSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -7,10 +8,10 @@ import {
   MCPSendRequestCallback,
   MCPToolHTTPResponse,
   MCPToolInvokedCallback,
-  MCPToolParams_VSCode,
-  MCPToolResponse_VSCode,
+  MCPToolParams,
+  MCPToolResponse,
   MCPTools,
-  MCPTools_VSCode,
+  MCPTools_IDL,
 } from '@idl/types/mcp';
 import {
   McpServer,
@@ -69,6 +70,9 @@ export class MCPServer {
   /** The singleton instance */
   private static _instance: MCPServer | undefined;
 
+  /** Access IDL index */
+  idlIndex: IDLIndex;
+
   /** Log manager */
   logManager: LogManager;
 
@@ -120,6 +124,7 @@ export class MCPServer {
   private constructor(options: IMCPServerOptions) {
     this.logManager = options.logManager;
     this.idlExecutionCallback = options.idlExecutionCallback;
+    this.idlIndex = options.idlIndex;
     this.toolInvokedCallback = options.toolInvokedCallback;
     this.failCallback = options.failCallback;
     this.mcpPort = options.port ?? MCP_SERVER_CONFIG.PORT;
@@ -250,11 +255,11 @@ export class MCPServer {
   /**
    * Sends a request run MCP tools that require IDL or ENVI
    */
-  async sendIDLRequest<T extends MCPTools_VSCode>(
+  async sendIDLRequest<T extends MCPTools_IDL>(
     executionId: string,
     tool: T,
-    params: MCPToolParams_VSCode<T>,
-  ): Promise<MCPToolResponse_VSCode<T>> {
+    params: MCPToolParams<T>,
+  ): Promise<MCPToolResponse<T>> {
     return this.idlExecutionCallback(executionId, tool, params);
   }
 

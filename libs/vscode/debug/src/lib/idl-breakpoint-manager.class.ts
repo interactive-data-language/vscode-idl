@@ -1,11 +1,9 @@
 import { CleanPath, IDLFileHelper } from '@idl/shared/extension';
+import { IDLBreakpoint } from '@idl/types/idl/idl-process';
 import { Breakpoint, BreakpointEvent, Source } from '@vscode/debugadapter';
 import { DebugProtocol } from '@vscode/debugprotocol';
 
-import {
-  IDL_BREAKPOINT_REGEX,
-  IDLBreakpoint,
-} from './idl-breakpoint-manager.interface';
+import { IDL_BREAKPOINT_REGEX } from './idl-breakpoint-manager.interface';
 import { IDLDebugAdapter } from './idl-debug-adapter.class';
 import { IDebugEvaluateOptions } from './idl-debug-adapter.interface';
 
@@ -26,6 +24,38 @@ export class IDLBreakpointManager {
   };
 
   constructor(private adapter: IDLDebugAdapter) {}
+
+  /**
+   * Continue execution after a stop.
+   * Should never need to sync
+   */
+  async debugContinue(): Promise<void> {
+    await this.adapter.evaluate('.continue', this._options);
+  }
+
+  /**
+   * Step into the next routine call.
+   * Should never need to sync
+   */
+  async debugStepIn(): Promise<void> {
+    await this.adapter.evaluate('.step', this._options);
+  }
+
+  /**
+   * Step out of the current routine.
+   * Should never need to sync
+   */
+  async debugStepOut(): Promise<void> {
+    await this.adapter.evaluate('.out', this._options);
+  }
+
+  /**
+   * Step over.
+   * Should never need to sync
+   */
+  async debugStepOver(): Promise<void> {
+    await this.adapter.evaluate('.stepover', this._options);
+  }
 
   /**
    * Gets current breakpoints from IDL
@@ -146,6 +176,26 @@ export class IDLBreakpointManager {
   }
 
   /**
+   * Sets an individual breakpoint for a file and line
+   *
+   * Line number is one-based
+   */
+  async setBreakpoint(file: string, line: number, sync = true): Promise<void> {
+    /**
+     * Add breakpoint via IDL
+     */
+    await this.adapter.evaluate(
+      this._getSetBreakpointCommand(file, line),
+      this._options,
+    );
+
+    // check if we need to sync with VSCode
+    if (sync) {
+      await this.syncBreakpointState();
+    }
+  }
+
+  /**
    * Sets breakpoints and return set breakpoints
    */
   async setBreakpoints(
@@ -160,7 +210,7 @@ export class IDLBreakpointManager {
     }
 
     /** Get file */
-    const file = CleanPath(bps.source.path);
+    const file = CleanPath(bps.source.path || '');
 
     // because we might not have a path (no idea why) return if missing
     if (!file) {
@@ -270,29 +320,5 @@ export class IDLBreakpointManager {
   /** Get the command to set a breakpoint */
   private _getSetBreakpointCommand(file: string, line: number) {
     return `breakpoint, /set, '${CleanPath(file)}', ${line}`;
-  }
-
-  /**
-   * Sets an individual breakpoint for a file and line
-   *
-   * Line number is one-based
-   */
-  private async setBreakpoint(
-    file: string,
-    line: number,
-    sync = true,
-  ): Promise<void> {
-    /**
-     * Add breakpoint via IDL
-     */
-    await this.adapter.evaluate(
-      this._getSetBreakpointCommand(file, line),
-      this._options,
-    );
-
-    // check if we need to sync with VSCode
-    if (sync) {
-      await this.syncBreakpointState();
-    }
   }
 }

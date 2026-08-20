@@ -1,7 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import { mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 import { RunnerFunction } from '../../../../runner.interface';
@@ -38,7 +38,7 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
   // attempt to parse
   try {
     toolsList = JSON.parse(
-      GetTextContent(result.content).replace(/^All tools: /, ''),
+      GetTextContent(result.content), // .replace(/^All tools: /, ''),
     );
   } catch (err) {
     // do nothing
@@ -47,18 +47,21 @@ export const RunMCPTestListENVIToolsRegression: RunnerFunction = async (
   // make sure we have
   expect(toolsList).toBeTruthy();
 
-  const toolDescriptionDir = join(
-    GetExtensionPath('idl/test/client-e2e/mcp/regression'),
-    'tool-descriptions',
+  /** Get root MCP dir that should always exist */
+  const rootDir = join(
+    GetExtensionPath('idl/test/client-e2e/mcp'),
+    'regression',
   );
 
-  // clean up
-  if (existsSync(toolDescriptionDir)) {
-    rmSync(toolDescriptionDir, { recursive: true, force: true });
-  }
+  const toolDescriptionDir = join(rootDir, 'tool-descriptions');
 
-  // re-create folder
+  // ensure folder exists
   mkdirSync(toolDescriptionDir, { recursive: true });
+
+  // clear any existing files so removed tools don't persist
+  for (const file of readdirSync(toolDescriptionDir)) {
+    unlinkSync(join(toolDescriptionDir, file));
+  }
 
   // add regression tests
   for (let i = 0; i < REGRESSION_TEST_THESE.length; i++) {

@@ -462,4 +462,8 @@ export const PROBLEM_CODES_SIDEBAR: DefaultTheme.NavItemWithLink[] = [
     text: '"logical-xor"',
     link: '/problem-codes/codes/113.md',
   },
+  {
+    text: '"ambiguous-kw-def"',
+    link: '/problem-codes/codes/114.md',
+  },
 ];

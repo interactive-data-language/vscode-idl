@@ -1,6 +1,13 @@
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
+import {
+  IRuleBasedFilters,
+  RegistryLocation,
+  RegistryLocation_File,
+  RegistryLocationKind,
+  RuleBasedFilter,
+} from '@idl/mcp/shared';
 import { IDLTypeHelper, TASK_REGEX } from '@idl/parsing/type-parser';
 import {
   GlobalFunctionToken,
@@ -18,11 +25,6 @@ import {
   ITaskInformation,
   ITaskRegistryEntry,
 } from './mcp-task-registry.interface';
-import {
-  TaskLocation,
-  TaskLocation_File,
-  TaskLocationKind,
-} from './task-location.interface';
 
 /**
  * Class that tracks and organizes tasks for ENVI and IDL
@@ -31,6 +33,9 @@ import {
  * All task names are tracked by lower case
  */
 export class MCPTaskRegistry {
+  /** Object class that handles filtering items from the task registry */
+  filters = new RuleBasedFilter();
+
   /** Create instance of AJV with Draft 2020-12 support */
   private ajv = new draft2020({
     allErrors: true,
@@ -43,6 +48,22 @@ export class MCPTaskRegistry {
      * the cleanest solution.
      */
     strictTuples: false,
+    /**
+     * Mutate the validated object in-place, populating any missing
+     * properties that have a "default" value in the JSON schema.
+     *
+     * WARNING: Any union types (only from some of the JSON schemas we create),
+     * this causes problems with default values inside of the unions
+     *
+     * MCP_ENVIGridDefinition is one example where we had to remove a default
+     * value
+     */
+    useDefaults: true,
+    // /**
+    //  * Disable strict mode so AJV does not throw when a "default" appears
+    //  * inside a union (anyOf/oneOf) where it cannot be automatically applied.
+    //  */
+    // strict: false,
   });
 
   /**
@@ -65,9 +86,16 @@ export class MCPTaskRegistry {
    */
   private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
-  constructor(logger: LogManager, strict = true) {
+  constructor(
+    logger: LogManager,
+    strict = true,
+    filters?: Partial<IRuleBasedFilters>,
+  ) {
     this.logger = logger;
     this.strict = strict;
+    if (filters !== undefined) {
+      this.filters.updateFilters(filters);
+    }
   }
 
   /**
@@ -101,13 +129,17 @@ export class MCPTaskRegistry {
   }
 
   /**
-   * Returns all task descriptions by task name
+   * Returns all task descriptions by task name, filtered by the current
+   * whitelist and blacklist
    */
   getDescriptions() {
     const descriptions: { [key: string]: string } = {};
-    const tasks = Object.values(this.tasks);
-    for (let i = 0; i < tasks.length; i++) {
-      descriptions[tasks[i].displayName] = tasks[i].description;
+    const entries = Object.entries(this.tasks);
+    for (let i = 0; i < entries.length; i++) {
+      if (!this.filters.isAllowedByFilters(entries[i][0])) {
+        continue;
+      }
+      descriptions[entries[i][1].displayName] = entries[i][1].description;
     }
     return descriptions;
   }
@@ -244,6 +276,15 @@ export class MCPTaskRegistry {
       /** Make zod parameter */
       const param = IDLParameterToMCPParameter(prop, docs);
 
+      // work around sarscape data type issue
+      if (
+        !prop.req &&
+        IDLTypeHelper.serializeIDLType(prop.type).toLowerCase() ===
+          'sarscapecoordsys'
+      ) {
+        continue;
+      }
+
       // check if unknown parameter
       if (!param) {
         toolError.push(
@@ -292,7 +333,7 @@ export class MCPTaskRegistry {
     );
 
     // create location metadata if we have a file
-    let location: TaskLocation<TaskLocationKind> | undefined;
+    let location: RegistryLocation<RegistryLocationKind> | undefined;
     if (taskStructure.file) {
       /** Create metadata so its strictly types */
       location = {
@@ -300,7 +341,7 @@ export class MCPTaskRegistry {
         meta: {
           path: taskStructure.file,
         },
-      } as TaskLocation<TaskLocation_File>;
+      } as RegistryLocation<RegistryLocation_File>;
     }
 
     // save in unified registry

@@ -1129,4 +1129,220 @@ describe(`[auto generated] Verify string literal processing`, () => {
     ];
     expect(expected).toEqual(tokenized);
   });
+
+  it(`[auto generated] Regression for comment block detection in iterator`, async () => {
+    // test code to extract tokens from
+    const code = [
+      `;+`,
+      `;-`,
+      `pro TestFormat`,
+      `  compile_opt idl2`,
+      `  code = \``,
+      `;+`,
+      `; Copyright (c) NV5 Geospatial Solutions, Inc. All rights reserved.`,
+      `;`,
+      `; Unauthorized reproduction and use is prohibited.`,
+      `;-`,
+      `\``,
+      `end`,
+      ``,
+    ];
+
+    // extract tokens
+    const tokenized = await TextMateParse(code);
+
+    // define expected tokens
+    const expected = [
+      {
+        line: 0,
+        match: ';+',
+        startIndex: 0,
+        endIndex: 3,
+        scopes: ['source.idl', 'comment.block.idl', 'comment.line.idl'],
+      },
+      {
+        line: 1,
+        match: ';',
+        startIndex: 0,
+        endIndex: 1,
+        scopes: ['source.idl', 'comment.block.idl', 'comment.line.idl'],
+      },
+      {
+        line: 1,
+        match: '-',
+        startIndex: 1,
+        endIndex: 2,
+        scopes: ['source.idl', 'comment.block.idl', 'comment.line.idl'],
+      },
+      {
+        line: 2,
+        match: 'pro',
+        startIndex: 0,
+        endIndex: 3,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'keyword.control.idl',
+        ],
+      },
+      {
+        line: 2,
+        match: 'TestFormat',
+        startIndex: 4,
+        endIndex: 14,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.routine.name.idl',
+          'support.function.idl-procedure',
+        ],
+      },
+      {
+        line: 3,
+        match: '  compile_opt',
+        startIndex: 0,
+        endIndex: 13,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.control.compound.idl',
+          'keyword.control.idl',
+        ],
+      },
+      {
+        line: 3,
+        match: 'idl2',
+        startIndex: 14,
+        endIndex: 18,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.control.compound.idl',
+          'variable.other.readwrite.ts.idl',
+        ],
+      },
+      {
+        line: 4,
+        match: 'code',
+        startIndex: 2,
+        endIndex: 6,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'variable.other.readwrite.ts.idl',
+        ],
+      },
+      {
+        line: 4,
+        match: '=',
+        startIndex: 7,
+        endIndex: 8,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.assignment.idl',
+          'keyword.operator.idl',
+        ],
+      },
+      {
+        line: 4,
+        match: '`',
+        startIndex: 9,
+        endIndex: 10,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.assignment.idl',
+          'string.template.idl',
+          'string.template.idl',
+        ],
+      },
+      {
+        line: 5,
+        match: ';+',
+        startIndex: 0,
+        endIndex: 3,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.assignment.idl',
+          'string.template.idl',
+        ],
+      },
+      {
+        line: 6,
+        match:
+          '; Copyright (c) NV5 Geospatial Solutions, Inc. All rights reserved.',
+        startIndex: 0,
+        endIndex: 68,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.assignment.idl',
+          'string.template.idl',
+        ],
+      },
+      {
+        line: 7,
+        match: ';',
+        startIndex: 0,
+        endIndex: 2,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.assignment.idl',
+          'string.template.idl',
+        ],
+      },
+      {
+        line: 8,
+        match: '; Unauthorized reproduction and use is prohibited.',
+        startIndex: 0,
+        endIndex: 51,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.assignment.idl',
+          'string.template.idl',
+        ],
+      },
+      {
+        line: 9,
+        match: ';-',
+        startIndex: 0,
+        endIndex: 3,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.assignment.idl',
+          'string.template.idl',
+        ],
+      },
+      {
+        line: 10,
+        match: '`',
+        startIndex: 0,
+        endIndex: 1,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'group.assignment.idl',
+          'string.template.idl',
+          'string.template.idl',
+        ],
+      },
+      {
+        line: 11,
+        match: 'end',
+        startIndex: 0,
+        endIndex: 3,
+        scopes: [
+          'source.idl',
+          'group.routine.definition.idl',
+          'keyword.control.idl',
+        ],
+      },
+    ];
+    expect(expected).toEqual(tokenized);
+  });
 });

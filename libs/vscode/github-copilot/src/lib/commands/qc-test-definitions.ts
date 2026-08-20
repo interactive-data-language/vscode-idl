@@ -601,6 +601,32 @@ export const QC_TESTS: QCTest[] = [
       return passed;
     },
   },
+  {
+    name: 'Q21: Python bridge variable case sensitivity',
+    run: async ({ agent, output, withTools }) => {
+      const result = await agent.sendtoSimulation({
+        prompt:
+          'In IDL, why does this code fail to print the Python variable?\n\n' +
+          '```idl\n' +
+          'python.MyValue = 42\n' +
+          "python.run, 'print(MyValue)'\n" +
+          '```\n\n' +
+          'Put your answer in an IDL code block.',
+        includeInstructions: withTools,
+        includeTools: withTools,
+      });
+      output.appendLine(`  Response: ${result.text}`);
+      const lower = result.text.toLowerCase();
+      const mentionsCase =
+        lower.includes('case') ||
+        lower.includes('lowercase') ||
+        lower.includes('lower case') ||
+        lower.includes('lower-case');
+      const mentionsName = lower.includes('myvalue') || lower.includes('name');
+      const passed = mentionsCase && mentionsName;
+      return passed;
+    },
+  },
 ];
 
 // ── Code Tests ───────────────────────────────────────────────────────
@@ -1603,6 +1629,304 @@ export const QC_CODE_TESTS: QCTest[] = [
         if (runResult.idlOutput) {
           output.appendLine(`  IDL output: ${runResult.idlOutput}`);
         }
+        return true;
+      } else {
+        output.appendLine(
+          `  IDL execution failed: ${runResult.err || 'unknown error'}`,
+        );
+        return false;
+      }
+    },
+  },
+  {
+    name: 'Code 12: numpy statistics via Python bridge',
+    run: async ({ agent, output, withTools }) => {
+      const result = await agent.sendtoSimulation({
+        prompt:
+          'In IDL, write a function that uses the Python bridge to compute the mean and ' +
+          'standard deviation of a 1D float array using numpy. ' +
+          'The function takes no parameters — inside, define data = [1.0, 2.0, 3.0, 4.0, 5.0]. ' +
+          'Return a structure {MEAN: 0.0D, STDDEV: 0.0D} populated with the numpy results. ' +
+          'Only output the function called qc_python_test_12, any explanations should be comments. Do not make a file.',
+        includeInstructions: withTools,
+        includeTools: withTools,
+      });
+      output.appendLine(`  Response: ${result.text}`);
+      const lower = result.text.toLowerCase();
+
+      // Must use Python.Import or Python.Run with numpy, not IDL's own MEAN/STDDEV
+      const usesNumpy = lower.includes('numpy') || lower.includes('np');
+      const usesBridge =
+        lower.includes('python.import') ||
+        lower.includes('python.run') ||
+        lower.includes('>>>') ||
+        lower.includes('.mean(') ||
+        lower.includes('.std(');
+      const usesIDLMean =
+        /\bmean\(/.test(lower) &&
+        !lower.includes('np.mean') &&
+        !lower.includes('.mean(');
+      const usesIDLStddev =
+        /\bstddev\(/.test(lower) || /\bmoment\(/.test(lower);
+
+      if (!usesNumpy || !usesBridge) {
+        output.appendLine('  FAIL: Does not use numpy via the Python bridge');
+        return false;
+      }
+      if (usesIDLMean || usesIDLStddev) {
+        output.appendLine('  FAIL: Uses IDL MEAN/STDDEV instead of numpy');
+        return false;
+      }
+
+      const folders = vscode.workspace.workspaceFolders;
+      if (!folders || folders.length === 0) {
+        output.appendLine('  No workspace folder found');
+        return false;
+      }
+
+      const code = extractCodeBlock(result.text);
+      const outDir = join(folders[0].uri.fsPath, TestCodeDirectory);
+      const outPath = join(outDir, 'qc_python_test_12.pro');
+
+      await mkdir(outDir, { recursive: true });
+      await writeFile(outPath, code, 'utf-8');
+      output.appendLine(`  Wrote IDL code to: ${outPath}`);
+
+      const runResult = await runIDLFile(outPath, output);
+      if (!runResult) {
+        output.appendLine('  Could not start IDL');
+        return false;
+      }
+
+      if (runResult.success) {
+        output.appendLine('  Executed in IDL successfully');
+        if (runResult.idlOutput) {
+          output.appendLine(`  IDL output: ${runResult.idlOutput}`);
+        }
+        return true;
+      } else {
+        output.appendLine(
+          `  IDL execution failed: ${runResult.err || 'unknown error'}`,
+        );
+        return false;
+      }
+    },
+  },
+  {
+    name: 'Code 13: Diagnose and fix runtime error',
+    run: async ({ agent, output, withTools }) => {
+      // Two bugs: (1) integer overflow: loop counter wraps at 32767
+      // (2) TOTAL called without DOUBLE on large float accumulation loses precision
+      const buggyCode = [
+        'function qc_debug_test',
+        '  compile_opt idl2',
+        '  n = 40000',
+        '  data = findgen(n) + 1.0',
+        '  accum = 0.0',
+        '  for i = 0, n - 1 do accum += data[i]',
+        '  expected = total(data)',
+        '  return, abs(accum - expected) lt 1.0',
+        'end',
+      ].join('\n');
+
+      const result = await agent.sendtoSimulation({
+        prompt:
+          'This IDL function has runtime bugs. Run it, diagnose all problems, ' +
+          'and give me the corrected function.\n\n' +
+          '```idl\n' +
+          buggyCode +
+          '\n```\n\n' +
+          'Only output the corrected function called qc_debug_test.',
+        includeInstructions: withTools,
+        includeTools: withTools,
+      });
+      output.appendLine(`  Response: ${result.text}`);
+
+      const code = extractCodeBlock(result.text);
+      const lower = code.toLowerCase();
+
+      // Must fix integer overflow (use L suffix or LONG)
+      const fixesOverflow =
+        lower.includes('40000l') ||
+        lower.includes('long(') ||
+        lower.includes('0l,') ||
+        lower.includes('0l ');
+
+      if (!fixesOverflow) {
+        output.appendLine('  FAIL: Did not fix integer overflow in loop');
+        return false;
+      }
+
+      const folders = vscode.workspace.workspaceFolders;
+      if (!folders || folders.length === 0) {
+        output.appendLine('  No workspace folder found');
+        return false;
+      }
+
+      const outDir = join(folders[0].uri.fsPath, TestCodeDirectory);
+      const outPath = join(outDir, 'qc_debug_test.pro');
+
+      await mkdir(outDir, { recursive: true });
+      await writeFile(outPath, code, 'utf-8');
+      output.appendLine(`  Wrote IDL code to: ${outPath}`);
+
+      const runResult = await runIDLFile(outPath, output);
+      if (!runResult) {
+        output.appendLine('  Could not start IDL');
+        return false;
+      }
+
+      if (runResult.success) {
+        output.appendLine('  Executed in IDL successfully');
+        return true;
+      } else {
+        output.appendLine(
+          `  IDL execution failed: ${runResult.err || 'unknown error'}`,
+        );
+        return false;
+      }
+    },
+  },
+  {
+    name: 'Code 14: Debug multi-routine system',
+    run: async ({ agent, output, withTools }) => {
+      // Helper passes array by value instead of reference, and main
+      // routine uses wrong keyword name for STDEV in MOMENT
+      const buggyCode = [
+        'pro qc_system_helper, data, result',
+        '  compile_opt idl2',
+        '  result = total(data) / n_elements(data)',
+        'end',
+        '',
+        'function qc_system_test',
+        '  compile_opt idl2',
+        '  data = findgen(100) + 1',
+        '  qc_system_helper, data, avg',
+        '  m = moment(data)',
+        '  variance = m[1]',
+        '  result = {mean: avg, variance: variance, $',
+        '    ratio: avg / variance}',
+        '  return, result',
+        'end',
+      ].join('\n');
+
+      const result = await agent.sendtoSimulation({
+        prompt:
+          'This IDL system has two routines. There may be subtle bugs or ' +
+          'unnecessary complexity. Run it, analyze the output, and tell me: ' +
+          'does qc_system_helper correctly compute the mean? Does the variance ' +
+          'calculation use MOMENT correctly? Fix any issues.\n\n' +
+          '```idl\n' +
+          buggyCode +
+          '\n```\n\n' +
+          'Only output the corrected code with both routines. ' +
+          'Keep the function named qc_system_test.',
+        includeInstructions: withTools,
+        includeTools: withTools,
+      });
+      output.appendLine(`  Response: ${result.text}`);
+
+      const code = extractCodeBlock(result.text);
+
+      const folders = vscode.workspace.workspaceFolders;
+      if (!folders || folders.length === 0) {
+        output.appendLine('  No workspace folder found');
+        return false;
+      }
+
+      const outDir = join(folders[0].uri.fsPath, TestCodeDirectory);
+      const outPath = join(outDir, 'qc_system_test.pro');
+
+      await mkdir(outDir, { recursive: true });
+      await writeFile(outPath, code, 'utf-8');
+      output.appendLine(`  Wrote IDL code to: ${outPath}`);
+
+      const runResult = await runIDLFile(outPath, output);
+      if (!runResult) {
+        output.appendLine('  Could not start IDL');
+        return false;
+      }
+
+      if (runResult.success) {
+        output.appendLine('  Executed in IDL successfully');
+        return true;
+      } else {
+        output.appendLine(
+          `  IDL execution failed: ${runResult.err || 'unknown error'}`,
+        );
+        return false;
+      }
+    },
+  },
+  {
+    name: 'Code 15: Diagnose silent wrong answer',
+    run: async ({ agent, output, withTools }) => {
+      // Bug: [[ ]] builds columns (column-major), so the rotation matrix
+      // is transposed from intent. # then gives wrong sign on y-component.
+      const buggyCode = [
+        'function qc_wrong_answer',
+        '  compile_opt idl2',
+        '  theta = 30.0 * !dtor',
+        '  rot = [[cos(theta), -sin(theta)], [sin(theta), cos(theta)]]',
+        '  point = [1.0, 0.0]',
+        '  rotated = rot # point',
+        '  return, rotated',
+        'end',
+      ].join('\n');
+
+      const result = await agent.sendtoSimulation({
+        prompt:
+          'This IDL function rotates the point (1,0) by 30 degrees. ' +
+          'The result should be approximately [0.866, 0.5] but the ' +
+          'y-component comes out wrong. There is no crash or error. ' +
+          'Run it, figure out why, and fix it.\n\n' +
+          '```idl\n' +
+          buggyCode +
+          '\n```\n\n' +
+          'Only output the corrected function called qc_wrong_answer.',
+        includeInstructions: withTools,
+        includeTools: withTools,
+      });
+      output.appendLine(`  Response: ${result.text}`);
+
+      const code = extractCodeBlock(result.text);
+      const lower = code.toLowerCase();
+
+      // Must fix via ## operator, transposing the matrix, or swapping elements
+      const fixesMatrix =
+        lower.includes('##') ||
+        lower.includes('transpose(') ||
+        (lower.includes('[[cos(theta), sin(theta)]') &&
+          lower.includes('[-sin(theta), cos(theta)]'));
+
+      if (!fixesMatrix) {
+        output.appendLine(
+          '  FAIL: Did not fix matrix construction or operator',
+        );
+        return false;
+      }
+
+      const folders = vscode.workspace.workspaceFolders;
+      if (!folders || folders.length === 0) {
+        output.appendLine('  No workspace folder found');
+        return false;
+      }
+
+      const outDir = join(folders[0].uri.fsPath, TestCodeDirectory);
+      const outPath = join(outDir, 'qc_wrong_answer.pro');
+
+      await mkdir(outDir, { recursive: true });
+      await writeFile(outPath, code, 'utf-8');
+      output.appendLine(`  Wrote IDL code to: ${outPath}`);
+
+      const runResult = await runIDLFile(outPath, output);
+      if (!runResult) {
+        output.appendLine('  Could not start IDL');
+        return false;
+      }
+
+      if (runResult.success) {
+        output.appendLine('  Executed in IDL successfully');
         return true;
       } else {
         output.appendLine(

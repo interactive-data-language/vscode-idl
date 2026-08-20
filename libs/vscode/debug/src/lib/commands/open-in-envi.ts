@@ -21,7 +21,7 @@ export async function OpenInENVI(uri: string): Promise<boolean> {
       { echo: true, echoThis: IDL_TRANSLATION.envi.openerText, silent: true },
     );
 
-    return (await HandleENVISuccess(res)).succeeded;
+    return (await HandleENVISuccess(res)).success;
   } catch (err) {
     IDL_LOGGER.log({
       type: 'error',

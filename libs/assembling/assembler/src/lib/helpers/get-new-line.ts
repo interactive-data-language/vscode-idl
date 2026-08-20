@@ -15,7 +15,7 @@ export function GetNewLine(
   hangingLine: number | undefined,
 ): string[] {
   // return if we dont indent
-  if (tokenParent?.name in DONT_INDENT_INSIDE_OF) {
+  if (tokenParent?.name && tokenParent?.name in DONT_INDENT_INSIDE_OF) {
     return [''];
   }
 

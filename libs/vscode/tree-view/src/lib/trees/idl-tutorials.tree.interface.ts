@@ -257,6 +257,16 @@ export const IDLTUTORIAL_NOTEBOOKS: IChild[] = [
   },
   {
     name: IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.children
+      .idl93.name,
+    description:
+      IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.children.idl93
+        .description,
+    icon: 'idlicon.svg',
+    commandName: IDL_COMMANDS.TUTORIALS.OPEN_IDL_TUTORIAL,
+    commandArgs: ['idl-9.3-new-features.idlnb'],
+  },
+  {
+    name: IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.children
       .quickENVI.name,
     description:
       IDL_TRANSLATION.idl.tree.children.idlTutorials.notebooks.children

@@ -34,17 +34,15 @@ export interface IRawBreakpoint {
 }
 
 /**
- * Breakpoints we share with VSCode, nicely formatted
+ * Breakpoint, as reported by IDL
  */
 export interface IDLBreakpoint {
-  /** ID of the breakpoint */
-  id?: string;
-  /** Line number for breakpoint */
+  /** File the breakpoint is in */
+  file: string;
+  /** The breakpoint index (i.e. ID) */
+  idx: number;
+  /** Line number, one-based */
   line: number;
-  /** Name of the breakpoint */
-  name?: string;
-  /** File for breakpoint */
-  path: string;
 }
 
 /**

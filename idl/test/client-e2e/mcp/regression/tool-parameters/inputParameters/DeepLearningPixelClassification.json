@@ -8,10 +8,10 @@
       ]
     },
     "enhance_display": {
-      "default": false,
       "description": [
         "Specify whether to apply an additional small stretch to the processed data to suppress noise and enhance feature visibility. The optional stretch is effective for improving visual clarity in imagery acquired from aerial platforms or sensors with higher noise profiles."
       ],
+      "default": false,
       "type": "boolean"
     },
     "input_metadata": {
@@ -88,27 +88,27 @@
       ]
     },
     "output_class_activation_raster_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified filename and path of the associated OUTPUT_CLASS_ACTIVATION_RASTER. If you do not set this parameter, the class activation raster will not be created. You must set this parameter or the OUTPUT_CLASSIFICATION_RASTER_URI parameter. You can also set both."
       ],
+      "default": "!",
       "type": "string"
     },
     "output_classification_raster_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified filename and path of the associated OUTPUT_CLASSIFICATION_RASTER. If you do not set this parameter, the classification raster will not be created. You must set this parameter or the OUTPUT_CLASS_ACTIVATION_RASTER_URI parameter. You can also set both."
       ],
+      "default": "!",
       "type": "string"
     },
     "runtime": {
-      "default": "CUDA",
       "description": [
         "Specify the execution environment for the classification task with one of these options:",
         "",
         "CUDA: (Default) Uses NVIDIA GPU acceleration for optimal performance and faster processing. See also CUDA_DEVICE_ID for details on providing a device ID.",
         "CPU: Ensures compatibility on systems without GPU support, but with reduced processing speeds."
       ],
+      "default": "CUDA",
       "anyOf": [
         {
           "type": "string",
@@ -121,17 +121,16 @@
       ]
     },
     "visual_rgb": {
-      "default": false,
       "description": [
         "Specify whether to encode the output raster as a three-band RGB composite (red, green, blue) for color image processing. This ensures consistent band selection from ENVI display types (such as RGB, CIR, and pan) and supports integration of diverse data sources (such as MSI, panchromatic, and VNIR) without band mismatch."
       ],
+      "default": false,
       "type": "boolean"
     }
   },
   "required": [
     "input_model",
-    "input_raster",
-    "output_classification_raster_uri"
+    "input_raster"
   ],
   "additionalProperties": false,
   "description": [

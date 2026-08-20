@@ -632,6 +632,56 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
     ],
   },
   {
+    suiteName: `Correctly include keywords`,
+    fileName: `keywords.3.spec.ts`,
+    tests: [
+      {
+        name: `for variables`,
+        file: `idl/test/auto-complete/keywords.pro`,
+        position: [
+          {
+            line: 27,
+            character: 12,
+          },
+        ],
+      },
+      {
+        name: `but not when you have a keyword as a parent`,
+        file: `idl/test/auto-complete/keywords.pro`,
+        position: [
+          {
+            line: 4,
+            character: 36,
+          },
+          {
+            line: 5,
+            character: 35,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Correctly provide hover help for`,
+    fileName: `keywords.get-set.spec.ts`,
+    tests: [
+      {
+        name: `keywords in get/set`,
+        file: `idl/test/auto-complete/get_set_methods.pro`,
+        position: [
+          {
+            line: 4,
+            character: 36,
+          },
+          {
+            line: 5,
+            character: 35,
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Methods`,
     fileName: `methods.spec.ts`,
     tests: [
@@ -988,6 +1038,22 @@ export const AUTO_AUTO_COMPLETE_TESTS: IAutoCompleteTests[] = [
           {
             line: 2,
             character: 28,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: `Regression tests`,
+    fileName: `regression.2.spec.ts`,
+    tests: [
+      {
+        name: `for procedures`,
+        file: `idl/test/auto-complete/procedure_regression.pro`,
+        position: [
+          {
+            line: 0,
+            character: 0,
           },
         ],
       },

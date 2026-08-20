@@ -3220,6 +3220,17 @@ export const AUTO_LOCAL_GLOBAL_SCOPE_COMPILE_AND_TYPES_TESTS: IAutoLocalGlobalSc
             `end`,
           ],
         },
+        {
+          name: 'Get/set property',
+          code: [
+            'compile_opt idl2',
+            '',
+            'shp = IDLffShape()',
+            'shp.getProperty, entity_type = foo',
+            'shp.setProperty, entity_type = bar',
+            'end',
+          ],
+        },
       ],
     },
     {

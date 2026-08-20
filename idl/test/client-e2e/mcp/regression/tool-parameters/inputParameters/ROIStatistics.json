@@ -76,9 +76,8 @@
       ]
     },
     "output_report_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified path and filename of a text file that will contain the statistics."
       ],
       "type": "string"
     }

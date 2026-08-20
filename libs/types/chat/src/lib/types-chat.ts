@@ -182,6 +182,8 @@ export interface ChatStreamChunk_Title {
 export interface ChatStreamChunk_ToolCall {
   /** Arguments passed to the tool */
   toolArgs: Record<string, unknown>;
+  /** Unique identifier correlating this call to its tool_result chunk */
+  toolCallId: string;
   /** Name of the tool being called */
   toolName: string;
   type: 'tool_call';
@@ -189,6 +191,8 @@ export interface ChatStreamChunk_ToolCall {
 
 /** Result (or error) returned from a tool invocation */
 export interface ChatStreamChunk_ToolResult {
+  /** Unique identifier correlating this result to its tool_call chunk */
+  toolCallId: string;
   /** Whether the tool returned an error */
   toolError: boolean;
   /** Tool name that was called */

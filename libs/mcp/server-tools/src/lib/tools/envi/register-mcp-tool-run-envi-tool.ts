@@ -1,10 +1,6 @@
 import { MCPServer } from '@idl/mcp/server';
-import {
-  ITaskInformation,
-  MCPTaskRegistry,
-  TaskLocation,
-  TaskLocation_File,
-} from '@idl/mcp/tasks';
+import { RegistryLocation, RegistryLocation_File } from '@idl/mcp/shared';
+import { ITaskInformation, MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
@@ -110,7 +106,7 @@ export function RegisterMCPTool_RunENVITool(
       if (detail.location) {
         if (detail.location.type === 'file') {
           params.uri = (
-            detail.location as TaskLocation<TaskLocation_File>
+            detail.location as RegistryLocation<RegistryLocation_File>
           ).meta.path;
         }
       }
@@ -122,7 +118,7 @@ export function RegisterMCPTool_RunENVITool(
       )) as MCPToolResponse<MCPTool_RunENVITool>;
 
       // sanitize the output parameters
-      registry.sanitizeOutputParameters(resp.outputParameters);
+      registry.sanitizeOutputParameters(resp.result || {});
 
       return {
         isError: !resp.success,

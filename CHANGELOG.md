@@ -2,13 +2,152 @@
 
 All notable changes to the "idl" extension will be documented in this file.
 
-For much more detail on incremental work for large features, see our [developer notes](./extension/docs/developer/dev-notes/README.md).
+For much more detail on incremental work for large features, see the developer docs in the `extension/docs/developer/dev-notes` of the source repo.
 
 ## Preview Features
 
 This section of the CHANGELOG documents features that have been added to the extension, but are still in an experimental phase. Feel free to try them out and provide feedback via discussions or issues on our GitHub page.
 
-Auto-complete for blocks re-work: Partial implementation of auto-complete for blocks that works better than the default snippets that exists. This functions for if-then-else only right now to verify the user experience is what it needs to be.
+New settings for ENVI's MCP Tools:
+
+- Fine-tune which ENVI Tools can be invoked by ENVI Agent with a new whitelist and blacklist option
+
+## 6.2.0 - August 2026
+
+This major release brings some new and renamed MCP tools for agents to use with IDL and ENVI. Here's the breakdown:
+
+- New tool `get-idl-state` that allows an agent to learn about variables, call stack, and more for the current IDL session
+
+- New tool `control-idl-debugger` which allows an agent to debug like a person through setting breakpoints and stepping through code
+
+- New tool `query-idl-session` for running single-line commands at the current scope/location for IDL. This differs from our other MCP tools which run code as a main level program not from the current location.
+
+- New tool `save-envi-tool-workflow` lets you save a new ENVI-based processing workflow to disk that you can re-use later. The intended use of this tool is to run after you have stepped through an image analysis workflow so you can save it for later. See below for more details.
+
+- Renamed `execute-idl-code` to `run-idl-code`
+
+- Renamed `execute-idl-file` to `run-idl-file`
+
+- Renamed `manage-idl-and-envi-session` to `control-idl-and-envi-session`
+
+IDL Agent can now access and use the Python included with IDL and ENVI installations. It should be able to: install packages, run Python code, and write IDL routines that mix/match with Python.
+
+The debug console now supports auto-complete! This small change helps make the interactive debugging a little more user friendly. The completion triggers are different from normal text editing (tab is accept instead of enter).
+
+Re-organized the folder structure for agentic tools. We now use "agents" in your .idl folder instead of "github-copilot" and we do the same for some files included in the extension.
+
+Fixed an issue where the prompt folder for ENVI Agent and IDL Agent wasn't getting populated all the time.
+
+Fixed an issue where ENVI Tool parameters with defaults were marked as required when they should be optional with default values passed through.
+
+Fixed an issue with an incorrect image encoding being returned by the MCP server when taking a screenshot in ENVI.
+
+Fixed an issue where post-processing IDL code would fail.
+
+Fixed an issue where we incorrectly parsed comment blocks in template literal strings.
+
+Updated auto-complete to send keywords when typing in the middle of a variable.
+
+Added missing properties for IDLffShape, resulting in errors for missing keywords in IDLffShape::GetProperty.
+
+For all structures provided by IDL and ENVI, added `getProperty` and `setProperty` procedure methods. These were not always covered by our documentation parsing, and they exist for most classes.
+
+Added a new setting under GitHub Copilot for the extension that allows you to disable automatically registering the ENVI instructions for GitHub Copilot. If you disable this setting, you need to restart VSCode in order for the changes to take effect.
+
+Added a new problem code that detects when named keywords in a routine definition will be ambiguous and cause runtime/execution errors.
+
+Resolved an issue where we were setting all ENVI URI input parameters to have a default, temporary filename generated when this was not always the right case. We now only do that when the parameters are connected to a raster/vector output (or similar).
+
+Resolved an issue where the extension would not always properly detect if IDL or ENVI has been installed or not. Uninstalled versions of IDL or ENVI kept folders around, and we now check for the presence of the IDL executable instead of the folders.
+
+Added a new example notebook that shows new IDL features. You can find this under the IDL sidebar in: IDL Tutorials => Example Notebooks => IDL 9.3 New Features
+
+Resolved some broken links in the documentation.
+
+### ENVI Tool: Save ENVI Tool Workflows
+
+Added the ability to plug in your own ENVI tool workflows locally using ENVI Agent. To do this, navigate to the "agents/envi-tool-workflows" folder under the .idl directory. Then:
+
+1. Create a new markdown file with the name of the file being the name of the workflow (Ex: "Process imagery with ship detection deep learning model.md")
+
+2. Populate with the content for your workflow. Here's an example for image registration:
+
+```markdown
+## OVERVIEW
+
+Align two images to one another by finding matching features and warping one image to match the other.
+
+## REQUIREMENTS
+
+**Required Data**:
+
+- Base image (reference with accurate georeferencing)
+- Warp image (image to be corrected/aligned)
+
+**Data Best Practices**:
+
+- Base image should have higher quality georeferencing (e.g., orthophoto, standard projection)
+- Images should have overlapping coverage area
+- Images should contain identifiable common features
+
+## KEY CONCEPTS
+
+**Base vs. Warp**: The base image is the "truth" reference. The warp image gets resampled to match the base image's coordinate system and pixel grid.
+
+**Tie Points**: Matching pixel locations between images. Automated methods find hundreds of candidates, but filtering is critical to remove false matches.
+
+**Transform Types**: Different geometric corrections suit different distortion types:
+
+- **RST (Rotation, Scale, Translation)**: Simple shifts and rotations
+- **Polynomial**: Handles shearing and non-linear distortions
+- **Triangulation**: Best for local terrain-induced distortions
+
+## WORKFLOW
+
+Execute all steps in order for accurate registration.
+
+### Step 1: Assign Image Roles
+
+Establish reference (Base) and image to correct (Warp) by reviewing map information for both images.
+
+**Notes:**
+
+- **INPUT_RASTER1 (Base)**: Assign image with better georeferencing (orthophoto, standard projection)
+- **INPUT_RASTER2 (Warp)**: Assign image needing correction (raw aerial photo, arbitrary projection)
+
+### Step 2: Generate Tie Points
+
+Automatically find matching features between images by selecting method based on sensor types.
+
+**For similar sensors (Optical-to-Optical)**, run **GenerateTiePointsByCrossCorrelation**.
+
+**Notes:**
+
+- Standard method for same-modality registration
+- Finds features with similar pixel intensity patterns
+
+**For different sensors (Multi-Modal)**, run **GenerateTiePointsByMutualInformation**.
+
+**Notes:**
+
+- Use for SAR-to-Optical, Thermal-to-Visible, or other cross-sensor registration
+- Works when pixel values don't correlate linearly
+
+### Step 3: Filter Tie Points
+
+Remove false matches (outliers) that would distort final image by running **FilterTiePointsByGlobalTransform**.
+
+### Step 4: Warp Image
+
+Resample warp image to match base image's coordinate grid by running **ImageToImageRegistration**.
+
+**Notes:**
+
+- **WARPING = 'Triangulation'**: Best for terrain-induced local distortions (recommended)
+- **WARPING = 'Polynomial'**: Smoother global fit for systematic distortions
+```
+
+3. Open a new chat and ask "What ENVI tool workflows do you have available?" and your new workflow should appear.
 
 ## 6.1.2 - July 2026
 
@@ -18,15 +157,15 @@ Resolved an issue with the "list-all-envi-tools" MCP tool which now returns true
 
 Changed the MCP Tool "take-envi-screenshot" to now do two things:
 
-1. GitHub Copilot should use a sub-agent to analyze the image so it doesn't linger in the context of your chat
+GitHub Copilot should use a sub-agent to analyze the image so it doesn't linger in the context of your chat
 
-2. Screenshot maximum size limited to 512 x 512 for now to reduce token costs
+Screenshot maximum size limited to 512 x 512 for now to reduce token costs
 
 Updated the MCP server to add strict checking on all input parameters to tools. This helps LLMs course-correct when they hallucinate and pass in parameters that are not valid.
 
 Updated the "open-datasets-in-envi" MCP tool to validate that datasets are passed in. If no datasets are provided, then an error is thrown.
 
-## 6.1.0 - May 2026
+## 6.1.0 - May 2025
 
 New feature for ENVI Agent: ability to create ENVI Modeler Workflows! You can now ask questions like:
 

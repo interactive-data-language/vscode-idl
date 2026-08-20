@@ -149,6 +149,13 @@ describe(`[auto generated] Verify doc formatting`, () => {
         canReport: true,
       },
       {
+        code: 114,
+        info: "Ambiguous keyword detected. This keyword's name matches the start of another named keyword",
+        start: [16, 33, 2],
+        end: [16, 33, 2],
+        canReport: true,
+      },
+      {
         code: 104,
         info: 'Unused variable "kw1"',
         start: [16, 28, 3],
@@ -356,6 +363,13 @@ describe(`[auto generated] Verify doc formatting`, () => {
     // define expected problems
     const expectedProblems: SyntaxProblems = [
       {
+        code: 114,
+        info: "Ambiguous keyword detected. This keyword's name matches the start of another named keyword",
+        start: [14, 28, 2],
+        end: [14, 28, 2],
+        canReport: true,
+      },
+      {
         code: 20,
         info: 'In procedures and main level programs, the "return" procedure cannot have values',
         start: [18, 2, 6],
@@ -487,6 +501,13 @@ describe(`[auto generated] Verify doc formatting`, () => {
 
     // define expected problems
     const expectedProblems: SyntaxProblems = [
+      {
+        code: 114,
+        info: "Ambiguous keyword detected. This keyword's name matches the start of another named keyword",
+        start: [16, 34, 2],
+        end: [16, 34, 2],
+        canReport: true,
+      },
       {
         code: 104,
         info: 'Unused variable "kw1"',
@@ -637,6 +658,20 @@ describe(`[auto generated] Verify doc formatting`, () => {
 
     // define expected problems
     const expectedProblems: SyntaxProblems = [
+      {
+        code: 114,
+        info: "Ambiguous keyword detected. This keyword's name matches the start of another named keyword",
+        start: [14, 28, 2],
+        end: [14, 28, 2],
+        canReport: true,
+      },
+      {
+        code: 114,
+        info: "Ambiguous keyword detected. This keyword's name matches the start of another named keyword",
+        start: [35, 34, 2],
+        end: [35, 34, 2],
+        canReport: true,
+      },
       {
         code: 104,
         info: 'Unused variable "kw1"',

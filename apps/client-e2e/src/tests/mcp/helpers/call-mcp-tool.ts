@@ -1,11 +1,17 @@
 import { Sleep } from '@idl/shared/extension';
-import { MCPToolHTTPResponse, MCPToolParams, MCPTools } from '@idl/types/mcp';
+import {
+  MCPToolHTTPResponse,
+  MCPToolParams,
+  MCPToolParams_ParameterOverride,
+  MCPTools,
+  MCPTools_ParameterOverride,
+} from '@idl/types/mcp';
 
 import { DEBUG_PAUSE } from '../../debugging/_shared.interface';
 import { CREATED_CLIENT, MCP_CLIENT } from './create-mcp-client';
 
 /**
- * Calls an MCP tool and returns the response
+ * Calls an MCP tool via HTTP and returns the response
  *
  * Manually waits for our DEBUG_PAUSE constant after the
  * tool finished running to let objects catch up and
@@ -13,7 +19,9 @@ import { CREATED_CLIENT, MCP_CLIENT } from './create-mcp-client';
  */
 export async function CallMCPTool<T extends MCPTools>(
   tool: T,
-  params: MCPToolParams<T>,
+  params: T extends MCPTools_ParameterOverride
+    ? MCPToolParams_ParameterOverride<T>
+    : MCPToolParams<T>,
 ) {
   // make sure we have connected
   if (!CREATED_CLIENT) {

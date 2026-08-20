@@ -1,0 +1,262 @@
+{
+    "name": "SARsBasicFeFloodingClassification",
+    "baseClass": "SARscapeTaskFromBatch",
+    "tags": ["SARscape"],
+    "HelpTag": "FloodClassification",
+    "displayName": "SARscape Process Flooding Classification",
+    "routine": "SARsBasicFeFloodingClassification",
+    "description": "This tool creates a classification raster that highlights flooded and permanent water areas. [Technical Note] Here below the requirements regarding the input images Notes",
+    "version": "5.3",
+    "invocationType": "keywords",
+    "parameters": [
+        {
+            "name": "FLOODING_PARAMETERS_SELECTION",
+            "keyword": "FLOODING_PARAMETERS_SELECTION",
+            "displayName": "Parameters Selection",
+            "dataType": "STRING",
+            "direction": "input",
+            "parameterType": "optional",
+            "choiceList": {
+                "flooding_sml_preferences": 0,
+                "flooding_preferences_specific": 1
+            },
+            "description": " Auto-select from input Parameters will be configured according to the carrier frequency band specified in the SML file. Manual The parameters can be added manually."
+        },
+        {
+            "name": "INPUT_SARSCAPEDATA",
+            "keyword": "INPUT_FILE_LIST",
+            "displayName": "Input File(s)",
+            "dataType": "SARscapeData[*]",
+            "direction": "input",
+            "parameterType": "required",
+            "description": " Input file name of the coregistered and geocoded pre-event images. At least one image is required."
+        },
+        {
+            "name": "POST_EVENT_FILE",
+            "keyword": "POST_EVENT_FILE",
+            "displayName": "Post Event File",
+            "dataType": "SARscapeData",
+            "direction": "input",
+            "parameterType": "required",
+            "description": " Input file name of the coregistered and geocoded post-event image. This file is mandatory."
+        },
+        {
+            "name": "LAND_MASK_SHAPE_FILE",
+            "keyword": "LAND_MASK_SHAPE_FILE",
+            "displayName": "Land Mask Shapefile",
+            "dataType": "ENVIURI",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " The algorithm will avoid the areas outside the polygon(s) of the provided shapefile. Note If no mask is loaded, the software will automatically apply mask from the installation folder of SARscape. This mask is derived from OpenStreetMap repository (© OpenStreetMap contributors). These data are licensed under the Open Database License (ODbL). A copy of the modified dataset is available on https//www.openstreetmap.org/. For details, see Copyright and License and Open Data Commons Open Database License (ODbL) — Open Data Commons legal tools for open data and Third-party software and libraries of SARscape ."
+        },
+        {
+            "name": "DEM_FILE",
+            "keyword": "DEM_FILE",
+            "displayName": "DEM File ",
+            "dataType": "SARscapeData",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " Digital Elevation Model file name. This should be referred to the ellipsoid. In case a list of input files is entered, the DEM must cover the whole imaged area."
+        },
+        {
+            "name": "SLOPE_FILE",
+            "keyword": "SLOPE_FILE",
+            "displayName": "Slope File",
+            "dataType": "SARscapeData",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " Slope file name."
+        },
+        {
+            "name": "OUTPUT_SARSCAPEDATA",
+            "keyword": "OUTPUT_FILE_NAME",
+            "displayName": "Output File",
+            "dataType": "SARscapeData",
+            "direction": "output",
+            "parameterType": "required",
+            "description": " _class Classified raster file of the flooded areas. _postEvent Mean amplitude image of the post-event image. _preEvent Mean amplitude image based on the list of pre-event images. _ratio Geocoded ratio (expressed in dB) between the post-event backscatter value and the pre-events backscatter value. _class_filtr Filtered classified raster file of the flooded areas."
+        },
+        {
+            "name": "SWL_TH",
+            "keyword": "SWL_TH",
+            "displayName": "Water Threshold (dB)",
+            "dataType": "DOUBLE",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " This is the minimum dB value that will be used to detect the presence of water, all the pixels under this value will be considered. In case of stable water area between the pre-event image and the post event image, the area will be classified as Persistent Water Area. This parameter is band dependent and it is automatically set from the Flooding Menu inside Preferences Common."
+        },
+        {
+            "name": "DEM_TH",
+            "keyword": "DEM_TH",
+            "displayName": "DEM Threshold (m)",
+            "dataType": "DOUBLE",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " This is the minimum m value that will be used to remove the presence of Stable Water or Flood, all the pixels over this value will be considered."
+        },
+        {
+            "name": "SLOPE_TH",
+            "keyword": "SLOPE_TH",
+            "displayName": "Slope Threshold (deg)",
+            "dataType": "DOUBLE",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " This is the minimum deg value that will be used to remove the presence of Stable Water or Flood, all the pixels over this value will be considered."
+        },
+        {
+            "name": "RATIO_TH",
+            "keyword": "RATIO_TH",
+            "displayName": "Ratio Threshold (dB)",
+            "dataType": "DOUBLE",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " This is the minimum ratio value between pre-event and post-event image, that will be used to detect the presence of a flooded area. All the pixels over this value will be considered. In case of the presence of water in the area and a sufficient ratio value, the area will be classified as Flooded Area. This parameter is band dependant and it is automatically set from the Flooding Menu inside Preferences Common."
+        },
+        {
+            "name": "HIGH_SCATT_POINT_TH",
+            "keyword": "HIGH_SCATT_POINT_TH",
+            "displayName": "High Scattering Point Threshold(dB)",
+            "dataType": "DOUBLE",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " This is the backscatter value expressed in decibels relevant to high reflectivity targets, such as ships. This parameter helps avoiding the identification of false positive. Note The side lobes effect may cause the identification of false positive areas surrounding high reflectivity targets."
+        },
+        {
+            "name": "MAJ_FILTER_KERNEL_SIZE",
+            "keyword": "MAJ_FILTER_KERNEL_SIZE",
+            "displayName": "Majority Filter Kernel Size",
+            "dataType": "DOUBLE",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " This refers to the kernel size of the majority filter used to filter the output classified image."
+        },
+        {
+            "name": "LAND_MASK_BUFFER_METER",
+            "keyword": "LAND_MASK_BUFFER_METER",
+            "displayName": "Land Mask Buffer (m)",
+            "dataType": "DOUBLE",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": " Optional buffer area might be defined by a distance around the provided land mask shapefile. A pre-set value  is displayed depending on the input file."
+        },
+        {
+            "name": "OPENCL_PLATFORMID",
+            "keyword": "OPENCL_PLATFORMID",
+            "displayName": "OPENCL PLATFORM ID",
+            "dataType": "STRING",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": "Specify the OpenCL platform ID that should be use for parallel computing."
+        },
+        {
+            "name": "OPENCL_DEVICEID",
+            "keyword": "OPENCL_DEVICEID",
+            "displayName": "OPENCL DEVICE ID",
+            "dataType": "STRING",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": "Specify the OpenCL device ID that should be use for parallel computing."
+        },
+        {
+            "name": "GENERATE_QL",
+            "keyword": "make_tiff",
+            "displayName": "Generate Quick Look",
+            "dataType": "BOOLEAN",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": "Set this property to True to generate a Quick Look image."
+        },
+        {
+            "name": "IN_TRIGGERING_EXECUTION_OPTION",
+            "keyword": "IN_TRIGGERING_EXECUTION_OPTION",
+            "displayName": "Input triggering execution option",
+            "dataType": "STRING",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": "Specify a string with the input triggering execution option."
+        },
+        {
+            "name": "OUT_TRIGGERING_EXECUTION_OPTION",
+            "keyword": "OUT_TRIGGERING_EXECUTION_OPTION",
+            "displayName": "Output triggering execution option",
+            "dataType": "STRING",
+            "direction": "output",
+            "parameterType": "optional",
+            "description": "Specify a string with the output triggering execution option."
+        },
+        {
+            "name": "ROOT_URI_FOR_OUTPUT",
+            "keyword": "ROOT_URI_FOR_OUTPUT",
+            "displayName": "Common URI for outputs",
+            "dataType": "ENVIURI",
+            "direction": "input",
+            "parameterType": "optional",
+            "description": "Specify an ENVIURI object with the common URI for all outputs."
+        },
+        {
+            "name": "FILTR_SARSCAPEDATA",
+            "keyword": "FILTR_SARSCAPEDATA",
+            "displayName": "Filtred Classified File",
+            "dataType": "SARscapeData",
+            "direction": "output",
+            "parameterType": "optional",
+            "description": "This is a Filtred Classified SARscapeData"
+        },
+        {
+            "name": "RATIO_SARSCAPEDATA",
+            "keyword": "RATIO_SARSCAPEDATA",
+            "displayName": "Ratio File",
+            "dataType": "SARscapeData",
+            "direction": "output",
+            "parameterType": "optional",
+            "description": "This is a Ratio SARscapeData"
+        },
+        {
+            "name": "PRE_EVENT_SARSCAPEDATA",
+            "keyword": "PRE_EVENT_SARSCAPEDATA",
+            "displayName": "Pre Event File",
+            "dataType": "SARscapeData",
+            "direction": "output",
+            "parameterType": "optional",
+            "description": "This is a Pre Event SARscapeData"
+        },
+        {
+            "name": "POST_EVENT_SARSCAPEDATA",
+            "keyword": "POST_EVENT_SARSCAPEDATA",
+            "displayName": "Post Event File",
+            "dataType": "SARscapeData",
+            "direction": "output",
+            "parameterType": "optional",
+            "description": "This is a Post Event SARscapeData"
+        },
+        {
+            "name": "SARscape_Preference",
+            "keyword": "SARscape_Preference",
+            "displayName": "SARscape Preferences",
+            "dataType": "STRING",
+            "direction": "input",
+            "parameterType": "optional",
+            "choiceList": {
+                "Use actual preferences": 0,
+                "General": 1,
+                "UHR (better than 1m)": 2,
+                "VHR (better than 3m)": 3,
+                "VHR (better than 6m)": 4,
+                "HR (better than 10m)": 5,
+                "MR (between 10m and 30m)": 6,
+                "LR (coarser than 30m)": 7,
+                "Interferometry Low Coherence": 8,
+                "Wrong Orbital Data": 9,
+                "TanDEM-X Bistatic Configuration": 10,
+                "CInSAR ERS-ASAR Interferometry": 11,
+                "Sentinel TOPSAR (IW - EW)": 12,
+                "PALSAR-2 ScanSAR": 13,
+                "TSX ScanSAR": 14,
+                "Umbra": 15,
+                "Squinted Data": 16
+            },
+            "defaultValue": "Use actual preferences",
+            "description": "Specify a case-sensitive string or integer with the preferred SARScape parameters. The choices are 0 (use actual preferences), 1 (General), 2 (UHR (better than 1m)), 3 (VHR (better than 3m)), 4 (VHR (better than 6m)), 5 (HR (better than 10m)), 6 (MR (between 10m and 30m)), 7 (LR (coarser than 30m)), 8 (Interferometry Low Coherence), 9 (Wrong Orbital Data), 10 (TanDEM-X Bistatic Configuration), 11 (CInSAR ERS-ASAR Interferometry), 12 (Sentinel TOPSAR (IW - EW), 13 (PALSAR-2 ScanSAR), 14 (TSX ScanSAR), 15 (Umbra), and 16 (Squinted Data)."
+        }
+    ]
+}

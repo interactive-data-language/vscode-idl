@@ -1,3 +1,4 @@
+import { USER_ENVI_WORKFLOWS_FOLDER } from '@idl/idl/files';
 import { MCPServer } from '@idl/mcp/server';
 import { MCPToolWorkflowRegistry } from '@idl/mcp/tool-workflows';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -10,12 +11,14 @@ import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructio
 /**
  * ENVI tool workflow registry
  */
-export const ENVI_TOOL_WORKFLOW_REGISTRY = new MCPToolWorkflowRegistry();
+export const ENVI_TOOL_WORKFLOW_REGISTRY = new MCPToolWorkflowRegistry(
+  USER_ENVI_WORKFLOWS_FOLDER,
+);
 
 /**
  * Track if we loaded notes or not
  */
-let LOADED_NOTES = false;
+let LOADED_WORKFLOWS = false;
 
 /**
  * Track failure so we can report to the LLM
@@ -65,7 +68,7 @@ export function RegisterMCPTool_ListENVIToolWorkflows(server: MCPServer) {
       }
 
       // load notes if we havent
-      if (!LOADED_NOTES) {
+      if (!LOADED_WORKFLOWS) {
         const resp = await server.sendIDLRequest(
           id,
           MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
@@ -74,10 +77,10 @@ export function RegisterMCPTool_ListENVIToolWorkflows(server: MCPServer) {
 
         // try to load based on the response
         if (resp.success) {
-          ENVI_TOOL_WORKFLOW_REGISTRY.addManyToolWorkflows(resp.workflows);
-          LOADED_NOTES = true;
+          ENVI_TOOL_WORKFLOW_REGISTRY.addManyToolWorkflows(resp.result || {});
+          LOADED_WORKFLOWS = true;
         } else {
-          LOAD_FAILURE = resp.err || '';
+          LOAD_FAILURE = resp.result?.err || '';
           return {
             isError: true,
             content: [{ type: 'text', text: JSON.stringify(resp) }],

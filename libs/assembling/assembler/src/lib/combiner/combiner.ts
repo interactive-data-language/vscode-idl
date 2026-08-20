@@ -168,7 +168,7 @@ function _Recursor<T extends FormatterType>(
       recurse.tokenParent = branch as TreeToken<TokenName>;
 
       // track last hang number
-      let lastHang: number;
+      let lastHang: number | undefined;
 
       // see if we should have hanging indent
       if (options.hangingIndent && branch.name in HANGING_ROUTINES) {

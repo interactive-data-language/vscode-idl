@@ -1,6 +1,9 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { PopulateENVIError } from '@idl/mcp/envi';
-import { IENVISuccess } from '@idl/types/vscode-debug';
+import {
+  ENVIMCPToolResponse,
+  ENVIMCPToolResponse_Failure,
+} from '@idl/types/mcp';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { OutputEvent } from '@vscode/debugadapter';
 import * as vscode from 'vscode';
@@ -14,7 +17,7 @@ import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
  */
 export async function HandleENVISuccess(
   resOrig: string,
-): Promise<IENVISuccess> {
+): Promise<ENVIMCPToolResponse> {
   // remove IDL print statements
   const res = CleanIDLOutput(resOrig, true, true);
 
@@ -23,10 +26,10 @@ export async function HandleENVISuccess(
   const sub = res.substring(pos);
 
   // parse the text
-  const parsed: IENVISuccess = JSON.parse(sub);
+  const parsed: ENVIMCPToolResponse = JSON.parse(sub);
 
   // check if we failed
-  if (!parsed.succeeded) {
+  if (!parsed.success) {
     // log details
     IDL_LOGGER.log({
       type: 'error',
@@ -37,11 +40,18 @@ export async function HandleENVISuccess(
     PopulateENVIError(parsed);
 
     // send reason to IDL console
-    IDL_DEBUG_ADAPTER.sendEvent(new OutputEvent(`${parsed.error}`, 'stderr'));
+    IDL_DEBUG_ADAPTER.sendEvent(
+      new OutputEvent(
+        `${(parsed as ENVIMCPToolResponse_Failure).result.err}`,
+        'stderr',
+      ),
+    );
 
     // alert user
-    if (parsed.reason) {
-      vscode.window.showErrorMessage(parsed.reason);
+    if ((parsed as ENVIMCPToolResponse_Failure).result.reason) {
+      vscode.window.showErrorMessage(
+        (parsed as ENVIMCPToolResponse_Failure).result.reason as string,
+      );
     }
   }
 

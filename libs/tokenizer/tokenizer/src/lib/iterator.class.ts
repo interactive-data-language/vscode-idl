@@ -141,7 +141,7 @@ export class Iterator {
     if (match !== undefined) {
       return {
         line: this.current.line,
-        index: this.current.linePosition + match.index,
+        index: this.current.linePosition + (match.index || 0),
         length: match[0].length,
       };
     } else {
@@ -216,6 +216,15 @@ export class Iterator {
       if (this.process[i]) {
         break;
       } else {
+        // if we are in a template literal, dont check for comments
+        if (
+          this.current.parents.length > 0 &&
+          this.current.parents[this.current.parents.length - 1] ===
+            TOKEN_NAMES.STRING_TEMPLATE_LITERAL
+        ) {
+          break;
+        }
+
         // check for comment-only on our line
         if (COMMENT_ONLY_TEST.test(this.split[i])) {
           const match = COMMENT.match.exec(this.split[i]);
@@ -264,7 +273,7 @@ export class Iterator {
     if (match !== undefined) {
       return {
         line: this.current.line,
-        index: this.current.linePosition + match.index,
+        index: this.current.linePosition + (match.index || 0),
       };
     } else {
       return {
@@ -281,7 +290,7 @@ export class Iterator {
     if (match !== undefined) {
       return [
         this.current.line,
-        this.current.linePosition + match.index,
+        this.current.linePosition + (match.index || 0),
         match[0].length,
       ];
     } else {

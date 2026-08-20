@@ -1,0 +1,170 @@
+import {
+  FindFiles,
+  FindIDL,
+  IFolderRecursion,
+  LoadIDLSearchPaths,
+} from '@idl/idl/files';
+import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import {
+  MCPTrackResources,
+  RegisterAllLanguageServerMCPTools,
+  RegisterMCPTaskTools,
+} from '@idl/mcp/language-server-tools';
+import { MCPServer } from '@idl/mcp/server';
+import { RegisterStaticMCPResources } from '@idl/mcp/server-resources';
+import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
+import {
+  WebSocketExecutionBackend,
+  WebSocketToolBridge,
+} from '@idl/mcp/websocket';
+import { IDLIndex } from '@idl/parsing/index';
+import {
+  IIDLMCPExecutionBackend,
+  PrepareIDLCodeCallback,
+} from '@idl/types/mcp';
+import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
+import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
+import type { Application } from 'express';
+
+import { CreateIDLMachineBackend } from './create-idl-machine-backend';
+
+/**
+ * Optional configuration for the MCP language server.
+ */
+export interface IMCPLanguageServerOptions {
+  /**
+   * When provided, tool execution is routed through this WebSocket bridge
+   * instead of a local IDL Machine process. The IDL/ENVI install is still
+   * required for indexing and task-tool registration; only the runtime
+   * backend is skipped.
+   */
+  websocketBridge?: WebSocketToolBridge;
+}
+
+/**
+ * Starts the language server for our dedicated MCP server - so we can re-use our MCP
+ * tools over here.
+ *
+ * Mounts MCP routes on the provided Express app instead of creating a standalone server.
+ */
+export async function CreateStandaloneMCPServer(
+  app: Application,
+  options?: IMCPLanguageServerOptions,
+) {
+  const logManager = new LogManager({
+    alert: () => {
+      //
+    },
+  });
+
+  /**
+   * Default path that we need for IDL and discovery
+   */
+  const idlSearchPath: IFolderRecursion = {};
+
+  /**
+   * Find a version of IDL
+   */
+  const idlPath = FindIDL('idl92');
+
+  // verify that we found the IDL search path
+  if (!idlPath) {
+    throw new Error('Unable to find IDL, cannot proceed');
+  }
+
+  // register other paths we need to index
+  const isEnviInstalled = LoadIDLSearchPaths(idlSearchPath, idlPath);
+
+  // index
+  const index = new IDLIndex(logManager, 1, false);
+
+  /** Find relevant files that we need to index */
+  const files = await FindFiles(idlPath);
+
+  /**
+   * Index workspace files we found
+   */
+  await index.indexWorkspaceFiles(files, idlPath, true);
+
+  // load global tokens
+  index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
+
+  /**
+   * Callback to prepare code
+   */
+  const codePrepare: PrepareIDLCodeCallback = async (code) => {
+    return await index.indexerPool.workerio.postAndReceiveMessage(
+      index.getNextWorkerID(),
+      LSP_WORKER_THREAD_MESSAGE_LOOKUP.PREPARE_IDL_CODE,
+      {
+        code,
+      },
+    ).response;
+  };
+
+  /**
+   * Create the execution callback. In WebSocket mode we skip launching the
+   * local IDL Machine process entirely and forward the small set of allowed
+   * ENVI tools to the connected WS client instead.
+   */
+  const backend: IIDLMCPExecutionBackend = options?.websocketBridge
+    ? new WebSocketExecutionBackend(options?.websocketBridge, codePrepare)
+    : CreateIDLMachineBackend(logManager, idlPath, codePrepare);
+
+  // eslint-disable-next-line prefer-const
+  let mcpServer: MCPServer;
+
+  // start the MCP server with the execution callback, mounting on the provided Express app
+  MCPServer.start({
+    app,
+    logManager,
+    idlExecutionCallback: (id, tool, params) => {
+      return backend.runMCPTool(id, tool, params, (message) => {
+        if (mcpServer) {
+          mcpServer.sendToolExecutionNotification(id, {
+            message,
+          });
+        }
+      });
+    },
+    idlIndex: index,
+    failCallback: (err) => {
+      logManager.log({
+        log: IDL_MCP_LOG,
+        type: 'error',
+        content: ['Error starting MCP server', err],
+      });
+    },
+    toolInvokedCallback: () => {
+      // no-op for standalone mode
+    },
+  });
+
+  /** Get reference to the server singleton */
+  mcpServer = MCPServer.instance;
+
+  // register static resources (documentation links)
+  RegisterStaticMCPResources();
+
+  // track dynamic file-based resources
+  try {
+    MCPTrackResources(logManager);
+  } catch (err) {
+    logManager.log({
+      log: IDL_MCP_LOG,
+      type: 'error',
+      content: [`Problem tracking resource files`, err],
+    });
+  }
+
+  // register all of our tools
+  RegisterAllMCPTools(isEnviInstalled);
+
+  // register all tools that require the language server (IDL Index) to function
+  RegisterAllLanguageServerMCPTools(mcpServer, index, () => []);
+
+  // register MCP task tools
+  if (isEnviInstalled) {
+    RegisterMCPTaskTools(MCPServer.instance, index);
+  }
+}

@@ -1,6 +1,6 @@
 import {
-  USER_CUSTOM_COPILOT_INSTRUCTIONS_FOLDER,
-  USER_CUSTOM_COPILOT_PROMPTS_FOLDER,
+  USER_CUSTOM_AGENT_INSTRUCTIONS_FOLDER,
+  USER_CUSTOM_AGENT_PROMPTS_FOLDER,
 } from '@idl/idl/files';
 import { existsSync } from 'fs';
 import * as vscode from 'vscode';
@@ -26,8 +26,8 @@ export async function RegisterGitHubCopilotFilesFromUser(
   /** Folder that user created */
   const customDir =
     type === 'instructions'
-      ? USER_CUSTOM_COPILOT_INSTRUCTIONS_FOLDER
-      : USER_CUSTOM_COPILOT_PROMPTS_FOLDER;
+      ? USER_CUSTOM_AGENT_INSTRUCTIONS_FOLDER
+      : USER_CUSTOM_AGENT_PROMPTS_FOLDER;
 
   // return if doesnt exist
   if (!existsSync(customDir)) {

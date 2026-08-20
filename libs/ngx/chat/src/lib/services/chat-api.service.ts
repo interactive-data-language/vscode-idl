@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { ElectronConfigService } from '@idl/ngx/electron';
 import type {
   AvailableModelsResponse,
   ChatMessageRequest,
@@ -14,11 +15,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ChatApiService {
-  /** Base URL for REST API */
-  private readonly baseUrl = '/api/chat';
+  private readonly electronConfig = inject(ElectronConfigService);
 
   /** HTTP client */
   private readonly http = inject(HttpClient);
+
+  /** Base URL for REST API — absolute when running in Electron */
+  private get baseUrl(): string {
+    return this.electronConfig.isElectron
+      ? `http://localhost:${this.electronConfig.config.agentsPort}/api/chat`
+      : '/api/chat';
+  }
 
   /**
    * Get list of available models

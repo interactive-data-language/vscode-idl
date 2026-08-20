@@ -17,17 +17,23 @@ import { copy } from 'fast-copy';
 export interface IDLExtensionsConfigKeys {
   /** Key for code */
   readonly code: 'code';
-
   /** Top-level formatting options, excluding style */
   readonly codeFormatting: 'code.formatting';
   /** Code-formatting style */
   readonly codeFormattingStyle: 'code.formattingStyle';
+
   /** Key for GitHub Copilot preferences */
   readonly copilot: 'copilot';
-  /** Custom instructions for GitHub Copilot */
+  /** Custom instructions for IDL */
   readonly copilotCustomInstructions: 'copilot.customInstructions';
+  /** Custom instructions for ENVI */
+  readonly copilotCustomInstructionsENVI: 'copilot.customInstructionsENVI';
+  /** Do we automatically add ENVI instructions? */
+  readonly copilotRegisterENVIInstructions: 'copilot.registerENVIInstructions';
+
   /** Full debug logs for everything */
   readonly debugMode: 'debugMode';
+
   /** Top-level developer key */
   readonly developer: 'developer';
   /** ENVI Developer */
@@ -44,6 +50,7 @@ export interface IDLExtensionsConfigKeys {
   readonly documentation: 'documentation';
   /** Do we use hosted docs? */
   readonly documentationUseOnline: 'documentation.useOnline';
+
   /** Top-level don't ask key */
   readonly dontAsk: 'dontAsk';
   /** On startup, if we dont have a formatter configured for IDL code, should we ask for it or not */
@@ -64,6 +71,7 @@ export interface IDLExtensionsConfigKeys {
   readonly dontShow: 'dontShow';
   /** Don't show the welcome page */
   readonly dontShowWelcomePage: 'dontShow.welcomePage';
+
   /** Root level IDL preferences */
   IDL: 'IDL';
   /** When we have workspace folders open, do we add them to IDL's search oath */
@@ -94,6 +102,11 @@ export interface IDLExtensionsConfigKeys {
   readonly mcp: 'mcp';
   /** Do we enable the MCP server or not? */
   readonly mcpEnabled: 'mcp.enabled';
+  /** Blacklist of ENVI tools to hide from MCP tools */
+  readonly mcpENVIToolBlacklist: 'mcp.enviToolBlacklist';
+  /** Whitelist of ENVI tools to expose as MCP tools */
+  readonly mcpENVIToolWhitelist: 'mcp.enviToolWhitelist';
+
   /** Key for notebook preferences */
   readonly notebooks: 'notebooks';
 
@@ -224,11 +237,19 @@ export interface IDeveloperConfig {
 export interface IMCPConfig {
   /** Do we enable the MCP server or not? */
   readonly enabled: boolean;
+  /** Blacklist of ENVI tools to hide from MCP tools */
+  readonly enviToolBlacklist: string[];
+  /** Whitelist of ENVI tools to expose as MCP tools (empty = all allowed) */
+  readonly enviToolWhitelist: string[];
 }
 
 export interface ICopilotConfig {
   /** Custom instructions for GitHub Copilot */
   readonly customInstructions: string;
+  /** Custom instructions for ENVI */
+  readonly customInstructionsENVI: string;
+  /** Do we automatically add ENVI instructions? */
+  readonly registerENVIInstructions: boolean;
 }
 
 /**
@@ -342,9 +363,13 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
 
   mcp: 'mcp',
   mcpEnabled: 'mcp.enabled',
+  mcpENVIToolWhitelist: 'mcp.enviToolWhitelist',
+  mcpENVIToolBlacklist: 'mcp.enviToolBlacklist',
 
   copilot: 'copilot',
   copilotCustomInstructions: 'copilot.customInstructions',
+  copilotCustomInstructionsENVI: 'copilot.customInstructionsENVI',
+  copilotRegisterENVIInstructions: 'copilot.registerENVIInstructions',
 
   notebooks: 'notebooks',
   notebooksQuietMode: 'notebooks.quietMode',
@@ -421,9 +446,13 @@ export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   },
   mcp: {
     enabled: true,
+    enviToolWhitelist: [],
+    enviToolBlacklist: [],
   },
   copilot: {
+    registerENVIInstructions: true,
     customInstructions: '',
+    customInstructionsENVI: '',
   },
   notebooks: {
     quietMode: true,

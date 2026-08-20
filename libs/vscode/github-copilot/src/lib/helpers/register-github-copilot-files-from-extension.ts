@@ -1,11 +1,14 @@
 import {
   FindFiles,
   GetExtensionPath,
-  USER_COPILOT_FOLDER,
-  USER_COPILOT_INSTRUCTIONS_FOLDER,
-  USER_COPILOT_PROMPTS_FOLDER,
+  OLD_USER_AGENTS_FOLDER,
+  USER_AGENT_INSTRUCTIONS_FOLDER,
+  USER_AGENT_PROMPTS_FOLDER,
+  USER_AGENTS_FOLDER,
 } from '@idl/idl/files';
-import { existsSync, rmSync } from 'fs';
+import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
+import { existsSync, readdirSync, unlinkSync } from 'fs';
+import { join } from 'path';
 import * as vscode from 'vscode';
 
 import { HomeRelativePath } from './home-relative-path';
@@ -30,8 +33,8 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   /** Get the folder our extensions live in */
   const extensionDir =
     type === 'instructions'
-      ? 'extension/github-copilot/instructions'
-      : 'extension/github-copilot/prompts';
+      ? 'extension/agents/instructions'
+      : 'extension/agents/prompts';
 
   /** Get the file extension we search for */
   const fileExtensions =
@@ -40,16 +43,29 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   /** Folder that our instructions should go into */
   const destinationDir =
     type === 'instructions'
-      ? USER_COPILOT_INSTRUCTIONS_FOLDER
-      : USER_COPILOT_PROMPTS_FOLDER;
+      ? USER_AGENT_INSTRUCTIONS_FOLDER
+      : USER_AGENT_PROMPTS_FOLDER;
 
-  // clean up
+  /**
+   * Clean up existing files
+   *
+   * Don't just nuke the folder - it get's locked sometimes by VSCode when prompts
+   * are registered (or at least it looks like that)
+   */
   if (existsSync(destinationDir)) {
-    rmSync(destinationDir, { recursive: true });
+    const existingFiles = readdirSync(destinationDir).map((file) =>
+      join(destinationDir, file),
+    );
+    for (let i = 0; i < existingFiles.length; i++) {
+      unlinkSync(existingFiles[i]);
+    }
   }
 
   // relative path for destination
   const destinationRelative = HomeRelativePath(destinationDir);
+
+  /** Get old relative path for agents content */
+  const oldRelative = HomeRelativePath(OLD_USER_AGENTS_FOLDER);
 
   /**
    * Get prompt files
@@ -71,9 +87,15 @@ export async function RegisterGitHubCopilotFilesFromExtension(
 
   // remove any existing files from settings in case we deleted/removed prompts
   for (let i = 0; i < existing.length; i++) {
+    // check if old location to clean up setting
+    if (existing[i].startsWith(oldRelative)) {
+      delete filesLocations[existing[i]];
+      continue;
+    }
+
     if (
       // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
-      existing[i].startsWith(USER_COPILOT_FOLDER) ||
+      existing[i].startsWith(USER_AGENTS_FOLDER) ||
       existing[i].startsWith(destinationRelative)
     ) {
       states[existing[i]] = filesLocations[existing[i]];
@@ -82,7 +104,17 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   }
 
   /** Find prompt files that we should automatically register */
-  const files = await FindFiles(dir, fileExtensions);
+  let files = await FindFiles(dir, fileExtensions);
+
+  /**
+   * Exclude ENVI items from being auto copied/updated
+   */
+  if (
+    !IDL_EXTENSION_CONFIG.copilot.registerENVIInstructions &&
+    type === 'instructions'
+  ) {
+    files = files.filter((item) => !item.toLowerCase().includes('envi'));
+  }
 
   // Move all files
   // we need a absolute path for operations like copy/move/read/write. But we want to register the home-relative path with copilot settings to be compliant.

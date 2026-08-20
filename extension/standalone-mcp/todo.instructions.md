@@ -27,6 +27,7 @@ You have access to three tools for managing a persistent task list that is visib
 
 ## Guidelines
 
+- DO NOT print out to-do items in your response
 - Keep item text concise — one action per item (e.g. "Open dataset in ENVI", not "Do everything").
 - All three tools return the full current list as JSON so you can confirm the state after each mutation.
 - Do not create a to-do list for simple single-step requests.

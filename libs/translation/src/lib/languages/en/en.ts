@@ -265,10 +265,18 @@ export const EN: ITranslation = {
       mcp: 'Preferences that control the built-in MCP server',
       'mcp.enabled':
         'Do we automatically launch the MCP server on language server startup? If enabled in one workspace, enabled for all.',
+      'mcp.enviToolWhitelist':
+        'When specified, only ENVI tools whose names are in this list will be available as MCP tools for ENVI Agent. Case-insensitive and values are combined across all open workspaces.',
+      'mcp.enviToolBlacklist':
+        'Specify the names of ENVI tools that will be hidden from ENVI Agent. Case-insensitive and values are combined across all open workspaces.',
 
       copilot: 'Preferences for GitHub Copilot integration',
       'copilot.customInstructions':
-        'Custom instructions that will be automatically appended to the IDL Copilot instructions file under "## Additional Instructions". These are preserved between extension updates.',
+        'Custom instructions that will be automatically appended for IDL. These will be included under "## Additional Instructions". These are preserved between extension updates.',
+      'copilot.customInstructionsENVI':
+        'Custom instructions that will be automatically appended for ENVI. These will be included under "## Additional Instructions". These are preserved between extension updates.',
+      'copilot.registerENVIInstructions':
+        "If enabled, ENVI's instructions will be automatically configured for GitHub Copilot. When this setting changes, a restart is needed for it to take effect.",
 
       notebooks:
         'Preferences that control notebook user experience for IDL Notebooks',
@@ -436,6 +444,8 @@ export const EN: ITranslation = {
       continue: 'Error while handling "continue" request',
       createHistory:
         'Error while creating or truncating history file. Does the folder have write permissions?',
+      debugCompletion:
+        'Error while retrieving auto-complete for the debug console',
       evaluate: 'Error while handling "evaluate" request',
       idlDetails:
         'Error getting information about IDL (version, directory, etc.)',
@@ -793,6 +803,10 @@ export const EN: ITranslation = {
             name: 'Example Notebooks',
             description: '',
             children: {
+              idl93: {
+                name: 'IDL 9.3 New Features',
+                description: '',
+              },
               quickIDL: {
                 name: 'IDL Notebook: Hello World',
                 description: '',
@@ -1144,6 +1158,8 @@ export const EN: ITranslation = {
         'Detected a "not" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The `~` operator is preferred as the behavior might not match what you expect.',
       '113':
         'Detected an "xor" statement in logical expression when `idl2`, `idl3`, or `logical_predicate` compile option is set. The behavior might not match what you expect.',
+      '114':
+        "Ambiguous keyword detected. This keyword's name matches the start of another named keyword",
     },
   },
   statusBar: {

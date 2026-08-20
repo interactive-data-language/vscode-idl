@@ -353,6 +353,71 @@ export const STRUCTURE_OVERRIDE: IStructureOverride = {
       },
     },
   },
+  idlffshape: {
+    display: 'IDLffShape',
+    properties: {
+      attribute_info: {
+        display: 'attribute_info',
+        direction: 'out',
+        type: IDLTypeHelper.parseIDLType('Array<any>'),
+        docs: 'An array of IDL_SHAPE_ATTRIBUTE structures containing the attribute information for each attribute. Each structure has NAME (string), TYPE (IDL type code), WIDTH (width in characters), and PRECISION (precision for Double) fields.',
+      },
+      attribute_names: {
+        display: 'attribute_names',
+        direction: 'out',
+        type: IDLTypeHelper.parseIDLType('Array<String>'),
+        docs: 'A string array containing the names of each attribute.',
+      },
+      attribute_types: {
+        display: 'attribute_types',
+        direction: 'out',
+        type: IDLTypeHelper.parseIDLType('Array<Int>'),
+        docs: 'An integer array containing the Shapefile types of each attribute. Possible values are: 0 (String), 1 (Integer number), 2 (Double-precision number), 3 (Logical), 4 (Date).',
+      },
+      entity_type: {
+        display: 'entity_type',
+        direction: 'bidirectional',
+        type: IDL_LONG_TYPE,
+        docs: 'An integer representing the entity type code for the entities contained in the Shapefile object. Returns -1 if unknown. When setting, specifies the entity type for a new Shapefile.',
+      },
+      filename: {
+        display: 'filename',
+        direction: 'out',
+        type: IDL_STRING_TYPE,
+        docs: 'A string representing the fully qualified path name of the Shapefile in the current Shapefile object. Can only be set via the Filename argument to IDLffShape.',
+      },
+      is_open: {
+        display: 'is_open',
+        direction: 'out',
+        type: IDL_INT_TYPE,
+        docs: 'An integer value representing the status of the Shapefile: 0 (not open), 1 (open read-only), 3 (open in update mode).',
+      },
+      n_attributes: {
+        display: 'n_attributes',
+        direction: 'out',
+        type: IDL_LONG_TYPE,
+        docs: 'A longword integer representing the number of attributes associated with the Shapefile object. Returns 0 if unknown.',
+      },
+      n_entities: {
+        display: 'n_entities',
+        direction: 'out',
+        type: IDL_LONG_TYPE,
+        docs: 'A longword integer representing the number of entities contained in the Shapefile object. Returns 0 if unknown.',
+      },
+      n_records: {
+        display: 'n_records',
+        direction: 'out',
+        type: IDL_LONG_TYPE,
+        docs: 'A longword integer representing the number of records in the dBASE table (.dbf) component of the Shapefile.',
+      },
+      update: {
+        display: 'update',
+        direction: 'out',
+        type: IDLTypeHelper.parseIDLType('Boolean'),
+        docs: 'A Boolean value indicating whether the file is open for writing. True if opened with write permissions.',
+      },
+    },
+  },
   idl_shape_entity: {
     display: 'IDL_Shape_Entity',
     properties: {

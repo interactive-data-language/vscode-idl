@@ -96,6 +96,19 @@ export function ENVITaskToGlobal(
       meta.default = (param as ENVITaskParameter<ENVITaskSchema32>)?.default;
     }
 
+    // check if a paired parameter links to our parameter
+    // no fancy search logic here because we have few task parameters, so its OK
+    // searching on each one
+    const areWePaired = task.parameters.find(
+      (otherParam) =>
+        (
+          otherParam as ENVITaskParameter<ENVITaskSchema32>
+        )?.uri_param?.toLowerCase() === propName,
+    );
+    if (areWePaired !== undefined) {
+      meta.default = '!';
+    }
+
     // save our property
     props[propName] = {
       source: GLOBAL_TOKEN_SOURCE_LOOKUP.USER,

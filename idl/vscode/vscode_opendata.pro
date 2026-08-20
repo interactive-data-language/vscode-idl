@@ -19,7 +19,7 @@ pro vscode_openData, uri
   if (err ne 0) then begin
     catch, /cancel
     help, /last_message, output = o
-    vscode_reportENVIFailure, 'envi-error', o
+    agents_reportENVIFailure, 'envi-error', o
     return
   endif else begin
     ; get the current instance of ENVI
@@ -30,7 +30,7 @@ pro vscode_openData, uri
       e = envi()
     endif else begin
       if (e.widget_id eq 0) then begin
-        vscode_reportENVIFailure, 'no-envi-ui', ''
+        agents_reportENVIFailure, 'no-envi-ui', ''
         return
       endif
     endelse
@@ -43,7 +43,7 @@ pro vscode_openData, uri
 
   ; check for problem
   if keyword_set(err) then begin
-    vscode_reportENVIFailure, 'open-error', err
+    agents_reportENVIFailure, 'open-error', err
     return
   endif
 
@@ -55,5 +55,5 @@ pro vscode_openData, uri
   e.refresh
 
   ; report success
-  vscode_reportENVISuccess, 'Opened data!'
+  agents_reportENVISuccess, 'Opened data!'
 end

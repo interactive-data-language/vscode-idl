@@ -56,28 +56,32 @@
       ]
     },
     "aer_reference_value": {
-      "default": 0,
       "description": [
         "Specify the expected reflectance value of a pixel to use in the single band aerosol retrieval. This is primarily useful when a known target material is present. The default value is 0."
       ],
+      "default": 0,
       "type": "number"
     },
     "aerosol_scale_ht": {
-      "default": 2,
       "description": [
         "Adjust the scattering range for adjacency correction. Specify the highest altitude in kilometers of the boundary aerosol layer. The default value is 2."
       ],
+      "default": 2,
       "type": "number"
     },
     "calibration_file": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a full path and filename for sensor wavelength calibration data. The file should contain the following:",
+        "",
+        "ASCII: two column text file which specifies channel center and width values.",
+        "Discrete: Text file defining channel shapes as paired wavelength and response values.",
+        "ENVI: ENVI-style cube header with wavelength, fwhm, and bbl arrays.",
+        "Filter Format: Filter file (.sli) containing discrete channel shape data as an array of wavelengths vs response in consecutive order, one for each band of the sensor.",
+        "Spectograph: Text file that contains spectrograph definitions, and optionally may contain features to use in sensor autocalibration."
       ],
       "type": "string"
     },
     "calibration_format": {
-      "default": "flaash",
       "description": [
         "Set the sensor calibration file format with one of the following:",
         "",
@@ -90,6 +94,7 @@
         "",
         " For FLAASH, sensor calibration data is defined within the FLAASH input configuration. For all other selections, you must also specify a CALIBRATION_FILE."
       ],
+      "default": "flaash",
       "anyOf": [
         {
           "type": "string",
@@ -136,10 +141,10 @@
       ]
     },
     "cloud_raster_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified filename and path of the associated CLOUD_RASTER. If you do not set this parameter to a valid filename, a cloud raster will not be generated."
       ],
+      "default": "!",
       "type": "string"
     },
     "co2_mixing": {
@@ -175,10 +180,10 @@
       ]
     },
     "default_visibility": {
-      "default": 40,
       "description": [
         "Set a default visibility in kilometers for the scene. If the aerosol retrieval is disabled, the default visibility is used; otherwise, the default visibility is used only for the first water retrieval. The default value is 40."
       ],
+      "default": 40,
       "type": "number",
       "minimum": 0.1
     },
@@ -258,25 +263,24 @@
       ]
     },
     "los_azimuth": {
-      "default": 0,
       "description": [
         "Specify the line-of-sight azimuth angle for a non-nadir data acquisition. The azimuth angle is measured as degrees clockwise from North to the line-of-sight vector (90 degrees due east, 270 degrees due west)."
       ],
+      "default": 0,
       "type": "number",
       "minimum": 0,
       "maximum": 360
     },
     "los_zenith": {
-      "default": 180,
       "description": [
         "Specify the line-of-sight zenith angle in degrees for a non-nadir data acquisition. For a nadir viewing instrument this angle is 180 degrees. The default value is 180."
       ],
+      "default": 180,
       "type": "number",
       "minimum": 90,
       "maximum": 270
     },
     "modtran_aer": {
-      "default": "No Aerosol",
       "description": [
         "Set the MODTRAN aerosol model with one of the following:",
         "",
@@ -287,6 +291,7 @@
         "Tropospheric: (visibility = 50 Km)",
         "Urban"
       ],
+      "default": "No Aerosol",
       "anyOf": [
         {
           "type": "string",
@@ -315,7 +320,6 @@
       ]
     },
     "modtran_atm": {
-      "default": "Tropical Atmosphere",
       "description": [
         "Set the MODTRAN atmospheric model.",
         "",
@@ -326,6 +330,7 @@
         "Sub-Arctic Winter: (60 degrees north latitude)",
         "1976 US Standard Atmosphere"
       ],
+      "default": "Tropical Atmosphere",
       "anyOf": [
         {
           "type": "string",
@@ -354,7 +359,6 @@
       ]
     },
     "modtran_mscat": {
-      "default": "Scaled ISAACS",
       "description": [
         "Selects a multiple scattering method to use in MODTRAN. ISAACS (fastest), Scaled ISAACS (fast, more accurate), DISORT (SLOW, most accurate).",
         "",
@@ -364,6 +368,7 @@
         "DISORT: The slowest method, but is the most accurate.",
         "Scaled ISAACS: (default) Fast, more accurate than ISAACS."
       ],
+      "default": "Scaled ISAACS",
       "anyOf": [
         {
           "type": "string",
@@ -380,7 +385,6 @@
       ]
     },
     "modtran_res": {
-      "default": 15,
       "description": [
         "Specify the bandmodel resolution to use with the MODTRAN simulations with one of the following:",
         "",
@@ -389,6 +393,7 @@
         "1.0",
         "0.1"
       ],
+      "default": 15,
       "anyOf": [
         {
           "type": "number",
@@ -409,10 +414,13 @@
       ]
     },
     "output_raster_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified filename and path of the associated OUTPUT_RASTER.",
+        "",
+        "If you do not specify this parameter, or set it to an exclamation symbol (!), ENVI creates a temporary file.",
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
       ],
+      "default": "!",
       "type": "string"
     },
     "output_scale": {
@@ -435,10 +443,10 @@
       ]
     },
     "sensor_autocalibration": {
-      "default": true,
       "description": [
         "Specify true or false to enable or disable sensor auto-calibration (NODD) algorithm. This also activates the automated smile correction for appropriate sensors. This calibration is not compatible with MSI sensor types. The default is false."
       ],
+      "default": true,
       "type": "boolean"
     },
     "sensor_cal_feature_list": {
@@ -500,14 +508,13 @@
       ]
     },
     "sensor_cal_precision": {
-      "default": 0.15,
       "description": [
         "Set a minimum accuracy threshold for the sensor autocalibration. This parameter determines whether or not a spectral absorption feature will contribute to the calibration adjustment, based on the variance of the estimated wavelength shift local to that feature. The default value is 0.150000."
       ],
+      "default": 0.15,
       "type": "number"
     },
     "sensor_type": {
-      "default": "Unknown",
       "description": [
         "Set the name of the sensor as one of the following:",
         "",
@@ -522,6 +529,7 @@
         "Multispectral",
         "Unknown (default)"
       ],
+      "default": "Unknown",
       "anyOf": [
         {
           "type": "string",
@@ -582,7 +590,6 @@
       ]
     },
     "use_adjacency": {
-      "default": "Wavelength-dependent scattering kernel",
       "description": [
         "Enable or disable compensation for adjacency effects with one of the following:",
         "",
@@ -590,6 +597,7 @@
         "Legacy exponential scattering kernel",
         "Wavelength-dependent scattering kernel (default)"
       ],
+      "default": "Wavelength-dependent scattering kernel",
       "anyOf": [
         {
           "type": "string",
@@ -606,7 +614,6 @@
       ]
     },
     "use_aerosol": {
-      "default": "Automatic Selection",
       "description": [
         "Enable or disable an aerosol retrieval algorithm to obtain a scene visibility with one of the following:",
         "",
@@ -617,6 +624,7 @@
         "Wavelength Dependent Water Based Retrieval",
         "Linear Regression Retrieval"
       ],
+      "default": "Automatic Selection",
       "anyOf": [
         {
           "type": "string",
@@ -645,7 +653,6 @@
       ]
     },
     "use_polishing": {
-      "default": "Disabled",
       "description": [
         "Specify whether to enable or disable spectral polishing with one of the following. Polishing is incompatible with MSI sensors.",
         "",
@@ -653,6 +660,7 @@
         "Polish using reference materials",
         "Polish using statistical detection of spectral artifacts"
       ],
+      "default": "Disabled",
       "anyOf": [
         {
           "type": "string",
@@ -669,7 +677,6 @@
       ]
     },
     "water_abs_choice": {
-      "default": "Automatic Selection",
       "description": [
         "Set the water absorption feature to use with the water vapor retrieval with one of the following\"",
         "",
@@ -678,6 +685,7 @@
         "820",
         "Automated Selection (default)"
       ],
+      "default": "Automatic Selection",
       "anyOf": [
         {
           "type": "string",
@@ -713,17 +721,17 @@
       ]
     },
     "water_raster_uri": {
-      "default": "!",
       "description": [
-        "Fully-qualified path to the output dataset, default is \"!\" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk."
+        "Specify a string with the fully qualified filename and path of the associated WATER_RASTER. If you do not set this parameter to a valid filename, a water vapor raster will not be generated."
       ],
+      "default": "!",
       "type": "string"
     },
     "water_vapor_preset": {
-      "default": 0,
       "description": [
         "Specify a value to override the water retrieval with a constant scale factor. A positive value will disable the water vapor retrieval. The default value is 0."
       ],
+      "default": 0,
       "type": "number"
     }
   },

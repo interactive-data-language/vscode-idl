@@ -7,11 +7,19 @@ import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../../helpers/get-text-content';
 
 /**
- * Tests for the search for files MCP tool
+ * Tests for the search for files MCP tool and return multiple file
+ * extensions (i.e. dont' filter on extension)
+ *
+ * If this tool fails, check to make sure that the content in the folder
+ * matches the tests.
  */
 export const RunMCPTestSearchForFiles_All: RunnerFunction = async (init) => {
-  /** IDL folder for searching */
-  const basicDir = GetExtensionPath('idl/helpers');
+  /**
+   * Folder for searching
+   *
+   * @NOTE this needs multiple file extensions (3) present
+   */
+  const basicDir = GetExtensionPath('tools');
 
   // Call a tool
   const basicSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_FILES, {
@@ -43,7 +51,7 @@ export const RunMCPTestSearchForFiles_All: RunnerFunction = async (init) => {
   // make sure no matches since no queries
   expect(basicSearchFiles.length).toBeGreaterThanOrEqual(3);
 
-  // verify multiple file extensions
+  // verify multiple folders
   const extensions = new Set(
     basicSearchFiles
       .filter((file) => file.includes('.'))

@@ -1,0 +1,88 @@
+import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
+import { IDL_COMMANDS } from '@idl/shared/extension';
+import { IDL_TRANSLATION } from '@idl/translation';
+import {
+  IIDLMCPExecutionBackend,
+  MCPTool_RunIDLFile,
+  MCPToolParams,
+  MCPToolResponse,
+} from '@idl/types/mcp';
+import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
+import { OpenFileInVSCode } from '@idl/vscode/shared';
+import * as vscode from 'vscode';
+
+/**
+ * Run a file of IDL code (VS Code wrapper)
+ *
+ * Uses the VS Code debug adapter's "Run" command which requires
+ * the file to be open in the editor. For standalone usage, see
+ * `RunIDLFile` in `@idl/mcp/idl`.
+ */
+export async function RunMCPTool_RunIDLFileInVSCode(
+  backend: IIDLMCPExecutionBackend,
+  id: string,
+  params: MCPToolParams<MCPTool_RunIDLFile>,
+): Promise<MCPToolResponse<MCPTool_RunIDLFile>> {
+  const started = await backend.start();
+
+  if (!started.started) {
+    return { success: false, result: { err: started.reason || '' } };
+  }
+
+  /**
+   * Open in VSCode
+   *
+   * *MUST BE HERE* so that we re-use our "run" logic
+   */
+  const doc = await OpenFileInVSCode(params.uri);
+
+  // set compile option and make sure we are at the main level
+  await backend.evaluate(`compile_opt idl2 & message, /reset & retall`);
+
+  // reset main with ".run"
+  await backend.resetMain();
+
+  /** Run our file */
+  const result: IRunIDLCommandResult = await vscode.commands.executeCommand(
+    IDL_COMMANDS.DEBUG.RUN,
+  );
+
+  // return if we didnt finish
+  if (!result.success) {
+    return {
+      success: false,
+      result: { err: result.err || 'Failed to execute IDL code' },
+      idlOutput: result.idlOutput,
+    };
+  }
+
+  /** Check output from last message to see if we had an error */
+  const lastMessage = CleanIDLOutput(
+    await backend.evaluate(`help, /last_message`, {
+      silent: true,
+    }),
+  );
+
+  switch (true) {
+    case lastMessage !== '':
+      return {
+        ...result,
+        success: false,
+        result: { err: `An error message was reported:\n\n  ${lastMessage}` },
+      };
+
+    case !backend.isAtMain():
+      return {
+        success: false,
+        idlOutput: result.idlOutput,
+        result: { err: IDL_TRANSLATION.debugger.commandErrors.idlStopped },
+      };
+
+    default:
+      return {
+        success: true,
+        result: 'Executed file, see idlOutput for more details',
+        idlOutput: result.idlOutput,
+      };
+  }
+}

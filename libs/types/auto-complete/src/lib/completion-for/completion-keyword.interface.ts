@@ -1,4 +1,4 @@
-import { GlobalIndexedRoutineToken } from '@idl/types/idl-data-types';
+import { IParameterLookup } from '@idl/types/idl-data-types';
 
 /**
  * Auto-complete for keywords
@@ -14,8 +14,8 @@ export interface IKeywordCompletionOptions {
   binaryAdd: string;
   /** Do we force binary keywords or not */
   forceBinary: boolean;
-  /** Global token we come from */
-  global?: GlobalIndexedRoutineToken;
+  /** Keywords to return */
+  keywords: IParameterLookup;
   /** Keywords that we have already used */
   used: string[];
 }

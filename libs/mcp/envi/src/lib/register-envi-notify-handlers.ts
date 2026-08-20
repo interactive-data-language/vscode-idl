@@ -1,12 +1,12 @@
 import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
-import { IENVISuccess } from '@idl/types/vscode-debug';
+import { ENVIMCPToolResponse } from '@idl/types/mcp';
 
 import { PopulateENVIError } from './populate-envi-error';
 
 /**
  * Minimal interface required by `RegisterENVINotifyHandlers`.
  *
- * Both `IIDLExecutionBackend` and `IDLInteractionManager` satisfy this,
+ * Both `IIDLMCPExecutionBackend` and `IDLInteractionManager` satisfy this,
  * so the function can be used in VS Code and standalone contexts alike.
  */
 interface IENVINotifyBackend {
@@ -23,7 +23,7 @@ interface IENVINotifyBackend {
  * Implementations store the message so that subsequent calls to
  * `evaluateENVICommand` can read the result.
  */
-export type ENVISuccessHandler = (msg: IENVISuccess) => void;
+export type ENVISuccessHandler = (msg: ENVIMCPToolResponse) => void;
 
 /**
  * Registers `envi_success` and `envi_failure` IDL Notify handlers
@@ -38,15 +38,8 @@ export function RegisterENVINotifyHandlers(
   backend: IENVINotifyBackend,
   onMessage: ENVISuccessHandler,
 ): void {
-  backend.registerIDLNotifyHandler('envi_success', async (msg) => {
-    const parsed: IENVISuccess = JSON.parse(msg.param1);
-    PopulateENVIError(parsed);
-    onMessage(parsed);
-    return 1;
-  });
-
-  backend.registerIDLNotifyHandler('envi_failure', async (msg) => {
-    const parsed: IENVISuccess = JSON.parse(msg.param1);
+  backend.registerIDLNotifyHandler('envi_mcp', async (msg) => {
+    const parsed: ENVIMCPToolResponse = JSON.parse(msg.param1);
     PopulateENVIError(parsed);
     onMessage(parsed);
     return 1;

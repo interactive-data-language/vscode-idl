@@ -1,0 +1,288 @@
+{
+  "version": "2.0.0",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": [
+        "## IDL 9.3 Demo - Weather Data Visualization",
+        "",
+        "> This requires IDL 9.3 in order to run",
+        "",
+        "This notebook demonstrates:",
+        "",
+        "1. Installing and using Python's weather data libraries (OpenMeteo)",
+        "2. Fetching real temperature data for multiple Colorado cities",
+        "3. Visualizing the data with IDL's 3D surface graphics",
+        "4. Saving the plot to disk in our new 3D formats",
+        "",
+        "**Note:** We'll use the `openmeteo-requests` package - a free, reliable weather API with no authentication required!",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Step 1: Install and Import Python Libraries",
+        "",
+        "First, we'll install the openmeteo-requests package and import the required libraries:",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Install openmeteo package for weather data",
+        "PyUtils.pipInstall, 'openmeteo-requests'",
+        "print, 'Libraries installed successfully!'"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Import Python libraries",
+        "openmeteo = Python.import('openmeteo_requests')"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Step 2: Fetch Weather Data for Colorado Cities",
+        "",
+        "We'll retrieve temperature data for multiple Colorado cities to create a spatial-temporal surface:",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Setup OpenMeteo API client",
+        "om = openmeteo.client()"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Specify the cities and date range for fetching weather data."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Define Colorado Front Range cities (latitude, longitude)",
+        "city_names = ['Denver', 'Boulder', 'Colorado Springs', 'Fort Collins', 'Pueblo', $",
+        "  'Greeley', 'Longmont', 'Loveland', 'Castle Rock', 'Aurora', $",
+        "  'Lakewood', 'Thornton', 'Westminster', 'Broomfield', 'Centennial']",
+        "lats = [39.7392, 40.0150, 38.8339, 40.5853, 38.2544, $",
+        "  40.4233, 40.1672, 40.3978, 39.3722, 39.7294, $",
+        "  39.7047, 39.8680, 39.8366, 39.9208, 39.5786]",
+        "lons = [-104.9903, -105.2705, -104.8214, -105.0844, -104.6091, $",
+        "  - 104.7091, -105.1019, -105.0749, -104.8561, -104.8319, $",
+        "  - 105.0814, -104.9719, -105.0372, -105.0866, -104.8769]",
+        "",
+        ";+ start date",
+        "start_str = '2026-06-01'",
+        "",
+        ";+ end date",
+        "end_str = '2026-07-01'"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Use the Python libraries to fetch the data",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Alert user",
+        "print, 'Fetching temperature data'",
+        "",
+        "; Collect temperature data for all cities",
+        "temp_list = list()",
+        "for i = 0, n_elements(lats) - 1 do begin",
+        "  ; alert user",
+        "  print, ` For ${city_names[i]} (${i+1} of ${n_elements(lats)})`",
+        "",
+        "  ; Create parameters - pass IDL values to Python dict",
+        "  params = orderedhash( $",
+        "    'latitude', lats[i], $",
+        "    'longitude', lons[i], $",
+        "    'start_date', start_str, $",
+        "    'end_date', end_str, $",
+        "    'daily', 'temperature_2m_mean')",
+        "",
+        "  ; Fetch data from OpenMeteo",
+        "  response = om.weather_api('https://archive-api.open-meteo.com/v1/archive', params = params)",
+        "  daily = response[0].daily()",
+        "",
+        "  ; extract data",
+        "  temp_data = (daily.variables(0)).valuesAsNumpy()",
+        "  temp_list.add, temp_data",
+        "endfor",
+        "print, 'Done!'",
+        "",
+        "; Convert list to 2D array",
+        "temp = temp_list.toArray()"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Next, Create a grid from the temperature data so that we can make a nice surface",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Grid city temperatures onto a regular spatial grid for 2D visualization",
+        "; Compute mean temperature across all days -> [n_cities]",
+        "temp_mean = mean(temp, dimension = 2)",
+        "",
+        ";+ lon/lat spacing",
+        "delta = 0.01",
+        "",
+        ";+ lon/lat buffer",
+        "buff = 3 * delta",
+        "",
+        "; Define output grid bounds covering the Colorado region",
+        "lon_range = [min(lons) - buff, max(lons) + buff]",
+        "lat_range = [min(lats) - buff, max(lats) + buff]",
+        "",
+        "; grid size derived from extent and spacing",
+        "nx = ceil((lon_range[1] - lon_range[0]) / delta) + 1",
+        "ny = ceil((lat_range[1] - lat_range[0]) / delta) + 1",
+        "",
+        "; get 1D X/Y position of cells",
+        "lon_grid = lon_range[0] + findgen(nx) * (lon_range[1] - lon_range[0]) / (nx - 1)",
+        "lat_grid = lat_range[0] + findgen(ny) * (lat_range[1] - lat_range[0]) / (ny - 1)",
+        "",
+        "; Build 2D output grids",
+        "lon_2d = rebin(lon_grid, nx, ny)",
+        "lat_2d = rebin(reform(lat_grid, 1, ny), nx, ny)",
+        "",
+        "; Interpolate sparse city points onto the regular grid using inverse distance weighting",
+        "temp_grid = griddata(lons, lats, temp_mean, $",
+        "  xout = lon_2d, yout = lat_2d, $",
+        "  /inverse_distance, power = 2)",
+        "",
+        "; re-grid for 2D",
+        "temp_grid = reform(temp_grid, [nx, ny])",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Step 4: Create 3D Surface Plot",
+        "",
+        "Next we will create our visualizations of temperature variations across Colorado cities over time",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "First, to add some depth to our 3D surface, let's also overlay a color table so we have the z-axis and a color to make our plot look a little nicer."
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; load a color table to create a texture for the surface",
+        "loadct, 16, rgb_table = ct",
+        "red = ct[*, 0]",
+        "green = ct[*, 1]",
+        "blue = ct[*, 2]",
+        "",
+        ";+ byte-scale the temperature data so we can apply a color table",
+        "temp_byte = bytscl(temp_grid, $",
+        "  min = min(temp_grid, max = maxTemp), max = maxTemp)",
+        "",
+        ";+ generate RGB data",
+        "rgb = [[[red[temp_byte]]], [[green[temp_byte]]], [[blue[temp_byte]]]]"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "Next, we create the surface and embed in the notebook:",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Create an interactive 3D surface plot",
+        "s = surface(temp_grid, lon_2d, lat_2d, $",
+        "  title = 'Temperature in Colorado', $",
+        "  xtitle = 'Lon', $",
+        "  ytitle = 'Lat', $",
+        "  ztitle = 'Temperature (C)', $",
+        "  texture_image = rgb)"
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "markdown",
+      "content": [
+        "### Step 5: Save the Plot to Disk",
+        "",
+        "Finally, we'll save the weather visualization to disk using our new 3D export format",
+        ""
+      ],
+      "metadata": {},
+      "outputs": []
+    },
+    {
+      "type": "code",
+      "content": [
+        "; Define output path",
+        "outputFile = routine_dir() + 'colorado_weather_surface.gltf'",
+        "",
+        "; Save with high resolution",
+        "s.save, outputFile",
+        "",
+        "print, 'Weather surface plot saved to: '",
+        "print, outputFile"
+      ],
+      "metadata": {},
+      "outputs": []
+    }
+  ]
+}

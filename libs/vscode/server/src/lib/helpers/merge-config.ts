@@ -1,4 +1,5 @@
 import { IFolderRecursion } from '@idl/idl/files';
+import { MCP_TASK_REGISTRY } from '@idl/mcp/language-server-tools';
 import {
   IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP,
   IDL_PROBLEM_CODE_SHORTHAND_LOOKUP,
@@ -92,6 +93,10 @@ export function MergeConfig() {
   /** MCP is enabled or not */
   let mcpEnabled = false;
 
+  /** Accumulated ENVI tool whitelist/blacklist across all workspace configs */
+  const enviToolWhitelistSet = new Set<string>();
+  const enviToolBlacklistSet = new Set<string>();
+
   // process each config
   for (let i = 0; i < configs.length; i++) {
     // get current config
@@ -162,6 +167,16 @@ export function MergeConfig() {
     // check if we need to run our MCP server
     mcpEnabled = mcpEnabled || el.mcp.enabled;
 
+    // get whitelist - setting is hidden, so it may not be set
+    for (let j = 0; j < el.mcp.enviToolWhitelist.length; j++) {
+      enviToolWhitelistSet.add(el.mcp.enviToolWhitelist[j]);
+    }
+
+    // get blacklist - setting is hidden, so it may not be set
+    for (let j = 0; j < el.mcp.enviToolBlacklist.length; j++) {
+      enviToolBlacklistSet.add(el.mcp.enviToolBlacklist[j]);
+    }
+
     // check for full parse
     fullParseFlag = fullParseFlag || el.languageServer.fullParse;
   }
@@ -231,6 +246,14 @@ export function MergeConfig() {
 
   // save MCP settings
   MCP_CONFIG.enabled = mcpEnabled;
+  MCP_CONFIG.enviToolWhitelist = Array.from(enviToolWhitelistSet);
+  MCP_CONFIG.enviToolBlacklist = Array.from(enviToolBlacklistSet);
+
+  // propagate filter changes to the task registry without requiring a server restart
+  MCP_TASK_REGISTRY?.filters?.updateFilters({
+    whitelist: MCP_CONFIG.enviToolWhitelist,
+    blacklist: MCP_CONFIG.enviToolBlacklist,
+  });
 
   return {
     folders: {

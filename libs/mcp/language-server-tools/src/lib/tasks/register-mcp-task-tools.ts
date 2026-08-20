@@ -11,6 +11,12 @@ import { IDLIndex } from '@idl/parsing/index';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
 /**
+ * Module-level reference to the active task registry, set when RegisterMCPTaskTools runs.
+ * Used by MergeConfig to propagate whitelist/blacklist changes without restarting the server.
+ */
+export let MCP_TASK_REGISTRY: MCPTaskRegistry | undefined;
+
+/**
  * Registers MCP Task tools from parsed code on IDL's search path
  */
 export async function RegisterMCPTaskTools(server: MCPServer, index: IDLIndex) {
@@ -22,6 +28,9 @@ export async function RegisterMCPTaskTools(server: MCPServer, index: IDLIndex) {
 
   /** Create task registry */
   const registry = new MCPTaskRegistry(server.logManager, false);
+
+  // expose registry so config changes can update filters without a server restart
+  MCP_TASK_REGISTRY = registry;
 
   // listen for task changes
   index.onParse.on('envi-task', (parsed) => {

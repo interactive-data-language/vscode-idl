@@ -116,8 +116,22 @@ describe(`[auto generated] Task auto complete`, () => {
         detail: 'Procedure Method',
       },
       {
+        label: 'IDLTask::getProperty',
+        insertText: 'getProperty',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure Method',
+      },
+      {
         label: 'IDLTask::removeParameter',
         insertText: 'removeParameter',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure Method',
+      },
+      {
+        label: 'IDLTask::setProperty',
+        insertText: 'setProperty',
         kind: 3,
         sortText: '40',
         detail: 'Procedure Method',
@@ -253,8 +267,22 @@ describe(`[auto generated] Task auto complete`, () => {
         detail: 'Procedure Method',
       },
       {
+        label: 'ENVITask::getProperty',
+        insertText: 'getProperty',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure Method',
+      },
+      {
         label: 'ENVITask::removeParameter',
         insertText: 'removeParameter',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure Method',
+      },
+      {
+        label: 'ENVITask::setProperty',
+        insertText: 'setProperty',
         kind: 3,
         sortText: '40',
         detail: 'Procedure Method',
@@ -521,6 +549,20 @@ describe(`[auto generated] Task auto complete`, () => {
           value:
             'A scalar string or an array of strings that help categorize the task. It can be empty with a value of !NULL.',
         },
+      },
+      {
+        label: 'ENVIBuildMosaicRasterTask::getProperty',
+        insertText: 'getProperty',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure Method',
+      },
+      {
+        label: 'ENVIBuildMosaicRasterTask::setProperty',
+        insertText: 'setProperty',
+        kind: 3,
+        sortText: '40',
+        detail: 'Procedure Method',
       },
       {
         label: 'ENVITask::addParameter',

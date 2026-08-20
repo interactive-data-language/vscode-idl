@@ -138,10 +138,13 @@ export async function ParseDocsHTML(docsFile: string) {
   let propChildren: IParsedHTML[] = [];
 
   /** Current arg/keyword that we are parsing */
-  let current: 'arg' | 'kw' | 'none' | 'prop';
+  let current: 'arg' | 'kw' | 'none' | 'prop' = 'none';
 
   /** Flag if we have docs along the line of "Name Properties" so we only have properties */
   let onlyProperties = false;
+
+  /** Flag tracking whether we are inside a "Keywords" h2 section */
+  let inKeywordsSection = false;
 
   // process our children
   if (content !== undefined) {
@@ -233,6 +236,9 @@ export async function ParseDocsHTML(docsFile: string) {
             current = 'none';
           }
 
+          // reset keywords section tracking for the new routine
+          inKeywordsSection = false;
+
           break;
         }
         // section name
@@ -243,14 +249,27 @@ export async function ParseDocsHTML(docsFile: string) {
           // get the name of our system variable property
           const title = CleanName(element.children);
 
-          // set that we are handling a property
-          current = 'prop';
-
           // get a clean title to use
           const useTitle = title.replace(/\s*\(.*\)\s*/gim, '').toLowerCase();
 
           propChildren = [];
           theseProps[useTitle] = propChildren;
+
+          // when inside a Keywords section, these h3.Property elements are also
+          // keywords of the method (e.g. IDLffShape constructor keywords
+          // DBF_ONLY/ENTITY_TYPE/UPDATE, or GetProperty keyword properties)
+          if (inKeywordsSection) {
+            theseKws[useTitle] = propChildren;
+            // keep current as 'kw' so subsequent h3.Keyword elements stay in theseKws
+            kwChildren = propChildren;
+          } else {
+            current = 'prop';
+          }
+
+          // check if we also have a keyword that we can specify on init
+          if (/\(Init|Init\)$|Set\)/gim.test(title)) {
+            theseKws[useTitle] = propChildren;
+          }
           break;
         }
         case element.tagName === 'h2': {
@@ -288,17 +307,21 @@ export async function ParseDocsHTML(docsFile: string) {
           switch (compareTitle) {
             case 'Arguments':
               current = 'arg';
+              inKeywordsSection = false;
               break;
             case 'Keywords':
               current = 'kw';
+              inKeywordsSection = true;
               break;
             case 'Properties':
               current = 'prop';
+              inKeywordsSection = false;
               // reset prop children
               // some "properties" are goofy and dont have property names - see ENVIIsoDataClassification docs with "Properties" after properties
               propChildren = [];
               break;
             default: {
+              inKeywordsSection = false;
               children = [];
 
               // get a unique title

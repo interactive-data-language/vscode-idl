@@ -17,7 +17,7 @@ import {
   IStartToken,
   NO_AUTO_CLOSE,
 } from './tokenizer.interface';
-import { ITokenDef, TokenName } from './tokens.interface';
+import { ITokenDef, TOKEN_NAMES, TokenName } from './tokens.interface';
 import { IDL_LINE_END } from './tokens/regex.interface';
 import { GetSubDefs } from './tokens/sub-defs';
 
@@ -113,9 +113,10 @@ export function TokenizerRecurser(
         // initialize our return value, strictly typed, and return
         const ended: IEndToken<TokenName> = {
           type: TOKEN_TYPES.END,
-          name: options._closerTokenName
-            ? options._closerTokenName
-            : options.closer.name,
+          name:
+            options._closerTokenName ||
+            options.closer?.name ||
+            TOKEN_NAMES.UNKNOWN,
           pos: iterator.positionArray(firstMatch.closer),
           matches: GetMatchesArray(firstMatch.closer),
           _id: options._closerId || nanoid(),
@@ -128,7 +129,7 @@ export function TokenizerRecurser(
         iterator.shiftByMatch(firstMatch.closer);
 
         // update our flag to shift to the next line
-        if (options.closer.nextLineOnClose) {
+        if (options.closer?.nextLineOnClose) {
           current.skipToNextLine = true;
         }
 
@@ -227,9 +228,10 @@ export function TokenizerRecurser(
                 // check if we have a token to add after our token was closed
                 if (hasCloser) {
                   // get the name of our closer
-                  const useCloserName = options._closerTokenName
-                    ? options._closerTokenName
-                    : options.closer.name;
+                  const useCloserName =
+                    options._closerTokenName ||
+                    options.closer?.name ||
+                    TOKEN_NAMES.UNKNOWN;
 
                   // check if we should force close
                   const forceClose =
@@ -258,7 +260,7 @@ export function TokenizerRecurser(
                     iterator.foundToken(ended);
 
                     // update our flag to shift to the next line
-                    if (options.closer.nextLineOnClose) {
+                    if (options.closer?.nextLineOnClose) {
                       current.skipToNextLine = true;
                     }
 
@@ -318,9 +320,10 @@ export function TokenizerRecurser(
         // initialize our return value, strictly typed, and return
         const ended: IEndToken<TokenName> = {
           type: TOKEN_TYPES.END,
-          name: options._closerTokenName
-            ? options._closerTokenName
-            : options.closer.name,
+          name:
+            options._closerTokenName ||
+            options.closer?.name ||
+            TOKEN_NAMES.UNKNOWN,
           pos: iterator.positionArray(firstMatch.closer),
           matches: GetMatchesArray(firstMatch.closer),
           _id: options._closerId || nanoid(),
@@ -333,7 +336,7 @@ export function TokenizerRecurser(
         iterator.shiftByMatch(firstMatch.closer);
 
         // update our flag to shift to the next line
-        if (options.closer.nextLineOnClose) {
+        if (options.closer?.nextLineOnClose) {
           current.skipToNextLine = true;
         }
 

@@ -79,14 +79,19 @@ export const RunMCPTestENVIMultiDimensionalArrayMultiStep: RunnerFunction =
     // make sure we parsed
     expect(results).toBeTruthy();
 
+    // type check to make compiler happy
+    if (!results.success) {
+      return;
+    }
+
     // run second task
     const result2 = await CallMCPTool(MCP_TOOL_LOOKUP.RUN_ENVI_TOOL, {
       toolName: 'SpectralAngleMapperClassification',
       inputParameters: {
         input_raster: ENVITestDatasets.raster(),
-        class_colors: results.outputParameters.roi_colors,
-        class_names: results.outputParameters.roi_names,
-        mean: results.outputParameters.mean,
+        class_colors: results.result.roi_colors,
+        class_names: results.result.roi_names,
+        mean: results.result.mean,
         output_raster_uri: '!',
       },
       interactive: false,

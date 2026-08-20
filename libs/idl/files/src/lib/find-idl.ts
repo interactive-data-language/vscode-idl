@@ -1,8 +1,8 @@
-import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
 import { IDL_DIRS } from './idl-dirs.interface';
+import { ValidateIDLDir } from './validate-idl-dir';
 
 /**
  * Checks expected locations for IDL 8.4+ and returns
@@ -19,12 +19,12 @@ export function FindIDL(version?: string): string | undefined {
   for (let i = 0; i < testDirs.length; i++) {
     const dir = testDirs[i];
     if (version) {
-      if (fs.existsSync(dir) && dir.toLowerCase().includes(version)) {
+      if (ValidateIDLDir(dir) && dir.toLowerCase().includes(version)) {
         idlDir = dir;
         break;
       }
     } else {
-      if (fs.existsSync(dir)) {
+      if (ValidateIDLDir(dir)) {
         idlDir = dir;
         break;
       }

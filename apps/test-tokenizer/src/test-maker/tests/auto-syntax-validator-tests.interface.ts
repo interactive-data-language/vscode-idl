@@ -4622,6 +4622,25 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
     ],
   },
   {
+    suiteName: `Regression for IDLffShape`,
+    fileName: `code.97.unknown-kw.exceptions5.spec.ts`,
+    tests: [
+      {
+        name: `to not throw errors`,
+        code: [
+          `; main`,
+          `compile_opt idl2`,
+          ``,
+          `; no error`,
+          `shp = idlffshape()`,
+          `shp.getProperty, attribute_names = attNames, n_entities = nEnts`,
+          ``,
+          `end`,
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Check for incomplete ternary`,
     fileName: `code.98.incomplete-ternary.spec.ts`,
     tests: [
@@ -5269,6 +5288,23 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
       {
         name: `is not var`,
         code: [`compile_opt idl3`, `on_ioerror, jumpy`, `end`],
+      },
+    ],
+  },
+  {
+    suiteName: `Unused variable`,
+    fileName: `code.104.unused-var.get-set.spec.ts`,
+    tests: [
+      {
+        name: `behavior for get/set methods`,
+        code: [
+          'compile_opt idl2',
+          '',
+          'shp = IDLffShape()',
+          'shp.getProperty, entity_type = foo',
+          'shp.setProperty, entity_type = bar',
+          'end',
+        ],
       },
     ],
   },
@@ -5946,6 +5982,20 @@ export const AUTO_SYNTAX_TESTS: IAutoSyntaxValidatorTest[] = [
           `  var = [1, 2, 3] xor 5`,
           `endwhile`,
           `end`,
+        ],
+      },
+    ],
+  },
+  {
+    suiteName: 'Ambiguous KW def',
+    fileName: 'code.114.ambiguous-kw-def.spec.ts',
+    tests: [
+      {
+        name: 'For main problem case',
+        code: [
+          'pro foo, output_parameters = output_parameters, debug = debug, output = output',
+          '  compile_opt idl2',
+          'end',
         ],
       },
     ],

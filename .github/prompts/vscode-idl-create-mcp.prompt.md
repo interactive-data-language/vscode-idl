@@ -15,12 +15,12 @@ Your goal is to create the boilerplate code for a new MCP tool in this code base
 
 3. Create the type definitions:
 
-For a tool named "My MCP Tool" we will create a new file in "libs\types\mcp\src\lib\vscode" that should be named "mcp-tool-my-mcp-tool.interface.ts" 
+For a tool named "My MCP Tool" we will create a new file in "libs\types\mcp\src\lib\idl" that should be named "mcp-tool-my-mcp-tool.interface.ts" 
 
 Initialize the file with this content (replace names with tool names):
 
 ```typescript
-import { IMCPToolVSCode_BaseResponse } from '../mcp-base-response.interface';
+import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * My MCP Tool
@@ -41,7 +41,7 @@ export interface MCPToolParams_MyMCPTool {
  * @TODO
  */
 export interface MCPToolResponse_MyMCPTool
-  extends IMCPToolVSCode_BaseResponse {
+  extends IMCPToolIDL_BaseResponse {
   /** Output from IDL */
   idlOutput?: string;
 }
@@ -49,13 +49,13 @@ export interface MCPToolResponse_MyMCPTool
 
 Add the new type to the export in "libs\types\mcp\src\index.ts"
 
-4. Update the union types and union parameter types in "libs\types\mcp\src\lib\mcp-tools-vscode.interface.ts" (make changes alphabetically)
+4. Update the union types and union parameter types in "libs\types\mcp\src\lib\mcp-tools-idl.interface.ts" (make changes alphabetically)
 
-Add type type from step 3 to the union type "MCPTools_VSCode"
+Add type type from step 3 to the union type "MCPTools_IDL"
 
-Add a new conditional type to MCPToolParams_VSCode with the input parameters from step 3.
+Add a new conditional type to MCPToolParams_IDL with the input parameters from step 3.
 
-Add a new conditional type to MCPToolResponse_VSCode with the output parameters from step 3.
+Add a new conditional type to MCPToolResponse_IDL with the output parameters from step 3.
 
 ### Steps for No ENVI and IDL
 
@@ -278,29 +278,32 @@ Add new extry to the variable "MCP_TOOL_LOOKUP"
 
 ### Tool Reusability
 
-If the IDL or ENVI MCP tool does not explicitly require VSCode, then it should be added to a re-usable library.
+If the IDL or ENVI MCP tool does not explicitly require VSCode, then its core logic should be added to a re-usable library.
 
 Here's the libraries for each:
 
-- idl: libs\idl\envi\src\lib
-- envi: libs\mcp\envi\src\lib
+- IDL tools: `libs\mcp\idl\src\lib`
+- ENVI tools: `libs\mcp\envi\src\lib`
 
-Create a file with the name "my-mcp-tool.ts" in the right library and fill out a helper function like this:
+Create a file named `run-mcp-tool-my-mcp-tool.ts` (following the `run-mcp-tool-` prefix convention) in the right library and export a function with the `RunMCPTool_` prefix:
 
 ```typescript
-import {
-  IIDLExecutionBackend,
-  MCPProgressCallback,
-} from '@idl/mcp/idl-machine';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  MCPTool_ManageIDLAndENVISession,
+  IIDLMCPExecutionBackend,
+  MCPProgressCallback,
+  MCPTool_MyMCPTool,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
 
-export async function MyMCPTool(
-  backend: IIDLExecutionBackend,
+/**
+ * Core logic for My MCP Tool.
+ *
+ * Independent of VS Code — works with any `IIDLMCPExecutionBackend`.
+ */
+export async function RunMCPTool_MyMCPTool(
+  backend: IIDLMCPExecutionBackend,
   params: MCPToolParams<MCPTool_MyMCPTool>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_MyMCPTool>> {
@@ -309,31 +312,32 @@ export async function MyMCPTool(
   const started = await backend.start(false);
 
   if (!started.started) {
-    return { success: false, err: started.reason };
+    return { success: false, result: { err: started?.reason || 'Failed to start' } };
   }
 
-  // envi tools need to check IDL version
   if (!backend.verifyIDLVersion()) {
     return {
       success: false,
-      err: IDL_TRANSLATION.mcp.errors.badIDLVersion,
+      result: { err: IDL_TRANSLATION.mcp.errors.badIDLVersion },
     };
   }
 
-  // run some IDL code
-  const res = await backend.evaluateENVICommand(
-    `vscode_startENVI, headless = ${headless ? '!true' : '!false'}`,
-  );
+  /**
+   * @TODO add logic
+   */
 
-  return {
-    success: res.succeeded,
-    err: res.error,
-    idlOutput: res.idlOutput,
-  };
+  return await backend.evaluateENVICommand<MCPTool_MyMCPTool>(
+    `agent_myMCPTool, '${JSON.stringify(params)}'`,
+  );
 }
 ```
 
-Lastly, add an entry in `apps\agents\server\src\language-server\create-standalone-execution-callback.ts` for the new function so that the MCP tool can be called outside of VSCode as well.
+Add the new export to the library's `src/index.ts` barrel file.
+
+In the `runMCPTool` method for these files, add a new entry that calls the function created above:
+
+- `libs\mcp\idl-machine\src\lib\idl-machine-execution-backend.ts`
+- `libs\vscode\mcp\src\lib\tools\vscode-mcp-execution-backend.ts`
 
 ## Adding Integration Tests
 
@@ -355,7 +359,7 @@ import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_ExecuteIDLCode,
-  MCPToolResponse_VSCode,
+  MCPToolResponse_IDL,
 } from '@idl/types/mcp';
 import expect from 'expect';
 
@@ -382,7 +386,7 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
   // parse result
   const parsed = JSON.parse(
     result.content[0].text,
-  ) as MCPToolResponse_VSCode<MCPTool_ExecuteIDLCode>;
+  ) as MCPToolResponse_IDL<MCPTool_ExecuteIDLCode>;
 
   // make sure we have "foo" as the cleaned text
   expect(CleanIDLOutput(parsed.idlOutput)).toEqual('foo');

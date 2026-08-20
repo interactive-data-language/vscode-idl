@@ -135,6 +135,7 @@ export const IDL_PROBLEM_CODE_ALIAS_LOOKUP: ProblemCodeAliasLookup = {
   111: 'logical-or',
   112: 'logical-not',
   113: 'logical-xor',
+  114: 'ambiguous-kw-def',
 };
 
 /** Reverse lookup for problems codes with alias giving the problem code back */

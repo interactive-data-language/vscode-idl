@@ -2,6 +2,7 @@ import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 
 import { SERVER_MESSENGER } from '../initialize-language-server';
 import { ON_ADD_DOCS } from './custom-events/on-add-docs';
+import { ON_DEBUG_CONSOLE_COMPLETION } from './custom-events/on-debug-console-completion';
 import { ON_DID_RENAME } from './custom-events/on-did-rename';
 import { ON_FOLDER_DELETE } from './custom-events/on-folder-delete';
 import { ON_FORMAT_WORKSPACE } from './custom-events/on-format-workspace';
@@ -36,6 +37,12 @@ export function InitializeCustomEventHandler() {
   SERVER_MESSENGER.onNotification(
     LANGUAGE_SERVER_MESSAGE_LOOKUP.ADD_DOCS,
     ON_ADD_DOCS,
+  );
+
+  // listen for debug console completion
+  SERVER_MESSENGER.onRequest(
+    LANGUAGE_SERVER_MESSAGE_LOOKUP.DEBUG_CONSOLE_COMPLETION,
+    ON_DEBUG_CONSOLE_COMPLETION,
   );
 
   // listen for file formatting
