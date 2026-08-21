@@ -21,7 +21,6 @@ import {
   TODO_TOOL_NAMES,
 } from '../mcp-tools/register-mcp-tools-for-todos';
 import { ChatService } from '../services/chat.service';
-import { ElectronConfigHelper } from '../services/electron-config-helper.class';
 import { COPILOT_ALLOWED_TOOLS } from './copilot-chat-framework.interface';
 
 /**
@@ -46,12 +45,12 @@ const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
 export class CopilotChatFramework {
   private readonly client: CopilotClient;
   private clientStarted: Promise<void> | undefined;
-  private readonly config: ElectronConfigHelper;
+  private readonly config: IElectronConfig;
   private parent: ChatService;
 
   constructor(parent: ChatService, config: IElectronConfig) {
     this.parent = parent;
-    this.config = new ElectronConfigHelper(config);
+    this.config = config;
     this.client = new CopilotClient({
       /**
        * Root folder for things related to chats to live
@@ -63,8 +62,8 @@ export class CopilotChatFramework {
       // session are exposed to the model. Required for server-based usage.
       // `empty` mode requires an explicit baseDirectory for session persistence.
       mode: 'empty',
-      ...(this.config.copilotGitHubToken
-        ? { gitHubToken: this.config.copilotGitHubToken }
+      ...(this.config.agent.llm.model === 'copilot'
+        ? { gitHubToken: this.config.agent.llm.config.gitHubToken }
         : {}),
     });
   }
@@ -292,7 +291,7 @@ export class CopilotChatFramework {
     todos: TodoItem[],
   ): ResumeSessionConfig {
     const tools = RegisterMCPToolsForToDos(todos);
-    const port = this.config.serverPort || 3000;
+    const port = this.config.server.port || 3000;
 
     const sessionConfig: ResumeSessionConfig = {
       // Restrict the agent to MCP-sourced tools plus our custom todo tools —
@@ -304,9 +303,10 @@ export class CopilotChatFramework {
         'idl-mcp': {
           type: 'http',
           url: `http://localhost:${port}/mcp`,
-          tools: this.config.websocketMode
-            ? [...WEBSOCKET_ENABLED_MCP_TOOLS]
-            : ['*'], // "*" = all tools, [] = none, or list specific tools
+          tools:
+            this.config.processing.mode === 'websocket'
+              ? [...WEBSOCKET_ENABLED_MCP_TOOLS]
+              : ['*'], // "*" = all tools, [] = none, or list specific tools
           // 60-minute timeout to accommodate long-running IDL/ENVI tools
           timeout: 60 * 60 * 1000,
         },
@@ -330,16 +330,15 @@ export class CopilotChatFramework {
       },
     };
 
-    if (this.config.provider === 'openai' && this.config.openaiApiKey) {
+    if (this.config.agent.llm.model === 'openai') {
       sessionConfig.provider = {
-        apiKey: this.config.openaiApiKey,
+        apiKey: this.config.agent.llm.config.apiKey,
         baseUrl: 'https://api.openai.com/v1',
         type: 'openai',
       };
-    } else if (this.config.provider === 'ollama') {
-      const ollamaBase = this.config.ollamaBaseUrl;
+    } else if (this.config.agent.llm.model === 'ollama') {
       sessionConfig.provider = {
-        baseUrl: `${ollamaBase}/v1`,
+        baseUrl: `${this.config.agent.llm.config.url}/v1`,
         type: 'openai',
 
         maxPromptTokens: 110000,

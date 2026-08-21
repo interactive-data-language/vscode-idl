@@ -23,7 +23,6 @@ import {
   RegisterLangChainToolsForToDos,
 } from '../mcp-tools/register-langchain-tools-for-todos';
 import { ChatService } from '../services/chat.service';
-import { ElectronConfigHelper } from '../services/electron-config-helper.class';
 import { MCPClient } from '../services/mcp-client.service';
 
 /**
@@ -43,7 +42,7 @@ const KEEPALIVE_INTERVAL_MS = 15000;
  * Ollama or any provider where the Copilot SDK has compatibility issues.
  */
 export class LangChainChatFramework {
-  private readonly config: ElectronConfigHelper;
+  private readonly config: IElectronConfig;
   private mcpClient: MCPClient;
   private mcpReady = false;
   private mcpTools: StructuredToolInterface[] = [];
@@ -51,7 +50,7 @@ export class LangChainChatFramework {
 
   constructor(parent: ChatService, config: IElectronConfig) {
     this.parent = parent;
-    this.config = new ElectronConfigHelper(config);
+    this.config = config;
     this.mcpClient = new MCPClient({ port: config.server.port });
     this.initializeMCP();
   }
@@ -316,12 +315,11 @@ export class LangChainChatFramework {
    * Build a `ChatOpenAI` instance configured for the active provider.
    */
   private buildChatModel(model: string): ChatOpenAI {
-    if (this.config.provider === 'ollama') {
+    if (this.config.agent.llm.model === 'ollama') {
       console.log(`Using ollama`);
-      const ollamaBase = this.config.ollamaBaseUrl;
       return new ChatOpenAI({
         apiKey: 'ollama',
-        configuration: { baseURL: `${ollamaBase}/v1` },
+        configuration: { baseURL: `${this.config.agent.llm.config.url}/v1` },
         model,
         streaming: true,
         temperature: 0.7,
@@ -333,9 +331,9 @@ export class LangChainChatFramework {
       });
     }
 
-    if (this.config.provider === 'openai') {
+    if (this.config.agent.llm.model === 'openai') {
       return new ChatOpenAI({
-        apiKey: this.config.openaiApiKey,
+        apiKey: this.config.agent.llm.config.apiKey,
         model,
         streaming: true,
         temperature: 0.7,
@@ -348,7 +346,7 @@ export class LangChainChatFramework {
         'Set CHAT_ENGINE=copilot for the best experience.',
     );
     return new ChatOpenAI({
-      apiKey: this.config.openaiApiKey || 'no-key',
+      apiKey: 'no-key',
       model,
       streaming: true,
       temperature: 0.7,

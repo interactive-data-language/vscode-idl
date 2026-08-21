@@ -8,6 +8,5 @@ export * from './lib/orchestrators/copilot-chat-framework.interface';
 export * from './lib/orchestrators/langchain-chat-framework.class';
 export * from './lib/routes/chat.routes';
 export * from './lib/services/chat.service';
-export * from './lib/services/electron-config-helper.class';
 export * from './lib/services/mcp-client.service';
 export * from './lib/start-agents-server';
