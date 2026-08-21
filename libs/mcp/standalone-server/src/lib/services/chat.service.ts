@@ -1,4 +1,5 @@
 ﻿import { GetExtensionPath } from '@idl/idl/files';
+import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
 import type {
   AvailableModel,
   ChatMessageRequest,
@@ -7,6 +8,7 @@ import type {
   TodoItem,
 } from '@idl/types/chat';
 import type { IElectronConfig } from '@idl/types/electron';
+import { copy } from 'fast-copy';
 import { readFileSync } from 'fs';
 import OpenAI from 'openai';
 import { join } from 'path';
@@ -132,6 +134,22 @@ export class ChatService {
         err,
       );
       return '';
+    }
+  }
+
+  /**
+   * Get tools that we are allowed to run from our MCP server
+   */
+  getAllowedTools() {
+    switch (this.config.processing.mode) {
+      case 'idl-machine':
+        return ['*'];
+      case 'websocket':
+        return copy(WEBSOCKET_ENABLED_MCP_TOOLS);
+      default:
+        throw new Error(
+          `Unknown processing mode "${this.config.processing.mode}"`,
+        );
     }
   }
 

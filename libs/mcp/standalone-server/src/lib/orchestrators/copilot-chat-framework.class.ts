@@ -7,7 +7,6 @@ import {
   type SessionEvent,
 } from '@github/copilot-sdk';
 import { USER_AGENTS_FOLDER } from '@idl/idl/files';
-import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
 import type {
   ChatMessageRequest,
   ChatStreamChunk,
@@ -303,10 +302,7 @@ export class CopilotChatFramework {
         'idl-mcp': {
           type: 'http',
           url: `http://localhost:${port}/mcp`,
-          tools:
-            this.config.processing.mode === 'websocket'
-              ? [...WEBSOCKET_ENABLED_MCP_TOOLS]
-              : ['*'], // "*" = all tools, [] = none, or list specific tools
+          tools: this.parent.getAllowedTools(),
           // 60-minute timeout to accommodate long-running IDL/ENVI tools
           timeout: 60 * 60 * 1000,
         },
@@ -330,21 +326,8 @@ export class CopilotChatFramework {
       },
     };
 
-    if (this.config.agent.llm.model === 'openai') {
-      sessionConfig.provider = {
-        apiKey: this.config.agent.llm.config.apiKey,
-        baseUrl: 'https://api.openai.com/v1',
-        type: 'openai',
-      };
-    } else if (this.config.agent.llm.model === 'ollama') {
-      sessionConfig.provider = {
-        baseUrl: `${this.config.agent.llm.config.url}/v1`,
-        type: 'openai',
-
-        maxPromptTokens: 110000,
-        maxOutputTokens: 18000,
-      };
-    }
+    // set the model for the session
+    this.setModelProvider(sessionConfig);
 
     return sessionConfig;
   }
@@ -379,6 +362,34 @@ export class CopilotChatFramework {
         ...baseConfig,
       };
       return await this.client.createSession(createConfig);
+    }
+  }
+
+  /**
+   * Set the model provider configuration
+   */
+  private setModelProvider(sessionConfig: ResumeSessionConfig) {
+    switch (this.config.agent.llm.model) {
+      case 'copilot':
+        // do nothing, should be set when creating session
+        break;
+      case 'ollama':
+        sessionConfig.provider = {
+          baseUrl: `${this.config.agent.llm.config.url}/v1`,
+          type: 'openai',
+          maxPromptTokens: this.config.agent.llm.config.maxPromptTokens,
+          maxOutputTokens: this.config.agent.llm.config.maxOutputTokens,
+        };
+        break;
+      case 'openai':
+        sessionConfig.provider = {
+          apiKey: this.config.agent.llm.config.apiKey,
+          baseUrl: 'https://api.openai.com/v1',
+          type: 'openai',
+        };
+        break;
+      default:
+        break;
     }
   }
 }
