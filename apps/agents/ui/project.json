@@ -59,7 +59,7 @@
         }
       },
       "defaultConfiguration": "development",
-      "dependsOn": ["agents-server:serve"],
+      "dependsOn": [],
       "options": {
         "proxyConfig": "apps/agents/ui/proxy.conf.json"
       }
