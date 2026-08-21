@@ -13,8 +13,8 @@ import { readFileSync } from 'fs';
 import OpenAI from 'openai';
 import { join } from 'path';
 
-import { CopilotChatFramework } from '../orchestrators/copilot-chat-framework.class';
-import { LangChainChatFramework } from '../orchestrators/langchain-chat-framework.class';
+import { CopilotChatFramework } from '../chat-frameworks/copilot-chat-framework.class';
+import { LangChainChatFramework } from '../chat-frameworks/langchain-chat-framework.class';
 
 /**
  * Public chat service facade. Delegates to either CopilotChatService
@@ -22,7 +22,7 @@ import { LangChainChatFramework } from '../orchestrators/langchain-chat-framewor
  *
  * All consumers import from this module - the engine selection is transparent.
  */
-export class ChatService {
+export class Chat {
   /**
    * Config for chat
    */

@@ -15,11 +15,11 @@ import type {
 import type { IElectronConfig } from '@idl/types/electron';
 import { join } from 'path';
 
+import { Chat } from '../chat/chat.class';
 import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
 } from '../mcp-tools/register-mcp-tools-for-todos';
-import { ChatService } from '../services/chat.service';
 import { COPILOT_ALLOWED_TOOLS } from './copilot-chat-framework.interface';
 
 /**
@@ -45,9 +45,9 @@ export class CopilotChatFramework {
   private readonly client: CopilotClient;
   private clientStarted: Promise<void> | undefined;
   private readonly config: IElectronConfig;
-  private parent: ChatService;
+  private parent: Chat;
 
-  constructor(parent: ChatService, config: IElectronConfig) {
+  constructor(parent: Chat, config: IElectronConfig) {
     this.parent = parent;
     this.config = config;
     this.client = new CopilotClient({

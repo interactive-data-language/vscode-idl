@@ -1,12 +1,12 @@
 import type { ChatMessageRequest } from '@idl/types/chat';
 import { Router } from 'express';
 
-import { ChatService } from '../services/chat.service';
+import { Chat } from '../chat/chat.class';
 
 /**
  * Create chat routes
  */
-export function createChatRoutes(chatService: ChatService): Router {
+export function createChatRoutes(chat: Chat): Router {
   const router = Router();
 
   /**
@@ -15,7 +15,7 @@ export function createChatRoutes(chatService: ChatService): Router {
    */
   router.get('/models', async (_req, res) => {
     try {
-      const models = await chatService.listModels();
+      const models = await chat.listModels();
       res.json({ models });
     } catch (error) {
       console.log(error);
@@ -49,7 +49,7 @@ export function createChatRoutes(chatService: ChatService): Router {
 
       // Stream the response — let the generator run to exhaustion so the
       // optional 'title' chunk (emitted after 'done') is also sent.
-      for await (const chunk of chatService.streamChatCompletion(request)) {
+      for await (const chunk of chat.streamChatCompletion(request)) {
         // Format as SSE
         const sseData = `data: ${JSON.stringify(chunk)}\n\n`;
         res.write(sseData);

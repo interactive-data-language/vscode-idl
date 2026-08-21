@@ -4,9 +4,9 @@ import cors from 'cors';
 import express from 'express';
 import type { Server } from 'http';
 
+import { Chat } from './chat/chat.class';
 import { CreateStandaloneMCPServer } from './mcp-tools/create-standalone-mcp-server';
 import { createChatRoutes } from './routes/chat.routes';
-import { ChatService } from './services/chat.service';
 
 /**
  * Result returned by `StartAgentsServer`. Call `stop()` to gracefully shut
@@ -49,15 +49,15 @@ export async function StartAgentsServer(
   // Initialize MCP language server (IDL indexing + MCP tools on this Express app)
   await CreateStandaloneMCPServer(app, { websocketBridge });
 
-  // Initialize chat service
-  const chatService = new ChatService(config);
+  // Initialize chat class
+  const chat = new Chat(config);
 
   // Routes
   app.get('/', (_req, res) => {
     res.send({ message: 'Agents API Server' });
   });
 
-  app.use('/api/chat', createChatRoutes(chatService));
+  app.use('/api/chat', createChatRoutes(chat));
 
   // Error handling middleware
   app.use(
@@ -108,7 +108,7 @@ export async function StartAgentsServer(
       if (websocketBridge !== undefined) {
         await websocketBridge.close();
       }
-      await chatService.disconnect();
+      await chat.disconnect();
     } catch (err) {
       console.error('[server] Error during shutdown:', err);
     }

@@ -18,12 +18,12 @@ import { loadMcpTools } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
 import { nanoid } from 'nanoid';
 
+import { Chat } from '../chat/chat.class';
+import { MCPClient } from '../chat/mcp-client.class';
 import {
   LANGCHAIN_TODO_TOOL_NAMES,
   RegisterLangChainToolsForToDos,
 } from '../mcp-tools/register-langchain-tools-for-todos';
-import { ChatService } from '../services/chat.service';
-import { MCPClient } from '../services/mcp-client.service';
 
 /**
  * Maximum number of agentic loop iterations to prevent infinite loops
@@ -46,9 +46,9 @@ export class LangChainChatFramework {
   private mcpClient: MCPClient;
   private mcpReady = false;
   private mcpTools: StructuredToolInterface[] = [];
-  private parent: ChatService;
+  private parent: Chat;
 
-  constructor(parent: ChatService, config: IElectronConfig) {
+  constructor(parent: Chat, config: IElectronConfig) {
     this.parent = parent;
     this.config = config;
     this.mcpClient = new MCPClient({ port: config.server.port });
