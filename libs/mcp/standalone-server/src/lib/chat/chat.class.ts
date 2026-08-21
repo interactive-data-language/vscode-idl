@@ -1,4 +1,4 @@
-﻿import { GetExtensionPath } from '@idl/idl/files';
+import { GetExtensionPath } from '@idl/idl/files';
 import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
 import type {
   AvailableModel,
@@ -100,7 +100,7 @@ export class Chat {
         openai = new OpenAI({
           apiKey: this.config.agent.llm.config.apiKey,
         });
-        model = 'gpt-40-mini';
+        model = 'gpt-5.4-mini';
         break;
       }
       default:
