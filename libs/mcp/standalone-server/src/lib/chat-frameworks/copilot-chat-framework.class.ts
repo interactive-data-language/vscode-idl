@@ -3,6 +3,7 @@ import {
   CopilotClient,
   type CopilotSession,
   type ResumeSessionConfig,
+  RuntimeConnection,
   type SessionConfig,
   type SessionEvent,
 } from '@github/copilot-sdk';
@@ -56,6 +57,14 @@ export class CopilotChatFramework {
       // session are exposed to the model. Required for server-based usage.
       // `empty` mode requires an explicit baseDirectory for session persistence.
       mode: 'empty',
+      /**
+       * To support electron, we have to use in-process
+       *
+       * The path to spawning the CLI gets all goofy with electron bundlers,
+       * but this works for both cases
+       */
+      connection: RuntimeConnection.forInProcess(),
+      // env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
       ...(this.config.agent.llm.model === 'copilot'
         ? { gitHubToken: this.config.agent.llm.config.gitHubToken }
         : {}),
