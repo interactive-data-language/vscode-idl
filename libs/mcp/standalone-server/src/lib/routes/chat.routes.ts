@@ -4,6 +4,12 @@ import { Router } from 'express';
 import { Chat } from '../chat/chat.class';
 
 /**
+ * Idle time (in milliseconds) with no bytes written to an SSE response before
+ * a keepalive comment is sent to prevent proxy/connection timeouts.
+ */
+const KEEPALIVE_INTERVAL_MS = 15000;
+
+/**
  * Create chat routes
  */
 export function createChatRoutes(chat: Chat): Router {
@@ -47,22 +53,37 @@ export function createChatRoutes(chat: Chat): Router {
       res.setHeader('Connection', 'keep-alive');
       res.setHeader('X-Accel-Buffering', 'no'); // Disable nginx buffering
 
-      // Stream the response — let the generator run to exhaustion so the
-      // optional 'title' chunk (emitted after 'done') is also sent.
-      for await (const chunk of chat.streamChatCompletion(request)) {
-        // Format as SSE
-        const sseData = `data: ${JSON.stringify(chunk)}\n\n`;
-        res.write(sseData);
-
-        // End immediately on errors
-        if (chunk.type === 'error') {
-          res.end();
-          return;
+      // Sends an SSE comment (ignored by clients) whenever nothing has been
+      // written for a while, so long tool calls don't trip a proxy timeout.
+      let lastWriteTime = Date.now();
+      const keepaliveTimer = setInterval(() => {
+        if (Date.now() - lastWriteTime >= KEEPALIVE_INTERVAL_MS) {
+          res.write(': keepalive\n\n');
+          lastWriteTime = Date.now();
         }
-      }
+      }, KEEPALIVE_INTERVAL_MS);
 
-      // Generator exhausted — close the connection
-      res.end();
+      try {
+        // Stream the response — let the generator run to exhaustion so the
+        // optional 'title' chunk (emitted after 'done') is also sent.
+        for await (const chunk of chat.streamChatCompletion(request)) {
+          // Format as SSE
+          const sseData = `data: ${JSON.stringify(chunk)}\n\n`;
+          res.write(sseData);
+          lastWriteTime = Date.now();
+
+          // End immediately on errors
+          if (chunk.type === 'error') {
+            res.end();
+            return;
+          }
+        }
+
+        // Generator exhausted — close the connection
+        res.end();
+      } finally {
+        clearInterval(keepaliveTimer);
+      }
     } catch (error) {
       console.error('Error in /message endpoint:', error);
 

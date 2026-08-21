@@ -31,11 +31,6 @@ import {
 const MAX_ITERATIONS = 30;
 
 /**
- * Interval (in milliseconds) for emitting keepalive chunks during long tool execution
- */
-const KEEPALIVE_INTERVAL_MS = 15000;
-
-/**
  * Streaming chat completion service backed by LangChain + an OpenAI-compatible API.
  *
  * Stateless per-request — no disk session persistence. Recommended when using
@@ -175,13 +170,7 @@ export class LangChainChatFramework {
           }
         }
 
-        // Run all tools in this batch concurrently. A shared keepalive interval
-        // keeps the HTTP stream alive for the duration of the batch.
-        let keepaliveTimer: NodeJS.Timeout | undefined = setInterval(() => {
-          // Results are collected below; keepalive chunks are handled after all
-          // settle so we track whether any tool is still running.
-        }, KEEPALIVE_INTERVAL_MS);
-
+        // Run all tools in this batch concurrently.
         interface ToolOutcome {
           isTodo: boolean;
           /** Result text on success; error message on failure */
@@ -203,18 +192,13 @@ export class LangChainChatFramework {
               let result: string | undefined;
 
               const runTool = async (
-                t: typeof tool,
+                t: StructuredToolInterface,
               ): Promise<string | undefined> => {
-                let r: string | undefined;
-                for await (const chunk of this.invokeToolWithHeartbeat(
-                  t,
-                  tc.args,
-                )) {
-                  if (chunk.type !== 'keepalive') {
-                    r = chunk.value;
-                  }
-                }
-                return r;
+                const invoke = t.invoke as (
+                  args: Record<string, unknown>,
+                ) => Promise<unknown>;
+                const raw = await invoke(tc.args as Record<string, unknown>);
+                return typeof raw === 'string' ? raw : JSON.stringify(raw);
               };
 
               try {
@@ -270,9 +254,6 @@ export class LangChainChatFramework {
             }
           }),
         );
-
-        clearInterval(keepaliveTimer);
-        keepaliveTimer = undefined;
 
         // Append all tool messages to history in original order, then yield
         // result chunks so the UI can update each in-progress tool card.
@@ -428,34 +409,6 @@ export class LangChainChatFramework {
       console.error('[LangChainChatService] Failed to initialize MCP:', error);
       console.warn('[LangChainChatService] Chat will continue without tools');
       this.mcpReady = false;
-    }
-  }
-
-  /**
-   * Invoke a tool with periodic keepalive heartbeats to prevent HTTP timeout.
-   */
-  private async *invokeToolWithHeartbeat(
-    tool: StructuredToolInterface,
-    args: Record<string, unknown>,
-  ): AsyncIterable<{ type: 'keepalive' } | { type: 'result'; value: string }> {
-    const toolPromise = tool.invoke(args);
-
-    while (true) {
-      const outcome = await Promise.race([
-        toolPromise.then((value) => ({ tag: 'done' as const, value })),
-        new Promise<{ tag: 'timeout' }>((resolve) =>
-          setTimeout(() => resolve({ tag: 'timeout' }), KEEPALIVE_INTERVAL_MS),
-        ),
-      ]);
-
-      if (outcome.tag === 'timeout') {
-        yield { type: 'keepalive' };
-      } else {
-        const raw = outcome.value;
-        const value = typeof raw === 'string' ? raw : JSON.stringify(raw);
-        yield { type: 'result', value };
-        return;
-      }
     }
   }
 

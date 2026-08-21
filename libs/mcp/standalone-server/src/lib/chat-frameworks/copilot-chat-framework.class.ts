@@ -23,11 +23,6 @@ import {
 import { COPILOT_ALLOWED_TOOLS } from './copilot-chat-framework.interface';
 
 /**
- * Interval (in milliseconds) for emitting keepalive chunks during long tool execution
- */
-const KEEPALIVE_INTERVAL_MS = 15000;
-
-/**
  * Client name reported to the Copilot runtime in the User-Agent header.
  */
 const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
@@ -99,9 +94,6 @@ export class CopilotChatFramework {
     /** Active session for this request — disconnected in finally. */
     let session: CopilotSession | undefined;
 
-    /** Active keepalive timer — cleared in finally. */
-    let keepaliveTimer: NodeJS.Timeout | undefined;
-
     try {
       await this.ensureClientStarted();
 
@@ -138,20 +130,6 @@ export class CopilotChatFramework {
 
       /** Map of in-flight tool call id -> tool name (start-event names are authoritative). */
       const toolNameById = new Map<string, string>();
-      const activeToolCalls = new Set<string>();
-
-      const startKeepalive = () => {
-        if (keepaliveTimer !== undefined) return;
-        keepaliveTimer = setInterval(() => {
-          enqueue({ type: 'keepalive' });
-        }, KEEPALIVE_INTERVAL_MS);
-      };
-      const stopKeepalive = () => {
-        if (keepaliveTimer !== undefined) {
-          clearInterval(keepaliveTimer);
-          keepaliveTimer = undefined;
-        }
-      };
 
       session.on((event: SessionEvent) => {
         switch (event.type) {
@@ -178,10 +156,6 @@ export class CopilotChatFramework {
               event.data.toolDescription?.name ||
               '';
             toolNameById.delete(toolCallId);
-            activeToolCalls.delete(toolCallId);
-            if (activeToolCalls.size === 0) {
-              stopKeepalive();
-            }
 
             if (TODO_TOOL_NAMES.has(toolName)) {
               // todo tools mutate the shared list directly inside their handler
@@ -209,8 +183,6 @@ export class CopilotChatFramework {
           case 'tool.execution_start': {
             const { toolCallId, toolName } = event.data;
             toolNameById.set(toolCallId, toolName);
-            activeToolCalls.add(toolCallId);
-            startKeepalive();
             if (!TODO_TOOL_NAMES.has(toolName)) {
               enqueue({
                 toolArgs: (event.data.arguments || {}) as Record<
@@ -265,9 +237,6 @@ export class CopilotChatFramework {
         type: 'error',
       };
     } finally {
-      if (keepaliveTimer !== undefined) {
-        clearInterval(keepaliveTimer);
-      }
       if (session !== undefined) {
         try {
           await session.disconnect();

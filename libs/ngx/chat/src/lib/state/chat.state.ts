@@ -217,11 +217,6 @@ export class ChatState {
               );
               break;
 
-            case 'keepalive':
-              // Ignore keepalive heartbeats - they exist only to keep
-              // the HTTP streaming connection alive during long tool execution
-              break;
-
             case 'text_chunk':
               if (needsNewSystemMessage) {
                 // Start a fresh system message after a tool call/result pair
