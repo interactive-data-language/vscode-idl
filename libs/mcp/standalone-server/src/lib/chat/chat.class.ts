@@ -147,9 +147,9 @@ export class Chat {
       case 'websocket':
         return copy(WEBSOCKET_ENABLED_MCP_TOOLS);
       default:
-        throw new Error(
-          `Unknown processing mode "${this.config.processing.mode}"`,
-        );
+      // throw new Error(
+      //   `Unknown processing mode "${this.config.processing.mode}"`,
+      // );
     }
   }
 
