@@ -1,13 +1,10 @@
-import { GetExtensionPath } from '@idl/idl/files';
 import {
-  type AvailableModel,
   type ChatMessage,
   type ChatMessageRequest,
-  type ChatPromptType,
   type ChatStreamChunk,
-  DEFAULT_MODELS,
   type TodoItem,
 } from '@idl/types/chat';
+import type { IElectronConfig } from '@idl/types/electron';
 import {
   AIMessage,
   AIMessageChunk,
@@ -19,16 +16,14 @@ import {
 import type { StructuredToolInterface } from '@langchain/core/tools';
 import { loadMcpTools } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
-import { readFileSync } from 'fs';
 import { nanoid } from 'nanoid';
-import { OpenAI } from 'openai';
-import { join } from 'path';
 
 import {
   LANGCHAIN_TODO_TOOL_NAMES,
   RegisterLangChainToolsForToDos,
 } from '../mcp-tools/register-langchain-tools-for-todos';
-import type { IChatServiceConfig } from '../services/chat.interface';
+import { ChatService } from '../services/chat.service';
+import { ElectronConfigHelper } from '../services/electron-config-helper.class';
 import { MCPClient } from '../services/mcp-client.service';
 
 /**
@@ -47,15 +42,17 @@ const KEEPALIVE_INTERVAL_MS = 15000;
  * Stateless per-request — no disk session persistence. Recommended when using
  * Ollama or any provider where the Copilot SDK has compatibility issues.
  */
-export class LangChainChatService {
-  private readonly config: IChatServiceConfig;
+export class LangChainChatFramework {
+  private readonly config: ElectronConfigHelper;
   private mcpClient: MCPClient;
   private mcpReady = false;
   private mcpTools: StructuredToolInterface[] = [];
+  private parent: ChatService;
 
-  constructor(config: IChatServiceConfig) {
-    this.config = config;
-    this.mcpClient = new MCPClient({ port: config.serverPort });
+  constructor(parent: ChatService, config: IElectronConfig) {
+    this.parent = parent;
+    this.config = new ElectronConfigHelper(config);
+    this.mcpClient = new MCPClient({ port: config.server.port });
     this.initializeMCP();
   }
 
@@ -65,36 +62,6 @@ export class LangChainChatService {
   async disconnect(): Promise<void> {
     await this.mcpClient.disconnect();
     this.mcpReady = false;
-  }
-
-  /**
-   * Return the list of models available from the configured provider.
-   */
-  async listModels(): Promise<AvailableModel[]> {
-    if (this.config.provider === 'openai' && this.config.openaiApiKey) {
-      const openai = new OpenAI({ apiKey: this.config.openaiApiKey });
-      const page = await openai.models.list();
-      return page.data
-        .filter((m) => m.id.startsWith('gpt-'))
-        .sort((a, b) => a.id.localeCompare(b.id))
-        .map((m) => ({ description: '', id: m.id, name: m.id }));
-    }
-
-    if (this.config.provider === 'ollama') {
-      const ollamaBase = this.config.ollamaBaseUrl || 'http://localhost:11434';
-      const openai = new OpenAI({
-        apiKey: 'ollama',
-        baseURL: `${ollamaBase}/v1`,
-      });
-      const page = await openai.models.list();
-      console.log(page);
-      return page.data
-        .sort((a, b) => a.id.localeCompare(b.id))
-        .map((m) => ({ description: '', id: m.id, name: m.id }));
-    }
-
-    // copilot provider with LangChain engine — return defaults
-    return [...DEFAULT_MODELS];
   }
 
   /**
@@ -113,7 +80,10 @@ export class LangChainChatService {
 
       // Title generation for the very first turn.
       if (request.conversationHistory.length === 0) {
-        const title = await this.generateTitle(request.message, request.model);
+        const title = await this.parent.generateTitle(
+          request.message,
+          request.model,
+        );
         if (title) {
           yield { type: 'title', title };
         }
@@ -348,7 +318,7 @@ export class LangChainChatService {
   private buildChatModel(model: string): ChatOpenAI {
     if (this.config.provider === 'ollama') {
       console.log(`Using ollama`);
-      const ollamaBase = this.config.ollamaBaseUrl || 'http://localhost:11434';
+      const ollamaBase = this.config.ollamaBaseUrl;
       return new ChatOpenAI({
         apiKey: 'ollama',
         configuration: { baseURL: `${ollamaBase}/v1` },
@@ -394,11 +364,13 @@ export class LangChainChatService {
     todos: TodoItem[],
   ): BaseMessage[] {
     const messages: BaseMessage[] = [
-      new SystemMessage(this.loadInstructions('todo')),
+      new SystemMessage(this.parent.loadInstructions('todo')),
     ];
 
     if (request.prompt !== 'none') {
-      messages.push(new SystemMessage(this.loadInstructions(request.prompt)));
+      messages.push(
+        new SystemMessage(this.parent.loadInstructions(request.prompt)),
+      );
     }
 
     messages.push(
@@ -406,7 +378,7 @@ export class LangChainChatService {
     );
 
     if (todos.length > 0) {
-      const todoMessage = this.formatTodoListMessage(todos);
+      const todoMessage = this.parent.formatToDoList(todos);
       if (todoMessage) {
         messages.push(new SystemMessage(todoMessage));
       }
@@ -426,82 +398,15 @@ export class LangChainChatService {
         .map((c) => c.payload)
         .join('\n')
         .trim();
-      if (msg.type === 'system') return new SystemMessage(content);
-      if (msg.type === 'user') return new HumanMessage(content);
-      return new AIMessage(content);
+      switch (msg.type) {
+        case 'system':
+          return new SystemMessage(content);
+        case 'user':
+          return new HumanMessage(content);
+        default:
+          return new AIMessage(content);
+      }
     });
-  }
-
-  /**
-   * Format the to-do list as a markdown checklist for inclusion in system messages.
-   */
-  private formatTodoListMessage(todos: TodoItem[]): string {
-    if (todos.length === 0) return '';
-
-    const doneCount = todos.filter((t) => t.status === 'done').length;
-    const total = todos.length;
-    const statusSymbol: Record<TodoItem['status'], string> = {
-      done: '[x]',
-      'in-progress': '[~]',
-      pending: '[ ]',
-      skipped: '[-]',
-    };
-
-    return [
-      `Current tasks (${doneCount}/${total} done):`,
-      ...todos.map((todo) => `- ${statusSymbol[todo.status]} ${todo.text}`),
-    ].join('\n');
-  }
-
-  /**
-   * Generate a short session title from the first user message.
-   */
-  private async generateTitle(
-    firstMessage: string,
-    model?: string,
-  ): Promise<string> {
-    console.log('Generate title');
-    const prompt =
-      `Create a concise 4-6 word title for a chat session that starts with this message. ` +
-      `Reply with only the title, no quotes, no punctuation at the end:\n\n${firstMessage}`;
-
-    try {
-      if (this.config.provider === 'ollama') {
-        const ollamaBase =
-          this.config.ollamaBaseUrl || 'http://localhost:11434';
-        const titleModel = model || 'llama3.2';
-        const openai = new OpenAI({
-          apiKey: 'ollama',
-          baseURL: `${ollamaBase}/v1`,
-        });
-        const completion = await openai.chat.completions.create({
-          messages: [{ content: prompt, role: 'user' }],
-          model: titleModel,
-          temperature: 0,
-        });
-        console.log(completion);
-        const content = completion.choices[0]?.message?.content;
-        return typeof content === 'string' ? content.trim() : '';
-      }
-
-      if (this.config.openaiApiKey) {
-        const openai = new OpenAI({ apiKey: this.config.openaiApiKey });
-        const completion = await openai.chat.completions.create({
-          messages: [{ content: prompt, role: 'user' }],
-          model: 'gpt-4o-mini',
-          temperature: 0,
-        });
-        const content = completion.choices[0]?.message?.content;
-        return typeof content === 'string' ? content.trim() : '';
-      }
-    } catch (err) {
-      console.log(
-        '[LangChainChatService] Error while getting title for chat:',
-        err,
-      );
-    }
-
-    return '';
   }
 
   /**
@@ -567,45 +472,6 @@ export class LangChainChatService {
       msg.includes('not initialized') ||
       msg.includes('Not connected')
     );
-  }
-
-  /**
-   * Load instruction file content for the given prompt type.
-   */
-  private loadInstructions(prompt: 'todo' | ChatPromptType): string {
-    const base = 'extension/agents/instructions';
-    switch (prompt) {
-      case 'envi':
-        return readFileSync(
-          GetExtensionPath(join(base, 'envi.instructions.md')),
-          'utf-8',
-        );
-      case 'idl':
-        return readFileSync(
-          GetExtensionPath(join(base, 'idl.instructions.md')),
-          'utf-8',
-        );
-      case 'idl-envi':
-        return [
-          readFileSync(
-            GetExtensionPath(join(base, 'idl.instructions.md')),
-            'utf-8',
-          ),
-          readFileSync(
-            GetExtensionPath(join(base, 'envi.instructions.md')),
-            'utf-8',
-          ),
-        ].join('\n\n---\n\n');
-      case 'todo':
-        return readFileSync(
-          GetExtensionPath(
-            join('extension/standalone-mcp', 'todo.instructions.md'),
-          ),
-          'utf-8',
-        );
-      default:
-        return '';
-    }
   }
 
   /**

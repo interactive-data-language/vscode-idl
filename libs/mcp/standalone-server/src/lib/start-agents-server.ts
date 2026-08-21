@@ -1,34 +1,12 @@
 import { WebSocketToolBridge } from '@idl/mcp/websocket';
+import type { IElectronConfig } from '@idl/types/electron';
 import cors from 'cors';
 import express from 'express';
 import type { Server } from 'http';
 
-import type { ChatEngine, ChatProvider } from './config/env.config';
 import { CreateStandaloneMCPServer } from './mcp-tools/create-standalone-mcp-server';
 import { createChatRoutes } from './routes/chat.routes';
 import { ChatService } from './services/chat.service';
-
-/**
- * Options for starting the full agents server (Express + MCP + chat routes).
- */
-export interface IStartAgentsServerOptions {
-  /** Which chat engine to use. Defaults to `copilot`. */
-  chatEngine?: ChatEngine;
-  /** Which chat provider backend to use. Defaults to `openai`. */
-  chatProvider?: ChatProvider;
-  /** GitHub token for the Copilot SDK client. */
-  copilotGitHubToken?: string;
-  /** Server hostname. Defaults to `localhost`. */
-  host?: string;
-  /** Base URL for a local Ollama instance. Defaults to `http://localhost:11434`. */
-  ollamaBaseUrl?: string;
-  /** OpenAI API key. Required when `chatProvider === 'openai'`. */
-  openaiApiKey?: string;
-  /** TCP port to listen on. Defaults to `3000`. */
-  port?: number;
-  /** When true, tool execution is routed through a WebSocket bridge at `/ws`. */
-  websocketEnabled?: boolean;
-}
 
 /**
  * Result returned by `StartAgentsServer`. Call `stop()` to gracefully shut
@@ -49,19 +27,8 @@ export interface IStartAgentsServerResult {
  * the Electron desktop app.
  */
 export async function StartAgentsServer(
-  options: IStartAgentsServerOptions = {},
+  config: IElectronConfig,
 ): Promise<IStartAgentsServerResult> {
-  const {
-    chatEngine,
-    chatProvider = 'openai',
-    copilotGitHubToken,
-    host = 'localhost',
-    ollamaBaseUrl = 'http://localhost:11434',
-    openaiApiKey,
-    port = 3000,
-    websocketEnabled = false,
-  } = options;
-
   const app = express();
 
   // Middleware
@@ -74,23 +41,16 @@ export async function StartAgentsServer(
   app.use(express.json());
 
   // Optional WebSocket bridge for remote tool execution
-  const websocketBridge = websocketEnabled
-    ? new WebSocketToolBridge()
-    : undefined;
+  const websocketBridge =
+    config.processing.mode === 'websocket'
+      ? new WebSocketToolBridge()
+      : undefined;
 
   // Initialize MCP language server (IDL indexing + MCP tools on this Express app)
   await CreateStandaloneMCPServer(app, { websocketBridge });
 
   // Initialize chat service
-  const chatService = new ChatService({
-    chatEngine,
-    copilotGitHubToken,
-    ollamaBaseUrl,
-    openaiApiKey,
-    provider: chatProvider,
-    serverPort: port,
-    websocketMode: websocketEnabled,
-  });
+  const chatService = new ChatService(config);
 
   // Routes
   app.get('/', (_req, res) => {
@@ -115,12 +75,14 @@ export async function StartAgentsServer(
     },
   );
 
+  const { host, port } = config.server;
+
   // Start listening
   const httpServer: Server = await new Promise((resolve) => {
     const s = app.listen(port, host, () => {
       console.log(`[ ready ] http://${host}:${port}`);
-      console.log(`[ info ] chat provider: ${chatProvider}`);
-      console.log(`[ info ] chat engine:   ${chatEngine ?? 'copilot'}`);
+      console.log(`[ info ] chat provider: ${config.agent.llm.model}`);
+      console.log(`[ info ] chat engine:   ${config.agent.engine}`);
       console.log(`[ info ] API endpoints:`);
       console.log(`         - GET  /api/chat/models`);
       console.log(`         - POST /api/chat/message`);

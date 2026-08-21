@@ -1,4 +1,5 @@
 import { StartAgentsServer, validateEnv } from '@idl/mcp/standalone-server';
+import type { IElectronConfig } from '@idl/types/electron';
 
 // Validate environment variables
 const env = validateEnv();
@@ -9,19 +10,47 @@ env.WEBSOCKET_ENABLED = 'false';
 const host = env.HOST;
 const port = Number(env.PORT);
 
+/**
+ * Builds the `llm` config for the selected chat provider from validated env vars.
+ */
+function GetLlmConfig(): IElectronConfig['agent']['llm'] {
+  switch (env.CHAT_PROVIDER) {
+    case 'copilot':
+      return {
+        model: 'copilot',
+        config: { gitHubToken: env.COPILOT_GITHUB_TOKEN ?? '' },
+      };
+    case 'ollama':
+      return {
+        model: 'ollama',
+        config: {
+          url: env.OLLAMA_BASE_URL,
+          maxPromptTokens: 110000,
+          maxOutputTokens: 18000,
+        },
+      };
+    case 'openai':
+    default:
+      return { model: 'openai', config: { apiKey: env.OPENAI_API_KEY ?? '' } };
+  }
+}
+
 async function main() {
   console.log(env);
   try {
-    const result = await StartAgentsServer({
-      chatEngine: env.CHAT_ENGINE,
-      chatProvider: env.CHAT_PROVIDER,
-      copilotGitHubToken: env.COPILOT_GITHUB_TOKEN,
-      host,
-      ollamaBaseUrl: env.OLLAMA_BASE_URL,
-      openaiApiKey: env.OPENAI_API_KEY,
-      port,
-      websocketEnabled: false,
-    });
+    const config: IElectronConfig = {
+      agent: {
+        engine: env.CHAT_ENGINE,
+        llm: GetLlmConfig(),
+      },
+      processing: {
+        mode: 'idl-machine',
+        config: {},
+      },
+      server: { host, port },
+    };
+
+    const result = await StartAgentsServer(config);
 
     // Graceful shutdown — stop the server so on-disk state flushes
     const shutdown = async (signal: NodeJS.Signals) => {

@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import type { IElectronConfig } from '@idl/types/electron';
+import {
+  DEFAULT_ELECTRON_CONFIG,
+  type IElectronConfig,
+} from '@idl/types/electron';
 import { BehaviorSubject } from 'rxjs';
-
-const DEFAULT_CONFIG: IElectronConfig = {
-  agentsPort: 3000,
-};
 
 @Injectable({ providedIn: 'root' })
 export class ElectronConfigService {
   private readonly _config$ = new BehaviorSubject<IElectronConfig>(
-    DEFAULT_CONFIG,
+    DEFAULT_ELECTRON_CONFIG,
   );
 
   readonly config$ = this._config$.asObservable();

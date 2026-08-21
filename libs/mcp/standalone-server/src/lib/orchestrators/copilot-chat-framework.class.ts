@@ -6,17 +6,13 @@ import {
   type SessionConfig,
   type SessionEvent,
 } from '@github/copilot-sdk';
-import { GetExtensionPath } from '@idl/idl/files';
 import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
 import type {
-  AvailableModel,
   ChatMessageRequest,
-  ChatPromptType,
   ChatStreamChunk,
   TodoItem,
 } from '@idl/types/chat';
-import { readFileSync } from 'fs';
-import { OpenAI } from 'openai';
+import type { IElectronConfig } from '@idl/types/electron';
 import { homedir } from 'os';
 import { join } from 'path';
 
@@ -24,8 +20,9 @@ import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
 } from '../mcp-tools/register-mcp-tools-for-todos';
-import type { IChatServiceConfig } from '../services/chat.interface';
-import { COPILOT_ALLOWED_TOOLS } from './copilot-chat.interface';
+import { ChatService } from '../services/chat.service';
+import { ElectronConfigHelper } from '../services/electron-config-helper.class';
+import { COPILOT_ALLOWED_TOOLS } from './copilot-chat-framework.interface';
 
 /**
  * Interval (in milliseconds) for emitting keepalive chunks during long tool execution
@@ -46,13 +43,15 @@ const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
  * server plus a small set of internal to-do tools that mutate per-request
  * state.
  */
-export class CopilotChatService {
+export class CopilotChatFramework {
   private readonly client: CopilotClient;
   private clientStarted: Promise<void> | undefined;
-  private readonly config: IChatServiceConfig;
+  private readonly config: ElectronConfigHelper;
+  private parent: ChatService;
 
-  constructor(config: IChatServiceConfig) {
-    this.config = config;
+  constructor(parent: ChatService, config: IElectronConfig) {
+    this.parent = parent;
+    this.config = new ElectronConfigHelper(config);
     this.client = new CopilotClient({
       // `empty` mode disables all Copilot CLI ambient tools (git, curl, etc.)
       // so only the tools explicitly registered via `availableTools` on each
@@ -61,8 +60,8 @@ export class CopilotChatService {
       baseDirectory: join(homedir(), '.copilot'),
       logLevel: 'error',
       mode: 'empty',
-      ...(config.provider === 'copilot' && config.copilotGitHubToken
-        ? { gitHubToken: config.copilotGitHubToken }
+      ...(this.config.copilotGitHubToken
+        ? { gitHubToken: this.config.copilotGitHubToken }
         : {}),
     });
   }
@@ -82,46 +81,6 @@ export class CopilotChatService {
     } finally {
       this.clientStarted = undefined;
     }
-  }
-
-  /**
-   * Return the list of models available from the configured provider.
-   *
-   * For the Copilot provider, delegates to the SDK runtime. For the OpenAI
-   * BYOK provider, the Copilot runtime is not authenticated so we query the
-   * OpenAI models API directly and filter to chat-completion-capable models.
-   * `description` is not provided by either source so it defaults to an
-   * empty string.
-   */
-  async listModels(): Promise<AvailableModel[]> {
-    if (this.config.provider === 'openai' && this.config.openaiApiKey) {
-      const openai = new OpenAI({ apiKey: this.config.openaiApiKey });
-      const page = await openai.models.list();
-      return page.data
-        .filter((m) => m.id.startsWith('gpt-5'))
-        .sort((a, b) => a.id.localeCompare(b.id))
-        .map((m) => ({ description: '', id: m.id, name: m.id }));
-    }
-
-    if (this.config.provider === 'ollama') {
-      const ollamaBase = this.config.ollamaBaseUrl || 'http://localhost:11434';
-      const openai = new OpenAI({
-        apiKey: 'ollama',
-        baseURL: `${ollamaBase}/v1`,
-      });
-      const page = await openai.models.list();
-      return page.data
-        .sort((a, b) => a.id.localeCompare(b.id))
-        .map((m) => ({ description: '', id: m.id, name: m.id }));
-    }
-
-    await this.ensureClientStarted();
-    const models = await this.client.listModels();
-    return models.map((m) => ({
-      description: '',
-      id: m.id,
-      name: m.name,
-    }));
   }
 
   /**
@@ -147,7 +106,10 @@ export class CopilotChatService {
 
       // Title generation for the very first turn.
       if (request.conversationHistory.length === 0) {
-        const title = await this.generateTitle(request.message, request.model);
+        const title = await this.parent.generateTitle(
+          request.message,
+          request.model,
+        );
         if (title) {
           yield { type: 'title', title };
         }
@@ -350,12 +312,12 @@ export class CopilotChatService {
       onPermissionRequest: approveAll,
       streaming: true,
       systemMessage: {
-        content: this.formatTodoListMessage(todos),
+        content: this.parent.formatToDoList(todos),
         mode: 'customize',
         sections: {
           custom_instructions: {
             action: 'append',
-            content: this.composeInstructions(request.prompt),
+            content: this.parent.loadManyInstructions(['todo', request.prompt]),
           },
         },
       },
@@ -372,7 +334,7 @@ export class CopilotChatService {
         type: 'openai',
       };
     } else if (this.config.provider === 'ollama') {
-      const ollamaBase = this.config.ollamaBaseUrl || 'http://localhost:11434';
+      const ollamaBase = this.config.ollamaBaseUrl;
       sessionConfig.provider = {
         baseUrl: `${ollamaBase}/v1`,
         type: 'openai',
@@ -386,58 +348,6 @@ export class CopilotChatService {
   }
 
   /**
-   * Concatenate the standing to-do instructions with any prompt-specific
-   * instruction file(s) selected by the caller.
-   */
-  private composeInstructions(prompt: 'todo' | ChatPromptType): string {
-    const base = 'extension/agents/instructions';
-    const todo = readFileSync(
-      GetExtensionPath(
-        join('extension/standalone-mcp', 'todo.instructions.md'),
-      ),
-      'utf-8',
-    );
-
-    const parts: string[] = [todo];
-    switch (prompt) {
-      case 'envi':
-        parts.push(
-          readFileSync(
-            GetExtensionPath(join(base, 'envi.instructions.md')),
-            'utf-8',
-          ),
-        );
-        break;
-      case 'idl':
-        parts.push(
-          readFileSync(
-            GetExtensionPath(join(base, 'idl.instructions.md')),
-            'utf-8',
-          ),
-        );
-        break;
-      case 'idl-envi':
-        parts.push(
-          readFileSync(
-            GetExtensionPath(join(base, 'idl.instructions.md')),
-            'utf-8',
-          ),
-        );
-        parts.push(
-          readFileSync(
-            GetExtensionPath(join(base, 'envi.instructions.md')),
-            'utf-8',
-          ),
-        );
-        break;
-      default:
-        break;
-    }
-
-    return parts.join('\n\n---\n\n');
-  }
-
-  /**
    * Lazily start the Copilot SDK client on first use and cache the start
    * promise so subsequent calls reuse the same connection.
    */
@@ -446,98 +356,6 @@ export class CopilotChatService {
       this.clientStarted = this.client.start();
     }
     await this.clientStarted;
-  }
-
-  /**
-   * Format the to-do list as a markdown checklist for inclusion in the
-   * system prompt's runtime "content" field.
-   */
-  private formatTodoListMessage(todos: TodoItem[]): string {
-    if (todos.length === 0) return '';
-
-    const doneCount = todos.filter((t) => t.status === 'done').length;
-    const total = todos.length;
-    const statusSymbol: Record<TodoItem['status'], string> = {
-      done: '[x]',
-      'in-progress': '[~]',
-      pending: '[ ]',
-      skipped: '[-]',
-    };
-
-    return [
-      `Current tasks (${doneCount}/${total} done):`,
-      ...todos.map((todo) => `- ${statusSymbol[todo.status]} ${todo.text}`),
-    ].join('\n');
-  }
-
-  /**
-   * Generate a short session title from the first user message.
-   *
-   * Uses the OpenAI REST API directly when an `OPENAI_API_KEY` is available
-   * (both providers); returns an empty string otherwise so the caller can
-   * skip the `title` chunk.
-   */
-  private async generateTitle(
-    firstMessage: string,
-    model?: string,
-  ): Promise<string> {
-    if (this.config.provider === 'ollama') {
-      const ollamaBase = this.config.ollamaBaseUrl || 'http://localhost:11434';
-      const titleModel = model || 'llama3.2';
-      try {
-        const openai = new OpenAI({
-          apiKey: 'ollama',
-          baseURL: `${ollamaBase}/v1`,
-        });
-        const completion = await openai.chat.completions.create({
-          messages: [
-            {
-              content:
-                `Create a concise 4-6 word title for a chat session that starts with this message. ` +
-                `Reply with only the title, no quotes, no punctuation at the end:\n\n${firstMessage}`,
-              role: 'user',
-            },
-          ],
-          model: titleModel,
-          temperature: 0,
-        });
-        const content = completion.choices[0]?.message?.content;
-        return typeof content === 'string' ? content.trim() : '';
-      } catch (err) {
-        console.log(
-          '[CopilotChatService] Error while getting title for chat (ollama):',
-          err,
-        );
-        return '';
-      }
-    }
-
-    if (!this.config.openaiApiKey) {
-      return '';
-    }
-    try {
-      const openai = new OpenAI({ apiKey: this.config.openaiApiKey });
-      const completion = await openai.chat.completions.create({
-        messages: [
-          {
-            content:
-              `Create a concise 4-6 word title for a chat session that starts with this message. ` +
-              `Reply with only the title, no quotes, no punctuation at the end:\n\n${firstMessage}`,
-            role: 'user',
-          },
-        ],
-        model: 'gpt-4o-mini',
-        temperature: 0,
-      });
-      const content = completion.choices[0]?.message?.content;
-      return typeof content === 'string' ? content.trim() : '';
-    } catch (err) {
-      console.log(
-        '[CopilotChatService] Error while getting title for chat:',
-        err,
-      );
-      return '';
-    }
   }
 
   /**

@@ -131,9 +131,7 @@ export default class App {
 
     // Start the embedded agents server (MCP + chat routes)
     try {
-      App.agentsServer = await StartAgentsServer({
-        port: App.config.agentsPort,
-      });
+      App.agentsServer = await StartAgentsServer(App.config);
     } catch (err) {
       console.error('[desktop-app] Failed to start agents server:', err);
     }
