@@ -1,3 +1,4 @@
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -39,6 +40,7 @@ import { ChatPromptSelectorComponent } from '../chat-prompt-selector/chat-prompt
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    TextFieldModule,
     ChatPromptSelectorComponent,
     ChatModelSelectorComponent,
   ],

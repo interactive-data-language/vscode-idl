@@ -1,5 +1,4 @@
-<mat-form-field appearance="outline" class="model-selector">
-  <mat-label>Model</mat-label>
+<mat-form-field appearance="fill" class="model-selector" subscriptSizing="dynamic">
   <mat-select
     [value]="selectedModel()"
     (selectionChange)="onModelChange($event.value)"
