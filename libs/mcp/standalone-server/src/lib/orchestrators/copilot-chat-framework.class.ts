@@ -6,6 +6,7 @@ import {
   type SessionConfig,
   type SessionEvent,
 } from '@github/copilot-sdk';
+import { USER_AGENTS_FOLDER } from '@idl/idl/files';
 import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
 import type {
   ChatMessageRequest,
@@ -13,7 +14,6 @@ import type {
   TodoItem,
 } from '@idl/types/chat';
 import type { IElectronConfig } from '@idl/types/electron';
-import { homedir } from 'os';
 import { join } from 'path';
 
 import {
@@ -53,12 +53,15 @@ export class CopilotChatFramework {
     this.parent = parent;
     this.config = new ElectronConfigHelper(config);
     this.client = new CopilotClient({
+      /**
+       * Root folder for things related to chats to live
+       */
+      baseDirectory: join(USER_AGENTS_FOLDER, '.copilot'),
+      logLevel: 'error',
       // `empty` mode disables all Copilot CLI ambient tools (git, curl, etc.)
       // so only the tools explicitly registered via `availableTools` on each
       // session are exposed to the model. Required for server-based usage.
       // `empty` mode requires an explicit baseDirectory for session persistence.
-      baseDirectory: join(homedir(), '.copilot'),
-      logLevel: 'error',
       mode: 'empty',
       ...(this.config.copilotGitHubToken
         ? { gitHubToken: this.config.copilotGitHubToken }
