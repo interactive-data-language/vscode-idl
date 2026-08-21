@@ -1,4 +1,8 @@
-<mat-form-field appearance="fill" class="prompt-selector" subscriptSizing="dynamic">
+<mat-form-field
+  appearance="fill"
+  class="prompt-selector"
+  subscriptSizing="dynamic"
+>
   <mat-select
     [value]="selectedPrompt()"
     (selectionChange)="onPromptChange($event.value)"

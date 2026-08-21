@@ -21,7 +21,7 @@
   transition: border-color 0.15s ease;
 
   &:focus-within {
-    border-color: #40c4ff; // light-blue accent
+    border-color: var(--primary-color, #40c4ff);
   }
 
   // Rotating "border beam" trail shown while a response is generating
@@ -38,8 +38,8 @@
         from var(--border-angle, 0deg),
         transparent 0%,
         transparent 65%,
-        #40c4ff 85%,
-        #80d8ff 92%,
+        var(--primary-color, #40c4ff) 85%,
+        var(--primary-color, #80d8ff) 92%,
         transparent 100%
       );
       -webkit-mask:
@@ -104,4 +104,3 @@
 .send-button {
   flex-shrink: 0;
 }
-
