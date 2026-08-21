@@ -1,5 +1,5 @@
 <div class="chat-input-container">
-  <div class="composer">
+  <div class="composer" [class.generating]="isDisabled()">
     <textarea
       class="composer-textarea"
       cdkTextareaAutosize

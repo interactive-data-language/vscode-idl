@@ -52,14 +52,6 @@
   position: relative;
 }
 
-.processing-bar {
-  // Sits flush above the input, full width
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
 .chat-messages {
   display: flex;
   flex-direction: column;

@@ -63,12 +63,17 @@ export class ChatInputComponent {
   private readonly store = inject(Store);
 
   /**
+   * Currently selected chat session, tracked reactively via signal
+   */
+  private readonly selectedSession = this.store.selectSignal(
+    ChatState.selectedSession,
+  );
+
+  /**
    * Disabled when a response is already in progress
    */
   protected readonly isDisabled = computed(
-    () =>
-      this.store.selectSnapshot(ChatState.selectedSession)?.status ===
-      'in-progress',
+    () => this.selectedSession()?.status === 'in-progress',
   );
 
   private readonly snackBar = inject(MatSnackBar);

@@ -7,6 +7,7 @@
 }
 
 .composer {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -21,6 +22,46 @@
 
   &:focus-within {
     border-color: #40c4ff; // light-blue accent
+  }
+
+  // Rotating "border beam" trail shown while a response is generating
+  &.generating {
+    border-color: transparent;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: conic-gradient(
+        from var(--border-angle, 0deg),
+        transparent 0%,
+        transparent 65%,
+        #40c4ff 85%,
+        #80d8ff 92%,
+        transparent 100%
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: border-beam-rotate 2.5s linear infinite;
+      pointer-events: none;
+    }
+  }
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes border-beam-rotate {
+  to {
+    --border-angle: 360deg;
   }
 }
 

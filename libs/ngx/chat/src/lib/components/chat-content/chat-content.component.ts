@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngxs/store';
 
 import { ChatState } from '../../state/chat.state';
@@ -29,7 +28,6 @@ import { ChatTodoListComponent } from '../chat-todo-list/chat-todo-list.componen
     CommonModule,
     MatCardModule,
     MatIconModule,
-    MatProgressBarModule,
     ChatMessageComponent,
     ChatInputComponent,
     ChatTodoListComponent,
