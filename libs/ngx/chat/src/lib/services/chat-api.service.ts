@@ -23,7 +23,7 @@ export class ChatApiService {
   /** Base URL for REST API — absolute when running in Electron */
   private get baseUrl(): string {
     return this.electronConfig.isElectron
-      ? `http://localhost:${this.electronConfig.config.port}/api/chat`
+      ? `http://localhost:${this.electronConfig.config.server.port}/api/chat`
       : '/api/chat';
   }
 
