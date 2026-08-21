@@ -1,8 +1,5 @@
-import { Logger } from '@idl/logger';
-
-import { IDLEvaluationItem } from './idl-interaction-manager.interface';
-import EventEmitter = require('events');
 import { IDLProcess } from '@idl/idl/idl-process';
+import { Logger } from '@idl/logger';
 import {
   FromIDLMachineRequestHandler,
   FromIDLMachineRequests,
@@ -24,9 +21,11 @@ import {
   IStartIDLConfig,
   REGEX_SYNTAX_ERROR,
 } from '@idl/types/idl/idl-process';
+import EventEmitter from 'events';
 import { URI } from 'vscode-uri';
 
 import { ProcessScope } from './helpers/process-scope';
+import { IDLEvaluationItem } from './idl-interaction-manager.interface';
 
 /**
  * Class that manages interacting with IDL.

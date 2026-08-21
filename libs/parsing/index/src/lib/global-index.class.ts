@@ -1,4 +1,6 @@
+import { IsProblemDisabled } from '@idl/parser';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
+import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import { MAIN_LEVEL_NAME } from '@idl/parsing/syntax-tree';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -9,6 +11,9 @@ import {
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
+import { copy } from 'fast-copy';
+import * as fuzzysort from 'fuzzysort';
+import { default as GlobToRegExp } from 'glob-to-regexp';
 
 import {
   DEFAULT_FIND_OPTIONS,
@@ -19,14 +24,8 @@ import {
   PROBLEM_MAP,
 } from './global-index.interface';
 import { SaveGlobalDisplayNames } from './helpers/save-global-display-names';
-import { IDL_INDEX_OPTIONS } from './idl-index.interface';
-import GlobToRegExp = require('glob-to-regexp');
-import { IsProblemDisabled } from '@idl/parser';
-import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
-import { copy } from 'fast-copy';
-import * as fuzzysort from 'fuzzysort';
-
 import { ShouldExportItem } from './helpers/should-export-item';
+import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 
 /**
  * Class that manages storing/querying our index of global tokens
