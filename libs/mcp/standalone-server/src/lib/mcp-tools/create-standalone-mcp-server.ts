@@ -4,7 +4,7 @@ import {
   IFolderRecursion,
   LoadIDLSearchPaths,
 } from '@idl/idl/files';
-import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { IDL_LSP_LOG, IDL_MCP_LOG, LogManager } from '@idl/logger';
 import {
   MCPTrackResources,
   RegisterAllLanguageServerMCPTools,
@@ -79,12 +79,22 @@ export async function CreateStandaloneMCPServer(
   const index = new IDLIndex(logManager, 1, false);
 
   /** Find relevant files that we need to index */
-  const files = await FindFiles(idlPath);
+  const files = await FindFiles(idlSearchPath);
+
+  // alert users
+  logManager.log({
+    log: IDL_LSP_LOG,
+    type: 'info',
+    content: [
+      'Language server initialized, indexing code in these folders:',
+      idlSearchPath,
+    ],
+  });
 
   /**
    * Index workspace files we found
    */
-  await index.indexWorkspaceFiles(files, idlPath, true);
+  await index.indexWorkspaceFiles(files, idlSearchPath, true);
 
   // load global tokens
   index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
