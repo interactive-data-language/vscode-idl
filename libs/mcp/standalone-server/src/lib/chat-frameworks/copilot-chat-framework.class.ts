@@ -69,6 +69,9 @@ export class CopilotChatFramework {
         ? { gitHubToken: this.config.agent.llm.config.gitHubToken }
         : {}),
     });
+
+    // start the client
+    this.clientStarted = this.client.start();
   }
 
   /**
