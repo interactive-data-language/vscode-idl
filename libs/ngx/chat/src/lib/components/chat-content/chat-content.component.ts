@@ -66,10 +66,22 @@ export class ChatContentComponent {
         const session = this.selectedSession();
         const messages = session?.messages;
 
-        if (messages && messages.length > 0) {
+        if (messages && messages.length > 1) {
+          /**
+           * Force scroll on user
+           *
+           * We have empty system messages immediately after sending a user message
+           *
+           * See addMessageToSession in chat.state.model.ts
+           */
+          const force =
+            messages[messages.length - 2].type === 'user' &&
+            messages[messages.length - 1].type === 'system' &&
+            messages[messages.length - 1].content[0].payload === '';
+
           // Use queueMicrotask to wait for DOM update
           queueMicrotask(() => {
-            this.scrollToBottom();
+            this.scrollToBottom(force);
           });
         }
       },
@@ -78,17 +90,27 @@ export class ChatContentComponent {
   }
 
   /**
-   * Scroll the messages area to the bottom, but only if already at the bottom
+   * Smoothly scrolls to the bottom of the message container.
+   * Pass force = true to bypass the scroll-position threshold check (e.g. on initial load).
    */
-  private scrollToBottom(): void {
-    const element = this.messagesArea()?.nativeElement;
-    if (!element) {
-      return;
-    }
-    const distanceFromBottom =
-      element.scrollHeight - element.scrollTop - element.clientHeight;
-    if (distanceFromBottom <= 50) {
-      element.scrollTop = element.scrollHeight;
-    }
+  private scrollToBottom(force = false): void {
+    const el = this.messagesArea()?.nativeElement;
+    if (!el) return;
+
+    /**
+     * Timeout to run as microtask
+     */
+    setTimeout(() => {
+      const distanceFromBottom =
+        el.scrollHeight - el.scrollTop - el.clientHeight;
+
+      // Adjust threshold tolerance (e.g. 150px) or force scroll
+      if (force || distanceFromBottom <= 150) {
+        el.scrollTo({
+          top: el.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+    });
   }
 }
