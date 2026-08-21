@@ -21,7 +21,11 @@ import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
 } from '../mcp-tools/register-mcp-tools-for-todos';
-import { COPILOT_ALLOWED_TOOLS } from './copilot-chat-framework.interface';
+import {
+  COPILOT_ALLOWED_TOOLS,
+  COPILOT_SESSION_CACHE_CONFIG,
+  type ISessionCacheEntry,
+} from './copilot-chat-framework.interface';
 
 /**
  * Client name reported to the Copilot runtime in the User-Agent header.
@@ -42,6 +46,9 @@ export class CopilotChatFramework {
   private clientStarted: Promise<void> | undefined;
   private readonly config: IElectronConfig;
   private parent: Chat;
+  /** Live sessions keyed by frontend `sessionId`, reused across turns instead of being disconnected after every message. */
+  private readonly sessionCache = new Map<string, ISessionCacheEntry>();
+  private sessionCleanupInterval: ReturnType<typeof setInterval> | undefined;
 
   constructor(parent: Chat, config: IElectronConfig) {
     this.parent = parent;
@@ -72,6 +79,9 @@ export class CopilotChatFramework {
 
     // start the client
     this.clientStarted = this.client.start();
+
+    // start evicting sessions that have been idle too long
+    this.cleanupUnusedSessions();
   }
 
   /**
@@ -81,6 +91,15 @@ export class CopilotChatFramework {
     if (this.clientStarted === undefined) {
       return;
     }
+    if (this.sessionCleanupInterval !== undefined) {
+      clearInterval(this.sessionCleanupInterval);
+      this.sessionCleanupInterval = undefined;
+    }
+    await Promise.allSettled(
+      Array.from(this.sessionCache.keys()).map((sessionId) =>
+        this.disconnectSession(sessionId),
+      ),
+    );
     try {
       await this.clientStarted;
       await this.client.stop();
@@ -103,8 +122,10 @@ export class CopilotChatFramework {
   async *streamChatCompletion(
     request: ChatMessageRequest,
   ): AsyncIterable<ChatStreamChunk> {
-    /** Active session for this request — disconnected in finally. */
+    /** Active session for this request, reused across turns via the cache. */
     let session: CopilotSession | undefined;
+    /** Unsubscribes the event handler registered below, called in finally. */
+    let unsubscribe: (() => void) | undefined;
 
     try {
       await this.ensureClientStarted();
@@ -143,7 +164,7 @@ export class CopilotChatFramework {
       /** Map of in-flight tool call id -> tool name (start-event names are authoritative). */
       const toolNameById = new Map<string, string>();
 
-      session.on((event: SessionEvent) => {
+      unsubscribe = session.on((event: SessionEvent) => {
         switch (event.type) {
           case 'assistant.message_delta': {
             const delta = event.data.deltaContent;
@@ -153,6 +174,8 @@ export class CopilotChatFramework {
             break;
           }
           case 'session.error': {
+            // don't reuse a session that reported an error
+            this.disconnectSession(request.sessionId);
             enqueue({ type: 'error', error: event.data.message });
             enqueue(null);
             break;
@@ -249,16 +272,7 @@ export class CopilotChatFramework {
         type: 'error',
       };
     } finally {
-      if (session !== undefined) {
-        try {
-          await session.disconnect();
-        } catch (err) {
-          console.error(
-            '[CopilotChatService] Error disconnecting session:',
-            err,
-          );
-        }
-      }
+      unsubscribe?.();
     }
   }
 
@@ -314,6 +328,41 @@ export class CopilotChatFramework {
   }
 
   /**
+   * Periodically checks for idle sessions and disconnects/evicts them
+   */
+  private cleanupUnusedSessions() {
+    this.sessionCleanupInterval = setInterval(() => {
+      const now = Date.now();
+      for (const [sessionId, entry] of this.sessionCache.entries()) {
+        const idle = now - entry.lastActivity;
+        if (idle >= COPILOT_SESSION_CACHE_CONFIG.SESSION_IDLE_TIMEOUT) {
+          this.disconnectSession(sessionId);
+        }
+      }
+    }, COPILOT_SESSION_CACHE_CONFIG.SESSION_CLEANUP_INTERVAL);
+  }
+
+  /**
+   * Disconnects and removes a cached session, if present. Safe to call
+   * repeatedly or for a session that isn't cached.
+   */
+  private async disconnectSession(sessionId: string): Promise<void> {
+    const entry = this.sessionCache.get(sessionId);
+    if (entry === undefined) {
+      return;
+    }
+    this.sessionCache.delete(sessionId);
+    try {
+      await entry.session.disconnect();
+    } catch (err) {
+      console.error(
+        `[CopilotChatService] Error disconnecting session "${sessionId}":`,
+        err,
+      );
+    }
+  }
+
+  /**
    * Lazily start the Copilot SDK client on first use and cache the start
    * promise so subsequent calls reuse the same connection.
    */
@@ -334,16 +383,25 @@ export class CopilotChatFramework {
   ): Promise<CopilotSession> {
     const baseConfig = this.buildSessionConfig(request, todos);
 
+    let session: CopilotSession;
     try {
-      return await this.client.resumeSession(request.sessionId, baseConfig);
+      session = await this.client.resumeSession(request.sessionId, baseConfig);
     } catch {
       // Session does not exist yet — create it with the same id.
       const createConfig: SessionConfig = {
         sessionId: request.sessionId,
         ...baseConfig,
       };
-      return await this.client.createSession(createConfig);
+      session = await this.client.createSession(createConfig);
     }
+
+    // save to recent cache
+    this.sessionCache.set(request.sessionId, {
+      session,
+      lastActivity: Date.now(),
+    });
+
+    return session;
   }
 
   /**

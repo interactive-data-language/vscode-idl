@@ -1,3 +1,28 @@
+import type { CopilotSession } from '@github/copilot-sdk';
+
+/**
+ * Cached, in-memory `CopilotSession` for a given frontend `sessionId` so that
+ * back-to-back messages in the same conversation can reuse the live session
+ * instead of disconnecting and resuming it on every request.
+ */
+export interface ISessionCacheEntry {
+  /** Timestamp (`Date.now()`) of the last message handled on this session */
+  lastActivity: number;
+  /** The live SDK session */
+  session: CopilotSession;
+}
+
+/**
+ * Config for the in-memory `CopilotSession` cache maintained by
+ * `CopilotChatFramework`
+ */
+export const COPILOT_SESSION_CACHE_CONFIG = {
+  /** Milliseconds a session can sit idle before it's disconnected and evicted (30 minutes) */
+  SESSION_IDLE_TIMEOUT: 30 * 60 * 1000,
+  /** Interval in milliseconds between idle session checks (2 minutes) */
+  SESSION_CLEANUP_INTERVAL: 2 * 60 * 1000,
+};
+
 /**
  * Tools that we allow GitHUb Copilot SDK to run on it's own
  *
