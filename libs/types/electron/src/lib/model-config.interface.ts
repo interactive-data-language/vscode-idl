@@ -1,4 +1,9 @@
 interface IBaseModelConfig {
+  defaultModel: string;
+  utilityModel: string;
+}
+
+interface IBaseModelAPIConfig {
   apiKey: string;
 }
 
@@ -9,7 +14,7 @@ type CopilotConfig = {
 };
 
 type OpenAIModel = 'openai';
-type OpenAIModelConfig = IBaseModelConfig;
+type OpenAIModelConfig = IBaseModelAPIConfig & IBaseModelConfig;
 
 type OllamaModel = 'ollama';
 type OllamaModelConfig = {
@@ -19,7 +24,7 @@ type OllamaModelConfig = {
   maxPromptTokens: number;
   /** Max output tokens */
   maxOutputTokens: number;
-};
+} & IBaseModelConfig;
 
 export type ModelType = CopilotModel | OllamaModel | OpenAIModel;
 
