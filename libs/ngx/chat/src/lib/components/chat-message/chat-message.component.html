@@ -1,5 +1,7 @@
 @if (isToolMessage()) {
   <ngx-chat-tool-message [message]="message()" />
+} @else if (isThinkingMessage()) {
+  <ngx-chat-thinking-message [message]="message()" />
 } @else {
   <div
     class="message-wrapper"

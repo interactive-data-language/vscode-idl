@@ -33,7 +33,13 @@ export interface ChatMessageContent {
   /** Payload content based on the type of chat message */
   payload: string;
   /** Type of chat message */
-  type: 'result' | 'text' | 'tool_call' | 'tool_error' | 'tool_result';
+  type:
+    | 'result'
+    | 'text'
+    | 'thinking'
+    | 'tool_call'
+    | 'tool_error'
+    | 'tool_result';
 }
 
 /**
@@ -46,8 +52,10 @@ export interface ChatMessage {
   content: ChatMessageContent[];
   /** ID of the chat message */
   id: string;
+  /** Streaming status, currently only populated for 'thinking' messages */
+  status?: 'done' | 'in-progress';
   /** Type of the message */
-  type: 'system' | 'tool' | 'user';
+  type: 'system' | 'thinking' | 'tool' | 'user';
 }
 
 /**
@@ -209,6 +217,17 @@ export interface ChatStreamChunk_TodoUpdate {
   type: 'todo_update';
 }
 
+/** Extended-thinking/reasoning content, streamed before the final answer */
+export interface ChatStreamChunk_ThinkingChunk {
+  /** Delta text to append; empty string on the finalize (done=true) event */
+  content: string;
+  /** Whether this is the finalize event for the reasoning block identified by thinkingId */
+  done: boolean;
+  /** Correlates deltas and the finalize event for a single reasoning block */
+  thinkingId: string;
+  type: 'thinking_chunk';
+}
+
 /**
  * Discriminated union of all chunk types streamed from the chat API via SSE
  */
@@ -216,6 +235,7 @@ export type ChatStreamChunk =
   | ChatStreamChunk_Done
   | ChatStreamChunk_Error
   | ChatStreamChunk_TextChunk
+  | ChatStreamChunk_ThinkingChunk
   | ChatStreamChunk_Title
   | ChatStreamChunk_TodoUpdate
   | ChatStreamChunk_ToolCall

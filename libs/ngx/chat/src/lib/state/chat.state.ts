@@ -148,13 +148,17 @@ export class ChatState {
 
     // 3. Call API with streaming
     const conversationHistory = targetSession.messages.filter(
-      (m) => m.type !== 'tool',
+      (m) => m.type !== 'thinking' && m.type !== 'tool',
     );
 
     // Track the latest tool message ID so tool_result can update it
     // Map from toolCallId -> message ID so concurrent tool calls each resolve
     // to the correct in-progress tool card in the UI.
     const toolMessageIdByCallId = new Map<string, string>();
+
+    // Map from thinkingId (reasoningId) -> message ID so multiple reasoning
+    // blocks in a single turn each resolve to their own thinking card.
+    const thinkingMessageIdByReasoningId = new Map<string, string>();
 
     // Track the current system message accumulating LLM text. After each
     // tool_result a new system message is created so text and tool calls
@@ -209,6 +213,13 @@ export class ChatState {
 
             case 'error':
               console.error('Streaming error:', chunk.error);
+              // don't leave a thinking card spinning forever if the stream dies mid-reasoning
+              for (const thinkingMessageId of thinkingMessageIdByReasoningId.values()) {
+                this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
+                  status: 'done',
+                });
+              }
+              thinkingMessageIdByReasoningId.clear();
               this.setMessageError(
                 ctx,
                 action.sessionId,
@@ -240,6 +251,45 @@ export class ChatState {
                 chunk.content,
               );
               break;
+
+            case 'thinking_chunk': {
+              let thinkingMessageId = thinkingMessageIdByReasoningId.get(
+                chunk.thinkingId,
+              );
+              if (!thinkingMessageId) {
+                thinkingMessageId = nanoid();
+                thinkingMessageIdByReasoningId.set(
+                  chunk.thinkingId,
+                  thinkingMessageId,
+                );
+                const thinkingMessage: ChatMessage = {
+                  id: thinkingMessageId,
+                  type: 'thinking',
+                  status: 'in-progress',
+                  content: [{ type: 'thinking', payload: '' }],
+                };
+                this.appendMessageToSession(
+                  ctx,
+                  action.sessionId,
+                  thinkingMessage,
+                );
+              }
+
+              if (chunk.done) {
+                this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
+                  status: 'done',
+                });
+                thinkingMessageIdByReasoningId.delete(chunk.thinkingId);
+              } else if (chunk.content) {
+                this.appendThinkingDelta(
+                  ctx,
+                  action.sessionId,
+                  thinkingMessageId,
+                  chunk.content,
+                );
+              }
+              break;
+            }
 
             case 'title':
               if (chunk.title) {
@@ -534,6 +584,32 @@ export class ChatState {
       };
     });
     ctx.patchState({ sessions });
+  }
+
+  /**
+   * Helper: Append a reasoning delta to a thinking message's single content block
+   */
+  private appendThinkingDelta(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    messageId: string,
+    content: string,
+  ): void {
+    const state = ctx.getState();
+    const session = state.sessions.find((s) => s.id === sessionId);
+    const message = session?.messages.find((m) => m.id === messageId);
+
+    if (!message) return;
+
+    const currentContent = message.content[0]?.payload || '';
+    this.updateMessage(ctx, sessionId, messageId, {
+      content: [
+        {
+          type: 'thinking' as const,
+          payload: currentContent + content,
+        },
+      ],
+    });
   }
 
   /**

@@ -62,7 +62,15 @@ export class ChatModelSelectorComponent implements OnInit {
     this.loading.set(true);
     this.chatApiService.getAvailableModels().subscribe({
       next: (response) => {
-        this.store.dispatch(new SetSelectedModel(response.models[0].id));
+        if (
+          response.models
+            .map((model) => model.id)
+            .includes(response.defaultModelID)
+        ) {
+          this.store.dispatch(new SetSelectedModel(response.defaultModelID));
+        } else {
+          this.store.dispatch(new SetSelectedModel(response.models[0].id));
+        }
         this.availableModels.set(response.models);
         this.loading.set(false);
       },

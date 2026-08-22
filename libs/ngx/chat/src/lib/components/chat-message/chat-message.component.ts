@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ChatMessage } from '@idl/types/chat';
 import { MarkdownModule } from 'ngx-markdown';
 
+import { ChatThinkingMessageComponent } from '../chat-thinking-message/chat-thinking-message.component';
 import { ChatToolMessageComponent } from '../chat-tool-message/chat-tool-message.component';
 
 /**
@@ -25,6 +26,7 @@ import { ChatToolMessageComponent } from '../chat-tool-message/chat-tool-message
     MatCardModule,
     MarkdownModule,
     ChatToolMessageComponent,
+    ChatThinkingMessageComponent,
   ],
   templateUrl: './chat-message.component.html',
   styleUrl: './chat-message.component.scss',
@@ -36,6 +38,13 @@ export class ChatMessageComponent {
    * The chat message to display
    */
   readonly message = input.required<ChatMessage>();
+
+  /**
+   * Whether this message is an extended-thinking/reasoning block
+   */
+  protected readonly isThinkingMessage = computed(
+    () => this.message().type === 'thinking',
+  );
 
   /**
    * Whether this message is a tool call/result

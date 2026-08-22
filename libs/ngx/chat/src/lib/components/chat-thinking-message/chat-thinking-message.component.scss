@@ -1,0 +1,76 @@
+.message-wrapper {
+  display: flex;
+  margin-bottom: 12px;
+
+  &.thinking-message {
+    justify-content: flex-start;
+    max-width: 55%;
+  }
+}
+
+.message-card {
+  border-radius: 12px;
+
+  mat-card-content {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.thinking-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px !important;
+  font-size: 0.8rem;
+}
+
+.thinking-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.thinking-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
+
+.thinking-label {
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.thinking-spinner-mat {
+  display: inline-block;
+}
+
+.thinking-text {
+  margin: 4px 0 0;
+  padding: 6px 8px;
+  background: rgba(128, 128, 128, 0.12);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  overflow-x: auto;
+  max-height: 200px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  opacity: 0.85;
+}
+
+.thinking-args {
+  margin-top: 2px;
+
+  summary {
+    cursor: pointer;
+    opacity: 0.6;
+    font-size: 0.75rem;
+    user-select: none;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}

@@ -173,6 +173,27 @@ export class CopilotChatFramework {
             }
             break;
           }
+          case 'assistant.reasoning': {
+            console.log('Done thinking');
+            // full content is redundant with the accumulated deltas, so this only signals completion
+            enqueue({
+              content: '',
+              done: true,
+              thinkingId: event.data.reasoningId,
+              type: 'thinking_chunk',
+            });
+            break;
+          }
+          case 'assistant.reasoning_delta': {
+            console.log('Thinking delta');
+            enqueue({
+              content: event.data.deltaContent,
+              done: false,
+              thinkingId: event.data.reasoningId,
+              type: 'thinking_chunk',
+            });
+            break;
+          }
           case 'session.error': {
             // don't reuse a session that reported an error
             this.disconnectSession(request.sessionId);
@@ -304,6 +325,10 @@ export class CopilotChatFramework {
       },
       model: request.model,
       onPermissionRequest: approveAll,
+      // Chat Completions never carries reasoning data; only the Responses API does
+      reasoningSummary: 'detailed',
+      reasoningEffort: 'medium',
+
       streaming: true,
       systemMessage: {
         content: this.parent.formatToDoList(todos),
@@ -425,6 +450,8 @@ export class CopilotChatFramework {
           apiKey: this.config.agent.llm.config.apiKey,
           baseUrl: 'https://api.openai.com/v1',
           type: 'openai',
+          // reasoning summaries are only exposed over the Responses API
+          wireApi: 'responses',
         };
         break;
       default:
