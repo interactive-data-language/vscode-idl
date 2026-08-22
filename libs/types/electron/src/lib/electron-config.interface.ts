@@ -53,6 +53,8 @@ export const DEFAULT_ELECTRON_CONFIG: IElectronConfig = {
       model: 'openai',
       config: {
         apiKey: '',
+        defaultModel: 'gpt-5.4',
+        utilityModel: 'gpt-5.4-mini',
       },
     },
   },
