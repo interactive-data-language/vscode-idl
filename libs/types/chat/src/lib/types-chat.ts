@@ -248,6 +248,8 @@ export const DEFAULT_MODELS: AvailableModel[] = [
  * Response containing list of available models
  */
 export interface AvailableModelsResponse {
+  /** ID for the model to select by default */
+  defaultModelID: string;
   /** List of available models */
   models: AvailableModel[];
 }

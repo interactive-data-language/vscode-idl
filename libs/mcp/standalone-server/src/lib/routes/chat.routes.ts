@@ -1,4 +1,7 @@
-import type { ChatMessageRequest } from '@idl/types/chat';
+import type {
+  AvailableModelsResponse,
+  ChatMessageRequest,
+} from '@idl/types/chat';
 import { Router } from 'express';
 
 import { Chat } from '../chat/chat.class';
@@ -21,8 +24,15 @@ export function createChatRoutes(chat: Chat): Router {
    */
   router.get('/models', async (_req, res) => {
     try {
+      console.log('fuck');
       const models = await chat.listModels();
-      res.json({ models });
+      const defaultModel = await chat.defaultModelID();
+      const resp: AvailableModelsResponse = {
+        models,
+        defaultModelID: defaultModel,
+      };
+
+      res.json(resp);
     } catch (error) {
       console.log(error);
       res.status(500).json({

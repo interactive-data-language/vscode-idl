@@ -42,6 +42,32 @@ export class Chat {
     }
   }
 
+  /**
+   * Gets ID for default model
+   */
+  async defaultModelID(): Promise<string> {
+    switch (true) {
+      /**
+       * Ollama
+       */
+      case this.config.agent.llm.model === 'ollama': {
+        return this.config.agent.llm.config.defaultModel;
+      }
+
+      /**
+       * OpenAI
+       */
+      case this.config.agent.llm.model === 'openai': {
+        return this.config.agent.llm.config.defaultModel;
+      }
+      default:
+        throw new Error(
+          `Unknown model provider: ${this.config.agent.llm.model}`,
+        );
+        break;
+    }
+  }
+
   async disconnect(): Promise<void> {
     return this.framework.disconnect();
   }
@@ -89,7 +115,7 @@ export class Chat {
           apiKey: 'ollama',
           baseURL: `${this.config.agent.llm.config.url}/v1`,
         });
-        model = model || 'llama3.2';
+        model = this.config.agent.llm.config.utilityModel;
         break;
       }
 
@@ -100,7 +126,7 @@ export class Chat {
         openai = new OpenAI({
           apiKey: this.config.agent.llm.config.apiKey,
         });
-        model = 'gpt-5.4-mini';
+        model = this.config.agent.llm.config.utilityModel;
         break;
       }
       default:
