@@ -174,7 +174,6 @@ export class CopilotChatFramework {
             break;
           }
           case 'assistant.reasoning': {
-            console.log('Done thinking');
             // full content is redundant with the accumulated deltas, so this only signals completion
             enqueue({
               content: '',
@@ -185,7 +184,6 @@ export class CopilotChatFramework {
             break;
           }
           case 'assistant.reasoning_delta': {
-            console.log('Thinking delta');
             enqueue({
               content: event.data.deltaContent,
               done: false,
