@@ -12,10 +12,7 @@
       <mat-card-content>
         @for (content of message().content; track $index) {
           @if (content.type === 'text') {
-            <markdown
-              [data]="content.payload"
-              class="custom-markdown"
-            ></markdown>
+            <ngx-chat-markdown-renderer [data]="content.payload" />
           } @else if (content.type === 'result') {
             <div>
               <pre>{{ content.payload }}</pre>

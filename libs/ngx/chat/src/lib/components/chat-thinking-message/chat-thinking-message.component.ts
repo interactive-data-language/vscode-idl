@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChatMessage } from '@idl/types/chat';
 
+import { ChatMarkdownRendererComponent } from '../chat-markdown-renderer/chat-markdown-renderer.component';
+
 /**
  * Displays a single extended-thinking/reasoning chat message.
  * Shows streamed reasoning text expanded with a spinner while in progress,
@@ -22,6 +24,7 @@ import { ChatMessage } from '@idl/types/chat';
     MatCardModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    ChatMarkdownRendererComponent,
   ],
   templateUrl: './chat-thinking-message.component.html',
   styleUrl: './chat-thinking-message.component.scss',
@@ -37,8 +40,8 @@ export class ChatThinkingMessageComponent {
   /**
    * The accumulated reasoning text streamed so far
    */
-  protected readonly content = computed(
-    () => this.message().content[0]?.payload ?? '',
+  protected readonly content = computed(() =>
+    (this.message().content[0]?.payload || '').trim(),
   );
 
   /**

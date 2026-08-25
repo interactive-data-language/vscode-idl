@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { ChatMessage } from '@idl/types/chat';
-import { MarkdownModule } from 'ngx-markdown';
 
+import { ChatMarkdownRendererComponent } from '../chat-markdown-renderer/chat-markdown-renderer.component';
 import { ChatThinkingMessageComponent } from '../chat-thinking-message/chat-thinking-message.component';
 import { ChatToolMessageComponent } from '../chat-tool-message/chat-tool-message.component';
 
@@ -16,15 +16,13 @@ import { ChatToolMessageComponent } from '../chat-tool-message/chat-tool-message
  * Component for displaying a single chat message.
  * Delegates tool messages to ChatToolMessageComponent.
  * Styles differently based on message role (user or system).
- *
- * Requires MarkdownModule.forRoot() in the main app component.
  */
 @Component({
   selector: 'ngx-chat-message',
   imports: [
     CommonModule,
     MatCardModule,
-    MarkdownModule,
+    ChatMarkdownRendererComponent,
     ChatToolMessageComponent,
     ChatThinkingMessageComponent,
   ],

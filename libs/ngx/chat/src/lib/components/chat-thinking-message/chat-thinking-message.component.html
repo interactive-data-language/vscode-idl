@@ -1,31 +1,23 @@
-<div class="message-wrapper thinking-message">
-  <mat-card class="message-card">
-    <mat-card-content class="thinking-card-content">
-      <div class="thinking-header">
-        <mat-icon class="thinking-icon">psychology</mat-icon>
-        <span class="thinking-label">{{
-          isInProgress() ? 'Thinking…' : 'Thought'
-        }}</span>
+@if (content()) {
+  <div class="message-wrapper thinking-message">
+    <mat-card class="message-card">
+      <mat-card-content class="thinking-card-content">
+        <div class="thinking-header">
+          <mat-icon class="thinking-icon">psychology</mat-icon>
+          <span class="thinking-label">{{
+            isInProgress() ? 'Thinking...' : 'Thought'
+          }}</span>
+        </div>
 
         @if (isInProgress()) {
-          <mat-progress-spinner
-            mode="indeterminate"
-            [diameter]="18"
-            class="thinking-spinner-mat"
-          ></mat-progress-spinner>
-        }
-      </div>
-
-      @if (content()) {
-        @if (isInProgress()) {
-          <pre class="thinking-text">{{ content() }}</pre>
+          <ngx-chat-markdown-renderer [data]="content()" />
         } @else {
           <details class="thinking-args">
             <summary>Show reasoning</summary>
-            <pre class="thinking-text">{{ content() }}</pre>
+            <ngx-chat-markdown-renderer [data]="content()" />
           </details>
         }
-      }
-    </mat-card-content>
-  </mat-card>
-</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

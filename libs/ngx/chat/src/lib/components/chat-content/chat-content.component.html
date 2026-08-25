@@ -2,21 +2,27 @@
   @if (selectedSession()) {
     <div class="chat-messages">
       <div class="session-header">
-        <h2>{{ selectedSession()?.title }}</h2>
-        <p class="session-info">
-          {{ selectedSession()?.messageCount }} messages • Created
-          {{ selectedSession()?.createdAt | date: 'short' }}
-        </p>
+        <div class="header-inner">
+          <h2>{{ selectedSession()?.title }}</h2>
+          <p class="session-info">
+            {{ selectedSession()?.messageCount }} messages • Created
+            {{ selectedSession()?.createdAt | date: 'short' }}
+          </p>
+        </div>
       </div>
 
       @if (todos().length > 0) {
-        <ngx-chat-todo-list [todos]="todos()" />
+        <div class="todo-inner">
+          <ngx-chat-todo-list [todos]="todos()" />
+        </div>
       }
 
       <div class="messages-area" #messagesArea>
-        @for (message of selectedSession()?.messages; track message.id) {
-          <ngx-chat-message [message]="message" />
-        }
+        <div class="messages-inner">
+          @for (message of selectedSession()?.messages; track message.id) {
+            <ngx-chat-message [message]="message" />
+          }
+        </div>
       </div>
     </div>
   } @else {
@@ -28,6 +34,8 @@
   }
 
   <div class="input-footer">
-    <ngx-chat-input [sessionId]="selectedSession()?.id ?? null" />
+    <div class="footer-inner">
+      <ngx-chat-input [sessionId]="selectedSession()?.id ?? null" />
+    </div>
   </div>
 </div>

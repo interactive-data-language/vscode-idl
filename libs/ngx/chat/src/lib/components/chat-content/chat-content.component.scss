@@ -76,6 +76,17 @@
   }
 }
 
+// Constrains the readable content column while its full-width parent keeps borders/scrollbar at the panel edge
+.header-inner,
+.todo-inner,
+.messages-inner,
+.footer-inner {
+  max-width: min(50%, 700px);
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
 .messages-area {
   flex: 1;
   overflow-y: auto;
