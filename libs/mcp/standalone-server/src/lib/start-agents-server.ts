@@ -1,4 +1,5 @@
 import { WebSocketToolBridge } from '@idl/mcp/websocket';
+import { InitializeTranslation } from '@idl/translation';
 import type { IElectronConfig } from '@idl/types/electron';
 import cors from 'cors';
 import express from 'express';
@@ -30,6 +31,9 @@ export async function StartAgentsServer(
   config: IElectronConfig,
 ): Promise<IStartAgentsServerResult> {
   const app = express();
+
+  // load translation
+  InitializeTranslation(config.server.language);
 
   // Middleware
   app.use(
