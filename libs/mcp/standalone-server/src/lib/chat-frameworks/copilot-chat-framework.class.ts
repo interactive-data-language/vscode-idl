@@ -8,6 +8,7 @@ import {
   type SessionEvent,
 } from '@github/copilot-sdk';
 import { USER_AGENTS_FOLDER } from '@idl/idl/files';
+import { IDL_TRANSLATION } from '@idl/translation';
 import type {
   ChatMessageRequest,
   ChatStreamChunk,
@@ -31,6 +32,11 @@ import {
  * Client name reported to the Copilot runtime in the User-Agent header.
  */
 const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
+
+/**
+ * Name of IDL MCP server (prefixes all MCP tool names)
+ */
+const IDL_MCP_NAME = 'idl-mcp';
 
 /**
  * Streaming chat completion service backed by the GitHub Copilot SDK.
@@ -237,14 +243,25 @@ export class CopilotChatFramework {
           case 'tool.execution_start': {
             const { toolCallId, toolName } = event.data;
             toolNameById.set(toolCallId, toolName);
+            // send to the front-end when it is not a ToDo tool
             if (!TODO_TOOL_NAMES.has(toolName)) {
+              /**
+               * Get display name for tools
+               *
+               * The toolName is "idl-mcp-run-envi-tool" where idl-mcp is the
+               * ID/name of our MCP server in copilot config
+               */
+              const displayName =
+                ((IDL_TRANSLATION.mcp.tools.displayNames as any)[
+                  toolName.replace(`${IDL_MCP_NAME}-`, '')
+                ] as string) || toolName;
               enqueue({
                 toolArgs: (event.data.arguments || {}) as Record<
                   string,
                   unknown
                 >,
                 toolCallId,
-                toolName,
+                toolName: displayName,
                 type: 'tool_call',
               });
             }
@@ -313,6 +330,9 @@ export class CopilotChatFramework {
       // then use excludedTools to block write/shell
       clientName: DEFAULT_CLIENT_NAME,
       mcpServers: {
+        /**
+         * If you change this, we need to change the values above for IDL_MCP_NAME
+         */
         'idl-mcp': {
           type: 'http',
           url: `http://localhost:${port}/mcp`,
