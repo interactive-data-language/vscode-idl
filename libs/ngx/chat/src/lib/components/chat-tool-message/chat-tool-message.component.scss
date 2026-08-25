@@ -4,7 +4,17 @@
 
   &.tool-message {
     justify-content: flex-start;
-    max-width: 55%;
+    width: 100%;
+
+    .message-card {
+      max-width: 55%;
+      transition: max-width 0.15s ease;
+
+      // Expand to full width only while the input/output details are open
+      &:has(.tool-details[open]) {
+        max-width: 100%;
+      }
+    }
   }
 }
 
@@ -29,6 +39,72 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
+  list-style: none; // Hide native <summary> marker, we render our own chevron
+  user-select: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.tool-chevron {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  margin-left: auto;
+  opacity: 0.6;
+  transition: transform 0.15s ease;
+}
+
+.tool-details {
+  &[open] .tool-chevron {
+    transform: rotate(180deg);
+  }
+}
+
+.tool-details-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.tool-io-section {
+  width: 100%;
+
+  .tool-io-label {
+    display: block;
+    opacity: 0.6;
+    font-size: 0.75rem;
+    margin-bottom: 2px;
+  }
+
+  pre {
+    margin: 0;
+    padding: 6px 8px;
+    width: 100%;
+    background: rgba(128, 128, 128, 0.12);
+    border-radius: 6px;
+    font-size: 0.7rem;
+    overflow: auto;
+    max-height: 150px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    box-sizing: border-box;
+  }
+
+  &.tool-io-error {
+    .tool-io-label {
+      color: #f44336;
+      opacity: 0.85;
+    }
+
+    pre {
+      background: rgba(244, 67, 54, 0.1);
+      color: #f44336;
+    }
+  }
 }
 
 .tool-icon {
@@ -55,43 +131,4 @@
 
 .tool-spinner-mat {
   display: inline-block;
-}
-
-.tool-args {
-  margin-top: 2px;
-
-  summary {
-    cursor: pointer;
-    opacity: 0.6;
-    font-size: 0.75rem;
-    user-select: none;
-
-    &:hover {
-      opacity: 0.9;
-    }
-  }
-
-  pre {
-    margin: 4px 0 0;
-    padding: 6px 8px;
-    background: rgba(128, 128, 128, 0.12);
-    border-radius: 6px;
-    font-size: 0.7rem;
-    overflow-x: auto;
-    max-height: 150px;
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-
-  &.tool-args-error {
-    summary {
-      color: #f44336;
-      opacity: 0.85;
-    }
-
-    pre {
-      background: rgba(244, 67, 54, 0.1);
-      color: #f44336;
-    }
-  }
 }

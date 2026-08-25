@@ -4,7 +4,16 @@
 
   &.thinking-message {
     justify-content: flex-start;
-    max-width: 75%;
+
+    .message-card {
+      max-width: 75%;
+      transition: max-width 0.15s ease;
+
+      // Expand to full width only while the reasoning details are open
+      &:has(.thinking-details[open]) {
+        max-width: 100%;
+      }
+    }
   }
 }
 
@@ -31,6 +40,29 @@
   gap: 6px;
 }
 
+summary.thinking-header {
+  cursor: pointer;
+  list-style: none; // Hide native <summary> marker, we render our own chevron
+  user-select: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.thinking-chevron {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  margin-left: auto;
+  opacity: 0.6;
+  transition: transform 0.15s ease;
+}
+
+.thinking-details[open] .thinking-chevron {
+  transform: rotate(180deg);
+}
+
 .thinking-icon {
   font-size: 16px;
   width: 16px;
@@ -47,30 +79,11 @@
   display: inline-block;
 }
 
-.thinking-text {
-  margin: 4px 0 0;
+.thinking-body {
+  margin-top: 6px;
   padding: 6px 8px;
-  background: rgba(128, 128, 128, 0.12);
-  border-radius: 6px;
   font-size: 0.75rem;
-  overflow-x: auto;
+  overflow: auto;
   max-height: 200px;
-  white-space: pre-wrap;
-  word-break: break-word;
   opacity: 0.85;
-}
-
-.thinking-args {
-  margin-top: 2px;
-
-  summary {
-    cursor: pointer;
-    opacity: 0.6;
-    font-size: 0.75rem;
-    user-select: none;
-
-    &:hover {
-      opacity: 0.9;
-    }
-  }
 }

@@ -52,12 +52,10 @@ export class ChatToolMessageComponent {
   });
 
   /**
-   * Tool args formatted as a readable JSON string, or null if empty
+   * Tool args formatted as a readable JSON string, defaulting to "{}" when empty
    */
   protected readonly formattedArgs = computed(() => {
-    const data = this.toolCallData();
-    if (!data?.args || Object.keys(data.args).length === 0) return null;
-    return JSON.stringify(data.args, null, 2);
+    return JSON.stringify(this.toolCallData()?.args ?? {}, null, 2);
   });
 
   /**

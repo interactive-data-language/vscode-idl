@@ -8,18 +8,28 @@
     [class.user-message]="message().type === 'user'"
     [class.system-message]="message().type === 'system'"
   >
-    <mat-card class="message-card">
-      <mat-card-content>
-        @for (content of message().content; track $index) {
-          @if (content.type === 'text') {
-            <ngx-chat-markdown-renderer [data]="content.payload" />
-          } @else if (content.type === 'result') {
-            <div>
-              <pre>{{ content.payload }}</pre>
-            </div>
-          }
-        }
-      </mat-card-content>
-    </mat-card>
+    @if (message().type === 'user') {
+      <mat-card class="message-card">
+        <mat-card-content>
+          <ng-container *ngTemplateOutlet="messageContent" />
+        </mat-card-content>
+      </mat-card>
+    } @else {
+      <div class="system-message-content">
+        <ng-container *ngTemplateOutlet="messageContent" />
+      </div>
+    }
   </div>
 }
+
+<ng-template #messageContent>
+  @for (content of message().content; track $index) {
+    @if (content.type === 'text') {
+      <ngx-chat-markdown-renderer [data]="content.payload" />
+    } @else if (content.type === 'result') {
+      <div>
+        <pre>{{ content.payload }}</pre>
+      </div>
+    }
+  }
+</ng-template>

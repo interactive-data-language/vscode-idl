@@ -76,12 +76,12 @@
   }
 }
 
-// Constrains the readable content column while its full-width parent keeps borders/scrollbar at the panel edge
+// Fills the parent width until it hits the cap, so it scales smoothly with no breakpoint snap
 .header-inner,
 .todo-inner,
 .messages-inner,
 .footer-inner {
-  max-width: min(50%, 700px);
+  max-width: 700px;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;

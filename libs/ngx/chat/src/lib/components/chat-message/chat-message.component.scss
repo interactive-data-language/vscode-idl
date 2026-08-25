@@ -14,9 +14,10 @@
 
   &.system-message {
     justify-content: flex-start;
+    width: 100%;
 
-    .message-card {
-      max-width: 75%;
+    .system-message-content {
+      width: 100%;
     }
   }
 }
