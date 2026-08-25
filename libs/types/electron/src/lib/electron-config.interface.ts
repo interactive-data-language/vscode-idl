@@ -29,6 +29,8 @@ export interface IAgentConfig {
 export interface IServerConfig {
   /** Server host */
   host: string;
+  /** Language for the server */
+  language: 'en';
   /** TCP port the embedded agents server is listening on */
   port: number;
 }
@@ -65,5 +67,6 @@ export const DEFAULT_ELECTRON_CONFIG: IElectronConfig = {
   server: {
     host: 'localhost',
     port: 4142,
+    language: 'en',
   },
 };
