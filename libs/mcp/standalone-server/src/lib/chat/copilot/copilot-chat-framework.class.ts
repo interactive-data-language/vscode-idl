@@ -8,7 +8,6 @@ import {
   type SessionEvent,
 } from '@github/copilot-sdk';
 import { USER_AGENTS_FOLDER } from '@idl/idl/files';
-import { IDL_TRANSLATION } from '@idl/translation';
 import type {
   ChatMessageRequest,
   ChatStreamChunk,
@@ -17,6 +16,7 @@ import type {
 import type { IElectronConfig } from '@idl/types/electron';
 import { join } from 'path';
 
+import { GetToolDisplayName } from '../../helpers/get-tool-display-name';
 import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
@@ -36,7 +36,7 @@ const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
 /**
  * Name of IDL MCP server (prefixes all MCP tool names)
  */
-const IDL_MCP_NAME = 'idl-mcp';
+export const IDL_MCP_NAME = 'idl-mcp';
 
 /**
  * Streaming chat completion service backed by the GitHub Copilot SDK.
@@ -248,23 +248,15 @@ export class CopilotChatFramework {
             toolNameById.set(toolCallId, toolName);
             // send to the front-end when it is not a ToDo tool
             if (!TODO_TOOL_NAMES.has(toolName)) {
-              /**
-               * Get display name for tools
-               *
-               * The toolName is "idl-mcp-run-envi-tool" where idl-mcp is the
-               * ID/name of our MCP server in copilot config
-               */
-              const displayName =
-                ((IDL_TRANSLATION.mcp.tools.displayNames as any)[
-                  toolName.replace(`${IDL_MCP_NAME}-`, '')
-                ] as string) || toolName;
               enqueue({
                 toolArgs: (event.data.arguments || {}) as Record<
                   string,
                   unknown
                 >,
                 toolCallId,
-                toolName: displayName,
+                toolName: GetToolDisplayName(
+                  toolName.replace(`${IDL_MCP_NAME}-`, ''),
+                ),
                 type: 'tool_call',
               });
             }
