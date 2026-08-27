@@ -160,6 +160,12 @@ export class ChatState {
     // blocks in a single turn each resolve to their own thinking card.
     const thinkingMessageIdByReasoningId = new Map<string, string>();
 
+    // ID of the most recently created thinking message (and its reasoning
+    // ID), used to close it out if the backend sends a text chunk before
+    // the thinking "done" event (the backend can emit these out of order).
+    let lastThinkingMessageId: string | undefined;
+    let lastThinkingReasoningId: string | undefined;
+
     // Track the current system message accumulating LLM text. After each
     // tool_result a new system message is created so text and tool calls
     // interleave naturally in the message list.
@@ -220,6 +226,8 @@ export class ChatState {
                 });
               }
               thinkingMessageIdByReasoningId.clear();
+              lastThinkingMessageId = undefined;
+              lastThinkingReasoningId = undefined;
               this.setMessageError(
                 ctx,
                 action.sessionId,
@@ -229,6 +237,23 @@ export class ChatState {
               break;
 
             case 'text_chunk':
+              // Backend can send a text chunk before closing out the
+              // thinking message it belongs after, so close the last
+              // in-progress thinking message here as a safety net.
+              if (lastThinkingMessageId) {
+                this.updateMessage(
+                  ctx,
+                  action.sessionId,
+                  lastThinkingMessageId,
+                  { status: 'done' },
+                );
+                thinkingMessageIdByReasoningId.delete(
+                  lastThinkingReasoningId as string,
+                );
+                lastThinkingMessageId = undefined;
+                lastThinkingReasoningId = undefined;
+              }
+
               if (needsNewSystemMessage) {
                 // Start a fresh system message after a tool call/result pair
                 currentSystemMessageId = nanoid();
@@ -274,12 +299,18 @@ export class ChatState {
                   thinkingMessage,
                 );
               }
+              lastThinkingMessageId = thinkingMessageId;
+              lastThinkingReasoningId = chunk.thinkingId;
 
               if (chunk.done) {
                 this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
                   status: 'done',
                 });
                 thinkingMessageIdByReasoningId.delete(chunk.thinkingId);
+                if (lastThinkingMessageId === thinkingMessageId) {
+                  lastThinkingMessageId = undefined;
+                  lastThinkingReasoningId = undefined;
+                }
               } else if (chunk.content) {
                 this.appendThinkingDelta(
                   ctx,
