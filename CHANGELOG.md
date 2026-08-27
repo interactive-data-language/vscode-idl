@@ -12,6 +12,14 @@ New settings for ENVI's MCP Tools:
 
 - Fine-tune which ENVI Tools can be invoked by ENVI Agent with a new whitelist and blacklist option
 
+## 6.2.1 - Unreleased
+
+Updated SAR workflows for ENVI Agent to help load preferences correctly when picking up processing in the middle.
+
+Added a new ENVI Tool Workflow for being able to build layer stacks and band stacks.
+
+Removed some ENVI Tasks from the list of available ENVI Tools that were confusing ENVI Agent.
+
 ## 6.2.0 - August 2026
 
 This major release brings some new and renamed MCP tools for agents to use with IDL and ENVI. Here's the breakdown:
