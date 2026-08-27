@@ -10,8 +10,18 @@ export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   // i.e. why would an LLM run this?
   buildrasterpyramids: undefined,
 
-  // handled via MCP
+  // will be automatically handled by MCP
+  downloadfromrepository: undefined,
+
+  // not an edit - use setrastermetadata
+  editrastermetadata: undefined,
+
+  // no conversion utilities
+  enviuritoannotation: undefined,
+
+  // handled via MCP and file system searching
   findrasters: undefined,
+  findvectors: undefined,
 
   // handled via MCP
   generatefilename: undefined,
@@ -28,6 +38,10 @@ export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   // handled via MCP query dataset
   rastermetadataitem: undefined,
   rasterproperties: undefined,
+
+  // deprecated
+  registerrasterwithgeoserver: undefined,
+  registervectorwithgeoserver: undefined,
 
   // not needed
   runtask: undefined,
