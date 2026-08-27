@@ -1,8 +1,19 @@
 .todo-panel {
-  margin: 0 16px 8px;
+  margin: 0 0 8px;
   box-shadow: none !important;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 4px;
+
+  // align header text with the composer's inset instead of Material's default 24px
+  ::ng-deep .mat-expansion-panel-header {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  ::ng-deep .mat-expansion-panel-body {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 .todo-panel-title {

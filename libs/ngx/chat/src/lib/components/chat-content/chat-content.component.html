@@ -12,8 +12,10 @@
       </div>
 
       @if (todos().length > 0) {
-        <div class="todo-inner">
-          <ngx-chat-todo-list [todos]="todos()" />
+        <div class="todo-row">
+          <div class="todo-inner">
+            <ngx-chat-todo-list [todos]="todos()" />
+          </div>
         </div>
       }
 

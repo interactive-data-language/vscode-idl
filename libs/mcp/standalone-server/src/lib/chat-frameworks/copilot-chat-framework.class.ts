@@ -171,6 +171,9 @@ export class CopilotChatFramework {
       const toolNameById = new Map<string, string>();
 
       unsubscribe = session.on((event: SessionEvent) => {
+        if (event.type === 'assistant.intent') {
+          console.log(`Intent: ${event.data.intent}`);
+        }
         switch (event.type) {
           case 'assistant.message_delta': {
             const delta = event.data.deltaContent;

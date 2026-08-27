@@ -50,6 +50,8 @@
 .input-footer {
   flex-shrink: 0;
   position: relative;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
 .chat-messages {
@@ -84,6 +86,11 @@
   max-width: 700px;
   width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.todo-row {
+  padding: 0 24px;
   box-sizing: border-box;
 }
 
