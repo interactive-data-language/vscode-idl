@@ -9,6 +9,8 @@ export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   // catalog tools don't work out of the box
   // no defaults and the agent doesnt run them right
   // because it cant easily use the ENVI Catalog (literal with ENVI)
+  exportcatalogtokml: undefined,
+  exportcatalogtostac: undefined,
   mergecatalogs: undefined,
   populatecatalog: undefined,
   prunecatalog: undefined,
