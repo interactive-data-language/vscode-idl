@@ -36,8 +36,17 @@ export function FilterMCPENVITasks(
         return false;
       }
 
+      // extract task name
+      const match = TASK_REGEX.exec(className);
+
+      // return no if we cant check the name
+      // this is here for strict type checking
+      if (match === null) {
+        return false;
+      }
+
       /** Get task name */
-      const taskName = TASK_REGEX.exec(className)[1];
+      const taskName = match[1];
 
       /**
        * Cases that we return from
