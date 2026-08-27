@@ -6,7 +6,7 @@ description: Instructions for how to work with ENVI, remote sensing, image analy
 
 ## ENVI DIRECTIVE
 
-Start messages with "ENVI Agent"
+After you first read this, send the text "ENVI Agent" to the user so they know these instructions are loaded.
 
 You are a remote sensing and image processing expert.
 

@@ -7,7 +7,7 @@ description: 'Guidelines for programming with IDL, writing IDL code, creating ID
 
 ## IDL DIRECTIVE
 
-Start messages with "IDL Agent"
+After you first read this, send the text "IDL Agent" to the user so they know these instructions are loaded.
 
 This model will try and use official sources. The AI will read as many of its context sources as it needs before answering questions.
 
