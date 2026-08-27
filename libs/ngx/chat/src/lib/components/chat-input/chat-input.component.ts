@@ -79,6 +79,22 @@ export class ChatInputComponent {
   private readonly snackBar = inject(MatSnackBar);
 
   /**
+   * Sets the input text and sends it, used for example prompts selected from the welcome screen
+   */
+  sendPrompt(text: string): void {
+    this.inputText.set(text);
+    this.sendMessage();
+  }
+
+  /**
+   * Sets the input text without sending it, used for example prompts
+   * that require user edits (e.g. a file path) before sending
+   */
+  setPromptText(text: string): void {
+    this.inputText.set(text);
+  }
+
+  /**
    * Handle keyboard events (Enter to send, Shift+Enter for new line)
    */
   protected onKeyPress(event: KeyboardEvent): void {

@@ -1,5 +1,5 @@
 <div class="content-container">
-  @if (selectedSession()) {
+  @if (!showWelcome()) {
     <div class="chat-messages">
       <div class="session-header">
         <div class="header-inner">
@@ -28,11 +28,7 @@
       </div>
     </div>
   } @else {
-    <div class="welcome-message">
-      <mat-icon class="welcome-icon">chat</mat-icon>
-      <h1>Welcome to Desktop Agent</h1>
-      <p>Ask anything to start a new conversation.</p>
-    </div>
+    <ngx-chat-welcome (promptSelected)="onPromptSelected($event)" />
   }
 
   <div class="input-footer">

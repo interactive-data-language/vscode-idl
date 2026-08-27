@@ -1,6 +1,7 @@
 import type {
   AvailableModelsResponse,
   ChatMessageRequest,
+  ExamplePromptsResponse,
 } from '@idl/types/chat';
 import { Router } from 'express';
 
@@ -24,7 +25,6 @@ export function createChatRoutes(chat: Chat): Router {
    */
   router.get('/models', async (_req, res) => {
     try {
-      console.log('fuck');
       const models = await chat.listModels();
       const defaultModel = await chat.defaultModelID();
       const resp: AvailableModelsResponse = {
@@ -37,6 +37,28 @@ export function createChatRoutes(chat: Chat): Router {
       console.log(error);
       res.status(500).json({
         error: error instanceof Error ? error.message : 'Failed to list models',
+      });
+    }
+  });
+
+  /**
+   * GET /api/chat/example-prompts
+   * Returns the configured list of example prompts for the welcome screen.
+   */
+  router.get('/example-prompts', (_req, res) => {
+    try {
+      const resp: ExamplePromptsResponse = {
+        prompts: chat.listExamplePrompts(),
+      };
+
+      res.json(resp);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Failed to list example prompts',
       });
     }
   });

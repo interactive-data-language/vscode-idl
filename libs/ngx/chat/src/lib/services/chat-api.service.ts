@@ -5,6 +5,7 @@ import type {
   AvailableModelsResponse,
   ChatMessageRequest,
   ChatStreamChunk,
+  ExamplePromptsResponse,
 } from '@idl/types/chat';
 import { Observable } from 'rxjs';
 
@@ -32,6 +33,15 @@ export class ChatApiService {
    */
   getAvailableModels(): Observable<AvailableModelsResponse> {
     return this.http.get<AvailableModelsResponse>(`${this.baseUrl}/models`);
+  }
+
+  /**
+   * Get the configured list of example prompts for the welcome screen
+   */
+  getExamplePrompts(): Observable<ExamplePromptsResponse> {
+    return this.http.get<ExamplePromptsResponse>(
+      `${this.baseUrl}/example-prompts`,
+    );
   }
 
   /**

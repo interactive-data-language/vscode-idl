@@ -17,6 +17,7 @@ import { ChatState } from '../../state/chat.state';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
 import { ChatTodoListComponent } from '../chat-todo-list/chat-todo-list.component';
+import { ChatWelcomeComponent } from '../chat-welcome/chat-welcome.component';
 
 /**
  * Content component displaying the chat messages.
@@ -31,6 +32,7 @@ import { ChatTodoListComponent } from '../chat-todo-list/chat-todo-list.componen
     ChatMessageComponent,
     ChatInputComponent,
     ChatTodoListComponent,
+    ChatWelcomeComponent,
   ],
   templateUrl: './chat-content.component.html',
   styleUrl: './chat-content.component.scss',
@@ -45,9 +47,21 @@ export class ChatContentComponent {
     ChatState.selectedSession,
   );
 
+  /**
+   * True when there is no session selected, or the selected session has no messages yet
+   */
+  protected readonly showWelcome = computed(
+    () => (this.selectedSession()?.messages?.length ?? 0) === 0,
+  );
+
   protected readonly todos = computed(
     () => this.selectedSession()?.todos ?? [],
   );
+
+  /**
+   * Reference to the input component, used to send example prompts
+   */
+  private readonly chatInput = viewChild(ChatInputComponent);
 
   private readonly injector = inject(Injector);
 
@@ -87,6 +101,20 @@ export class ChatContentComponent {
       },
       { injector: this.injector },
     );
+  }
+
+  /**
+   * Forward an example prompt selected on the welcome screen to the input component.
+   *
+   * Prompts containing a newline (e.g. those with a placeholder file path) are
+   * placed in the input box for editing instead of being sent immediately.
+   */
+  protected onPromptSelected(prompt: string): void {
+    if (prompt.includes('\n')) {
+      this.chatInput()?.setPromptText(prompt);
+    } else {
+      this.chatInput()?.sendPrompt(prompt);
+    }
   }
 
   /**

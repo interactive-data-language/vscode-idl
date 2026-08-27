@@ -273,3 +273,20 @@ export interface AvailableModelsResponse {
   /** List of available models */
   models: AvailableModel[];
 }
+
+/**
+ * A single example prompt shown on the chat welcome screen.
+ *
+ * Can be a single string, or an array of strings that are joined together
+ * with two new-line characters when displayed. When there is more than one
+ * line, only the first line is shown for the card's display text.
+ */
+export type ExamplePrompt = string | string[];
+
+/**
+ * Response containing the configured list of example prompts
+ */
+export interface ExamplePromptsResponse {
+  /** All configured example prompts */
+  prompts: ExamplePrompt[];
+}

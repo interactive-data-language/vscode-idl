@@ -5,6 +5,7 @@ import type {
   ChatMessageRequest,
   ChatPromptType,
   ChatStreamChunk,
+  ExamplePrompt,
   TodoItem,
 } from '@idl/types/chat';
 import type { IElectronConfig } from '@idl/types/electron';
@@ -15,6 +16,7 @@ import { join } from 'path';
 
 import { CopilotChatFramework } from '../chat-frameworks/copilot-chat-framework.class';
 import { LangChainChatFramework } from '../chat-frameworks/langchain-chat-framework.class';
+import { EXAMPLE_PROMPTS } from './example-prompts.data';
 
 /**
  * Public chat service facade. Delegates to either CopilotChatService
@@ -177,6 +179,16 @@ export class Chat {
       //   `Unknown processing mode "${this.config.processing.mode}"`,
       // );
     }
+  }
+
+  /**
+   * Lists the configured example prompts shown on the chat welcome screen
+   *
+   * Lives here so we could fetch from a server with some kind of default configuration
+   * for users
+   */
+  listExamplePrompts(): ExamplePrompt[] {
+    return EXAMPLE_PROMPTS;
   }
 
   /**
