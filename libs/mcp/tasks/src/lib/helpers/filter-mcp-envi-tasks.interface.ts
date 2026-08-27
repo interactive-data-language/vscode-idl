@@ -6,6 +6,16 @@
  * But there's still some that we don't need to expose to the LLM
  */
 export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
+  // catalog tools don't work out of the box
+  // no defaults and the agent doesnt run them right
+  // because it cant easily use the ENVI Catalog (literal with ENVI)
+  mergecatalogs: undefined,
+  populatecatalog: undefined,
+  prunecatalog: undefined,
+  querycatalog: undefined,
+  scanfilesforcatalog: undefined,
+  startenvicatalogserver: undefined,
+
   // not something that has value for follow-on processes
   // i.e. why would an LLM run this?
   buildrasterpyramids: undefined,
