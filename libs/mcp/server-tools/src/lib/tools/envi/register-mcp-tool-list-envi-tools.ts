@@ -9,6 +9,11 @@ import { ENVI_TOOL_INSTRUCTIONS } from './envi-tool-instructions.interface';
 
 /**
  * Registers a tool that can run an ENVI Task
+ *
+ * Note that this filters some tasks for users. See this file for what is always skipped:
+ *
+ * - libs\mcp\server-tools\src\lib\tools\envi\register-mcp-tool-list-envi-tools.ts
+ *
  */
 export function RegisterMCPTool_ListENVITools(
   server: MCPServer,
