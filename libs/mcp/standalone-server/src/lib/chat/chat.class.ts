@@ -14,9 +14,9 @@ import { readFileSync } from 'fs';
 import OpenAI from 'openai';
 import { join } from 'path';
 
-import { CopilotChatFramework } from '../chat-frameworks/copilot-chat-framework.class';
-import { LangChainChatFramework } from '../chat-frameworks/langchain-chat-framework.class';
-import { EXAMPLE_PROMPTS } from './example-prompts.data';
+import { EXAMPLE_PROMPTS } from '../helpers/example-prompts.interface';
+import { CopilotChatFramework } from './copilot/copilot-chat-framework.class';
+import { LangChainChatFramework } from './langchain/langchain-chat-framework.class';
 
 /**
  * Public chat service facade. Delegates to either CopilotChatService

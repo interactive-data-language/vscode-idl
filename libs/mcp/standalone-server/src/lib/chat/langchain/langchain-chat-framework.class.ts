@@ -18,12 +18,12 @@ import { loadMcpTools } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
 import { nanoid } from 'nanoid';
 
-import { Chat } from '../chat/chat.class';
-import { MCPClient } from '../chat/mcp-client.class';
 import {
   LANGCHAIN_TODO_TOOL_NAMES,
   RegisterLangChainToolsForToDos,
-} from '../mcp-tools/register-langchain-tools-for-todos';
+} from '../../mcp-tools/register-langchain-tools-for-todos';
+import { Chat } from '../chat.class';
+import { MCPClient } from './mcp-client.class';
 
 /**
  * Maximum number of agentic loop iterations to prevent infinite loops

@@ -6,6 +6,7 @@ import express from 'express';
 import type { Server } from 'http';
 
 import { Chat } from './chat/chat.class';
+import { LoadConfigFromEnv } from './helpers/load-config-from-env';
 import { CreateStandaloneMCPServer } from './mcp-tools/create-standalone-mcp-server';
 import { createChatRoutes } from './routes/chat.routes';
 
@@ -30,6 +31,10 @@ export interface IStartAgentsServerResult {
 export async function StartAgentsServer(
   config: IElectronConfig,
 ): Promise<IStartAgentsServerResult> {
+  // check the environment for configuration
+  LoadConfigFromEnv(config);
+
+  // start the express app
   const app = express();
 
   // load translation

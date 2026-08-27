@@ -17,11 +17,11 @@ import type {
 import type { IElectronConfig } from '@idl/types/electron';
 import { join } from 'path';
 
-import { Chat } from '../chat/chat.class';
 import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
-} from '../mcp-tools/register-mcp-tools-for-todos';
+} from '../../mcp-tools/register-mcp-tools-for-todos';
+import { Chat } from '../chat.class';
 import {
   COPILOT_ALLOWED_TOOLS,
   COPILOT_SESSION_CACHE_CONFIG,

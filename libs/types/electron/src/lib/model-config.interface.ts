@@ -7,17 +7,17 @@ interface IBaseModelAPIConfig {
   apiKey: string;
 }
 
-type CopilotModel = 'copilot';
-type CopilotConfig = {
+export type CopilotModel = 'copilot';
+export type CopilotConfig = {
   /** GitHub token used to authenticate the Copilot SDK client */
   gitHubToken: string;
 };
 
-type OpenAIModel = 'openai';
-type OpenAIModelConfig = IBaseModelAPIConfig & IBaseModelConfig;
+export type OpenAIModel = 'openai';
+export type OpenAIModelConfig = IBaseModelAPIConfig & IBaseModelConfig;
 
-type OllamaModel = 'ollama';
-type OllamaModelConfig = {
+export type OllamaModel = 'ollama';
+export type OllamaModelConfig = {
   /** URL to OpenAI REST API */
   url: string;
   /** Max input tokens */
