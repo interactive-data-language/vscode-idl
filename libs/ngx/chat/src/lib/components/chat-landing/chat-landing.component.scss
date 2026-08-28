@@ -23,9 +23,13 @@
   width: 280px;
 }
 
-// Keep in sync with MOBILE_BREAKPOINT in chat-layout.service.ts — both must always match
-@media (max-width: 849.98px) {
-  .chat-sidenav {
-    width: 100%;
-  }
+// Width switches with the JS-driven mode/opened bindings (same isMobile() signal),
+// not an independent @media query, so they can't get out of sync and flash full-screen.
+.chat-sidenav.chat-sidenav--mobile {
+  width: 100%;
+}
+
+// Prevents the mode/width jump on a breakpoint change from sliding in as a fake "open" animation
+.chat-sidenav.chat-sidenav--no-anim {
+  transition: none !important;
 }

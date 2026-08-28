@@ -1,12 +1,10 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
 /**
  * Viewport width below which the sidebar collapses into a full-screen overlay.
- * Keep this value in sync with the `@media (max-width: ...)` query in
- * chat-landing.component.scss — both must always match.
  */
 const MOBILE_BREAKPOINT = '(max-width: 849.98px)';
 
@@ -27,8 +25,23 @@ export class ChatLayoutService {
     { initialValue: this.breakpointObserver.isMatched(MOBILE_BREAKPOINT) },
   );
 
+  /**
+   * True for one frame whenever `isMobile` flips, so the sidenav's mode/width
+   * jump doesn't get slide-animated as if the user had triggered an open/close.
+   */
+  readonly suppressSidenavAnimation = signal(false);
+
   /** Whether the full-screen chat list overlay is open (mobile layout only) */
   readonly mobileListOpen = signal(false);
+
+  constructor() {
+    effect(() => {
+      // depend on isMobile so this re-runs on every breakpoint flip
+      this.isMobile();
+      this.suppressSidenavAnimation.set(true);
+      requestAnimationFrame(() => this.suppressSidenavAnimation.set(false));
+    });
+  }
 
   /**
    * Close the full-screen chat list overlay, revealing the chat content
