@@ -6,7 +6,7 @@
   <mat-select
     [value]="selectedModel()"
     (selectionChange)="onModelChange($event.value)"
-    [disabled]="loading()"
+    [disabled]="isDisabled()"
   >
     @for (model of availableModels(); track model.id) {
       <mat-option [value]="model.id">

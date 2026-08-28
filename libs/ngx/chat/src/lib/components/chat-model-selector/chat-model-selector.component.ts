@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   OnInit,
   signal,
@@ -36,6 +37,20 @@ export class ChatModelSelectorComponent implements OnInit {
   readonly loading = signal(false);
 
   private readonly store = inject(Store);
+
+  /**
+   * Currently selected session, as a signal
+   */
+  private readonly selectedSession = this.store.selectSignal(
+    ChatState.selectedSession,
+  );
+
+  /**
+   * Disabled when loading models or a response is in progress
+   */
+  readonly isDisabled = computed(
+    () => this.loading() || this.selectedSession()?.status === 'in-progress',
+  );
 
   /**
    * Currently selected model from state

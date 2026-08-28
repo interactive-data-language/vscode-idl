@@ -38,6 +38,11 @@ export class ChatInstructionsSelectorComponent implements OnInit {
    */
   readonly instructionOptions = signal<ChatInstructionOption[]>([]);
 
+  /**
+   * Loading state
+   */
+  readonly loading = signal(false);
+
   private readonly store = inject(Store);
 
   /**
@@ -48,10 +53,10 @@ export class ChatInstructionsSelectorComponent implements OnInit {
   );
 
   /**
-   * Disabled when a response is in progress
+   * Disabled when loading instruction options or a response is in progress
    */
   readonly isDisabled = computed(
-    () => this.selectedSession()?.status === 'in-progress',
+    () => this.loading() || this.selectedSession()?.status === 'in-progress',
   );
 
   /**
@@ -98,6 +103,7 @@ export class ChatInstructionsSelectorComponent implements OnInit {
    * default when nothing has been chosen yet
    */
   private loadInstructionOptions() {
+    this.loading.set(true);
     this.chatApiService.getChatInstructions().subscribe({
       next: (response) => {
         this.instructionOptions.set(response.options);
@@ -109,9 +115,11 @@ export class ChatInstructionsSelectorComponent implements OnInit {
             new SetDefaultInstructions(response.defaultInstructions),
           );
         }
+        this.loading.set(false);
       },
       error: (error) => {
         console.error('Failed to load chat instruction options:', error);
+        this.loading.set(false);
       },
     });
   }

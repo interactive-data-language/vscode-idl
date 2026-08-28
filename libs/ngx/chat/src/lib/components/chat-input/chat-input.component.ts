@@ -63,18 +63,17 @@ export class ChatInputComponent {
   private readonly store = inject(Store);
 
   /**
-   * Currently selected chat session, tracked reactively via signal
+   * Whether any chat session (not just the selected one) is in-progress.
+   * Only a single session can be processed at a time.
    */
-  private readonly selectedSession = this.store.selectSignal(
-    ChatState.selectedSession,
+  private readonly anySessionInProgress = this.store.selectSignal(
+    ChatState.anySessionInProgress,
   );
 
   /**
-   * Disabled when a response is already in progress
+   * Disabled when any session already has a response in progress
    */
-  protected readonly isDisabled = computed(
-    () => this.selectedSession()?.status === 'in-progress',
-  );
+  protected readonly isDisabled = computed(() => this.anySessionInProgress());
 
   private readonly snackBar = inject(MatSnackBar);
 
@@ -113,6 +112,20 @@ export class ChatInputComponent {
       return;
     }
 
+    // Check if there's already a message in progress in any session
+    if (this.store.selectSnapshot(ChatState.anySessionInProgress)) {
+      this.snackBar.open(
+        'Please wait for the current response to complete',
+        'OK',
+        {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        },
+      );
+      return;
+    }
+
     let currentSessionId = this.sessionId();
 
     // If no session exists, create one before sending
@@ -130,21 +143,6 @@ export class ChatInputComponent {
       this.store.dispatch(new AddChatSession(newSession));
       this.store.dispatch(new SelectChatSession(newSession.id));
       currentSessionId = newSession.id;
-    }
-
-    // Check if there's already a message in progress
-    const currentSession = this.store.selectSnapshot(ChatState.selectedSession);
-    if (currentSession?.status === 'in-progress') {
-      this.snackBar.open(
-        'Please wait for the current response to complete',
-        'OK',
-        {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        },
-      );
-      return;
     }
 
     // Dispatch action to add message to the session

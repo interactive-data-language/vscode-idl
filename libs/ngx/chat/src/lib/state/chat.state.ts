@@ -41,6 +41,17 @@ export class ChatState {
   private readonly chatApiService = inject(ChatApiService);
 
   /**
+   * Whether any session (not just the selected one) is currently in-progress
+   *
+   * Only a single session can be processed at a time because the chat engages
+   * with a single application that cannot process requests in parallel.
+   */
+  @Selector()
+  static anySessionInProgress(state: ChatStateModel): boolean {
+    return state.sessions.some((s) => s.status === 'in-progress');
+  }
+
+  /**
    * Get the default instructions
    */
   @Selector()
@@ -113,6 +124,12 @@ export class ChatState {
     const targetSession = state.sessions.find((s) => s.id === action.sessionId);
     if (!targetSession) {
       console.error(`Session ${action.sessionId} not found`);
+      return;
+    }
+
+    // Only one session can be processed at a time, the backend can't run in parallel
+    if (state.sessions.some((s) => s.status === 'in-progress')) {
+      console.error('Another session is already in-progress');
       return;
     }
 
