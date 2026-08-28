@@ -21,11 +21,11 @@
         mat-icon-button
         color="primary"
         class="send-button"
-        (click)="sendMessage()"
-        [disabled]="!inputText().trim() || isDisabled()"
-        aria-label="Send message"
+        (click)="isDisabled() ? stopMessage() : sendMessage()"
+        [disabled]="!isDisabled() && !inputText().trim()"
+        [attr.aria-label]="isDisabled() ? 'Stop generating' : 'Send message'"
       >
-        <mat-icon>arrow_upward</mat-icon>
+        <mat-icon>{{ isDisabled() ? 'stop' : 'arrow_upward' }}</mat-icon>
       </button>
     </div>
   </div>

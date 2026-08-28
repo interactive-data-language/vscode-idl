@@ -50,6 +50,14 @@ export class Chat {
   }
 
   /**
+   * Interrupts the in-flight turn for a session, if any, without ending the
+   * underlying conversation/session.
+   */
+  async cancelSession(sessionId: string): Promise<void> {
+    return this.framework.cancelSession(sessionId);
+  }
+
+  /**
    * Gets ID for default model
    */
   async defaultModelID(): Promise<string> {

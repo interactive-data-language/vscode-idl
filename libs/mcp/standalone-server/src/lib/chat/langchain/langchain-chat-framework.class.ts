@@ -37,6 +37,8 @@ const MAX_ITERATIONS = 30;
  * Ollama or any provider where the Copilot SDK has compatibility issues.
  */
 export class LangChainChatFramework {
+  /** In-flight request AbortControllers keyed by frontend `sessionId`, used to cancel the current turn's model/tool calls. */
+  private readonly activeControllers = new Map<string, AbortController>();
   private readonly config: IElectronConfig;
   private mcpClient: MCPClient;
   private mcpReady = false;
@@ -48,6 +50,13 @@ export class LangChainChatFramework {
     this.config = config;
     this.mcpClient = new MCPClient({ port: config.server.port });
     this.initializeMCP();
+  }
+
+  /**
+   * Aborts the in-flight model/tool call for a request, if any.
+   */
+  async cancelSession(sessionId: string): Promise<void> {
+    this.activeControllers.get(sessionId)?.abort();
   }
 
   /**
@@ -67,6 +76,8 @@ export class LangChainChatFramework {
   async *streamChatCompletion(
     request: ChatMessageRequest,
   ): AsyncIterable<ChatStreamChunk> {
+    const controller = new AbortController();
+    this.activeControllers.set(request.sessionId, controller);
     try {
       await this.waitForMCP();
 
@@ -101,8 +112,15 @@ export class LangChainChatFramework {
       while (continueLoop && iteration < MAX_ITERATIONS) {
         iteration++;
 
+        if (controller.signal.aborted) {
+          yield { type: 'cancelled' };
+          return;
+        }
+
         console.log('Stream');
-        const stream = await modelWithTools.stream(messages);
+        const stream = await modelWithTools.stream(messages, {
+          signal: controller.signal,
+        });
 
         let accumulated: AIMessageChunk | null = null;
 
@@ -283,12 +301,18 @@ export class LangChainChatFramework {
 
       yield { type: 'done' };
     } catch (error) {
+      if (controller.signal.aborted) {
+        yield { type: 'cancelled' };
+        return;
+      }
       console.error('[LangChainChatService] Chat completion error:', error);
       yield {
         type: 'error',
         error:
           error instanceof Error ? error.message : 'Unknown error occurred',
       };
+    } finally {
+      this.activeControllers.delete(request.sessionId);
     }
   }
 

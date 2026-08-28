@@ -38,6 +38,13 @@ export class ChatMessageComponent {
   readonly message = input.required<ChatMessage>();
 
   /**
+   * Whether generation for this message was cancelled by the user mid-stream
+   */
+  protected readonly isStopped = computed(
+    () => this.message().status === 'stopped',
+  );
+
+  /**
    * Whether this message is an extended-thinking/reasoning block
    */
   protected readonly isThinkingMessage = computed(

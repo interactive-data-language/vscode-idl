@@ -7,11 +7,13 @@ import {
 } from '@idl/types/chat';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { nanoid } from 'nanoid';
+import { Subscription } from 'rxjs';
 
 import { ChatApiService } from '../services/chat-api.service';
 import {
   AddChatSession,
   AddMessageToSession,
+  CancelMessageToSession,
   DeleteChatSession,
   LoadTestChatSessions,
   ResetApplicationState,
@@ -38,6 +40,17 @@ import { TEST_CHAT_SESSIONS } from './test-chat-sessions.interface';
 })
 @Injectable()
 export class ChatState {
+  /**
+   * In-flight request bookkeeping keyed by session ID, used to cancel a
+   * response mid-stream. Intentionally not part of `ChatStateModel` — this
+   * holds live objects (AbortController/Subscription) and must not be
+   * serialized/persisted.
+   */
+  private readonly activeRequests = new Map<
+    string,
+    { controller: AbortController; subscription: Subscription }
+  >();
+
   private readonly chatApiService = inject(ChatApiService);
 
   /**
@@ -198,19 +211,51 @@ export class ChatState {
     let currentSystemMessageId = systemMessageId;
     let needsNewSystemMessage = false;
 
-    this.chatApiService
-      .sendMessage({
-        sessionId: action.sessionId,
-        message: action.message.content.map((c) => c.payload).join('\n'),
-        model: state.selectedModel,
-        instructions: state.selectedInstructions,
-        conversationHistory,
-        currentTodos: targetSession.todos ?? [],
-      })
+    const controller = new AbortController();
+
+    const subscription = this.chatApiService
+      .sendMessage(
+        {
+          sessionId: action.sessionId,
+          message: action.message.content.map((c) => c.payload).join('\n'),
+          model: state.selectedModel,
+          instructions: state.selectedInstructions,
+          conversationHistory,
+          currentTodos: targetSession.todos ?? [],
+        },
+        controller.signal,
+      )
       .subscribe({
         next: (chunk) => {
           switch (chunk.type) {
+            case 'cancelled':
+              this.activeRequests.delete(action.sessionId);
+              // don't leave a thinking card spinning forever if the user stops mid-reasoning
+              for (const thinkingMessageId of thinkingMessageIdByReasoningId.values()) {
+                this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
+                  status: 'done',
+                });
+              }
+              thinkingMessageIdByReasoningId.clear();
+              this.cancelPendingToolCalls(ctx, action.sessionId);
+              toolMessageIdByCallId.clear();
+              // Append a dedicated marker message so the indicator always
+              // renders after everything else in the turn, rather than
+              // attaching to currentSystemMessageId which may not be last.
+              this.appendMessageToSession(ctx, action.sessionId, {
+                id: nanoid(),
+                type: 'system',
+                status: 'stopped',
+                content: [{ type: 'text', payload: '' }],
+              });
+              this.updateSession(ctx, action.sessionId, {
+                status: 'ready',
+                lastMessageAt: new Date(),
+              });
+              break;
+
             case 'done': {
+              this.activeRequests.delete(action.sessionId);
               // Remove the trailing system message if it has no text content
               // (happens when the last LLM iteration ended with a tool call)
               const doneState = ctx.getState();
@@ -244,6 +289,7 @@ export class ChatState {
             }
 
             case 'error':
+              this.activeRequests.delete(action.sessionId);
               console.error('Streaming error:', chunk.error);
               // don't leave a thinking card spinning forever if the stream dies mid-reasoning
               for (const thinkingMessageId of thinkingMessageIdByReasoningId.values()) {
@@ -414,6 +460,7 @@ export class ChatState {
           }
         },
         error: (error) => {
+          this.activeRequests.delete(action.sessionId);
           console.error('API call error:', error);
           this.setMessageError(
             ctx,
@@ -423,6 +470,8 @@ export class ChatState {
           );
         },
       });
+
+    this.activeRequests.set(action.sessionId, { controller, subscription });
   }
 
   /**
@@ -433,6 +482,59 @@ export class ChatState {
     const state = ctx.getState();
     ctx.patchState({
       sessions: [...state.sessions, action.session],
+    });
+  }
+
+  /**
+   * Cancel the in-progress response for a session: aborts the client-side
+   * stream and asks the backend to interrupt the underlying LLM turn,
+   * without ending the session itself. State is updated here directly
+   * (rather than waiting for a 'cancelled' chunk) since the subscription is
+   * torn down immediately and won't observe any further server events.
+   */
+  @Action(CancelMessageToSession)
+  cancelMessageToSession(
+    ctx: StateContext<ChatStateModel>,
+    action: CancelMessageToSession,
+  ) {
+    const entry = this.activeRequests.get(action.sessionId);
+    if (!entry) {
+      return;
+    }
+    this.activeRequests.delete(action.sessionId);
+    entry.subscription.unsubscribe();
+    entry.controller.abort();
+    this.chatApiService.cancelMessage(action.sessionId).subscribe({
+      error: (error) =>
+        console.error('Failed to notify backend of cancellation:', error),
+    });
+
+    const session = ctx
+      .getState()
+      .sessions.find((s) => s.id === action.sessionId);
+    if (session) {
+      // Close out any thinking card still spinning so it doesn't hang forever
+      for (const message of session.messages) {
+        if (message.type === 'thinking' && message.status === 'in-progress') {
+          this.updateMessage(ctx, action.sessionId, message.id, {
+            status: 'done',
+          });
+        }
+      }
+      this.cancelPendingToolCalls(ctx, action.sessionId);
+      // Append a dedicated marker message so the "stopped" indicator always
+      // renders after everything else in the turn (text, tool calls, etc.)
+      // rather than attaching to a system message that may not be last.
+      this.appendMessageToSession(ctx, action.sessionId, {
+        id: nanoid(),
+        type: 'system',
+        status: 'stopped',
+        content: [{ type: 'text', payload: '' }],
+      });
+    }
+    this.updateSession(ctx, action.sessionId, {
+      status: 'ready',
+      lastMessageAt: new Date(),
     });
   }
 
@@ -622,6 +724,32 @@ export class ChatState {
         },
       ],
     });
+  }
+
+  /**
+   * Helper: Flag every tool call still awaiting a result as cancelled
+   */
+  private cancelPendingToolCalls(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+  ): void {
+    const state = ctx.getState();
+    const session = state.sessions.find((s) => s.id === sessionId);
+    if (!session) return;
+
+    for (const message of session.messages) {
+      const isPending =
+        message.type === 'tool' &&
+        !message.content.some(
+          (c) => c.type === 'tool_result' || c.type === 'tool_error',
+        );
+      if (isPending) {
+        this.appendContentToMessage(ctx, sessionId, message.id, {
+          type: 'tool_error',
+          payload: 'Cancelled by user',
+        });
+      }
+    }
   }
 
   /**

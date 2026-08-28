@@ -30,6 +30,14 @@ export class ChatApiService {
   }
 
   /**
+   * Request the server interrupt the in-flight turn for a session, without
+   * ending the session itself
+   */
+  cancelMessage(sessionId: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/${sessionId}/cancel`, {});
+  }
+
+  /**
    * Get list of available models
    */
   getAvailableModels(): Observable<AvailableModelsResponse> {
@@ -58,9 +66,13 @@ export class ChatApiService {
    * Send a message and receive streaming response via Server-Sent Events
    *
    * @param request - The chat message request
+   * @param signal - Optional signal to abort the underlying fetch when the user cancels
    * @returns Observable of chat stream chunks
    */
-  sendMessage(request: ChatMessageRequest): Observable<ChatStreamChunk> {
+  sendMessage(
+    request: ChatMessageRequest,
+    signal?: AbortSignal,
+  ): Observable<ChatStreamChunk> {
     return new Observable<ChatStreamChunk>((subscriber) => {
       // Use fetch with EventSource for SSE streaming
       fetch(`${this.baseUrl}/message`, {
@@ -69,6 +81,7 @@ export class ChatApiService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(request),
+        signal,
       })
         .then(async (response) => {
           if (!response.ok) {
@@ -127,6 +140,12 @@ export class ChatApiService {
           subscriber.complete();
         })
         .catch((error) => {
+          // The user cancelled the request; the reducer already handles the
+          // UI-side transition, so this isn't a chat error to surface.
+          if (error instanceof DOMException && error.name === 'AbortError') {
+            subscriber.complete();
+            return;
+          }
           console.error('Stream error:', error);
           subscriber.error(error);
         });

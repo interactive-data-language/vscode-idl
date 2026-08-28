@@ -85,6 +85,24 @@ export function createChatRoutes(chat: Chat): Router {
   });
 
   /**
+   * POST /api/chat/:sessionId/cancel
+   * Interrupts the in-flight turn for a session without closing the session
+   * itself, so follow-up messages keep full context.
+   */
+  router.post('/:sessionId/cancel', async (req, res) => {
+    try {
+      await chat.cancelSession(req.params.sessionId);
+      res.status(204).end();
+    } catch (error) {
+      console.error('Error in /:sessionId/cancel endpoint:', error);
+      res.status(500).json({
+        error:
+          error instanceof Error ? error.message : 'Failed to cancel session',
+      });
+    }
+  });
+
+  /**
    * POST /api/chat/message
    * Streams chat completion using Server-Sent Events (SSE)
    */
@@ -116,6 +134,17 @@ export function createChatRoutes(chat: Chat): Router {
         }
       }, KEEPALIVE_INTERVAL_MS);
 
+      // Fallback for clients that abort the fetch/connection directly instead
+      // of calling the explicit cancel endpoint (e.g. tab closed mid-stream).
+      // `cancelSession` is idempotent, so a race with the explicit call is safe.
+      req.on('close', () => {
+        if (!res.writableEnded) {
+          chat.cancelSession(request.sessionId).catch((err) => {
+            console.error('Error cancelling session on close:', err);
+          });
+        }
+      });
+
       try {
         // Stream the response — let the generator run to exhaustion so the
         // optional 'title' chunk (emitted after 'done') is also sent.
@@ -125,8 +154,8 @@ export function createChatRoutes(chat: Chat): Router {
           res.write(sseData);
           lastWriteTime = Date.now();
 
-          // End immediately on errors
-          if (chunk.type === 'error') {
+          // End immediately on errors or cancellation
+          if (chunk.type === 'error' || chunk.type === 'cancelled') {
             res.end();
             return;
           }

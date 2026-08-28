@@ -56,6 +56,14 @@ export class AddMessageToSession {
 }
 
 /**
+ * Cancel the in-progress response for a chat session
+ */
+export class CancelMessageToSession {
+  static readonly type = '[Chat] Cancel Message';
+  constructor(public sessionId: string) {}
+}
+
+/**
  * Set the selected model for chat completions
  */
 export class SetSelectedModel {

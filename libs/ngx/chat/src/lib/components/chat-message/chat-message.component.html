@@ -17,6 +17,9 @@
     } @else {
       <div class="system-message-content">
         <ng-container *ngTemplateOutlet="messageContent" />
+        @if (isStopped()) {
+          <div class="stopped-indicator">Stopped by user</div>
+        }
       </div>
     }
   </div>

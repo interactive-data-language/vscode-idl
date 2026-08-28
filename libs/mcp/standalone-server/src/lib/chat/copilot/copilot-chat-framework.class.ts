@@ -91,6 +91,22 @@ export class CopilotChatFramework {
   }
 
   /**
+   * Interrupts the in-flight turn for a cached session, if any, without
+   * disconnecting the session — a follow-up message can still resume it.
+   */
+  async cancelSession(sessionId: string): Promise<void> {
+    const entry = this.sessionCache.get(sessionId);
+    if (entry === undefined) {
+      return;
+    }
+    try {
+      await entry.session.rpc.interruptMainTurn({});
+    } catch (err) {
+      console.error('[CopilotChatService] Error interrupting turn:', err);
+    }
+  }
+
+  /**
    * Stop the underlying Copilot SDK client. Idempotent.
    */
   async disconnect(): Promise<void> {
@@ -175,6 +191,13 @@ export class CopilotChatFramework {
           console.log(`Intent: ${event.data.intent}`);
         }
         switch (event.type) {
+          case 'abort': {
+            // User-requested interruption via interruptMainTurn(); keep the
+            // session alive, just end this turn's stream.
+            enqueue({ type: 'cancelled' });
+            enqueue(null);
+            break;
+          }
           case 'assistant.message_delta': {
             const delta = event.data.deltaContent;
             if (typeof delta === 'string' && delta.length > 0) {
@@ -280,6 +303,7 @@ export class CopilotChatFramework {
         });
 
       // Drain the queue until a terminator (null) is encountered.
+      let terminatedEarly = false;
       drain: while (true) {
         if (queue.length === 0) {
           await new Promise<void>((resolve) => {
@@ -290,11 +314,16 @@ export class CopilotChatFramework {
         if (next === undefined) continue;
         if (next === null) break drain;
         yield next;
-        if (next.type === 'error') break drain;
+        if (next.type === 'error' || next.type === 'cancelled') {
+          terminatedEarly = true;
+          break drain;
+        }
       }
 
       await sendPromise;
-      yield { type: 'done' };
+      if (!terminatedEarly) {
+        yield { type: 'done' };
+      }
     } catch (error) {
       console.error('[CopilotChatService] Chat completion error:', error);
       yield {

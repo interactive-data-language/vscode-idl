@@ -52,8 +52,8 @@ export interface ChatMessage {
   content: ChatMessageContent[];
   /** ID of the chat message */
   id: string;
-  /** Streaming status, currently only populated for 'thinking' messages */
-  status?: 'done' | 'in-progress';
+  /** Streaming status; 'stopped' indicates the user cancelled generation mid-stream */
+  status?: 'done' | 'in-progress' | 'stopped';
   /** Type of the message */
   type: 'system' | 'thinking' | 'tool' | 'user';
 }
@@ -165,6 +165,11 @@ export interface ChatStreamChunk_Done {
   type: 'done';
 }
 
+/** Streaming was cancelled by the user before completion */
+export interface ChatStreamChunk_Cancelled {
+  type: 'cancelled';
+}
+
 /** A fatal streaming error occurred */
 export interface ChatStreamChunk_Error {
   /** Error message */
@@ -232,6 +237,7 @@ export interface ChatStreamChunk_ThinkingChunk {
  * Discriminated union of all chunk types streamed from the chat API via SSE
  */
 export type ChatStreamChunk =
+  | ChatStreamChunk_Cancelled
   | ChatStreamChunk_Done
   | ChatStreamChunk_Error
   | ChatStreamChunk_TextChunk

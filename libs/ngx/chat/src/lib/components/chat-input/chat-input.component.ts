@@ -21,6 +21,7 @@ import { nanoid } from 'nanoid';
 import {
   AddChatSession,
   AddMessageToSession,
+  CancelMessageToSession,
   SelectChatSession,
 } from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
@@ -160,5 +161,17 @@ export class ChatInputComponent {
 
     // Clear the input
     this.inputText.set('');
+  }
+
+  /**
+   * Cancel the response that is currently streaming, wherever it is
+   */
+  protected stopMessage(): void {
+    const inProgress = this.store
+      .selectSnapshot(ChatState.sessions)
+      .find((s) => s.status === 'in-progress');
+    if (inProgress) {
+      this.store.dispatch(new CancelMessageToSession(inProgress.id));
+    }
   }
 }
