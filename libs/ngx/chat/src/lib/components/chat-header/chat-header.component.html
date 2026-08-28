@@ -2,17 +2,25 @@
   @if (chatLayoutService.isMobile()) {
     <button
       mat-icon-button
-      matTooltip="Show chats"
-      (click)="chatLayoutService.openList()"
+      [matTooltip]="
+        chatLayoutService.mobileListOpen() ? 'Back to chat' : 'Show chats'
+      "
+      (click)="chatLayoutService.toggleList()"
     >
-      <mat-icon>format_list_bulleted</mat-icon>
+      @if (chatLayoutService.mobileListOpen()) {
+        <mat-icon>arrow_back</mat-icon>
+      } @else {
+        <mat-icon>format_list_bulleted</mat-icon>
+      }
     </button>
   }
   <span class="header-title">
     {{
-      chatLayoutService.isMobile() && selectedSession()
-        ? selectedSession()?.title
-        : 'IDL Agent and ENVI Agent'
+      chatLayoutService.isMobile() && chatLayoutService.mobileListOpen()
+        ? 'Chats'
+        : chatLayoutService.isMobile() && selectedSession()
+          ? selectedSession()?.title
+          : 'IDL Agent and ENVI Agent'
     }}
   </span>
   <span class="spacer"></span>

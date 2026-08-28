@@ -39,4 +39,11 @@ export class ChatLayoutService {
   openList(): void {
     this.mobileListOpen.set(true);
   }
+
+  /**
+   * Open or close the list
+   */
+  toggleList(): void {
+    this.mobileListOpen.set(!this.mobileListOpen());
+  }
 }
