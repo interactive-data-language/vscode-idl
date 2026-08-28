@@ -13,13 +13,15 @@ import {
   AddChatSession,
   AddMessageToSession,
   DeleteChatSession,
-  LoadChatSessions,
+  LoadTestChatSessions,
+  RestoreChatState,
   SelectChatSession,
   SetChatSessions,
   SetPendingPrompt,
   SetSelectedModel,
   SetSessionPrompt,
 } from './chat.actions';
+import { TEST_CHAT_SESSIONS } from './test-chat-sessions.interface';
 
 /**
  * Default state for the chat feature
@@ -88,6 +90,14 @@ export class ChatState {
   @Selector()
   static sessions(state: ChatStateModel): ChatSession[] {
     return state.sessions;
+  }
+
+  /**
+   * Get the full chat state, used to persist it to IndexedDB
+   */
+  @Selector()
+  static state(state: ChatStateModel): ChatStateModel {
+    return state;
   }
 
   /**
@@ -432,88 +442,23 @@ export class ChatState {
   /**
    * Load chat sessions (placeholder - would call a service in real app)
    */
-  @Action(LoadChatSessions)
+  @Action(LoadTestChatSessions)
   loadSessions(ctx: StateContext<ChatStateModel>) {
     ctx.patchState({ loading: true });
+    ctx.dispatch(new SetChatSessions(TEST_CHAT_SESSIONS));
+  }
 
-    // Placeholder: Create some demo sessions
-    const demoSessions: ChatSession[] = [
-      {
-        id: nanoid(),
-        prompt: 'envi',
-        title: 'Welcome Chat',
-        createdAt: new Date(),
-        lastMessageAt: new Date(),
-        messageCount: 3,
-        status: 'ready',
-        messages: [
-          {
-            id: nanoid(),
-            type: 'user',
-            content: [
-              {
-                type: 'text',
-                payload:
-                  'Can you help me do XYZ? with some other really long text and blah blah blah blah blah thingajshdlfkjhaslkhdflkjashdflkj ksjhdflkhfas lashdflkj alkdsjhflkja lkajshdfk lkahdslkfha lkajhdslfkj alkdjhsflkjahs',
-              },
-            ],
-          },
-          {
-            id: nanoid(),
-            type: 'system',
-            content: [
-              {
-                type: 'text',
-                payload: 'Can you help me do XYZ?\n- Thing\n- Also',
-              },
-            ],
-          },
-          {
-            id: nanoid(),
-            type: 'user',
-            content: [
-              {
-                type: 'text',
-                payload: '[link](https://www.google.com)',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: nanoid(),
-        prompt: 'envi',
-        title: 'Project Discussion',
-        createdAt: new Date(Date.now() - 86400000),
-        lastMessageAt: new Date(Date.now() - 3600000),
-        messageCount: 15,
-        status: 'in-progress',
-        messages: [
-          {
-            id: nanoid(),
-            type: 'user',
-            content: [
-              {
-                type: 'text',
-                payload: 'Can you help me do XYZ?',
-              },
-            ],
-          },
-          {
-            id: nanoid(),
-            type: 'system',
-            content: [
-              {
-                type: 'text',
-                payload: 'Can you help me do XYZ?',
-              },
-            ],
-          },
-        ],
-      },
-    ];
-
-    ctx.dispatch(new SetChatSessions(demoSessions));
+  /**
+   * Restore persisted chat state (e.g. from IndexedDB)
+   *
+   * Reset fields that we don't care about saving
+   */
+  @Action(RestoreChatState)
+  restoreChatState(
+    ctx: StateContext<ChatStateModel>,
+    action: RestoreChatState,
+  ) {
+    ctx.patchState({ ...action.state, loading: false });
   }
 
   /**

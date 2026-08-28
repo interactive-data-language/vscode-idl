@@ -11,7 +11,11 @@ import {
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withHashLocation } from '@angular/router';
-import { chatMarkdownFactory, ChatState } from '@idl/ngx/chat';
+import {
+  AppStorageService,
+  chatMarkdownFactory,
+  ChatState,
+} from '@idl/ngx/chat';
 import { ElectronConfigService } from '@idl/ngx/electron';
 import { ThemeState } from '@idl/ngx/theme';
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
@@ -25,7 +29,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideAppInitializer(() => inject(ElectronConfigService).init()),
+    provideAppInitializer(() => inject(AppStorageService).init()),
     provideRouter(appRoutes, withHashLocation()),
+
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
     provideStore(

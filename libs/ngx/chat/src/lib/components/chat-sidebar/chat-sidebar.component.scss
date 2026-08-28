@@ -24,3 +24,12 @@
 mat-nav-list {
   padding-top: 0;
 }
+
+.sidebar-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  // padding-top: 32px;
+}

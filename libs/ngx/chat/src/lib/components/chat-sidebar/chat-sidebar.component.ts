@@ -13,16 +13,11 @@ import { ChatSession } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
 
 import { ChatLayoutService } from '../../services/chat-layout.service';
-import {
-  AddChatSession,
-  LoadChatSessions,
-  SelectChatSession,
-} from '../../state/chat.actions';
+import { AddChatSession, SelectChatSession } from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
 
 /**
  * Sidebar component displaying the list of chat sessions.
- * Uses NGXS for state management.
  */
 @Component({
   selector: 'ngx-chat-sidebar',
@@ -60,9 +55,10 @@ export class ChatSidebarComponent implements OnInit {
 
   private readonly chatLayoutService = inject(ChatLayoutService);
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
     // Load chat sessions on component initialization
-    this.store.dispatch(new LoadChatSessions());
+    // this.store.dispatch(new LoadTestChatSessions());
   }
 
   /**

@@ -1,10 +1,15 @@
-import { ChatMessage, ChatPromptType, ChatSession } from '@idl/types/chat';
+import {
+  ChatMessage,
+  ChatPromptType,
+  ChatSession,
+  ChatStateModel,
+} from '@idl/types/chat';
 
 /**
  * Load all chat sessions
  */
-export class LoadChatSessions {
-  static readonly type = '[Chat] Load Sessions';
+export class LoadTestChatSessions {
+  static readonly type = '[Chat] Load Test Sessions';
 }
 
 /**
@@ -67,6 +72,14 @@ export class SetSessionPrompt {
     public sessionId: string,
     public prompt: ChatPromptType,
   ) {}
+}
+
+/**
+ * Restore persisted chat state (e.g. from IndexedDB)
+ */
+export class RestoreChatState {
+  static readonly type = '[Chat] Restore State';
+  constructor(public state: Partial<ChatStateModel>) {}
 }
 
 /**

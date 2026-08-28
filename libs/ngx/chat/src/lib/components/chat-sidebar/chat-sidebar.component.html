@@ -14,12 +14,12 @@
   <mat-divider />
 
   @if (loading()) {
-    <div>
+    <div class="sidebar-empty-state">
       <mat-icon>sync</mat-icon>
       <p>Loading chats...</p>
     </div>
   } @else if (sessions().length === 0) {
-    <div>
+    <div class="sidebar-empty-state">
       <p>No chats yet</p>
     </div>
   } @else {

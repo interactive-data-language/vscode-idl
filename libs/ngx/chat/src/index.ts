@@ -11,8 +11,8 @@ export * from './lib/components/chat-sidebar/chat-sidebar.component';
 
 // State Management
 export * from './lib/state/chat.actions';
-export * from './lib/state/chat.model';
 export * from './lib/state/chat.state';
 
 // Services
+export * from './lib/services/app-storage.service';
 export * from './lib/services/chat-api.service';
