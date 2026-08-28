@@ -1,5 +1,5 @@
 export const GITHUB_TOOL_DISPLAY_NAMES = {
-  view: 'View',
+  view: 'Read File',
   create: 'Create File or Folder',
   web_fetch: 'Web Fetch',
   skill: 'Invoke Skill',
