@@ -21,21 +21,12 @@ import {
   SetSelectedModel,
   SetSessionPrompt,
 } from './chat.actions';
+import { DEFAULT_STATE } from './default-state.interface';
 import { TEST_CHAT_SESSIONS } from './test-chat-sessions.interface';
-
-/**
- * Default state for the chat feature
- */
-const defaultState: ChatStateModel = {
-  sessions: [],
-  pendingPrompt: 'idl-envi',
-  loading: false,
-  selectedModel: 'gpt-5.4', // Default to cheapest model
-};
 
 @State<ChatStateModel>({
   name: 'chat',
-  defaults: defaultState,
+  defaults: DEFAULT_STATE,
 })
 @Injectable()
 export class ChatState {
