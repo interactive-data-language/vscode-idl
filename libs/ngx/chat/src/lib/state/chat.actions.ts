@@ -89,3 +89,10 @@ export class SetDefaultInstructions {
   static readonly type = '[Chat] Set Default Instructions';
   constructor(public instructions: ChatInstructionType) {}
 }
+
+/**
+ * Reset the entire application state back to its default value
+ */
+export class ResetApplicationState {
+  static readonly type = '[Chat] Reset Application State';
+}

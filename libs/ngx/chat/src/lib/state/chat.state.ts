@@ -6,6 +6,7 @@ import {
   ChatStateModel,
 } from '@idl/types/chat';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { copy } from 'fast-copy';
 import { nanoid } from 'nanoid';
 
 import { ChatApiService } from '../services/chat-api.service';
@@ -14,6 +15,7 @@ import {
   AddMessageToSession,
   DeleteChatSession,
   LoadTestChatSessions,
+  ResetApplicationState,
   RestoreChatState,
   SelectChatSession,
   SetChatSessions,
@@ -462,6 +464,22 @@ export class ChatState {
   loadSessions(ctx: StateContext<ChatStateModel>) {
     ctx.patchState({ loading: true });
     ctx.dispatch(new SetChatSessions(TEST_CHAT_SESSIONS));
+  }
+
+  /**
+   * Reset the entire application state back to its default value
+   */
+  @Action(ResetApplicationState)
+  resetApplicationState(ctx: StateContext<ChatStateModel>) {
+    // copy default state
+    const newState = copy(DEFAULT_STATE);
+
+    // make sure that default instructions persist because we loaded from
+    // a REST API
+    newState.defaultInstructions = ctx.getState().defaultInstructions;
+
+    // update state
+    ctx.setState(newState);
   }
 
   /**

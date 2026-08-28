@@ -19,8 +19,9 @@ const CHAT_SAVE_DEBOUNCE_MS = 300;
 @Injectable({ providedIn: 'root' })
 export class AppStorageService {
   /** Flag to disable storage service */
-  private enabled = false;
+  private enabled = true;
 
+  /** Reference to the data store */
   private readonly store = inject(Store);
 
   /**
