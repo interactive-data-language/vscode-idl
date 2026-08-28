@@ -131,6 +131,11 @@ export interface ChatStateModel {
    * All available chat sessions
    */
   sessions: ChatSession[];
+
+  /**
+   * Version for our chat state - handle migration between versions of app
+   */
+  version: '1.0.0';
 }
 
 // ==============================================================================
