@@ -3,8 +3,12 @@ import { inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
-/** Viewport width below which the sidebar collapses into a full-screen overlay */
-const MOBILE_BREAKPOINT = '(max-width: 599.98px)';
+/**
+ * Viewport width below which the sidebar collapses into a full-screen overlay.
+ * Keep this value in sync with the `@media (max-width: ...)` query in
+ * chat-landing.component.scss — both must always match.
+ */
+const MOBILE_BREAKPOINT = '(max-width: 849.98px)';
 
 /**
  * Tracks responsive layout state for the chat UI (mobile sidebar overlay behavior).

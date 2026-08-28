@@ -23,8 +23,8 @@
   width: 280px;
 }
 
-// Below this width, the sidebar becomes a full-screen overlay (see ChatLayoutService)
-@media (max-width: 599.98px) {
+// Keep in sync with MOBILE_BREAKPOINT in chat-layout.service.ts — both must always match
+@media (max-width: 849.98px) {
   .chat-sidenav {
     width: 100%;
   }
