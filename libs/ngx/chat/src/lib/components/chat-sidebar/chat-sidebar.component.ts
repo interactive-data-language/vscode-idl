@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -13,8 +14,13 @@ import { ChatSession } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
 
 import { ChatLayoutService } from '../../services/chat-layout.service';
-import { AddChatSession, SelectChatSession } from '../../state/chat.actions';
+import {
+  AddChatSession,
+  DeleteChatSession,
+  SelectChatSession,
+} from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 /**
  * Sidebar component displaying the list of chat sessions.
@@ -27,6 +33,7 @@ import { ChatState } from '../../state/chat.state';
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
+    MatDialogModule,
   ],
   templateUrl: './chat-sidebar.component.html',
   styleUrl: './chat-sidebar.component.scss',
@@ -55,6 +62,8 @@ export class ChatSidebarComponent implements OnInit {
 
   private readonly chatLayoutService = inject(ChatLayoutService);
 
+  private readonly dialog = inject(MatDialog);
+
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
     // Load chat sessions on component initialization
@@ -77,6 +86,27 @@ export class ChatSidebarComponent implements OnInit {
     this.store.dispatch(new AddChatSession(newSession));
     this.store.dispatch(new SelectChatSession(newSession.id));
     this.chatLayoutService.closeList();
+  }
+
+  /**
+   * Confirm and delete a chat session, without selecting it
+   */
+  protected deleteSession(event: Event, sessionId: string): void {
+    event.stopPropagation();
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      data: {
+        title: 'Delete chat',
+        message: 'This chat session will be permanently deleted.',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.store.dispatch(new DeleteChatSession(sessionId));
+      }
+    });
   }
 
   /**

@@ -36,6 +36,14 @@
           <div matListItemLine>
             {{ formatTime(session.lastMessageAt) }}
           </div>
+          <button
+            mat-icon-button
+            matListItemMeta
+            aria-label="Delete chat"
+            (click)="deleteSession($event, session.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
         </mat-list-item>
       }
     </mat-nav-list>
