@@ -16,4 +16,3 @@ export * from './lib/state/chat.state';
 
 // Services
 export * from './lib/services/chat-api.service';
-export * from './lib/services/example-prompts.service';

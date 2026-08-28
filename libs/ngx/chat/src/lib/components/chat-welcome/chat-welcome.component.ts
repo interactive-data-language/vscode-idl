@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
+  OnInit,
   output,
+  signal,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
-import { ExamplePromptsService } from '../../services/example-prompts.service';
+import { ChatApiService } from '../../services/chat-api.service';
 import { GetRandomExamplePrompts } from './get-random-example-prompts';
 
 /**
@@ -28,13 +29,11 @@ const EXAMPLE_PROMPT_COUNT = 4;
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class ChatWelcomeComponent {
+export class ChatWelcomeComponent implements OnInit {
   /**
    * Emits the prompt text when an example prompt is clicked
    */
   readonly promptSelected = output<string>();
-
-  private readonly examplePromptsService = inject(ExamplePromptsService);
 
   /**
    * Randomly-selected example prompts to display, split into the full
@@ -42,24 +41,46 @@ export class ChatWelcomeComponent {
    * (only the text before the newline, if one is present, hiding the
    * placeholder file path that follows it)
    */
-  protected readonly examplePrompts = computed(() =>
-    GetRandomExamplePrompts(
-      this.examplePromptsService.prompts(),
-      EXAMPLE_PROMPT_COUNT,
-    ).map((prompt) => {
-      // check for new line character (multi-line prompts should only show the first one)
-      const newlineIdx = prompt.indexOf('\n');
-      return {
-        full: prompt,
-        display: newlineIdx === -1 ? prompt : prompt.slice(0, newlineIdx),
-      };
-    }),
-  );
+  protected readonly examplePrompts = signal<
+    { full: string; display: string }[]
+  >([]);
+
+  private readonly chatApiService = inject(ChatApiService);
+
+  ngOnInit() {
+    this.loadExamplePrompts();
+  }
 
   /**
    * Handle a click on an example prompt
    */
   protected onPromptClick(prompt: string): void {
     this.promptSelected.emit(prompt);
+  }
+
+  /**
+   * Load example prompts from the API and pick a random subset to display
+   */
+  private loadExamplePrompts() {
+    this.chatApiService.getExamplePrompts().subscribe({
+      next: (response) => {
+        this.examplePrompts.set(
+          GetRandomExamplePrompts(response.prompts, EXAMPLE_PROMPT_COUNT).map(
+            (prompt) => {
+              // check for new line character (multi-line prompts should only show the first one)
+              const newlineIdx = prompt.indexOf('\n');
+              return {
+                full: prompt,
+                display:
+                  newlineIdx === -1 ? prompt : prompt.slice(0, newlineIdx),
+              };
+            },
+          ),
+        );
+      },
+      error: (error) => {
+        console.error('Failed to load example prompts:', error);
+      },
+    });
   }
 }
