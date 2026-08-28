@@ -26,7 +26,7 @@ import {
  */
 const defaultState: ChatStateModel = {
   sessions: [],
-  pendingPrompt: 'envi',
+  pendingPrompt: 'idl-envi',
   loading: false,
   selectedModel: 'gpt-5.4', // Default to cheapest model
 };
