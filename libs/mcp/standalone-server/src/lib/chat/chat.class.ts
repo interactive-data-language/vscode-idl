@@ -2,8 +2,9 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
 import type {
   AvailableModel,
+  ChatInstructionsResponse,
+  ChatInstructionType,
   ChatMessageRequest,
-  ChatPromptType,
   ChatStreamChunk,
   ExamplePrompt,
   TodoItem,
@@ -14,6 +15,10 @@ import { readFileSync } from 'fs';
 import OpenAI from 'openai';
 import { join } from 'path';
 
+import {
+  CHAT_INSTRUCTION_OPTIONS,
+  DEFAULT_CHAT_INSTRUCTIONS,
+} from '../helpers/chat-instructions.interface';
 import { EXAMPLE_PROMPTS } from '../helpers/example-prompts.interface';
 import { CopilotChatFramework } from './copilot/copilot-chat-framework.class';
 import { LangChainChatFramework } from './langchain/langchain-chat-framework.class';
@@ -182,6 +187,17 @@ export class Chat {
   }
 
   /**
+   * Lists the configured chat instruction options and the instructions that
+   * should be selected by default
+   */
+  listChatInstructions(): ChatInstructionsResponse {
+    return {
+      options: CHAT_INSTRUCTION_OPTIONS,
+      defaultInstructions: DEFAULT_CHAT_INSTRUCTIONS,
+    };
+  }
+
+  /**
    * Lists the configured example prompts shown on the chat welcome screen
    *
    * Lives here so we could fetch from a server with some kind of default configuration
@@ -233,11 +249,11 @@ export class Chat {
   }
 
   /**
-   * Load instruction file content for the given prompt type.
+   * Load instruction file content for the given instruction type.
    */
-  loadInstructions(prompt: 'todo' | ChatPromptType): string {
+  loadInstructions(instructions: 'todo' | ChatInstructionType): string {
     const base = 'extension/agents/instructions';
-    switch (prompt) {
+    switch (instructions) {
       /**
        * ENVI instructions
        */
@@ -277,10 +293,10 @@ export class Chat {
   /**
    * Loads multiple instructions and joins them together
    */
-  loadManyInstructions(prompts: ('todo' | ChatPromptType)[]) {
+  loadManyInstructions(instructions: ('todo' | ChatInstructionType)[]) {
     const parts: string[] = [];
-    for (let i = 0; i < prompts.length; i++) {
-      parts.push(this.loadInstructions(prompts[i]));
+    for (let i = 0; i < instructions.length; i++) {
+      parts.push(this.loadInstructions(instructions[i]));
     }
     return parts.join('\n\n---\n\n');
   }

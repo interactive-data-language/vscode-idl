@@ -68,7 +68,7 @@ export class ChatSidebarComponent implements OnInit {
     const newSession: ChatSession = {
       id: `${Date.now()}`,
       title: 'New Chat',
-      prompt: 'envi',
+      instructions: 'envi',
       createdAt: new Date(),
       lastMessageAt: new Date(),
       messageCount: 0,

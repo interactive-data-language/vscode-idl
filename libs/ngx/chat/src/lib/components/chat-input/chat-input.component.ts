@@ -24,8 +24,8 @@ import {
   SelectChatSession,
 } from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
+import { ChatInstructionsSelectorComponent } from '../chat-instructions-selector/chat-instructions-selector.component';
 import { ChatModelSelectorComponent } from '../chat-model-selector/chat-model-selector.component';
-import { ChatPromptSelectorComponent } from '../chat-prompt-selector/chat-prompt-selector.component';
 
 /**
  * Input component for typing and sending chat messages.
@@ -41,7 +41,7 @@ import { ChatPromptSelectorComponent } from '../chat-prompt-selector/chat-prompt
     MatButtonModule,
     MatIconModule,
     TextFieldModule,
-    ChatPromptSelectorComponent,
+    ChatInstructionsSelectorComponent,
     ChatModelSelectorComponent,
   ],
   templateUrl: './chat-input.component.html',
@@ -122,7 +122,7 @@ export class ChatInputComponent {
         title: 'New Chat',
         createdAt: new Date(),
         lastMessageAt: new Date(),
-        prompt: 'envi',
+        instructions: 'envi',
         messageCount: 0,
         status: 'ready',
         messages: [],

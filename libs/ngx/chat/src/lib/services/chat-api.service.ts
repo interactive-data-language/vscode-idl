@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ElectronConfigService } from '@idl/ngx/electron';
 import type {
   AvailableModelsResponse,
+  ChatInstructionsResponse,
   ChatMessageRequest,
   ChatStreamChunk,
   ExamplePromptsResponse,
@@ -33,6 +34,15 @@ export class ChatApiService {
    */
   getAvailableModels(): Observable<AvailableModelsResponse> {
     return this.http.get<AvailableModelsResponse>(`${this.baseUrl}/models`);
+  }
+
+  /**
+   * Get the configured list of chat instruction options and the default selection
+   */
+  getChatInstructions(): Observable<ChatInstructionsResponse> {
+    return this.http.get<ChatInstructionsResponse>(
+      `${this.baseUrl}/instructions`,
+    );
   }
 
   /**

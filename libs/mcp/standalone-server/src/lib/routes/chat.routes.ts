@@ -1,5 +1,6 @@
 import type {
   AvailableModelsResponse,
+  ChatInstructionsResponse,
   ChatMessageRequest,
   ExamplePromptsResponse,
 } from '@idl/types/chat';
@@ -59,6 +60,26 @@ export function createChatRoutes(chat: Chat): Router {
           error instanceof Error
             ? error.message
             : 'Failed to list example prompts',
+      });
+    }
+  });
+
+  /**
+   * GET /api/chat/instructions
+   * Returns the configured list of chat instruction options and the default selection.
+   */
+  router.get('/instructions', (_req, res) => {
+    try {
+      const resp: ChatInstructionsResponse = chat.listChatInstructions();
+
+      res.json(resp);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Failed to list instructions',
       });
     }
   });

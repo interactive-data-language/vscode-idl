@@ -17,9 +17,9 @@ import {
   RestoreChatState,
   SelectChatSession,
   SetChatSessions,
-  SetPendingPrompt,
+  SetDefaultInstructions,
   SetSelectedModel,
-  SetSessionPrompt,
+  SetSessionInstructions,
 } from './chat.actions';
 import { DEFAULT_STATE } from './default-state.interface';
 import { TEST_CHAT_SESSIONS } from './test-chat-sessions.interface';
@@ -41,19 +41,19 @@ export class ChatState {
   private readonly chatApiService = inject(ChatApiService);
 
   /**
+   * Get the default instructions
+   */
+  @Selector()
+  static defaultInstructions(state: ChatStateModel) {
+    return state.defaultInstructions;
+  }
+
+  /**
    * Get loading state
    */
   @Selector()
   static loading(state: ChatStateModel): boolean {
     return state.loading;
-  }
-
-  /**
-   * Get the pending prompt (selected before any session exists)
-   */
-  @Selector()
-  static pendingPrompt(state: ChatStateModel) {
-    return state.pendingPrompt;
   }
 
   /**
@@ -186,7 +186,7 @@ export class ChatState {
         sessionId: action.sessionId,
         message: action.message.content.map((c) => c.payload).join('\n'),
         model: state.selectedModel,
-        prompt: targetSession.prompt,
+        instructions: targetSession.instructions,
         conversationHistory,
         currentTodos: targetSession.todos ?? [],
       })
@@ -414,12 +414,12 @@ export class ChatState {
   @Action(AddChatSession)
   addSession(ctx: StateContext<ChatStateModel>, action: AddChatSession) {
     const state = ctx.getState();
-    const session = state.pendingPrompt
-      ? { ...action.session, prompt: state.pendingPrompt }
+    const session = state.defaultInstructions
+      ? { ...action.session, instructions: state.defaultInstructions }
       : action.session;
     ctx.patchState({
       sessions: [...state.sessions, session],
-      pendingPrompt: undefined,
+      defaultInstructions: undefined,
     });
   }
 
@@ -471,14 +471,14 @@ export class ChatState {
   }
 
   /**
-   * Set pending prompt before a session exists
+   * Set pending instructions before a session exists
    */
-  @Action(SetPendingPrompt)
-  setPendingPrompt(
+  @Action(SetDefaultInstructions)
+  setDefaultInstructions(
     ctx: StateContext<ChatStateModel>,
-    action: SetPendingPrompt,
+    action: SetDefaultInstructions,
   ) {
-    ctx.patchState({ pendingPrompt: action.prompt });
+    ctx.patchState({ defaultInstructions: action.instructions });
   }
 
   /**
@@ -495,17 +495,19 @@ export class ChatState {
   }
 
   /**
-   * Set the prompt type for a specific chat session
+   * Set the instruction type for a specific chat session
    */
-  @Action(SetSessionPrompt)
-  setSessionPrompt(
+  @Action(SetSessionInstructions)
+  setSessionInstructions(
     ctx: StateContext<ChatStateModel>,
-    action: SetSessionPrompt,
+    action: SetSessionInstructions,
   ) {
     const state = ctx.getState();
     ctx.patchState({
       sessions: state.sessions.map((s) =>
-        s.id === action.sessionId ? { ...s, prompt: action.prompt } : s,
+        s.id === action.sessionId
+          ? { ...s, instructions: action.instructions }
+          : s,
       ),
     });
   }

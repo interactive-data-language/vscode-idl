@@ -1,6 +1,6 @@
 import {
+  ChatInstructionType,
   ChatMessage,
-  ChatPromptType,
   ChatSession,
   ChatStateModel,
 } from '@idl/types/chat';
@@ -64,13 +64,13 @@ export class SetSelectedModel {
 }
 
 /**
- * Set the prompt type for a specific chat session
+ * Set the instruction type for a specific chat session
  */
-export class SetSessionPrompt {
-  static readonly type = '[Chat] Set Session Prompt';
+export class SetSessionInstructions {
+  static readonly type = '[Chat] Set Session Instructions';
   constructor(
     public sessionId: string,
-    public prompt: ChatPromptType,
+    public instructions: ChatInstructionType,
   ) {}
 }
 
@@ -83,9 +83,9 @@ export class RestoreChatState {
 }
 
 /**
- * Set the pending prompt type before a session is created
+ * Set the default instructions when making a new session
  */
-export class SetPendingPrompt {
-  static readonly type = '[Chat] Set Pending Prompt';
-  constructor(public prompt: ChatPromptType) {}
+export class SetDefaultInstructions {
+  static readonly type = '[Chat] Set Default Instructions';
+  constructor(public instructions: ChatInstructionType) {}
 }

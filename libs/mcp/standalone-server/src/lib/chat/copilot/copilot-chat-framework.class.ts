@@ -349,7 +349,10 @@ export class CopilotChatFramework {
         sections: {
           custom_instructions: {
             action: 'append',
-            content: this.parent.loadManyInstructions(['todo', request.prompt]),
+            content: this.parent.loadManyInstructions([
+              'todo',
+              request.instructions,
+            ]),
           },
         },
       },

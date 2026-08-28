@@ -7,7 +7,7 @@ import { nanoid } from 'nanoid';
 export const TEST_CHAT_SESSIONS: ChatSession[] = [
   {
     id: nanoid(),
-    prompt: 'envi',
+    instructions: 'envi',
     title: 'Welcome Chat',
     createdAt: new Date(),
     lastMessageAt: new Date(),
@@ -49,7 +49,7 @@ export const TEST_CHAT_SESSIONS: ChatSession[] = [
   },
   {
     id: nanoid(),
-    prompt: 'envi',
+    instructions: 'envi',
     title: 'Project Discussion',
     createdAt: new Date(Date.now() - 86400000),
     lastMessageAt: new Date(Date.now() - 3600000),

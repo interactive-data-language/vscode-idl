@@ -1,7 +1,7 @@
 /**
- * Prompt type controlling which instruction file is injected as a system message
+ * Instruction type controlling which instruction file is injected as a system message
  */
-export type ChatPromptType = 'envi' | 'idl-envi' | 'idl' | 'none';
+export type ChatInstructionType = 'envi' | 'idl-envi' | 'idl' | 'none';
 
 /**
  * Status of a to-do item in the LLM task list
@@ -73,6 +73,11 @@ export interface ChatSession {
   id: string;
 
   /**
+   * Instruction type selected for this session
+   */
+  instructions: ChatInstructionType;
+
+  /**
    * Timestamp of the last message in the chat
    */
   lastMessageAt: Date;
@@ -86,11 +91,6 @@ export interface ChatSession {
    * Chat messages
    */
   messages: ChatMessage[];
-
-  /**
-   * Prompt type selected for this session
-   */
-  prompt: ChatPromptType;
 
   /**
    * Status of the chat
@@ -113,14 +113,14 @@ export interface ChatSession {
  */
 export interface ChatStateModel {
   /**
+   * Instruction type selected before a session is created
+   */
+  defaultInstructions?: ChatInstructionType;
+
+  /**
    * Whether chat sessions are currently being loaded
    */
   loading: boolean;
-
-  /**
-   * Prompt type selected before a session is created
-   */
-  pendingPrompt?: ChatPromptType;
 
   /**
    * Currently selected model for chat completions
@@ -150,12 +150,12 @@ export interface ChatMessageRequest {
   conversationHistory: ChatMessage[];
   /** Current to-do list state, sent from the frontend so the server remains stateless */
   currentTodos?: TodoItem[];
+  /** Instruction type to load as a system instruction */
+  instructions: ChatInstructionType;
   /** The user's message content */
   message: string;
   /** The model to use for completion (e.g., 'gpt-4o-mini') */
   model: string;
-  /** Prompt type to load as a system instruction */
-  prompt: ChatPromptType;
   /** Unique identifier for the chat session */
   sessionId: string;
 }
@@ -289,4 +289,27 @@ export type ExamplePrompt = string | string[];
 export interface ExamplePromptsResponse {
   /** All configured example prompts */
   prompts: ExamplePrompt[];
+}
+
+/**
+ * A single selectable chat instruction option
+ */
+export interface ChatInstructionOption {
+  /** Description shown to help users pick the right option */
+  description: string;
+  /** Instruction type identifier */
+  id: ChatInstructionType;
+  /** Display name for the option */
+  name: string;
+}
+
+/**
+ * Response containing the configured list of chat instruction options and the
+ * instruction type that should be selected by default
+ */
+export interface ChatInstructionsResponse {
+  /** Instruction type selected by default */
+  defaultInstructions: ChatInstructionType;
+  /** All configured chat instruction options */
+  options: ChatInstructionOption[];
 }

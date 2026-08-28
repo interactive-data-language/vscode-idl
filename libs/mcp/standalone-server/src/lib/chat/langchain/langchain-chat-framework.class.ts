@@ -346,9 +346,9 @@ export class LangChainChatFramework {
       new SystemMessage(this.parent.loadInstructions('todo')),
     ];
 
-    if (request.prompt !== 'none') {
+    if (request.instructions !== 'none') {
       messages.push(
-        new SystemMessage(this.parent.loadInstructions(request.prompt)),
+        new SystemMessage(this.parent.loadInstructions(request.instructions)),
       );
     }
 
