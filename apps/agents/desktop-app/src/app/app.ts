@@ -66,6 +66,7 @@ export default class App {
       minWidth: 392,
       minHeight: 700,
       show: false,
+      icon: join(__dirname, 'assets', 'icon.png'),
       webPreferences: {
         contextIsolation: true,
         backgroundThrottling: false,
