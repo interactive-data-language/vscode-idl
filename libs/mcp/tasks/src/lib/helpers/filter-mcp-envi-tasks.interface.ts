@@ -59,8 +59,14 @@ export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   // not needed
   runtask: undefined,
 
+  // not needed
+  startenviserver: undefined,
+
   // LLM can do this automatically
   stringprocessing: undefined,
+
+  // not agent-enabled yet
+  submitscheduledjob: undefined,
 
   // duplicate - should use ROI statistics
   trainingclassificationstatistics: undefined,
