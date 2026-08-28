@@ -2,6 +2,7 @@ import {
   IStartAgentsServerResult,
   StartAgentsServer,
 } from '@idl/mcp/standalone-server';
+import { getPorts } from '@idl/server-helpers';
 import {
   DEFAULT_ELECTRON_CONFIG,
   ELECTRON_EVENTS,
@@ -134,6 +135,9 @@ export default class App {
 
     // Start the embedded agents server (MCP + chat routes)
     try {
+      // get port to use
+      App.config.server.port = await getPorts();
+
       App.agentsServer = await StartAgentsServer(App.config);
     } catch (err) {
       console.error('[desktop-app] Failed to start agents server:', err);
