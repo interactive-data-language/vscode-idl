@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngxs/store';
 
+import { ChatLayoutService } from '../../services/chat-layout.service';
 import { ChatState } from '../../state/chat.state';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
@@ -40,6 +41,8 @@ import { ChatWelcomeComponent } from '../chat-welcome/chat-welcome.component';
   standalone: true,
 })
 export class ChatContentComponent {
+  protected readonly chatLayoutService = inject(ChatLayoutService);
+
   /**
    * Currently selected chat session
    */

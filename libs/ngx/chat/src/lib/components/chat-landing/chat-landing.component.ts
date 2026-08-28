@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
+import { ChatLayoutService } from '../../services/chat-layout.service';
 import { ChatContentComponent } from '../chat-content/chat-content.component';
 import { ChatHeaderComponent } from '../chat-header/chat-header.component';
 import { ChatSidebarComponent } from '../chat-sidebar/chat-sidebar.component';
@@ -24,4 +25,6 @@ import { ChatSidebarComponent } from '../chat-sidebar/chat-sidebar.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class ChatLandingComponent {}
+export class ChatLandingComponent {
+  protected readonly chatLayoutService = inject(ChatLayoutService);
+}

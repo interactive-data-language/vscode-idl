@@ -22,3 +22,10 @@
 .chat-sidenav {
   width: 280px;
 }
+
+// Below this width, the sidebar becomes a full-screen overlay (see ChatLayoutService)
+@media (max-width: 599.98px) {
+  .chat-sidenav {
+    width: 100%;
+  }
+}

@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { ChatSession } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
 
+import { ChatLayoutService } from '../../services/chat-layout.service';
 import {
   AddChatSession,
   LoadChatSessions,
@@ -57,6 +58,8 @@ export class ChatSidebarComponent implements OnInit {
    */
   protected readonly sessions = this.store.selectSignal(ChatState.sessions);
 
+  private readonly chatLayoutService = inject(ChatLayoutService);
+
   ngOnInit(): void {
     // Load chat sessions on component initialization
     this.store.dispatch(new LoadChatSessions());
@@ -78,6 +81,7 @@ export class ChatSidebarComponent implements OnInit {
     };
     this.store.dispatch(new AddChatSession(newSession));
     this.store.dispatch(new SelectChatSession(newSession.id));
+    this.chatLayoutService.closeList();
   }
 
   /**
@@ -100,5 +104,6 @@ export class ChatSidebarComponent implements OnInit {
    */
   protected selectSession(sessionId: string): void {
     this.store.dispatch(new SelectChatSession(sessionId));
+    this.chatLayoutService.closeList();
   }
 }

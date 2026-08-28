@@ -1,15 +1,17 @@
 <div class="content-container">
   @if (!showWelcome()) {
     <div class="chat-messages">
-      <div class="session-header">
-        <div class="header-inner">
-          <h2>{{ selectedSession()?.title }}</h2>
-          <p class="session-info">
-            {{ selectedSession()?.messageCount }} messages • Created
-            {{ selectedSession()?.createdAt | date: 'short' }}
-          </p>
+      @if (!chatLayoutService.isMobile()) {
+        <div class="session-header">
+          <div class="header-inner">
+            <h2>{{ selectedSession()?.title }}</h2>
+            <p class="session-info">
+              {{ selectedSession()?.messageCount }} messages • Created
+              {{ selectedSession()?.createdAt | date: 'short' }}
+            </p>
+          </div>
         </div>
-      </div>
+      }
 
       @if (todos().length > 0) {
         <div class="todo-row">

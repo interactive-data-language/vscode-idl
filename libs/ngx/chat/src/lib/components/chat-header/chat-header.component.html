@@ -1,5 +1,20 @@
 <mat-toolbar color="primary" class="chat-header-toolbar">
-  <span class="header-title">IDL Agent and ENVI Agent</span>
+  @if (chatLayoutService.isMobile()) {
+    <button
+      mat-icon-button
+      matTooltip="Show chats"
+      (click)="chatLayoutService.openList()"
+    >
+      <mat-icon>format_list_bulleted</mat-icon>
+    </button>
+  }
+  <span class="header-title">
+    {{
+      chatLayoutService.isMobile() && selectedSession()
+        ? selectedSession()?.title
+        : 'IDL Agent and ENVI Agent'
+    }}
+  </span>
   <span class="spacer"></span>
   <button
     mat-icon-button
