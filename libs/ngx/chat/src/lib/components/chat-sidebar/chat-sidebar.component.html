@@ -24,7 +24,7 @@
     </div>
   } @else {
     <mat-nav-list>
-      @for (session of sessions(); track session) {
+      @for (session of sessions(); track session.id) {
         <mat-list-item
           (click)="selectSession(session.id)"
           [activated]="selectedSessionId() === session.id"
