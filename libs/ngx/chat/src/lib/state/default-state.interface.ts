@@ -6,5 +6,6 @@ import { ChatStateModel } from '@idl/types/chat';
 export const DEFAULT_STATE: ChatStateModel = {
   sessions: [],
   loading: false,
+  selectedInstructions: 'idl-envi',
   selectedModel: 'gpt-5.4', // Default to cheapest model
 };

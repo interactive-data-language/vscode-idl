@@ -16,10 +16,7 @@ import type {
 import { Store } from '@ngxs/store';
 
 import { ChatApiService } from '../../services/chat-api.service';
-import {
-  SetDefaultInstructions,
-  SetSessionInstructions,
-} from '../../state/chat.actions';
+import { SetSelectedInstructions } from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
 
 /**
@@ -34,7 +31,7 @@ import { ChatState } from '../../state/chat.state';
 })
 export class ChatInstructionsSelectorComponent implements OnInit {
   /**
-   * Available instruction options, loaded from the API
+   * Available instruction options from the API
    */
   readonly instructionOptions = signal<ChatInstructionOption[]>([]);
 
@@ -60,27 +57,13 @@ export class ChatInstructionsSelectorComponent implements OnInit {
   );
 
   /**
-   * Default instructions, as a signal
+   * Currently selected instructions from state
    */
-  private readonly defaultInstructions = this.store.selectSignal(
-    ChatState.defaultInstructions,
-  );
-
-  /**
-   * Currently selected instructions — from the active session, or the pending selection
-   */
-  readonly selectedInstructions = computed(
-    () => this.selectedSession()?.instructions ?? this.defaultInstructions(),
+  readonly selectedInstructions = this.store.selectSignal(
+    ChatState.selectedInstructions,
   );
 
   private readonly chatApiService = inject(ChatApiService);
-
-  /**
-   * Currently selected session ID
-   */
-  private readonly selectedSessionId = this.store.selectSignal(
-    ChatState.selectedSessionId,
-  );
 
   ngOnInit() {
     this.loadInstructionOptions();
@@ -90,31 +73,30 @@ export class ChatInstructionsSelectorComponent implements OnInit {
    * Handle instructions selection change
    */
   onInstructionsChange(value: ChatInstructionType) {
-    const sessionId = this.selectedSessionId();
-    if (sessionId) {
-      this.store.dispatch(new SetSessionInstructions(sessionId, value));
-    } else {
-      this.store.dispatch(new SetDefaultInstructions(value));
-    }
+    this.store.dispatch(new SetSelectedInstructions(value));
   }
 
   /**
-   * Load the configured instruction options from the API and select the
-   * default when nothing has been chosen yet
+   * Load the configured instruction options from the API
    */
   private loadInstructionOptions() {
     this.loading.set(true);
     this.chatApiService.getChatInstructions().subscribe({
       next: (response) => {
-        this.instructionOptions.set(response.options);
         if (
-          !this.selectedSessionId() &&
-          this.defaultInstructions() === undefined
+          response.options
+            .map((option) => option.id)
+            .includes(response.defaultInstructions)
         ) {
           this.store.dispatch(
-            new SetDefaultInstructions(response.defaultInstructions),
+            new SetSelectedInstructions(response.defaultInstructions),
+          );
+        } else {
+          this.store.dispatch(
+            new SetSelectedInstructions(response.options[0].id),
           );
         }
+        this.instructionOptions.set(response.options);
         this.loading.set(false);
       },
       error: (error) => {

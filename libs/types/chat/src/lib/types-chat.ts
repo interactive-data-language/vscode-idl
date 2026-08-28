@@ -73,11 +73,6 @@ export interface ChatSession {
   id: string;
 
   /**
-   * Instruction type selected for this session
-   */
-  instructions: ChatInstructionType;
-
-  /**
    * Timestamp of the last message in the chat
    */
   lastMessageAt: Date;
@@ -113,14 +108,14 @@ export interface ChatSession {
  */
 export interface ChatStateModel {
   /**
-   * Instruction type selected before a session is created
-   */
-  defaultInstructions?: ChatInstructionType;
-
-  /**
    * Whether chat sessions are currently being loaded
    */
   loading: boolean;
+
+  /**
+   * Currently selected instructions for chat completions
+   */
+  selectedInstructions: ChatInstructionType;
 
   /**
    * Currently selected model for chat completions

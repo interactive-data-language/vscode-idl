@@ -14,7 +14,16 @@
       }
     </button>
   }
-  <span class="header-title">
+  <span
+    class="header-title"
+    [matTooltip]="
+      chatLayoutService.isMobile() && chatLayoutService.mobileListOpen()
+        ? ''
+        : chatLayoutService.isMobile() && selectedSession()
+          ? (selectedSession()?.title ?? '')
+          : ''
+    "
+  >
     {{
       chatLayoutService.isMobile() && chatLayoutService.mobileListOpen()
         ? 'Chats'

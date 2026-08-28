@@ -64,14 +64,11 @@ export class SetSelectedModel {
 }
 
 /**
- * Set the instruction type for a specific chat session
+ * Set the currently selected instructions for chat completions
  */
-export class SetSessionInstructions {
-  static readonly type = '[Chat] Set Session Instructions';
-  constructor(
-    public sessionId: string,
-    public instructions: ChatInstructionType,
-  ) {}
+export class SetSelectedInstructions {
+  static readonly type = '[Chat] Set Selected Instructions';
+  constructor(public instructions: ChatInstructionType) {}
 }
 
 /**
@@ -80,14 +77,6 @@ export class SetSessionInstructions {
 export class RestoreChatState {
   static readonly type = '[Chat] Restore State';
   constructor(public state: Partial<ChatStateModel>) {}
-}
-
-/**
- * Set the default instructions when making a new session
- */
-export class SetDefaultInstructions {
-  static readonly type = '[Chat] Set Default Instructions';
-  constructor(public instructions: ChatInstructionType) {}
 }
 
 /**

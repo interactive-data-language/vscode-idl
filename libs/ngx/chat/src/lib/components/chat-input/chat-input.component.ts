@@ -135,7 +135,6 @@ export class ChatInputComponent {
         title: 'New Chat',
         createdAt: new Date(),
         lastMessageAt: new Date(),
-        instructions: 'envi',
         messageCount: 0,
         status: 'ready',
         messages: [],

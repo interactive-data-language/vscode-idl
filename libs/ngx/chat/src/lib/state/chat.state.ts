@@ -6,7 +6,6 @@ import {
   ChatStateModel,
 } from '@idl/types/chat';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { copy } from 'fast-copy';
 import { nanoid } from 'nanoid';
 
 import { ChatApiService } from '../services/chat-api.service';
@@ -19,9 +18,8 @@ import {
   RestoreChatState,
   SelectChatSession,
   SetChatSessions,
-  SetDefaultInstructions,
+  SetSelectedInstructions,
   SetSelectedModel,
-  SetSessionInstructions,
 } from './chat.actions';
 import { DEFAULT_STATE } from './default-state.interface';
 import { TEST_CHAT_SESSIONS } from './test-chat-sessions.interface';
@@ -54,19 +52,19 @@ export class ChatState {
   }
 
   /**
-   * Get the default instructions
-   */
-  @Selector()
-  static defaultInstructions(state: ChatStateModel) {
-    return state.defaultInstructions;
-  }
-
-  /**
    * Get loading state
    */
   @Selector()
   static loading(state: ChatStateModel): boolean {
     return state.loading;
+  }
+
+  /**
+   * Get the currently selected instructions
+   */
+  @Selector()
+  static selectedInstructions(state: ChatStateModel) {
+    return state.selectedInstructions;
   }
 
   /**
@@ -205,7 +203,7 @@ export class ChatState {
         sessionId: action.sessionId,
         message: action.message.content.map((c) => c.payload).join('\n'),
         model: state.selectedModel,
-        instructions: targetSession.instructions,
+        instructions: state.selectedInstructions,
         conversationHistory,
         currentTodos: targetSession.todos ?? [],
       })
@@ -433,12 +431,8 @@ export class ChatState {
   @Action(AddChatSession)
   addSession(ctx: StateContext<ChatStateModel>, action: AddChatSession) {
     const state = ctx.getState();
-    const session = state.defaultInstructions
-      ? { ...action.session, instructions: state.defaultInstructions }
-      : action.session;
     ctx.patchState({
-      sessions: [...state.sessions, session],
-      defaultInstructions: undefined,
+      sessions: [...state.sessions, action.session],
     });
   }
 
@@ -471,15 +465,13 @@ export class ChatState {
    */
   @Action(ResetApplicationState)
   resetApplicationState(ctx: StateContext<ChatStateModel>) {
-    // copy default state
-    const newState = copy(DEFAULT_STATE);
-
-    // make sure that default instructions persist because we loaded from
-    // a REST API
-    newState.defaultInstructions = ctx.getState().defaultInstructions;
-
-    // update state
-    ctx.setState(newState);
+    // copy default state, but keep selections since they were loaded from a REST API
+    const state = ctx.getState();
+    ctx.setState({
+      ...DEFAULT_STATE,
+      selectedInstructions: state.selectedInstructions,
+      selectedModel: state.selectedModel,
+    });
   }
 
   /**
@@ -506,14 +498,14 @@ export class ChatState {
   }
 
   /**
-   * Set pending instructions before a session exists
+   * Set the currently selected instructions for chat completions
    */
-  @Action(SetDefaultInstructions)
-  setDefaultInstructions(
+  @Action(SetSelectedInstructions)
+  setSelectedInstructions(
     ctx: StateContext<ChatStateModel>,
-    action: SetDefaultInstructions,
+    action: SetSelectedInstructions,
   ) {
-    ctx.patchState({ defaultInstructions: action.instructions });
+    ctx.patchState({ selectedInstructions: action.instructions });
   }
 
   /**
@@ -526,24 +518,6 @@ export class ChatState {
   ) {
     ctx.patchState({
       selectedModel: action.model,
-    });
-  }
-
-  /**
-   * Set the instruction type for a specific chat session
-   */
-  @Action(SetSessionInstructions)
-  setSessionInstructions(
-    ctx: StateContext<ChatStateModel>,
-    action: SetSessionInstructions,
-  ) {
-    const state = ctx.getState();
-    ctx.patchState({
-      sessions: state.sessions.map((s) =>
-        s.id === action.sessionId
-          ? { ...s, instructions: action.instructions }
-          : s,
-      ),
     });
   }
 
