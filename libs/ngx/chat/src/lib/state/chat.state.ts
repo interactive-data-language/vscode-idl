@@ -24,6 +24,14 @@ import {
 import { DEFAULT_STATE } from './default-state.interface';
 import { TEST_CHAT_SESSIONS } from './test-chat-sessions.interface';
 
+/**
+ * State management for our chat UI
+ *
+ * Note that this being saved and restored comes from these files:
+ * libs\ngx\chat\src\lib\services\app-storage.service.ts
+ * apps\agents\ui\src\app\app.config.ts
+ *
+ */
 @State<ChatStateModel>({
   name: 'chat',
   defaults: DEFAULT_STATE,
