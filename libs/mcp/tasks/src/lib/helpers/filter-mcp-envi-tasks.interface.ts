@@ -24,6 +24,7 @@ export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
 
   // will be automatically handled by MCP
   downloadfromrepository: undefined,
+  publishtorepository: undefined,
 
   // not an edit - use setrastermetadata
   editrastermetadata: undefined,
