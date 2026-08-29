@@ -45,7 +45,11 @@
         "sourcePath": "dist/apps",
         "outputPath": "dist/packages",
         "prepackageOnly": true,
-        "asar": false,
+        "asar": true,
+        "asarUnpack": [
+          "**/node_modules/@koromix/**/*",
+          "**/node_modules/@github/**/*"
+        ],
         "icon": "apps/agents/desktop-app/src/assets/icon-resized.png",
         "extraMetadata": {
           "main": "index.js",
@@ -60,7 +64,11 @@
         "frontendProject": "agents-ui",
         "sourcePath": "dist/apps",
         "outputPath": "dist/executables",
-        "asar": false,
+        "asar": true,
+        "asarUnpack": [
+          "**/node_modules/@koromix/**/*",
+          "**/node_modules/@github/**/*"
+        ],
         "icon": "apps/agents/desktop-app/src/assets/icon-resized.png",
         "extraMetadata": {
           "main": "index.js",
