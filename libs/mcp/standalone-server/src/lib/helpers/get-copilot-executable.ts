@@ -95,7 +95,7 @@ export function GetCopilotExecutable() {
     }
   } else {
     // Development mode / pure Node
-    const binaryDir = dirname(require.resolve(packageName));
+    const binaryDir = dirname(__non_webpack_require__.resolve(packageName));
     binaryPath = join(binaryDir, binaryName);
   }
   return binaryPath;
