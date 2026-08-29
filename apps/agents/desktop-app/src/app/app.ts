@@ -27,6 +27,7 @@ export default class App {
   static config = copy(DEFAULT_ELECTRON_CONFIG);
 
   static mainWindow: BrowserWindow | null = null;
+  static splashWindow: BrowserWindow | null = null;
 
   public static isDevelopmentMode() {
     const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
@@ -55,6 +56,31 @@ export default class App {
     });
   }
 
+  private static createSplashWindow() {
+    App.splashWindow = new BrowserWindow({
+      width: 258,
+      height: 451,
+      frame: false,
+      resizable: false,
+      movable: false,
+      show: false,
+      transparent: true,
+      icon: join(__dirname, 'assets', 'splash-screen.png'),
+      webPreferences: {
+        contextIsolation: true,
+      },
+    });
+    App.splashWindow.setMenu(null);
+    App.splashWindow.center();
+    App.splashWindow.loadFile(join(__dirname, 'assets', 'splash.html'));
+    App.splashWindow.once('ready-to-show', () => {
+      App.splashWindow?.show();
+    });
+    App.splashWindow.on('closed', () => {
+      App.splashWindow = null;
+    });
+  }
+
   private static initMainWindow() {
     const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
     const width = Math.min(1280, workAreaSize.width || 1280);
@@ -79,6 +105,7 @@ export default class App {
 
     // if main window is ready to show, close the splash window and show the main window
     App.mainWindow.once('ready-to-show', () => {
+      App.splashWindow?.close();
       App.mainWindow!.show();
     });
 
@@ -139,6 +166,9 @@ export default class App {
     // This method will be called when Electron has finished
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
+
+    // show a splash screen right away while the agents server starts and the main window loads
+    App.createSplashWindow();
 
     // Start the embedded agents server (MCP + chat routes)
     try {
