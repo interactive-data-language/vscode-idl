@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,6 +38,30 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 })
 export class ChatHeaderComponent {
   protected readonly chatLayoutService = inject(ChatLayoutService);
+
+  /**
+   * Title, tooltip, and whether to show the logo to display in the header,
+   * based on the current mobile/list/session state
+   */
+  protected readonly headerDisplay = computed(() => {
+    if (
+      this.chatLayoutService.isMobile() &&
+      this.chatLayoutService.mobileListOpen()
+    ) {
+      return { title: 'Chats', tooltip: '', showLogo: false };
+    }
+
+    if (this.chatLayoutService.isMobile() && this.selectedSession()) {
+      const title = this.selectedSession()?.title ?? '';
+      return { title, tooltip: title, showLogo: false };
+    }
+
+    return {
+      title: 'IDL Agent and ENVI Agent',
+      tooltip: '',
+      showLogo: true,
+    };
+  });
 
   private readonly themeService = inject(ThemeService);
 

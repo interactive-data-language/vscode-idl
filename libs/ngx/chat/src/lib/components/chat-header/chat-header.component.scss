@@ -4,6 +4,9 @@
 
 // Custom title styling (Material toolbar doesn't style content)
 .header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 20px;
   font-weight: 500;
   // allow the title to shrink and truncate instead of overflowing the toolbar
@@ -17,4 +20,10 @@
 // Custom spacer for layout (common Material pattern)
 .spacer {
   flex: 1;
+}
+
+.idl-logo {
+  max-width: 48px;
+  // height: auto;
+  // aspect-ratio: 1;
 }

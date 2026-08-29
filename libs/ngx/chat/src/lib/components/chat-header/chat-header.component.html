@@ -14,23 +14,12 @@
       }
     </button>
   }
-  <span
-    class="header-title"
-    [matTooltip]="
-      chatLayoutService.isMobile() && chatLayoutService.mobileListOpen()
-        ? ''
-        : chatLayoutService.isMobile() && selectedSession()
-          ? (selectedSession()?.title ?? '')
-          : ''
-    "
-  >
-    {{
-      chatLayoutService.isMobile() && chatLayoutService.mobileListOpen()
-        ? 'Chats'
-        : chatLayoutService.isMobile() && selectedSession()
-          ? selectedSession()?.title
-          : 'IDL Agent and ENVI Agent'
-    }}
+  <span class="header-title" [matTooltip]="headerDisplay().tooltip">
+    @if (headerDisplay().showLogo) {
+      <img src="IDL-Agent-Logo-Flag.png" class="idl-logo" />
+      <img src="enviicon.svg" class="idl-logo" />
+    }
+    {{ headerDisplay().title }}
   </span>
   <span class="spacer"></span>
   <button
