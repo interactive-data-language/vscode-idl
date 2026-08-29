@@ -10,7 +10,7 @@
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/agents/ui",
+        "outputPath": "dist/apps/agents-ui",
         "baseHref": "./",
         "browser": "apps/agents/ui/src/main.ts",
         "tsConfig": "apps/agents/ui/tsconfig.app.json",

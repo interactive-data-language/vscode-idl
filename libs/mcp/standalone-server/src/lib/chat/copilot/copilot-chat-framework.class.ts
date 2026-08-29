@@ -14,7 +14,7 @@ import type {
   TodoItem,
 } from '@idl/types/chat';
 import type { IElectronConfig } from '@idl/types/electron';
-import { join } from 'path';
+import { dirname, join } from 'path';
 
 import { GetToolDisplayName } from '../../helpers/get-tool-display-name';
 import {
@@ -38,6 +38,26 @@ const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
  */
 export const IDL_MCP_NAME = 'idl-mcp';
 
+// Check if running inside Electron without a static top-level import
+const isElectron = Boolean(
+  (process.versions as Record<string, string | undefined>)['electron'],
+);
+
+let isPackaged = false;
+let resourcesPath = '';
+
+if (isElectron) {
+  try {
+    // Dynamic require so pure Node ignores Electron if it isn't present
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { app } = require('electron');
+    isPackaged = app.isPackaged;
+    resourcesPath = (process as any).resourcesPath; // use any because this is special for electron
+  } catch {
+    // Fallback if require fails
+  }
+}
+
 /**
  * Streaming chat completion service backed by the GitHub Copilot SDK.
  *
@@ -59,6 +79,21 @@ export class CopilotChatFramework {
   constructor(parent: Chat, config: IElectronConfig) {
     this.parent = parent;
     this.config = config;
+
+    // In standard Node.js, require.resolve gives the entry point (e.g. index.js),
+    // so dirname gets the package root directory
+    const binaryDir = isPackaged
+      ? join(
+          resourcesPath,
+          'app',
+          'node_modules',
+          '@github',
+          'copilot-win32-x64',
+        )
+      : dirname(require.resolve('@github/copilot-win32-x64'));
+
+    const binaryPath = join(binaryDir, 'copilot.exe');
+
     this.client = new CopilotClient({
       /**
        * Root folder for things related to chats to live
@@ -70,13 +105,20 @@ export class CopilotChatFramework {
       // session are exposed to the model. Required for server-based usage.
       // `empty` mode requires an explicit baseDirectory for session persistence.
       mode: 'empty',
+
       /**
-       * To support electron, we have to use in-process
+       * Manually spawn the copilot exe through stdio
        *
-       * The path to spawning the CLI gets all goofy with electron bundlers,
-       * but this works for both cases
+       * This is because we have issues running natively through electron
+       *
+       * We also have webpack configured to exclude the copilot and koffi binary
+       * libraries for us
        */
-      connection: RuntimeConnection.forInProcess(),
+      connection: RuntimeConnection.forStdio({
+        path: binaryPath, // Points directly to the Electron executable
+        args: [],
+      }),
+
       // env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
       ...(this.config.agent.llm.model === 'copilot'
         ? { gitHubToken: this.config.agent.llm.config.gitHubToken }

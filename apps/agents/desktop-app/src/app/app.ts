@@ -104,7 +104,14 @@ export default class App {
     } else {
       App.mainWindow!.loadURL(
         format({
-          pathname: join(__dirname, '..', rendererAppName, 'index.html'),
+          // @angular/build:application outputs under a "browser" subfolder
+          pathname: join(
+            __dirname,
+            '..',
+            rendererAppName,
+            'browser',
+            'index.html',
+          ),
           protocol: 'file:',
           slashes: true,
         }),
@@ -165,6 +172,9 @@ export default class App {
       App.initMainWindow();
       App.loadMainWindow();
     }
+
+    // Open DevTools immediately
+    App.mainWindow?.webContents.openDevTools();
   }
 
   // boilerplate method. Can be safely deleted if not needed
