@@ -8,4 +8,5 @@ export * from './lib/mcp-tools/create-standalone-mcp-server';
 export * from './lib/mcp-tools/register-langchain-tools-for-todos';
 export * from './lib/mcp-tools/register-mcp-tools-for-todos';
 export * from './lib/routes/chat.routes';
+export * from './lib/routes/config.routes';
 export * from './lib/start-agents-server';

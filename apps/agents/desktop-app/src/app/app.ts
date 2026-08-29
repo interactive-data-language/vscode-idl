@@ -3,11 +3,7 @@ import {
   StartAgentsServer,
 } from '@idl/mcp/standalone-server';
 import { getPorts } from '@idl/server-helpers';
-import {
-  DEFAULT_ELECTRON_CONFIG,
-  ELECTRON_EVENTS,
-  type IElectronConfig,
-} from '@idl/types/electron';
+import { DEFAULT_ELECTRON_CONFIG, ELECTRON_EVENTS } from '@idl/types/electron';
 import { BrowserWindow, ipcMain, screen, shell } from 'electron';
 import { copy } from 'fast-copy';
 import { join } from 'path';
@@ -180,22 +176,10 @@ export default class App {
       console.error('[desktop-app] Failed to start agents server:', err);
     }
 
-    // listen for requests to get our configuration
-    ipcMain.handle(ELECTRON_EVENTS.GET_CONFIG, () => App.config);
-
-    // listen for config updates
-    ipcMain.handle(
-      ELECTRON_EVENTS.SET_CONFIG,
-      (_e, patch: Partial<IElectronConfig>) => {
-        // update config - validate in the future
-        Object.assign(App.config, patch);
-
-        // send complete config back to web app
-        App.mainWindow?.webContents.send(
-          ELECTRON_EVENTS.CONFIG_CHANGED,
-          copy(App.config),
-        );
-      },
+    // bootstrap the renderer with the REST API server's host/port; the
+    // renderer fetches/updates the rest of the config over HTTP from there
+    ipcMain.handle(ELECTRON_EVENTS.GET_SERVER_INFO, () =>
+      copy(App.config.server),
     );
 
     if (rendererAppName) {
@@ -204,7 +188,7 @@ export default class App {
     }
 
     // Open DevTools immediately
-    App.mainWindow?.webContents.openDevTools();
+    // App.mainWindow?.webContents.openDevTools();
   }
 
   // boilerplate method. Can be safely deleted if not needed

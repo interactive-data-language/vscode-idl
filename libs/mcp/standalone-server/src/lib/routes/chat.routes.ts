@@ -17,7 +17,7 @@ const KEEPALIVE_INTERVAL_MS = 15000;
 /**
  * Create chat routes
  */
-export function createChatRoutes(chat: Chat): Router {
+export function CreateChatRoutes(chat: Chat): Router {
   const router = Router();
 
   /**

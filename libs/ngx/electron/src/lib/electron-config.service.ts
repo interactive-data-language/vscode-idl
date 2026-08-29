@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   DEFAULT_ELECTRON_CONFIG,
   type IElectronConfig,
 } from '@idl/types/electron';
 import { BehaviorSubject } from 'rxjs';
+
+import { ConfigApiService } from './config-api.service';
 
 @Injectable({ providedIn: 'root' })
 export class ElectronConfigService {
@@ -21,17 +23,16 @@ export class ElectronConfigService {
     return this._config$.value;
   }
 
+  private readonly configApi = inject(ConfigApiService);
+
   async init(): Promise<void> {
-    if (!this.isElectron || !window.electron) return;
-    const cfg = await window.electron.getConfig();
+    const cfg = await this.configApi.getConfig();
     this._config$.next(cfg);
-    window.electron.onConfigChanged((updated) => this._config$.next(updated));
   }
 
   async set(patch: Partial<IElectronConfig>): Promise<void> {
-    if (!window.electron) return;
-    // optimistic update; main process will push the authoritative value back
-    this._config$.next({ ...this._config$.value, ...patch });
-    await window.electron.setConfig(patch);
+    // PUT response is authoritative — no optimistic update needed
+    const cfg = await this.configApi.updateConfig(patch);
+    this._config$.next(cfg);
   }
 }

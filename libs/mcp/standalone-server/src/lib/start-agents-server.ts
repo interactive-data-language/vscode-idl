@@ -8,7 +8,8 @@ import type { Server } from 'http';
 import { Chat } from './chat/chat.class';
 import { LoadConfigFromEnv } from './helpers/load-config-from-env';
 import { CreateStandaloneMCPServer } from './mcp-tools/create-standalone-mcp-server';
-import { createChatRoutes } from './routes/chat.routes';
+import { CreateChatRoutes } from './routes/chat.routes';
+import { CreateConfigRoutes } from './routes/config.routes';
 
 /**
  * Result returned by `StartAgentsServer`. Call `stop()` to gracefully shut
@@ -66,7 +67,8 @@ export async function StartAgentsServer(
     res.send({ message: 'Agents API Server' });
   });
 
-  app.use('/api/chat', createChatRoutes(chat));
+  app.use('/api/chat', CreateChatRoutes(chat));
+  app.use('/api/config', CreateConfigRoutes(config));
 
   // Error handling middleware
   app.use(
@@ -95,6 +97,8 @@ export async function StartAgentsServer(
       console.log(`[ info ] API endpoints:`);
       console.log(`         - GET  /api/chat/models`);
       console.log(`         - POST /api/chat/message`);
+      console.log(`         - GET  /api/config`);
+      console.log(`         - PUT  /api/config`);
       console.log(`         - POST /mcp (MCP protocol)`);
       if (websocketBridge !== undefined) {
         console.log(`         - WS   ws://${host}:${port}/ws (bridge)`);

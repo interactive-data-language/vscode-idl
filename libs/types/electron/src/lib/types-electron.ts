@@ -1,15 +1,14 @@
-import { IElectronConfig } from "./electron-config.interface";
+import { IServerConfig } from './electron-config.interface';
 
-/** 
- * Helpers added to the web application that we can call to communicate 
+/**
+ * Helpers added to the web application that we can call to communicate
  * with the main electron app
  */
 export interface IElectronBridge {
   getAppVersion: () => Promise<string>;
-  getConfig: () => Promise<IElectronConfig>;
-  onConfigChanged: (cb: (cfg: IElectronConfig) => void) => void;
+  /** Host/port of the embedded REST API server, used to bootstrap all other config over HTTP */
+  getServerInfo: () => Promise<IServerConfig>;
   platform: string;
-  setConfig: (patch: Partial<IElectronConfig>) => Promise<void>;
 }
 
 declare global {
