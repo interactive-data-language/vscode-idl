@@ -46,6 +46,7 @@
         "outputPath": "dist/packages",
         "prepackageOnly": true,
         "asar": false,
+        "icon": "apps/agents/desktop-app/src/assets/icon-resized.png",
         "extraMetadata": {
           "main": "index.js",
           "name": "idl-agent-and-envi-agent"
@@ -60,6 +61,7 @@
         "sourcePath": "dist/apps",
         "outputPath": "dist/executables",
         "asar": false,
+        "icon": "apps/agents/desktop-app/src/assets/icon-resized.png",
         "extraMetadata": {
           "main": "index.js",
           "name": "idl-agent-and-envi-agent"
