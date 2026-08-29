@@ -11,5 +11,6 @@
   "@angular/router": "angular.txt",
   "@angular/service-worker": "angular.txt",
   "@angular/language-service": "angular.txt",
+  "@github/copilot-sdk": "copilot-sdk.txt",
   "cypress": "cypress.txt"
 }

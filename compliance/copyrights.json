@@ -1,5 +1,6 @@
 {
   "@angular/elements": ["Copyright (c) 2010-2022 Google LLC. https://angular.io/license"],
+  "@github/copilot-sdk": ["Copyright (c) GitHub, Inc."],
   "@mdi/js": ["Copyright (c) @mdi/js"],
   "@ngbracket/ngx-layout": ["Copyright (c) @ngbracket/ngx-layout"],
   "@types/minilog": ["Copyright (c) @types/minilog"],
