@@ -2,6 +2,13 @@ import { dirname, join } from 'path';
 import { arch, platform } from 'process';
 
 /**
+ * Webpack-provided free variable resolving to the real Node `require` at runtime
+ *
+ * For compatibility with resolving the copilot executable in node and electron
+ */
+declare const __non_webpack_require__: NodeRequire;
+
+/**
  * Check if in electron without top-level import
  */
 const isElectron = Boolean(
@@ -59,9 +66,11 @@ export function GetCopilotExecutable() {
   /**
    * Get the folder for our github copilot executable that we will use
    */
+  // use `__non_webpack_require__` so webpack doesn't try to statically
+  // resolve this dynamic package name into an (always-failing) context module
   const binaryDir = isPackaged
     ? join(resourcesPath, 'app', 'node_modules', info.packageName)
-    : dirname(require.resolve(info.packageName));
+    : dirname(__non_webpack_require__.resolve(info.packageName));
 
   // make path to executable and return
   return join(binaryDir, info.binaryName);
