@@ -1,3 +1,4 @@
+import { existsSync } from 'fs';
 import { dirname, join } from 'path';
 import { arch, platform } from 'process';
 
@@ -61,17 +62,41 @@ export function GetCopilotExecutable() {
   /**
    * Figure out where copilot executable lives
    */
-  const info = GetCopilotInfo();
+  const { packageName, binaryName } = GetCopilotInfo();
 
-  /**
-   * Get the folder for our github copilot executable that we will use
-   */
-  // use `__non_webpack_require__` so webpack doesn't try to statically
-  // resolve this dynamic package name into an (always-failing) context module
-  const binaryDir = isPackaged
-    ? join(resourcesPath, 'app', 'node_modules', info.packageName)
-    : dirname(__non_webpack_require__.resolve(info.packageName));
+  let binaryPath = '';
 
-  // make path to executable and return
-  return join(binaryDir, info.binaryName);
+  if (isPackaged) {
+    // 1. Check unpacked ASAR path (asar: true)
+    const asarUnpackedPath = join(
+      resourcesPath,
+      'app.asar.unpacked',
+      'node_modules',
+      packageName,
+      binaryName,
+    );
+
+    // 2. Check standard unpacked directory (asar: false)
+    const unpackedAppPath = join(
+      resourcesPath,
+      'app',
+      'node_modules',
+      packageName,
+      binaryName,
+    );
+
+    if (existsSync(asarUnpackedPath)) {
+      binaryPath = asarUnpackedPath;
+    } else if (existsSync(unpackedAppPath)) {
+      binaryPath = unpackedAppPath;
+    } else {
+      // Fallback if electron-builder placed node_modules directly under resources
+      binaryPath = join(resourcesPath, 'node_modules', packageName, binaryName);
+    }
+  } else {
+    // Development mode / pure Node
+    const binaryDir = dirname(require.resolve(packageName));
+    binaryPath = join(binaryDir, binaryName);
+  }
+  return binaryPath;
 }
