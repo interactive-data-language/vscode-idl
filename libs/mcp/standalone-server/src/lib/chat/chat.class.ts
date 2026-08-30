@@ -1,5 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
+import type { IAgentServerConfig } from '@idl/types/agents';
 import type {
   AvailableModel,
   ChatInstructionsResponse,
@@ -9,7 +10,6 @@ import type {
   ExamplePrompt,
   TodoItem,
 } from '@idl/types/chat';
-import type { IElectronConfig } from '@idl/types/electron';
 import { copy } from 'fast-copy';
 import { readFileSync } from 'fs';
 import OpenAI from 'openai';
@@ -33,14 +33,14 @@ export class Chat {
   /**
    * Config for chat
    */
-  private config: IElectronConfig;
+  private config: IAgentServerConfig;
 
   /**
    * Chat engine
    */
   private readonly framework: CopilotChatFramework | LangChainChatFramework;
 
-  constructor(config: IElectronConfig) {
+  constructor(config: IAgentServerConfig) {
     this.config = config;
     if (config.agent.engine === 'langchain') {
       this.framework = new LangChainChatFramework(this, config);

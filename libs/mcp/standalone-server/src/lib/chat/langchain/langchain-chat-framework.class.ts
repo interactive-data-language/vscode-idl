@@ -1,14 +1,14 @@
+import type { IAgentServerConfig } from '@idl/types/agents';
 import {
-  type ChatMessage,
-  type ChatMessageRequest,
-  type ChatStreamChunk,
-  type TodoItem,
+  ChatMessage,
+  ChatMessageRequest,
+  ChatStreamChunk,
+  TodoItem,
 } from '@idl/types/chat';
-import type { IElectronConfig } from '@idl/types/electron';
 import {
   AIMessage,
   AIMessageChunk,
-  type BaseMessage,
+  BaseMessage,
   HumanMessage,
   SystemMessage,
   ToolMessage,
@@ -39,13 +39,13 @@ const MAX_ITERATIONS = 30;
 export class LangChainChatFramework {
   /** In-flight request AbortControllers keyed by frontend `sessionId`, used to cancel the current turn's model/tool calls. */
   private readonly activeControllers = new Map<string, AbortController>();
-  private readonly config: IElectronConfig;
+  private readonly config: IAgentServerConfig;
   private mcpClient: MCPClient;
   private mcpReady = false;
   private mcpTools: StructuredToolInterface[] = [];
   private parent: Chat;
 
-  constructor(parent: Chat, config: IElectronConfig) {
+  constructor(parent: Chat, config: IAgentServerConfig) {
     this.parent = parent;
     this.config = config;
     this.mcpClient = new MCPClient({ port: config.server.port });

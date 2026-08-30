@@ -1,10 +1,17 @@
+/**
+ * Import to register the `window.electron` global augmentation
+ *
+ * Otherwise we get compile/build errors below
+ */
+import '@idl/types/electron';
+
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
-  DEFAULT_ELECTRON_CONFIG,
-  type IElectronConfig,
-  type IServerConfig,
-} from '@idl/types/electron';
+  DEFAULT_AGENT_SERVER_CONFIG,
+  IAgentServerConfig,
+  IServerConfig,
+} from '@idl/types/agents';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
 /**
@@ -14,8 +21,8 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class ConfigApiService {
-  private readonly _config$ = new BehaviorSubject<IElectronConfig>(
-    DEFAULT_ELECTRON_CONFIG,
+  private readonly _config$ = new BehaviorSubject<IAgentServerConfig>(
+    DEFAULT_AGENT_SERVER_CONFIG,
   );
 
   readonly config$ = this._config$.asObservable();
@@ -24,7 +31,7 @@ export class ConfigApiService {
   readonly isElectron =
     typeof window !== 'undefined' && window.electron !== undefined;
 
-  get config(): IElectronConfig {
+  get config(): IAgentServerConfig {
     return this._config$.value;
   }
 
@@ -39,18 +46,18 @@ export class ConfigApiService {
    */
   async init(): Promise<void> {
     const url = await this.baseUrl();
-    const cfg = await firstValueFrom(this.http.get<IElectronConfig>(url));
+    const cfg = await firstValueFrom(this.http.get<IAgentServerConfig>(url));
     this._config$.next(cfg);
   }
 
   /**
    * Submit a partial update and store the authoritative, merged configuration
    */
-  async set(patch: Partial<IElectronConfig>): Promise<void> {
+  async set(patch: Partial<IAgentServerConfig>): Promise<void> {
     const url = await this.baseUrl();
     // PUT response is authoritative — no optimistic update needed
     const cfg = await firstValueFrom(
-      this.http.put<IElectronConfig>(url, patch),
+      this.http.put<IAgentServerConfig>(url, patch),
     );
     this._config$.next(cfg);
   }

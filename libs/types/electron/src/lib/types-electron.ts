@@ -1,4 +1,4 @@
-import { IServerConfig } from './electron-config.interface';
+import type { IServerConfig } from '@idl/types/agents';
 
 /**
  * Helpers added to the web application that we can call to communicate

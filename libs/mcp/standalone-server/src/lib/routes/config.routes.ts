@@ -1,4 +1,4 @@
-import type { IElectronConfig } from '@idl/types/electron';
+import type { IAgentServerConfig } from '@idl/types/agents';
 import { Router } from 'express';
 
 /**
@@ -7,7 +7,7 @@ import { Router } from 'express';
  * No schema validation yet — the config object passed in is mutated in
  * place so other consumers (e.g. `Chat`) holding the same reference see updates.
  */
-export function CreateConfigRoutes(config: IElectronConfig): Router {
+export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   const router = Router();
 
   /**

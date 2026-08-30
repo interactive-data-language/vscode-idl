@@ -1,6 +1,6 @@
 import { WebSocketToolBridge } from '@idl/mcp/websocket';
 import { InitializeTranslation } from '@idl/translation';
-import type { IElectronConfig } from '@idl/types/electron';
+import type { IAgentServerConfig } from '@idl/types/agents';
 import cors from 'cors';
 import express from 'express';
 import type { Server } from 'http';
@@ -30,7 +30,7 @@ export interface IStartAgentsServerResult {
  * the Electron desktop app.
  */
 export async function StartAgentsServer(
-  config: IElectronConfig,
+  config: IAgentServerConfig,
 ): Promise<IStartAgentsServerResult> {
   // check the environment for configuration
   LoadConfigFromEnv(config);

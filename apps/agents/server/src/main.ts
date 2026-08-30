@@ -1,10 +1,10 @@
 import { StartAgentsServer } from '@idl/mcp/standalone-server';
-import { DEFAULT_ELECTRON_CONFIG } from '@idl/types/electron';
+import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
 import { copy } from 'fast-copy';
 
 async function main() {
   try {
-    const config = copy(DEFAULT_ELECTRON_CONFIG);
+    const config = copy(DEFAULT_AGENT_SERVER_CONFIG);
     config.server.port = 3000;
 
     const result = await StartAgentsServer(config);

@@ -8,12 +8,12 @@ import {
   type SessionEvent,
 } from '@github/copilot-sdk';
 import { USER_AGENTS_FOLDER } from '@idl/idl/files';
+import type { IAgentServerConfig } from '@idl/types/agents';
 import type {
   ChatMessageRequest,
   ChatStreamChunk,
   TodoItem,
 } from '@idl/types/chat';
-import type { IElectronConfig } from '@idl/types/electron';
 import { join } from 'path';
 
 import { GetCopilotExecutable } from '../../helpers/get-copilot-executable';
@@ -51,13 +51,13 @@ export const IDL_MCP_NAME = 'idl-mcp';
 export class CopilotChatFramework {
   private readonly client: CopilotClient;
   private clientStarted: Promise<void> | undefined;
-  private readonly config: IElectronConfig;
+  private readonly config: IAgentServerConfig;
   private parent: Chat;
   /** Live sessions keyed by frontend `sessionId`, reused across turns instead of being disconnected after every message. */
   private readonly sessionCache = new Map<string, ISessionCacheEntry>();
   private sessionCleanupInterval: ReturnType<typeof setInterval> | undefined;
 
-  constructor(parent: Chat, config: IElectronConfig) {
+  constructor(parent: Chat, config: IAgentServerConfig) {
     this.parent = parent;
     this.config = config;
 

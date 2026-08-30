@@ -3,7 +3,8 @@ import {
   StartAgentsServer,
 } from '@idl/mcp/standalone-server';
 import { getPorts } from '@idl/server-helpers';
-import { DEFAULT_ELECTRON_CONFIG, ELECTRON_EVENTS } from '@idl/types/electron';
+import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
+import { ELECTRON_EVENTS } from '@idl/types/electron';
 import { BrowserWindow, ipcMain, screen, shell } from 'electron';
 import { copy } from 'fast-copy';
 import { join } from 'path';
@@ -20,7 +21,7 @@ export default class App {
   static BrowserWindow: typeof BrowserWindow;
 
   /** Config for the electron app */
-  static config = copy(DEFAULT_ELECTRON_CONFIG);
+  static config = copy(DEFAULT_AGENT_SERVER_CONFIG);
 
   static mainWindow: BrowserWindow | null = null;
   static splashWindow: BrowserWindow | null = null;
