@@ -78,6 +78,9 @@ export async function CreateStandaloneMCPServer(
   // index
   const index = new IDLIndex(logManager, 1, false);
 
+  // load global tokens
+  index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
+
   /** Find relevant files that we need to index */
   const files = await FindFiles(idlSearchPath);
 
