@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import type { IElectronConfig, IServerConfig } from '@idl/types/electron';
-import { firstValueFrom } from 'rxjs';
+import {
+  DEFAULT_ELECTRON_CONFIG,
+  type IElectronConfig,
+  type IServerConfig,
+} from '@idl/types/electron';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
 /**
  * Service for retrieving/updating server config via the REST API
@@ -10,32 +14,45 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class ConfigApiService {
-  /** HTTP client */
-  private readonly http = inject(HttpClient);
+  private readonly _config$ = new BehaviorSubject<IElectronConfig>(
+    DEFAULT_ELECTRON_CONFIG,
+  );
+
+  readonly config$ = this._config$.asObservable();
 
   /** True when running inside the Electron shell */
-  private readonly isElectron =
+  readonly isElectron =
     typeof window !== 'undefined' && window.electron !== undefined;
+
+  get config(): IElectronConfig {
+    return this._config$.value;
+  }
+
+  /** HTTP client */
+  private readonly http = inject(HttpClient);
 
   /** Cached host/port lookup so we only ask the main process once */
   private serverInfoPromise: Promise<IServerConfig> | undefined;
 
   /**
-   * Fetch the current server configuration
+   * Fetch the current server configuration and store it as the active config
    */
-  async getConfig(): Promise<IElectronConfig> {
+  async init(): Promise<void> {
     const url = await this.baseUrl();
-    return firstValueFrom(this.http.get<IElectronConfig>(url));
+    const cfg = await firstValueFrom(this.http.get<IElectronConfig>(url));
+    this._config$.next(cfg);
   }
 
   /**
-   * Submit a partial update and return the authoritative, merged configuration
+   * Submit a partial update and store the authoritative, merged configuration
    */
-  async updateConfig(
-    patch: Partial<IElectronConfig>,
-  ): Promise<IElectronConfig> {
+  async set(patch: Partial<IElectronConfig>): Promise<void> {
     const url = await this.baseUrl();
-    return firstValueFrom(this.http.put<IElectronConfig>(url, patch));
+    // PUT response is authoritative — no optimistic update needed
+    const cfg = await firstValueFrom(
+      this.http.put<IElectronConfig>(url, patch),
+    );
+    this._config$.next(cfg);
   }
 
   /**

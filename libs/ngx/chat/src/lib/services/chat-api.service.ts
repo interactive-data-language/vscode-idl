@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ElectronConfigService } from '@idl/ngx/app-config';
+import { ConfigApiService } from '@idl/ngx/app-config';
 import type {
   AvailableModelsResponse,
   ChatInstructionsResponse,
@@ -17,15 +17,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ChatApiService {
-  private readonly electronConfig = inject(ElectronConfigService);
+  private readonly configApi = inject(ConfigApiService);
 
   /** HTTP client */
   private readonly http = inject(HttpClient);
 
   /** Base URL for REST API — absolute when running in Electron */
   private get baseUrl(): string {
-    return this.electronConfig.isElectron
-      ? `http://localhost:${this.electronConfig.config.server.port}/api/chat`
+    return this.configApi.isElectron
+      ? `http://localhost:${this.configApi.config.server.port}/api/chat`
       : '/api/chat';
   }
 

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withHashLocation } from '@angular/router';
-import { ElectronConfigService } from '@idl/ngx/app-config';
+import { ConfigApiService } from '@idl/ngx/app-config';
 import {
   AppStorageService,
   chatMarkdownFactory,
@@ -28,7 +28,7 @@ import { appRoutes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideAppInitializer(() => inject(ElectronConfigService).init()),
+    provideAppInitializer(() => inject(ConfigApiService).init()),
     provideAppInitializer(() => inject(AppStorageService).init()),
     provideRouter(appRoutes, withHashLocation()),
 
