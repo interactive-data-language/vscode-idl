@@ -11,12 +11,12 @@ import {
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withHashLocation } from '@angular/router';
+import { ElectronConfigService } from '@idl/ngx/app-config';
 import {
   AppStorageService,
   chatMarkdownFactory,
   ChatState,
 } from '@idl/ngx/chat';
-import { ElectronConfigService } from '@idl/ngx/electron';
 import { ThemeState } from '@idl/ngx/theme';
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
 import { withNgxsLoggerPlugin } from '@ngxs/logger-plugin';

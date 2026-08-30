@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ElectronConfigService } from '@idl/ngx/electron';
+import { ElectronConfigService } from '@idl/ngx/app-config';
 import type {
   AvailableModelsResponse,
   ChatInstructionsResponse,

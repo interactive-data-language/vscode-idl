@@ -1,8 +1,8 @@
 module.exports = {
-  displayName: 'ngx-electron',
+  displayName: 'ngx-app-config',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/ngx/electron',
+  coverageDirectory: '../../../coverage/libs/ngx/app-config',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import type { IElectronConfig } from '@idl/types/electron';
+import type { IElectronConfig, IServerConfig } from '@idl/types/electron';
 import { firstValueFrom } from 'rxjs';
 
 /**
@@ -18,9 +18,7 @@ export class ConfigApiService {
     typeof window !== 'undefined' && window.electron !== undefined;
 
   /** Cached host/port lookup so we only ask the main process once */
-  private serverInfoPromise:
-    | Promise<{ host: string; port: number }>
-    | undefined;
+  private serverInfoPromise: Promise<IServerConfig> | undefined;
 
   /**
    * Fetch the current server configuration
