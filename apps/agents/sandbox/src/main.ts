@@ -19,7 +19,7 @@ async function Main() {
   await Sleep(1000);
 
   // init a client to the server
-  CreateMCPClient(config.server.port);
+  await CreateMCPClient(config.server.port);
 
   // call a tool
   console.log(await CallMCPTool('list-envi-tools', {}));
