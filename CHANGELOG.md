@@ -20,6 +20,8 @@ Added a new ENVI Tool Workflow for being able to build layer stacks and band sta
 
 Removed some ENVI Tasks from the list of available ENVI Tools that were confusing ENVI Agent.
 
+Fixed an issue with whitelist and blacklist for ENVI tools not being applied correctly.
+
 ## 6.2.0 - August 2026
 
 This major release brings some new and renamed MCP tools for agents to use with IDL and ENVI. Here's the breakdown:
