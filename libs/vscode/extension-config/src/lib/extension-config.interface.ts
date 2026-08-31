@@ -82,17 +82,15 @@ export interface IDLExtensionsConfigKeys {
   readonly IDLDirectory: 'IDL.directory';
   /** Top-level formatting options, excluding style */
   readonly IDLenvironment: 'IDL.environment';
-
   /** History for your IDL sessions */
   readonly IDLhistory: 'IDL.history';
   /** User configured IDL path */
   readonly IDLPath: 'IDL.path';
-
   /** Top-level formatting options, excluding style */
   readonly IDLPreferences: 'IDL.preferences';
-
   /** Does the theme of IDL and ENVI match that of VSCode */
   readonly IDLThemeMatch: 'IDL.themeMatch';
+
   /** Key for language server preferences */
   readonly languageServer: 'languageServer';
   /** Do we do a full parse or not */
