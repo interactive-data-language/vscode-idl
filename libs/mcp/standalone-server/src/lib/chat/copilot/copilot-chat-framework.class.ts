@@ -90,6 +90,10 @@ export class CopilotChatFramework {
       ...(this.config.agent.llm.model === 'copilot'
         ? { gitHubToken: this.config.agent.llm.config.gitHubToken }
         : {}),
+
+      // no-op
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onGitHubTelemetry: () => {},
     });
 
     // start the client
@@ -362,6 +366,11 @@ export class CopilotChatFramework {
       availableTools: ['mcp:*', 'custom:*', ...COPILOT_ALLOWED_TOOLS],
       // then use excludedTools to block write/shell
       clientName: DEFAULT_CLIENT_NAME,
+      enableSessionTelemetry: false, // make sure telemetry is always off
+      // allow reading large files by default
+      largeOutput: {
+        enabled: false,
+      },
       mcpServers: {
         /**
          * If you change this, we need to change the values above for IDL_MCP_NAME
@@ -395,9 +404,6 @@ export class CopilotChatFramework {
         },
       },
       tools,
-      largeOutput: {
-        enabled: false,
-      },
     };
 
     // set the model for the session
