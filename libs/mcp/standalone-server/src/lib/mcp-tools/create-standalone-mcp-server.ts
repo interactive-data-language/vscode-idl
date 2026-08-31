@@ -18,6 +18,7 @@ import {
   WebSocketToolBridge,
 } from '@idl/mcp/websocket';
 import { IDLIndex } from '@idl/parsing/index';
+import { IAgentServerConfig } from '@idl/types/agents';
 import {
   IIDLMCPExecutionBackend,
   PrepareIDLCodeCallback,
@@ -49,6 +50,7 @@ export interface IMCPLanguageServerOptions {
  */
 export async function CreateStandaloneMCPServer(
   app: Application,
+  config: IAgentServerConfig,
   options?: IMCPLanguageServerOptions,
 ) {
   const logManager = new LogManager({
@@ -178,6 +180,9 @@ export async function CreateStandaloneMCPServer(
 
   // register MCP task tools
   if (isEnviInstalled) {
-    RegisterMCPTaskTools(MCPServer.instance, index);
+    RegisterMCPTaskTools(MCPServer.instance, index, {
+      whitelist: config.mcp.enviToolWhitelist,
+      blacklist: config.mcp.enviToolBlacklist,
+    });
   }
 }

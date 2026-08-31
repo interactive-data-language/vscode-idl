@@ -1,4 +1,5 @@
 import { IAgentConfig } from './agent-config.interface';
+import { IAgentsMCPConfig } from './mcp-config.interface';
 import { ProcessingModeWithConfig } from './processing-config.interface';
 import { IServerConfig } from './server-config.interface';
 
@@ -6,6 +7,8 @@ import { IServerConfig } from './server-config.interface';
 export interface IAgentServerConfig {
   /** Configuration for our chat */
   agent: IAgentConfig;
+  /** Config for MCP tools */
+  mcp: IAgentsMCPConfig;
   /** Processing config */
   processing: ProcessingModeWithConfig;
   /** Config for HTTP server */
@@ -26,6 +29,10 @@ export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
         utilityModel: 'gpt-5.4-mini',
       },
     },
+  },
+  mcp: {
+    enviToolBlacklist: [],
+    enviToolWhitelist: [],
   },
   processing: {
     mode: 'idl-machine',

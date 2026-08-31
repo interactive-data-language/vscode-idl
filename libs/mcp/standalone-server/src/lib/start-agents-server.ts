@@ -57,7 +57,7 @@ export async function StartAgentsServer(
       : undefined;
 
   // Initialize MCP language server (IDL indexing + MCP tools on this Express app)
-  await CreateStandaloneMCPServer(app, { websocketBridge });
+  await CreateStandaloneMCPServer(app, config, { websocketBridge });
 
   // Initialize chat class
   const chat = new Chat(config);
