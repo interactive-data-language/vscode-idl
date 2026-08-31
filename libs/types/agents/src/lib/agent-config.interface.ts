@@ -1,3 +1,8 @@
+import {
+  ReasoningEffort,
+  ReasoningSummary,
+} from '@github/copilot-sdk/dist/types';
+
 import { ModelWithConfig } from './model-config.interface';
 
 /**
@@ -12,4 +17,11 @@ export interface IAgentConfig {
   engine: ChatEngine;
   /** What LLM do we use */
   llm: ModelWithConfig;
+  /** How does the Agent reason through problems? */
+  reasoning: {
+    /** Effort put into reasoning */
+    effort: ReasoningEffort;
+    /** Reasoning summary - detailed let's you see a lot more of thoughts process */
+    summary: ReasoningSummary;
+  };
 }

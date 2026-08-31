@@ -29,6 +29,10 @@ export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
         utilityModel: 'gpt-5.4-mini',
       },
     },
+    reasoning: {
+      effort: 'medium',
+      summary: 'detailed',
+    },
   },
   mcp: {
     enviToolBlacklist: [],

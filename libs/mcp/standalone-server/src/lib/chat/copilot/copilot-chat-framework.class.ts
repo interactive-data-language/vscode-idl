@@ -385,9 +385,8 @@ export class CopilotChatFramework {
       },
       model: request.model,
       onPermissionRequest: approveAll,
-      // Chat Completions never carries reasoning data; only the Responses API does
-      reasoningSummary: 'detailed',
-      reasoningEffort: 'medium',
+      reasoningSummary: this.config.agent.reasoning.summary,
+      reasoningEffort: this.config.agent.reasoning.effort,
 
       streaming: true,
       systemMessage: {
