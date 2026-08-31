@@ -6,6 +6,7 @@ import {
   RegisterMCPTool_ListENVITools,
   RegisterMCPTool_RunENVITool,
 } from '@idl/mcp/server-tools';
+import { IRuleBasedFilters } from '@idl/mcp/shared';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLIndex } from '@idl/parsing/index';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
@@ -19,7 +20,11 @@ export let MCP_TASK_REGISTRY: MCPTaskRegistry | undefined;
 /**
  * Registers MCP Task tools from parsed code on IDL's search path
  */
-export async function RegisterMCPTaskTools(server: MCPServer, index: IDLIndex) {
+export async function RegisterMCPTaskTools(
+  server: MCPServer,
+  index: IDLIndex,
+  filters: Partial<IRuleBasedFilters> = {},
+) {
   server.logManager.log({
     log: IDL_LSP_LOG,
     type: 'info',
@@ -64,6 +69,14 @@ export async function RegisterMCPTaskTools(server: MCPServer, index: IDLIndex) {
 
   // // load notes
   // RegisterENVITaskNotes(registry, server.logManager);
+
+  /**
+   * Update filters for task registry
+   *
+   * Handles case where we have filters before we start all the MCP
+   * tools
+   */
+  MCP_TASK_REGISTRY.filters.updateFilters(filters);
 
   // emit MCP event that tools have changed
   server.sendToolListChanged();
