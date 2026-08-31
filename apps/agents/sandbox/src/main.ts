@@ -11,7 +11,7 @@ async function Main() {
 
   // port
   config.server.port = 3000;
-  (config.mcp as any).enviToolWhitelist = ['hastybeachstudy'];
+  config.mcp.enviToolWhitelist = ['hastybeachstudy'];
 
   // start the server
   const result = await StartAgentsServer(config);
