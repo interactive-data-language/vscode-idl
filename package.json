@@ -61,7 +61,7 @@
     "test-perf": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 ./dist/apps/performance/main.js",
     "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/performance/main.js",
     "postinstall": "electron-builder install-app-deps",
-    "package-desktop-app": "node ./tools/check-mcp-sav-files.js && npm-run-all build-extension pre-package && npm run build-desktop-app && nx package agents-desktop-app"
+    "package-desktop-app": "node ./tools/check-mcp-sav-files.js && npm run build-desktop-app && nx package agents-desktop-app"
   },
   "dependencies": {
     "@github/copilot-sdk": "^1.0.9",
