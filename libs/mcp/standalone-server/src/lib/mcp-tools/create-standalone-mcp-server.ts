@@ -69,6 +69,9 @@ export async function CreateStandaloneMCPServer(
    */
   const idlPath = FindIDL('idl92');
 
+  // force dark mode
+  process.env['IDL_THEME'] = '1';
+
   // verify that we found the IDL search path
   if (!idlPath) {
     throw new Error('Unable to find IDL, cannot proceed');
