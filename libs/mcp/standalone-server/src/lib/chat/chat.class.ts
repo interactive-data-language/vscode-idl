@@ -1,4 +1,5 @@
 import { GetExtensionPath } from '@idl/idl/files';
+import { RuleBasedFilter } from '@idl/mcp/shared';
 import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
 import type { IAgentServerConfig } from '@idl/types/agents';
 import type {
@@ -10,6 +11,7 @@ import type {
   ExamplePrompt,
   TodoItem,
 } from '@idl/types/chat';
+import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { copy } from 'fast-copy';
 import { readFileSync } from 'fs';
 import OpenAI from 'openai';
@@ -36,6 +38,11 @@ export class Chat {
   private config: IAgentServerConfig;
 
   /**
+   * Filters for which MCP tools are allowed or not
+   */
+  private filters = new RuleBasedFilter();
+
+  /**
    * Chat engine
    */
   private readonly framework: CopilotChatFramework | LangChainChatFramework;
@@ -47,6 +54,12 @@ export class Chat {
     } else {
       this.framework = new CopilotChatFramework(this, config);
     }
+
+    // update filters
+    this.filters.updateFilters({
+      blacklist: this.config.mcp.toolBlackList,
+      whitelist: this.config.mcp.toolWhitelist,
+    });
   }
 
   /**
@@ -182,16 +195,25 @@ export class Chat {
    * Get tools that we are allowed to run from our MCP server
    */
   getAllowedTools() {
+    // init value
+    let tools: string[] = [];
+
+    // set some defaults
     switch (this.config.processing.mode) {
       case 'idl-machine':
-        return ['*'];
+        tools = Object.values(MCP_TOOL_LOOKUP);
+        break;
       case 'websocket':
-        return copy(WEBSOCKET_ENABLED_MCP_TOOLS);
+        tools = copy(WEBSOCKET_ENABLED_MCP_TOOLS);
+        break;
       default:
       // throw new Error(
       //   `Unknown processing mode "${this.config.processing.mode}"`,
       // );
     }
+
+    // filter and return
+    return tools.filter((val) => this.filters.isAllowedByFilters(val));
   }
 
   /**

@@ -37,6 +37,8 @@ export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
   mcp: {
     enviToolBlacklist: [],
     enviToolWhitelist: [],
+    toolBlackList: [],
+    toolWhitelist: [],
   },
   processing: {
     mode: 'idl-machine',

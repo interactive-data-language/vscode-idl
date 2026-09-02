@@ -1,3 +1,4 @@
+import { MCPTools } from '@idl/types/mcp';
 import { IMCPConfig } from '@idl/vscode/extension-config';
 
 /**
@@ -7,4 +8,13 @@ import { IMCPConfig } from '@idl/vscode/extension-config';
  */
 export type IAgentsMCPConfig = {
   -readonly [Key in keyof Omit<IMCPConfig, 'enabled'>]: IMCPConfig[Key];
+} & {
+  /**
+   * Whitelist of MCP tools to expose via agent
+   */
+  toolWhitelist: MCPTools[];
+  /**
+   * Blacklist of MCP tools to hide via agent
+   */
+  toolBlackList: MCPTools[];
 };
