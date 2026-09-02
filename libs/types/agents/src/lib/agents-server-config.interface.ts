@@ -15,6 +15,43 @@ export interface IAgentServerConfig {
   server: IServerConfig;
 }
 
+// /**
+//  * Default config for the agents server
+//  */
+// export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
+//   agent: {
+//     engine: 'copilot',
+//     llm: {
+//       model: 'openai',
+//       config: {
+//         apiKey: '',
+//         defaultModel: 'gpt-5.4',
+//         utilityModel: 'gpt-5.4-mini',
+//       },
+//     },
+//     reasoning: {
+//       effort: 'medium',
+//       summary: 'detailed',
+//     },
+//   },
+//   mcp: {
+//     enviToolBlacklist: [],
+//     enviToolWhitelist: [],
+//     toolBlackList: [
+//     ],
+//     toolWhitelist: [],
+//   },
+//   processing: {
+//     mode: 'idl-machine',
+//     config: {},
+//   },
+//   server: {
+//     host: 'localhost',
+//     port: 4142,
+//     language: 'en',
+//   },
+// };
+
 /**
  * Default config for the agents server
  */
@@ -22,11 +59,13 @@ export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
   agent: {
     engine: 'copilot',
     llm: {
-      model: 'openai',
+      model: 'ollama',
       config: {
-        apiKey: '',
-        defaultModel: 'gpt-5.4',
-        utilityModel: 'gpt-5.4-mini',
+        url: 'http://10.111.139.49:11434',
+        defaultModel: 'gemma4:26b',
+        utilityModel: 'gemma4:26b',
+        maxPromptTokens: 110000,
+        maxOutputTokens: 18000,
       },
     },
     reasoning: {
@@ -37,7 +76,16 @@ export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
   mcp: {
     enviToolBlacklist: [],
     enviToolWhitelist: [],
-    toolBlackList: [],
+    toolBlackList: [
+      'control-idl-debugger',
+      'create-idl-notebook',
+      'create-envi-modeler-workflow',
+      'get-idl-state',
+      'get-routine-docs',
+      'query-idl-session',
+      'run-idl-code',
+      'run-idl-file',
+    ],
     toolWhitelist: [],
   },
   processing: {
