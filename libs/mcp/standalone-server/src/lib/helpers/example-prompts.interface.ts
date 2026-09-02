@@ -148,7 +148,7 @@ export const EXAMPLE_PROMPTS: ExamplePrompt[] = [
     `Here's the path to my data: "C:\\my\\dataset\\image.tif"`,
   ],
   [
-    `Create an ENVI Modeler workflow that orthorectifies an image and then pan-sharpens it. TO keep bands aligned, run pan sharpening first, then ortho.`,
+    `Create an ENVI Modeler workflow that orthorectifies an image and then pan-sharpens it. To keep bands aligned, run pan sharpening first, then ortho.`,
     `Here's the path to my data: "C:\\my\\dataset\\image.tif"`,
   ],
   [
