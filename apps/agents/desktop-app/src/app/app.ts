@@ -100,6 +100,30 @@ export default class App {
     App.mainWindow.setMenu(null);
     App.mainWindow.center();
 
+    // Handle keyboard shortcuts for zooming (Ctrl/Cmd + '+', '-', '0')
+    App.mainWindow.webContents.on('before-input-event', (event, input) => {
+      if (input.type === 'keyDown' && (input.control || input.meta)) {
+        if (
+          input.key === '=' ||
+          input.key === '+' ||
+          input.key === 'NumpadAdd'
+        ) {
+          const currentZoom = App.mainWindow?.webContents.getZoomFactor() ?? 1;
+          App.mainWindow?.webContents.setZoomFactor(currentZoom + 0.1);
+          event.preventDefault();
+        } else if (input.key === '-' || input.key === 'NumpadSubtract') {
+          const currentZoom = App.mainWindow?.webContents.getZoomFactor() ?? 1;
+          App.mainWindow?.webContents.setZoomFactor(
+            Math.max(0.2, currentZoom - 0.1),
+          );
+          event.preventDefault();
+        } else if (input.key === '0' || input.key === 'Numpad0') {
+          App.mainWindow?.webContents.setZoomFactor(1);
+          event.preventDefault();
+        }
+      }
+    });
+
     // if main window is ready to show, close the splash window and show the main window
     App.mainWindow.once('ready-to-show', () => {
       App.splashWindow?.close();
@@ -189,7 +213,9 @@ export default class App {
     }
 
     // Open DevTools immediately
-    // App.mainWindow?.webContents.openDevTools();
+    if (process.env.ELECTRON_IS_DEV) {
+      App.mainWindow?.webContents.openDevTools();
+    }
   }
 
   // boilerplate method. Can be safely deleted if not needed
