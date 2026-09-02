@@ -1,4 +1,4 @@
-import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/mcp';
+import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 
 /**
  * Creates a map of all connections between nodes
