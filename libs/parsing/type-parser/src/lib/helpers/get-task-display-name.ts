@@ -11,25 +11,31 @@ export function GetTaskDisplayName(baseType: string) {
    *
    * Which can happen when we don't have global tokens loaded
    */
-  let taskName = 'any';
+  let taskName = baseType;
+
+  /**
+   * Init type name i.e. ENVITask<any> or IDLTask<any>
+   */
+  let typeName = 'any';
 
   // try to extract
   const match = TASK_REGEX.exec(baseType);
   if (match !== null) {
-    taskName = match[0];
+    taskName = match[1];
+    typeName = taskName;
   }
 
   // populate and return
   if (baseType.toLowerCase().startsWith('envi')) {
     return {
       type: 'ENVITask',
-      display: `ENVITask<${taskName}>`,
+      display: `ENVITask<${typeName}>`,
       taskName,
     };
   } else {
     return {
       type: 'IDLTask',
-      display: `IDLTask<${taskName}>`,
+      display: `IDLTask<${typeName}>`,
       taskName,
     };
   }
