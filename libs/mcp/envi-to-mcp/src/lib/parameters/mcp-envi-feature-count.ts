@@ -1,8 +1,12 @@
 import { z } from 'zod';
 
+import { ENVI_FILE_EXTENSION_LOOKUP } from '../envi-file-extension.interface';
 import { FACTORY_LOOKUP } from '../fix-envi-factory';
 
 FACTORY_LOOKUP['featurecount'] = 'FeatureCount';
+
+ENVI_FILE_EXTENSION_LOOKUP['featurecount'] = '.efc';
+
 /**
  * Returns an ENVI Feature Count MCP parameter
  */

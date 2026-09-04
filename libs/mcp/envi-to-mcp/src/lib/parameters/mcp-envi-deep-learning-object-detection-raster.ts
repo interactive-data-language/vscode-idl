@@ -1,9 +1,12 @@
 import { z } from 'zod';
 
+import { ENVI_FILE_EXTENSION_LOOKUP } from '../envi-file-extension.interface';
 import { FACTORY_LOOKUP } from '../fix-envi-factory';
 
 FACTORY_LOOKUP['deeplearningobjectdetectionraster'] =
   'DeepLearningObjectDetectionRaster';
+
+ENVI_FILE_EXTENSION_LOOKUP['deeplearningobjectdetectionraster'] = '.dat';
 
 /**
  * Returns an ENVI Deep Learning Object Detection Raster task parameter for an ENVI Task MCP

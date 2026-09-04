@@ -1,8 +1,11 @@
 import { z } from 'zod';
 
+import { ENVI_FILE_EXTENSION_LOOKUP } from '../envi-file-extension.interface';
 import { FACTORY_LOOKUP } from '../fix-envi-factory';
 
 FACTORY_LOOKUP['deeplearningkerasmodel'] = 'DeepLearningKerasModel';
+
+ENVI_FILE_EXTENSION_LOOKUP['deeplearningkerasmodel'] = '.h5';
 
 /**
  * Returns an ENVI Deep Learning Keras Model parameter

@@ -1,9 +1,12 @@
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
+import { ENVI_FILE_EXTENSION_LOOKUP } from '../envi-file-extension.interface';
 import { FACTORY_LOOKUP } from '../fix-envi-factory';
 
 FACTORY_LOOKUP['urlroi'] = 'URLROI';
+
+ENVI_FILE_EXTENSION_LOOKUP['urlroi'] = '.xml';
 
 /**
  * Returns an ENVI ROI task parameter for an ENVI Task MCP
