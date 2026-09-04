@@ -1,12 +1,11 @@
+import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { IIDLStartResult } from '@idl/types/vscode-debug';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
-import { copy } from 'fast-copy';
 import * as vscode from 'vscode';
 
 import { IsIDLDirValid } from '../helpers/is-idl-dir-valid';
-import { DEFAULT_IDL_DEBUG_CONFIGURATION } from '../idl-debug-adapter.interface';
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';
 
 /**
@@ -60,10 +59,11 @@ export async function StartIDL(show = true): Promise<IIDLStartResult> {
   vscode.commands.executeCommand(VSCODE_COMMANDS.SHOW_DEBUG_CONSOLE);
 
   // launch the debug configuration
-  await vscode.debug.startDebugging(
-    folder,
-    copy(DEFAULT_IDL_DEBUG_CONFIGURATION),
-  );
+  await vscode.debug.startDebugging(folder, {
+    type: IDL_LANGUAGE_NAME,
+    name: IDL_TRANSLATION.debugger.idl.name,
+    request: 'launch',
+  });
 
   // return that IDL has started
   return IsIDLStarted()

@@ -60,8 +60,8 @@ export class IDLDebugConfigurationProvider
 
     // merge properties
     const useConfig: IDLDebugConfiguration = {
-      ...DEFAULT_IDL_DEBUG_CONFIGURATION,
       ...config,
+      ...DEFAULT_IDL_DEBUG_CONFIGURATION,
       ...{ config: copy(IDL_EXTENSION_CONFIG) as IDLExtensionConfig },
     };
 
