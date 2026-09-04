@@ -12,6 +12,10 @@ New settings for ENVI's MCP Tools:
 
 - Fine-tune which ENVI Tools can be invoked by ENVI Agent with a new whitelist and blacklist option
 
+## Unreleased
+
+Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.
+
 ## 6.2.1 - September 2026
 
 Resolved an issue with VSCode 1.136 that caused VS Code and the extension to crash when starting a session of IDL.
