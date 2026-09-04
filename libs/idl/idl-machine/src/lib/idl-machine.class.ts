@@ -59,10 +59,8 @@ export class IDLMachine {
       /** Parse */
       parsed = JSON.parse(msg);
     } catch (err) {
-      console.log(
-        `Error while parsing message from server, partial message below`,
-      );
-      console.log(msg.slice(0, 50));
+      console.log(`Error while parsing message from server, message below`);
+      console.log(msg);
       console.log(err);
       return;
     }
