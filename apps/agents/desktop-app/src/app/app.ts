@@ -1,3 +1,4 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import {
   IStartAgentsServerResult,
   StartAgentsServer,
@@ -7,6 +8,7 @@ import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
 import { ELECTRON_EVENTS } from '@idl/types/electron';
 import { BrowserWindow, ipcMain, screen, shell } from 'electron';
 import { copy } from 'fast-copy';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 import { format } from 'url';
 
@@ -51,6 +53,16 @@ export default class App {
         await App.agentsServer.stop();
       }
     });
+
+    // try to load our config from disk
+    try {
+      const file = GetExtensionPath('desktop-agents.config.json');
+      console.log('Loading config from file on disk');
+      this.config = JSON.parse(readFileSync(file, 'utf-8'));
+    } catch (err) {
+      console.log('Problem loading config from file');
+      console.log(err);
+    }
   }
 
   private static createSplashWindow() {

@@ -1,10 +1,23 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import { StartAgentsServer } from '@idl/mcp/standalone-server';
 import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
 import { copy } from 'fast-copy';
+import { readFileSync } from 'fs';
 
 async function main() {
   try {
-    const config = copy(DEFAULT_AGENT_SERVER_CONFIG);
+    let config = copy(DEFAULT_AGENT_SERVER_CONFIG);
+
+    // try to load our config from disk
+    try {
+      const file = GetExtensionPath('desktop-agents.config.json');
+      console.log('[Config] Loading config from file on disk');
+      config = JSON.parse(readFileSync(file, 'utf-8'));
+    } catch (err) {
+      console.log('Problem loading config from file');
+      console.log(err);
+    }
+
     config.server.port = 3000;
 
     const result = await StartAgentsServer(config);
