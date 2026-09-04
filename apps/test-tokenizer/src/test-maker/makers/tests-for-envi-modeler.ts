@@ -38,10 +38,10 @@ export async function TestsForENVIModeler(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(
-    `import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';`,
+    `import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';`,
   );
   strings.push(
-    `import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/mcp';`,
+    `import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';`,
   );
   strings.push(
     `import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';`,
