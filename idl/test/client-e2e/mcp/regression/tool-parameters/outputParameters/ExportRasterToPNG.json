@@ -40,7 +40,7 @@
       ],
       "additionalProperties": false,
       "description": [
-        "Updating the header file requires closing the raster. Use this parameter to reopen and return a reference to the raster."
+        "This is an object reference to the output raster, of filetype PNG."
       ]
     }
   },

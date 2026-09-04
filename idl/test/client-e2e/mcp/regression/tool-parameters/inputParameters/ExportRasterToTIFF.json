@@ -1,0 +1,121 @@
+{
+  "type": "object",
+  "properties": {
+    "data_ignore_value": {
+      "type": "number",
+      "description": [
+        "Specify a unique data value for pixels in the output raster that have a non-zero pixel state value. See Raster Pixel State for more information."
+      ]
+    },
+    "input_raster": {
+      "type": "object",
+      "properties": {
+        "factory": {
+          "type": "string",
+          "const": "URLRaster"
+        },
+        "url": {
+          "type": "string",
+          "description": [
+            "Provide a fully-qualified filepath to the dataset on disk.",
+            "",
+            "Common extensions to use: .dat, .img, .hsi, .tif, .nitf, .ntf. For complex file formats, this should likely be the metadata file itself and not individual image files which ENVI supports.",
+            "",
+            "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
+          ]
+        },
+        "auxiliary_url": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": [
+            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
+          ]
+        },
+        "dataset_index": {
+          "type": "number",
+          "description": [
+            "If a raster has more than one dataset present, optionally specify the zero-based index of which image to open. Applicable to file types like NITF, Sentinel 2, or similar where multi-resolutions or images are present in a single file."
+          ]
+        }
+      },
+      "required": [
+        "factory",
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": [
+        "Specify a raster to export to TIFF format."
+      ]
+    },
+    "interleave": {
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "BSQ"
+        },
+        {
+          "type": "string",
+          "const": "BIP"
+        }
+      ],
+      "description": [
+        "Specify a string indicating the data interleave of the output raster. If this parameter is not set, the interleave of the input raster will be used. The choices are:",
+        "",
+        "  BSQ",
+        "  BIP",
+        "",
+        "TIFF files do not support BIL interleave. If INTERLEAVE is not set and the image has a BIL interleave, the image will be saved to BSQ interleave."
+      ]
+    },
+    "output_raster_uri": {
+      "description": [
+        "Specify a string with the fully qualified filename and path of the associated OUTPUT_RASTER.",
+        "",
+        "If you do not specify this parameter, or set it to an exclamation symbol (!), ENVI creates a temporary file.",
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
+      ],
+      "default": "!",
+      "type": "string"
+    }
+  },
+  "required": [
+    "input_raster"
+  ],
+  "additionalProperties": false,
+  "description": [
+    "Inputs for running the tool. These *MUST* be specified based on the schema. Summary:",
+    "",
+    "This task exports a raster to TIFF file format.",
+    "",
+    "Example",
+    "",
+    "  ; Start the application",
+    "  e = envi()",
+    "",
+    "  ; Open an input file",
+    "  File = filepath('qb_boulder_msi', subdir = ['data'], $",
+    "    root_dir = e.root_dir)",
+    "  Raster = e.openRaster(File)",
+    "",
+    "  ; Get the task from the catalog of ENVITasks",
+    "  Task = ENVITask('ExportRasterToTIFF')",
+    "",
+    "  ; Define inputs",
+    "  Task.input_raster = Raster",
+    "",
+    "  ; Run the task",
+    "  Task.execute",
+    "",
+    "  ; Get the collection of data objects currently available in the Data Manager",
+    "  DataColl = e.data",
+    "",
+    "  ; Add the output to the Data Manager",
+    "  DataColl.add, Task.output_raster",
+    "",
+    "  ; Display the result",
+    "  View = e.getView()",
+    "  Layer = View.createLayer(Task.output_raster)"
+  ]
+}
