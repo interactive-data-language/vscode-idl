@@ -18,7 +18,7 @@ import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { VSCODE_NOTEBOOK_PRO_DIR, VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import {
-  DEFAULT_IDL_DEBUG_CONFIGURATION,
+  DEFAULT_IDL_VSCODE_DEBUG_CONFIGURATION,
   IDL_DEBUG_CONFIGURATION_PROVIDER,
   IsIDLDirValid,
 } from '@idl/vscode/debug';
@@ -583,7 +583,7 @@ export class IDLNotebookExecutionManager {
     this.listenToEvents();
 
     // check for a workspace folder
-    let folder: vscode.WorkspaceFolder;
+    let folder: undefined | vscode.WorkspaceFolder = undefined;
 
     // verify we have a workspace folder opened
     if (vscode.workspace.workspaceFolders !== undefined) {
@@ -598,7 +598,7 @@ export class IDLNotebookExecutionManager {
     const config =
       await IDL_DEBUG_CONFIGURATION_PROVIDER.resolveDebugConfiguration(
         folder,
-        copy(DEFAULT_IDL_DEBUG_CONFIGURATION),
+        copy(DEFAULT_IDL_VSCODE_DEBUG_CONFIGURATION),
       );
 
     /**

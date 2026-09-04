@@ -1,7 +1,11 @@
 import { IDL_DEBUG_CONFIGURATION_LOG } from '@idl/logger';
-import { CleanPath } from '@idl/shared/extension';
+import { CleanPath, IDL_LANGUAGE_NAME } from '@idl/shared/extension';
+import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
-import { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import {
+  DEFAULT_IDL_EXTENSION_CONFIG,
+  IDLExtensionConfig,
+} from '@idl/vscode/extension-config';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { copy } from 'fast-copy';
 import { platform } from 'os';
@@ -17,10 +21,7 @@ import * as vscode from 'vscode';
 import { URI } from 'vscode-uri';
 
 import { VariablesReferenceSubstitution } from './helpers/variables-reference-substitution';
-import {
-  DEFAULT_IDL_DEBUG_CONFIGURATION,
-  IDLDebugConfiguration,
-} from './idl-debug-adapter.interface';
+import { IDLDebugConfiguration } from './idl-debug-adapter.interface';
 
 /**
  * Regular expression for path separators
@@ -28,6 +29,18 @@ import {
  * Handles cross-platform
  */
 const SEP_REGEX = platform() === 'win32' ? /;/g : /:/g;
+
+/**
+ * Default configuration for debugging IDL
+ */
+const DEFAULT_IDL_DEBUG_CONFIGURATION: IDLDebugConfiguration = {
+  type: IDL_LANGUAGE_NAME,
+  name: IDL_TRANSLATION.debugger.idl.name,
+  request: 'launch',
+  env: process.env,
+  config: DEFAULT_IDL_EXTENSION_CONFIG,
+  folders: [],
+};
 
 /**
  * Class that manages setting IDL's configuration prior to launching a
