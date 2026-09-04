@@ -3,8 +3,11 @@
  */
 export const REGRESSION_TEST_THESE = [
   'ClassificationToShapefile',
+  'ColorSliceClassification',
   'DeepLearningPixelClassification',
-  'EditRasterMetadata',
+  // 'EditRasterMetadata', // filtered out, duplicates rasters and shouldnt be used
+  'ExportRasterToPNG',
+  'ExportRasterToTIFF',
   'FLAASH',
   'ExportRasterToNITF21',
   'ISODataClassification',
