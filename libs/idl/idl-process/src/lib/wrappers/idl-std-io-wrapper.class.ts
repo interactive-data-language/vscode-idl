@@ -23,7 +23,7 @@ import { IDLProcess } from '../idl-process.class';
  */
 export class IDLStdIOWrapper {
   /** The IDL process */
-  private idl: ChildProcess;
+  private idl: ChildProcess | undefined;
 
   /**
    * Parent class that handles primary logic that we plug into
@@ -46,7 +46,7 @@ export class IDLStdIOWrapper {
   async evaluate(command: string): Promise<IDLOutput> {
     return new Promise((resolve, reject) => {
       // handle errors writing to stdin
-      if (!this.idl.stdin.writable) {
+      if (!this.idl?.stdin?.writable) {
         reject(new Error('no stdin available'));
       }
 
@@ -62,9 +62,9 @@ export class IDLStdIOWrapper {
       // send the command to IDL
       if (os.platform() !== 'win32') {
         // print the "terminal" so we know we are ready for input
-        this.idl.stdin.write(`${command}\nprint,'IDL>'\n`);
+        this.idl?.stdin?.write(`${command}\nprint,'IDL>'\n`);
       } else {
-        this.idl.stdin.write(`${command}\n`);
+        this.idl?.stdin?.write(`${command}\n`);
       }
     });
   }
@@ -80,7 +80,7 @@ export class IDLStdIOWrapper {
     // detect start. for our "poor man's solution" this is the indicator
     // that we are ready to go again
     if (os.platform() !== 'win32') {
-      this.idl.stdin.write("print, 'IDL>'\n");
+      this.idl?.stdin?.write("print, 'IDL>'\n");
     }
 
     /**
@@ -185,10 +185,12 @@ export class IDLStdIOWrapper {
     };
 
     // listen for standard out output from IDL
-    this.idl.stdout.on('data', handleOutput);
+    this.idl?.stdout?.setEncoding('utf8');
+    this.idl?.stdout?.on('data', handleOutput);
 
     // listen for standard error output from IDL
-    this.idl.stderr.on('data', handleOutput);
+    this.idl?.stderr?.setEncoding('utf8');
+    this.idl?.stderr?.on('data', handleOutput);
 
     // set flag the first time we start up to be ready to accept input
     this.process.once(IDL_EVENT_LOOKUP.PROMPT_READY, async (output) => {
@@ -222,14 +224,20 @@ export class IDLStdIOWrapper {
    * Pause execution
    */
   pause() {
-    this.idl.kill('SIGINT');
+    if (!this.idl) {
+      return;
+    }
+    this.idl?.kill('SIGINT');
   }
 
   /**
    * Stops our IDL debug session
    */
   stop() {
-    kill(this.idl.pid);
-    this.idl.kill('SIGINT');
+    if (!this.idl) {
+      return;
+    }
+    kill(this.idl?.pid);
+    this.idl?.kill('SIGINT');
   }
 }
