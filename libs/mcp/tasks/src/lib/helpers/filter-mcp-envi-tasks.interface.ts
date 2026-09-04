@@ -4,6 +4,13 @@
  * Can likely be reduced, was used originally when the implementation was different
  *
  * But there's still some that we don't need to expose to the LLM
+ *
+ *
+ * IF YOU UPDATE THIS, YOU MUST MAKE SURE THIS TEST FILE IS STILL OK
+ *
+ * REMOVING ITEMS FROM THIS LIST WILL BREAK SOME REGRESSION TESTS IF WE RELY ON THE TASKS
+ *
+ * apps\client-e2e\src\tests\mcp\tools\envi\regression-tests\regression-test-these.interface.ts
  */
 export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   // catalog tools don't work out of the box
