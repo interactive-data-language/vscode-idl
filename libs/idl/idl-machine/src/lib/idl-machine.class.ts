@@ -234,8 +234,9 @@ export class IDLMachine {
     }
 
     // handle output from IDL
-    idl.stdout.on('data', (data: Buffer) => {
-      this._queue.handleOutput(data.toString());
+    idl.stdout.setEncoding('utf8');
+    idl.stdout.on('data', (data: string) => {
+      this._queue.handleOutput(data);
     });
   }
 
