@@ -94,9 +94,9 @@ export class IDLStdIOWrapper {
      *
      * If print is true, we emit an output event.
      */
-    const handleOutput = (buff: any) => {
+    const handleOutput = (buff: string) => {
       /** Current stdout or stderr */
-      const data = StripANSI(buff.toString('utf8'));
+      const data = StripANSI(buff);
 
       // what do we do?
       switch (true) {
