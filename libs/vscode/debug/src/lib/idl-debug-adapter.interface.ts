@@ -32,7 +32,11 @@ export interface IDLDebugConfiguration
 }
 
 /**
- * Default configuration for debugging IDL
+ * VSCode debugging launch parameters
+ *
+ * DONT CHANGE THIS, always need to match debug config. It has problems
+ * when we give this additional values, but we can return them from our
+ * debug config provider.
  */
 export const DEFAULT_IDL_VSCODE_DEBUG_CONFIGURATION: vscode.DebugConfiguration =
   {
