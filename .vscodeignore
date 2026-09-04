@@ -15,11 +15,15 @@ compliance/compliance.json
 compliance/copyrights.json
 compliance/licenses.json
 dist/.client-id
+dist/apps/agents/**
+dist/apps/agents-desktop-app
+dist/apps/agents-ui
 dist/apps/client/3rdpartylicenses.txt
 dist/apps/client/assets/.gitkeep
 dist/apps/client-e2e/**
 dist/apps/idl-webview/3rdpartylicenses.txt
 dist/apps/i18n/**
+dist/apps/packages/**
 dist/apps/notebook/components/3rdpartylicenses.txt
 dist/apps/package-json/**
 dist/apps/parsing-worker/3rdpartylicenses.txt

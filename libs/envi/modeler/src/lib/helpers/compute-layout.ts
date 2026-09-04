@@ -1,4 +1,4 @@
-import { ENVIModelerNode } from '@idl/types/mcp';
+import { ENVIModelerNode } from '@idl/types/envi/modeler';
 
 import {
   LAYOUT_BASE_X,

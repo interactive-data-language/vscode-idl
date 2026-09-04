@@ -8,7 +8,7 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
  * Kept as a single source of truth so both the WebSocket execution handler
  * `switch` and the Copilot chat `mcpServers.tools` allowlist stay in sync.
  */
-export const WEBSOCKET_ENABLED_MCP_TOOLS: readonly string[] = [
+export const WEBSOCKET_ENABLED_MCP_TOOLS: string[] = [
   MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS,
   MCP_TOOL_LOOKUP.GET_ENVI_TOOL_WORKFLOW,
   MCP_TOOL_LOOKUP.GET_PROMPT,

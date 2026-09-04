@@ -1,8 +1,11 @@
 import { z } from 'zod';
 
+import { ENVI_FILE_EXTENSION_LOOKUP } from '../envi-file-extension.interface';
 import { FACTORY_LOOKUP } from '../fix-envi-factory';
 
 FACTORY_LOOKUP['machinelearningmodel'] = 'MachineLearningModel';
+
+ENVI_FILE_EXTENSION_LOOKUP['machinelearningmodel'] = '.json';
 
 /**
  * Returns an ENVI Machine Learning Model parameter

@@ -2,7 +2,18 @@
   <ngx-chat-header />
 
   <mat-sidenav-container class="chat-container">
-    <mat-sidenav mode="side" opened class="chat-sidenav">
+    <mat-sidenav
+      [mode]="chatLayoutService.isMobile() ? 'over' : 'side'"
+      [opened]="
+        chatLayoutService.isMobile() ? chatLayoutService.mobileListOpen() : true
+      "
+      (closed)="chatLayoutService.closeList()"
+      class="chat-sidenav"
+      [class.chat-sidenav--mobile]="chatLayoutService.isMobile()"
+      [class.chat-sidenav--no-anim]="
+        chatLayoutService.suppressSidenavAnimation()
+      "
+    >
       <ngx-chat-sidebar />
     </mat-sidenav>
 

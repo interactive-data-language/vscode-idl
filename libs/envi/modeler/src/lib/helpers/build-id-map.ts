@@ -1,4 +1,4 @@
-import { ENVIModelerNode } from '@idl/types/mcp';
+import { ENVIModelerNode } from '@idl/types/envi/modeler';
 
 /** Counter map so we can produce task_1, view_2 etc. */
 type NameCounters = Record<string, number>;

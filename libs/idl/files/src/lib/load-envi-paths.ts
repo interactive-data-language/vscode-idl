@@ -50,6 +50,16 @@ export function LoadENVIPaths(bin: string) {
     }
 
     /**
+     * Get resource folder in case there are new tasks we need to support
+     */
+    const enviTasks = join(enviDir, 'resource', 'templates', 'tasks');
+
+    // add custom code to the paths
+    if (existsSync(enviTasks)) {
+      paths.push(enviTasks);
+    }
+
+    /**
      * Get custom code folder
      */
     const customCode = join(enviDir, 'custom_code');

@@ -4,7 +4,7 @@ import {
   IFolderRecursion,
   LoadIDLSearchPaths,
 } from '@idl/idl/files';
-import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { IDL_LSP_LOG, IDL_MCP_LOG, LogManager } from '@idl/logger';
 import {
   MCPTrackResources,
   RegisterAllLanguageServerMCPTools,
@@ -18,6 +18,7 @@ import {
   WebSocketToolBridge,
 } from '@idl/mcp/websocket';
 import { IDLIndex } from '@idl/parsing/index';
+import { IAgentServerConfig } from '@idl/types/agents';
 import {
   IIDLMCPExecutionBackend,
   PrepareIDLCodeCallback,
@@ -49,6 +50,7 @@ export interface IMCPLanguageServerOptions {
  */
 export async function CreateStandaloneMCPServer(
   app: Application,
+  config: IAgentServerConfig,
   options?: IMCPLanguageServerOptions,
 ) {
   const logManager = new LogManager({
@@ -67,6 +69,9 @@ export async function CreateStandaloneMCPServer(
    */
   const idlPath = FindIDL('idl92');
 
+  // force dark mode
+  process.env['IDL_THEME'] = '1';
+
   // verify that we found the IDL search path
   if (!idlPath) {
     throw new Error('Unable to find IDL, cannot proceed');
@@ -78,13 +83,26 @@ export async function CreateStandaloneMCPServer(
   // index
   const index = new IDLIndex(logManager, 1, false);
 
+  // load global tokens
+  index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
+
   /** Find relevant files that we need to index */
-  const files = await FindFiles(idlPath);
+  const files = await FindFiles(idlSearchPath);
+
+  // alert users
+  logManager.log({
+    log: IDL_LSP_LOG,
+    type: 'info',
+    content: [
+      'Language server initialized, indexing code in these folders:',
+      idlSearchPath,
+    ],
+  });
 
   /**
    * Index workspace files we found
    */
-  await index.indexWorkspaceFiles(files, idlPath, true);
+  await index.indexWorkspaceFiles(files, idlSearchPath, true);
 
   // load global tokens
   index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
@@ -165,6 +183,9 @@ export async function CreateStandaloneMCPServer(
 
   // register MCP task tools
   if (isEnviInstalled) {
-    RegisterMCPTaskTools(MCPServer.instance, index);
+    RegisterMCPTaskTools(MCPServer.instance, index, {
+      whitelist: config.mcp.enviToolWhitelist,
+      blacklist: config.mcp.enviToolBlacklist,
+    });
   }
 }

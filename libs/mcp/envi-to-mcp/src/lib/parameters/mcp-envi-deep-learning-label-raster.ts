@@ -1,8 +1,11 @@
 import { z } from 'zod';
 
+import { ENVI_FILE_EXTENSION_LOOKUP } from '../envi-file-extension.interface';
 import { FACTORY_LOOKUP } from '../fix-envi-factory';
 
 FACTORY_LOOKUP['deeplearninglabelraster'] = 'DeepLearningLabelRaster';
+
+ENVI_FILE_EXTENSION_LOOKUP['deeplearninglabelraster'] = '.dat';
 
 /**
  * Returns an ENVI Deep Learning Label Raster task parameter for an ENVI Task MCP

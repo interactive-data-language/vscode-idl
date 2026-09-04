@@ -1,0 +1,21 @@
+<mat-form-field
+  appearance="fill"
+  class="instructions-selector"
+  subscriptSizing="dynamic"
+>
+  <mat-select
+    [value]="selectedInstructions()"
+    (selectionChange)="onInstructionsChange($event.value)"
+    [disabled]="isDisabled()"
+  >
+    @for (option of instructionOptions(); track option.id) {
+      <mat-option [value]="option.id"
+        >{{ option.name }}
+        <!-- <div class="instructions-option">
+          <span class="instructions-name">{{ option.name }}</span>
+          <span class="instructions-description">{{ option.description }}</span>
+        </div> -->
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

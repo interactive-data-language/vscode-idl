@@ -49,6 +49,9 @@ $dark-theme: mat.m2-define-dark-theme(
       lighter
     )};
   --accent-color-darker: #{mat.m2-get-color-from-palette($light-accent, darker)};
+
+  // Same primary color already used for send buttons, links, etc.
+  --primary-color: #{mat.m2-get-color-from-palette($light-primary, default)};
 }
 
 // Apply the dark theme when the dark-theme class is present
@@ -90,4 +93,38 @@ $dark-theme: mat.m2-define-dark-theme(
       lighter
     )};
   --accent-color-darker: #{mat.m2-get-color-from-palette($dark-accent, darker)};
+
+  // Same primary color already used for send buttons, links, etc.
+  --primary-color: #{mat.m2-get-color-from-palette($dark-primary, default)};
+}
+
+// Slim, low-contrast scrollbars that blend into the surrounding surface
+// instead of the browser's default, bulky scrollbar chrome.
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.4) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.4);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.6);
+  }
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
 }

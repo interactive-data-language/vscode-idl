@@ -14,17 +14,17 @@
   <mat-divider />
 
   @if (loading()) {
-    <div>
+    <div class="sidebar-empty-state">
       <mat-icon>sync</mat-icon>
       <p>Loading chats...</p>
     </div>
   } @else if (sessions().length === 0) {
-    <div>
+    <div class="sidebar-empty-state">
       <p>No chats yet</p>
     </div>
   } @else {
     <mat-nav-list>
-      @for (session of sessions(); track session) {
+      @for (session of sessions(); track session.id) {
         <mat-list-item
           (click)="selectSession(session.id)"
           [activated]="selectedSessionId() === session.id"
@@ -36,6 +36,14 @@
           <div matListItemLine>
             {{ formatTime(session.lastMessageAt) }}
           </div>
+          <button
+            mat-icon-button
+            matListItemMeta
+            aria-label="Delete chat"
+            (click)="deleteSession($event, session.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
         </mat-list-item>
       }
     </mat-nav-list>

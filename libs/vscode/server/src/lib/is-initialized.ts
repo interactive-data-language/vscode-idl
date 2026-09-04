@@ -29,6 +29,7 @@ import { CacheValidFSPath } from './helpers/cache-valid';
 import {
   IGNORE_PROBLEM_CODES,
   INCLUDE_PROBLEMS_FOR,
+  MCP_CONFIG,
 } from './helpers/merge-config';
 import { SendProblems } from './helpers/send-problems';
 import { SendUsageMetricServer } from './helpers/send-usage-metric-server';
@@ -290,7 +291,10 @@ SERVER_INFO.then(async (res) => {
       );
 
       // using what we parsed, register MCP tools for the user
-      RegisterMCPTaskTools(MCPServer.instance, IDL_INDEX);
+      RegisterMCPTaskTools(MCPServer.instance, IDL_INDEX, {
+        whitelist: MCP_CONFIG.enviToolWhitelist,
+        blacklist: MCP_CONFIG.enviToolBlacklist,
+      });
     } catch (err) {
       IDL_LANGUAGE_SERVER_LOGGER.log({
         log: IDL_LSP_LOG,

@@ -4,8 +4,8 @@ import {
   IDLEvaluateOptions,
   IStartIDLConfig,
 } from '@idl/types/idl/idl-process';
-import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { DebugProtocol } from '@vscode/debugprotocol';
+import * as vscode from 'vscode';
 
 export interface IFileBreakpoint {
   [key: number]: boolean;
@@ -32,16 +32,18 @@ export interface IDLDebugConfiguration
 }
 
 /**
- * Default configuration for debugging IDL
+ * VSCode debugging launch parameters
+ *
+ * DONT CHANGE THIS, always need to match debug config. It has problems
+ * when we give this additional values, but we can return them from our
+ * debug config provider.
  */
-export const DEFAULT_IDL_DEBUG_CONFIGURATION: IDLDebugConfiguration = {
-  type: IDL_LANGUAGE_NAME,
-  name: IDL_TRANSLATION.debugger.idl.name,
-  request: 'launch',
-  env: process.env,
-  config: DEFAULT_IDL_EXTENSION_CONFIG,
-  folders: [],
-};
+export const DEFAULT_IDL_VSCODE_DEBUG_CONFIGURATION: vscode.DebugConfiguration =
+  {
+    type: IDL_LANGUAGE_NAME,
+    name: IDL_TRANSLATION.debugger.idl.name,
+    request: 'launch',
+  };
 
 /**
  * When running IDL in debug mode, options to send it a command

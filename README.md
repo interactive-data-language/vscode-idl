@@ -20,11 +20,13 @@
     <!-- <a href="https://marketplace.visualstudio.com/items?itemName=IDL.idl-for-vscode">
       <img alt="VS Code Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/d/idl.idl-for-vscode"></a> -->
     <a href="https://marketplace.visualstudio.com/items?itemName=idl.idl-for-vscode">
-      <img alt="VS Code Marketplace Installs" src="https://img.shields.io/visual-studio-marketplace/i/idl.idl-for-vscode"></a>
+      <img src="https://vsmarketplacebadges.dev/installs-short/idl.idl-for-vscode.svg?label=VS%20Code%20Installs" alt="VS Code Installs" />
+    </a>
     <a href="https://github.com/interactive-data-language/vscode-idl">
       <img alt="GitHub Stars" src="extension/images/License-MIT-orange.png"></a>
     <a href="https://github.com/interactive-data-language/vscode-idl">
       <img alt="GitHub" src="extension/images/github.png"></a>
+
   </div>
 </p>
 

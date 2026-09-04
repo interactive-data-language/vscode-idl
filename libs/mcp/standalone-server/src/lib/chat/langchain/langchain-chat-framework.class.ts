@@ -1,0 +1,474 @@
+import type { IAgentServerConfig } from '@idl/types/agents';
+import {
+  ChatMessage,
+  ChatMessageRequest,
+  ChatStreamChunk,
+  TodoItem,
+} from '@idl/types/chat';
+import {
+  AIMessage,
+  AIMessageChunk,
+  BaseMessage,
+  HumanMessage,
+  SystemMessage,
+  ToolMessage,
+} from '@langchain/core/messages';
+import type { StructuredToolInterface } from '@langchain/core/tools';
+import { loadMcpTools } from '@langchain/mcp-adapters';
+import { ChatOpenAI } from '@langchain/openai';
+import { nanoid } from 'nanoid';
+
+import {
+  LANGCHAIN_TODO_TOOL_NAMES,
+  RegisterLangChainToolsForToDos,
+} from '../../mcp-tools/register-langchain-tools-for-todos';
+import { Chat } from '../chat.class';
+import { MCPClient } from './mcp-client.class';
+
+/**
+ * Maximum number of agentic loop iterations to prevent infinite loops
+ */
+const MAX_ITERATIONS = 30;
+
+/**
+ * Streaming chat completion service backed by LangChain + an OpenAI-compatible API.
+ *
+ * Stateless per-request — no disk session persistence. Recommended when using
+ * Ollama or any provider where the Copilot SDK has compatibility issues.
+ */
+export class LangChainChatFramework {
+  /** In-flight request AbortControllers keyed by frontend `sessionId`, used to cancel the current turn's model/tool calls. */
+  private readonly activeControllers = new Map<string, AbortController>();
+  private readonly config: IAgentServerConfig;
+  private mcpClient: MCPClient;
+  private mcpReady = false;
+  private mcpTools: StructuredToolInterface[] = [];
+  private parent: Chat;
+
+  constructor(parent: Chat, config: IAgentServerConfig) {
+    this.parent = parent;
+    this.config = config;
+    this.mcpClient = new MCPClient({ port: config.server.port });
+    this.initializeMCP();
+  }
+
+  /**
+   * Aborts the in-flight model/tool call for a request, if any.
+   */
+  async cancelSession(sessionId: string): Promise<void> {
+    this.activeControllers.get(sessionId)?.abort();
+  }
+
+  /**
+   * Disconnect the MCP client.
+   */
+  async disconnect(): Promise<void> {
+    await this.mcpClient.disconnect();
+    this.mcpReady = false;
+  }
+
+  /**
+   * Stream a chat completion via LangChain with an agentic tool-calling loop.
+   *
+   * @param request - The chat message request with history and model selection
+   * @yields Chat stream chunks (tokens, tool calls, tool results, done signal, or errors)
+   */
+  async *streamChatCompletion(
+    request: ChatMessageRequest,
+  ): AsyncIterable<ChatStreamChunk> {
+    const controller = new AbortController();
+    this.activeControllers.set(request.sessionId, controller);
+    try {
+      await this.waitForMCP();
+
+      const model = this.buildChatModel(request.model);
+
+      // Title generation for the very first turn.
+      if (request.conversationHistory.length === 0) {
+        const title = await this.parent.generateTitle(
+          request.message,
+          request.model,
+        );
+        if (title) {
+          yield { type: 'title', title };
+        }
+      }
+
+      const todos: TodoItem[] = request.currentTodos
+        ? [...request.currentTodos]
+        : [];
+
+      const messages = this.buildMessages(request, todos);
+      const allTools = [
+        ...this.mcpTools,
+        ...RegisterLangChainToolsForToDos(todos),
+      ];
+      const modelWithTools =
+        allTools.length > 0 ? model.bindTools(allTools) : model;
+
+      let iteration = 0;
+      const continueLoop = true;
+
+      while (continueLoop && iteration < MAX_ITERATIONS) {
+        iteration++;
+
+        if (controller.signal.aborted) {
+          yield { type: 'cancelled' };
+          return;
+        }
+
+        console.log('Stream');
+        const stream = await modelWithTools.stream(messages, {
+          signal: controller.signal,
+        });
+
+        let accumulated: AIMessageChunk | null = null;
+
+        for await (const chunk of stream) {
+          console.log(chunk);
+          accumulated = accumulated ? accumulated.concat(chunk) : chunk;
+
+          if (typeof chunk.content === 'string' && chunk.content) {
+            yield { type: 'text_chunk', content: chunk.content };
+          }
+        }
+
+        if (!accumulated) {
+          break;
+        }
+
+        const toolCalls = accumulated.tool_calls || [];
+
+        if (toolCalls.length > 0) {
+          messages.push(
+            new AIMessage({
+              content:
+                typeof accumulated.content === 'string'
+                  ? accumulated.content
+                  : '',
+              tool_calls: toolCalls.map((tc) => ({
+                id: tc.id || `tool_${Date.now()}_${Math.random()}`,
+                name: tc.name,
+                args: tc.args,
+              })),
+            }),
+          );
+        } else {
+          messages.push(accumulated);
+        }
+
+        if (toolCalls.length === 0) {
+          break;
+        }
+
+        const aiMsg = messages[messages.length - 1] as AIMessage;
+        const resolvedToolCalls = aiMsg.tool_calls || [];
+        const toolsByName = new Map(allTools.map((t) => [t.name, t]));
+
+        // Assign a stable toolCallId to every call upfront so tool_call and
+        // tool_result chunks can be correlated even when tools run in parallel.
+        const enrichedCalls = resolvedToolCalls.map((tc) => ({
+          ...tc,
+          toolCallId: tc.id || nanoid(),
+        }));
+
+        // Decrement iteration counter for todo tools (they don't count as a
+        // real agentic step) and emit all tool_call chunks before execution
+        // begins so the UI can render in-progress cards immediately.
+        for (const tc of enrichedCalls) {
+          if (LANGCHAIN_TODO_TOOL_NAMES.has(tc.name)) {
+            iteration--;
+          } else {
+            yield {
+              type: 'tool_call',
+              toolCallId: tc.toolCallId,
+              toolName: tc.name,
+              toolArgs: tc.args as Record<string, unknown>,
+            };
+          }
+        }
+
+        // Run all tools in this batch concurrently.
+        interface ToolOutcome {
+          isTodo: boolean;
+          /** Result text on success; error message on failure */
+          output: string;
+          toolCallId: string;
+          toolError: boolean;
+          toolMessage: ToolMessage;
+          toolName: string;
+        }
+
+        const outcomes = await Promise.all(
+          enrichedCalls.map(async (tc): Promise<ToolOutcome> => {
+            const tool = toolsByName.get(tc.name);
+            try {
+              if (!tool) {
+                throw new Error(`Unknown tool: ${tc.name}`);
+              }
+
+              let result: string | undefined;
+
+              const runTool = async (
+                t: StructuredToolInterface,
+              ): Promise<string | undefined> => {
+                const invoke = t.invoke as (
+                  args: Record<string, unknown>,
+                ) => Promise<unknown>;
+                const raw = await invoke(tc.args as Record<string, unknown>);
+                return typeof raw === 'string' ? raw : JSON.stringify(raw);
+              };
+
+              try {
+                result = await runTool(tool);
+              } catch (invokeError) {
+                if (this.isSessionExpiredError(invokeError)) {
+                  await this.reinitializeMCP();
+                  const freshTool = new Map(
+                    this.mcpTools.map((t) => [t.name, t]),
+                  ).get(tc.name);
+                  if (!freshTool) {
+                    throw new Error(
+                      `Tool "${tc.name}" not found after reconnect`,
+                    );
+                  }
+                  result = await runTool(freshTool);
+                } else {
+                  throw invokeError;
+                }
+              }
+
+              if (result === undefined) {
+                throw new Error(
+                  `Tool "${tc.name}" completed without returning a result`,
+                );
+              }
+
+              return {
+                toolCallId: tc.toolCallId,
+                toolName: tc.name,
+                toolError: false,
+                isTodo: LANGCHAIN_TODO_TOOL_NAMES.has(tc.name),
+                output: result,
+                toolMessage: new ToolMessage({
+                  content: result,
+                  tool_call_id: tc.id || '',
+                }),
+              };
+            } catch (error) {
+              const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+              return {
+                toolCallId: tc.toolCallId,
+                toolName: tc.name,
+                toolError: true,
+                isTodo: false,
+                output: errorMessage,
+                toolMessage: new ToolMessage({
+                  content: `Error executing tool: ${errorMessage}`,
+                  tool_call_id: tc.id || '',
+                }),
+              };
+            }
+          }),
+        );
+
+        // Append all tool messages to history in original order, then yield
+        // result chunks so the UI can update each in-progress tool card.
+        for (const outcome of outcomes) {
+          messages.push(outcome.toolMessage);
+          if (outcome.isTodo) {
+            yield { type: 'todo_update', todos: [...todos] };
+          } else {
+            yield {
+              type: 'tool_result',
+              toolCallId: outcome.toolCallId,
+              toolName: outcome.toolName,
+              toolError: outcome.toolError,
+              toolOutput: outcome.output,
+            };
+          }
+        }
+      }
+
+      if (iteration >= MAX_ITERATIONS) {
+        console.warn('[LangChainChatService] Max iterations reached');
+        yield {
+          type: 'text_chunk',
+          content: '\n\n[Maximum reasoning steps reached]',
+        };
+      }
+
+      yield { type: 'done' };
+    } catch (error) {
+      if (controller.signal.aborted) {
+        yield { type: 'cancelled' };
+        return;
+      }
+      console.error('[LangChainChatService] Chat completion error:', error);
+      yield {
+        type: 'error',
+        error:
+          error instanceof Error ? error.message : 'Unknown error occurred',
+      };
+    } finally {
+      this.activeControllers.delete(request.sessionId);
+    }
+  }
+
+  /**
+   * Build a `ChatOpenAI` instance configured for the active provider.
+   */
+  private buildChatModel(model: string): ChatOpenAI {
+    if (this.config.agent.llm.model === 'ollama') {
+      console.log(`Using ollama`);
+      return new ChatOpenAI({
+        apiKey: 'ollama',
+        configuration: { baseURL: `${this.config.agent.llm.config.url}/v1` },
+        model,
+        streaming: true,
+        temperature: 0.7,
+        // Highlight-start
+        modelKwargs: {
+          num_ctx: 128000, // Expands your context window to 128k tokens
+        },
+        // Highlight-end
+      });
+    }
+
+    if (this.config.agent.llm.model === 'openai') {
+      return new ChatOpenAI({
+        apiKey: this.config.agent.llm.config.apiKey,
+        model,
+        streaming: true,
+        temperature: 0.7,
+      });
+    }
+
+    // copilot provider — not well-supported via LangChain; fall back to OpenAI key if present
+    console.warn(
+      '[LangChainChatService] provider=copilot with engine=langchain is not fully supported. ' +
+        'Set CHAT_ENGINE=copilot for the best experience.',
+    );
+    return new ChatOpenAI({
+      apiKey: 'no-key',
+      model,
+      streaming: true,
+      temperature: 0.7,
+    });
+  }
+
+  /**
+   * Build the initial message list from the system instructions, conversation
+   * history, to-do reminder, and the current user message.
+   */
+  private buildMessages(
+    request: ChatMessageRequest,
+    todos: TodoItem[],
+  ): BaseMessage[] {
+    const messages: BaseMessage[] = [
+      new SystemMessage(this.parent.loadInstructions('todo')),
+    ];
+
+    if (request.instructions !== 'none') {
+      messages.push(
+        new SystemMessage(this.parent.loadInstructions(request.instructions)),
+      );
+    }
+
+    messages.push(
+      ...this.convertToLangChainMessages(request.conversationHistory),
+    );
+
+    if (todos.length > 0) {
+      const todoMessage = this.parent.formatToDoList(todos);
+      if (todoMessage) {
+        messages.push(new SystemMessage(todoMessage));
+      }
+    }
+
+    messages.push(new HumanMessage(request.message.trim()));
+
+    return messages;
+  }
+
+  /**
+   * Convert stored `ChatMessage` objects to LangChain message types.
+   */
+  private convertToLangChainMessages(messages: ChatMessage[]): BaseMessage[] {
+    return messages.map((msg) => {
+      const content = msg.content
+        .map((c) => c.payload)
+        .join('\n')
+        .trim();
+      switch (msg.type) {
+        case 'system':
+          return new SystemMessage(content);
+        case 'user':
+          return new HumanMessage(content);
+        default:
+          return new AIMessage(content);
+      }
+    });
+  }
+
+  /**
+   * Connect to the MCP server and load tools as LangChain tools.
+   */
+  private async initializeMCP(): Promise<void> {
+    try {
+      await this.mcpClient.connect();
+
+      this.mcpTools = await loadMcpTools(
+        'idl-mcp',
+        this.mcpClient.getClient(),
+        { throwOnLoadError: false },
+      );
+
+      this.mcpReady = true;
+      console.log(
+        `[LangChainChatService] MCP ready with ${this.mcpTools.length} tools`,
+      );
+    } catch (error) {
+      console.error('[LangChainChatService] Failed to initialize MCP:', error);
+      console.warn('[LangChainChatService] Chat will continue without tools');
+      this.mcpReady = false;
+    }
+  }
+
+  /**
+   * Detect errors caused by an expired or missing MCP session.
+   */
+  private isSessionExpiredError(error: unknown): boolean {
+    const msg = error instanceof Error ? error.message : String(error);
+    return (
+      msg.includes('404') ||
+      msg.includes('Session not found') ||
+      msg.includes('not initialized') ||
+      msg.includes('Not connected')
+    );
+  }
+
+  /**
+   * Disconnect and reconnect the MCP client, reloading all tools.
+   * Called when a tool invocation fails due to session expiry.
+   */
+  private async reinitializeMCP(): Promise<void> {
+    this.mcpReady = false;
+    this.mcpTools = [];
+    try {
+      await this.mcpClient.disconnect();
+    } catch {
+      // ignore — tearing down anyway
+    }
+    await this.initializeMCP();
+  }
+
+  /**
+   * Wait for MCP tools to finish loading before the first request.
+   */
+  private async waitForMCP(): Promise<void> {
+    if (this.mcpReady) return;
+    await this.initializeMCP();
+  }
+}

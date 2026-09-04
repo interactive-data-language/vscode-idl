@@ -1,5 +1,5 @@
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
-import { ENVIModelerNode } from '@idl/types/mcp';
+import { ENVIModelerNode } from '@idl/types/envi/modeler';
 
 import { FIXED_DISPLAY_NAMES } from '../create-envi-modeler-workflow.interface';
 

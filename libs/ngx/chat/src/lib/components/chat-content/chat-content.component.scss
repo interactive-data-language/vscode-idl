@@ -9,55 +9,11 @@
   flex-direction: column;
 }
 
-.welcome-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  padding: 48px;
-  text-align: center;
-
-  .welcome-icon {
-    font-size: 96px;
-    width: 96px;
-    height: 96px;
-    margin-bottom: 24px;
-    opacity: 0.5;
-  }
-
-  h1 {
-    margin: 0 0 16px 0;
-    font-size: 32px;
-    font-weight: 400;
-  }
-
-  p {
-    margin: 0;
-    font-size: 16px;
-    max-width: 500px;
-  }
-}
-
-.feature-list {
-  display: none;
-}
-
-.feature-item {
-  display: none;
-}
-
 .input-footer {
   flex-shrink: 0;
   position: relative;
-}
-
-.processing-bar {
-  // Sits flush above the input, full width
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
 .chat-messages {
@@ -82,6 +38,22 @@
     margin: 0;
     font-size: 14px;
   }
+}
+
+// Fills the parent width until it hits the cap, so it scales smoothly with no breakpoint snap
+.header-inner,
+.todo-inner,
+.messages-inner,
+.footer-inner {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.todo-row {
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
 .messages-area {

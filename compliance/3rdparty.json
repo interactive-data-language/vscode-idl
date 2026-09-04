@@ -27,11 +27,11 @@
     "notes": "Required library for Angular front end applications",
     "encryption": "no"
   },
-  "@angular/cdk": {
+  "@angular/build": {
     "notes": "Required library for Angular front end applications",
     "encryption": "no"
   },
-  "@angular/cli": {
+  "@angular/cdk": {
     "notes": "Required library for Angular front end applications",
     "encryption": "no"
   },
@@ -83,6 +83,10 @@
     "notes": "For development, ",
     "encryption": "no"
   },
+  "@deck.gl/extensions": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
   "@deck.gl/geo-layers": {
     "notes": "For development, ",
     "encryption": "no"
@@ -95,7 +99,35 @@
     "notes": "For development, ",
     "encryption": "no"
   },
+  "@github/copilot-sdk": {
+    "notes": "Access GitHub Copilot SDK which makes HTTPS requests for users",
+    "encryption": "yes"
+  },
+  "@jsverse/transloco": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@langchain/core": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
+  "@langchain/langgraph": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
+  "@langchain/mcp-adapters": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
+  "@langchain/openai": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
   "@mapbox/geojson-extent": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@material/material-color-utilities": {
     "notes": "For development, ",
     "encryption": "no"
   },
@@ -103,12 +135,24 @@
     "notes": "Additional Material Design Icons for web applications. See https://github.com/Templarian/MaterialDesign",
     "encryption": "no"
   },
+  "@modelcontextprotocol/sdk": {
+    "notes": "",
+    "encryption": "no"
+  },
   "@ngbracket/ngx-layout": {
     "notes": "For development, ",
     "encryption": "no"
   },
-  "@jsverse/transloco": {
-    "notes": "For development, ",
+  "@ngxs/devtools-plugin": {
+    "notes": "State management for Angular front end applications",
+    "encryption": "no"
+  },
+  "@ngxs/logger-plugin": {
+    "notes": "State management for Angular front end applications",
+    "encryption": "no"
+  },
+  "@ngxs/store": {
+    "notes": "State management for Angular front end applications",
     "encryption": "no"
   },
   "@nx/angular": {
@@ -147,12 +191,40 @@
     "notes": "For development, ",
     "encryption": "no"
   },
+  "@nx/webpack": {
+    "notes": "For development, used to bundle JavaScript code into a single file",
+    "encryption": "yes"
+  },
   "@nx/workspace": {
     "notes": "For development, plugins/libraries for monorepo management using Nx",
     "encryption": "no"
   },
   "@schematics/angular": {
     "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@svgr/webpack": {
+    "notes": "For development, used to bundle JavaScript code into a single file",
+    "encryption": "yes"
+  },
+  "@swc-node/register": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@swc/core": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@swc/helpers": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "@types/express": {
+    "notes": "For development, type definitions for express library",
+    "encryption": "no"
+  },
+  "@types/glob-to-regexp": {
+    "notes": "For development, type definitions for glob-to-regexp library",
     "encryption": "no"
   },
   "@types/jest": {
@@ -163,12 +235,20 @@
     "notes": "For development, type definitions for mapbox__geojson-extent library",
     "encryption": "no"
   },
+  "@types/mime-types": {
+    "notes": "For development, type definitions for mime-types library",
+    "encryption": "no"
+  },
   "@types/minilog": {
     "notes": "For development, type definitions for minilog library",
     "encryption": "no"
   },
   "@types/node": {
     "notes": "For development, type definitions for node library",
+    "encryption": "no"
+  },
+  "@types/path-browserify": {
+    "notes": "For development, type definitions for path-browserify library",
     "encryption": "no"
   },
   "@types/plist": {
@@ -191,11 +271,19 @@
     "notes": "For development, type definitions for web library",
     "encryption": "no"
   },
+  "@types/ws": {
+    "notes": "For development, type definitions for ws library",
+    "encryption": "no"
+  },
   "@typescript-eslint/eslint-plugin": {
     "notes": "For development, eslint plugin/library for code formatting",
     "encryption": "no"
   },
   "@typescript-eslint/parser": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "@typescript-eslint/utils": {
     "notes": "For development, eslint plugin/library for code formatting",
     "encryption": "no"
   },
@@ -243,6 +331,10 @@
     "notes": "For development and not included in the built extension, HTTP/HTTPS communication",
     "encryption": "yes"
   },
+  "buffer": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
   "case-anything": {
     "notes": "",
     "encryption": "no"
@@ -259,11 +351,23 @@
     "notes": "",
     "encryption": "no"
   },
+  "cors": {
+    "notes": "",
+    "encryption": "no"
+  },
   "cypress": {
     "notes": "For development, test running library",
     "encryption": "no"
   },
   "deepmerge": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "electron": {
+    "notes": "For development, ",
+    "encryption": "yes"
+  },
+  "emoji-regex": {
     "notes": "",
     "encryption": "no"
   },
@@ -283,7 +387,19 @@
     "notes": "For development, test running library",
     "encryption": "no"
   },
+  "eslint-plugin-perfectionist": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "eslint-plugin-prettier": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
   "eslint-plugin-simple-import-sort": {
+    "notes": "For development, eslint plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "eslint-plugin-typescript-sort-keys": {
     "notes": "For development, eslint plugin/library for code formatting",
     "encryption": "no"
   },
@@ -291,9 +407,17 @@
     "notes": "For development, eslint plugin/library for code formatting",
     "encryption": "no"
   },
+  "eventsource-parser": {
+    "notes": "",
+    "encryption": "no"
+  },
   "expect": {
     "notes": "For development, ",
     "encryption": "no"
+  },
+  "express": {
+    "notes": "Library for creating HTTP/HTTPS servers, can use HTTPS if provided certificates",
+    "encryption": "yes"
   },
   "fast-copy": {
     "notes": "",
@@ -307,12 +431,28 @@
     "notes": "",
     "encryption": "no"
   },
+  "flexsearch": {
+    "notes": "",
+    "encryption": "no"
+  },
   "fuzzysort": {
     "notes": "",
     "encryption": "no"
   },
+  "get-port": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "glob-to-regexp": {
+    "notes": "",
+    "encryption": "no"
+  },
   "himalaya": {
-    "notes": "For development, ",
+    "notes": "For development, parsing HTML",
+    "encryption": "no"
+  },
+  "idb-keyval": {
+    "notes": "",
     "encryption": "no"
   },
   "jest": {
@@ -331,6 +471,10 @@
     "notes": "For development, test writing/running library",
     "encryption": "no"
   },
+  "jest-util": {
+    "notes": "For development, test writing/running library",
+    "encryption": "no"
+  },
   "json-schema-resolver": {
     "notes": "",
     "encryption": "no"
@@ -339,16 +483,28 @@
     "notes": "For development, ",
     "encryption": "no"
   },
+  "markdown-to-txt": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "marked": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
   "material-icons": {
     "notes": "For development, ",
     "encryption": "no"
   },
-  "minilog": {
-    "notes": "",
+  "mime-types": {
+    "notes": "For development, ",
     "encryption": "no"
   },
   "nanoid": {
     "notes": "",
+    "encryption": "no"
+  },
+  "ngx-markdown": {
+    "notes": "3rd party library for Angular front end applications",
     "encryption": "no"
   },
   "node-html-markdown": {
@@ -363,12 +519,32 @@
     "notes": "For development, ",
     "encryption": "no"
   },
+  "nx-electron": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "openai": {
+    "notes": "Connects to OpenAI's REST API",
+    "encryption": "yes"
+  },
+  "os-browserify": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "path-browserify": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
   "plist": {
     "notes": "For development, ",
     "encryption": "no"
   },
   "prettier": {
     "notes": "For development, plugin/library for code formatting",
+    "encryption": "no"
+  },
+  "process": {
+    "notes": "For development, ",
     "encryption": "no"
   },
   "progress": {
@@ -383,9 +559,21 @@
     "notes": "",
     "encryption": "no"
   },
-  "terser-webpack-plugin": {
-    "notes": "For development and not included in the built extension, used to bundle JavaScript code into a single file",
+  "socket.io": {
+    "notes": "Library for websocket communication between front end and backend applications, can use encryption",
     "encryption": "yes"
+  },
+  "socket.io-client": {
+    "notes": "Library for websocket communication between front end and backend applications, can use encryption",
+    "encryption": "yes"
+  },
+  "stream-browserify": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "tree-kill": {
+    "notes": "",
+    "encryption": "no"
   },
   "ts-jest": {
     "notes": "For development, test writing/running library",
@@ -399,8 +587,24 @@
     "notes": "",
     "encryption": "no"
   },
+  "tty-browserify": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
   "typescript": {
     "notes": "Compiles TypeScript into JavaScript",
+    "encryption": "no"
+  },
+  "util": {
+    "notes": "",
+    "encryption": "no"
+  },
+  "vitepress": {
+    "notes": "For development, ",
+    "encryption": "no"
+  },
+  "vscode-jsonrpc": {
+    "notes": "",
     "encryption": "no"
   },
   "vscode-languageclient": {
@@ -427,8 +631,16 @@
     "notes": "",
     "encryption": "no"
   },
+  "ws": {
+    "notes": "Creates websocket connections",
+    "encryption": "yes"
+  },
   "yaml": {
     "notes": "For development, ",
+    "encryption": "no"
+  },
+  "zod": {
+    "notes": "",
     "encryption": "no"
   },
   "zone.js": {

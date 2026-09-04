@@ -239,7 +239,7 @@ export class VSCodeMCPExecutionBackend implements IIDLMCPExecutionBackend {
         return RunMCPTool_RunIDLCode(
           this,
           params as any,
-          this.prepareCode,
+          this.prepareCode.bind(this),
         ) as any;
 
       case MCP_TOOL_LOOKUP.RUN_IDL_FILE:

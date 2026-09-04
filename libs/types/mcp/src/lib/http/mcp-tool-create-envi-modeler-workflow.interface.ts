@@ -1,10 +1,4 @@
-import {
-  ENVIModelerEdge,
-  ENVIModelerInputParameter,
-  ENVIModelerNode,
-} from '@idl/types/envi/modeler';
-
-export { ENVIModelerEdge, ENVIModelerInputParameter, ENVIModelerNode };
+import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 
 /**
  * Create ENVI Modeler Workflow

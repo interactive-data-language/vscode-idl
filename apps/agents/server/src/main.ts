@@ -1,27 +1,26 @@
-import { StartAgentsServer, validateEnv } from '@idl/mcp/standalone-server';
-
-// Validate environment variables
-const env = validateEnv();
-
-// WebSocket mode is disabled for the standalone server app
-env.WEBSOCKET_ENABLED = 'false';
-
-const host = env.HOST;
-const port = Number(env.PORT);
+import { GetExtensionPath } from '@idl/idl/files';
+import { StartAgentsServer } from '@idl/mcp/standalone-server';
+import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
+import { copy } from 'fast-copy';
+import { readFileSync } from 'fs';
 
 async function main() {
-  console.log(env);
   try {
-    const result = await StartAgentsServer({
-      chatEngine: env.CHAT_ENGINE,
-      chatProvider: env.CHAT_PROVIDER,
-      copilotGitHubToken: env.COPILOT_GITHUB_TOKEN,
-      host,
-      ollamaBaseUrl: env.OLLAMA_BASE_URL,
-      openaiApiKey: env.OPENAI_API_KEY,
-      port,
-      websocketEnabled: false,
-    });
+    let config = copy(DEFAULT_AGENT_SERVER_CONFIG);
+
+    // try to load our config from disk
+    try {
+      const file = GetExtensionPath('desktop-agents.config.json');
+      console.log('[Config] Loading config from file on disk');
+      config = JSON.parse(readFileSync(file, 'utf-8'));
+    } catch (err) {
+      console.log('Problem loading config from file');
+      console.log(err);
+    }
+
+    config.server.port = 3000;
+
+    const result = await StartAgentsServer(config);
 
     // Graceful shutdown — stop the server so on-disk state flushes
     const shutdown = async (signal: NodeJS.Signals) => {

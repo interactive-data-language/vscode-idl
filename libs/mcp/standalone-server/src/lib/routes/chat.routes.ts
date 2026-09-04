@@ -1,12 +1,23 @@
-import type { ChatMessageRequest } from '@idl/types/chat';
+import type {
+  AvailableModelsResponse,
+  ChatInstructionsResponse,
+  ChatMessageRequest,
+  ExamplePromptsResponse,
+} from '@idl/types/chat';
 import { Router } from 'express';
 
-import { ChatService } from '../services/chat.service';
+import { Chat } from '../chat/chat.class';
+
+/**
+ * Idle time (in milliseconds) with no bytes written to an SSE response before
+ * a keepalive comment is sent to prevent proxy/connection timeouts.
+ */
+const KEEPALIVE_INTERVAL_MS = 15000;
 
 /**
  * Create chat routes
  */
-export function createChatRoutes(chatService: ChatService): Router {
+export function CreateChatRoutes(chat: Chat): Router {
   const router = Router();
 
   /**
@@ -15,12 +26,78 @@ export function createChatRoutes(chatService: ChatService): Router {
    */
   router.get('/models', async (_req, res) => {
     try {
-      const models = await chatService.listModels();
-      res.json({ models });
+      const models = await chat.listModels();
+      const defaultModel = await chat.defaultModelID();
+      const resp: AvailableModelsResponse = {
+        models,
+        defaultModelID: defaultModel,
+      };
+
+      res.json(resp);
     } catch (error) {
       console.log(error);
       res.status(500).json({
         error: error instanceof Error ? error.message : 'Failed to list models',
+      });
+    }
+  });
+
+  /**
+   * GET /api/chat/example-prompts
+   * Returns the configured list of example prompts for the welcome screen.
+   */
+  router.get('/example-prompts', (_req, res) => {
+    try {
+      const resp: ExamplePromptsResponse = {
+        prompts: chat.listExamplePrompts(),
+      };
+
+      res.json(resp);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Failed to list example prompts',
+      });
+    }
+  });
+
+  /**
+   * GET /api/chat/instructions
+   * Returns the configured list of chat instruction options and the default selection.
+   */
+  router.get('/instructions', (_req, res) => {
+    try {
+      const resp: ChatInstructionsResponse = chat.listChatInstructions();
+
+      res.json(resp);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Failed to list instructions',
+      });
+    }
+  });
+
+  /**
+   * POST /api/chat/:sessionId/cancel
+   * Interrupts the in-flight turn for a session without closing the session
+   * itself, so follow-up messages keep full context.
+   */
+  router.post('/:sessionId/cancel', async (req, res) => {
+    try {
+      await chat.cancelSession(req.params.sessionId);
+      res.status(204).end();
+    } catch (error) {
+      console.error('Error in /:sessionId/cancel endpoint:', error);
+      res.status(500).json({
+        error:
+          error instanceof Error ? error.message : 'Failed to cancel session',
       });
     }
   });
@@ -47,22 +124,48 @@ export function createChatRoutes(chatService: ChatService): Router {
       res.setHeader('Connection', 'keep-alive');
       res.setHeader('X-Accel-Buffering', 'no'); // Disable nginx buffering
 
-      // Stream the response — let the generator run to exhaustion so the
-      // optional 'title' chunk (emitted after 'done') is also sent.
-      for await (const chunk of chatService.streamChatCompletion(request)) {
-        // Format as SSE
-        const sseData = `data: ${JSON.stringify(chunk)}\n\n`;
-        res.write(sseData);
-
-        // End immediately on errors
-        if (chunk.type === 'error') {
-          res.end();
-          return;
+      // Sends an SSE comment (ignored by clients) whenever nothing has been
+      // written for a while, so long tool calls don't trip a proxy timeout.
+      let lastWriteTime = Date.now();
+      const keepaliveTimer = setInterval(() => {
+        if (Date.now() - lastWriteTime >= KEEPALIVE_INTERVAL_MS) {
+          res.write(': keepalive\n\n');
+          lastWriteTime = Date.now();
         }
-      }
+      }, KEEPALIVE_INTERVAL_MS);
 
-      // Generator exhausted — close the connection
-      res.end();
+      // Fallback for clients that abort the fetch/connection directly instead
+      // of calling the explicit cancel endpoint (e.g. tab closed mid-stream).
+      // `cancelSession` is idempotent, so a race with the explicit call is safe.
+      req.on('close', () => {
+        if (!res.writableEnded) {
+          chat.cancelSession(request.sessionId).catch((err) => {
+            console.error('Error cancelling session on close:', err);
+          });
+        }
+      });
+
+      try {
+        // Stream the response — let the generator run to exhaustion so the
+        // optional 'title' chunk (emitted after 'done') is also sent.
+        for await (const chunk of chat.streamChatCompletion(request)) {
+          // Format as SSE
+          const sseData = `data: ${JSON.stringify(chunk)}\n\n`;
+          res.write(sseData);
+          lastWriteTime = Date.now();
+
+          // End immediately on errors or cancellation
+          if (chunk.type === 'error' || chunk.type === 'cancelled') {
+            res.end();
+            return;
+          }
+        }
+
+        // Generator exhausted — close the connection
+        res.end();
+      } finally {
+        clearInterval(keepaliveTimer);
+      }
     } catch (error) {
       console.error('Error in /message endpoint:', error);
 

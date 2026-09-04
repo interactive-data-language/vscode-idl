@@ -3,7 +3,6 @@ import { copy } from 'fast-copy';
 import {
   DEFAULT_FILTER_SETS,
   IRuleBasedFilters,
-  IRuleBasedFilterSets,
   RuleBasedFilterType,
 } from './rule-based-filter.interface';
 
@@ -12,7 +11,9 @@ export class RuleBasedFilter {
   sets = copy(DEFAULT_FILTER_SETS);
 
   constructor(filters?: Partial<IRuleBasedFilters>) {
-    this._updateSets(filters);
+    if (filters) {
+      this._updateSets(filters);
+    }
   }
 
   /**
@@ -79,13 +80,21 @@ export class RuleBasedFilter {
   /**
    * Make sure sets are up-to-date with any filter changes
    */
-  private _updateSets(filters: Partial<IRuleBasedFilters> = {}) {
+  private _updateSets(filters: Partial<IRuleBasedFilters>) {
+    // get filters we are updating and return if nothing
     const keys = Object.keys(filters) as RuleBasedFilterType[];
-    const newSets: Partial<IRuleBasedFilterSets> = {};
+    if (keys.length === 0) {
+      return;
+    }
+
+    // build sets
     for (let i = 0; i < keys.length; i++) {
+      // get values of filters
       const values = filters[keys[i]];
+
+      // if we have values, then update our existing set
       if (values !== undefined) {
-        newSets[keys[i]] = new Set(
+        this.sets[keys[i]] = new Set(
           values.map((itemName) => this._normalizeItemName(itemName)),
         );
       }

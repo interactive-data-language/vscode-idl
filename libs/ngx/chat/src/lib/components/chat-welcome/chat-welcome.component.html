@@ -1,0 +1,16 @@
+<div class="welcome-message">
+  <h1>Ask anything to get started</h1>
+
+  <div class="example-prompts">
+    @for (prompt of examplePrompts(); track prompt.full) {
+      <button
+        type="button"
+        class="example-prompt-card"
+        (click)="onPromptClick(prompt.full)"
+      >
+        <mat-icon class="example-prompt-icon">auto_awesome</mat-icon>
+        <span class="example-prompt-text">{{ prompt.display }}</span>
+      </button>
+    }
+  </div>
+</div>

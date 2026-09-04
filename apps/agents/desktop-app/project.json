@@ -8,10 +8,13 @@
       "executor": "nx-electron:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/agents/desktop-app",
+        "outputPath": "dist/apps/agents-desktop-app",
         "main": "apps/agents/desktop-app/src/main.ts",
         "tsConfig": "apps/agents/desktop-app/tsconfig.app.json",
-        "assets": ["apps/agents/desktop-app/src/assets"]
+        "assets": ["apps/agents/desktop-app/src/assets"],
+        "externalDependencies": "none",
+        "webpackConfig": "apps/agents/desktop-app/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -41,7 +44,17 @@
         "frontendProject": "agents-ui",
         "sourcePath": "dist/apps",
         "outputPath": "dist/packages",
-        "prepackageOnly": true
+        "prepackageOnly": true,
+        "asar": true,
+        "asarUnpack": [
+          "**/node_modules/@koromix/**/*",
+          "**/node_modules/@github/**/*"
+        ],
+        "icon": "apps/agents/desktop-app/src/assets/icon-resized.png",
+        "extraMetadata": {
+          "main": "index.js",
+          "name": "idl-agent-and-envi-agent"
+        }
       }
     },
     "make": {
@@ -50,7 +63,17 @@
         "name": "agents-desktop-app",
         "frontendProject": "agents-ui",
         "sourcePath": "dist/apps",
-        "outputPath": "dist/executables"
+        "outputPath": "dist/executables",
+        "asar": true,
+        "asarUnpack": [
+          "**/node_modules/@koromix/**/*",
+          "**/node_modules/@github/**/*"
+        ],
+        "icon": "apps/agents/desktop-app/src/assets/icon-resized.png",
+        "extraMetadata": {
+          "main": "index.js",
+          "name": "idl-agent-and-envi-agent"
+        }
       }
     },
     "lint": {

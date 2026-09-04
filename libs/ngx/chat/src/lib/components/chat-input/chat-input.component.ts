@@ -1,3 +1,4 @@
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -20,11 +21,12 @@ import { nanoid } from 'nanoid';
 import {
   AddChatSession,
   AddMessageToSession,
+  CancelMessageToSession,
   SelectChatSession,
 } from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
+import { ChatInstructionsSelectorComponent } from '../chat-instructions-selector/chat-instructions-selector.component';
 import { ChatModelSelectorComponent } from '../chat-model-selector/chat-model-selector.component';
-import { ChatPromptSelectorComponent } from '../chat-prompt-selector/chat-prompt-selector.component';
 
 /**
  * Input component for typing and sending chat messages.
@@ -39,7 +41,8 @@ import { ChatPromptSelectorComponent } from '../chat-prompt-selector/chat-prompt
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    ChatPromptSelectorComponent,
+    TextFieldModule,
+    ChatInstructionsSelectorComponent,
     ChatModelSelectorComponent,
   ],
   templateUrl: './chat-input.component.html',
@@ -61,15 +64,35 @@ export class ChatInputComponent {
   private readonly store = inject(Store);
 
   /**
-   * Disabled when a response is already in progress
+   * Whether any chat session (not just the selected one) is in-progress.
+   * Only a single session can be processed at a time.
    */
-  protected readonly isDisabled = computed(
-    () =>
-      this.store.selectSnapshot(ChatState.selectedSession)?.status ===
-      'in-progress',
+  private readonly anySessionInProgress = this.store.selectSignal(
+    ChatState.anySessionInProgress,
   );
 
+  /**
+   * Disabled when any session already has a response in progress
+   */
+  protected readonly isDisabled = computed(() => this.anySessionInProgress());
+
   private readonly snackBar = inject(MatSnackBar);
+
+  /**
+   * Sets the input text and sends it, used for example prompts selected from the welcome screen
+   */
+  sendPrompt(text: string): void {
+    this.inputText.set(text);
+    this.sendMessage();
+  }
+
+  /**
+   * Sets the input text without sending it, used for example prompts
+   * that require user edits (e.g. a file path) before sending
+   */
+  setPromptText(text: string): void {
+    this.inputText.set(text);
+  }
 
   /**
    * Handle keyboard events (Enter to send, Shift+Enter for new line)
@@ -90,28 +113,8 @@ export class ChatInputComponent {
       return;
     }
 
-    let currentSessionId = this.sessionId();
-
-    // If no session exists, create one before sending
-    if (!currentSessionId) {
-      const newSession: ChatSession = {
-        id: nanoid(),
-        title: 'New Chat',
-        createdAt: new Date(),
-        lastMessageAt: new Date(),
-        prompt: 'envi',
-        messageCount: 0,
-        status: 'ready',
-        messages: [],
-      };
-      this.store.dispatch(new AddChatSession(newSession));
-      this.store.dispatch(new SelectChatSession(newSession.id));
-      currentSessionId = newSession.id;
-    }
-
-    // Check if there's already a message in progress
-    const currentSession = this.store.selectSnapshot(ChatState.selectedSession);
-    if (currentSession?.status === 'in-progress') {
+    // Check if there's already a message in progress in any session
+    if (this.store.selectSnapshot(ChatState.anySessionInProgress)) {
       this.snackBar.open(
         'Please wait for the current response to complete',
         'OK',
@@ -122,6 +125,24 @@ export class ChatInputComponent {
         },
       );
       return;
+    }
+
+    let currentSessionId = this.sessionId();
+
+    // If no session exists, create one before sending
+    if (!currentSessionId) {
+      const newSession: ChatSession = {
+        id: nanoid(),
+        title: 'New Chat',
+        createdAt: new Date(),
+        lastMessageAt: new Date(),
+        messageCount: 0,
+        status: 'ready',
+        messages: [],
+      };
+      this.store.dispatch(new AddChatSession(newSession));
+      this.store.dispatch(new SelectChatSession(newSession.id));
+      currentSessionId = newSession.id;
     }
 
     // Dispatch action to add message to the session
@@ -140,5 +161,17 @@ export class ChatInputComponent {
 
     // Clear the input
     this.inputText.set('');
+  }
+
+  /**
+   * Cancel the response that is currently streaming, wherever it is
+   */
+  protected stopMessage(): void {
+    const inProgress = this.store
+      .selectSnapshot(ChatState.sessions)
+      .find((s) => s.status === 'in-progress');
+    if (inProgress) {
+      this.store.dispatch(new CancelMessageToSession(inProgress.id));
+    }
   }
 }

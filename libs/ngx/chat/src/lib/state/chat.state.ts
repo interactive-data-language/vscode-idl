@@ -7,37 +7,62 @@ import {
 } from '@idl/types/chat';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { nanoid } from 'nanoid';
+import { Subscription } from 'rxjs';
 
 import { ChatApiService } from '../services/chat-api.service';
 import {
   AddChatSession,
   AddMessageToSession,
+  CancelMessageToSession,
   DeleteChatSession,
-  LoadChatSessions,
+  LoadTestChatSessions,
+  ResetApplicationState,
+  RestoreChatState,
   SelectChatSession,
   SetChatSessions,
-  SetPendingPrompt,
+  SetSelectedInstructions,
   SetSelectedModel,
-  SetSessionPrompt,
 } from './chat.actions';
+import { DEFAULT_STATE } from './default-state.interface';
+import { TEST_CHAT_SESSIONS } from './test-chat-sessions.interface';
 
 /**
- * Default state for the chat feature
+ * State management for our chat UI
+ *
+ * Note that this being saved and restored comes from these files:
+ * libs\ngx\chat\src\lib\services\app-storage.service.ts
+ * apps\agents\ui\src\app\app.config.ts
+ *
  */
-const defaultState: ChatStateModel = {
-  sessions: [],
-  pendingPrompt: 'envi',
-  loading: false,
-  selectedModel: 'gpt-5.4', // Default to cheapest model
-};
-
 @State<ChatStateModel>({
   name: 'chat',
-  defaults: defaultState,
+  defaults: DEFAULT_STATE,
 })
 @Injectable()
 export class ChatState {
+  /**
+   * In-flight request bookkeeping keyed by session ID, used to cancel a
+   * response mid-stream. Intentionally not part of `ChatStateModel` — this
+   * holds live objects (AbortController/Subscription) and must not be
+   * serialized/persisted.
+   */
+  private readonly activeRequests = new Map<
+    string,
+    { controller: AbortController; subscription: Subscription }
+  >();
+
   private readonly chatApiService = inject(ChatApiService);
+
+  /**
+   * Whether any session (not just the selected one) is currently in-progress
+   *
+   * Only a single session can be processed at a time because the chat engages
+   * with a single application that cannot process requests in parallel.
+   */
+  @Selector()
+  static anySessionInProgress(state: ChatStateModel): boolean {
+    return state.sessions.some((s) => s.status === 'in-progress');
+  }
 
   /**
    * Get loading state
@@ -48,11 +73,11 @@ export class ChatState {
   }
 
   /**
-   * Get the pending prompt (selected before any session exists)
+   * Get the currently selected instructions
    */
   @Selector()
-  static pendingPrompt(state: ChatStateModel) {
-    return state.pendingPrompt;
+  static selectedInstructions(state: ChatStateModel) {
+    return state.selectedInstructions;
   }
 
   /**
@@ -91,6 +116,14 @@ export class ChatState {
   }
 
   /**
+   * Get the full chat state, used to persist it to IndexedDB
+   */
+  @Selector()
+  static state(state: ChatStateModel): ChatStateModel {
+    return state;
+  }
+
+  /**
    * Add a message to an existing chat session and get AI response
    */
   @Action(AddMessageToSession)
@@ -104,6 +137,12 @@ export class ChatState {
     const targetSession = state.sessions.find((s) => s.id === action.sessionId);
     if (!targetSession) {
       console.error(`Session ${action.sessionId} not found`);
+      return;
+    }
+
+    // Only one session can be processed at a time, the backend can't run in parallel
+    if (state.sessions.some((s) => s.status === 'in-progress')) {
+      console.error('Another session is already in-progress');
       return;
     }
 
@@ -148,7 +187,7 @@ export class ChatState {
 
     // 3. Call API with streaming
     const conversationHistory = targetSession.messages.filter(
-      (m) => m.type !== 'tool',
+      (m) => m.type !== 'thinking' && m.type !== 'tool',
     );
 
     // Track the latest tool message ID so tool_result can update it
@@ -156,25 +195,67 @@ export class ChatState {
     // to the correct in-progress tool card in the UI.
     const toolMessageIdByCallId = new Map<string, string>();
 
+    // Map from thinkingId (reasoningId) -> message ID so multiple reasoning
+    // blocks in a single turn each resolve to their own thinking card.
+    const thinkingMessageIdByReasoningId = new Map<string, string>();
+
+    // ID of the most recently created thinking message (and its reasoning
+    // ID), used to close it out if the backend sends a text chunk before
+    // the thinking "done" event (the backend can emit these out of order).
+    let lastThinkingMessageId: string | undefined;
+    let lastThinkingReasoningId: string | undefined;
+
     // Track the current system message accumulating LLM text. After each
     // tool_result a new system message is created so text and tool calls
     // interleave naturally in the message list.
     let currentSystemMessageId = systemMessageId;
     let needsNewSystemMessage = false;
 
-    this.chatApiService
-      .sendMessage({
-        sessionId: action.sessionId,
-        message: action.message.content.map((c) => c.payload).join('\n'),
-        model: state.selectedModel,
-        prompt: targetSession.prompt,
-        conversationHistory,
-        currentTodos: targetSession.todos ?? [],
-      })
+    const controller = new AbortController();
+
+    const subscription = this.chatApiService
+      .sendMessage(
+        {
+          sessionId: action.sessionId,
+          message: action.message.content.map((c) => c.payload).join('\n'),
+          model: state.selectedModel,
+          instructions: state.selectedInstructions,
+          conversationHistory,
+          currentTodos: targetSession.todos ?? [],
+        },
+        controller.signal,
+      )
       .subscribe({
         next: (chunk) => {
           switch (chunk.type) {
+            case 'cancelled':
+              this.activeRequests.delete(action.sessionId);
+              // don't leave a thinking card spinning forever if the user stops mid-reasoning
+              for (const thinkingMessageId of thinkingMessageIdByReasoningId.values()) {
+                this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
+                  status: 'done',
+                });
+              }
+              thinkingMessageIdByReasoningId.clear();
+              this.cancelPendingToolCalls(ctx, action.sessionId);
+              toolMessageIdByCallId.clear();
+              // Append a dedicated marker message so the indicator always
+              // renders after everything else in the turn, rather than
+              // attaching to currentSystemMessageId which may not be last.
+              this.appendMessageToSession(ctx, action.sessionId, {
+                id: nanoid(),
+                type: 'system',
+                status: 'stopped',
+                content: [{ type: 'text', payload: '' }],
+              });
+              this.updateSession(ctx, action.sessionId, {
+                status: 'ready',
+                lastMessageAt: new Date(),
+              });
+              break;
+
             case 'done': {
+              this.activeRequests.delete(action.sessionId);
               // Remove the trailing system message if it has no text content
               // (happens when the last LLM iteration ended with a tool call)
               const doneState = ctx.getState();
@@ -208,7 +289,17 @@ export class ChatState {
             }
 
             case 'error':
+              this.activeRequests.delete(action.sessionId);
               console.error('Streaming error:', chunk.error);
+              // don't leave a thinking card spinning forever if the stream dies mid-reasoning
+              for (const thinkingMessageId of thinkingMessageIdByReasoningId.values()) {
+                this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
+                  status: 'done',
+                });
+              }
+              thinkingMessageIdByReasoningId.clear();
+              lastThinkingMessageId = undefined;
+              lastThinkingReasoningId = undefined;
               this.setMessageError(
                 ctx,
                 action.sessionId,
@@ -217,12 +308,24 @@ export class ChatState {
               );
               break;
 
-            case 'keepalive':
-              // Ignore keepalive heartbeats - they exist only to keep
-              // the HTTP streaming connection alive during long tool execution
-              break;
-
             case 'text_chunk':
+              // Backend can send a text chunk before closing out the
+              // thinking message it belongs after, so close the last
+              // in-progress thinking message here as a safety net.
+              if (lastThinkingMessageId) {
+                this.updateMessage(
+                  ctx,
+                  action.sessionId,
+                  lastThinkingMessageId,
+                  { status: 'done' },
+                );
+                thinkingMessageIdByReasoningId.delete(
+                  lastThinkingReasoningId as string,
+                );
+                lastThinkingMessageId = undefined;
+                lastThinkingReasoningId = undefined;
+              }
+
               if (needsNewSystemMessage) {
                 // Start a fresh system message after a tool call/result pair
                 currentSystemMessageId = nanoid();
@@ -245,6 +348,51 @@ export class ChatState {
                 chunk.content,
               );
               break;
+
+            case 'thinking_chunk': {
+              let thinkingMessageId = thinkingMessageIdByReasoningId.get(
+                chunk.thinkingId,
+              );
+              if (!thinkingMessageId) {
+                thinkingMessageId = nanoid();
+                thinkingMessageIdByReasoningId.set(
+                  chunk.thinkingId,
+                  thinkingMessageId,
+                );
+                const thinkingMessage: ChatMessage = {
+                  id: thinkingMessageId,
+                  type: 'thinking',
+                  status: 'in-progress',
+                  content: [{ type: 'thinking', payload: '' }],
+                };
+                this.appendMessageToSession(
+                  ctx,
+                  action.sessionId,
+                  thinkingMessage,
+                );
+              }
+              lastThinkingMessageId = thinkingMessageId;
+              lastThinkingReasoningId = chunk.thinkingId;
+
+              if (chunk.done) {
+                this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
+                  status: 'done',
+                });
+                thinkingMessageIdByReasoningId.delete(chunk.thinkingId);
+                if (lastThinkingMessageId === thinkingMessageId) {
+                  lastThinkingMessageId = undefined;
+                  lastThinkingReasoningId = undefined;
+                }
+              } else if (chunk.content) {
+                this.appendThinkingDelta(
+                  ctx,
+                  action.sessionId,
+                  thinkingMessageId,
+                  chunk.content,
+                );
+              }
+              break;
+            }
 
             case 'title':
               if (chunk.title) {
@@ -312,6 +460,7 @@ export class ChatState {
           }
         },
         error: (error) => {
+          this.activeRequests.delete(action.sessionId);
           console.error('API call error:', error);
           this.setMessageError(
             ctx,
@@ -321,6 +470,8 @@ export class ChatState {
           );
         },
       });
+
+    this.activeRequests.set(action.sessionId, { controller, subscription });
   }
 
   /**
@@ -329,12 +480,61 @@ export class ChatState {
   @Action(AddChatSession)
   addSession(ctx: StateContext<ChatStateModel>, action: AddChatSession) {
     const state = ctx.getState();
-    const session = state.pendingPrompt
-      ? { ...action.session, prompt: state.pendingPrompt }
-      : action.session;
     ctx.patchState({
-      sessions: [...state.sessions, session],
-      pendingPrompt: undefined,
+      sessions: [...state.sessions, action.session],
+    });
+  }
+
+  /**
+   * Cancel the in-progress response for a session: aborts the client-side
+   * stream and asks the backend to interrupt the underlying LLM turn,
+   * without ending the session itself. State is updated here directly
+   * (rather than waiting for a 'cancelled' chunk) since the subscription is
+   * torn down immediately and won't observe any further server events.
+   */
+  @Action(CancelMessageToSession)
+  cancelMessageToSession(
+    ctx: StateContext<ChatStateModel>,
+    action: CancelMessageToSession,
+  ) {
+    const entry = this.activeRequests.get(action.sessionId);
+    if (!entry) {
+      return;
+    }
+    this.activeRequests.delete(action.sessionId);
+    entry.subscription.unsubscribe();
+    entry.controller.abort();
+    this.chatApiService.cancelMessage(action.sessionId).subscribe({
+      error: (error) =>
+        console.error('Failed to notify backend of cancellation:', error),
+    });
+
+    const session = ctx
+      .getState()
+      .sessions.find((s) => s.id === action.sessionId);
+    if (session) {
+      // Close out any thinking card still spinning so it doesn't hang forever
+      for (const message of session.messages) {
+        if (message.type === 'thinking' && message.status === 'in-progress') {
+          this.updateMessage(ctx, action.sessionId, message.id, {
+            status: 'done',
+          });
+        }
+      }
+      this.cancelPendingToolCalls(ctx, action.sessionId);
+      // Append a dedicated marker message so the "stopped" indicator always
+      // renders after everything else in the turn (text, tool calls, etc.)
+      // rather than attaching to a system message that may not be last.
+      this.appendMessageToSession(ctx, action.sessionId, {
+        id: nanoid(),
+        type: 'system',
+        status: 'stopped',
+        content: [{ type: 'text', payload: '' }],
+      });
+    }
+    this.updateSession(ctx, action.sessionId, {
+      status: 'ready',
+      lastMessageAt: new Date(),
     });
   }
 
@@ -356,88 +556,37 @@ export class ChatState {
   /**
    * Load chat sessions (placeholder - would call a service in real app)
    */
-  @Action(LoadChatSessions)
+  @Action(LoadTestChatSessions)
   loadSessions(ctx: StateContext<ChatStateModel>) {
     ctx.patchState({ loading: true });
+    ctx.dispatch(new SetChatSessions(TEST_CHAT_SESSIONS));
+  }
 
-    // Placeholder: Create some demo sessions
-    const demoSessions: ChatSession[] = [
-      {
-        id: nanoid(),
-        prompt: 'envi',
-        title: 'Welcome Chat',
-        createdAt: new Date(),
-        lastMessageAt: new Date(),
-        messageCount: 3,
-        status: 'ready',
-        messages: [
-          {
-            id: nanoid(),
-            type: 'user',
-            content: [
-              {
-                type: 'text',
-                payload:
-                  'Can you help me do XYZ? with some other really long text and blah blah blah blah blah thingajshdlfkjhaslkhdflkjashdflkj ksjhdflkhfas lashdflkj alkdsjhflkja lkajshdfk lkahdslkfha lkajhdslfkj alkdjhsflkjahs',
-              },
-            ],
-          },
-          {
-            id: nanoid(),
-            type: 'system',
-            content: [
-              {
-                type: 'text',
-                payload: 'Can you help me do XYZ?\n- Thing\n- Also',
-              },
-            ],
-          },
-          {
-            id: nanoid(),
-            type: 'user',
-            content: [
-              {
-                type: 'text',
-                payload: '[link](https://www.google.com)',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: nanoid(),
-        prompt: 'envi',
-        title: 'Project Discussion',
-        createdAt: new Date(Date.now() - 86400000),
-        lastMessageAt: new Date(Date.now() - 3600000),
-        messageCount: 15,
-        status: 'in-progress',
-        messages: [
-          {
-            id: nanoid(),
-            type: 'user',
-            content: [
-              {
-                type: 'text',
-                payload: 'Can you help me do XYZ?',
-              },
-            ],
-          },
-          {
-            id: nanoid(),
-            type: 'system',
-            content: [
-              {
-                type: 'text',
-                payload: 'Can you help me do XYZ?',
-              },
-            ],
-          },
-        ],
-      },
-    ];
+  /**
+   * Reset the entire application state back to its default value
+   */
+  @Action(ResetApplicationState)
+  resetApplicationState(ctx: StateContext<ChatStateModel>) {
+    // copy default state, but keep selections since they were loaded from a REST API
+    const state = ctx.getState();
+    ctx.setState({
+      ...DEFAULT_STATE,
+      selectedInstructions: state.selectedInstructions,
+      selectedModel: state.selectedModel,
+    });
+  }
 
-    ctx.dispatch(new SetChatSessions(demoSessions));
+  /**
+   * Restore persisted chat state (e.g. from IndexedDB)
+   *
+   * Reset fields that we don't care about saving
+   */
+  @Action(RestoreChatState)
+  restoreChatState(
+    ctx: StateContext<ChatStateModel>,
+    action: RestoreChatState,
+  ) {
+    ctx.patchState({ ...action.state, loading: false });
   }
 
   /**
@@ -451,14 +600,14 @@ export class ChatState {
   }
 
   /**
-   * Set pending prompt before a session exists
+   * Set the currently selected instructions for chat completions
    */
-  @Action(SetPendingPrompt)
-  setPendingPrompt(
+  @Action(SetSelectedInstructions)
+  setSelectedInstructions(
     ctx: StateContext<ChatStateModel>,
-    action: SetPendingPrompt,
+    action: SetSelectedInstructions,
   ) {
-    ctx.patchState({ pendingPrompt: action.prompt });
+    ctx.patchState({ selectedInstructions: action.instructions });
   }
 
   /**
@@ -471,22 +620,6 @@ export class ChatState {
   ) {
     ctx.patchState({
       selectedModel: action.model,
-    });
-  }
-
-  /**
-   * Set the prompt type for a specific chat session
-   */
-  @Action(SetSessionPrompt)
-  setSessionPrompt(
-    ctx: StateContext<ChatStateModel>,
-    action: SetSessionPrompt,
-  ) {
-    const state = ctx.getState();
-    ctx.patchState({
-      sessions: state.sessions.map((s) =>
-        s.id === action.sessionId ? { ...s, prompt: action.prompt } : s,
-      ),
     });
   }
 
@@ -542,6 +675,32 @@ export class ChatState {
   }
 
   /**
+   * Helper: Append a reasoning delta to a thinking message's single content block
+   */
+  private appendThinkingDelta(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    messageId: string,
+    content: string,
+  ): void {
+    const state = ctx.getState();
+    const session = state.sessions.find((s) => s.id === sessionId);
+    const message = session?.messages.find((m) => m.id === messageId);
+
+    if (!message) return;
+
+    const currentContent = message.content[0]?.payload || '';
+    this.updateMessage(ctx, sessionId, messageId, {
+      content: [
+        {
+          type: 'thinking' as const,
+          payload: currentContent + content,
+        },
+      ],
+    });
+  }
+
+  /**
    * Helper: Append content to a message
    */
   private appendToMessage(
@@ -565,6 +724,32 @@ export class ChatState {
         },
       ],
     });
+  }
+
+  /**
+   * Helper: Flag every tool call still awaiting a result as cancelled
+   */
+  private cancelPendingToolCalls(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+  ): void {
+    const state = ctx.getState();
+    const session = state.sessions.find((s) => s.id === sessionId);
+    if (!session) return;
+
+    for (const message of session.messages) {
+      const isPending =
+        message.type === 'tool' &&
+        !message.content.some(
+          (c) => c.type === 'tool_result' || c.type === 'tool_error',
+        );
+      if (isPending) {
+        this.appendContentToMessage(ctx, sessionId, message.id, {
+          type: 'tool_error',
+          payload: 'Cancelled by user',
+        });
+      }
+    }
   }
 
   /**

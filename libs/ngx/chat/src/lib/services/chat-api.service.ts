@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ElectronConfigService } from '@idl/ngx/electron';
+import { ConfigApiService } from '@idl/ngx/app-config';
 import type {
   AvailableModelsResponse,
+  ChatInstructionsResponse,
   ChatMessageRequest,
   ChatStreamChunk,
+  ExamplePromptsResponse,
 } from '@idl/types/chat';
 import { Observable } from 'rxjs';
 
@@ -15,16 +17,24 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ChatApiService {
-  private readonly electronConfig = inject(ElectronConfigService);
+  private readonly configApi = inject(ConfigApiService);
 
   /** HTTP client */
   private readonly http = inject(HttpClient);
 
   /** Base URL for REST API — absolute when running in Electron */
   private get baseUrl(): string {
-    return this.electronConfig.isElectron
-      ? `http://localhost:${this.electronConfig.config.agentsPort}/api/chat`
+    return this.configApi.isElectron
+      ? `http://localhost:${this.configApi.config.server.port}/api/chat`
       : '/api/chat';
+  }
+
+  /**
+   * Request the server interrupt the in-flight turn for a session, without
+   * ending the session itself
+   */
+  cancelMessage(sessionId: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/${sessionId}/cancel`, {});
   }
 
   /**
@@ -35,12 +45,34 @@ export class ChatApiService {
   }
 
   /**
+   * Get the configured list of chat instruction options and the default selection
+   */
+  getChatInstructions(): Observable<ChatInstructionsResponse> {
+    return this.http.get<ChatInstructionsResponse>(
+      `${this.baseUrl}/instructions`,
+    );
+  }
+
+  /**
+   * Get the configured list of example prompts for the welcome screen
+   */
+  getExamplePrompts(): Observable<ExamplePromptsResponse> {
+    return this.http.get<ExamplePromptsResponse>(
+      `${this.baseUrl}/example-prompts`,
+    );
+  }
+
+  /**
    * Send a message and receive streaming response via Server-Sent Events
    *
    * @param request - The chat message request
+   * @param signal - Optional signal to abort the underlying fetch when the user cancels
    * @returns Observable of chat stream chunks
    */
-  sendMessage(request: ChatMessageRequest): Observable<ChatStreamChunk> {
+  sendMessage(
+    request: ChatMessageRequest,
+    signal?: AbortSignal,
+  ): Observable<ChatStreamChunk> {
     return new Observable<ChatStreamChunk>((subscriber) => {
       // Use fetch with EventSource for SSE streaming
       fetch(`${this.baseUrl}/message`, {
@@ -49,6 +81,7 @@ export class ChatApiService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(request),
+        signal,
       })
         .then(async (response) => {
           if (!response.ok) {
@@ -107,6 +140,12 @@ export class ChatApiService {
           subscriber.complete();
         })
         .catch((error) => {
+          // The user cancelled the request; the reducer already handles the
+          // UI-side transition, so this isn't a chat error to surface.
+          if (error instanceof DOMException && error.name === 'AbortError') {
+            subscriber.complete();
+            return;
+          }
           console.error('Stream error:', error);
           subscriber.error(error);
         });

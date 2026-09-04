@@ -1,14 +1,14 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import {
   IStartAgentsServerResult,
   StartAgentsServer,
 } from '@idl/mcp/standalone-server';
-import {
-  DEFAULT_ELECTRON_CONFIG,
-  ELECTRON_EVENTS,
-  type IElectronConfig,
-} from '@idl/types/electron';
+import { getPorts } from '@idl/server-helpers';
+import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
+import { ELECTRON_EVENTS } from '@idl/types/electron';
 import { BrowserWindow, ipcMain, screen, shell } from 'electron';
 import { copy } from 'fast-copy';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 import { format } from 'url';
 
@@ -23,9 +23,10 @@ export default class App {
   static BrowserWindow: typeof BrowserWindow;
 
   /** Config for the electron app */
-  static config = copy(DEFAULT_ELECTRON_CONFIG);
+  static config = copy(DEFAULT_AGENT_SERVER_CONFIG);
 
   static mainWindow: BrowserWindow | null = null;
+  static splashWindow: BrowserWindow | null = null;
 
   public static isDevelopmentMode() {
     const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
@@ -52,6 +53,41 @@ export default class App {
         await App.agentsServer.stop();
       }
     });
+
+    // try to load our config from disk
+    try {
+      const file = GetExtensionPath('desktop-agents.config.json');
+      console.log('Loading config from file on disk');
+      this.config = JSON.parse(readFileSync(file, 'utf-8'));
+    } catch (err) {
+      console.log('Problem loading config from file');
+      console.log(err);
+    }
+  }
+
+  private static createSplashWindow() {
+    App.splashWindow = new BrowserWindow({
+      width: 258,
+      height: 451,
+      frame: false,
+      resizable: false,
+      movable: false,
+      show: false,
+      transparent: true,
+      icon: join(__dirname, 'assets', 'splash-screen.png'),
+      webPreferences: {
+        contextIsolation: true,
+      },
+    });
+    App.splashWindow.setMenu(null);
+    App.splashWindow.center();
+    App.splashWindow.loadFile(join(__dirname, 'assets', 'splash.html'));
+    App.splashWindow.once('ready-to-show', () => {
+      App.splashWindow?.show();
+    });
+    App.splashWindow.on('closed', () => {
+      App.splashWindow = null;
+    });
   }
 
   private static initMainWindow() {
@@ -63,7 +99,10 @@ export default class App {
     App.mainWindow = new BrowserWindow({
       width: width,
       height: height,
+      minWidth: 392,
+      minHeight: 700,
       show: false,
+      icon: join(__dirname, 'assets', 'icon.png'),
       webPreferences: {
         contextIsolation: true,
         backgroundThrottling: false,
@@ -73,8 +112,33 @@ export default class App {
     App.mainWindow.setMenu(null);
     App.mainWindow.center();
 
+    // Handle keyboard shortcuts for zooming (Ctrl/Cmd + '+', '-', '0')
+    App.mainWindow.webContents.on('before-input-event', (event, input) => {
+      if (input.type === 'keyDown' && (input.control || input.meta)) {
+        if (
+          input.key === '=' ||
+          input.key === '+' ||
+          input.key === 'NumpadAdd'
+        ) {
+          const currentZoom = App.mainWindow?.webContents.getZoomFactor() ?? 1;
+          App.mainWindow?.webContents.setZoomFactor(currentZoom + 0.1);
+          event.preventDefault();
+        } else if (input.key === '-' || input.key === 'NumpadSubtract') {
+          const currentZoom = App.mainWindow?.webContents.getZoomFactor() ?? 1;
+          App.mainWindow?.webContents.setZoomFactor(
+            Math.max(0.2, currentZoom - 0.1),
+          );
+          event.preventDefault();
+        } else if (input.key === '0' || input.key === 'Numpad0') {
+          App.mainWindow?.webContents.setZoomFactor(1);
+          event.preventDefault();
+        }
+      }
+    });
+
     // if main window is ready to show, close the splash window and show the main window
     App.mainWindow.once('ready-to-show', () => {
+      App.splashWindow?.close();
       App.mainWindow!.show();
     });
 
@@ -100,7 +164,14 @@ export default class App {
     } else {
       App.mainWindow!.loadURL(
         format({
-          pathname: join(__dirname, '..', rendererAppName, 'index.html'),
+          // @angular/build:application outputs under a "browser" subfolder
+          pathname: join(
+            __dirname,
+            '..',
+            rendererAppName,
+            'browser',
+            'index.html',
+          ),
           protocol: 'file:',
           slashes: true,
         }),
@@ -129,36 +200,33 @@ export default class App {
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
 
+    // show a splash screen right away while the agents server starts and the main window loads
+    App.createSplashWindow();
+
     // Start the embedded agents server (MCP + chat routes)
     try {
-      App.agentsServer = await StartAgentsServer({
-        port: App.config.agentsPort,
-      });
+      // get port to use
+      App.config.server.port = await getPorts();
+
+      App.agentsServer = await StartAgentsServer(App.config);
     } catch (err) {
       console.error('[desktop-app] Failed to start agents server:', err);
     }
 
-    // listen for requests to get our configuration
-    ipcMain.handle(ELECTRON_EVENTS.GET_CONFIG, () => App.config);
-
-    // listen for config updates
-    ipcMain.handle(
-      ELECTRON_EVENTS.SET_CONFIG,
-      (_e, patch: Partial<IElectronConfig>) => {
-        // update config - validate in the future
-        Object.assign(App.config, patch);
-
-        // send complete config back to web app
-        App.mainWindow?.webContents.send(
-          ELECTRON_EVENTS.CONFIG_CHANGED,
-          copy(App.config),
-        );
-      },
+    // bootstrap the renderer with the REST API server's host/port; the
+    // renderer fetches/updates the rest of the config over HTTP from there
+    ipcMain.handle(ELECTRON_EVENTS.GET_SERVER_INFO, () =>
+      copy(App.config.server),
     );
 
     if (rendererAppName) {
       App.initMainWindow();
       App.loadMainWindow();
+    }
+
+    // Open DevTools immediately
+    if (process.env.ELECTRON_IS_DEV) {
+      App.mainWindow?.webContents.openDevTools();
     }
   }
 

@@ -1,7 +1,7 @@
 /**
- * Prompt type controlling which instruction file is injected as a system message
+ * Instruction type controlling which instruction file is injected as a system message
  */
-export type ChatPromptType = 'envi' | 'idl-envi' | 'idl' | 'none';
+export type ChatInstructionType = 'envi' | 'idl-envi' | 'idl' | 'none';
 
 /**
  * Status of a to-do item in the LLM task list
@@ -33,7 +33,13 @@ export interface ChatMessageContent {
   /** Payload content based on the type of chat message */
   payload: string;
   /** Type of chat message */
-  type: 'result' | 'text' | 'tool_call' | 'tool_error' | 'tool_result';
+  type:
+    | 'result'
+    | 'text'
+    | 'thinking'
+    | 'tool_call'
+    | 'tool_error'
+    | 'tool_result';
 }
 
 /**
@@ -46,8 +52,10 @@ export interface ChatMessage {
   content: ChatMessageContent[];
   /** ID of the chat message */
   id: string;
+  /** Streaming status; 'stopped' indicates the user cancelled generation mid-stream */
+  status?: 'done' | 'in-progress' | 'stopped';
   /** Type of the message */
-  type: 'system' | 'tool' | 'user';
+  type: 'system' | 'thinking' | 'tool' | 'user';
 }
 
 /**
@@ -80,11 +88,6 @@ export interface ChatSession {
   messages: ChatMessage[];
 
   /**
-   * Prompt type selected for this session
-   */
-  prompt: ChatPromptType;
-
-  /**
    * Status of the chat
    */
   status: 'error' | 'in-progress' | 'ready';
@@ -110,9 +113,9 @@ export interface ChatStateModel {
   loading: boolean;
 
   /**
-   * Prompt type selected before a session is created
+   * Currently selected instructions for chat completions
    */
-  pendingPrompt?: ChatPromptType;
+  selectedInstructions: ChatInstructionType;
 
   /**
    * Currently selected model for chat completions
@@ -128,6 +131,11 @@ export interface ChatStateModel {
    * All available chat sessions
    */
   sessions: ChatSession[];
+
+  /**
+   * Version for our chat state - handle migration between versions of app
+   */
+  version: '1.0.0';
 }
 
 // ==============================================================================
@@ -142,12 +150,12 @@ export interface ChatMessageRequest {
   conversationHistory: ChatMessage[];
   /** Current to-do list state, sent from the frontend so the server remains stateless */
   currentTodos?: TodoItem[];
+  /** Instruction type to load as a system instruction */
+  instructions: ChatInstructionType;
   /** The user's message content */
   message: string;
   /** The model to use for completion (e.g., 'gpt-4o-mini') */
   model: string;
-  /** Prompt type to load as a system instruction */
-  prompt: ChatPromptType;
   /** Unique identifier for the chat session */
   sessionId: string;
 }
@@ -155,6 +163,11 @@ export interface ChatMessageRequest {
 /** Streaming ended successfully */
 export interface ChatStreamChunk_Done {
   type: 'done';
+}
+
+/** Streaming was cancelled by the user before completion */
+export interface ChatStreamChunk_Cancelled {
+  type: 'cancelled';
 }
 
 /** A fatal streaming error occurred */
@@ -209,22 +222,26 @@ export interface ChatStreamChunk_TodoUpdate {
   type: 'todo_update';
 }
 
-/**
- * Keep-alive heartbeat to maintain HTTP streaming connection during long tool execution.
- * Should be ignored by clients but prevents proxy/connection timeouts.
- */
-export interface ChatStreamChunk_Keepalive {
-  type: 'keepalive';
+/** Extended-thinking/reasoning content, streamed before the final answer */
+export interface ChatStreamChunk_ThinkingChunk {
+  /** Delta text to append; empty string on the finalize (done=true) event */
+  content: string;
+  /** Whether this is the finalize event for the reasoning block identified by thinkingId */
+  done: boolean;
+  /** Correlates deltas and the finalize event for a single reasoning block */
+  thinkingId: string;
+  type: 'thinking_chunk';
 }
 
 /**
  * Discriminated union of all chunk types streamed from the chat API via SSE
  */
 export type ChatStreamChunk =
+  | ChatStreamChunk_Cancelled
   | ChatStreamChunk_Done
   | ChatStreamChunk_Error
-  | ChatStreamChunk_Keepalive
   | ChatStreamChunk_TextChunk
+  | ChatStreamChunk_ThinkingChunk
   | ChatStreamChunk_Title
   | ChatStreamChunk_TodoUpdate
   | ChatStreamChunk_ToolCall
@@ -257,6 +274,48 @@ export const DEFAULT_MODELS: AvailableModel[] = [
  * Response containing list of available models
  */
 export interface AvailableModelsResponse {
+  /** ID for the model to select by default */
+  defaultModelID: string;
   /** List of available models */
   models: AvailableModel[];
+}
+
+/**
+ * A single example prompt shown on the chat welcome screen.
+ *
+ * Can be a single string, or an array of strings that are joined together
+ * with two new-line characters when displayed. When there is more than one
+ * line, only the first line is shown for the card's display text.
+ */
+export type ExamplePrompt = string | string[];
+
+/**
+ * Response containing the configured list of example prompts
+ */
+export interface ExamplePromptsResponse {
+  /** All configured example prompts */
+  prompts: ExamplePrompt[];
+}
+
+/**
+ * A single selectable chat instruction option
+ */
+export interface ChatInstructionOption {
+  /** Description shown to help users pick the right option */
+  description: string;
+  /** Instruction type identifier */
+  id: ChatInstructionType;
+  /** Display name for the option */
+  name: string;
+}
+
+/**
+ * Response containing the configured list of chat instruction options and the
+ * instruction type that should be selected by default
+ */
+export interface ChatInstructionsResponse {
+  /** Instruction type selected by default */
+  defaultInstructions: ChatInstructionType;
+  /** All configured chat instruction options */
+  options: ChatInstructionOption[];
 }

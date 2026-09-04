@@ -1,10 +1,15 @@
-import { ChatMessage, ChatPromptType, ChatSession } from '@idl/types/chat';
+import {
+  ChatInstructionType,
+  ChatMessage,
+  ChatSession,
+  ChatStateModel,
+} from '@idl/types/chat';
 
 /**
  * Load all chat sessions
  */
-export class LoadChatSessions {
-  static readonly type = '[Chat] Load Sessions';
+export class LoadTestChatSessions {
+  static readonly type = '[Chat] Load Test Sessions';
 }
 
 /**
@@ -51,6 +56,14 @@ export class AddMessageToSession {
 }
 
 /**
+ * Cancel the in-progress response for a chat session
+ */
+export class CancelMessageToSession {
+  static readonly type = '[Chat] Cancel Message';
+  constructor(public sessionId: string) {}
+}
+
+/**
  * Set the selected model for chat completions
  */
 export class SetSelectedModel {
@@ -59,20 +72,24 @@ export class SetSelectedModel {
 }
 
 /**
- * Set the prompt type for a specific chat session
+ * Set the currently selected instructions for chat completions
  */
-export class SetSessionPrompt {
-  static readonly type = '[Chat] Set Session Prompt';
-  constructor(
-    public sessionId: string,
-    public prompt: ChatPromptType,
-  ) {}
+export class SetSelectedInstructions {
+  static readonly type = '[Chat] Set Selected Instructions';
+  constructor(public instructions: ChatInstructionType) {}
 }
 
 /**
- * Set the pending prompt type before a session is created
+ * Restore persisted chat state (e.g. from IndexedDB)
  */
-export class SetPendingPrompt {
-  static readonly type = '[Chat] Set Pending Prompt';
-  constructor(public prompt: ChatPromptType) {}
+export class RestoreChatState {
+  static readonly type = '[Chat] Restore State';
+  constructor(public state: Partial<ChatStateModel>) {}
+}
+
+/**
+ * Reset the entire application state back to its default value
+ */
+export class ResetApplicationState {
+  static readonly type = '[Chat] Reset Application State';
 }

@@ -1,5 +1,26 @@
 <mat-toolbar color="primary" class="chat-header-toolbar">
-  <span class="header-title">Desktop Agent</span>
+  @if (chatLayoutService.isMobile()) {
+    <button
+      mat-icon-button
+      [matTooltip]="
+        chatLayoutService.mobileListOpen() ? 'Back to chat' : 'Show chats'
+      "
+      (click)="chatLayoutService.toggleList()"
+    >
+      @if (chatLayoutService.mobileListOpen()) {
+        <mat-icon>arrow_back</mat-icon>
+      } @else {
+        <mat-icon>format_list_bulleted</mat-icon>
+      }
+    </button>
+  }
+  <span class="header-title" [matTooltip]="headerDisplay().tooltip">
+    @if (headerDisplay().showLogo) {
+      <img src="IDL-Agent-Logo-Flag.png" class="idl-logo" />
+      <img src="enviicon.svg" class="idl-logo" />
+    }
+    {{ headerDisplay().title }}
+  </span>
   <span class="spacer"></span>
   <button
     mat-icon-button
@@ -11,5 +32,12 @@
     } @else {
       <mat-icon>dark_mode</mat-icon>
     }
+  </button>
+  <button
+    mat-icon-button
+    matTooltip="Reset application"
+    (click)="resetApplication()"
+  >
+    <mat-icon>refresh</mat-icon>
   </button>
 </mat-toolbar>
