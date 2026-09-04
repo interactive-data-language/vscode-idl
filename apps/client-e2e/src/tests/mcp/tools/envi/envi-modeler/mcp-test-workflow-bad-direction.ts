@@ -1,5 +1,5 @@
+import { ENVIModelerNode } from '@idl/types/envi/modeler';
 import {
-  ENVIModelerNode,
   MCP_TOOL_LOOKUP,
   MCPTool_CreateENVIModelerWorkflow,
 } from '@idl/types/mcp';
