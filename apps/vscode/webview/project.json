@@ -7,13 +7,16 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath.base}"],
       "options": {
-        "outputPath": "dist/apps/vscode/webview",
+        "outputPath": {
+          "base": "dist/apps/vscode/webview",
+          "browser": ""
+        },
         "index": "apps/vscode/webview/src/index.html",
-        "main": "apps/vscode/webview/src/main.ts",
-        "polyfills": "apps/vscode/webview/src/polyfills.ts",
+        "browser": "apps/vscode/webview/src/main.ts",
+        "polyfills": ["apps/vscode/webview/src/polyfills.ts"],
         "tsConfig": "apps/vscode/webview/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -57,7 +60,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "vscode-webview:build:production"
@@ -70,7 +73,7 @@
       "continuous": true
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "vscode-webview:build"
       }

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
+import { NgxMaterialModule } from '@idl/ngx/material';
 
 /**
  * ID for notebook map property sheet
@@ -22,7 +23,8 @@ export const IDL_NB_MAP_PROPERTY_SHEET_SELECTOR = 'idl-nb-map-property-sheet';
       }
     `,
   ],
-  standalone: false,
+  standalone: true,
+  imports: [NgxMaterialModule],
 })
 export class MapPropertySheetComponent implements OnInit {
   /**
@@ -38,12 +40,12 @@ export class MapPropertySheetComponent implements OnInit {
   /**
    * Properties (as string) that we need to render
    */
-  @Input() properties = '{}';
+  properties = input('{}');
 
   ngOnInit() {
     // parse data so we can render it
     try {
-      const parsed = JSON.parse(this.properties);
+      const parsed = JSON.parse(this.properties());
       const keys = Object.keys(parsed);
       for (let i = 0; i < keys.length; i++) {
         this.dataSource.push({ name: keys[i], value: parsed[keys[i]] });

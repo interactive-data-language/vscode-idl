@@ -1,15 +1,20 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
   ElementRef,
   inject,
   OnInit,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IProfilerItem } from '@idl/types/profiler';
+import { TranslocoModule } from '@jsverse/transloco';
 
-import { VSCodeService } from '../../../services/services/vscode.service';
+import { MaterialModule } from '../../material.module';
+import { VSCodeService } from '../../services/services/vscode.service';
 
 /**
  * Regular expression for routines to filter out from profiling
@@ -20,7 +25,9 @@ import { VSCodeService } from '../../../services/services/vscode.service';
   selector: 'idlwv-profiler',
   templateUrl: './profiler.component.html',
   styleUrls: ['./profiler.component.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, MaterialModule, TranslocoModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProfilerComponent implements OnInit {
   /** Current profiler data, parsed version of string */
@@ -36,10 +43,15 @@ export class ProfilerComponent implements OnInit {
   profilerString = '';
 
   /** vscode component for filtering table */
-  @ViewChild('filterInput') someInput!: ElementRef;
+  someInput = viewChild.required<ElementRef>('filterInput');
 
-  /** Sort controls for table */
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  /**
+   * Sort controls for table
+   *
+   * Not required: the table only exists once the async `*transloco` content
+   * renders, so this resolves later than view init
+   */
+  sort = viewChild(MatSort);
 
   /** Total time we have spent profiling code */
   totalTime = 1;
@@ -48,6 +60,14 @@ export class ProfilerComponent implements OnInit {
   private timeout?: number;
 
   private vscode = inject(VSCodeService);
+
+  /** Wire up sort once the table (and its MatSort) actually renders */
+  private readonly wireSort = effect(() => {
+    const sort = this.sort();
+    if (sort !== undefined) {
+      this.dataSource.sort = sort;
+    }
+  });
 
   /**
    * Applies our filter to the list of profiled entities
@@ -60,7 +80,7 @@ export class ProfilerComponent implements OnInit {
     }
 
     // get value of our search filter
-    const filterValue = this.someInput.nativeElement.value;
+    const filterValue = this.someInput().nativeElement.value;
 
     // set new timeout before applying the filter
     this.timeout = window.setTimeout(() => {
@@ -70,8 +90,6 @@ export class ProfilerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
-
     // TODO: unsubscribe when component changes to prevent memory leaks
     // but the window gets created/destroyed, and small data volume, so not
     // end of the world right now

@@ -1,14 +1,17 @@
+import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
   ElementRef,
   inject,
   OnDestroy,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
+import { NgxMaterialModule } from '@idl/ngx/material';
 import { IDLNotebookPlot } from '@idl/types/notebooks';
 import Chart from 'chart.js/auto';
 
+import { AnimationControlsComponent } from '../animation-controls/animation-controls.component';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { ChartConfig } from './helpers/chart-config';
 import { CreatePlots } from './helpers/create-plots';
@@ -30,7 +33,8 @@ export const IDL_NB_PLOT_COMPONENT_SELECTOR = 'idl-nb-plot';
       @import 'styles.scss';
     `,
   ],
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, NgxMaterialModule, AnimationControlsComponent],
 })
 export class PlotComponent
   extends BaseRendererComponent<IDLNotebookPlot>
@@ -39,8 +43,7 @@ export class PlotComponent
   /**
    * Canvas we draw to
    */
-  @ViewChild('PlotCanvas')
-  canvas!: ElementRef<HTMLCanvasElement>;
+  canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('PlotCanvas');
 
   /**
    * Frame rate for animations
@@ -88,7 +91,7 @@ export class PlotComponent
       }
 
       // create our charts
-      this.chart = new Chart(this.canvas.nativeElement, {
+      this.chart = new Chart(this.canvas().nativeElement, {
         data: {
           datasets: this.plots.data,
         },
@@ -138,10 +141,10 @@ export class PlotComponent
    */
   private resizeCb = () => {
     if (this.chart !== undefined) {
-      this.canvas.nativeElement.style.width = `${
+      this.canvas().nativeElement.style.width = `${
         this.el.nativeElement.offsetWidth * 0.9
       }px;`;
-      this.canvas.nativeElement.style.height = `${
+      this.canvas().nativeElement.style.height = `${
         this.el.nativeElement.offsetHeight * 0.9
       }px;`;
       this.chart.resize();

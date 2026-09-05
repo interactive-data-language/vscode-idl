@@ -2,13 +2,17 @@ import { Component, HostBinding, inject, OnInit } from '@angular/core';
 import { DEFAULT_VSCODE_MESSAGE } from '@idl/vscode/webview-shared';
 import { MaterialCssVarsService } from 'angular-material-css-vars';
 
+import { HomeComponent } from './components/home/home.component';
+import { ProfilerComponent } from './components/profiler/profiler.component';
+import { MaterialModule } from './material.module';
 import { VSCodeService } from './services/services/vscode.service';
 
 @Component({
   selector: 'idlwv-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [MaterialModule, HomeComponent, ProfilerComponent],
 })
 export class AppComponent implements OnInit {
   // theming

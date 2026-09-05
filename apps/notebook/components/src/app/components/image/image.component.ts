@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxMaterialModule } from '@idl/ngx/material';
 import {
   IDLNotebookImage_PNG,
   SaveImageRendererMessage,
@@ -22,7 +23,8 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
       @import 'styles.scss';
     `,
   ],
-  standalone: false,
+  standalone: true,
+  imports: [NgxMaterialModule],
 })
 export class ImageComponent
   extends BaseRendererComponent<IDLNotebookImage_PNG>

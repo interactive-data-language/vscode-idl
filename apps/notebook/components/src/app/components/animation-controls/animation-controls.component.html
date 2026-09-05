@@ -43,7 +43,7 @@
         type="range"
         [value]="frame"
         min="0"
-        max="{{ nFrames - 1 }}"
+        max="{{ nFrames() - 1 }}"
         (mousedown)="pause()"
         (mouseup)="play()"
         (input)="onInputChange($event)"

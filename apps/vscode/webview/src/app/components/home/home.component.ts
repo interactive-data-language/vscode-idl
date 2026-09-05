@@ -1,12 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import { TranslocoModule } from '@jsverse/transloco';
 
-import { VSCodeService } from '../../../services/services/vscode.service';
+import { MaterialModule } from '../../material.module';
+import { VSCodeService } from '../../services/services/vscode.service';
 
 @Component({
   selector: 'idlwv-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, MaterialModule, TranslocoModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomeComponent {
   vscode = inject(VSCodeService);

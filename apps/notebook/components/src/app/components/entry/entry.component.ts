@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -11,6 +12,10 @@ import {
 } from '@idl/types/notebooks';
 
 import { DataSharingService } from '../data-sharing.service';
+import { ImageComponent } from '../image/image.component';
+import { ImageAnimatorComponent } from '../image-animator/image-animator.component';
+import { MapComponent } from '../map/map.component';
+import { PlotComponent } from '../plot/plot.component';
 
 /**
  * ID for notebook renderers entry component
@@ -46,7 +51,14 @@ const OUTLINED_CLASS = 'vscode-outlined-focus';
       @import 'styles.scss';
     `,
   ],
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ImageAnimatorComponent,
+    ImageComponent,
+    MapComponent,
+    PlotComponent,
+  ],
   providers: [DataSharingService],
 })
 export class EntryComponent implements AfterViewInit {
@@ -63,6 +75,9 @@ export class EntryComponent implements AfterViewInit {
 
   /**
    * Data we are embedding, comes in as a raw string so we have to parse it
+   *
+   * Kept as a decorator: the setter has side effects (parses a global, then
+   * deletes it) that a signal `input()` can't express.
    */
   @Input()
   get data(): string {

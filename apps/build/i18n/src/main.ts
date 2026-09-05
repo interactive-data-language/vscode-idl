@@ -25,8 +25,10 @@ function flattenWithPath(obj: { [key: string]: any }, objectPath = '') {
 }
 
 function main() {
-  // get the extension direactory
-  const extDir = path.dirname(path.dirname(path.dirname(__dirname)));
+  // get the extension directory
+  const extDir = path.dirname(
+    path.dirname(path.dirname(path.dirname(__dirname))),
+  );
 
   // process all of our loaded languages
   Object.keys(LANGUAGES).forEach((language) => {

@@ -40,7 +40,7 @@ This covers, at a high level, the parts/pieces and what they do and how they com
 
   The main component is the `EntryComponent` that is registered as a web component
 
-  The bootstrap (develop) or web component registry process happens in `apps/notebook/components/src/app/app.module.ts`
+  The bootstrap (develop) or web component registry process happens in `apps/notebook/components/src/main.ts`
 
 - Messages to/from main VSCode process.
 

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
+import { NgxMaterialModule } from '@idl/ngx/material';
 
 /**
  * Round a number to the nearest increment
@@ -15,7 +16,8 @@ export function RoundToNearest(num: number, to: number) {
       @import 'styles.scss';
     `,
   ],
-  standalone: false,
+  standalone: true,
+  imports: [NgxMaterialModule],
 })
 export class AnimationControlsComponent implements OnInit {
   /**
@@ -31,12 +33,12 @@ export class AnimationControlsComponent implements OnInit {
   /**
    * Output event that is emitted when our frame changes
    */
-  @Output() frameChange = new EventEmitter<number>();
+  frameChange = output<number>();
 
   /**
    * Animation interval (ms)
    */
-  @Input() interval = 1000;
+  interval = input(1000);
 
   /**
    * If we are paused or not
@@ -51,7 +53,7 @@ export class AnimationControlsComponent implements OnInit {
   /**
    * The maximum number of frames that we have
    */
-  @Input() nFrames = 1;
+  nFrames = input(1);
 
   /**
    * reference to current animation timeout
@@ -62,7 +64,7 @@ export class AnimationControlsComponent implements OnInit {
    * Gets the interval time (in ms) given current parameters
    */
   getInterval() {
-    return this.interval * this.multiplier;
+    return this.interval() * this.multiplier;
   }
 
   /**
@@ -94,7 +96,7 @@ export class AnimationControlsComponent implements OnInit {
     this.frame = +(ev.target as HTMLInputElement).value;
 
     // emit event
-    this.frameChange.next(this.frame);
+    this.frameChange.emit(this.frame);
   }
 
   /**
@@ -133,12 +135,12 @@ export class AnimationControlsComponent implements OnInit {
       this.frame++;
 
       // if we reached our limit, start at zero
-      if (this.frame >= this.nFrames) {
+      if (this.frame >= this.nFrames()) {
         this.frame = 0;
       }
 
       // emit event
-      this.frameChange.next(this.frame);
+      this.frameChange.emit(this.frame);
 
       // animate again
       this.play();

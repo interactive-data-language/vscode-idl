@@ -1,5 +1,14 @@
-import { enableProdMode, provideZoneChangeDetection } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  enableProdMode,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideVSCodeDesignSystem,
   vsCodeButton,
@@ -11,8 +20,10 @@ import {
   vsCodeTextArea,
   vsCodeTextField,
 } from '@vscode/webview-ui-toolkit';
+import { MaterialCssVarsModule } from 'angular-material-css-vars';
 
-import { AppModule } from './app/app.module';
+import { AppComponent } from './app/app.component';
+import { TranslocoRootModule } from './app/transloco-root.module';
 import { environment } from './environments/environment';
 
 if (environment.production) {
@@ -36,8 +47,11 @@ provideVSCodeDesignSystem().register(
   vsCodeLink(),
 );
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule, {
-    applicationProviders: [provideZoneChangeDetection()],
-  })
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideZoneChangeDetection(),
+    provideAnimations(),
+    provideHttpClient(withInterceptorsFromDi()),
+    importProvidersFrom(MaterialCssVarsModule.forRoot({}), TranslocoRootModule),
+  ],
+}).catch((err) => console.error(err));

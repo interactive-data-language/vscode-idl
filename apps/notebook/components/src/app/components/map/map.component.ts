@@ -10,7 +10,7 @@ import {
   ElementRef,
   inject,
   OnDestroy,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { Deck, FlyToInterpolator, WebMercatorViewport } from '@deck.gl/core';
 import {
@@ -21,10 +21,12 @@ import {
   NotebookMapLayerType,
   RecreateLayers,
 } from '@idl/ngx/map';
+import { NgxMaterialModule } from '@idl/ngx/material';
 import { IDLNotebookMap } from '@idl/types/notebooks';
 import { copy } from 'fast-copy';
 
 import { BaseRendererComponent } from '../base-renderer.component';
+import { MapLayerCardComponent } from './map-layer-card/map-layer-card.component';
 
 /**
  * Initial view state
@@ -63,7 +65,8 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
       }
     `,
   ],
-  standalone: false,
+  standalone: true,
+  imports: [NgxMaterialModule, MapLayerCardComponent],
 })
 export class MapComponent
   extends BaseRendererComponent<IDLNotebookMap>
@@ -75,8 +78,7 @@ export class MapComponent
   /**
    * Canvas we draw to
    */
-  @ViewChild('MapCanvas')
-  canvas!: ElementRef<HTMLCanvasElement>;
+  canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('MapCanvas');
 
   /** Current layers */
   layers!: NotebookMapLayers<NotebookMapLayerType>;
@@ -185,7 +187,7 @@ export class MapComponent
        * Create instance of deck with basemap and layers
        */
       this.deck = new Deck({
-        canvas: this.canvas.nativeElement,
+        canvas: this.canvas().nativeElement,
         initialViewState: INITIAL_VIEW_STATE,
         controller: true,
         width: this.el.nativeElement.offsetWidth,
