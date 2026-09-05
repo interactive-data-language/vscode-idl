@@ -311,7 +311,7 @@ export class Chat {
       case 'todo':
         return readFileSync(
           GetExtensionPath(
-            join('extension/standalone-mcp', 'todo.instructions.md'),
+            join('extension/agents/standalone-mcp', 'todo.instructions.md'),
           ),
           'utf-8',
         );
