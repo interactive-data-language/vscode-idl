@@ -14,7 +14,7 @@ import { VSCodeService } from '../../../services/services/vscode.service';
 /**
  * Regular expression for routines to filter out from profiling
  */
-const VSCODE_REGEX = /^vscode_/i;
+// const VSCODE_REGEX = /^vscode_/i;
 
 @Component({
   selector: 'idlwv-profiler',
@@ -52,6 +52,7 @@ export class ProfilerComponent implements OnInit {
   /**
    * Applies our filter to the list of profiled entities
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   applyFilter(event: KeyboardEvent) {
     // if there is already a timeout in process cancel it
     if (this.timeout) {
