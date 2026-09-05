@@ -1,9 +1,9 @@
 ---
 agent: 'agent'
-description: 'Add a new automated test type to the test-tokenizer generation framework'
+description: 'Add a new automated test type to the test-server generation framework'
 ---
 
-Your goal is to add a new automated test type to the test-tokenizer generation framework in this codebase. The framework auto-generates Jest spec files from declarative test definitions so developers can quickly observe how behavior changes for complex cases.
+Your goal is to add a new automated test type to the test-server generation framework in this codebase. The framework auto-generates Jest spec files from declarative test definitions so developers can quickly observe how behavior changes for complex cases.
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ Your goal is to add a new automated test type to the test-tokenizer generation f
 
 ## Step 1 — Add interfaces to `tests.interface.ts`
 
-File: `apps/test-tokenizer/src/test-maker/tests.interface.ts`
+File: `apps/test/test-server/src/test-maker/tests.interface.ts`
 
 Add two interfaces at the bottom of the file, following the `IAssemblerTest` / `IAutoAssemblerTest` pattern:
 
@@ -41,7 +41,7 @@ export interface IAutoENVIModelerTest extends IBaseAutoTest {
 
 ## Step 2 — Create the auto-tests interface file
 
-Create: `apps/test-tokenizer/src/test-maker/tests/auto-<name>-tests.interface.ts`
+Create: `apps/test/test-server/src/test-maker/tests/auto-<name>-tests.interface.ts`
 
 Export an empty array constant of the suite wrapper type. The developer will populate this with test suites.
 
@@ -56,7 +56,7 @@ export const AUTO_ENVI_MODELER_TESTS: IAutoENVIModelerTest[] = [];
 
 ## Step 3 — Create the maker function
 
-Create: `apps/test-tokenizer/src/test-maker/makers/tests-for-<name>.ts`
+Create: `apps/test/test-server/src/test-maker/makers/tests-for-<name>.ts`
 
 Export an async function `TestsForXxx(name: string, tests: IXxxTest[], uri = join(process.cwd(), 'tokens.ts'))`.
 
@@ -119,13 +119,13 @@ it(`[auto generated] ${testName}`, () => {
 });
 ```
 
-Look at `apps/test-tokenizer/src/test-maker/makers/tests-for-envi-modeler.ts` for a complete reference implementation.
+Look at `apps/test/test-server/src/test-maker/makers/tests-for-envi-modeler.ts` for a complete reference implementation.
 
 ---
 
 ## Step 4 — Wire into the generator
 
-File: `apps/test-tokenizer/src/test-maker/generate-automated-tests.ts`
+File: `apps/test/test-server/src/test-maker/generate-automated-tests.ts`
 
 Add two imports near the other maker/test imports:
 ```typescript
@@ -173,7 +173,7 @@ Create: `libs/tests/<name>/src/lib/auto-<name>-basic.spec.ts`
 
 ```typescript
 describe(`[auto generated] <Name> placeholder`, () => {
-  /* stub — run the test-tokenizer generator to populate this directory */
+  /* stub — run the test-server generator to populate this directory */
 });
 ```
 
@@ -185,5 +185,5 @@ This ensures Jest recognizes the suite and the directory is non-empty before the
 
 1. Check for TypeScript errors in the edited files
 2. Populate `AUTO_XXX_TESTS` in the interface file with at least one test suite entry
-3. Run the test-tokenizer NX generator target — should log `Generating tests for <name>` without errors
+3. Run the test-server NX generator target — should log `Generating tests for <name>` without errors
 4. Run `nx test tests-<name>` — stub spec (or generated specs) should pass

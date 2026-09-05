@@ -26,7 +26,7 @@ We tweaked a few places we used this to use the proper interface that will throw
 
 ## Types, Types, and More Types!
 
-Open this folder as a workspace to see more, including types and error validation: `idl/test/type-playground`
+Open this folder as a workspace to see more, including types and error validation: `apps/test/idl/type-playground`
 
 This has been a very heavy type detection and type validation month! A lot of leg work for getting the framework in place to work with more advanced type use cases.
 

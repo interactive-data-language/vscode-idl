@@ -153,7 +153,7 @@ If you are just updating or working with the libraries, you can use `npm run tes
 
 ### Writing Integration Tests
 
-Integration tests live in this folder `apps\client-e2e\src\tests`
+Integration tests live in this folder `apps/test/test-client/src/tests`
 
 They are separated by test runners, which are where tests are registered for each component of the extension. These test runners are the files prefixed with `_` at in each sub folder.
 
@@ -161,15 +161,15 @@ To write new integration tests, here's the best process:
 
 1. Identify the relevant sub-folder to add your tests to
 
-2. For test development, we recommend commenting out the test runners that aren't related to what you are running. you can find that in `apps\client-e2e\src\tests\test-runner.ts`
+2. For test development, we recommend commenting out the test runners that aren't related to what you are running. you can find that in `apps/test/test-client/src/tests/test-runner.ts`
 
 3. Create a new test - it's recommended to copy/paste from an exaisting test and adjust to meet your needs
 
-> If you have additional files needed for the test, the standard location to save content is here `idl\test\client-e2e`
+> If you have additional files needed for the test, the standard location to save content is here `apps/test/idl/client-e2e`
 
 4. In the relevant test runner, you should register the test. Open one of the relevant test runners to see an example of this.
 
-> Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps\client-e2e\src\tests\mcp\_mcp-test-runner.ts`
+> Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps/test/test-client/src/tests/mcp/_mcp-test-runner.ts`
 
 ## Releasing
 

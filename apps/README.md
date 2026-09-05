@@ -12,7 +12,7 @@ Here's what we have so far
 
 - **client**: The extension that runs within VS Code. Adds/manages commands, updating the UI, and starts the language server.
 
-- **client-e2e**: Contains the tests run by vscode-e2e-runner below. All integration tests are just TypeScript with a basic wrapper.
+- **test-client**: Contains the tests run by vscode-e2e-runner below. All integration tests are just TypeScript with a basic wrapper.
 
 - **i18n**: Library that manages creating the translation files for VS Code. **Everything** that is text shown in the UI should go through translation.
 
@@ -30,8 +30,8 @@ Here's what we have so far
 
 - **server**: The VS Code language server implementation for IDL.
 
-- **test-tokenizer**: An app used for testing the tokenizer and creating our automated tests.
+- **test-server**: An app used for testing the tokenizer and creating our automated tests.
 
 - **tmlang-maker**: Live-reloading application to convert our YAML language config file to plist for VSCode to digest.
 
-- **vscode-e2e-runner**: Basic application that runs our VSCode integration tests which are located in `client-e2e`
+- **vscode-e2e-runner**: Basic application that runs our VSCode integration tests which are located in `test-client`

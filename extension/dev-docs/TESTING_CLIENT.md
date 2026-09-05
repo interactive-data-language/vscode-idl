@@ -20,9 +20,9 @@ Running Tests has two NPM scripts that you will need to run:
 
 There are two parts to testing the extension. There is some added complexity because we use NX and share our code in separate TypeScript libraries.
 
-1. The NX app "client-e2e" exports a function called "run" that handles running tests (WIP, not done)
+1. The NX app "test-client" exports a function called "run" that handles running tests (WIP, not done)
 
-2. The NX app "vscode-e2e-runner" initiates the "client-e2e" tests, after building it, and manages downloading VSCode and running tests
+2. The NX app "vscode-e2e-runner" initiates the "test-client" tests, after building it, and manages downloading VSCode and running tests
 
 We use separate apps because we mst bundle all dependencies into a single JS file so that our tests can properly run (i.e. all of our source code doesn't just live in a single folder and built as individual JS files using the barebones `tsc` compiler).
 
@@ -70,6 +70,6 @@ npm run integration-test
 
 If you have problems with tests, using the live-reload from above is the best way to try and debug it.
 
-Apart from that, I would suggest that you adjust the constants at the top of `apps/client-e2e/src/main.ts` to allow printing from extension logs and printing debug statements.
+Apart from that, I would suggest that you adjust the constants at the top of `apps/test/test-client/src/main.ts` to allow printing from extension logs and printing debug statements.
 
 If there are any unknown problems, this is the best way to try and track them down.

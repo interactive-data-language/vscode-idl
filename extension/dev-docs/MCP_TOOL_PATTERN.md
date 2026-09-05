@@ -30,5 +30,5 @@ MCP naming paradigm detail:
 - Running MCP tools in ENVI and IDL live in "libs\vscode\mcp"
   - File names map to "run-mcp-tool\*.ts"
 
-- Tests for MCP tools are in the integration test suite (client-e2e). They can be found here "apps\client-e2e\src\tests\mcp"
+- Tests for MCP tools are in the integration test suite (test-client). They can be found here "apps/test/test-client/src/tests/mcp"
   - There’s an MCP folder that follows the naming convention of "mcp-test\*.ts" with the tool name inserted in the test itself

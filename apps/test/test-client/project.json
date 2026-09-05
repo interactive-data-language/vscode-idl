@@ -1,0 +1,58 @@
+{
+  "name": "test-client",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/test/test-client/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/test/test-client",
+        "main": "apps/test/test-client/src/main.ts",
+        "tsConfig": "apps/test/test-client/tsconfig.app.json",
+        "assets": [],
+        "webpackConfig": "webpack.vscode.config.js",
+        "externalDependencies": "none",
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/test/test-client/src/environments/environment.ts",
+              "with": "apps/test/test-client/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "test-client:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "test-client:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/test/test-client"],
+      "options": {
+        "jestConfig": "apps/test/test-client/jest.config.ts"
+      }
+    }
+  }
+}

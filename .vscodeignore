@@ -20,7 +20,7 @@ dist/apps/agents-desktop-app
 dist/apps/agents-ui
 dist/apps/client/3rdpartylicenses.txt
 dist/apps/client/assets/.gitkeep
-dist/apps/client-e2e/**
+dist/apps/test/test-client/**
 dist/apps/idl-webview/3rdpartylicenses.txt
 dist/apps/i18n/**
 dist/apps/packages/**
@@ -31,9 +31,9 @@ dist/apps/parsing-worker/assets/.gitkeep
 dist/apps/server/3rdpartylicenses.txt
 dist/apps/server/main.js.LICENSE.txt
 dist/apps/server/assets/.gitkeep
-dist/apps/test-tokenizer/**
+dist/apps/test/test-server/**
 dist/apps/tmlang-maker/**
-dist/apps/vscode-e2e-runner/**
+dist/apps/test/vscode-e2e-runner/**
 extension/dev-docs/**
 extension/docs/**
 extension/language/syntaxes/src/**
@@ -43,7 +43,7 @@ extension/language/syntaxes/idl.tmLanguage.json
 extension/README.md
 idl/helpers/**
 idl/routines/notebooks/**
-idl/test/**
+apps/test/idl/**
 idl/README.md
 idl/vscode/idl.json
 libs/**

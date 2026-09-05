@@ -341,7 +341,7 @@ In the `runMCPTool` method for these files, add a new entry that calls the funct
 
 ## Adding Integration Tests
 
-For tool testing, all MCP tool tests live in "apps\client-e2e\src\tests\mcp\tools".
+For tool testing, all MCP tool tests live in "apps/test/test-client/src/tests/mcp/tools".
 
 In this folder you will find three sub-directories:
 
@@ -393,4 +393,4 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 };
 ```
 
-Then, register the tool in "apps\client-e2e\src\tests\mcp\_mcp-test-runner.ts"
+Then, register the tool in "apps/test/test-client/src/tests/mcp/_mcp-test-runner.ts"

@@ -6,19 +6,19 @@ At a high level, testing is currently focused **outside** of VSCode where we mak
 
 Eventually, testing the VSCode extension with integration/e2e tests will be a thing, but it isn't right now.
 
-For the purposes of this readme, everything you will need is going to be focused on using the `test-tokenizer` app which lives in `apps/test-tokenizer/src/main.ts`.
+For the purposes of this readme, everything you will need is going to be focused on using the `test-server` app which lives in `apps/test/test-server/src/main.ts`.
 
 ## Developing New Language Features
 
-Before getting to how to write new tests, there is a playground for you to easily change code behavior and live-reload changes to view the immediate results. This is using the `tes-tokenizer` app which, apart from the code at the top of the file, is intended as a living document to enable developers to more quickly and rapidly develop features.
+Before getting to how to write new tests, there is a playground for you to easily change code behavior and live-reload changes to view the immediate results. This is using the `test-server` app which, apart from the code at the top of the file, is intended as a living document to enable developers to more quickly and rapidly develop features.
 
 > Feel free to stash/have your own changes for this file. It will get updated occasionally, but not too often. The main file has some junk code, so be aware that it may change when updating your code base.
 
 To use this, there are a few simple steps to follow:
 
-1. Start the test tokenizer app using `nx serve test-tokenizer`
+1. Start the test tokenizer app using `nx serve test-server`
 
-2. Once running, make any changes you need to the `apps/test-tokenizer/src/playground-code.ts` file
+2. Once running, make any changes you need to the `apps/test/test-server/src/playground-code.ts` file
 
 - This will most likely be updating the variable `PLAYGROUND_CODE` within this file
 
@@ -62,36 +62,36 @@ The testing for the extension is VSCode is primarily automated: meaning the test
 There are (at the time of writing this) 6 main components that have automated tests written for them. Here is a description of each and where you can find the files which actually have the tests.
 
 - Assembler to verify code formatting and create checkpoints for behavior
-  - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-default-assembler-tests.interface.ts`
+  - Located in: `apps/test/test-server/src/test-maker/tests/auto-default-assembler-tests.interface.ts`
 
 - Local scope extraction to verify we get variables and docs associated with them
-  - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-local-scope-tests.interface.ts`
+  - Located in: `apps/test/test-server/src/test-maker/tests/auto-local-scope-tests.interface.ts`
 
 - Selected token to make sure we correctly identify the token at a given position in code
-  - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-selected-token-search.ts`
+  - Located in: `apps/test/test-server/src/test-maker/tests/auto-selected-token-search.ts`
 
 - Syntax post-processors to verify they correctly post-process our raw tokens
-  - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-syntax-post-processor-tests.interface.ts`
+  - Located in: `apps/test/test-server/src/test-maker/tests/auto-syntax-post-processor-tests.interface.ts`
 
 - Syntax validators to verify we correct identify (or don't identify) problems in code
-  - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-syntax-validator-tests.interface.ts`
+  - Located in: `apps/test/test-server/src/test-maker/tests/auto-syntax-validator-tests.interface.ts`
 
 - Token test, which are the most critical, to make sure we always initially parse code the right way
-  - Located in: `apps/test-tokenizer/src/test-maker/tests/auto-token-tests.interface.ts`
+  - Located in: `apps/test/test-server/src/test-maker/tests/auto-token-tests.interface.ts`
 
 ### Adding Tests
 
 Here's the steps to adding new tests and the patterns that should be followed when writing them
 
-1. Based on the library you are adding tests for, find the appropriate file from the list above or find it in the folder `apps/test-tokenizer/src/test-maker/tests`
+1. Based on the library you are adding tests for, find the appropriate file from the list above or find it in the folder `apps/test/test-server/src/test-maker/tests`
 
 2. Tests are organized alphabetically by the file name which is written out to disk.
 
 - Either make a new test (auto-complete will tell you what fields you need or copy/paste a file for use) or append to an existing test.
 
-- Output folder for different tests is managed within: `apps/test-tokenizer/src/test-maker/generate-automated-tests.ts`
+- Output folder for different tests is managed within: `apps/test/test-server/src/test-maker/generate-automated-tests.ts`
 
-> Pro tip: If you need to embed code within your test, using the `test-tokenizer` app with your code will generate a file called `parse-test/code.js` that you should be able to copy/paste from
+> Pro tip: If you need to embed code within your test, using the `test-server` app with your code will generate a file called `parse-test/code.js` that you should be able to copy/paste from
 
 > Style: use back-ticks for strings since the IDL code can have single and double quotes
 

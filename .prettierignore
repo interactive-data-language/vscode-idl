@@ -8,7 +8,7 @@ extension/templates/copilot-instructions.md
 apps/idl-docs-parser/src/htmls
 /dist
 /coverage
-/idl/test/client-e2e
+/apps/test/idl/client-e2e
 routines.json
 global.json
 extension/language/syntaxes/src/*
@@ -16,9 +16,9 @@ idl/routines
 compliance
 /*idl.json
 *settings.json
-apps/test-tokenizer/src/test-maker/cache/cache.json
-apps/client-e2e/src/tests/mcp/tools/envi/regression-tests/tool-descriptions
-apps/client-e2e/src/tests/mcp/tools/envi/regression-tests/tool-parameters
+apps/test/test-server/src/test-maker/cache/cache.json
+apps/test/test-client/src/tests/mcp/tools/envi/regression-tests/tool-descriptions
+apps/test/test-client/src/tests/mcp/tools/envi/regression-tests/tool-parameters
 .angular
 
 /.nx/cache

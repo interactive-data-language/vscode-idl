@@ -20,15 +20,15 @@ In general, there are three components to testing:
 
 For VSCode, integration tests have two components:
 
-1. The test runner/manager: `apps/vscode-e2e-runner/src/main.ts`
+1. The test runner/manager: `apps/test/vscode-e2e-runner/src/main.ts`
 
 Straight from the VSCode docs, this NX app orchestrates downloading and launching VSCode then loading our tests
 
-2. The actual tests: `apps/client-e2e/src/main.ts`
+2. The actual tests: `apps/test/test-client/src/main.ts`
 
 Borrowed from the VSCode docs, but does not use Jest or Mocha to run tests. The problem here is that, because we use NX and share code between libraries and applications, we can't simply follow the patterns that NX and Jest or VSCode and Mocha follow.
 
-Instead, we borrow from the fundamental concept that all tests are is code that runs and raises an exception if something doesn't do what we expect it to do. We created a very basic helper class to run tests for us located in `apps/client-e2e/src/tests/runner.class.ts` which manages executing tests. The tests are added by test type (for example, see debugging tests located in `apps/client-e2e/src/tests\debugging/_debugging-runner.ts`) and then executed int he order they are added to the main runner. Tests are registered and run in `apps/client-e2e/src/tests/runner.ts`
+Instead, we borrow from the fundamental concept that all tests are is code that runs and raises an exception if something doesn't do what we expect it to do. We created a very basic helper class to run tests for us located in `apps/test/test-client/src/tests/runner.class.ts` which manages executing tests. The tests are added by test type (for example, see debugging tests located in `apps/test/test-client/src/tests/debugging/_debugging-runner.ts`) and then executed int he order they are added to the main runner. Tests are registered and run in `apps/test/test-client/src/tests/runner.ts`
 
 ### Running Integration Tests
 
@@ -38,7 +38,7 @@ Zach prefers to use two separate terminals, easier to read compile errors if the
 
 2. Start the tests using `npm run start-test`
 
-Live reloads any tests/changes from our test runner located in `apps/client-e2e/src/main.ts`
+Live reloads any tests/changes from our test runner located in `apps/test/test-client/src/main.ts`
 
 3. Run the integration tests using `npm run integration-test`
 

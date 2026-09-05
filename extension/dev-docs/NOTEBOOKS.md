@@ -70,29 +70,29 @@ Here's a JSON representation to give a better idea:
 
 ```json
 {
-  "uri": "file:///c%3A/Users/znorman/Documents/node/vscode-idl/idl/test/scratch/notebooks/test.idlnb",
+  "uri": "file:///c%3A/Users/znorman/Documents/node/vscode-idl/apps/test/idl/scratch/notebooks/test.idlnb",
   "notebookType": "idl-notebook",
   "version": 0,
   "cells": [
     {
       "kind": 1,
-      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/idl/test/scratch/notebooks/test.idlnb#W0sZmlsZQ%3D%3D"
+      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/apps/test/idl/scratch/notebooks/test.idlnb#W0sZmlsZQ%3D%3D"
     },
     {
       "kind": 2,
-      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/idl/test/scratch/notebooks/test.idlnb#W1sZmlsZQ%3D%3D"
+      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/apps/test/idl/scratch/notebooks/test.idlnb#W1sZmlsZQ%3D%3D"
     },
     {
       "kind": 2,
-      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/idl/test/scratch/notebooks/test.idlnb#W2sZmlsZQ%3D%3D"
+      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/apps/test/idl/scratch/notebooks/test.idlnb#W2sZmlsZQ%3D%3D"
     },
     {
       "kind": 2,
-      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/idl/test/scratch/notebooks/test.idlnb#W3sZmlsZQ%3D%3D"
+      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/apps/test/idl/scratch/notebooks/test.idlnb#W3sZmlsZQ%3D%3D"
     },
     {
       "kind": 2,
-      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/idl/test/scratch/notebooks/test.idlnb#W4sZmlsZQ%3D%3D"
+      "document": "vscode-notebook-cell:/c%3A/Users/znorman/Documents/node/vscode-idl/apps/test/idl/scratch/notebooks/test.idlnb#W4sZmlsZQ%3D%3D"
     }
   ]
 }
