@@ -1,0 +1,44 @@
+{
+  "name": "sandbox",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dev/sandbox/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/dev/sandbox",
+        "main": "apps/dev/sandbox/src/main.ts",
+        "tsConfig": "apps/dev/sandbox/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
+        "assets": ["apps/dev/sandbox/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "sandbox:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "sandbox:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/dev/sandbox/jest.config.ts"
+      }
+    }
+  }
+}

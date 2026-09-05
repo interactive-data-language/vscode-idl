@@ -8,7 +8,7 @@ This document quickly outlines how logging works based on the runtime extension 
 
 2. A custom server message and log manager interceptor takes everything from the server and sends it to the client. This happens directly within `InitializeServer`.
 
-3. Lastly, the parsing worker thread intercepts any console output and send it via a message to our parent process which then gets logged on the server and travels back up to the client to easily get displayed. The source for this is in `apps/parsing-worker/src/main.ts
+3. Lastly, the parsing worker thread intercepts any console output and send it via a message to our parent process which then gets logged on the server and travels back up to the client to easily get displayed. The source for this is in `apps/vscode/parsing-worker/src/main.ts
 
 ## Highlighting
 

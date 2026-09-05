@@ -12,7 +12,7 @@ https://code.visualstudio.com/api/extension-guides/notebook
 
 Here are the major locations for code and the logic regarding notebooks. If you pop into one of these entry points and do a ctrl + click then you can navigate through and follow logic:
 
-0. Notebook configuration: `apps/package-json/src/contributes/notebooks.ts`
+0. Notebook configuration: `apps/build/package-json/src/contributes/notebooks.ts`
 
 1. Main VSCode entry point: `libs/vscode/notebooks`
 

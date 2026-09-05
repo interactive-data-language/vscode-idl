@@ -1,0 +1,53 @@
+{
+  "name": "parsing-worker",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/vscode/parsing-worker/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/vscode/parsing-worker",
+        "main": "apps/vscode/parsing-worker/src/main.ts",
+        "tsConfig": "apps/vscode/parsing-worker/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
+        "assets": ["apps/vscode/parsing-worker/src/assets"],
+        "externalDependencies": "none",
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/vscode/parsing-worker/src/environments/environment.ts",
+              "with": "apps/vscode/parsing-worker/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "parsing-worker:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/vscode/parsing-worker"],
+      "options": {
+        "jestConfig": "apps/vscode/parsing-worker/jest.config.ts"
+      }
+    }
+  }
+}

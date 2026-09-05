@@ -6,7 +6,7 @@ The extension is broken up into two components: client and server. The client ma
 
 At a high level, here is where different components reside within the extension
 
-- Client: `apps/client/src/main.ts`
+- Client: `apps/vscode/client/src/main.ts`
   - Runs code in (Zach thinks) the main VSCode process
     - Business logic for extension happens here in the lib (follow initialize functions): `libs/vscode/client/src/lib/initialize-client.ts`
       - Creates buttons, adds commands, generates our sidebar tab, adds the icon in the bottom to run a debug session of IDL. Follow the "Initialize" function calls in the main routine to find the other libs and what they register.
@@ -18,7 +18,7 @@ At a high level, here is where different components reside within the extension
   - Starts and manages the connection to the language server (see below)
     - This is really nice because it allows us to send custom messages back and forth for a rich user experience (i.e. alert user when there is a problem with the language server or prompt user for input to be used in the language server)
 
-- Server: `apps/server/src/main.ts`
+- Server: `apps/vscode/server/src/main.ts`
   - Runs code in a separate process via Language Server Protocol using VSCode's NPM packages to create and simplify the communication between the client and the process.
 
   - Handles the intensive language features and the creation of them is located here: `libs/vscode/server/src/lib/initialize-server.ts`
@@ -29,7 +29,7 @@ At a high level, here is where different components reside within the extension
 
     - The user-interaction all occurs in the main thread, but parsing code and initial problem checking happens in a pool of node.js worker_threads to increase performance and reduce latency for a better user experience.
       - Worker threads are created within a separate app as it needs a separate node process. Note: in the future we could use the app for the server and simply catch command line flags to change what action happens on startup. This could help reduce complexity, but it is also nice to be verbose and keep things separate and organized.
-        - App for worker threads: `apps/parsing-worker/src/main.ts`
+        - App for worker threads: `apps/vscode/parsing-worker/src/main.ts`
 
         - Lib that manages the communication between the language server and the worker threads: `libs/workerio/src/index.ts`
           - Best to look in the worker thread app and the index code to see how communication and work gets managed between processes.

@@ -34,7 +34,7 @@ Be very careful what your tests use. You **CANNOT** import constants from the li
 
 Instead, any information/constants needed for test **MUST** be returned by the activation function.
 
-Where value needs to be returned: `apps/client/src/main.ts`
+Where value needs to be returned: `apps/vscode/client/src/main.ts`
 
 Source file for what is returned: `libs/vscode/client/src/lib/initialize-client.interface.ts`
 

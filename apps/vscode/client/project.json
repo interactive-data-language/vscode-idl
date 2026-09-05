@@ -1,0 +1,53 @@
+{
+  "name": "client",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/vscode/client/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/vscode/client",
+        "main": "apps/vscode/client/src/main.ts",
+        "tsConfig": "apps/vscode/client/tsconfig.app.json",
+        "assets": ["apps/vscode/client/src/assets"],
+        "webpackConfig": "webpack.vscode.config.js",
+        "externalDependencies": "none",
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/vscode/client/src/environments/environment.ts",
+              "with": "apps/vscode/client/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "client:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/vscode/client"],
+      "options": {
+        "jestConfig": "apps/vscode/client/jest.config.ts"
+      }
+    }
+  }
+}

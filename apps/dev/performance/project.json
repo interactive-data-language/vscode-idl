@@ -1,0 +1,52 @@
+{
+  "name": "performance",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dev/performance/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/dev/performance",
+        "main": "apps/dev/performance/src/main.ts",
+        "tsConfig": "apps/dev/performance/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
+        "assets": ["apps/dev/performance/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/dev/performance/src/environments/environment.ts",
+              "with": "apps/dev/performance/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "performance:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/dev/performance"],
+      "options": {
+        "jestConfig": "apps/dev/performance/jest.config.ts"
+      }
+    }
+  }
+}

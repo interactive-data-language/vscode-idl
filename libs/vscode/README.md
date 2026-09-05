@@ -20,7 +20,7 @@ Here is a list of the shared libraries in this directory. Per the note above, an
 
 All libraries follow the pattern of having a function call that initializes that particular part of the extension. For example, for the `debug` lib:
 
-1. Function `InitializeDebugger` is exported and called in `apps/client/src/main.ts`
+1. Function `InitializeDebugger` is exported and called in `apps/vscode/client/src/main.ts`
 
 2. The function `InitializeDebugger` exports a constant with any shared variables that other libs might need to access
 

@@ -5,7 +5,7 @@
 /.vscode
 /.vscode-test
 extension/templates/copilot-instructions.md
-apps/idl-docs-parser/src/htmls
+apps/build/idl-docs-parser/src/htmls
 /dist
 /coverage
 /apps/test/idl/client-e2e

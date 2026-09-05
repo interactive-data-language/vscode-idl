@@ -97,7 +97,7 @@ This will build, and rebuild on changes, the client, server, and parsing-worker 
 
 An added complexity with the recent changes is that the contribution points for this extension are stored in code and added to the package.json file before packaging or during development.
 
-See the source code in `apps/package-json/src/main.ts` and `apps/package-json/src/contributes` for the code that changes our contribution points.
+See the source code in `apps/build/package-json/src/main.ts` and `apps/build/package-json/src/contributes` for the code that changes our contribution points.
 
 The main reason for this is so that, using code, we can verify that our translation and auxiliary files are where we expect them to be. We can also automatically create the translation strings so we don't need to do that by hand which is a burden.
 

@@ -1,0 +1,52 @@
+{
+  "name": "idl-docs-parser",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/build/idl-docs-parser/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/build/idl-docs-parser",
+        "main": "apps/build/idl-docs-parser/src/main.ts",
+        "tsConfig": "apps/build/idl-docs-parser/tsconfig.app.json",
+        "webpackConfig": "webpack.node.config.js",
+        "assets": ["apps/build/idl-docs-parser/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/build/idl-docs-parser/src/environments/environment.ts",
+              "with": "apps/build/idl-docs-parser/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "idl-docs-parser:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/build/idl-docs-parser"],
+      "options": {
+        "jestConfig": "apps/build/idl-docs-parser/jest.config.ts"
+      }
+    }
+  }
+}

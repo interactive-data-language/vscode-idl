@@ -158,7 +158,7 @@ const after = {
 
 We have a new app to help track performance in a single-threaded (the slowest) environment. It prints out the time to parse the lib folder, memory used, lines of code, and rate that we parse.
 
-See `apps/performance/README.md` for more details
+See `apps/dev/performance/README.md` for more details
 
 ## Memory Usage
 

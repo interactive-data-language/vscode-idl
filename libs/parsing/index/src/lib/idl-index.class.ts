@@ -225,12 +225,15 @@ export class IDLIndex {
     // create all of our workers
     for (let i = 0; i < nWorkers; i++) {
       workers.push(
-        new Worker(GetExtensionPath('dist/apps/parsing-worker/main.js'), {
-          resourceLimits: {
-            maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
-            maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
+        new Worker(
+          GetExtensionPath('dist/apps/vscode/parsing-worker/main.js'),
+          {
+            resourceLimits: {
+              maxOldGenerationSizeMb: NODE_MEMORY_CONFIG.OLD,
+              maxYoungGenerationSizeMb: NODE_MEMORY_CONFIG.YOUNG,
+            },
           },
-        }),
+        ),
       );
     }
 
