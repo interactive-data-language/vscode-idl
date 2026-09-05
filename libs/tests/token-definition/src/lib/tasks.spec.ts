@@ -19,14 +19,16 @@ describe(`[auto generated] Correctly find definitions for task files`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/tasks.pro');
-
-    // parse file for tests
-    await index.indexFile(GetExtensionPath('idl/test/token-def/tasks.pro'));
+    const filepath = GetExtensionPath('apps/test/idl/token-def/tasks.pro');
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/token-def/atanomalydetection.task'),
+      GetExtensionPath('apps/test/idl/token-def/tasks.pro'),
+    );
+
+    // parse file for tests
+    await index.indexFile(
+      GetExtensionPath('apps/test/idl/token-def/atanomalydetection.task'),
     );
 
     // define position

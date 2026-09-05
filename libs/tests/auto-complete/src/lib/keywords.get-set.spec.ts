@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/get_set_methods.pro',
+      'apps/test/idl/auto-complete/get_set_methods.pro',
     );
 
     // add file to index

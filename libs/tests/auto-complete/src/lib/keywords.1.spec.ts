@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly provides auto complete for keywords`, () =>
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/keywords.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/keywords.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

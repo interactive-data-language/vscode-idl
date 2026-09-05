@@ -19,7 +19,7 @@ describe(`[auto generated] Correctly finds no information for parameters in docs
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/only_code.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/only_code.pro');
 
     // add file to index
     await index.indexFile(filepath);

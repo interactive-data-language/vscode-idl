@@ -20,7 +20,7 @@ describe(`[auto generated] Add names of functions that we can auto-complete`, ()
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/call_function.pro',
+      'apps/test/idl/auto-complete/call_function.pro',
     );
 
     // add file to index

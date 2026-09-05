@@ -20,7 +20,7 @@ describe(`[auto generated] track that global problems should not be reported`, (
 
     // specify filepath
     const filepath_0 = GetExtensionPath(
-      'idl/test/global-problems/disabled/file1_all.pro',
+      'apps/test/idl/global-problems/disabled/file1_all.pro',
     );
 
     // add file to index
@@ -33,13 +33,13 @@ describe(`[auto generated] track that global problems should not be reported`, (
     expect(problems_0).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-problems/disabled',
+        'apps/test/idl/global-problems/disabled',
       ),
     );
 
     // specify filepath
     const filepath_1 = GetExtensionPath(
-      'idl/test/global-problems/disabled/file2_all.pro',
+      'apps/test/idl/global-problems/disabled/file2_all.pro',
     );
 
     // add file to index
@@ -47,14 +47,14 @@ describe(`[auto generated] track that global problems should not be reported`, (
 
     // define expected problems
     const problems_1: { [key: string]: SyntaxProblems } = {
-      'idl/test/global-problems/disabled/file1_all.pro': [
+      'apps/test/idl/global-problems/disabled/file1_all.pro': [
         {
           code: 23,
           info: 'Duplicate procedure definition: "myclass__define"',
           start: [21, 4, 15],
           end: [21, 4, 15],
           canReport: false,
-          file: 'idl/test/global-problems/disabled/file1_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file1_all.pro',
         },
         {
           code: 26,
@@ -62,7 +62,7 @@ describe(`[auto generated] track that global problems should not be reported`, (
           start: [16, 9, 16],
           end: [16, 9, 16],
           canReport: false,
-          file: 'idl/test/global-problems/disabled/file1_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file1_all.pro',
         },
         {
           code: 25,
@@ -70,7 +70,7 @@ describe(`[auto generated] track that global problems should not be reported`, (
           start: [11, 4, 16],
           end: [11, 4, 16],
           canReport: false,
-          file: 'idl/test/global-problems/disabled/file1_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file1_all.pro',
         },
         {
           code: 24,
@@ -78,7 +78,7 @@ describe(`[auto generated] track that global problems should not be reported`, (
           start: [6, 9, 6],
           end: [6, 9, 6],
           canReport: false,
-          file: 'idl/test/global-problems/disabled/file1_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file1_all.pro',
         },
         {
           code: 23,
@@ -86,17 +86,17 @@ describe(`[auto generated] track that global problems should not be reported`, (
           start: [2, 4, 5],
           end: [2, 4, 5],
           canReport: false,
-          file: 'idl/test/global-problems/disabled/file1_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file1_all.pro',
         },
       ],
-      'idl/test/global-problems/disabled/file2_all.pro': [
+      'apps/test/idl/global-problems/disabled/file2_all.pro': [
         {
           code: 23,
           info: 'Duplicate procedure definition: "myclass__define"',
           start: [19, 4, 15],
           end: [19, 4, 15],
           canReport: true,
-          file: 'idl/test/global-problems/disabled/file2_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file2_all.pro',
         },
         {
           code: 26,
@@ -104,7 +104,7 @@ describe(`[auto generated] track that global problems should not be reported`, (
           start: [14, 9, 16],
           end: [14, 9, 16],
           canReport: true,
-          file: 'idl/test/global-problems/disabled/file2_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file2_all.pro',
         },
         {
           code: 25,
@@ -112,7 +112,7 @@ describe(`[auto generated] track that global problems should not be reported`, (
           start: [9, 4, 16],
           end: [9, 4, 16],
           canReport: true,
-          file: 'idl/test/global-problems/disabled/file2_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file2_all.pro',
         },
         {
           code: 24,
@@ -120,7 +120,7 @@ describe(`[auto generated] track that global problems should not be reported`, (
           start: [4, 9, 6],
           end: [4, 9, 6],
           canReport: true,
-          file: 'idl/test/global-problems/disabled/file2_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file2_all.pro',
         },
         {
           code: 23,
@@ -128,7 +128,7 @@ describe(`[auto generated] track that global problems should not be reported`, (
           start: [0, 4, 5],
           end: [0, 4, 5],
           canReport: true,
-          file: 'idl/test/global-problems/disabled/file2_all.pro',
+          file: 'apps/test/idl/global-problems/disabled/file2_all.pro',
         },
       ],
     };
@@ -137,7 +137,7 @@ describe(`[auto generated] track that global problems should not be reported`, (
     expect(problems_1).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-problems/disabled',
+        'apps/test/idl/global-problems/disabled',
       ),
     );
   });

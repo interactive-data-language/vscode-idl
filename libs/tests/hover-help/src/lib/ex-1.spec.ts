@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly identifies search terms from syntax tree`, 
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/awesomerasterintersection.pro',
+      'apps/test/idl/hover-help/awesomerasterintersection.pro',
     );
 
     // add file to index

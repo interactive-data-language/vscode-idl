@@ -20,7 +20,7 @@ describe(`[auto generated] Custom block auto-complete`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/case_switch_then_else.pro',
+      'apps/test/idl/auto-complete/case_switch_then_else.pro',
     );
 
     // add file to index

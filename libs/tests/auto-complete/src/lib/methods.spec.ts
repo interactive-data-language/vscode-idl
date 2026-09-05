@@ -19,7 +19,9 @@ describe(`[auto generated] Methods`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/methods.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/methods.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

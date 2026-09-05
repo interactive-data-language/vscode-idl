@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly send only executive commands`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -77,7 +79,9 @@ describe(`[auto generated] Correctly send only executive commands`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -112,7 +116,9 @@ describe(`[auto generated] Correctly send only executive commands`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -149,7 +155,9 @@ describe(`[auto generated] Correctly send only executive commands`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -186,7 +194,9 @@ describe(`[auto generated] Correctly send only executive commands`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -223,7 +233,9 @@ describe(`[auto generated] Correctly send only executive commands`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -260,7 +272,9 @@ describe(`[auto generated] Correctly send only executive commands`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -297,7 +311,9 @@ describe(`[auto generated] Correctly send only executive commands`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -334,7 +350,9 @@ describe(`[auto generated] Correctly send only executive commands`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

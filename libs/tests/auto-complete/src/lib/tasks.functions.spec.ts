@@ -20,7 +20,7 @@ describe(`[auto generated] Task auto complete`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/task_functions.pro',
+      'apps/test/idl/auto-complete/task_functions.pro',
     );
 
     // add file to index

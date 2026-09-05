@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/types_inheritance.pro',
+      'apps/test/idl/hover-help/types_inheritance.pro',
     );
 
     // add file to index
@@ -245,7 +245,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/types_inheritance.pro',
+      'apps/test/idl/hover-help/types_inheritance.pro',
     );
 
     // add file to index

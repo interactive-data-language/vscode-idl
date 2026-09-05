@@ -19,11 +19,13 @@ describe(`[auto generated] Correctly find function definitions`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/call_function.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/token-def/call_function.pro',
+    );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/token-def/call_function.pro'),
+      GetExtensionPath('apps/test/idl/token-def/call_function.pro'),
     );
 
     // define position

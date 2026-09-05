@@ -7,7 +7,9 @@ import { IGlobalsToTrack } from '@idl/types/tasks';
 describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/task-parsing/QueryTask.task');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/task-parsing/QueryTask.task',
+    );
 
     // reset global display names
     ResetGlobalDisplayNames();

@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/bracket_paren.pro',
+      'apps/test/idl/auto-complete/bracket_paren.pro',
     );
 
     // add file to index

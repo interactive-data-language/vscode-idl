@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly finds the right variables`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/variables.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/variables.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

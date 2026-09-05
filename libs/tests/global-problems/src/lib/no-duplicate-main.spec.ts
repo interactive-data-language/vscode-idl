@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly ignore main level programs as duplicates`, 
 
     // specify filepath
     const filepath_0 = GetExtensionPath(
-      'idl/test/global-main-problems/file1.pro',
+      'apps/test/idl/global-main-problems/file1.pro',
     );
 
     // add file to index
@@ -33,13 +33,13 @@ describe(`[auto generated] Correctly ignore main level programs as duplicates`, 
     expect(problems_0).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-main-problems',
+        'apps/test/idl/global-main-problems',
       ),
     );
 
     // specify filepath
     const filepath_1 = GetExtensionPath(
-      'idl/test/global-main-problems/file2.pro',
+      'apps/test/idl/global-main-problems/file2.pro',
     );
 
     // add file to index
@@ -52,7 +52,7 @@ describe(`[auto generated] Correctly ignore main level programs as duplicates`, 
     expect(problems_1).toEqual(
       SanitizeAllProblems(
         index.getGlobalTokenSyntaxProblems(),
-        'idl/test/global-main-problems',
+        'apps/test/idl/global-main-problems',
       ),
     );
   });

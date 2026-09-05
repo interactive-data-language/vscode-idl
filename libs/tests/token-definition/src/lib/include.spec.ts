@@ -19,11 +19,13 @@ describe(`[auto generated] Correctly find find include`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/include_test.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/token-def/include_test.pro',
+    );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/token-def/include_test.pro'),
+      GetExtensionPath('apps/test/idl/token-def/include_test.pro'),
     );
 
     // define position
@@ -58,11 +60,13 @@ describe(`[auto generated] Correctly find find include`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/include_test.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/token-def/include_test.pro',
+    );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/token-def/include_test.pro'),
+      GetExtensionPath('apps/test/idl/token-def/include_test.pro'),
     );
 
     // define position

@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly provide hover help for keywords`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/types_keywords.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/types_keywords.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

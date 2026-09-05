@@ -19,7 +19,7 @@ describe(`[auto generated] Correctly identifies keywords from routine calls`, ()
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/myfunc.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/myfunc.pro');
 
     // add file to index
     await index.indexFile(filepath);

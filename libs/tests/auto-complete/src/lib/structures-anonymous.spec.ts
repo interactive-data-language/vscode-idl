@@ -19,7 +19,9 @@ describe(`[auto generated] Structures`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/structures.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/structures.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -911,7 +913,9 @@ describe(`[auto generated] Structures`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/structures.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/structures.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

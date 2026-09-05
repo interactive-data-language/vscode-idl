@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly does not provide hover help`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/middle_functions.pro',
+      'apps/test/idl/hover-help/middle_functions.pro',
     );
 
     // add file to index

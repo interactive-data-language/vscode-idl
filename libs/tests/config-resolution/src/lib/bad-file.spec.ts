@@ -17,13 +17,17 @@ describe(`[auto generated] Parse invalid config files`, () => {
     );
 
     // specify filepath
-    const filepath_0 = GetExtensionPath('idl/test/configs/subdir4/idl.json');
+    const filepath_0 = GetExtensionPath(
+      'apps/test/idl/configs/subdir4/idl.json',
+    );
 
     // add file to index
     await index.indexFile(filepath_0);
 
     // specify filepath
-    const filepath_1 = GetExtensionPath('idl/test/configs/subdir4/idl.pro');
+    const filepath_1 = GetExtensionPath(
+      'apps/test/idl/configs/subdir4/idl.pro',
+    );
 
     // verify results
     expect({

@@ -19,10 +19,12 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/all_cases.pro');
+    const filepath = GetExtensionPath('apps/test/idl/token-def/all_cases.pro');
 
     // parse file for tests
-    await index.indexFile(GetExtensionPath('idl/test/token-def/all_cases.pro'));
+    await index.indexFile(
+      GetExtensionPath('apps/test/idl/token-def/all_cases.pro'),
+    );
 
     // define position
     const position_0: Position = { line: 40, character: 9 };
@@ -86,10 +88,12 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/all_cases.pro');
+    const filepath = GetExtensionPath('apps/test/idl/token-def/all_cases.pro');
 
     // parse file for tests
-    await index.indexFile(GetExtensionPath('idl/test/token-def/all_cases.pro'));
+    await index.indexFile(
+      GetExtensionPath('apps/test/idl/token-def/all_cases.pro'),
+    );
 
     // define position
     const position_0: Position = { line: 43, character: 19 };
@@ -205,10 +209,12 @@ describe(`[auto generated] Correctly find definitions in structures`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/all_cases.pro');
+    const filepath = GetExtensionPath('apps/test/idl/token-def/all_cases.pro');
 
     // parse file for tests
-    await index.indexFile(GetExtensionPath('idl/test/token-def/all_cases.pro'));
+    await index.indexFile(
+      GetExtensionPath('apps/test/idl/token-def/all_cases.pro'),
+    );
 
     // define position
     const position_0: Position = { line: 94, character: 22 };

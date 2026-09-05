@@ -19,7 +19,9 @@ describe(`[auto generated] Exclude properties`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -152,7 +154,9 @@ describe(`[auto generated] Exclude properties`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/examples.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/examples.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

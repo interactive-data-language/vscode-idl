@@ -19,7 +19,9 @@ describe(`[auto generated] Do not send procedures`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/procedures.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/procedures.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

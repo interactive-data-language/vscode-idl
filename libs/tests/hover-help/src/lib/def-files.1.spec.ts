@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly get hover help`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/testroutine.pro.def',
+      'apps/test/idl/hover-help/testroutine.pro.def',
     );
 
     // add file to index

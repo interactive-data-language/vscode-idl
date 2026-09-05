@@ -20,7 +20,7 @@ describe(`[auto generated] Extracts outline`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/mypro.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/mypro.pro');
 
     // add file to index
     await index.indexFile(filepath);
