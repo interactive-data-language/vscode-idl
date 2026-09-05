@@ -20,8 +20,8 @@ dist/apps/agents-desktop-app
 dist/apps/agents-ui
 dist/apps/vscode/client/3rdpartylicenses.txt
 dist/apps/vscode/client/assets/.gitkeep
-dist/apps/test/test-client/**
-dist/apps/vscode/idl-webview/3rdpartylicenses.txt
+dist/apps/test/client/**
+dist/apps/vscode/webview/3rdpartylicenses.txt
 dist/apps/build/i18n/**
 dist/apps/packages/**
 dist/apps/notebook/components/3rdpartylicenses.txt
@@ -31,7 +31,7 @@ dist/apps/vscode/parsing-worker/assets/.gitkeep
 dist/apps/vscode/server/3rdpartylicenses.txt
 dist/apps/vscode/server/main.js.LICENSE.txt
 dist/apps/vscode/server/assets/.gitkeep
-dist/apps/test/test-server/**
+dist/apps/test/maker/**
 dist/apps/build/tmlang-maker/**
 dist/apps/test/vscode-e2e-runner/**
 docs/dev/**

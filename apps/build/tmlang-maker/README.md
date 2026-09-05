@@ -9,7 +9,7 @@ This app is very simple: it is meant to take a YAML tmLanguage file and convert 
 Using this lib is very easy. All you need to do is run:
 
 ```shell
-nx serve tmlang-maker
+nx serve build-tmlang-maker
 ```
 
 And, as you make edits to the `extension/language/syntaxes/src/idl.tmLanguage.yaml` any changes will be live-reloaded and the plist file will be automatically updated for you.

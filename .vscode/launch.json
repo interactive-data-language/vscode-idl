@@ -31,7 +31,7 @@
       "runtimeExecutable": "${execPath}",
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/dist/apps/test/test-client/main.js"
+        "--extensionTestsPath=${workspaceFolder}/dist/apps/test/client/main.js"
       ],
       "outFiles": ["${workspaceFolder}/dist/apps/test/vscode-e2e-runner/main.js"],
       "preLaunchTask": "npm: start-test"

@@ -6,4 +6,4 @@ These are not extremely extensive at this point, but a framework is in place tha
 
 ## Tips and Tricks
 
-To adjust the log levels, adjust the constants at the beginning of `apps/test/test-client/src/main.ts`.
+To adjust the log levels, adjust the constants at the beginning of `apps/test/client/src/main.ts`.

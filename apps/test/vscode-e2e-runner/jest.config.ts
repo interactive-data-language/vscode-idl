@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'vscode-e2e-runner',
+  displayName: 'test-vscode-e2e-runner',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',

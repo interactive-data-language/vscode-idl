@@ -24,7 +24,7 @@ Important to know since we will be changing our URL here shortly.
 
 4. From IDL, compile and run `idl/helpers/catalog_to_json.pro` to update a JSON file containing the internal routines from "\_catalog.xml" files
 
-5. Run `nx serve idl-docs-parser` to process the JSON file from step 4. This will:
+5. Run `nx serve build-docs-parser` to process the JSON file from step 4. This will:
 
 - Find the actual docs HTML files in the ENVI and IDL installation for every routine
 

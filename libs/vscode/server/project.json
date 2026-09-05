@@ -1,5 +1,5 @@
 {
-  "name": "vscode-server",
+  "name": "vscode-server-lib",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/vscode/server/src",
   "projectType": "library",

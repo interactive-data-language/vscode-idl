@@ -1,7 +1,7 @@
 {
-  "name": "test-server",
+  "name": "build-docs-parser",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/test/test-server/src",
+  "sourceRoot": "apps/build/docs-parser/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -9,11 +9,11 @@
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/test/test-server",
-        "main": "apps/test/test-server/src/main.ts",
-        "tsConfig": "apps/test/test-server/tsconfig.app.json",
+        "outputPath": "dist/apps/build/docs-parser",
+        "main": "apps/build/docs-parser/src/main.ts",
+        "tsConfig": "apps/build/docs-parser/tsconfig.app.json",
         "webpackConfig": "webpack.node.config.js",
-        "assets": ["apps/test/test-server/src/assets"],
+        "assets": ["apps/build/docs-parser/src/assets"],
         "target": "node",
         "compiler": "tsc"
       },
@@ -24,8 +24,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "apps/test/test-server/src/environments/environment.ts",
-              "with": "apps/test/test-server/src/environments/environment.prod.ts"
+              "replace": "apps/build/docs-parser/src/environments/environment.ts",
+              "with": "apps/build/docs-parser/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -34,7 +34,7 @@
     "serve": {
       "executor": "@nx/js:node",
       "options": {
-        "buildTarget": "test-server:build"
+        "buildTarget": "build-docs-parser:build"
       }
     },
     "lint": {
@@ -43,9 +43,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/test/test-server"],
+      "outputs": ["{workspaceRoot}/coverage/apps/build/docs-parser"],
       "options": {
-        "jestConfig": "apps/test/test-server/jest.config.ts"
+        "jestConfig": "apps/build/docs-parser/jest.config.ts"
       }
     }
   }

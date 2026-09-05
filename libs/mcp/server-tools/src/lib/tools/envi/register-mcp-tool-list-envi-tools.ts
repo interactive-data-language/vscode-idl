@@ -52,9 +52,9 @@ export function RegisterMCPTool_ListENVITools(
              * sure everything is updated across the board.
              *
              * See these:
-             * - apps/test/test-client/src/tests/mcp/tools/envi/regression-tests/mcp-test-list-envi-tools-regression.ts
-             * - apps/test/test-client/src/tests/mcp/tools/envi/mcp-test-list-envi-tools.ts
-             * - apps/test/test-client/src/tests/mcp/tools/envi/regression-tests/mcp-test-list-envi-tools-regression.ts
+             * - apps/test/client/src/tests/mcp/tools/envi/regression-tests/mcp-test-list-envi-tools-regression.ts
+             * - apps/test/client/src/tests/mcp/tools/envi/mcp-test-list-envi-tools.ts
+             * - apps/test/client/src/tests/mcp/tools/envi/regression-tests/mcp-test-list-envi-tools-regression.ts
              */
             text: `${JSON.stringify(registry.getDescriptions())}`,
           },

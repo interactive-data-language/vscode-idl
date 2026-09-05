@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "vscode-server",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/vscode/server/src",
   "projectType": "application",

@@ -35,7 +35,7 @@ You might be asking yourself, now why would we have this extra step? Well, for t
 
 There is a very easy way to live-reload changes to make development trivial.
 
-1. Execute `nx serve tmlang-maker`
+1. Execute `nx serve build-tmlang-maker`
 
 2. Make changes to the existing YAML file
 

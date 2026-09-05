@@ -5,7 +5,7 @@
   "tui": {
     "enabled": false
   },
-  "defaultProject": "idl-webview",
+  "defaultProject": "vscode-webview",
   "generators": {
     "@nx/angular:application": {
       "e2eTestRunner": "cypress",

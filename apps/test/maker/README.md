@@ -5,7 +5,7 @@ App has two purposes:
 1. Live development of the tokenizer to easily change/view token results on-the-fly. Do this with:
 
 ```
-nx serve test-server
+nx serve test-maker
 ```
 
 2. Generates a large number of tests for the tokenizer using automation. This provides several benefits: easily change and re-architect tokenizing so you don't spend hours re-writing tests and lets you easily track with a git client how changes impact the tests. Do this with:

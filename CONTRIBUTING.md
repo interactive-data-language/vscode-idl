@@ -128,7 +128,7 @@ npm run build-i18n
 Similar to the client and language server, here's the command to execute for development of the web view:
 
 ```shell
-nx build idl-webview --watch
+nx build vscode-webview --watch
 ```
 
 It is probably easiest to have a separate terminal running with this active in addition to the client and server.
@@ -153,7 +153,7 @@ If you are just updating or working with the libraries, you can use `npm run tes
 
 ### Writing Integration Tests
 
-Integration tests live in this folder `apps/test/test-client/src/tests`
+Integration tests live in this folder `apps/test/client/src/tests`
 
 They are separated by test runners, which are where tests are registered for each component of the extension. These test runners are the files prefixed with `_` at in each sub folder.
 
@@ -161,7 +161,7 @@ To write new integration tests, here's the best process:
 
 1. Identify the relevant sub-folder to add your tests to
 
-2. For test development, we recommend commenting out the test runners that aren't related to what you are running. you can find that in `apps/test/test-client/src/tests/test-runner.ts`
+2. For test development, we recommend commenting out the test runners that aren't related to what you are running. you can find that in `apps/test/client/src/tests/test-runner.ts`
 
 3. Create a new test - it's recommended to copy/paste from an exaisting test and adjust to meet your needs
 
@@ -169,7 +169,7 @@ To write new integration tests, here's the best process:
 
 4. In the relevant test runner, you should register the test. Open one of the relevant test runners to see an example of this.
 
-> Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps/test/test-client/src/tests/mcp/_mcp-test-runner.ts`
+> Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps/test/client/src/tests/mcp/_mcp-test-runner.ts`
 
 ## Releasing
 

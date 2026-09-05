@@ -10,7 +10,7 @@
  *
  * REMOVING ITEMS FROM THIS LIST WILL BREAK SOME REGRESSION TESTS IF WE RELY ON THE TASKS
  *
- * apps/test/test-client/src/tests/mcp/tools/envi/regression-tests/regression-test-these.interface.ts
+ * apps/test/client/src/tests/mcp/tools/envi/regression-tests/regression-test-these.interface.ts
  */
 export const SKIP_THESE_TASKS: { [key: string]: undefined } = {
   // catalog tools don't work out of the box

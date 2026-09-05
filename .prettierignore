@@ -5,7 +5,7 @@
 /.vscode
 /.vscode-test
 extension/templates/copilot-instructions.md
-apps/build/idl-docs-parser/src/htmls
+apps/build/docs-parser/src/htmls
 /dist
 /coverage
 /apps/test/idl/client-e2e
@@ -16,9 +16,9 @@ idl/routines
 compliance
 /*idl.json
 *settings.json
-apps/test/test-server/src/test-maker/cache/cache.json
-apps/test/test-client/src/tests/mcp/tools/envi/regression-tests/tool-descriptions
-apps/test/test-client/src/tests/mcp/tools/envi/regression-tests/tool-parameters
+apps/test/maker/src/test-maker/cache/cache.json
+apps/test/client/src/tests/mcp/tools/envi/regression-tests/tool-descriptions
+apps/test/client/src/tests/mcp/tools/envi/regression-tests/tool-parameters
 .angular
 
 /.nx/cache

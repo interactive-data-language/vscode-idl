@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'tmlang-maker',
+  displayName: 'build-tmlang-maker',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',

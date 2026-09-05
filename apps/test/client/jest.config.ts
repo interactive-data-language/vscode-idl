@@ -13,5 +13,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/apps/test/test-client',
+  coverageDirectory: '../../../coverage/apps/test/client',
 };

@@ -22,11 +22,11 @@ Commands have a few places that you need to update in order to add a new one.
 
 4. Make updates to the actual translations in `libs/translation/src/lib/languages/en.ts`
 
-   Once you have made the base changes to the translations, either build a new local translation file with `npm run build-i18n` or live-reload on changes and build dynamically with `nx server i18n`
+   Once you have made the base changes to the translations, either build a new local translation file with `npm run build-i18n` or live-reload on changes and build dynamically with `nx server build-i18n`
 
-5. At this point, you'll want to regenerate the `package.json` file. You can use the app `package-json` to automatically update the package.json file and add translations so that you can use the commands in VSCode.
+5. At this point, you'll want to regenerate the `package.json` file. You can use the app `build-package-json` to automatically update the package.json file and add translations so that you can use the commands in VSCode.
 
-   Update it by running `nx serve package-json`, make any changes, and let it live-reload as much as you want/need.
+   Update it by running `nx serve build-package-json`, make any changes, and let it live-reload as much as you want/need.
 
    Once finished, you can leave it up and running to make any tweaks or you can kill the process.
 

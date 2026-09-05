@@ -1,7 +1,7 @@
 {
-  "name": "idl-docs-parser",
+  "name": "test-maker",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/build/idl-docs-parser/src",
+  "sourceRoot": "apps/test/maker/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -9,11 +9,11 @@
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/build/idl-docs-parser",
-        "main": "apps/build/idl-docs-parser/src/main.ts",
-        "tsConfig": "apps/build/idl-docs-parser/tsconfig.app.json",
+        "outputPath": "dist/apps/test/maker",
+        "main": "apps/test/maker/src/main.ts",
+        "tsConfig": "apps/test/maker/tsconfig.app.json",
         "webpackConfig": "webpack.node.config.js",
-        "assets": ["apps/build/idl-docs-parser/src/assets"],
+        "assets": ["apps/test/maker/src/assets"],
         "target": "node",
         "compiler": "tsc"
       },
@@ -24,8 +24,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "apps/build/idl-docs-parser/src/environments/environment.ts",
-              "with": "apps/build/idl-docs-parser/src/environments/environment.prod.ts"
+              "replace": "apps/test/maker/src/environments/environment.ts",
+              "with": "apps/test/maker/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -34,7 +34,7 @@
     "serve": {
       "executor": "@nx/js:node",
       "options": {
-        "buildTarget": "idl-docs-parser:build"
+        "buildTarget": "test-maker:build"
       }
     },
     "lint": {
@@ -43,9 +43,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/build/idl-docs-parser"],
+      "outputs": ["{workspaceRoot}/coverage/apps/test/maker"],
       "options": {
-        "jestConfig": "apps/build/idl-docs-parser/jest.config.ts"
+        "jestConfig": "apps/test/maker/jest.config.ts"
       }
     }
   }

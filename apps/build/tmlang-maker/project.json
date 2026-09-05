@@ -1,5 +1,5 @@
 {
-  "name": "tmlang-maker",
+  "name": "build-tmlang-maker",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/build/tmlang-maker/src",
   "projectType": "application",

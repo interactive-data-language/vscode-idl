@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'package-json',
+  displayName: 'build-package-json',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',

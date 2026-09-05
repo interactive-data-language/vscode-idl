@@ -15,7 +15,7 @@ import {
 export const FUNCTION_TYPE_OVERRIDES: IFunctionTypeOverride = JSON.parse(
   readFileSync(
     GetExtensionPath(
-      'apps/build/idl-docs-parser/src/overrides/types/functions.json',
+      'apps/build/docs-parser/src/overrides/types/functions.json',
     ),
     {
       encoding: 'utf-8',
@@ -30,7 +30,7 @@ export const FUNCTION_METHOD_TYPE_OVERRIDES: IFunctionMethodTypeOverride =
   JSON.parse(
     readFileSync(
       GetExtensionPath(
-        'apps/build/idl-docs-parser/src/overrides/types/function-methods.json',
+        'apps/build/docs-parser/src/overrides/types/function-methods.json',
       ),
       {
         encoding: 'utf-8',
@@ -44,7 +44,7 @@ export const FUNCTION_METHOD_TYPE_OVERRIDES: IFunctionMethodTypeOverride =
 export const PROCEDURE_TYPE_OVERRIDES: IProcedureTypeOverride = JSON.parse(
   readFileSync(
     GetExtensionPath(
-      'apps/build/idl-docs-parser/src/overrides/types/procedures.json',
+      'apps/build/docs-parser/src/overrides/types/procedures.json',
     ),
     {
       encoding: 'utf-8',
@@ -59,7 +59,7 @@ export const PROCEDURE_METHOD_TYPE_OVERRIDES: IProcedureMethodTypeOverride =
   JSON.parse(
     readFileSync(
       GetExtensionPath(
-        'apps/build/idl-docs-parser/src/overrides/types/procedure-methods.json',
+        'apps/build/docs-parser/src/overrides/types/procedure-methods.json',
       ),
       {
         encoding: 'utf-8',
@@ -73,7 +73,7 @@ export const PROCEDURE_METHOD_TYPE_OVERRIDES: IProcedureMethodTypeOverride =
 export const IDL_STRUCTURE_TYPE_OVERRIDES: IStructureTypeOverride = JSON.parse(
   readFileSync(
     GetExtensionPath(
-      'apps/build/idl-docs-parser/src/overrides/types/structures.json',
+      'apps/build/docs-parser/src/overrides/types/structures.json',
     ),
     {
       encoding: 'utf-8',

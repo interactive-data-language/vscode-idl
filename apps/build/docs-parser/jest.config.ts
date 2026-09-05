@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'idl-docs-parser',
+  displayName: 'build-docs-parser',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',
@@ -13,5 +13,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/apps/build/idl-docs-parser',
+  coverageDirectory: '../../../coverage/apps/build/docs-parser',
 };

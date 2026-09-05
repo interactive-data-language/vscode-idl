@@ -20,7 +20,7 @@ import { JoinCode } from './join-code';
 import { IParsedHTML } from './parser.interface';
 import { IParameterHTML } from './process-parameters.interface';
 
-const HTML_DIR = GetExtensionPath('apps/build/idl-docs-parser/src/htmls');
+const HTML_DIR = GetExtensionPath('apps/build/docs-parser/src/htmls');
 
 /**
  * Cleans the name of an item that we store in an object. Must clean up

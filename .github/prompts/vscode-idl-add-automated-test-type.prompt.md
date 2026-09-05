@@ -15,7 +15,7 @@ Your goal is to add a new automated test type to the test-server generation fram
 
 ## Step 1 — Add interfaces to `tests.interface.ts`
 
-File: `apps/test/test-server/src/test-maker/tests.interface.ts`
+File: `apps/test/maker/src/test-maker/tests.interface.ts`
 
 Add two interfaces at the bottom of the file, following the `IAssemblerTest` / `IAutoAssemblerTest` pattern:
 
@@ -41,7 +41,7 @@ export interface IAutoENVIModelerTest extends IBaseAutoTest {
 
 ## Step 2 — Create the auto-tests interface file
 
-Create: `apps/test/test-server/src/test-maker/tests/auto-<name>-tests.interface.ts`
+Create: `apps/test/maker/src/test-maker/tests/auto-<name>-tests.interface.ts`
 
 Export an empty array constant of the suite wrapper type. The developer will populate this with test suites.
 
@@ -56,7 +56,7 @@ export const AUTO_ENVI_MODELER_TESTS: IAutoENVIModelerTest[] = [];
 
 ## Step 3 — Create the maker function
 
-Create: `apps/test/test-server/src/test-maker/makers/tests-for-<name>.ts`
+Create: `apps/test/maker/src/test-maker/makers/tests-for-<name>.ts`
 
 Export an async function `TestsForXxx(name: string, tests: IXxxTest[], uri = join(process.cwd(), 'tokens.ts'))`.
 
@@ -119,13 +119,13 @@ it(`[auto generated] ${testName}`, () => {
 });
 ```
 
-Look at `apps/test/test-server/src/test-maker/makers/tests-for-envi-modeler.ts` for a complete reference implementation.
+Look at `apps/test/maker/src/test-maker/makers/tests-for-envi-modeler.ts` for a complete reference implementation.
 
 ---
 
 ## Step 4 — Wire into the generator
 
-File: `apps/test/test-server/src/test-maker/generate-automated-tests.ts`
+File: `apps/test/maker/src/test-maker/generate-automated-tests.ts`
 
 Add two imports near the other maker/test imports:
 ```typescript

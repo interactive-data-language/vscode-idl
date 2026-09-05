@@ -1,7 +1,7 @@
 {
   "name": "test-client",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/test/test-client/src",
+  "sourceRoot": "apps/test/client/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -9,9 +9,9 @@
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/test/test-client",
-        "main": "apps/test/test-client/src/main.ts",
-        "tsConfig": "apps/test/test-client/tsconfig.app.json",
+        "outputPath": "dist/apps/test/client",
+        "main": "apps/test/client/src/main.ts",
+        "tsConfig": "apps/test/client/tsconfig.app.json",
         "assets": [],
         "webpackConfig": "webpack.vscode.config.js",
         "externalDependencies": "none",
@@ -25,8 +25,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "apps/test/test-client/src/environments/environment.ts",
-              "with": "apps/test/test-client/src/environments/environment.prod.ts"
+              "replace": "apps/test/client/src/environments/environment.ts",
+              "with": "apps/test/client/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -49,9 +49,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/test/test-client"],
+      "outputs": ["{workspaceRoot}/coverage/apps/test/client"],
       "options": {
-        "jestConfig": "apps/test/test-client/jest.config.ts"
+        "jestConfig": "apps/test/client/jest.config.ts"
       }
     }
   }

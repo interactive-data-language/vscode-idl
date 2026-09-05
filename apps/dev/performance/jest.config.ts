@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'performance',
+  displayName: 'dev-performance',
   preset: '../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {

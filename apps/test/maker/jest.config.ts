@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'test-server',
+  displayName: 'test-maker',
 
   globals: {},
   testEnvironment: 'node',
@@ -13,6 +13,6 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/apps/test/test-server',
+  coverageDirectory: '../../../coverage/apps/test/maker',
   preset: '../../../jest.preset.js',
 };

@@ -8,4 +8,4 @@ Stored in a separate file for live-reloading in dev and we do not need to includ
 
 If these files are in the same location as the folder above, then we get in an infinite live-reload loop on file changes.
 
-To start watching and re-build on changes, use `nx serve tmlang-maker`
+To start watching and re-build on changes, use `nx serve build-tmlang-maker`

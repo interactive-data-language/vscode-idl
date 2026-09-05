@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'parsing-worker',
+  displayName: 'vscode-parsing-worker',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',

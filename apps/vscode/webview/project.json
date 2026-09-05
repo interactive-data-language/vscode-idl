@@ -1,8 +1,8 @@
 {
-  "name": "idl-webview",
+  "name": "vscode-webview",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/vscode/idl-webview/src",
+  "sourceRoot": "apps/vscode/webview/src",
   "prefix": "idl",
   "tags": [],
   "targets": {
@@ -10,17 +10,17 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/vscode/idl-webview",
-        "index": "apps/vscode/idl-webview/src/index.html",
-        "main": "apps/vscode/idl-webview/src/main.ts",
-        "polyfills": "apps/vscode/idl-webview/src/polyfills.ts",
-        "tsConfig": "apps/vscode/idl-webview/tsconfig.app.json",
+        "outputPath": "dist/apps/vscode/webview",
+        "index": "apps/vscode/webview/src/index.html",
+        "main": "apps/vscode/webview/src/main.ts",
+        "polyfills": "apps/vscode/webview/src/polyfills.ts",
+        "tsConfig": "apps/vscode/webview/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/vscode/idl-webview/src/favicon.ico",
-          "apps/vscode/idl-webview/src/assets"
+          "apps/vscode/webview/src/favicon.ico",
+          "apps/vscode/webview/src/assets"
         ],
-        "styles": ["apps/vscode/idl-webview/src/styles.scss"],
+        "styles": ["apps/vscode/webview/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -39,8 +39,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "apps/vscode/idl-webview/src/environments/environment.ts",
-              "with": "apps/vscode/idl-webview/src/environments/environment.prod.ts"
+              "replace": "apps/vscode/webview/src/environments/environment.ts",
+              "with": "apps/vscode/webview/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"
@@ -60,10 +60,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "idl-webview:build:production"
+          "buildTarget": "vscode-webview:build:production"
         },
         "development": {
-          "buildTarget": "idl-webview:build:development"
+          "buildTarget": "vscode-webview:build:development"
         }
       },
       "defaultConfiguration": "development",
@@ -72,7 +72,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "idl-webview:build"
+        "buildTarget": "vscode-webview:build"
       }
     },
     "lint": {
@@ -81,10 +81,10 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/vscode/idl-webview"],
+      "outputs": ["{workspaceRoot}/coverage/apps/vscode/webview"],
       "options": {
-        "jestConfig": "apps/vscode/idl-webview/jest.config.ts",
-        "tsConfig": "apps/vscode/idl-webview/tsconfig.spec.json"
+        "jestConfig": "apps/vscode/webview/jest.config.ts",
+        "tsConfig": "apps/vscode/webview/tsconfig.spec.json"
       }
     }
   }

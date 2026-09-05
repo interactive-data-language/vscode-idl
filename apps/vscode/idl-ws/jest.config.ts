@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'idl-ws',
+  displayName: 'vscode-idl-ws',
   preset: '../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {

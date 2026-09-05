@@ -1,5 +1,5 @@
 {
-  "name": "client-web",
+  "name": "vscode-client-web",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/vscode/client-web/src",
   "projectType": "application",

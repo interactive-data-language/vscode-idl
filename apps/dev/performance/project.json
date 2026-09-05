@@ -1,5 +1,5 @@
 {
-  "name": "performance",
+  "name": "dev-performance",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/dev/performance/src",
   "projectType": "application",

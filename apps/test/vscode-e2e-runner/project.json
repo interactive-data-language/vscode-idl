@@ -1,5 +1,5 @@
 {
-  "name": "vscode-e2e-runner",
+  "name": "test-vscode-e2e-runner",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/test/vscode-e2e-runner/src",
   "projectType": "application",

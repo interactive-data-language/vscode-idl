@@ -70,6 +70,6 @@ npm run integration-test
 
 If you have problems with tests, using the live-reload from above is the best way to try and debug it.
 
-Apart from that, I would suggest that you adjust the constants at the top of `apps/test/test-client/src/main.ts` to allow printing from extension logs and printing debug statements.
+Apart from that, I would suggest that you adjust the constants at the top of `apps/test/client/src/main.ts` to allow printing from extension logs and printing debug statements.
 
 If there are any unknown problems, this is the best way to try and track them down.

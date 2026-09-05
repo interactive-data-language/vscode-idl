@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'sandbox',
+  displayName: 'dev-sandbox',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',

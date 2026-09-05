@@ -1,5 +1,5 @@
 {
-  "name": "parsing-worker",
+  "name": "vscode-parsing-worker",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/vscode/parsing-worker/src",
   "projectType": "application",

@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'idl-webview',
+  displayName: 'vscode-webview',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
-  coverageDirectory: '../../../coverage/apps/vscode/idl-webview',
+  coverageDirectory: '../../../coverage/apps/vscode/webview',
   transform: {
     '^.+.(ts|mjs|js|html)$': [
       'jest-preset-angular',

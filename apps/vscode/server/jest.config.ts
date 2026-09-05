@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'server',
+  displayName: 'vscode-server',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',

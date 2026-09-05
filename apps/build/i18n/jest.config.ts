@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'i18n',
+  displayName: 'build-i18n',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',

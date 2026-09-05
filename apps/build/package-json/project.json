@@ -1,5 +1,5 @@
 {
-  "name": "package-json",
+  "name": "build-package-json",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/build/package-json/src",
   "projectType": "application",
