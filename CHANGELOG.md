@@ -16,6 +16,8 @@ New settings for ENVI's MCP Tools:
 
 Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.
 
+Added an icon to the IDL Webview which appears when viewing profiling results.
+
 ## 6.2.1 - September 2026
 
 Resolved an issue with VSCode 1.136 that caused VS Code and the extension to crash when starting a session of IDL.
