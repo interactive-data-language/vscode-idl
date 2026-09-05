@@ -25,14 +25,14 @@ export class ChatLayoutService {
     { initialValue: this.breakpointObserver.isMatched(MOBILE_BREAKPOINT) },
   );
 
+  /** Whether the full-screen chat list overlay is open (mobile layout only) */
+  readonly mobileListOpen = signal(false);
+
   /**
    * True for one frame whenever `isMobile` flips, so the sidenav's mode/width
    * jump doesn't get slide-animated as if the user had triggered an open/close.
    */
   readonly suppressSidenavAnimation = signal(false);
-
-  /** Whether the full-screen chat list overlay is open (mobile layout only) */
-  readonly mobileListOpen = signal(false);
 
   constructor() {
     effect(() => {
