@@ -16,7 +16,7 @@ export function MakeDocsFiles() {
   /**
    * Get the folder where our code files should go
    */
-  const folder = GetExtensionPath('extension/docs/problem-codes/codes');
+  const folder = GetExtensionPath('docs/extension/problem-codes/codes');
 
   /**
    * Get the problem codes
@@ -79,7 +79,7 @@ export function MakeDocsFiles() {
    * Get the folder where our code files should go
    */
   const sidebarFile = GetExtensionPath(
-    'extension/docs/.vitepress/sidebars/problem-codes.sidebar.ts',
+    'docs/extension/.vitepress/sidebars/problem-codes.sidebar.ts',
   );
 
   // write sidebar to disk

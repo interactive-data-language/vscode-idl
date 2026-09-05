@@ -2,7 +2,7 @@
 
 All notable changes to the "idl" extension will be documented in this file.
 
-For much more detail on incremental work for large features, see the developer docs in the `extension/docs/developer/dev-notes` of the source repo.
+For much more detail on incremental work for large features, see the developer docs in the `docs/dev/dev-notes` of the source repo.
 
 ## Preview Features
 
@@ -1242,7 +1242,7 @@ Fix badge URLs now that the extension is live
 - Outline for PRO code has been updated to include different icons based on methods vs standard routines and also captures the main level program start.
 
 - Completely revamped syntax highlighting that highlights based on your syntax. It is a great visual way to see where you have syntax problems as highlighting will dramatically change based on what expressions are allowed to be found or not.
-  - Additionally, see the file `extension/docs/CUSTOMIZING_THEMES.md` for the TextMate scopes used for IDL which you can customize to look how you want in any theme.
+  - Additionally, see the file `docs/extension/CUSTOMIZING_THEMES.md` for the TextMate scopes used for IDL which you can customize to look how you want in any theme.
 
 - Added a new file icon theme that adds a new IDL icon for light and dark modes.
   - Supports .pro and .sav files

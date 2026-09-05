@@ -4,7 +4,7 @@ Captures key logic for exporting documentation for a VSCode workspace as Markdow
 
 ## General Structure
 
-"root" is the folder that all docs go to, this is `extension/docs` for the extension
+"root" is the folder that all docs go to, this is `docs/extension` for the extension
 
 - `api` is the holder of all of our docs
   - `class` contains class definitions (i.e. summaries) for structures and classes

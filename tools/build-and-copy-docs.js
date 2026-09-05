@@ -6,7 +6,7 @@ const { join } = require('path');
 execSync(`npm run docs:build`);
 
 // get source docs folder
-const inDir = join(process.cwd(), 'extension', 'docs', '.vitepress', 'dist');
+const inDir = join(process.cwd(), 'docs', 'extension', '.vitepress', 'dist');
 
 // get destination docs folder
 const outDir = join(process.cwd(), 'dist', 'docs');

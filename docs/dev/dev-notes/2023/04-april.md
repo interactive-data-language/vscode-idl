@@ -90,7 +90,7 @@ This function is the beating heart of our type detection and provides a much mor
 
 ## Initial Thoughts for Type Syntax
 
-See `extension/docs/developer/type-concepts/TYPE_SYNTAX.md` for more details
+See `docs/dev/type-concepts/TYPE_SYNTAX.md` for more details
 
 ## Ternary (Elvis) Operators
 

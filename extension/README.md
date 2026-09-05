@@ -4,9 +4,7 @@ Contains extension-specific files that are not typescript.
 
 ## Folders
 
-- **dev-docs**: Developer docs for the extension, not for general use, just for developers.
-
-- **docs**: Documentation for the extension. Markdown and anything else!
+Developer docs and extension docs now live in the root [docs](../docs) folder (`docs/dev` and `docs/extension` respectively).
 
 - **icon-theme**: Customized icon theme updates with each run of `npm run build-package-json` to add a custom icon for IDL and ENVI related files. Needed to overwrite current themes which have icons for .pro files as prolog.
 

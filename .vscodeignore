@@ -34,8 +34,8 @@ dist/apps/server/assets/.gitkeep
 dist/apps/test/test-server/**
 dist/apps/tmlang-maker/**
 dist/apps/test/vscode-e2e-runner/**
-extension/dev-docs/**
-extension/docs/**
+docs/dev/**
+docs/extension/**
 extension/language/syntaxes/src/**
 extension/language/syntaxes/GENERATING_JSON_FILES.md
 extension/language/syntaxes/idl-log.tmLanguage.json

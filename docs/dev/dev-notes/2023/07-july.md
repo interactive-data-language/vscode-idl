@@ -90,7 +90,7 @@ With this change we will hopefully have a much better developer user experience 
 
 One of the last, big items we worked in for the extension was incorporating usage metrics for the extension.
 
-The usage metrics are documented in `extension/docs/general/USAGE_METRICS.md` and are managed by Google Analytics. The core concept is to understand language server performance (time to start up, approximate number of files, RAM used, total RAM, etc) and what features of the extension are being used (i.e. buttons to start IDL or open docs or manually format code).
+The usage metrics are documented in `docs/extension/general/USAGE_METRICS.md` and are managed by Google Analytics. The core concept is to understand language server performance (time to start up, approximate number of files, RAM used, total RAM, etc) and what features of the extension are being used (i.e. buttons to start IDL or open docs or manually format code).
 
 No user-specific data is collected and we use the VSCode overall preference (and pattern) for reporting usage metrics. If you disable usage metrics for VSCode, you will also turn them off for the IDL extension for VSCode.
 

@@ -1,5 +1,5 @@
-import idlJson from '../../language/syntaxes/idl.tmLanguage.json';
-import idlLog from '../../language/syntaxes/idl-log.tmLanguage.json';
+import idlJson from '../../../extension/language/syntaxes/idl.tmLanguage.json';
+import idlLog from '../../../extension/language/syntaxes/idl-log.tmLanguage.json';
 
 import { defineConfig } from 'vitepress';
 

@@ -39,7 +39,7 @@ To build your own version of the extension run the following from the root of th
 
 ## Quick Links and Helpful Information
 
-Developer docs (tests, architecture, etc.) are located in: `extension/docs/developer`
+Developer docs (tests, architecture, etc.) are located in: `docs/dev`
 
 - [Setup](#setup)
 - [Development](#development)
@@ -137,7 +137,7 @@ This will take 5-10 seconds to update the dist folder after changes have been ma
 
 ## Testing
 
-> For more details on testing, see the TESTING\_\* files in `extension/docs/developer` folder.
+> For more details on testing, see the TESTING\_\* files in `docs/dev` folder.
 
 At a high level, testing happens in two places:
 
