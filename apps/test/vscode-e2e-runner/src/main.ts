@@ -12,7 +12,7 @@ async function go() {
       'dist',
       'apps',
       'test',
-      'test-client',
+      'client',
       'main.js',
     );
 

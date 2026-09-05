@@ -182,7 +182,13 @@ export class IDLWebView {
     }
 
     // get the directory for our webview
-    const viewDir = path.join(extensionPath, 'dist', 'apps', 'idl-webview');
+    const viewDir = path.join(
+      extensionPath,
+      'dist',
+      'apps',
+      'vscode',
+      'webview',
+    );
     // const assetsDir = path.join(viewDir, 'assets');
     // const i18nDir = path.join(assetsDir, 'i18n');
 
@@ -271,7 +277,8 @@ export class IDLWebView {
       this._extensionPath,
       'dist',
       'apps',
-      'idl-webview',
+      'vscode',
+      'webview',
     );
     const index = path.join(webViewFolder, 'index.html');
 
