@@ -22,7 +22,7 @@ Important to know since we will be changing our URL here shortly.
 
 3. If there are any new modules that include routines and their docs that are not a part of the above, also install them
 
-4. From IDL, compile and run `idl/helpers/catalog_to_json.pro` to update a JSON file containing the internal routines from "\_catalog.xml" files
+4. From IDL, compile and run `tools/idl/catalog_to_json.pro` to update a JSON file containing the internal routines from "\_catalog.xml" files
 
 5. Run `nx serve build-docs-parser` to process the JSON file from step 4. This will:
 

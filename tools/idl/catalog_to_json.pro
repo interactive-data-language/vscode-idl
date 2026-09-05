@@ -1,7 +1,8 @@
 compile_opt idl2
 
-; build the output directory
-outDir = file_dirname(file_dirname(routine_filepath())) + path_sep() + 'routines'
+; build the output directory, which lives at idl/routines from the repo root
+repoRoot = file_dirname(file_dirname(file_dirname(routine_filepath())))
+outDir = repoRoot + path_sep() + 'idl' + path_sep() + 'routines'
 
 ; track all of the names
 allNames = orderedhash(/fold_case)

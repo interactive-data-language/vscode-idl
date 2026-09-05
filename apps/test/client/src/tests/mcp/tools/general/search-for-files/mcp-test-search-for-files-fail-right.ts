@@ -12,7 +12,7 @@ export const RunMCPTestSearchForFiles_FailRight: RunnerFunction = async (
   init,
 ) => {
   /** IDL folder for searching */
-  const basicDir = GetExtensionPath('idl/helpers');
+  const basicDir = GetExtensionPath('tools/idl');
 
   // Call a tool
   const basicSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_FILES, {
