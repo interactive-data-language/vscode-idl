@@ -23,7 +23,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
   // update base schema
   const base = JSON.parse(
     readFileSync(
-      GetExtensionPath('extension/language/schemas/config/schema.json'),
+      GetExtensionPath('resources/language/schemas/config/schema.json'),
       { encoding: 'utf-8' },
     ),
   );
@@ -77,14 +77,14 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
 
   // write to disk
   writeFileSync(
-    GetExtensionPath('extension/language/schemas/config/schema.json'),
+    GetExtensionPath('resources/language/schemas/config/schema.json'),
     JSON.stringify(base, undefined, 2),
   );
 
   // load actual schema for config tags
   const details = JSON.parse(
     readFileSync(
-      GetExtensionPath('extension/language/schemas/config/v1.schema.json'),
+      GetExtensionPath('resources/language/schemas/config/v1.schema.json'),
       { encoding: 'utf-8' },
     ),
   );
@@ -150,7 +150,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
 
   // save to disk
   writeFileSync(
-    GetExtensionPath('extension/language/schemas/config/v1.schema.json'),
+    GetExtensionPath('resources/language/schemas/config/v1.schema.json'),
     JSON.stringify(details, undefined, 2),
   );
 }

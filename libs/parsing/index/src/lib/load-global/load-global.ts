@@ -23,7 +23,7 @@ export function LoadGlobal(okToLoad?: { [key: string]: any }) {
 
   /** Load from disk */
   const fromDisk: GlobalTokens = JSON.parse(
-    readFileSync(GetExtensionPath('idl/routines/global.json'), {
+    readFileSync(GetExtensionPath('resources/idl/routines/global.json'), {
       encoding: 'utf-8',
     }),
   ) as GlobalTokens;

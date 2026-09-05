@@ -44,7 +44,7 @@ export function RegisterIDLTutorialsCommands(ctx: ExtensionContext) {
           // if it doesnt exist, copy it
           if (!existsSync(exampleUri)) {
             await cp(
-              GetExtensionPath('extension/example-notebooks'),
+              GetExtensionPath('resources/example-notebooks'),
               EXAMPLE_NOTEBOOKS,
               { recursive: true },
             );
@@ -87,7 +87,7 @@ export function RegisterIDLTutorialsCommands(ctx: ExtensionContext) {
           }
 
           await cp(
-            GetExtensionPath('extension/example-notebooks'),
+            GetExtensionPath('resources/example-notebooks'),
             EXAMPLE_NOTEBOOKS,
             { recursive: true },
           );

@@ -40,7 +40,7 @@ function updateMcpTools() {
   const env = {
     ...process.env,
     IDL_FOR_VSCODE: process.cwd(),
-    IDL_PATH: `${join(process.cwd(), 'idl', 'vscode')}${delimiter}${
+    IDL_PATH: `${join(process.cwd(), 'resources', 'idl', 'vscode')}${delimiter}${
       buildConfig['mcp-dir']
     }${delimiter}<IDL_DEFAULT>;`,
   };

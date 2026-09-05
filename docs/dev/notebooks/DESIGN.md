@@ -50,7 +50,7 @@ This covers, at a high level, the parts/pieces and what they do and how they com
 
   Message handler within our extension client happens in: `libs/vscode/notebooks/src/lib/renderer-messenger/handle-renderer-message.ts`
 
-- IDLNotebook class which collects information during notebook cell execution: `idl/vscode/notebooks/idlnotebook__define.pro`
+- IDLNotebook class which collects information during notebook cell execution: `resources/idl/vscode/notebooks/idlnotebook__define.pro`
 
   This uses IDL structures as the basis for messages that get exported from IDL so that everything is strictly typed
 

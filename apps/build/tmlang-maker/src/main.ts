@@ -140,12 +140,12 @@ function MakeTMLanguageFile(
 /**
  * Directory that our syntaxes live in
  */
-const IN_DIR = join(process.cwd(), 'extension', 'language', 'syntaxes', 'src');
+const IN_DIR = join(process.cwd(), 'resources', 'language', 'syntaxes', 'src');
 
 /**
  * Directory that our syntaxes live in
  */
-const OUT_DIR = join(process.cwd(), 'extension', 'language', 'syntaxes');
+const OUT_DIR = join(process.cwd(), 'resources', 'language', 'syntaxes');
 
 /**
  * Convert our YAML tmLanguage file

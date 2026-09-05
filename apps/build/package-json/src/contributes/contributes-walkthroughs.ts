@@ -15,7 +15,7 @@ export const WALKTHROUGHS = [
         title: '%walkthrough.idl.steps.intro.title%',
         description: '%walkthrough.idl.steps.intro.description%',
         media: {
-          markdown: 'extension/walkthrough/getting-started.md',
+          markdown: 'resources/walkthrough/getting-started.md',
         },
       },
       {
@@ -23,7 +23,7 @@ export const WALKTHROUGHS = [
         title: '%walkthrough.idl.steps.askCopilot.title%',
         description: '%walkthrough.idl.steps.askCopilot.description%',
         media: {
-          markdown: 'extension/walkthrough/ask-copilot.md',
+          markdown: 'resources/walkthrough/ask-copilot.md',
         },
         completionEvents: ['onCommand:workbench.action.chat.open'],
       },
@@ -32,7 +32,7 @@ export const WALKTHROUGHS = [
         title: '%walkthrough.idl.steps.createNotebook.title%',
         description: '%walkthrough.idl.steps.createNotebook.description%',
         media: {
-          markdown: 'extension/walkthrough/create-notebook.md',
+          markdown: 'resources/walkthrough/create-notebook.md',
         },
         completionEvents: ['onCommand:idl.notebooks.newNotebook'],
       },
@@ -41,7 +41,7 @@ export const WALKTHROUGHS = [
         title: '%walkthrough.idl.steps.startIdl.title%',
         description: '%walkthrough.idl.steps.startIdl.description%',
         media: {
-          markdown: 'extension/walkthrough/start-idl-session.md',
+          markdown: 'resources/walkthrough/start-idl-session.md',
         },
         completionEvents: ['onCommand:idl.debug.startIDL'],
       },
@@ -50,7 +50,7 @@ export const WALKTHROUGHS = [
         title: '%walkthrough.idl.steps.configure.title%',
         description: '%walkthrough.idl.steps.configure.description%',
         media: {
-          markdown: 'extension/walkthrough/configure-idl.md',
+          markdown: 'resources/walkthrough/configure-idl.md',
         },
         completionEvents: ['onCommand:idl.client.viewSettings'],
       },
@@ -59,7 +59,7 @@ export const WALKTHROUGHS = [
         title: '%walkthrough.idl.steps.viewDocs.title%',
         description: '%walkthrough.idl.steps.viewDocs.description%',
         media: {
-          markdown: 'extension/walkthrough/view-docs.md',
+          markdown: 'resources/walkthrough/view-docs.md',
         },
         completionEvents: ['onCommand:idl.docs.open'],
       },

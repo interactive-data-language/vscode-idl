@@ -2,7 +2,7 @@ const { existsSync, readdirSync } = require('fs');
 const { join } = require('path');
 
 // get the MCP folder path
-const mcpDir = join(process.cwd(), 'idl', 'vscode', 'mcp');
+const mcpDir = join(process.cwd(), 'resources', 'idl', 'vscode', 'mcp');
 
 // check if the directory exists
 if (!existsSync(mcpDir)) {

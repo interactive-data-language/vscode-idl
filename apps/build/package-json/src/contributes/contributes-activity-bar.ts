@@ -8,7 +8,7 @@ export const ACTIVITY_BAR_ICONS = [
   {
     id: ACTIVITY_BAR_ID,
     title: 'IDL',
-    icon: 'extension/images/idlicon.svg',
+    icon: 'resources/images/idlicon.svg',
   },
 ];
 

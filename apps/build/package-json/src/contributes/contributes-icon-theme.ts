@@ -10,7 +10,7 @@ const ICON_THEMES = [
   {
     id: ICON_THEME_NAME,
     label: '%icons.label%',
-    path: './extension/icon-theme/vs-seti-icon-theme.json',
+    path: './resources/icon-theme/vs-seti-icon-theme.json',
   },
 ];
 
@@ -44,7 +44,7 @@ const ENVI_EXTENSIONS = [
  */
 async function DownloadFiles() {
   // specify folder and make it if it doesnt exist
-  const outDir = join(process.cwd(), 'extension', 'icon-theme');
+  const outDir = join(process.cwd(), 'resources', 'icon-theme');
   if (!existsSync(outDir)) {
     mkdirSync(outDir, { recursive: true });
   }

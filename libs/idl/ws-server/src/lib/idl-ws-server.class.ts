@@ -123,7 +123,7 @@ export class IDlWebSocketServer {
             // create process
             this.process = new IDLProcess(
               this.log,
-              GetExtensionPath(join('idl', 'vscode')),
+              GetExtensionPath(join('resources', 'idl', 'vscode')),
               payload.startupMessage,
             );
 

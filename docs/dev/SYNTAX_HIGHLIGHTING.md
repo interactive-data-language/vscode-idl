@@ -4,7 +4,7 @@ This guide is to help developers to update the syntax highlighting in VSCode pro
 
 > Quick history: the extension started with the standard plist XML format for tmLanguage. After seeing an awesome example using YAML, the same pattern was followed to make it much easier and more enjoyable to work with syntax highlighting. This was also needed to add proper highlighting for future language features (such as backticks).
 
-Note that the source for the syntax file is found in: `extension/language/syntaxes/src/idl.tmLanguage.yaml`
+Note that the source for the syntax file is found in: `resources/language/syntaxes/src/idl.tmLanguage.yaml`
 
 ## Introduction
 

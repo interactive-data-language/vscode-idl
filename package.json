@@ -21,7 +21,7 @@
     "build-mcp-tools": "node ./tools/node/update-mcp-tools.js",
     "build-notebook": "nx build notebook-renderer --prod",
     "build-notebook-dev": "nx build notebook-renderer --configuration=development",
-    "build-package-json": "npm run build-tmlang && npm run build-i18n && nx build build-package-json && node ./dist/apps/build/package-json/main.js && prettier --write ./extension/language/schemas/config",
+    "build-package-json": "npm run build-tmlang && npm run build-i18n && nx build build-package-json && node ./dist/apps/build/package-json/main.js && prettier --write ./resources/language/schemas/config",
     "build-server": "nx run-many --target=build --projects=vscode-server,vscode-parsing-worker --prod",
     "build-test": "nx build test-vscode-e2e-runner && nx build test-client",
     "build-test-maker": "nx build test-maker",
@@ -251,7 +251,7 @@
     "AI",
     "Notebooks"
   ],
-  "icon": "extension/images/idlicon.png",
+  "icon": "resources/images/idlicon.png",
   "contributes": {
     "breakpoints": [
       {
@@ -319,8 +319,8 @@
         "command": "idl.debug.compileFile",
         "title": "%commands.idl.debug.compileFile%",
         "icon": {
-          "light": "extension/images/light/settings.svg",
-          "dark": "extension/images/dark/settings.svg"
+          "light": "resources/images/light/settings.svg",
+          "dark": "resources/images/dark/settings.svg"
         }
       },
       {
@@ -331,16 +331,16 @@
         "command": "idl.debug.resetIDL",
         "title": "%commands.idl.debug.resetIDL%",
         "icon": {
-          "light": "extension/images/light/renew.svg",
-          "dark": "extension/images/dark/renew.svg"
+          "light": "resources/images/light/renew.svg",
+          "dark": "resources/images/dark/renew.svg"
         }
       },
       {
         "command": "idl.debug.runFile",
         "title": "%commands.idl.debug.runFile%",
         "icon": {
-          "light": "extension/images/light/file-play.svg",
-          "dark": "extension/images/dark/file-play.svg"
+          "light": "resources/images/light/file-play.svg",
+          "dark": "resources/images/dark/file-play.svg"
         }
       },
       {
@@ -379,8 +379,8 @@
         "command": "idl.notebooks.convertToPDF",
         "title": "%commands.idl.notebooks.convertToPDF%",
         "icon": {
-          "light": "extension/images/light/pdf.svg",
-          "dark": "extension/images/dark/pdf.svg"
+          "light": "resources/images/light/pdf.svg",
+          "dark": "resources/images/dark/pdf.svg"
         }
       },
       {
@@ -395,16 +395,16 @@
         "command": "idl.notebooks.notebookToProCode",
         "title": "%commands.idl.notebooks.notebookToProCode%",
         "icon": {
-          "light": "extension/images/light/transform.svg",
-          "dark": "extension/images/dark/transform.svg"
+          "light": "resources/images/light/transform.svg",
+          "dark": "resources/images/dark/transform.svg"
         }
       },
       {
         "command": "idl.notebooks.resetIDLKernel",
         "title": "%commands.idl.notebooks.resetIDLKernel%",
         "icon": {
-          "light": "extension/images/light/renew.svg",
-          "dark": "extension/images/dark/renew.svg"
+          "light": "resources/images/light/renew.svg",
+          "dark": "resources/images/dark/renew.svg"
         }
       },
       {
@@ -415,8 +415,8 @@
         "command": "idl.notebooks.stopIDLKernel",
         "title": "%commands.idl.notebooks.stopIDLKernel%",
         "icon": {
-          "light": "extension/images/light/stop.svg",
-          "dark": "extension/images/dark/stop.svg"
+          "light": "resources/images/light/stop.svg",
+          "dark": "resources/images/dark/stop.svg"
         }
       },
       {
@@ -1370,17 +1370,17 @@
       {
         "language": "idl",
         "scopeName": "source.idl",
-        "path": "extension/language/syntaxes/idl.tmLanguage"
+        "path": "resources/language/syntaxes/idl.tmLanguage"
       },
       {
         "language": "idl-log",
         "scopeName": "source.idl-log",
-        "path": "extension/language/syntaxes/idl-log.tmLanguage"
+        "path": "resources/language/syntaxes/idl-log.tmLanguage"
       },
       {
         "language": "idl-md-injection",
         "scopeName": "markdown.idl.codeblock",
-        "path": "extension/language/syntaxes/code-blocks.json",
+        "path": "resources/language/syntaxes/code-blocks.json",
         "injectTo": [
           "text.html.markdown"
         ],
@@ -1393,21 +1393,21 @@
       {
         "id": "idl-icons",
         "label": "%icons.label%",
-        "path": "./extension/icon-theme/vs-seti-icon-theme.json"
+        "path": "./resources/icon-theme/vs-seti-icon-theme.json"
       }
     ],
     "jsonValidation": [
       {
         "fileMatch": "*.task",
-        "url": "./extension/language/schemas/tasks/schema.json"
+        "url": "./resources/language/schemas/tasks/schema.json"
       },
       {
         "fileMatch": "*idl.json",
-        "url": "./extension/language/schemas/config/schema.json"
+        "url": "./resources/language/schemas/config/schema.json"
       },
       {
         "fileMatch": "*idlpackage.json",
-        "url": "./extension/language/schemas/idlpackage/schema.json"
+        "url": "./resources/language/schemas/idlpackage/schema.json"
       }
     ],
     "languages": [
@@ -1421,21 +1421,21 @@
           ".pro",
           ".pro.def"
         ],
-        "configuration": "extension/language/syntaxes/language-configuration.json",
+        "configuration": "resources/language/syntaxes/language-configuration.json",
         "mimetypes": [
           "text/idl",
           "application/idl"
         ],
         "icon": {
-          "dark": "extension/images/dark/idlicon-color.svg",
-          "light": "extension/images/light/idlicon-color.svg"
+          "dark": "resources/images/dark/idlicon-color.svg",
+          "light": "resources/images/light/idlicon-color.svg"
         }
       },
       {
         "id": "idl-md-injection",
         "icon": {
-          "dark": "extension/images/dark/idlicon-color.svg",
-          "light": "extension/images/light/idlicon-color.svg"
+          "dark": "resources/images/dark/idlicon-color.svg",
+          "light": "resources/images/light/idlicon-color.svg"
         },
         "aliases": [
           "%languages.idlMdInject%"
@@ -1447,8 +1447,8 @@
           ".idlnb"
         ],
         "icon": {
-          "dark": "extension/images/dark/idlicon-color.svg",
-          "light": "extension/images/light/idlicon-color.svg"
+          "dark": "resources/images/dark/idlicon-color.svg",
+          "light": "resources/images/light/idlicon-color.svg"
         },
         "aliases": [
           "%languages.idlNotebook%"
@@ -1463,10 +1463,10 @@
         "extensions": [
           ".idllog"
         ],
-        "configuration": "extension/language/syntaxes/language-configuration.json",
+        "configuration": "resources/language/syntaxes/language-configuration.json",
         "icon": {
-          "dark": "extension/images/dark/idlicon-color.svg",
-          "light": "extension/images/light/idlicon-color.svg"
+          "dark": "resources/images/dark/idlicon-color.svg",
+          "light": "resources/images/light/idlicon-color.svg"
         },
         "aliases": [
           "%languages.idlLog%"
@@ -1757,44 +1757,44 @@
     "snippets": [
       {
         "language": "idl",
-        "path": "extension/language/snippets/comment-block.json"
+        "path": "resources/language/snippets/comment-block.json"
       },
       {
         "language": "idl",
-        "path": "extension/language/snippets/idl.json"
+        "path": "resources/language/snippets/idl.json"
       },
       {
         "language": "idl",
-        "path": "extension/language/snippets/loops.json"
+        "path": "resources/language/snippets/loops.json"
       },
       {
         "language": "idl",
-        "path": "extension/language/snippets/conditionals.json"
+        "path": "resources/language/snippets/conditionals.json"
       },
       {
         "language": "idl",
-        "path": "extension/language/snippets/envi.json"
+        "path": "resources/language/snippets/envi.json"
       },
       {
         "language": "idl",
-        "path": "extension/language/snippets/objects.json"
+        "path": "resources/language/snippets/objects.json"
       }
     ],
     "themes": [
       {
         "label": "%themes.new%",
         "uiTheme": "vs-dark",
-        "path": "extension/language/themes/novus.json"
+        "path": "resources/language/themes/novus.json"
       },
       {
         "label": "%themes.neon%",
         "uiTheme": "vs-dark",
-        "path": "extension/language/themes/neon.json"
+        "path": "resources/language/themes/neon.json"
       },
       {
         "label": "%themes.retro%",
         "uiTheme": "vs",
-        "path": "extension/language/themes/retro.json"
+        "path": "resources/language/themes/retro.json"
       }
     ],
     "views": {
@@ -1802,7 +1802,7 @@
         {
           "id": "idl-tree",
           "name": "%idl.tree.name%",
-          "icon": "extension/images/idlicon.svg"
+          "icon": "resources/images/idlicon.svg"
         }
       ]
     },
@@ -1811,7 +1811,7 @@
         {
           "id": "idl-view",
           "title": "IDL",
-          "icon": "extension/images/idlicon.svg"
+          "icon": "resources/images/idlicon.svg"
         }
       ]
     },
@@ -1826,7 +1826,7 @@
             "title": "%walkthrough.idl.steps.intro.title%",
             "description": "%walkthrough.idl.steps.intro.description%",
             "media": {
-              "markdown": "extension/walkthrough/getting-started.md"
+              "markdown": "resources/walkthrough/getting-started.md"
             }
           },
           {
@@ -1834,7 +1834,7 @@
             "title": "%walkthrough.idl.steps.askCopilot.title%",
             "description": "%walkthrough.idl.steps.askCopilot.description%",
             "media": {
-              "markdown": "extension/walkthrough/ask-copilot.md"
+              "markdown": "resources/walkthrough/ask-copilot.md"
             },
             "completionEvents": [
               "onCommand:workbench.action.chat.open"
@@ -1845,7 +1845,7 @@
             "title": "%walkthrough.idl.steps.createNotebook.title%",
             "description": "%walkthrough.idl.steps.createNotebook.description%",
             "media": {
-              "markdown": "extension/walkthrough/create-notebook.md"
+              "markdown": "resources/walkthrough/create-notebook.md"
             },
             "completionEvents": [
               "onCommand:idl.notebooks.newNotebook"
@@ -1856,7 +1856,7 @@
             "title": "%walkthrough.idl.steps.startIdl.title%",
             "description": "%walkthrough.idl.steps.startIdl.description%",
             "media": {
-              "markdown": "extension/walkthrough/start-idl-session.md"
+              "markdown": "resources/walkthrough/start-idl-session.md"
             },
             "completionEvents": [
               "onCommand:idl.debug.startIDL"
@@ -1867,7 +1867,7 @@
             "title": "%walkthrough.idl.steps.configure.title%",
             "description": "%walkthrough.idl.steps.configure.description%",
             "media": {
-              "markdown": "extension/walkthrough/configure-idl.md"
+              "markdown": "resources/walkthrough/configure-idl.md"
             },
             "completionEvents": [
               "onCommand:idl.client.viewSettings"
@@ -1878,7 +1878,7 @@
             "title": "%walkthrough.idl.steps.viewDocs.title%",
             "description": "%walkthrough.idl.steps.viewDocs.description%",
             "media": {
-              "markdown": "extension/walkthrough/view-docs.md"
+              "markdown": "resources/walkthrough/view-docs.md"
             },
             "completionEvents": [
               "onCommand:idl.docs.open"

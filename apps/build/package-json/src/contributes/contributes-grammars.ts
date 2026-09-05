@@ -13,18 +13,18 @@ export const GRAMMARS = [
   {
     language: IDL_LANGUAGE_NAME,
     scopeName: LANGUAGE_TOKEN_SCOPE_NAME,
-    path: 'extension/language/syntaxes/idl.tmLanguage',
+    path: 'resources/language/syntaxes/idl.tmLanguage',
   },
   {
     language: LOG_LANGUAGE_NAME,
     scopeName: LOG_LANGUAGE_TOKEN_SCOPE_NAME,
-    path: 'extension/language/syntaxes/idl-log.tmLanguage',
+    path: 'resources/language/syntaxes/idl-log.tmLanguage',
   },
   // from https://github.com/mjbvz/vscode-fenced-code-block-grammar-injection-example
   {
     language: `${IDL_LANGUAGE_NAME}-md-injection`,
     scopeName: `markdown.idl.codeblock`,
-    path: 'extension/language/syntaxes/code-blocks.json',
+    path: 'resources/language/syntaxes/code-blocks.json',
     injectTo: ['text.html.markdown'],
     embeddedLanguages: {
       'meta.embedded.block.idl': IDL_LANGUAGE_NAME,

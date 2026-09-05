@@ -28,50 +28,50 @@ const COMMAND_ICONS: { [key: string]: ICommandIcon } = {};
 
 // icon for compiling files in debug menu
 COMMAND_ICONS[IDL_COMMANDS.DEBUG.COMPILE] = {
-  light: 'extension/images/light/settings.svg',
-  dark: 'extension/images/dark/settings.svg',
+  light: 'resources/images/light/settings.svg',
+  dark: 'resources/images/dark/settings.svg',
 };
 
 // icon for running files from debug menu
 COMMAND_ICONS[IDL_COMMANDS.DEBUG.RUN] = {
-  light: 'extension/images/light/file-play.svg',
-  dark: 'extension/images/dark/file-play.svg',
+  light: 'resources/images/light/file-play.svg',
+  dark: 'resources/images/dark/file-play.svg',
 };
 
 // // icon for running a batch file from a batch file
 // COMMAND_ICONS[IDL_COMMANDS.DEBUG.EXECUTE_BATCH] = {
-//   light: 'extension/images/light/file-batch.svg',
-//   dark: 'extension/images/dark/file-batch.svg',
+//   light: 'resources/images/light/file-batch.svg',
+//   dark: 'resources/images/dark/file-batch.svg',
 // };
 
 // icon for resetting IDL
 COMMAND_ICONS[IDL_COMMANDS.DEBUG.RESET] = {
-  light: 'extension/images/light/renew.svg',
-  dark: 'extension/images/dark/renew.svg',
+  light: 'resources/images/light/renew.svg',
+  dark: 'resources/images/dark/renew.svg',
 };
 
 // icon for notebook reset
 COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.RESET] = {
-  light: 'extension/images/light/renew.svg',
-  dark: 'extension/images/dark/renew.svg',
+  light: 'resources/images/light/renew.svg',
+  dark: 'resources/images/dark/renew.svg',
 };
 
 // icon for notebook stop
 COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.STOP] = {
-  light: 'extension/images/light/stop.svg',
-  dark: 'extension/images/dark/stop.svg',
+  light: 'resources/images/light/stop.svg',
+  dark: 'resources/images/dark/stop.svg',
 };
 
 // icon for notebook to PDF
 COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.CONVERT_TO_PDF] = {
-  light: 'extension/images/light/pdf.svg',
-  dark: 'extension/images/dark/pdf.svg',
+  light: 'resources/images/light/pdf.svg',
+  dark: 'resources/images/dark/pdf.svg',
 };
 
 // icon for notebook to Pro code
 COMMAND_ICONS[IDL_COMMANDS.NOTEBOOKS.NOTEBOOK_TO_PRO_CODE] = {
-  light: 'extension/images/light/transform.svg',
-  dark: 'extension/images/dark/transform.svg',
+  light: 'resources/images/light/transform.svg',
+  dark: 'resources/images/dark/transform.svg',
 };
 
 /**

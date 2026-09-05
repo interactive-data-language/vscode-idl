@@ -42,7 +42,7 @@ We also saved existing test notebooks to disk to get them to the latest version 
 
 ## ENVI Notebook Methods
 
-Far from set in stone (but no issues mentioned from the ENVI team), are some methods we have created and packaged as part of the extension in the `idl/vscode/notebooks` folder.
+Far from set in stone (but no issues mentioned from the ENVI team), are some methods we have created and packaged as part of the extension in the `resources/idl/vscode/notebooks` folder.
 
 These create PNGs and add basic information to the "!envi_magic" system variable for us to grab. As a note, the ENVI PNG generation is lightning fast and even stretches data.
 

@@ -21,8 +21,8 @@ import { GetTranslationKey } from './config/get-translation-key';
  * Language icons
  */
 export const IDL_LANGUAGE_ICONS = {
-  dark: 'extension/images/dark/idlicon-color.svg',
-  light: 'extension/images/light/idlicon-color.svg',
+  dark: 'resources/images/dark/idlicon-color.svg',
+  light: 'resources/images/light/idlicon-color.svg',
 };
 
 export const LANGUAGES = [
@@ -30,7 +30,7 @@ export const LANGUAGES = [
     id: IDL_LANGUAGE_NAME,
     aliases: ['IDL', 'idl'],
     extensions: [PRO_FILE_EXTENSION, PRO_DEF_EXTENSION],
-    configuration: 'extension/language/syntaxes/language-configuration.json',
+    configuration: 'resources/language/syntaxes/language-configuration.json',
     mimetypes: ['text/idl', 'application/idl'],
     icon: IDL_LANGUAGE_ICONS,
   },
@@ -49,7 +49,7 @@ export const LANGUAGES = [
     id: LOG_LANGUAGE_NAME,
     mimetypes: ['text/idl-log', 'application/idl-log'],
     extensions: ['.idllog'],
-    configuration: 'extension/language/syntaxes/language-configuration.json',
+    configuration: 'resources/language/syntaxes/language-configuration.json',
     icon: IDL_LANGUAGE_ICONS,
     aliases: [GetTranslationKey(`%languages.idlLog%`)],
   },

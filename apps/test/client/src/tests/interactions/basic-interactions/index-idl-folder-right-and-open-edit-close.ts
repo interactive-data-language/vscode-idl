@@ -22,7 +22,7 @@ export const IndexIDLFolderRightAndOpenEditClose: RunnerFunction = async (
   init,
 ) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('idl/vscode/vscode_notebookinit.pro'),
+    GetExtensionPath('resources/idl/vscode/vscode_notebookinit.pro'),
   );
 
   // short pause to make sure we open and parse

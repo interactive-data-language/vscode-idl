@@ -22,7 +22,7 @@ export function CreateIDLMachineBackend(
   codePrepare: PrepareIDLCodeCallback,
 ): IDLMachineExecutionBackend {
   /** Path to the auxiliary PRO files shipped with the extension */
-  const vscodeProDir = GetExtensionPath('idl/vscode');
+  const vscodeProDir = GetExtensionPath('resources/idl/vscode');
 
   /** Create a new IDL manager */
   const manager = new IDLMCPExecutionManager(

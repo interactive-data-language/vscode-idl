@@ -15,10 +15,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - For the licenses and copyrights of 3rd party dependencies for extension components, see [3rdpartylicenses.md](https://github.com/interactive-data-language/vscode-idl/blob/main/compliance/3rdpartylicenses.md).
 
 - Icon theme:
-  - The icon theme is directly from [VSCode](https://github.com/microsoft/vscode/tree/main/extensions/theme-seti) and only modified to use a different icon for PRO files (use our own instead of the prolog owl icon). Credits and auxiliary files can be found in `./extension/icon-theme`.
+  - The icon theme is directly from [VSCode](https://github.com/microsoft/vscode/tree/main/extensions/theme-seti) and only modified to use a different icon for PRO files (use our own instead of the prolog owl icon). Credits and auxiliary files can be found in `./resources/icon-theme`.
 
 - Themes
-  - Original source licenses for the VSCode themes can be found in: `extension/language/themes`
+  - Original source licenses for the VSCode themes can be found in: `resources/language/themes`
 
   - Retro IDL: Licensed under MIT. Copyright (c) 2015 Mahmoud Ali, [Atom One Light Theme](https://github.com/akamud/vscode-theme-onedark)
 

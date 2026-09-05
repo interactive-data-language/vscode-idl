@@ -85,7 +85,7 @@ export async function run(): Promise<void> {
     console.log('Verifying compiled MCP tools');
 
     /** Get folder */
-    const mcp = GetExtensionPath('idl/vscode/mcp/src');
+    const mcp = GetExtensionPath('resources/idl/vscode/mcp/src');
 
     /** Verify we have SAVE files in folder */
     const files = await FindFiles(mcp, SAVE_FILE_GLOB_PATTERN);

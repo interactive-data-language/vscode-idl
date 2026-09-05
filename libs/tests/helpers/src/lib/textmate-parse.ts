@@ -39,7 +39,7 @@ const registry = new Registry({
   loadGrammar: async () => {
     return parseRawGrammar(
       await readFile(
-        GetExtensionPath('extension/language/syntaxes/idl.tmLanguage'),
+        GetExtensionPath('resources/language/syntaxes/idl.tmLanguage'),
         {
           encoding: 'utf-8',
         },

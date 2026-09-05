@@ -282,7 +282,7 @@ export class Chat {
    * Load instruction file content for the given instruction type.
    */
   loadInstructions(instructions: 'todo' | ChatInstructionType): string {
-    const base = 'extension/agents/instructions';
+    const base = 'resources/agents/instructions';
     switch (instructions) {
       /**
        * ENVI instructions
@@ -311,7 +311,7 @@ export class Chat {
       case 'todo':
         return readFileSync(
           GetExtensionPath(
-            join('extension/agents/standalone-mcp', 'todo.instructions.md'),
+            join('resources/agents/standalone-mcp', 'todo.instructions.md'),
           ),
           'utf-8',
         );

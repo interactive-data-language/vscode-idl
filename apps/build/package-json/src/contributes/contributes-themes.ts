@@ -8,27 +8,27 @@ export const THEMES = [
   {
     label: '%themes.new%',
     uiTheme: 'vs-dark',
-    path: 'extension/language/themes/novus.json',
+    path: 'resources/language/themes/novus.json',
   },
   {
     label: '%themes.neon%',
     uiTheme: 'vs-dark',
-    path: 'extension/language/themes/neon.json',
+    path: 'resources/language/themes/neon.json',
   },
   // {
   //   label: '%themes.magmatic%',
   //   uiTheme: 'vs-dark',
-  //   path: 'extension/language/themes/magmatic.json',
+  //   path: 'resources/language/themes/magmatic.json',
   // },
   {
     label: '%themes.retro%',
     uiTheme: 'vs',
-    path: 'extension/language/themes/retro.json',
+    path: 'resources/language/themes/retro.json',
   },
   // {
   //   label: '%themes.stellar%',
   //   uiTheme: 'vs-dark',
-  //   path: 'extension/language/themes/stellar.json',
+  //   path: 'resources/language/themes/stellar.json',
   // },
 ];
 

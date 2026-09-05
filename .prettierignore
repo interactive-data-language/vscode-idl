@@ -11,8 +11,8 @@ apps/build/docs-parser/src/htmls
 /apps/test/idl/client-e2e
 routines.json
 global.json
-extension/language/syntaxes/src/*
-idl/routines
+resources/language/syntaxes/src/*
+resources/idl/routines
 compliance
 /*idl.json
 *settings.json

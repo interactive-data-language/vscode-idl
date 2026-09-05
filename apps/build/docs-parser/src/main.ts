@@ -40,7 +40,7 @@ async function Main() {
 
   // write to disk
   writeFileSync(
-    join(process.cwd(), 'idl/routines/global.json'),
+    join(process.cwd(), 'resources/idl/routines/global.json'),
     JSON.stringify(global),
   );
 
@@ -55,7 +55,7 @@ async function Main() {
 
   // // write to disk
   // writeFileSync(
-  //   join(process.cwd(), 'idl/routines/display.json'),
+  //   join(process.cwd(), 'resources/idl/routines/display.json'),
   //   JSON.stringify(display)
   // );
 

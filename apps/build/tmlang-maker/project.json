@@ -16,7 +16,7 @@
         "assets": [
           "apps/build/tmlang-maker/src/assets",
           {
-            "input": "extension/language/syntaxes/src",
+            "input": "resources/language/syntaxes/src",
             "glob": "**/*",
             "output": "assets"
           }

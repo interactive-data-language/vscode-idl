@@ -11,15 +11,15 @@ import { IPackageJSON, IPackageNLS } from '../package.interface';
 export const JSON_VALIDATORS = [
   {
     fileMatch: `*${TASK_FILE_EXTENSION}`,
-    url: './extension/language/schemas/tasks/schema.json',
+    url: './resources/language/schemas/tasks/schema.json',
   },
   {
     fileMatch: `*${IDL_JSON_URI}`,
-    url: './extension/language/schemas/config/schema.json',
+    url: './resources/language/schemas/config/schema.json',
   },
   {
     fileMatch: `*${IDL_PACKAGE_URI}`,
-    url: './extension/language/schemas/idlpackage/schema.json',
+    url: './resources/language/schemas/idlpackage/schema.json',
   },
 ];
 

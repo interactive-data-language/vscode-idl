@@ -7,31 +7,31 @@ import { IPackageJSON, IPackageNLS } from '../package.interface';
 export const SNIPPETS = [
   {
     language: IDL_LANGUAGE_NAME,
-    path: 'extension/language/snippets/comment-block.json',
+    path: 'resources/language/snippets/comment-block.json',
   },
   {
     language: IDL_LANGUAGE_NAME,
-    path: 'extension/language/snippets/idl.json',
+    path: 'resources/language/snippets/idl.json',
   },
   {
     language: IDL_LANGUAGE_NAME,
-    path: 'extension/language/snippets/loops.json',
+    path: 'resources/language/snippets/loops.json',
   },
   {
     language: IDL_LANGUAGE_NAME,
-    path: 'extension/language/snippets/conditionals.json',
+    path: 'resources/language/snippets/conditionals.json',
   },
   {
     language: IDL_LANGUAGE_NAME,
-    path: 'extension/language/snippets/envi.json',
+    path: 'resources/language/snippets/envi.json',
   },
   {
     language: IDL_LANGUAGE_NAME,
-    path: 'extension/language/snippets/objects.json',
+    path: 'resources/language/snippets/objects.json',
   },
   // {
   //   language: IDL_LANGUAGE_NAME,
-  //   path: 'extension/language/snippets/tests.json',
+  //   path: 'resources/language/snippets/tests.json',
   // },
 ];
 

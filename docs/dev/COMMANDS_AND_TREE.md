@@ -59,7 +59,7 @@ Once you have your command implemented, minimally the translation and package.js
 
 4. Each icon needs a light and dark theme version. This may require editing some of the SVG to remove fill/colors so that VSCode can apply what their themes decide the colors should be.
 
-   All icons should be put in their respective folders in `extension/images`
+   All icons should be put in their respective folders in `resources/images`
 
    > Make sure to test that the icons look correct in light and dark mode and that they fit with other themes (i.e. make sure its not just white/back and can be shades of gray). Pro tip: for dark theme add in `fill="#c5c5c5"` and for dark theme use `fill="none"`. See the others for examples
 

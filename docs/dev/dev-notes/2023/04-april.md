@@ -152,7 +152,7 @@ https://mercedesbernard.com/blog/ode-to-snippets
 
 So we updated most of them to have default (i.e. placeholder) text using the base name of the file, for example.
 
-Snippets are located in: `extension/language/snippets`
+Snippets are located in: `resources/language/snippets`
 
 ## Type Display Names
 

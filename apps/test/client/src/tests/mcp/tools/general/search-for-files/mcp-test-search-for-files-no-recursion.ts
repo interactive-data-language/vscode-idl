@@ -14,7 +14,7 @@ export const RunMCPTestSearchForFiles_NoRecursion: RunnerFunction = async (
   init,
 ) => {
   /** IDL folder for searching */
-  const basicDir = GetExtensionPath('idl/vscode');
+  const basicDir = GetExtensionPath('resources/idl/vscode');
 
   // Call a tool
   const basicSearch = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_FILES, {
