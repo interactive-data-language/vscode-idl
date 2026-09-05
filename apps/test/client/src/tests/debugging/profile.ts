@@ -40,10 +40,10 @@ export const ProfileTest: RunnerFunction = async (init) => {
   expect(panel).toBeDefined();
 
   // verify it has started
-  expect(panel.started).toBeTruthy();
+  expect(panel?.started).toBeTruthy();
 
   // verify we did not get an error
-  expect(panel.wasError).toBeFalsy();
+  expect(panel?.wasError).toBeFalsy();
 
   // reset the IDL session
   await vscode.commands.executeCommand(IDL_COMMANDS.DEBUG.RESET);
