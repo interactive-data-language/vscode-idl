@@ -469,6 +469,21 @@ export class MCPServer {
       next: express.NextFunction,
     ) => {
       const ip = req.ip || req.socket.remoteAddress || '';
+
+      // debug info for HTTP requests to help track down issues
+      this.logManager.log({
+        log: IDL_MCP_LOG,
+        type: 'debug',
+        content: [
+          'Incoming MCP request',
+          {
+            method: req.method,
+            endpoint: req.originalUrl,
+            headers: req.headers,
+          },
+        ],
+      });
+
       const isLocalhost = ip in LOCAL_IPS || ip.startsWith('127.');
 
       if (!isLocalhost) {
