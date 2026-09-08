@@ -33,7 +33,7 @@ describe(`[auto generated] Make basic IDL task`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-generation/idltasktest.pro',
+      'apps/test/idl/task-generation/idltasktest.pro',
     );
 
     // add file to index

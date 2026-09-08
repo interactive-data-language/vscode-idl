@@ -19,7 +19,9 @@ describe(`[auto generated] Add class names for obj_new`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/obj_new.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/obj_new.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

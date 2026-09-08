@@ -5,19 +5,15 @@ import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
 import { SimulatedCopilotChatAgent } from './copilot-agent';
-import {
-  QC_CODE_TESTS,
-  QC_SETUP_TESTS,
-  QC_TESTS,
-} from './qc-test-definitions';
+import { QC_CODE_TESTS, QC_SETUP_TESTS, QC_TESTS } from './qc-test-definitions';
 
 type QCRunMode =
   | 'all'
-  | 'knowledge'
+  | 'baseline-only'
   | 'code'
-  | 'pick'
   | 'full-only'
-  | 'baseline-only';
+  | 'knowledge'
+  | 'pick';
 
 /** Directory name (relative to workspace root) for generated test code */
 export const TestCodeDirectory = 'tmp';
@@ -182,9 +178,7 @@ function printToolUsage(
       output.appendLine(`  ${tool}: ${count}`);
     }
     output.appendLine('-----------------------------------------');
-    output.appendLine(
-      `  Total: ${sorted.reduce((sum, [, c]) => sum + c, 0)}`,
-    );
+    output.appendLine(`  Total: ${sorted.reduce((sum, [, c]) => sum + c, 0)}`);
     output.appendLine('-----------------------------------------');
   }
 }
@@ -224,7 +218,7 @@ export async function RunCopilotQCTests() {
         description: 'Choose specific tests to run',
         value: 'pick',
       },
-    ] as (vscode.QuickPickItem & { value: QCRunMode })[],
+    ] as ({ value: QCRunMode } & vscode.QuickPickItem)[],
     { placeHolder: 'What do you want to run?' },
   );
 
@@ -232,7 +226,7 @@ export async function RunCopilotQCTests() {
     return;
   }
 
-  const mode = (modeChoice as vscode.QuickPickItem & { value: QCRunMode })
+  const mode = (modeChoice as { value: QCRunMode } & vscode.QuickPickItem)
     .value;
 
   // For "pick" mode, let user select individual tests
@@ -314,15 +308,12 @@ export async function RunCopilotQCTests() {
     );
 
     const fullPct =
-      fullResult.total > 0
-        ? (fullResult.score / fullResult.total) * 100
-        : 0;
+      fullResult.total > 0 ? (fullResult.score / fullResult.total) * 100 : 0;
     const basePct =
       baselineResult.total > 0
         ? (baselineResult.score / baselineResult.total) * 100
         : 0;
-    const improvement =
-      basePct > 0 ? ((fullPct - basePct) / basePct) * 100 : 0;
+    const improvement = basePct > 0 ? ((fullPct - basePct) / basePct) * 100 : 0;
 
     output.appendLine('=========================================');
     output.appendLine('  Selected Test Results');
@@ -356,8 +347,16 @@ export async function RunCopilotQCTests() {
 
   const runFull = mode !== 'baseline-only';
   const runBaseline = mode !== 'full-only';
-  const runKnowledge = mode === 'all' || mode === 'knowledge' || mode === 'full-only' || mode === 'baseline-only';
-  const runCode = mode === 'all' || mode === 'code' || mode === 'full-only' || mode === 'baseline-only';
+  const runKnowledge =
+    mode === 'all' ||
+    mode === 'knowledge' ||
+    mode === 'full-only' ||
+    mode === 'baseline-only';
+  const runCode =
+    mode === 'all' ||
+    mode === 'code' ||
+    mode === 'full-only' ||
+    mode === 'baseline-only';
 
   // ── Setup tests (run once, full only) ──
   const setup = runFull

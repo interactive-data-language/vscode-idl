@@ -19,7 +19,7 @@ describe(`[auto generated] Verify no completion for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/python.pro');
+    const filepath = GetExtensionPath('apps/test/idl/auto-complete/python.pro');
 
     // add file to index
     await index.indexFile(filepath);

@@ -19,7 +19,9 @@ describe(`[auto generated] Regression tests`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/regression1.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/regression1.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

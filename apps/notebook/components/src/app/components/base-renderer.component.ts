@@ -51,6 +51,9 @@ export class BaseRendererComponent<T extends IDLNotebook_EmbedType>
    *
    * Use set to we can properly type because the ngSwitch case does not
    * handle it well
+   *
+   * Kept as a decorator: the setter's `hasData` side effect can't be
+   * expressed with a signal `input()`.
    */
   @Input()
   set embed(item: IDLNotebookEmbeddedItem<IDLNotebook_EmbedType>) {

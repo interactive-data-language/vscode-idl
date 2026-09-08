@@ -19,7 +19,9 @@ describe(`[auto generated] Basic checks for call_procedure hover help`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/call_procedure.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/call_procedure.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -151,7 +153,9 @@ describe(`[auto generated] Basic checks for call_procedure hover help`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/call_procedure.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/call_procedure.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

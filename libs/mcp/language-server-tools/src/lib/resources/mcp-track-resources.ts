@@ -11,7 +11,7 @@ export function MCPTrackResources(logger: LogManager) {
   /**
    * Get the path to the folder
    */
-  const folder = GetExtensionPath('extension/example-notebooks/IDL Tutorials');
+  const folder = GetExtensionPath('resources/example-notebooks/IDL Tutorials');
 
   // track tutorials as resources.
   MCPTrackResourcesInFolder(logger, folder, true, 'tutorials', {
@@ -21,7 +21,7 @@ export function MCPTrackResources(logger: LogManager) {
   // track example notebooks
   MCPTrackResourcesInFolder(
     logger,
-    GetExtensionPath('extension/example-notebooks'),
+    GetExtensionPath('resources/example-notebooks'),
     false,
     'ex-notebooks',
     {},
@@ -30,7 +30,7 @@ export function MCPTrackResources(logger: LogManager) {
   // track additional AI resources folder
   MCPTrackResourcesInFolder(
     logger,
-    GetExtensionPath('extension/agents/resources'),
+    GetExtensionPath('resources/agents/resources'),
     true,
     'resource',
     {

@@ -8,7 +8,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] envi`, async () => {
     // specify reference filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-parsing/BuildMosaicRaster.task',
+      'apps/test/idl/task-parsing/BuildMosaicRaster.task',
     );
 
     // reset global display names

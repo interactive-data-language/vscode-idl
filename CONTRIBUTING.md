@@ -39,7 +39,7 @@ To build your own version of the extension run the following from the root of th
 
 ## Quick Links and Helpful Information
 
-Developer docs (tests, architecture, etc.) are located in: `extension/docs/developer`
+Developer docs (tests, architecture, etc.) are located in: `docs/dev`
 
 - [Setup](#setup)
 - [Development](#development)
@@ -97,7 +97,7 @@ This will build, and rebuild on changes, the client, server, and parsing-worker 
 
 An added complexity with the recent changes is that the contribution points for this extension are stored in code and added to the package.json file before packaging or during development.
 
-See the source code in `apps/package-json/src/main.ts` and `apps/package-json/src/contributes` for the code that changes our contribution points.
+See the source code in `apps/build/package-json/src/main.ts` and `apps/build/package-json/src/contributes` for the code that changes our contribution points.
 
 The main reason for this is so that, using code, we can verify that our translation and auxiliary files are where we expect them to be. We can also automatically create the translation strings so we don't need to do that by hand which is a burden.
 
@@ -128,7 +128,7 @@ npm run build-i18n
 Similar to the client and language server, here's the command to execute for development of the web view:
 
 ```shell
-nx build idl-webview --watch
+nx build vscode-webview --watch
 ```
 
 It is probably easiest to have a separate terminal running with this active in addition to the client and server.
@@ -137,7 +137,7 @@ This will take 5-10 seconds to update the dist folder after changes have been ma
 
 ## Testing
 
-> For more details on testing, see the TESTING\_\* files in `extension/docs/developer` folder.
+> For more details on testing, see the TESTING\_\* files in `docs/dev` folder.
 
 At a high level, testing happens in two places:
 
@@ -153,7 +153,7 @@ If you are just updating or working with the libraries, you can use `npm run tes
 
 ### Writing Integration Tests
 
-Integration tests live in this folder `apps\client-e2e\src\tests`
+Integration tests live in this folder `apps/test/client/src/tests`
 
 They are separated by test runners, which are where tests are registered for each component of the extension. These test runners are the files prefixed with `_` at in each sub folder.
 
@@ -161,15 +161,15 @@ To write new integration tests, here's the best process:
 
 1. Identify the relevant sub-folder to add your tests to
 
-2. For test development, we recommend commenting out the test runners that aren't related to what you are running. you can find that in `apps\client-e2e\src\tests\test-runner.ts`
+2. For test development, we recommend commenting out the test runners that aren't related to what you are running. you can find that in `apps/test/client/src/tests/test-runner.ts`
 
 3. Create a new test - it's recommended to copy/paste from an exaisting test and adjust to meet your needs
 
-> If you have additional files needed for the test, the standard location to save content is here `idl\test\client-e2e`
+> If you have additional files needed for the test, the standard location to save content is here `apps/test/idl/client-e2e`
 
 4. In the relevant test runner, you should register the test. Open one of the relevant test runners to see an example of this.
 
-> Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps\client-e2e\src\tests\mcp\_mcp-test-runner.ts`
+> Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps/test/client/src/tests/mcp/_mcp-test-runner.ts`
 
 ## Releasing
 

@@ -17,7 +17,7 @@ export function LoadIDLSearchPaths(
   idlBin?: string,
 ): boolean {
   // add in our IDL folder
-  paths[GetExtensionPath('idl/vscode/notebooks')] = true;
+  paths[GetExtensionPath('resources/idl/vscode/notebooks')] = true;
 
   // check for .idl package folder and auto-add if it exists
   if (existsSync(IDL_PACKAGE_DIR)) {

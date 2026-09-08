@@ -33,7 +33,7 @@ describe(`[auto generated] Make basic ENVI task`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-generation/envitasktest.pro',
+      'apps/test/idl/task-generation/envitasktest.pro',
     );
 
     // add file to index

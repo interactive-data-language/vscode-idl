@@ -19,7 +19,9 @@ describe(`[auto generated] Verify auto-complete for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/init_method.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/init_method.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

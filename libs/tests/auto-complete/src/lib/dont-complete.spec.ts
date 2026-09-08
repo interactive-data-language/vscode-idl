@@ -20,7 +20,7 @@ describe(`[auto generated] Don't do auto-complete`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/dont_complete.pro',
+      'apps/test/idl/auto-complete/dont_complete.pro',
     );
 
     // add file to index

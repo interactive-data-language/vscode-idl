@@ -19,10 +19,12 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/obj_new.pro');
+    const filepath = GetExtensionPath('apps/test/idl/token-def/obj_new.pro');
 
     // parse file for tests
-    await index.indexFile(GetExtensionPath('idl/test/token-def/obj_new.pro'));
+    await index.indexFile(
+      GetExtensionPath('apps/test/idl/token-def/obj_new.pro'),
+    );
 
     // define position
     const position_0: Position = { line: 53, character: 12 };
@@ -80,10 +82,12 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/obj_new.pro');
+    const filepath = GetExtensionPath('apps/test/idl/token-def/obj_new.pro');
 
     // parse file for tests
-    await index.indexFile(GetExtensionPath('idl/test/token-def/obj_new.pro'));
+    await index.indexFile(
+      GetExtensionPath('apps/test/idl/token-def/obj_new.pro'),
+    );
 
     // define position
     const position_0: Position = { line: 56, character: 12 };

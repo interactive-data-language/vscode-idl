@@ -57,7 +57,7 @@ export async function SetupCopilotInstructions(
 
     // Get template from extension
     const idlInstructionsTemplateUri = vscode.Uri.file(
-      GetExtensionPath('extension/agents/instructions/idl.instructions.md'),
+      GetExtensionPath('resources/agents/instructions/idl.instructions.md'),
     );
 
     // Read template content

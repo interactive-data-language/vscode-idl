@@ -8,7 +8,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] envi`, async () => {
     // specify reference filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-parsing/maskfxrasterstats.task',
+      'apps/test/idl/task-parsing/maskfxrasterstats.task',
     );
 
     // reset global display names

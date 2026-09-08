@@ -1,3 +1,0 @@
-[
-  "This task creates a classification raster by thresholding on select data ranges and colors to highlight areas of a raster. The default behavior is to create 16 classes from distinct colors spread across the \"Rainbow\" color table."
-]

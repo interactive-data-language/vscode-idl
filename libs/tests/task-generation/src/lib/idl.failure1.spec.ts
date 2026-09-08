@@ -25,7 +25,9 @@ describe(`[auto generated] Don't make IDL Task`, () => {
     const taskType = 'idl' as string;
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/task-generation/empty_idl.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/task-generation/empty_idl.pro',
+    );
 
     // add file to index
     const parsed = await index.getParsedProCode(

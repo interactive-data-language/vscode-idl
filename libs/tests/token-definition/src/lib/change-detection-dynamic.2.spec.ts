@@ -20,32 +20,32 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
 
     // specify reference filepath
     const filepath = GetExtensionPath(
-      'idl/test/change-detection/dynamic/use_leap.pro',
+      'apps/test/idl/change-detection/dynamic/use_leap.pro',
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/use_leap.pro'),
+      GetExtensionPath('apps/test/idl/change-detection/dynamic/use_leap.pro'),
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/leap2.pro'),
+      GetExtensionPath('apps/test/idl/change-detection/dynamic/leap2.pro'),
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/leap.pro'),
+      GetExtensionPath('apps/test/idl/change-detection/dynamic/leap.pro'),
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/leap3.pro'),
+      GetExtensionPath('apps/test/idl/change-detection/dynamic/leap3.pro'),
     );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/change-detection/dynamic/leap4.pro'),
+      GetExtensionPath('apps/test/idl/change-detection/dynamic/leap4.pro'),
     );
 
     // define position

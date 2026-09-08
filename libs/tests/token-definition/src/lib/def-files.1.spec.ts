@@ -19,14 +19,16 @@ describe(`[auto generated] Correctly get routine definition for`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/from_def.pro');
-
-    // parse file for tests
-    await index.indexFile(GetExtensionPath('idl/test/token-def/from_def.pro'));
+    const filepath = GetExtensionPath('apps/test/idl/token-def/from_def.pro');
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/hover-help/testroutine.pro.def'),
+      GetExtensionPath('apps/test/idl/token-def/from_def.pro'),
+    );
+
+    // parse file for tests
+    await index.indexFile(
+      GetExtensionPath('apps/test/idl/hover-help/testroutine.pro.def'),
     );
 
     // define position

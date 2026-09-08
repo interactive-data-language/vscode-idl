@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly provide hover help for system variable`, ()
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/types_sysvar.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/types_sysvar.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -61,7 +63,9 @@ describe(`[auto generated] Correctly provide hover help for system variable`, ()
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/types_sysvar.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/types_sysvar.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

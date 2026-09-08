@@ -21,7 +21,7 @@ describe(`[auto generated] Extracts outline`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/awesomerasterintersection.pro',
+      'apps/test/idl/hover-help/awesomerasterintersection.pro',
     );
 
     // add file to index

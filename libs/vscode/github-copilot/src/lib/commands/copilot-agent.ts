@@ -28,15 +28,15 @@ export interface AgentResult {
  * instructions injection and MCP tool-calling support.
  */
 export class SimulatedCopilotChatAgent {
+  /** Cumulative tool call counts across all requests */
+  readonly toolCounts: Record<string, number> = {};
+
   /** The underlying model id */
   get modelId(): string {
     return this.model.id;
   }
 
   private model: vscode.LanguageModelChat;
-
-  /** Cumulative tool call counts across all requests */
-  readonly toolCounts: Record<string, number> = {};
 
   constructor(model: vscode.LanguageModelChat) {
     this.model = model;

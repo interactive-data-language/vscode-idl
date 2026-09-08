@@ -469,6 +469,24 @@ export class MCPServer {
       next: express.NextFunction,
     ) => {
       const ip = req.ip || req.socket.remoteAddress || '';
+
+      // debug info for HTTP requests to help track down issues
+      this.logManager.log({
+        log: IDL_MCP_LOG,
+        type: 'debug',
+        content: [
+          'Incoming MCP request',
+          {
+            method: req.method,
+            endpoint: req.originalUrl,
+            protocolMethod: req.body?.method,
+            requestId: req.body?.id,
+            toolName: req.body?.params?.name,
+            headers: req.headers,
+          },
+        ],
+      });
+
       const isLocalhost = ip in LOCAL_IPS || ip.startsWith('127.');
 
       if (!isLocalhost) {
@@ -492,6 +510,9 @@ export class MCPServer {
      * When standalone, register routes directly on the app.
      */
     const router = this.usingExternalApp ? express.Router() : this.app;
+
+    // Parse MCP JSON-RPC requests before logging or handling the routes.
+    router.use(express.json());
 
     // Apply localhost middleware to MCP routes
     router.use(localhostMiddleware);

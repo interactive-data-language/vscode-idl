@@ -20,7 +20,7 @@ describe(`[auto generated] Keywords for call procedure`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/call_procedure.pro',
+      'apps/test/idl/auto-complete/call_procedure.pro',
     );
 
     // add file to index

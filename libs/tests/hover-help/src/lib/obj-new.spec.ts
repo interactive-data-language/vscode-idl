@@ -19,7 +19,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/obj_new.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/obj_new.pro');
 
     // add file to index
     await index.indexFile(filepath);
@@ -67,7 +67,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/obj_new.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/obj_new.pro');
 
     // add file to index
     await index.indexFile(filepath);
@@ -328,7 +328,7 @@ describe(`[auto generated] Correctly find find definition from obj new`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/obj_new.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/obj_new.pro');
 
     // add file to index
     await index.indexFile(filepath);

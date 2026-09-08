@@ -19,7 +19,7 @@ describe(`[auto generated] Verify types being used for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/types.pro');
+    const filepath = GetExtensionPath('apps/test/idl/auto-complete/types.pro');
 
     // add file to index
     await index.indexFile(filepath);

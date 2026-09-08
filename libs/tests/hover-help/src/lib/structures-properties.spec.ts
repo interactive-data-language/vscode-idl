@@ -19,7 +19,9 @@ describe(`[auto generated] Provide hover help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/structures2.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/structures2.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -85,7 +87,9 @@ describe(`[auto generated] Provide hover help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/structures2.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/structures2.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

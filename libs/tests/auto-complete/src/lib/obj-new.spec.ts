@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/obj_new.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/obj_new.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -213,7 +215,9 @@ describe(`[auto generated] Correctly return auto-complete from obj-new`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/obj_new.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/obj_new.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
