@@ -479,6 +479,9 @@ export class MCPServer {
           {
             method: req.method,
             endpoint: req.originalUrl,
+            protocolMethod: req.body?.method,
+            requestId: req.body?.id,
+            toolName: req.body?.params?.name,
             headers: req.headers,
           },
         ],
@@ -507,6 +510,9 @@ export class MCPServer {
      * When standalone, register routes directly on the app.
      */
     const router = this.usingExternalApp ? express.Router() : this.app;
+
+    // Parse MCP JSON-RPC requests before logging or handling the routes.
+    router.use(express.json());
 
     // Apply localhost middleware to MCP routes
     router.use(localhostMiddleware);
