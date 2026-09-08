@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly provides auto complete for`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/compile_opt_complete.pro',
+      'apps/test/idl/auto-complete/compile_opt_complete.pro',
     );
 
     // add file to index

@@ -82,7 +82,7 @@ export type QuoteStyleFlags =
  * Any changes to style flags also needs to be captured/updated in the JSON schema
  * file as well. It can be found here:
  *
- * extension/language/schemas/config/v1.schema.json
+ * resources/language/schemas/config/v1.schema.json
  */
 
 /** Two options for Fiddle configuration */

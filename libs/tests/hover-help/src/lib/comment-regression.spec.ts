@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly get hover help`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/comment_regression.pro',
+      'apps/test/idl/hover-help/comment_regression.pro',
     );
 
     // add file to index

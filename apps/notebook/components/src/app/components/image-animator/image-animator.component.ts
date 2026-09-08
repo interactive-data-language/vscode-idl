@@ -1,6 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { NgxMaterialModule } from '@idl/ngx/material';
 import { IDLNotebookImage_AnimationFromPNGs } from '@idl/types/notebooks';
 
+import { AnimationControlsComponent } from '../animation-controls/animation-controls.component';
 import { BaseRendererComponent } from '../base-renderer.component';
 
 export const IDL_NB_IMAGE_ANIMATOR_COMPONENT_SELECTOR = 'idl-nb-image-animator';
@@ -23,7 +26,8 @@ export function RoundToNearest(num: number, to: number) {
       @import 'styles.scss';
     `,
   ],
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, NgxMaterialModule, AnimationControlsComponent],
 })
 export class ImageAnimatorComponent
   extends BaseRendererComponent<IDLNotebookImage_AnimationFromPNGs>

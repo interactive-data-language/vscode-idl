@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { NotebookMapLayer, NotebookMapLayerType } from '@idl/ngx/map';
+import { NgxMaterialModule } from '@idl/ngx/material';
 
 @Component({
   selector: 'idl-map-layer-card',
@@ -27,13 +28,14 @@ import { NotebookMapLayer, NotebookMapLayerType } from '@idl/ngx/map';
       }
     `,
   ],
-  standalone: false,
+  standalone: true,
+  imports: [NgxMaterialModule],
 })
 export class MapLayerCardComponent {
   /**
    * The layer we are displaying
    */
-  @Input() layer!: NotebookMapLayer<NotebookMapLayerType>;
+  layer = input.required<NotebookMapLayer<NotebookMapLayerType>>();
 
   /** Current opacity */
   opacity = 100;
@@ -41,7 +43,7 @@ export class MapLayerCardComponent {
   /**
    * Output event that is emitted when our frame changes
    */
-  @Output() propChange = new EventEmitter<undefined>();
+  propChange = output<undefined>();
 
   /**
    * When opacity slider changes, callback
@@ -51,9 +53,9 @@ export class MapLayerCardComponent {
     this.opacity = +(ev.target as HTMLInputElement).value;
 
     // save property for opacity
-    this.layer.props.opacity = this.opacity / 100;
+    this.layer().props.opacity = this.opacity / 100;
 
     // emit event that we changed
-    this.propChange.emit();
+    this.propChange.emit(undefined);
   }
 }

@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/obj_destroy.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/obj_destroy.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -71,7 +73,9 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/obj_destroy.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/obj_destroy.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -107,7 +111,9 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/obj_destroy.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/obj_destroy.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

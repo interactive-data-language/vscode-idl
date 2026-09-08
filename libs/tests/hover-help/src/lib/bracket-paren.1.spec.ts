@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly provides hover help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/bracket_paren.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/bracket_paren.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

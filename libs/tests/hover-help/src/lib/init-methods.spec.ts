@@ -19,7 +19,9 @@ describe(`[auto generated] Verify hover-help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/init_method.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/init_method.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

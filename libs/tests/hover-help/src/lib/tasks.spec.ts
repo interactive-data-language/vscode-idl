@@ -19,7 +19,7 @@ describe(`[auto generated] Task type hover help`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/tasks.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/tasks.pro');
 
     // add file to index
     await index.indexFile(filepath);

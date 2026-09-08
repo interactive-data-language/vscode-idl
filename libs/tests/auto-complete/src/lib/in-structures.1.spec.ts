@@ -20,7 +20,7 @@ describe(`[auto generated] Verify auto-complete in structures`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/in_structures.pro',
+      'apps/test/idl/auto-complete/in_structures.pro',
     );
 
     // add file to index

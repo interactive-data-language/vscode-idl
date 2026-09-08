@@ -20,7 +20,7 @@ describe(`[auto generated] Add names of procedures that we can auto-complete`, (
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/call_procedure.pro',
+      'apps/test/idl/auto-complete/call_procedure.pro',
     );
 
     // add file to index

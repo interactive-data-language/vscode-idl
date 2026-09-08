@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly display help for literal types`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/literal_types.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/literal_types.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

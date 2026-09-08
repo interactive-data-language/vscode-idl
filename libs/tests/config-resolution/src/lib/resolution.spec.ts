@@ -17,25 +17,33 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
     );
 
     // specify filepath
-    const filepath_0 = GetExtensionPath('idl/test/configs/subdir1/idl.json');
+    const filepath_0 = GetExtensionPath(
+      'apps/test/idl/configs/subdir1/idl.json',
+    );
 
     // add file to index
     await index.indexFile(filepath_0);
 
     // specify filepath
-    const filepath_1 = GetExtensionPath('idl/test/configs/subdir2/idl.json');
+    const filepath_1 = GetExtensionPath(
+      'apps/test/idl/configs/subdir2/idl.json',
+    );
 
     // add file to index
     await index.indexFile(filepath_1);
 
     // specify filepath
-    const filepath_2 = GetExtensionPath('idl/test/configs/subdir3/idl.json');
+    const filepath_2 = GetExtensionPath(
+      'apps/test/idl/configs/subdir3/idl.json',
+    );
 
     // add file to index
     await index.indexFile(filepath_2);
 
     // specify filepath
-    const filepath_3 = GetExtensionPath('idl/test/configs/subdir1/idl.pro');
+    const filepath_3 = GetExtensionPath(
+      'apps/test/idl/configs/subdir1/idl.pro',
+    );
 
     // verify results
     expect({
@@ -68,7 +76,9 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
     }).toEqual(index.getConfigForFile(filepath_3));
 
     // specify filepath
-    const filepath_4 = GetExtensionPath('idl/test/configs/subdir2/idl.pro');
+    const filepath_4 = GetExtensionPath(
+      'apps/test/idl/configs/subdir2/idl.pro',
+    );
 
     // verify results
     expect({
@@ -101,7 +111,9 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
     }).toEqual(index.getConfigForFile(filepath_4));
 
     // specify filepath
-    const filepath_5 = GetExtensionPath('idl/test/configs/subdir3/idl.pro');
+    const filepath_5 = GetExtensionPath(
+      'apps/test/idl/configs/subdir3/idl.pro',
+    );
 
     // verify results
     expect({

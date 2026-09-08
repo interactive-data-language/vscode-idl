@@ -26,10 +26,10 @@ export class IDLAction extends vscode.TreeItem {
 
     this.iconPath = {
       light: vscode.Uri.file(
-        join(extensionFolder, 'extension', 'images', 'light', iconName),
+        join(extensionFolder, 'resources', 'images', 'light', iconName),
       ),
       dark: vscode.Uri.file(
-        join(extensionFolder, 'extension', 'images', 'dark', iconName),
+        join(extensionFolder, 'resources', 'images', 'dark', iconName),
       ),
     };
   }

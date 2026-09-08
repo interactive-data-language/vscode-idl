@@ -26,7 +26,7 @@ export function RegisterMCPPromptTools(server: MCPServer) {
   RegisterMCPTool_ListPrompts(server, registry);
 
   /** ENVI prompt dir */
-  const enviDir = GetExtensionPath('extension/agents/prompts/ENVI');
+  const enviDir = GetExtensionPath('resources/agents/prompts/ENVI');
 
   /**
    * Add ENVI prompts
@@ -81,7 +81,7 @@ export function RegisterMCPPromptTools(server: MCPServer) {
   });
 
   /** IDL prompt dir */
-  const idlDir = GetExtensionPath('extension/agents/prompts/IDL');
+  const idlDir = GetExtensionPath('resources/agents/prompts/IDL');
 
   /**
    * Add IDL prompts

@@ -1,7 +1,7 @@
 /**
  * !!!IMPORTANT!!!
  *
- * These need to match the structures in `idl/vscode/notebooks/idlnotebook__define.pro`
+ * These need to match the structures in `resources/idl/vscode/notebooks/idlnotebook__define.pro`
  */
 
 import {
@@ -22,7 +22,7 @@ import {
  *
  * These are the lower-case structure names from IDL
  *
- * These need to match the structures in `idl/vscode/notebooks/idlnotebook__define.pro`
+ * These need to match the structures in `resources/idl/vscode/notebooks/idlnotebook__define.pro`
  */
 export type IDLNotebook_EmbedType =
   | IDLNotebookImage_EmbedType

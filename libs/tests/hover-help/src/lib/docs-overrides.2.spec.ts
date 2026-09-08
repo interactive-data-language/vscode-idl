@@ -20,7 +20,7 @@ describe(`[auto generated] Correctly overrides doc hover help`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/hover-help/docs_overrides2.pro',
+      'apps/test/idl/hover-help/docs_overrides2.pro',
     );
 
     // add file to index

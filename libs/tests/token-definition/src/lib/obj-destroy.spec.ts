@@ -19,11 +19,13 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/obj_destroy.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/token-def/obj_destroy.pro',
+    );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/token-def/obj_destroy.pro'),
+      GetExtensionPath('apps/test/idl/token-def/obj_destroy.pro'),
     );
 
     // define position
@@ -95,11 +97,13 @@ describe(`[auto generated] Correctly find find definition from obj destroy`, () 
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/obj_destroy.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/token-def/obj_destroy.pro',
+    );
 
     // parse file for tests
     await index.indexFile(
-      GetExtensionPath('idl/test/token-def/obj_destroy.pro'),
+      GetExtensionPath('apps/test/idl/token-def/obj_destroy.pro'),
     );
 
     // define position

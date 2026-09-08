@@ -2,7 +2,7 @@
 
 All notable changes to the "idl" extension will be documented in this file.
 
-For much more detail on incremental work for large features, see the developer docs in the `extension/docs/developer/dev-notes` of the source repo.
+For much more detail on incremental work for large features, see the developer docs in the `docs/dev/dev-notes` of the source repo.
 
 ## Preview Features
 
@@ -11,6 +11,16 @@ This section of the CHANGELOG documents features that have been added to the ext
 New settings for ENVI's MCP Tools:
 
 - Fine-tune which ENVI Tools can be invoked by ENVI Agent with a new whitelist and blacklist option
+
+## 6.2.2 - September 2026
+
+Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.
+
+Added an icon to the IDL Webview which appears when viewing profiling results.
+
+Resolved an issue where we were launching the language server with a version of node.js that is too old.
+
+Tweaked IDL and ENVI instructions to specify which MCP tools to use to help answer user questions.
 
 ## 6.2.1 - September 2026
 
@@ -1238,7 +1248,7 @@ Fix badge URLs now that the extension is live
 - Outline for PRO code has been updated to include different icons based on methods vs standard routines and also captures the main level program start.
 
 - Completely revamped syntax highlighting that highlights based on your syntax. It is a great visual way to see where you have syntax problems as highlighting will dramatically change based on what expressions are allowed to be found or not.
-  - Additionally, see the file `extension/docs/CUSTOMIZING_THEMES.md` for the TextMate scopes used for IDL which you can customize to look how you want in any theme.
+  - Additionally, see the file `docs/extension/CUSTOMIZING_THEMES.md` for the TextMate scopes used for IDL which you can customize to look how you want in any theme.
 
 - Added a new file icon theme that adds a new IDL icon for light and dark modes.
   - Supports .pro and .sav files

@@ -26,7 +26,7 @@ describe(`[auto generated] Don't make ENVI Task`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-generation/empty_envi.pro',
+      'apps/test/idl/task-generation/empty_envi.pro',
     );
 
     // add file to index

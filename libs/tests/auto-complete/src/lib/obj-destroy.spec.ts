@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly return auto-complete from obj-destroy`, () 
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/obj_destroy.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/obj_destroy.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

@@ -17,6 +17,35 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 
 /**
+ * Gets the icon to display in the tab for our webview panel
+ */
+function GetWebViewIconPath(extensionPath: string): {
+  light: vscode.Uri;
+  dark: vscode.Uri;
+} {
+  return {
+    light: vscode.Uri.file(
+      path.join(
+        extensionPath,
+        'resources',
+        'images',
+        'light',
+        'idlicon-color.svg',
+      ),
+    ),
+    dark: vscode.Uri.file(
+      path.join(
+        extensionPath,
+        'resources',
+        'images',
+        'dark',
+        'idlicon-color.svg',
+      ),
+    ),
+  };
+}
+
+/**
  * Manages IDL coding webview panels
  */
 export class IDLWebView {
@@ -182,7 +211,13 @@ export class IDLWebView {
     }
 
     // get the directory for our webview
-    const viewDir = path.join(extensionPath, 'dist', 'apps', 'idl-webview');
+    const viewDir = path.join(
+      extensionPath,
+      'dist',
+      'apps',
+      'vscode',
+      'webview',
+    );
     // const assetsDir = path.join(viewDir, 'assets');
     // const i18nDir = path.join(assetsDir, 'i18n');
 
@@ -208,6 +243,8 @@ export class IDLWebView {
       },
     );
 
+    panel.iconPath = GetWebViewIconPath(extensionPath);
+
     IDLWebView.currentPanel = new IDLWebView(panel, extensionPath);
   }
 
@@ -218,6 +255,7 @@ export class IDLWebView {
       type: 'debug',
       content: 'Revive Webview panel',
     });
+    panel.iconPath = GetWebViewIconPath(extensionPath);
     IDLWebView.currentPanel = new IDLWebView(panel, extensionPath);
   }
 
@@ -271,7 +309,8 @@ export class IDLWebView {
       this._extensionPath,
       'dist',
       'apps',
-      'idl-webview',
+      'vscode',
+      'webview',
     );
     const index = path.join(webViewFolder, 'index.html');
 

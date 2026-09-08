@@ -19,7 +19,9 @@ describe(`[auto generated] Basic checks for call_function() hover help`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/call_function.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/call_function.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -174,7 +176,9 @@ describe(`[auto generated] Basic checks for call_function() hover help`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/call_function.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/hover-help/call_function.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

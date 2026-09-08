@@ -19,7 +19,9 @@ describe(`[auto generated] Correctly include keywords`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/keywords.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/keywords.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);
@@ -325,7 +327,9 @@ describe(`[auto generated] Correctly include keywords`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/auto-complete/keywords.pro');
+    const filepath = GetExtensionPath(
+      'apps/test/idl/auto-complete/keywords.pro',
+    );
 
     // add file to index
     await index.indexFile(filepath);

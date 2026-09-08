@@ -8,7 +8,7 @@ describe(`[auto generated] Correctly parse URI parameters and set defaults`, () 
   it(`[auto generated] envi`, async () => {
     // specify reference filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-parsing/SARsBasicFeFloodingClassification.task',
+      'apps/test/idl/task-parsing/SARsBasicFeFloodingClassification.task',
     );
 
     // reset global display names

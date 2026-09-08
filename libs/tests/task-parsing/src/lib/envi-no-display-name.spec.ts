@@ -8,7 +8,7 @@ describe(`[auto generated] Correctly parse task without display_name`, () => {
   it(`[auto generated] envi`, async () => {
     // specify reference filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-parsing/test_task_no_display_name_envi.task',
+      'apps/test/idl/task-parsing/test_task_no_display_name_envi.task',
     );
 
     // reset global display names

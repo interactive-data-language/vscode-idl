@@ -443,7 +443,7 @@ export class IDLMachineWrapper {
       const newVar = {
         name: variable.name.toLowerCase(),
         type: `${variable.type}`,
-        description: variable.value.trim(),
+        description: this._decodeString(variable.value).trim(),
       };
 
       // fine tune the types that get displayed
@@ -632,11 +632,25 @@ export class IDLMachineWrapper {
   stringifyOutput(params: FromIDLMachineNotificationParams<TOutNotification>) {
     switch (true) {
       case (params.f & 0x002) > 0:
-        return '\n' + params.s;
+        return '\n' + this._decodeString(params.s);
       case (params.f & 0x004) > 0:
-        return params.s + '\n';
+        return this._decodeString(params.s) + '\n';
       default:
-        return params.s;
+        return this._decodeString(params.s);
     }
+  }
+
+  /**
+   * Applies proper text decoding for multi-byte characters
+   */
+  private _decodeString(s: string) {
+    if (s) {
+      try {
+        return Buffer.from(s, 'latin1').toString('utf8');
+      } catch (err) {
+        // do nothing
+      }
+    }
+    return s;
   }
 }

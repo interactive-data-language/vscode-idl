@@ -8,7 +8,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
   it(`[auto generated] idl`, async () => {
     // specify reference filepath
     const filepath = GetExtensionPath(
-      'idl/test/task-parsing/addition_example.task',
+      'apps/test/idl/task-parsing/addition_example.task',
     );
 
     // reset global display names

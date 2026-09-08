@@ -3,9 +3,9 @@
 <p align="center">
   <div align="center">
     <a href="https://www.nv5geospatialsoftware.com/Software-Technology/IDL">
-      <img alt="Follow Prettier IDL Twitter" src="extension/images/idlicon.png"></a>
+      <img alt="Follow Prettier IDL Twitter" src="resources/images/idlicon.png"></a>
     <a href="https://www.nv5geospatialsoftware.com/Software-Technology/ENVI">
-      <img alt="ENVI" src="extension/images/enviicon.png"></a>
+      <img alt="ENVI" src="resources/images/enviicon.png"></a>
   </div>
   <div  align="center">
     <i>
@@ -23,9 +23,9 @@
       <img src="https://vsmarketplacebadges.dev/installs-short/idl.idl-for-vscode.svg?label=VS%20Code%20Installs" alt="VS Code Installs" />
     </a>
     <a href="https://github.com/interactive-data-language/vscode-idl">
-      <img alt="GitHub Stars" src="extension/images/License-MIT-orange.png"></a>
+      <img alt="GitHub Stars" src="resources/images/License-MIT-orange.png"></a>
     <a href="https://github.com/interactive-data-language/vscode-idl">
-      <img alt="GitHub" src="extension/images/github.png"></a>
+      <img alt="GitHub" src="resources/images/github.png"></a>
 
   </div>
 </p>
@@ -103,10 +103,10 @@ See [CHANGELOG](CHANGELOG.md).
 - For the licenses and copyrights of 3rd party dependencies for extension components, see [3rdpartylicenses.md](./compliance/3rdpartylicenses.md).
 
 - Icon theme:
-  - The icon theme is directly from [VSCode](https://github.com/microsoft/vscode/tree/main/extensions/theme-seti) and only modified to use a different icon for PRO files (use our own instead of the prolog owl icon). Credits and auxiliary files can be found in `./extension/icon-theme`.
+  - The icon theme is directly from [VSCode](https://github.com/microsoft/vscode/tree/main/extensions/theme-seti) and only modified to use a different icon for PRO files (use our own instead of the prolog owl icon). Credits and auxiliary files can be found in `./resources/icon-theme`.
 
 - Themes
-  - Original source licenses for the VSCode themes can be found in: `extension/language/themes`
+  - Original source licenses for the VSCode themes can be found in: `resources/language/themes`
 
   - Retro IDL: Licensed under MIT. Copyright (c) 2015 Mahmoud Ali, [Atom One Light Theme](https://github.com/akamud/vscode-theme-onedark)
 

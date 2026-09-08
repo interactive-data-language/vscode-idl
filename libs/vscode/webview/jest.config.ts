@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'vscode-webview',
+  displayName: 'vscode-webview-lib',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',

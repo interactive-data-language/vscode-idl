@@ -31,7 +31,7 @@ export async function LoadSchema(): Promise<ValidateFunction<any>> {
     // load base schema
     const base = JSON.parse(
       await readFile(
-        GetExtensionPath('extension/language/schemas/config/schema.json'),
+        GetExtensionPath('resources/language/schemas/config/schema.json'),
         { encoding: 'utf-8' },
       ),
     );
@@ -39,7 +39,7 @@ export async function LoadSchema(): Promise<ValidateFunction<any>> {
     // load actual schema for config tags
     const details = JSON.parse(
       await readFile(
-        GetExtensionPath('extension/language/schemas/config/v1.schema.json'),
+        GetExtensionPath('resources/language/schemas/config/v1.schema.json'),
         { encoding: 'utf-8' },
       ),
     );

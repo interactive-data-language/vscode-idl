@@ -33,8 +33,8 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   /** Get the folder our extensions live in */
   const extensionDir =
     type === 'instructions'
-      ? 'extension/agents/instructions'
-      : 'extension/agents/prompts';
+      ? 'resources/agents/instructions'
+      : 'resources/agents/prompts';
 
   /** Get the file extension we search for */
   const fileExtensions =

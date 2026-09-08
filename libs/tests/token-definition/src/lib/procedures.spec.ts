@@ -19,10 +19,12 @@ describe(`[auto generated] Correctly find procedure definitions`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/all_cases.pro');
+    const filepath = GetExtensionPath('apps/test/idl/token-def/all_cases.pro');
 
     // parse file for tests
-    await index.indexFile(GetExtensionPath('idl/test/token-def/all_cases.pro'));
+    await index.indexFile(
+      GetExtensionPath('apps/test/idl/token-def/all_cases.pro'),
+    );
 
     // define position
     const position_0: Position = { line: 52, character: 6 };
@@ -71,10 +73,12 @@ describe(`[auto generated] Correctly find procedure definitions`, () => {
     );
 
     // specify reference filepath
-    const filepath = GetExtensionPath('idl/test/token-def/all_cases.pro');
+    const filepath = GetExtensionPath('apps/test/idl/token-def/all_cases.pro');
 
     // parse file for tests
-    await index.indexFile(GetExtensionPath('idl/test/token-def/all_cases.pro'));
+    await index.indexFile(
+      GetExtensionPath('apps/test/idl/token-def/all_cases.pro'),
+    );
 
     // define position
     const position_0: Position = { line: 55, character: 2 };

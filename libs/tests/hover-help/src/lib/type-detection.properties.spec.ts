@@ -19,7 +19,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/types.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/types.pro');
 
     // add file to index
     await index.indexFile(filepath);
@@ -61,7 +61,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/types.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/types.pro');
 
     // add file to index
     await index.indexFile(filepath);
@@ -103,7 +103,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/types.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/types.pro');
 
     // add file to index
     await index.indexFile(filepath);
@@ -145,7 +145,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/types.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/types.pro');
 
     // add file to index
     await index.indexFile(filepath);
@@ -187,7 +187,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/types.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/types.pro');
 
     // add file to index
     await index.indexFile(filepath);
@@ -229,7 +229,7 @@ describe(`[auto generated] Correctly provide hover help for`, () => {
     );
 
     // specify filepath
-    const filepath = GetExtensionPath('idl/test/hover-help/types.pro');
+    const filepath = GetExtensionPath('apps/test/idl/hover-help/types.pro');
 
     // add file to index
     await index.indexFile(filepath);

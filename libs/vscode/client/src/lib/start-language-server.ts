@@ -117,7 +117,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
    * Full path to the JS file for launching in VSCode
    */
   const serverModule = ctx.asAbsolutePath(
-    path.join('dist', 'apps', 'server', 'main.js'),
+    path.join('dist', 'apps', 'vscode', 'server', 'main.js'),
   );
 
   /**
@@ -171,7 +171,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
        * Needs to be last, cant remember why but this was something (a long time ago) i saw on
        * blog/stack exchange
        */
-      path.join('dist', 'apps', 'server', 'main.js'),
+      path.join('dist', 'apps', 'vscode', 'server', 'main.js'),
     ],
     options: {
       cwd: ctx.extensionPath,

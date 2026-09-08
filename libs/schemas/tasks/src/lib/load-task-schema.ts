@@ -31,7 +31,7 @@ export async function LoadTaskSchema(): Promise<ValidateFunction<any>> {
     // load base schema
     const base = JSON.parse(
       await readFile(
-        GetExtensionPath('extension/language/schemas/tasks/schema.json'),
+        GetExtensionPath('resources/language/schemas/tasks/schema.json'),
         { encoding: 'utf-8' },
       ),
     );
@@ -39,20 +39,20 @@ export async function LoadTaskSchema(): Promise<ValidateFunction<any>> {
     // load actual schema for config tags
     const idl = JSON.parse(
       await readFile(
-        GetExtensionPath('extension/language/schemas/tasks/idl.schema.json'),
+        GetExtensionPath('resources/language/schemas/tasks/idl.schema.json'),
         { encoding: 'utf-8' },
       ),
     );
     const envi = JSON.parse(
       await readFile(
-        GetExtensionPath('extension/language/schemas/tasks/envi.schema.json'),
+        GetExtensionPath('resources/language/schemas/tasks/envi.schema.json'),
         { encoding: 'utf-8' },
       ),
     );
     const enviLegacy = JSON.parse(
       await readFile(
         GetExtensionPath(
-          'extension/language/schemas/tasks/envi-legacy.schema.json',
+          'resources/language/schemas/tasks/envi-legacy.schema.json',
         ),
         { encoding: 'utf-8' },
       ),

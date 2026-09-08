@@ -20,7 +20,7 @@ describe(`[auto generated] Custom block auto-complete`, () => {
 
     // specify filepath
     const filepath = GetExtensionPath(
-      'idl/test/auto-complete/for_foreach_while.pro',
+      'apps/test/idl/auto-complete/for_foreach_while.pro',
     );
 
     // add file to index

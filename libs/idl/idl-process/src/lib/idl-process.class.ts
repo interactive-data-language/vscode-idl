@@ -351,7 +351,7 @@ export class IDLProcess extends EventEmitter {
 
     // make sure IDL is also on the path
     if (pathVar in args.env) {
-      if (!args.env[pathVar].includes(args.config.IDL.directory)) {
+      if (!(args.env[pathVar] as string).includes(args.config.IDL.directory)) {
         args.env[pathVar] =
           args.config.IDL.directory + delimiter + args.env[pathVar];
       }
@@ -360,11 +360,28 @@ export class IDLProcess extends EventEmitter {
     }
 
     // check if we need to manage the language environment variable
-    if (os.platform() === 'darwin') {
+    if (!('LANG' in args.env) || !('LC_ALL' in args.env)) {
+      let defaultLocale = 'en_US';
+      try {
+        if (os.platform() === 'darwin') {
+          defaultLocale = execSync('defaults read -g AppleLocale')
+            .toString()
+            .trim();
+        } else {
+          defaultLocale = Intl.DateTimeFormat()
+            .resolvedOptions()
+            .locale.replace('-', '_');
+        }
+      } catch (err) {
+        // fallback to default if detection fails
+      }
+
+      const formattedLocale = `${defaultLocale}.UTF-8`;
       if (!('LANG' in args.env)) {
-        args.env['LANG'] = `${execSync(`defaults read -g AppleLocale`)
-          .toString()
-          .trim()}.UTF-8`;
+        args.env['LANG'] = formattedLocale;
+      }
+      if (!('LC_ALL' in args.env)) {
+        args.env['LC_ALL'] = formattedLocale;
       }
     }
 
