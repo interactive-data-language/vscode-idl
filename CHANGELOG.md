@@ -12,11 +12,15 @@ New settings for ENVI's MCP Tools:
 
 - Fine-tune which ENVI Tools can be invoked by ENVI Agent with a new whitelist and blacklist option
 
-## Unreleased
+## 6.2.2 - September 2026
 
 Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.
 
 Added an icon to the IDL Webview which appears when viewing profiling results.
+
+Resolved an issue where we were launching the language server with a version of node.js that is too old.
+
+Tweaked IDL and ENVI instructions to specify which MCP tools to use to help answer user questions.
 
 ## 6.2.1 - September 2026
 

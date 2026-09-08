@@ -10,5 +10,5 @@ export const START_LANGUAGE_SERVER_CONFIG = {
   /**
    * minimum node.js version that we will use to launch
    */
-  NODE_MIN_VERSION: '16.0.0',
+  NODE_MIN_VERSION: '20.0.0',
 };
