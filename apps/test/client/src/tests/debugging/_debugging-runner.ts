@@ -10,6 +10,7 @@ import { Continue } from './continue';
 import { Edit } from './edit';
 import { Exit } from './exit';
 import { ImpliedPrint } from './implied-print';
+import { MultibyteCharacters } from './multibyte-characters';
 import { ProfileTest } from './profile';
 import { QueueRight } from './queue-right';
 import { RigorousAlwaysReturn } from './rigorous-always-return';
@@ -118,4 +119,9 @@ DEBUGGING_RUNNER.addTest({
 DEBUGGING_RUNNER.addTest({
   name: 'Verify we replace variables from environment',
   fn: VariableReplacement,
+});
+
+DEBUGGING_RUNNER.addTest({
+  name: 'Verify Chinese characters and emojis print correctly',
+  fn: MultibyteCharacters,
 });
