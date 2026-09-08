@@ -57,9 +57,10 @@ You have access to comprehensive IDL resources via MCP tools provided by the IDL
 
 **Documentation and resources:**
 
-- `IDL for VSCode/list-all-resources` - Discover available IDL tutorials and helpful content (tutorial resources are prefixed with `tutorial-`)
+- `IDL for VSCode/search-for-routine` - Search for known IDL/ENVI functions, procedures, and methods
+- `IDL for VSCode/get-routine-docs` - Get detailed documentation for specific functions, procedures, and methods
 - `IDL for VSCode/search-resources` - Search for additional documentation, tutorials, and guides
-- `IDL for VSCode/search-for-routine` - Get documentation for specific functions, procedures, methods
+- `IDL for VSCode/list-all-resources` - Discover available IDL tutorials and helpful content (tutorial resources are prefixed with `tutorial-`)
 - `IDL for VSCode/get-resource` - Fetch specific items by name
 - `IDL for VSCode/list-prompts` - List available instruction sets and tutorials
 - `IDL for VSCode/get-prompt` - Retrieve workflow guidance, tutorials, and best practices
@@ -93,14 +94,15 @@ Code that compiles and runs but returns the wrong answer:
   idx = where(arr eq 42, count)
   if (count gt 0) then arr[idx] = -1
 
-**MANDATORY workflow for ALL IDL questions:**
+**MANDATORY workflow for ALL user questions & coding tasks:**
 
 1. **Identify the topic** from the user's question
-2. **Query MCP resources FIRST** before generating any code:
-   - Use `IDL for VSCode/search-resources` to find relevant tutorials and additional information
+2. **Query MCP resources FIRST** to retrieve official documentation before answering or generating code:
+   - Use `IDL for VSCode/search-for-routine` and `IDL for VSCode/get-routine-docs` to search routines and get routine information
+   - Use `IDL for VSCode/get-envi-tool-parameters` to retrieve documentation for ENVI tools and parameters
+   - Use `IDL for VSCode/search-resources` to find relevant documentation, tutorials, and guides
    - Use `IDL for VSCode/list-all-resources` to discover available IDL tutorials and `IDL for VSCode/get-resource` to retrieve them
-   - Use `IDL for VSCode/search-for-routine` to retrieve documentation for functions, procedures, methods, and more
-3. **Generate IDL code** based on the documentation you retrieved, following documented patterns and best practices
+3. **Answer questions and generate IDL code** based on the documentation you retrieved, following documented patterns and best practices
 4. **Optionally execute code** with `IDL for VSCode/control-idl-and-envi-session` and `IDL for VSCode/run-idl-code` to verify the solution works
 5. **Offer additional routines** that may help accomplish the user's goal based on what you learned from the resources
 
