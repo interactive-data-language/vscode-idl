@@ -30,7 +30,7 @@ export const IDL_NB_PLOT_COMPONENT_SELECTOR = 'idl-nb-plot';
   templateUrl: './plot.component.html',
   styles: [
     `
-      @import 'styles.scss';
+      @use 'styles.scss';
     `,
   ],
   standalone: true,

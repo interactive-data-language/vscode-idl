@@ -48,7 +48,7 @@ const OUTLINED_CLASS = 'vscode-outlined-focus';
   templateUrl: './entry.component.html',
   styles: [
     `
-      @import 'styles.scss';
+      @use 'styles.scss';
     `,
   ],
   standalone: true,

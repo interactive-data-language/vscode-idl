@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import './themes/theme.scss';
-@import 'material-icons/iconfont/filled.scss';
+@use './themes/theme.scss';
+@use 'material-icons/iconfont/filled.scss';
 
 html,
 body {

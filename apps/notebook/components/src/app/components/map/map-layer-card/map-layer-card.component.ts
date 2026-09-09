@@ -7,7 +7,7 @@ import { NgxMaterialModule } from '@idl/ngx/material';
   templateUrl: './map-layer-card.component.html',
   styles: [
     `
-      @import 'styles.scss';
+      @use 'styles.scss';
 
       .cdk-drag-preview {
         border: none;

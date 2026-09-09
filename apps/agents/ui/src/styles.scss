@@ -2,7 +2,7 @@
 
 // Import the chat library theme (includes Angular Material)
 @use 'libs/ngx/theme/src/lib/styles/theme.scss';
-@import 'material-icons/iconfont/material-icons.scss';
+@use 'material-icons/iconfont/material-icons.scss';
 
 // Global app styles
 html,

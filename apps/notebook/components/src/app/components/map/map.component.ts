@@ -50,7 +50,7 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
   templateUrl: './map.component.html',
   styles: [
     `
-      @import 'styles.scss';
+      @use 'styles.scss';
 
       .map-container {
         width: 100%;
