@@ -10,10 +10,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from '@idl/ngx/theme';
+import { WorkflowTemplateDialogComponent } from '@idl/ngx/workflow-templates';
+import { ChatSession } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
+import { nanoid } from 'nanoid';
 
 import { ChatLayoutService } from '../../services/chat-layout.service';
-import { ResetApplicationState } from '../../state/chat.actions';
+import {
+  AddChatSession,
+  AddMessageToSession,
+  ResetApplicationState,
+  SelectChatSession,
+} from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
@@ -80,6 +88,57 @@ export class ChatHeaderComponent {
   );
 
   private readonly dialog = inject(MatDialog);
+
+  /**
+   * Opens the Agent Workflow Template stepper dialog and, if the user starts
+   * a workflow, sends the composed message into the current (or a new) chat session
+   */
+  protected newWorkflow(): void {
+    const dialogRef = this.dialog.open(WorkflowTemplateDialogComponent, {
+      disableClose: true,
+      panelClass: 'workflow-template-dialog-panel',
+      width: '90vw',
+      maxWidth: '1100px',
+      maxHeight: '90vh',
+    });
+
+    dialogRef.afterClosed().subscribe((message) => {
+      if (!message) {
+        return;
+      }
+
+      let sessionId = this.selectedSession()?.id;
+
+      // If no session exists, create one before sending
+      if (!sessionId) {
+        const newSession: ChatSession = {
+          id: nanoid(),
+          title: 'New Chat',
+          createdAt: new Date(),
+          lastMessageAt: new Date(),
+          messageCount: 0,
+          status: 'ready',
+          messages: [],
+        };
+        this.store.dispatch(new AddChatSession(newSession));
+        this.store.dispatch(new SelectChatSession(newSession.id));
+        sessionId = newSession.id;
+      }
+
+      this.store.dispatch(
+        new AddMessageToSession(sessionId, {
+          id: nanoid(),
+          type: 'user',
+          content: [
+            {
+              type: 'text',
+              payload: message,
+            },
+          ],
+        }),
+      );
+    });
+  }
 
   /**
    * Confirm and reset the entire application state back to its defaults

@@ -13,6 +13,7 @@
         "outputPath": "dist/apps/agents-ui",
         "baseHref": "./",
         "browser": "apps/agents/ui/src/main.ts",
+        "polyfills": ["apps/agents/ui/src/polyfills.ts"],
         "tsConfig": "apps/agents/ui/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

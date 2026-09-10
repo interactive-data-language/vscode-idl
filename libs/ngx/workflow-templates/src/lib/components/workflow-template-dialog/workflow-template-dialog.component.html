@@ -1,0 +1,110 @@
+<h2 mat-dialog-title>New Workflow</h2>
+
+<mat-dialog-content class="workflow-dialog-content">
+  <mat-stepper linear orientation="horizontal">
+    <mat-step
+      label="Select Template"
+      [completed]="canAdvanceFromTemplateStep()"
+    >
+      @if (loading()) {
+        <mat-progress-spinner
+          mode="indeterminate"
+          diameter="32"
+        ></mat-progress-spinner>
+      } @else {
+        <mat-form-field appearance="outline" class="template-search-field">
+          <mat-label>Search templates</mat-label>
+          <input
+            matInput
+            [value]="searchText()"
+            [matAutocomplete]="templateAuto"
+            (input)="updateSearch($any($event.target).value)"
+            placeholder="Type to search..."
+          />
+          <mat-autocomplete
+            #templateAuto="matAutocomplete"
+            (optionSelected)="selectTemplate($event)"
+          >
+            @for (template of filteredTemplates(); track template.id) {
+              <mat-option [value]="template.id">
+                <div class="template-option">
+                  <span class="template-name">{{ template.name }}</span>
+                  <span class="template-description">{{
+                    template.description
+                  }}</span>
+                </div>
+              </mat-option>
+            } @empty {
+              <mat-option disabled>No matching templates</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+
+        @if (selectedTemplate(); as template) {
+          <div class="template-option selected-template-preview">
+            <span class="template-name">{{ template.name }}</span>
+            <span class="template-description">{{ template.description }}</span>
+            <mat-chip-set>
+              @for (tag of template.tags; track tag) {
+                <mat-chip>{{ tag }}</mat-chip>
+              }
+              @if (template.toolWorkflowName) {
+                <mat-chip
+                  >Tool workflow: {{ template.toolWorkflowName }}</mat-chip
+                >
+              }
+            </mat-chip-set>
+          </div>
+        }
+      }
+      <div class="step-actions">
+        <button mat-button (click)="cancel()">Cancel</button>
+        <button
+          mat-flat-button
+          matStepperNext
+          [disabled]="!canAdvanceFromTemplateStep()"
+        >
+          Next
+        </button>
+      </div>
+    </mat-step>
+
+    <mat-step label="Specify AOI">
+      <ngx-map-aoi (aoiChange)="onAoiChange($event)"></ngx-map-aoi>
+      <div class="step-actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-flat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step label="Notes">
+      <mat-form-field appearance="outline" class="notes-field">
+        <mat-label>Notes / considerations</mat-label>
+        <textarea
+          matInput
+          rows="4"
+          #notesInput
+          [value]="notes()"
+          (input)="updateNotes(notesInput.value)"
+        ></textarea>
+      </mat-form-field>
+      <div class="step-actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-flat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step label="Review & Start">
+      <div class="review">
+        <p><strong>Prompt preview:</strong></p>
+        <pre class="prompt-preview">{{ composedMessagePreview() }}</pre>
+      </div>
+      <div class="step-actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-flat-button color="primary" (click)="submit()">
+          Start Workflow
+        </button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</mat-dialog-content>

@@ -10,6 +10,7 @@ import { LoadConfigFromEnv } from './helpers/load-config-from-env';
 import { CreateStandaloneMCPServer } from './mcp-tools/create-standalone-mcp-server';
 import { CreateChatRoutes } from './routes/chat.routes';
 import { CreateConfigRoutes } from './routes/config.routes';
+import { CreateWorkflowTemplatesRoutes } from './routes/workflow-templates.routes';
 
 /**
  * Result returned by `StartAgentsServer`. Call `stop()` to gracefully shut
@@ -69,6 +70,7 @@ export async function StartAgentsServer(
 
   app.use('/api/chat', CreateChatRoutes(chat));
   app.use('/api/config', CreateConfigRoutes(config));
+  app.use('/api/workflow-templates', CreateWorkflowTemplatesRoutes());
 
   // Error handling middleware
   app.use(
@@ -99,6 +101,8 @@ export async function StartAgentsServer(
       console.log(`         - POST /api/chat/message`);
       console.log(`         - GET  /api/config`);
       console.log(`         - PUT  /api/config`);
+      console.log(`         - GET  /api/workflow-templates`);
+      console.log(`         - GET  /api/workflow-templates/tool-workflows`);
       console.log(`         - POST /mcp (MCP protocol)`);
       if (websocketBridge !== undefined) {
         console.log(`         - WS   ws://${host}:${port}/ws (bridge)`);

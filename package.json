@@ -139,6 +139,8 @@
     "@deck.gl/geo-layers": "~9.2.9",
     "@deck.gl/layers": "~9.2.9",
     "@deck.gl/mesh-layers": "~9.2.9",
+    "@deck.gl-community/editable-layers": "~9.2.8",
+    "@deck.gl-community/layers": "~9.2.8",
     "@jsverse/transloco": "^7.4.3",
     "@mapbox/geojson-extent": "^1.0.1",
     "@material/material-color-utilities": "^0.4.0",

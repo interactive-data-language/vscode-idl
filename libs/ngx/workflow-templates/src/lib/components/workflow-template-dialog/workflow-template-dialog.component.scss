@@ -1,0 +1,75 @@
+.workflow-dialog-content {
+  width: 100%;
+  box-sizing: border-box;
+  max-height: 70vh;
+  overflow-y: auto;
+  // leave room so the stepper's step-number circles aren't clipped by the
+  // dialog surface's rounded top edge
+  padding-top: 12px;
+}
+
+// add breathing room between the step header row and each step's content,
+// and zero out side padding so step content aligns symmetrically with the stepper header
+::ng-deep .mat-horizontal-content-container {
+  padding: 16px 0 0 0 !important;
+}
+
+mat-progress-spinner {
+  margin: 24px auto;
+}
+
+.template-search-field {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.template-option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 0;
+
+  .template-name {
+    font-weight: 600;
+  }
+
+  .template-description {
+    opacity: 0.8;
+  }
+}
+
+.selected-template-preview {
+  padding: 12px;
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.1);
+}
+
+.notes-field {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.step-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.review p {
+  margin: 4px 0;
+}
+
+.prompt-preview {
+  background: rgba(128, 128, 128, 0.1);
+  border-radius: 4px;
+  padding: 12px;
+  margin: 8px 0;
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.4;
+}
