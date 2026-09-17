@@ -1,7 +1,7 @@
 import type { WorkflowTemplatesResponse } from '@idl/types/workflow-templates';
 import { Router } from 'express';
 
-import { WORKFLOW_TEMPLATES } from '../helpers/workflow-templates.interface';
+import { SAMPLE_WORKFLOWS } from '../helpers/sample-workflows.interface';
 
 /**
  * Create Agent Workflow Template routes
@@ -16,7 +16,7 @@ export function CreateWorkflowTemplatesRoutes(): Router {
   router.get('/', (_req, res) => {
     try {
       const resp: WorkflowTemplatesResponse = {
-        templates: WORKFLOW_TEMPLATES,
+        templates: SAMPLE_WORKFLOWS,
       };
 
       res.json(resp);
