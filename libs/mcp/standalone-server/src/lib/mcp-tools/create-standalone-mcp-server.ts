@@ -67,7 +67,7 @@ export async function CreateStandaloneMCPServer(
   /**
    * Find a version of IDL
    */
-  const idlPath = FindIDL('idl92');
+  const idlPath = FindIDL();
 
   // force dark mode
   process.env['IDL_THEME'] = '1';
