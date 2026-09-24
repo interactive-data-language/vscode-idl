@@ -104,6 +104,11 @@ export const IDL_WS_CONSOLE = 'idl-ws-console';
 export const IDL_WS_SERVER = 'idl-ws-server';
 
 /**
+ * Log for agent server
+ */
+export const IDL_AGENT_SERVER = 'idl-agent-server';
+
+/**
  * All logs for the extension
  */
 export const ALL_IDL_LOGS = [
@@ -127,4 +132,5 @@ export const ALL_IDL_LOGS = [
   IDL_WS_CONSOLE,
   IDL_WS_SERVER,
   IDL_USAGE_METRIC,
+  IDL_AGENT_SERVER,
 ];
