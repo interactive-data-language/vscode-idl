@@ -30,17 +30,25 @@ import type { Application } from 'express';
 import { CreateIDLMachineBackend } from './create-idl-machine-backend';
 
 /**
- * Optional configuration for the MCP language server.
+ * Configuration for the MCP language server.
  */
 export interface IMCPLanguageServerOptions {
   /**
-   * When provided, tool execution is routed through this WebSocket bridge
-   * instead of a local IDL Machine process. The IDL/ENVI install is still
-   * required for indexing and task-tool registration; only the runtime
-   * backend is skipped.
+   * WebSocket bridge that ENVI tool calls are routed through whenever a
+   * client is connected. Everything else always runs via the local IDL
+   * Machine backend.
    */
-  websocketBridge?: WebSocketToolBridge;
+  websocketBridge: WebSocketToolBridge;
 }
+
+/**
+ * Log manager for the server
+ */
+export const LOG_MANAGER = new LogManager({
+  alert: () => {
+    //
+  },
+});
 
 /**
  * Starts the language server for our dedicated MCP server - so we can re-use our MCP
@@ -51,14 +59,8 @@ export interface IMCPLanguageServerOptions {
 export async function CreateStandaloneMCPServer(
   app: Application,
   config: IAgentServerConfig,
-  options?: IMCPLanguageServerOptions,
+  options: IMCPLanguageServerOptions,
 ) {
-  const logManager = new LogManager({
-    alert: () => {
-      //
-    },
-  });
-
   /**
    * Default path that we need for IDL and discovery
    */
@@ -81,7 +83,7 @@ export async function CreateStandaloneMCPServer(
   const isEnviInstalled = LoadIDLSearchPaths(idlSearchPath, idlPath);
 
   // index
-  const index = new IDLIndex(logManager, 1, false);
+  const index = new IDLIndex(LOG_MANAGER, 1, false);
 
   // load global tokens
   index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
@@ -90,7 +92,7 @@ export async function CreateStandaloneMCPServer(
   const files = await FindFiles(idlSearchPath);
 
   // alert users
-  logManager.log({
+  LOG_MANAGER.log({
     log: IDL_LSP_LOG,
     type: 'info',
     content: [
@@ -121,13 +123,25 @@ export async function CreateStandaloneMCPServer(
   };
 
   /**
-   * Create the execution callback. In WebSocket mode we skip launching the
-   * local IDL Machine process entirely and forward the small set of allowed
-   * ENVI tools to the connected WS client instead.
+   * Local IDL Machine backend, always launched and used as the fallback
+   * for anything not routed over the WebSocket connection.
    */
-  const backend: IIDLMCPExecutionBackend = options?.websocketBridge
-    ? new WebSocketExecutionBackend(options?.websocketBridge, codePrepare)
-    : CreateIDLMachineBackend(logManager, idlPath, codePrepare);
+  const idlMachineBackend = CreateIDLMachineBackend(
+    LOG_MANAGER,
+    idlPath,
+    codePrepare,
+  );
+
+  /**
+   * Hybrid backend: forwards the small set of allowed ENVI tools to a
+   * connected WS client, and delegates everything else to the local
+   * IDL Machine backend.
+   */
+  const backend: IIDLMCPExecutionBackend = new WebSocketExecutionBackend(
+    options.websocketBridge,
+    codePrepare,
+    idlMachineBackend,
+  );
 
   // eslint-disable-next-line prefer-const
   let mcpServer: MCPServer;
@@ -135,7 +149,7 @@ export async function CreateStandaloneMCPServer(
   // start the MCP server with the execution callback, mounting on the provided Express app
   MCPServer.start({
     app,
-    logManager,
+    logManager: LOG_MANAGER,
     idlExecutionCallback: (id, tool, params) => {
       return backend.runMCPTool(id, tool, params, (message) => {
         if (mcpServer) {
@@ -147,7 +161,7 @@ export async function CreateStandaloneMCPServer(
     },
     idlIndex: index,
     failCallback: (err) => {
-      logManager.log({
+      LOG_MANAGER.log({
         log: IDL_MCP_LOG,
         type: 'error',
         content: ['Error starting MCP server', err],
@@ -166,9 +180,9 @@ export async function CreateStandaloneMCPServer(
 
   // track dynamic file-based resources
   try {
-    MCPTrackResources(logManager);
+    MCPTrackResources(LOG_MANAGER);
   } catch (err) {
-    logManager.log({
+    LOG_MANAGER.log({
       log: IDL_MCP_LOG,
       type: 'error',
       content: [`Problem tracking resource files`, err],

@@ -1,3 +1,4 @@
+import { IDL_AGENT_SERVER } from '@idl/logger';
 import { WebSocketToolBridge } from '@idl/mcp/websocket';
 import { InitializeTranslation } from '@idl/translation';
 import type { IAgentServerConfig } from '@idl/types/agents';
@@ -7,7 +8,10 @@ import type { Server } from 'http';
 
 import { Chat } from './chat/chat.class';
 import { LoadConfigFromEnv } from './helpers/load-config-from-env';
-import { CreateStandaloneMCPServer } from './mcp-tools/create-standalone-mcp-server';
+import {
+  CreateStandaloneMCPServer,
+  LOG_MANAGER,
+} from './mcp-tools/create-standalone-mcp-server';
 import { CreateChatRoutes } from './routes/chat.routes';
 import { CreateConfigRoutes } from './routes/config.routes';
 import { CreateWorkflowTemplatesRoutes } from './routes/workflow-templates.routes';
@@ -51,11 +55,8 @@ export async function StartAgentsServer(
   );
   app.use(express.json());
 
-  // Optional WebSocket bridge for remote tool execution
-  const websocketBridge =
-    config.processing.mode === 'websocket'
-      ? new WebSocketToolBridge()
-      : undefined;
+  // WebSocket bridge for remote ENVI tool execution, always on
+  const websocketBridge = new WebSocketToolBridge();
 
   // Initialize MCP language server (IDL indexing + MCP tools on this Express app)
   await CreateStandaloneMCPServer(app, config, { websocketBridge });
@@ -80,7 +81,11 @@ export async function StartAgentsServer(
       res: express.Response,
       _next: express.NextFunction,
     ) => {
-      console.error('Unhandled error:', err);
+      LOG_MANAGER.log({
+        log: IDL_AGENT_SERVER,
+        type: 'error',
+        content: ['unhandled error:', err],
+      });
       res.status(500).json({
         error: 'Internal server error',
         message: err.message,
@@ -93,28 +98,22 @@ export async function StartAgentsServer(
   // Start listening
   const httpServer: Server = await new Promise((resolve) => {
     const s = app.listen(port, host, () => {
-      console.log(`[ ready ] http://${host}:${port}`);
-      console.log(`[ info ] chat provider: ${config.agent.llm.model}`);
-      console.log(`[ info ] chat engine:   ${config.agent.engine}`);
-      console.log(`[ info ] API endpoints:`);
-      console.log(`         - GET  /api/chat/models`);
-      console.log(`         - POST /api/chat/message`);
-      console.log(`         - GET  /api/config`);
-      console.log(`         - PUT  /api/config`);
-      console.log(`         - GET  /api/workflow-templates`);
-      console.log(`         - GET  /api/workflow-templates/tool-workflows`);
-      console.log(`         - POST /mcp (MCP protocol)`);
-      if (websocketBridge !== undefined) {
-        console.log(`         - WS   ws://${host}:${port}/ws (bridge)`);
-      }
+      LOG_MANAGER.log({
+        log: IDL_AGENT_SERVER,
+        type: 'info',
+        content: `Server ready at http://${host}:${port}`,
+      });
+      LOG_MANAGER.log({
+        log: IDL_AGENT_SERVER,
+        type: 'info',
+        content: `Websocket ready at ws://${host}:${port}/ws`,
+      });
       resolve(s);
     });
   });
 
   // Attach WebSocket bridge to the running HTTP server
-  if (websocketBridge !== undefined) {
-    websocketBridge.attach(httpServer, '/ws');
-  }
+  websocketBridge.attach(httpServer, '/ws');
 
   /**
    * Graceful shutdown: close WebSocket bridge, disconnect chat service,
@@ -122,12 +121,14 @@ export async function StartAgentsServer(
    */
   const stop = async (): Promise<void> => {
     try {
-      if (websocketBridge !== undefined) {
-        await websocketBridge.close();
-      }
+      await websocketBridge.close();
       await chat.disconnect();
     } catch (err) {
-      console.error('[server] Error during shutdown:', err);
+      LOG_MANAGER.log({
+        log: IDL_AGENT_SERVER,
+        type: 'error',
+        content: ['Error during shutdown:', err],
+      });
     }
     await new Promise<void>((resolve, reject) => {
       httpServer.close((err) => (err ? reject(err) : resolve()));

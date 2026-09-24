@@ -1,6 +1,5 @@
 import { IAgentConfig } from './agent-config.interface';
 import { IAgentsMCPConfig } from './mcp-config.interface';
-import { ProcessingModeWithConfig } from './processing-config.interface';
 import { IServerConfig } from './server-config.interface';
 
 /** Configuration for the standalone agents server (Electron main process, desktop app, or CLI) */
@@ -9,8 +8,6 @@ export interface IAgentServerConfig {
   agent: IAgentConfig;
   /** Config for MCP tools */
   mcp: IAgentsMCPConfig;
-  /** Processing config */
-  processing: ProcessingModeWithConfig;
   /** Config for HTTP server */
   server: IServerConfig;
 }
@@ -40,10 +37,6 @@ export interface IAgentServerConfig {
 //     toolBlackList: [
 //     ],
 //     toolWhitelist: [],
-//   },
-//   processing: {
-//     mode: 'idl-machine',
-//     config: {},
 //   },
 //   server: {
 //     host: 'localhost',
@@ -87,10 +80,6 @@ export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
       'run-idl-file',
     ],
     toolWhitelist: [],
-  },
-  processing: {
-    mode: 'idl-machine',
-    config: {},
   },
   server: {
     host: 'localhost',

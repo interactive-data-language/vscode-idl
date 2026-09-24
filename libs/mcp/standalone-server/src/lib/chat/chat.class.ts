@@ -1,6 +1,5 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { RuleBasedFilter } from '@idl/mcp/shared';
-import { WEBSOCKET_ENABLED_MCP_TOOLS } from '@idl/mcp/websocket';
 import type { IAgentServerConfig } from '@idl/types/agents';
 import type {
   AvailableModel,
@@ -12,7 +11,6 @@ import type {
   TodoItem,
 } from '@idl/types/chat';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { copy } from 'fast-copy';
 import { readFileSync } from 'fs';
 import OpenAI from 'openai';
 import { join } from 'path';
@@ -195,22 +193,9 @@ export class Chat {
    * Get tools that we are allowed to run from our MCP server
    */
   getAllowedTools() {
-    // init value
-    let tools: string[] = [];
-
-    // set some defaults
-    switch (this.config.processing.mode) {
-      case 'idl-machine':
-        tools = Object.values(MCP_TOOL_LOOKUP);
-        break;
-      case 'websocket':
-        tools = copy(WEBSOCKET_ENABLED_MCP_TOOLS);
-        break;
-      default:
-      // throw new Error(
-      //   `Unknown processing mode "${this.config.processing.mode}"`,
-      // );
-    }
+    // all tools are always available; the local IDL Machine backend is the
+    // fallback for anything not routed over an active websocket connection
+    const tools: string[] = Object.values(MCP_TOOL_LOOKUP);
 
     // filter and return
     return tools.filter((val) => this.filters.isAllowedByFilters(val));
