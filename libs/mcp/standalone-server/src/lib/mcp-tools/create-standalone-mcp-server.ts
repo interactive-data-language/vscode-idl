@@ -13,10 +13,7 @@ import {
 import { MCPServer } from '@idl/mcp/server';
 import { RegisterStaticMCPResources } from '@idl/mcp/server-resources';
 import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
-import {
-  WebSocketExecutionBackend,
-  WebSocketToolBridge,
-} from '@idl/mcp/websocket';
+import { WebSocketToolBridge } from '@idl/mcp/websocket';
 import { IDLIndex } from '@idl/parsing/index';
 import { IAgentServerConfig } from '@idl/types/agents';
 import {
@@ -123,24 +120,15 @@ export async function CreateStandaloneMCPServer(
   };
 
   /**
-   * Local IDL Machine backend, always launched and used as the fallback
-   * for anything not routed over the WebSocket connection.
+   * Hybrid backend: forwards the small set of allowed ENVI tools to a
+   * connected WS client, and runs everything else via the local IDL
+   * Machine process.
    */
-  const idlMachineBackend = CreateIDLMachineBackend(
+  const backend: IIDLMCPExecutionBackend = CreateIDLMachineBackend(
     LOG_MANAGER,
     idlPath,
     codePrepare,
-  );
-
-  /**
-   * Hybrid backend: forwards the small set of allowed ENVI tools to a
-   * connected WS client, and delegates everything else to the local
-   * IDL Machine backend.
-   */
-  const backend: IIDLMCPExecutionBackend = new WebSocketExecutionBackend(
     options.websocketBridge,
-    codePrepare,
-    idlMachineBackend,
   );
 
   // eslint-disable-next-line prefer-const
