@@ -1,10 +1,11 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_DEBUG_LOG, LogManager } from '@idl/logger';
 import { RegisterENVINotifyHandlers } from '@idl/mcp/envi';
+import { IDLMCPExecutionManager } from '@idl/mcp/idl-machine';
 import {
-  IDLMachineExecutionBackend,
-  IDLMCPExecutionManager,
-} from '@idl/mcp/idl-machine';
+  WebSocketExecutionBackend,
+  WebSocketToolBridge,
+} from '@idl/mcp/websocket';
 import { PrepareIDLCodeCallback } from '@idl/types/mcp';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { copy } from 'fast-copy';
@@ -15,12 +16,17 @@ import { copy } from 'fast-copy';
  *
  * Does **not** launch IDL eagerly — the backend holds the config and
  * `start()` will call `manager.launch()` when an MCP tool needs it.
+ *
+ * The returned backend routes the small set of allowed ENVI tools through
+ * `bridge` whenever a WebSocket client is connected, and runs everything
+ * else through the local IDL Machine process.
  */
 export function CreateIDLMachineBackend(
   logManager: LogManager,
   idlBinDir: string,
   codePrepare: PrepareIDLCodeCallback,
-): IDLMachineExecutionBackend {
+  bridge: WebSocketToolBridge,
+): WebSocketExecutionBackend {
   /** Path to the auxiliary PRO files shipped with the extension */
   const vscodeProDir = GetExtensionPath('resources/idl/vscode');
 
@@ -40,7 +46,8 @@ export function CreateIDLMachineBackend(
   (config as any).IDL.directory = idlBinDir;
 
   /** Create the backend wrapper */
-  const backend = new IDLMachineExecutionBackend(
+  const backend = new WebSocketExecutionBackend(
+    bridge,
     manager,
     {
       config,
