@@ -17,10 +17,7 @@ import {
   ENVI_TOOL_WORKFLOW_REGISTRY,
   RegisterAllMCPTools,
 } from '@idl/mcp/server-tools';
-import {
-  WebSocketExecutionBackend,
-  WebSocketToolBridge,
-} from '@idl/mcp/websocket';
+import { WebSocketToolBridge } from '@idl/mcp/websocket';
 import { IDLIndex } from '@idl/parsing/index';
 import { IAgentServerConfig } from '@idl/types/agents';
 import {
