@@ -46,6 +46,7 @@ yarn-error.log
 testem.log
 /typings
 migrations.json
+config/
 
 # System Files
 .DS_Store
