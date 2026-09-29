@@ -36,6 +36,8 @@ const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
 
 /**
  * Name of IDL MCP server (prefixes all MCP tool names)
+ *
+ * IF YOU CHANGE THIS, CHANGE THE SessionConfig constant below
  */
 export const IDL_MCP_NAME = 'idl-mcp';
 
@@ -291,7 +293,9 @@ export class CopilotChatFramework {
                 >,
                 toolCallId,
                 toolName: GetToolDisplayName(
-                  toolName.replace(`${IDL_MCP_NAME}-`, ''),
+                  IDL_MCP_NAME
+                    ? toolName.replace(`${IDL_MCP_NAME}-`, '')
+                    : toolName,
                 ),
                 type: 'tool_call',
               });
