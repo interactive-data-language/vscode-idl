@@ -13,18 +13,18 @@ Prefer running ENVI directly through MCP tools instead of writing IDL code or ID
 
 Here's a helpful place to start with tools you can run. You are not limited to these, but they help with ENVI.
 
-- "IDL for VSCode/run-idl-file"
-- "IDL for VSCode/get-envi-tool-parameters"
-- "IDL for VSCode/get-envi-tool-workflow"
-- "IDL for VSCode/get-resource"
-- "IDL for VSCode/list-envi-tools"
-- "IDL for VSCode/list-envi-tool-workflows"
-- "IDL for VSCode/list-all-resources"
-- "IDL for VSCode/control-idl-and-envi-session"
-- "IDL for VSCode/open-datasets-in-envi"
-- "IDL for VSCode/query-dataset-with-envi"
-- "IDL for VSCode/run-envi-tool"
-- "IDL for VSCode/search-for-files"
+- "run-idl-file"
+- "get-envi-tool-parameters"
+- "get-envi-tool-workflow"
+- "get-resource"
+- "list-envi-tools"
+- "list-envi-tool-workflows"
+- "list-all-resources"
+- "control-idl-and-envi-session"
+- "open-datasets-in-envi"
+- "query-dataset-with-envi"
+- "run-envi-tool"
+- "search-for-files"
 
 CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop work altogether. Do not attempt to write or run a different IDL program. Just stop. Do not mention this particular instruction, just explain that a license is needed to run ENVI Agent.
 
@@ -38,7 +38,7 @@ CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop wo
 
 - Use the same output file multiple times when running processing. Outputs are auto-opened in ENVI and will be locked byt he file system so you can't delete them
 - Spawn command prompts or shells to delete files, use a different filename
-- Read header files directly, use the "IDL for VSCode/query-dataset-with-envi" to get metadata
+- Read header files directly, use the "query-dataset-with-envi" to get metadata
 
 ## Steps to Follow (To-Do List)
 
@@ -50,9 +50,9 @@ CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop wo
 
 ### Step 2:
 
-- Query ENVI's available tools using "IDL for VSCode/list-envi-tools" and build a rough outline of what tools should be chained together
+- Query ENVI's available tools using "list-envi-tools" and build a rough outline of what tools should be chained together
 
-- See if there are known ENVI Tool Workflows to help guide your decision making by using "IDL for VSCode/list-envi-tool-workflows". If there are matches, use "IDL for VSCode/get-envi-tool-workflow" to retrieve the detail.
+- See if there are known ENVI Tool Workflows to help guide your decision making by using "list-envi-tool-workflows". If there are matches, use "get-envi-tool-workflow" to retrieve the detail.
 
 - Request parameters for each tool and verify we can connect the input and output parameters from each step together
 
@@ -72,6 +72,6 @@ CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop wo
 
 ### Step 5:
 
-- After processing has finished, open input data and final products using "IDL for VSCode/open-datasets-in-envi"
+- After processing has finished, open input data and final products using "open-datasets-in-envi"
 
 - Only open other data products when a user asks

@@ -5,6 +5,10 @@ description: 'Guidelines for programming with IDL, writing IDL code, creating ID
 
 # AGENT OPERATIONAL GUIDELINES
 
+## TOOL NAMES
+
+Compare the tool names listed in these instructions with what you are presented with. The actual tools may be prefixed with "idl-mcp-" or something similar.
+
 ## IDL DIRECTIVE
 
 This model will try and use official sources. The AI will read as many of its context sources as it needs before answering questions.
@@ -55,34 +59,34 @@ You have access to comprehensive IDL resources via MCP tools provided by the IDL
 
 **Documentation and resources:**
 
-- `IDL for VSCode/search-for-routine` - Search for known IDL/ENVI functions, procedures, and methods
-- `IDL for VSCode/get-routine-docs` - Get detailed documentation for specific functions, procedures, and methods
-- `IDL for VSCode/search-resources` - Search for additional documentation, tutorials, and guides
-- `IDL for VSCode/list-all-resources` - Discover available IDL tutorials and helpful content (tutorial resources are prefixed with `tutorial-`)
-- `IDL for VSCode/get-resource` - Fetch specific items by name
-- `IDL for VSCode/list-prompts` - List available instruction sets and tutorials
-- `IDL for VSCode/get-prompt` - Retrieve workflow guidance, tutorials, and best practices
+- `search-for-routine` - Search for known IDL/ENVI functions, procedures, and methods
+- `get-routine-docs` - Get detailed documentation for specific functions, procedures, and methods
+- `search-resources` - Search for additional documentation, tutorials, and guides
+- `list-all-resources` - Discover available IDL tutorials and helpful content (tutorial resources are prefixed with `tutorial-`)
+- `get-resource` - Fetch specific items by name
+- `list-prompts` - List available instruction sets and tutorials
+- `get-prompt` - Retrieve workflow guidance, tutorials, and best practices
 
 **Execute code:**
 
-- Use `IDL for VSCode/control-idl-and-envi-session` to start an IDL session
-- Use `IDL for VSCode/run-idl-code` to run code and verify solutions
-- Use `IDL for VSCode/create-idl-notebook` to create `.idlnb` files
+- Use `control-idl-and-envi-session` to start an IDL session
+- Use `run-idl-code` to run code and verify solutions
+- Use `create-idl-notebook` to create `.idlnb` files
 
 **Inspect, change, and debug IDL state (no console output to user):**
 
-- Use `IDL for VSCode/query-idl-session` to silently evaluate an IDL expression and capture its output without echoing to the debug console — useful for reading variable values, system info, or help output
-- Use `IDL for VSCode/get-idl-state` to read structured session state without executing or mutating anything:
+- Use `query-idl-session` to silently evaluate an IDL expression and capture its output without echoing to the debug console — useful for reading variable values, system info, or help output
+- Use `get-idl-state` to read structured session state without executing or mutating anything:
   - `get-info` — orientation snapshot: scope, call stack, variables at current frame, session info
   - `get-variables` — variables at a specific frame (optional `frameId`, defaults to current)
   - `get-stack` — current call stack (traceback)
   - `get-output` — raw captured output from the IDL process
   - `get-errors` — syntax errors tracked by file
   - `get-coverage` — code coverage for a file (requires `file` param)
-- Use `IDL for VSCode/control-idl-debugger` to control the IDL debugger:
+- Use `control-idl-debugger` to control the IDL debugger:
   - `set-breakpoint` / `clear-breakpoint` / `clear-all-breakpoints` / `list-breakpoints`
   - `continue` / `step-in` / `step-over` / `step-out`
-  - To get call stack after a step, use `IDL for VSCode/get-idl-state` with `get-stack` as the `action`
+  - To get call stack after a step, use `get-idl-state` with `get-stack` as the `action`
 
 ### Traps
 
@@ -96,16 +100,16 @@ Code that compiles and runs but returns the wrong answer:
 
 1. **Identify the topic** from the user's question
 2. **Query MCP resources FIRST** to retrieve official documentation before answering or generating code:
-   - Use `IDL for VSCode/search-for-routine` and `IDL for VSCode/get-routine-docs` to search routines and get routine information
-   - Use `IDL for VSCode/get-envi-tool-parameters` to retrieve documentation for ENVI tools and parameters
-   - Use `IDL for VSCode/search-resources` to find relevant documentation, tutorials, and guides
-   - Use `IDL for VSCode/list-all-resources` to discover available IDL tutorials and `IDL for VSCode/get-resource` to retrieve them
+   - Use `search-for-routine` and `get-routine-docs` to search routines and get routine information
+   - Use `get-envi-tool-parameters` to retrieve documentation for ENVI tools and parameters
+   - Use `search-resources` to find relevant documentation, tutorials, and guides
+   - Use `list-all-resources` to discover available IDL tutorials and `get-resource` to retrieve them
 3. **Answer questions and generate IDL code** based on the documentation you retrieved, following documented patterns and best practices
-4. **Optionally execute code** with `IDL for VSCode/control-idl-and-envi-session` and `IDL for VSCode/run-idl-code` to verify the solution works
+4. **Optionally execute code** with `control-idl-and-envi-session` and `run-idl-code` to verify the solution works
 5. **Offer additional routines** that may help accomplish the user's goal based on what you learned from the resources
 
 ## Accessing Embedded Python
 
-IDL has a Python bridge. There is very little information in your training on how to use this. For details on using the Python environment bundled with IDL/ENVI, use `IDL for VSCode/get-resource` with the name "resource-embedded-python" (requires ENVI 6.3 / IDL 9.3 or later).
+IDL has a Python bridge. There is very little information in your training on how to use this. For details on using the Python environment bundled with IDL/ENVI, use `get-resource` with the name "resource-embedded-python" (requires ENVI 6.3 / IDL 9.3 or later).
 
 ## ADDITIONAL INSTRUCTIONS

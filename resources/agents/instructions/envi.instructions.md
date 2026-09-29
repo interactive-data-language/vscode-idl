@@ -12,14 +12,18 @@ Be clear and concise in your responses.
 
 Prefer running ENVI directly through MCP tools instead of writing code or notebooks for users.
 
+## TOOL NAMES
+
+Compare the tool names listed in these instructions with what you are presented with. The actual tools may be prefixed with "idl-mcp-" or something similar.
+
 ### Using Documentation & Resources to Answer Questions
 
 When users ask questions about ENVI tools, routines, parameters, datasets, or workflows, ALWAYS query official documentation and resources via MCP tools BEFORE answering. Do NOT rely solely on pre-existing model training data or make assumptions about tool parameters or routine signatures.
 
-- **ENVI Tools & Parameters**: Use `"IDL for VSCode/get-envi-tool-parameters"` to retrieve complete parameter details, input/output specifications, and full documentation for specific ENVI tools.
-- **Routines & Routine Info**: Use `"IDL for VSCode/search-for-routine"` to search for routines (procedures, functions, methods) and `"IDL for VSCode/get-routine-docs"` to retrieve official documentation and routine information.
-- **Guides & Concepts**: Use `"IDL for VSCode/search-resources"`, `"IDL for VSCode/list-all-resources"`, or `"IDL for VSCode/get-resource"` to fetch relevant documentation, tutorials, and guides.
-- **ENVI Tool Workflows**: Use `"IDL for VSCode/list-envi-tools"`, `"IDL for VSCode/list-envi-tool-workflows"`, and `"IDL for VSCode/get-envi-tool-workflow"` to discover available tools and multi-step workflows.
+- **ENVI Tools & Parameters**: Use "get-envi-tool-parameters" to retrieve complete parameter details, input/output specifications, and full documentation for specific ENVI tools.
+- **Routines & Routine Info**: Use "search-for-routine" to search for routines (procedures, functions, methods) and "get-routine-docs" to retrieve official documentation and routine information.
+- **Guides & Concepts**: Use "search-resources", "list-all-resources", or "get-resource" to fetch relevant documentation, tutorials, and guides.
+- **ENVI Tool Workflows**: Use "list-envi-tools", "list-envi-tool-workflows", and "get-envi-tool-workflow" to discover available tools and multi-step workflows.
 
 Always read and reference the retrieved documentation so your answers are accurate, complete, and up-to-date.
 
@@ -27,7 +31,7 @@ Always read and reference the retrieved documentation so your answers are accura
 
 When users want to plan or execute remote sensing workflows, you need to:
 
-- Load the "envi" prompt from the MCP tool "IDL for VSCode/get-prompt".
+- Load the "envi" prompt from the MCP tool "get-prompt".
 - Follow the instructions and guide the user to plan their workflow
 - ALWAYS propose processing steps and wait for the user to confirm them
 
@@ -63,18 +67,18 @@ Prefer these tools when working with ENVI over other tools targeted at programmi
 
 Use these tools to find additional instructions for how to complete overall processes in ENVI.
 
-- "IDL for VSCode/list-prompts" - List available instruction sets, should filter to ENVI, use the decription returned to decide which prompt to load.
-- "IDL for VSCode/get-prompt" - Retrieve instructions, recommended to use the "envi" named prompt
+- "list-prompts" - List available instruction sets, should filter to ENVI, use the decription returned to decide which prompt to load.
+- "get-prompt" - Retrieve instructions, recommended to use the "envi" named prompt
 
 **ENVI Tools and ENVI Tool Workflows**
 
-- "IDL for VSCode/list-envi-tools" Lists what tools are available. **CRITICAL** read the whole list to best help users.
-- "IDL for VSCode/list-envi-tool-workflows" Lists, by description, combinations of ENVI Tools to solve specific problems. Use this as reference material to help solve ENVI problems.
-- "IDL for VSCode/get-envi-tool-workflow" Get a tool workflow from previous step
-- "IDL for VSCode/query-dataset-with-envi" Learn about a dataset to gain context and answer questions for users
-- "IDL for VSCode/get-envi-tool-parameters" Learn what parameters are available for a tool, what it returns, and full documentation.
-- "IDL for VSCode/run-envi-tool" Runs a tool using the parameters retrieved.
-- "IDL for VSCode/create-envi-modeler-workflow" Creates an ENVI Modeler workflow file (.model) from nodes and edges. Pure file generation, does not require ENVI runtime.
+- "list-envi-tools" Lists what tools are available. **CRITICAL** read the whole list to best help users.
+- "list-envi-tool-workflows" Lists, by description, combinations of ENVI Tools to solve specific problems. Use this as reference material to help solve ENVI problems.
+- "get-envi-tool-workflow" Get a tool workflow from previous step
+- "query-dataset-with-envi" Learn about a dataset to gain context and answer questions for users
+- "get-envi-tool-parameters" Learn what parameters are available for a tool, what it returns, and full documentation.
+- "run-envi-tool" Runs a tool using the parameters retrieved.
+- "create-envi-modeler-workflow" Creates an ENVI Modeler workflow file (.model) from nodes and edges. Pure file generation, does not require ENVI runtime.
 
 ## Interpreting Errors
 

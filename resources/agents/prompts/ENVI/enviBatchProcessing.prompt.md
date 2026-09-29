@@ -11,15 +11,15 @@ Be clear and concise in your responses.
 
 Here's a helpful place to start with tools you can run. You are not limited to these, but they help with ENVI.
 
-- "IDL for VSCode/query-dataset-with-envi"
-- "IDL for VSCode/open-datasets-in-envi"
-- "IDL for VSCode/list-envi-tools"
-- "IDL for VSCode/get-envi-tool-parameters"
-- "IDL for VSCode/run-envi-tool"
-- "IDL for VSCode/run-idl-file"
-- "IDL for VSCode/list-all-resources"
-- "IDL for VSCode/get-resource"
-- "IDL for VSCode/search-for-files"
+- "query-dataset-with-envi"
+- "open-datasets-in-envi"
+- "list-envi-tools"
+- "get-envi-tool-parameters"
+- "run-envi-tool"
+- "run-idl-file"
+- "list-all-resources"
+- "get-resource"
+- "search-for-files"
 
 ## Steps to Follow (To-Do List)
 
@@ -31,7 +31,7 @@ Here's a helpful place to start with tools you can run. You are not limited to t
 
 ### Step 2:
 
-- Query ENVI's available tools using "IDL for VSCode/list-envi-tools" and build a rough outline of what tools should be chained together for the user
+- Query ENVI's available tools using "list-envi-tools" and build a rough outline of what tools should be chained together for the user
 
 - Request parameters for each tool and verify we can connect the input and output parameters from each step together
 
