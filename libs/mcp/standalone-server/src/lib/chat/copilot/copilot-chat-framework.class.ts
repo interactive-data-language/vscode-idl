@@ -8,6 +8,7 @@ import {
   type SessionEvent,
 } from '@github/copilot-sdk';
 import { USER_AGENTS_FOLDER } from '@idl/idl/files';
+import { MCP_SERVER_CONFIG } from '@idl/mcp/server';
 import type { IAgentServerConfig } from '@idl/types/agents';
 import type {
   ChatMessageRequest,
@@ -42,6 +43,11 @@ const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
 export const IDL_MCP_NAME = 'idl-mcp';
 
 /**
+ * Timeout for tool connection and how long tools can run
+ */
+const TIMEOUT = 60 * 60 * 1000; // 1 hour
+
+/**
  * Streaming chat completion service backed by the GitHub Copilot SDK.
  *
  * Sessions persist on disk under `COPILOT_HOME` keyed by the frontend
@@ -63,6 +69,12 @@ export class CopilotChatFramework {
     this.parent = parent;
     this.config = config;
 
+    /**
+     * Make timeout for MCP match tool timeout for GitHUb Copilot
+     */
+    MCP_SERVER_CONFIG.SESSION_IDLE_TIMEOUT = TIMEOUT;
+
+    // create client
     this.client = new CopilotClient({
       /**
        * Root folder for things related to chats to live
@@ -390,8 +402,7 @@ export class CopilotChatFramework {
           type: 'http',
           url: `http://localhost:${port}/mcp`,
           tools: this.parent.getAllowedTools(),
-          // 60-minute timeout to accommodate long-running IDL/ENVI tools
-          timeout: 60 * 60 * 1000,
+          timeout: TIMEOUT,
         },
       },
       model: request.model,
