@@ -6,8 +6,7 @@
           <div class="header-inner">
             <h2>{{ selectedSession()?.title }}</h2>
             <p class="session-info">
-              {{ selectedSession()?.messageCount }} messages • Created
-              {{ selectedSession()?.createdAt | date: 'short' }}
+              Created {{ selectedSession()?.createdAt | date: 'short' }}
             </p>
           </div>
         </div>
