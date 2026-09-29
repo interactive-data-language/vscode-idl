@@ -36,6 +36,7 @@ import { RunMCPTestListENVITools } from './tools/envi/mcp-test-list-envi-tools';
 import { RunMCPTestGetENVIToolWorkflow } from './tools/envi/mcp-test-list-get-envi-tool-workflow';
 import { RunMCPTestRunENVITool } from './tools/envi/mcp-test-run-envi-tool';
 import { RunMCPTestRunENVIToolOutputUriExtension } from './tools/envi/mcp-test-run-envi-tool-output-uri-extension';
+import { RunMCPTestRunENVIToolOutputUriSessionFolder } from './tools/envi/mcp-test-run-envi-tool-output-uri-session-folder';
 import {
   RunMCPTestSaveENVIToolWorkflow,
   RunMCPTestSaveENVIToolWorkflow_DuplicateError,
@@ -285,6 +286,12 @@ MCP_TEST_RUNNER.addTest({
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestRunENVIToolOutputUriExtension,
   name: 'Run simple tool and make sure a mismatched output URI extension is replaced, not appended',
+  excludeOS: ENVI_TEST_EXCLUDE_OS,
+});
+
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestRunENVIToolOutputUriSessionFolder,
+  name: 'Run simple tool and make sure a bare output filename resolves inside the ENVI temp session workspace',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
