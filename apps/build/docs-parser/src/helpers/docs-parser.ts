@@ -58,8 +58,13 @@ export async function ParseDocsHTML(docsFile: string) {
   /** Check for override file */
   const useFile = existsSync(override) ? override : docsFile;
 
-  // read a file
-  const strings = readFileSync(useFile, { encoding: 'utf-8' });
+  // read a file, stripping invalid CDATA blocks that some MadCap exports
+  // contain, which himalaya can't handle and which corrupt the parsed tree
+  // (unclosed tables swallow all subsequent siblings)
+  const strings = readFileSync(useFile, { encoding: 'utf-8' }).replace(
+    /<!\[CDATA\[[\s\S]*?\]\]>/gi,
+    '',
+  );
 
   /** Parse the HTML */
   const parsed: IParsedHTML[] = parse(strings);

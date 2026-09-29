@@ -16,7 +16,13 @@ async function Main() {
   const helpDir = `${IDL_DIR}/help/online_help/Subsystems`;
 
   /** JSON file that was generated in IDL */
-  const jsonUri = join(process.cwd(), `idl`, `routines`, `routines.json`);
+  const jsonUri = join(
+    process.cwd(),
+    `resources`,
+    `idl`,
+    `routines`,
+    `routines.json`,
+  );
 
   console.log();
   console.log(

@@ -282,9 +282,7 @@ export async function RoutineToGlobal(
     if (!(keyName in parsed)) {
       console.log('');
       console.log(
-        `Routine name "${keyName}" is missing from parsed content for file: ${JSON.stringify(
-          path,
-        )}`,
+        `Routine name "${keyName}" is missing from parsed content for file: ${path}`,
       );
       console.log(Object.keys(parsed));
       console.log(
