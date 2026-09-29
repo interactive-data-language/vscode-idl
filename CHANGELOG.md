@@ -12,6 +12,12 @@ New settings for ENVI's MCP Tools:
 
 - Fine-tune which ENVI Tools can be invoked by ENVI Agent with a new whitelist and blacklist option
 
+## Unreleased
+
+Fixed an issue where incorrect file extensions could be passed in for output files for ENVI Agent. We now sanitize the files to fix the extension to make sure the agent can stay on track.
+
+For files that don't have a folder specified, we set the folder to ENVI's temporary directory to help keep outputs in one location.
+
 ## 6.2.2 - September 2026
 
 Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.
