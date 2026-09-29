@@ -167,17 +167,6 @@ export class CopilotChatFramework {
     try {
       await this.ensureClientStarted();
 
-      // Title generation for the very first turn.
-      if (request.conversationHistory.length === 0) {
-        const title = await this.parent.generateTitle(
-          request.message,
-          request.model,
-        );
-        if (title) {
-          yield { type: 'title', title };
-        }
-      }
-
       // Per-request to-do list, mutated in place by the todo tools.
       const todos: TodoItem[] = request.currentTodos
         ? [...request.currentTodos]
@@ -197,6 +186,24 @@ export class CopilotChatFramework {
           fn();
         }
       };
+
+      /**
+       * If this is our first message, then generate a title in parallel
+       *
+       * To starting our conversation
+       */
+      if (request.conversationHistory.length === 0) {
+        this.parent
+          .generateTitle(request.message, request.model)
+          ?.then((title) => {
+            if (title) {
+              enqueue({ type: 'title', title });
+            }
+          })
+          .catch((err: unknown) => {
+            console.error('[CopilotChatService] Error generating title:', err);
+          });
+      }
 
       /** Map of in-flight tool call id -> tool name (start-event names are authoritative). */
       const toolNameById = new Map<string, string>();
