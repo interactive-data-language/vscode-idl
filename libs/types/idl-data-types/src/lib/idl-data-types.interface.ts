@@ -255,6 +255,10 @@ export interface ICreateIDLDataType {
 export interface IDLDataTypeBaseMetadata {
   // overload for all other properties
   [key: string]: any;
+  /**
+   * What should the default file extension be when we have a URI parameter
+   */
+  autoExtension?: string;
   /** If choice list, what is the default value? */
   default?: number | string;
   /**

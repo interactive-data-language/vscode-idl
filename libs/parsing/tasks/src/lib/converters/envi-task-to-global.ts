@@ -1,10 +1,12 @@
 import { GetDisplayName } from '@idl/generators/tasks-shared';
+import { ENVI_FILE_EXTENSION_LOOKUP } from '@idl/mcp/envi-to-mcp';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionToken,
   GlobalStructureToken,
+  IDL_TYPE_LOOKUP,
   IDLDataTypeBaseMetadata,
   IGlobalIndexedToken,
   IPropertyLookup,
@@ -81,6 +83,13 @@ export function ENVITaskToGlobal(
       meta.isFolder = true;
     }
 
+    // set folder - note that URI is automatically detected in the `TaskTypeToIDlType` function
+    if ((param as ENVITaskParameter<ENVITaskSchema32>)?.auto_extension) {
+      meta.autoExtension = (
+        param as ENVITaskParameter<ENVITaskSchema32>
+      )?.auto_extension;
+    }
+
     // set min
     if ((param as ENVITaskParameter<ENVITaskSchema32>)?.min !== undefined) {
       meta.min = (param as ENVITaskParameter<ENVITaskSchema32>)?.min;
@@ -107,6 +116,26 @@ export function ENVITaskToGlobal(
     );
     if (areWePaired !== undefined) {
       meta.default = '!';
+
+      /** Create type for the paired parameter */
+      const pairedType = TaskTypeToIDLType(
+        areWePaired.type,
+        {},
+        areWePaired.choice_list,
+        areWePaired.dimensions,
+      );
+
+      /** Get the type to check (need to handle arrays) */
+      const checkTypeString = (
+        IDLTypeHelper.isType(pairedType, IDL_TYPE_LOOKUP.ARRAY)
+          ? IDLTypeHelper.getAllTypeArgs(pairedType)
+          : pairedType
+      )[0].name.toLowerCase();
+
+      // check if we know what the file extension should be
+      if (checkTypeString in ENVI_FILE_EXTENSION_LOOKUP) {
+        meta.autoExtension = ENVI_FILE_EXTENSION_LOOKUP[checkTypeString];
+      }
     }
 
     // save our property

@@ -1,10 +1,12 @@
 import { GetDisplayName } from '@idl/generators/tasks-shared';
+import { ENVI_FILE_EXTENSION_LOOKUP } from '@idl/mcp/envi-to-mcp';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
   GlobalFunctionToken,
   GlobalStructureToken,
+  IDL_TYPE_LOOKUP,
   IDLDataTypeBaseMetadata,
   IGlobalIndexedToken,
   IPropertyLookup,
@@ -86,6 +88,38 @@ export function LegacyENVITaskToGlobal(
       meta.default = (
         param as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
       )?.defaultValue;
+    }
+
+    // check if a paired parameter links to our parameter
+    // no fancy search logic here because we have few task parameters, so its OK
+    // searching on each one
+    const areWePaired = task.parameters.find(
+      (otherParam) =>
+        (
+          otherParam as ENVITaskLegacyParameter<ENVITaskLegacyVersion532>
+        )?.name?.toLowerCase() === propName.replace('_uri', ''),
+    );
+    if (areWePaired !== undefined) {
+      meta.default = '!';
+
+      /** Create type for the paired parameter */
+      const pairedType = TaskTypeToIDLType(
+        areWePaired.dataType,
+        {},
+        areWePaired.choiceList,
+      );
+
+      /** Get the type to check (need to handle arrays) */
+      const checkTypeString = (
+        IDLTypeHelper.isType(pairedType, IDL_TYPE_LOOKUP.ARRAY)
+          ? IDLTypeHelper.getAllTypeArgs(pairedType)
+          : pairedType
+      )[0].name.toLowerCase();
+
+      // check if we know what the file extension should be
+      if (checkTypeString in ENVI_FILE_EXTENSION_LOOKUP) {
+        meta.autoExtension = ENVI_FILE_EXTENSION_LOOKUP[checkTypeString];
+      }
     }
 
     // save our property

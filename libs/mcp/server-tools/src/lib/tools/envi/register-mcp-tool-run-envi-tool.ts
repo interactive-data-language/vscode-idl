@@ -71,6 +71,10 @@ export function RegisterMCPTool_RunENVITool(
         };
       }
 
+      // auto-append expected file extensions to URI parameters before we
+      // validate and run, so the LLM doesn't need to get this exactly right
+      registry.sanitizeInputParameters(toolName, inputParameters);
+
       // validate the parameters
       const isValid = registry.validateInputParameters(
         toolName,

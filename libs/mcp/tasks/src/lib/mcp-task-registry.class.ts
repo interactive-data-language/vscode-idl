@@ -20,6 +20,7 @@ import { toJSONSchema, z } from 'zod';
 
 import { FilterMCPENVITasks } from './helpers/filter-mcp-envi-tasks';
 import { GetCleanDescription } from './helpers/get-clean-description';
+import { SanitizeInputUriParameters } from './helpers/sanitize-input-uri-parameters';
 import { StrictCheck } from './helpers/strict-check';
 import {
   ITaskInformation,
@@ -400,6 +401,28 @@ export class MCPTaskRegistry {
     delete this.tasks[lc];
 
     return true;
+  }
+
+  /**
+   * Auto-appends the expected file extension to input parameters that are
+   * URIs (and not folders), mutating `inputParameters` in place
+   */
+  sanitizeInputParameters(
+    taskName: string,
+    inputParameters: { [key: string]: any },
+  ) {
+    /** Get lower case name */
+    const lc = taskName.toLowerCase();
+
+    // return if no match
+    if (!(lc in this.tasks)) {
+      return;
+    }
+
+    SanitizeInputUriParameters(
+      this.tasks[lc].structure.meta.props,
+      inputParameters,
+    );
   }
 
   /**

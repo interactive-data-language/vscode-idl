@@ -103,8 +103,9 @@ function IDLParameterToMCPParameter_Recurser(
        */
       case currentType.meta.isUri:
         res = MCP_ENVIURI();
-        // docsOverride =
-        //   'Fully-qualified path to the output dataset, default is "!" which indicates a temporary file will be created. Only set this when requested by user. If this is an output parameter, it MUST not be set to an existing file on disk.';
+        if (currentType.meta.autoExtension) {
+          docsOverride = `${cleanDocs}. The file extension should match ${currentType.meta.autoExtension}`;
+        }
         break;
 
       /**
