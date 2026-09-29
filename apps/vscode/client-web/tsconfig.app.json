@@ -204,12 +204,6 @@
       "@idl/ngx/app-config": ["libs/ngx/app-config/src/index.ts"],
       "@idl/types/electron": ["libs/types/electron/src/index.ts"],
       "@idl/types/agents": ["libs/types/agents/src/index.ts"],
-      "@idl/ngx/workflow-templates": [
-        "libs/ngx/workflow-templates/src/index.ts"
-      ],
-      "@idl/types/workflow-templates": [
-        "libs/types/workflow-templates/src/index.ts"
-      ],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],
