@@ -1,0 +1,47 @@
+:host {
+  // avoid this wrapper element affecting mat-nav-list's layout of its children
+  display: contents;
+}
+
+.mat-mdc-list-item {
+  --mat-list-list-item-one-line-container-height: 36px;
+  padding-left: 12px;
+  padding-right: 4px;
+}
+
+.mat-mdc-list-item-title {
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+// Override Material's default blue selected/activated styling
+.mat-mdc-list-item.mdc-list-item--activated {
+  background-color: rgba(127, 127, 127, 0.2) !important;
+
+  .mat-mdc-list-item-title {
+    color: inherit !important;
+  }
+}
+
+.delete-button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+
+  ::ng-deep .mat-mdc-button-touch-target {
+    width: 28px;
+    height: 28px;
+  }
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.mat-mdc-list-item:hover .delete-button {
+  opacity: 1;
+}

@@ -8,6 +8,7 @@ export * from './lib/components/chat-message/chat-message.component';
 export * from './lib/components/chat-message/chat-renderer';
 export * from './lib/components/chat-model-selector/chat-model-selector.component';
 export * from './lib/components/chat-sidebar/chat-sidebar.component';
+export * from './lib/components/chat-sidebar-item/chat-sidebar-item.component';
 
 // State Management
 export * from './lib/state/chat.actions';

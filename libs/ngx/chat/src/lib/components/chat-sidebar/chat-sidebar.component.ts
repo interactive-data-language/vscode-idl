@@ -20,6 +20,7 @@ import {
   SelectChatSession,
 } from '../../state/chat.actions';
 import { ChatState } from '../../state/chat.state';
+import { ChatSidebarItemComponent } from '../chat-sidebar-item/chat-sidebar-item.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 /**
@@ -34,6 +35,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     MatButtonModule,
     MatDividerModule,
     MatDialogModule,
+    ChatSidebarItemComponent,
   ],
   templateUrl: './chat-sidebar.component.html',
   styleUrl: './chat-sidebar.component.scss',
@@ -91,9 +93,7 @@ export class ChatSidebarComponent implements OnInit {
   /**
    * Confirm and delete a chat session, without selecting it
    */
-  protected deleteSession(event: Event, sessionId: string): void {
-    event.stopPropagation();
-
+  protected deleteSession(sessionId: string): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       disableClose: true,
       data: {
@@ -107,21 +107,6 @@ export class ChatSidebarComponent implements OnInit {
         this.store.dispatch(new DeleteChatSession(sessionId));
       }
     });
-  }
-
-  /**
-   * Format the last message time for display
-   */
-  protected formatTime(date: Date): string {
-    const now = new Date();
-    const diff = now.getTime() - new Date(date).getTime();
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-
-    if (hours < 1) return 'Just now';
-    if (hours < 24) return `${hours}h ago`;
-    if (days === 1) return 'Yesterday';
-    return `${days}d ago`;
   }
 
   /**

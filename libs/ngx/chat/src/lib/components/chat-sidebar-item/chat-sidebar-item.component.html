@@ -1,0 +1,14 @@
+<mat-list-item (click)="onSelect()" [activated]="selected()">
+  <div matListItemTitle>
+    {{ session().title }}
+  </div>
+  <button
+    mat-icon-button
+    matListItemMeta
+    class="delete-button"
+    aria-label="Delete chat"
+    (click)="onDelete($event)"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</mat-list-item>
