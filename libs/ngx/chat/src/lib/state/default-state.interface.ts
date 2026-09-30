@@ -1,4 +1,4 @@
-import { ChatStateModel } from '@idl/types/chat';
+import { ChatStateModel, ChatTokenUsage } from '@idl/types/chat';
 
 /**
  * Default state for the chat feature
@@ -9,4 +9,12 @@ export const DEFAULT_STATE: ChatStateModel = {
   loading: false,
   selectedInstructions: 'idl-envi',
   selectedModel: 'gpt-5.4', // Default to cheapest model
+};
+
+/**
+ * Default token usage for sessions that haven't reported any yet (new or restored from an older state)
+ */
+export const DEFAULT_TOKEN_USAGE: ChatTokenUsage = {
+  currentTokens: 0,
+  tokenLimit: 0,
 };

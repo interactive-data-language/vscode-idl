@@ -1,0 +1,34 @@
+<div
+  class="token-usage-indicator"
+  [matMenuTriggerFor]="usageMenu"
+  #menuTrigger="matMenuTrigger"
+  (mouseenter)="cancelClose(); menuTrigger.openMenu()"
+  (mouseleave)="scheduleClose(menuTrigger)"
+>
+  <!-- Background trace to represent the full circle -->
+  <mat-progress-spinner
+    class="usage-ring-background"
+    mode="determinate"
+    [value]="100"
+    diameter="20"
+    strokeWidth="2"
+  ></mat-progress-spinner>
+
+  <!-- Foreground/Active value indicator -->
+  <mat-progress-spinner
+    class="usage-ring"
+    [class]="tier()"
+    mode="determinate"
+    [value]="percentage()"
+    diameter="20"
+    strokeWidth="2"
+  ></mat-progress-spinner>
+</div>
+
+<mat-menu #usageMenu="matMenu" [hasBackdrop]="false">
+  <ngx-chat-token-usage-popover
+    [tokenUsage]="tokenUsage()"
+    (mouseenter)="cancelClose()"
+    (mouseleave)="scheduleClose(menuTrigger)"
+  />
+</mat-menu>

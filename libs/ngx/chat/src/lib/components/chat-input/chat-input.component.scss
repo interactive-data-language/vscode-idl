@@ -104,3 +104,11 @@
 .send-button {
   flex-shrink: 0;
 }
+
+.send-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}

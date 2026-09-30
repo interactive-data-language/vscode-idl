@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { inject, Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { InitializeTheme, SetThemeMode, ToggleTheme } from './theme.actions';
@@ -17,6 +18,9 @@ const defaultState: ThemeStateModel = {
 })
 @Injectable()
 export class ThemeState {
+  // Inject CDK OverlayContainer
+  private overlayContainer = inject(OverlayContainer);
+
   /**
    * Get whether dark mode is enabled
    */
@@ -64,13 +68,17 @@ export class ThemeState {
    */
   private applyTheme(isDark: boolean): void {
     const body = document.body;
+    const overlayElement = this.overlayContainer.getContainerElement();
 
-    if (isDark) {
-      body.classList.add('dark-theme');
-      body.classList.remove('light-theme');
-    } else {
-      body.classList.add('light-theme');
-      body.classList.remove('dark-theme');
-    }
+    const activeClass = isDark ? 'dark-theme' : 'light-theme';
+    const inactiveClass = isDark ? 'light-theme' : 'dark-theme';
+
+    // 1. Update body
+    body.classList.add(activeClass);
+    body.classList.remove(inactiveClass);
+
+    // 2. Update Overlay container (.cdk-overlay-container)
+    overlayElement.classList.add(activeClass);
+    overlayElement.classList.remove(inactiveClass);
   }
 }

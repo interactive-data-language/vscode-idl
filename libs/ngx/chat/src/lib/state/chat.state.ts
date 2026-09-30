@@ -4,6 +4,7 @@ import {
   ChatMessageContent,
   ChatSession,
   ChatStateModel,
+  ChatTokenUsage,
 } from '@idl/types/chat';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { nanoid } from 'nanoid';
@@ -23,7 +24,7 @@ import {
   SetSelectedInstructions,
   SetSelectedModel,
 } from './chat.actions';
-import { DEFAULT_STATE } from './default-state.interface';
+import { DEFAULT_STATE, DEFAULT_TOKEN_USAGE } from './default-state.interface';
 import { TEST_CHAT_SESSIONS } from './test-chat-sessions.interface';
 
 /**
@@ -105,6 +106,17 @@ export class ChatState {
   @Selector()
   static selectedSessionId(state: ChatStateModel): string | undefined {
     return state.selectedSessionId;
+  }
+
+  /**
+   * Get token usage for the currently selected session, defaulting to zero when not yet reported
+   */
+  @Selector()
+  static selectedSessionTokenUsage(state: ChatStateModel): ChatTokenUsage {
+    const session = state.sessions.find(
+      (s) => s.id === state.selectedSessionId,
+    );
+    return session?.tokenUsage ?? DEFAULT_TOKEN_USAGE;
   }
 
   /**
@@ -408,6 +420,18 @@ export class ChatState {
               });
               break;
 
+            case 'token_usage':
+              this.updateSession(ctx, action.sessionId, {
+                tokenUsage: {
+                  conversationTokens: chunk.conversationTokens,
+                  currentTokens: chunk.currentTokens,
+                  systemTokens: chunk.systemTokens,
+                  tokenLimit: chunk.tokenLimit,
+                  toolDefinitionsTokens: chunk.toolDefinitionsTokens,
+                },
+              });
+              break;
+
             case 'tool_call': {
               // Append the tool message after whatever text has accumulated
               const toolMessageId = nanoid();
@@ -586,7 +610,16 @@ export class ChatState {
     ctx: StateContext<ChatStateModel>,
     action: RestoreChatState,
   ) {
-    ctx.patchState({ ...action.state, loading: false });
+    // backfill fields that didn't exist in older persisted states
+    const sessions = action.state.sessions?.map((session) => ({
+      ...session,
+      tokenUsage: session.tokenUsage ?? DEFAULT_TOKEN_USAGE,
+    }));
+    ctx.patchState({
+      ...action.state,
+      ...(sessions ? { sessions } : {}),
+      loading: false,
+    });
   }
 
   /**

@@ -269,6 +269,17 @@ export class CopilotChatFramework {
             enqueue(null);
             break;
           }
+          case 'session.usage_info': {
+            enqueue({
+              conversationTokens: event.data.conversationTokens,
+              currentTokens: event.data.currentTokens,
+              systemTokens: event.data.systemTokens,
+              tokenLimit: event.data.tokenLimit,
+              toolDefinitionsTokens: event.data.toolDefinitionsTokens,
+              type: 'token_usage',
+            });
+            break;
+          }
           case 'tool.execution_complete': {
             const { toolCallId, success } = event.data;
             const toolName =

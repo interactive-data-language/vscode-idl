@@ -1,0 +1,40 @@
+:host {
+  display: block;
+
+  :host-context(.light-theme) & {
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  :host-context(.dark-theme) & {
+    color: rgba(255, 255, 255, 0.87);
+  }
+}
+
+.token-usage-popover {
+  min-width: 160px;
+  box-shadow: none;
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .title {
+    // font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    opacity: 0.6;
+    margin-bottom: 2px;
+  }
+
+  .percentage {
+    font-weight: 500;
+  }
+
+  .tokens {
+    font-size: 11px;
+    line-height: 1.25;
+    opacity: 0.75;
+  }
+}

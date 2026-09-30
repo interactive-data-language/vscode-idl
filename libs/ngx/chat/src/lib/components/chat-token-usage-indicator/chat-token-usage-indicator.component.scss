@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  /* Use CSS variable or fall back to high-contrast text */
+  color: var(--mat-menu-item-label-text-color, inherit);
+}
+
+.token-usage-indicator {
+  display: inline-flex;
+  cursor: default;
+  position: relative;
+}
+
+.usage-ring-background {
+  --mat-progress-spinner-active-indicator-color: rgba(128, 128, 128, 0.25);
+}
+
+.usage-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &.low {
+    --mat-progress-spinner-active-indicator-color: #ffffff;
+  }
+
+  &.medium {
+    --mat-progress-spinner-active-indicator-color: #ffab00;
+  }
+
+  &.high {
+    --mat-progress-spinner-active-indicator-color: #f44336;
+  }
+}

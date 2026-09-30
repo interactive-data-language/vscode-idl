@@ -1,0 +1,35 @@
+<!-- mat-card (rather than a plain div) so Angular Material's themed text color applies -->
+<mat-card class="token-usage-popover" appearance="outlined">
+  <mat-card-content>
+    <span class="title">Token Usage</span>
+    <span class="percentage">{{ percentage() }}% used</span>
+    <span class="tokens">
+      {{ formatTokens(tokenUsage().currentTokens) }} /
+      {{ formatTokens(tokenUsage().tokenLimit) }} tokens
+    </span>
+    @if (
+      tokenUsage().systemTokens !== undefined &&
+      tokenUsage().systemTokens !== null
+    ) {
+      <span class="tokens">
+        System: {{ formatTokens(tokenUsage().systemTokens!) }}
+      </span>
+    }
+    @if (
+      tokenUsage().toolDefinitionsTokens !== undefined &&
+      tokenUsage().toolDefinitionsTokens !== null
+    ) {
+      <span class="tokens">
+        Tools: {{ formatTokens(tokenUsage().toolDefinitionsTokens!) }}
+      </span>
+    }
+    @if (
+      tokenUsage().conversationTokens !== undefined &&
+      tokenUsage().conversationTokens !== null
+    ) {
+      <span class="tokens">
+        Conversation: {{ formatTokens(tokenUsage().conversationTokens!) }}
+      </span>
+    }
+  </mat-card-content>
+</mat-card>

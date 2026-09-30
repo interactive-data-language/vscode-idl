@@ -101,6 +101,27 @@ export interface ChatSession {
    * Current to-do list for this session, managed by the LLM during workflows
    */
   todos?: TodoItem[];
+
+  /**
+   * Most recent context-window token usage reported for this session
+   */
+  tokenUsage?: ChatTokenUsage;
+}
+
+/**
+ * Context-window token usage snapshot for a chat session
+ */
+export interface ChatTokenUsage {
+  /** Token count from non-system messages (user, assistant, tool) */
+  conversationTokens?: number;
+  /** Current number of tokens in the context window */
+  currentTokens: number;
+  /** Token count from system message(s) */
+  systemTokens?: number;
+  /** Maximum token count for the model's context window */
+  tokenLimit: number;
+  /** Token count from tool definitions */
+  toolDefinitionsTokens?: number;
 }
 
 /**
@@ -233,6 +254,11 @@ export interface ChatStreamChunk_ThinkingChunk {
   type: 'thinking_chunk';
 }
 
+/** Current context-window token usage, sent periodically as the conversation grows */
+export interface ChatStreamChunk_TokenUsage extends ChatTokenUsage {
+  type: 'token_usage';
+}
+
 /**
  * Discriminated union of all chunk types streamed from the chat API via SSE
  */
@@ -244,6 +270,7 @@ export type ChatStreamChunk =
   | ChatStreamChunk_ThinkingChunk
   | ChatStreamChunk_Title
   | ChatStreamChunk_TodoUpdate
+  | ChatStreamChunk_TokenUsage
   | ChatStreamChunk_ToolCall
   | ChatStreamChunk_ToolResult;
 

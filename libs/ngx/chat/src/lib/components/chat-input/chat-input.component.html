@@ -17,16 +17,18 @@
         <ngx-chat-model-selector />
       </div>
 
-      <button
-        mat-icon-button
-        color="primary"
-        class="send-button"
-        (click)="isDisabled() ? stopMessage() : sendMessage()"
-        [disabled]="!isDisabled() && !inputText().trim()"
-        [attr.aria-label]="isDisabled() ? 'Stop generating' : 'Send message'"
-      >
-        <mat-icon>{{ isDisabled() ? 'stop' : 'arrow_upward' }}</mat-icon>
-      </button>
+      <div class="send-column">
+        <button
+          mat-icon-button
+          class="send-button"
+          (click)="isDisabled() ? stopMessage() : sendMessage()"
+          [disabled]="!isDisabled() && !inputText().trim()"
+          [attr.aria-label]="isDisabled() ? 'Stop generating' : 'Send message'"
+        >
+          <mat-icon>{{ isDisabled() ? 'stop' : 'arrow_upward' }}</mat-icon>
+        </button>
+        <ngx-chat-token-usage-indicator />
+      </div>
     </div>
   </div>
 </div>

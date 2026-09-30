@@ -27,6 +27,7 @@ import {
 import { ChatState } from '../../state/chat.state';
 import { ChatInstructionsSelectorComponent } from '../chat-instructions-selector/chat-instructions-selector.component';
 import { ChatModelSelectorComponent } from '../chat-model-selector/chat-model-selector.component';
+import { ChatTokenUsageIndicatorComponent } from '../chat-token-usage-indicator/chat-token-usage-indicator.component';
 
 /**
  * Input component for typing and sending chat messages.
@@ -44,6 +45,7 @@ import { ChatModelSelectorComponent } from '../chat-model-selector/chat-model-se
     TextFieldModule,
     ChatInstructionsSelectorComponent,
     ChatModelSelectorComponent,
+    ChatTokenUsageIndicatorComponent,
   ],
   templateUrl: './chat-input.component.html',
   styleUrl: './chat-input.component.scss',
