@@ -2,6 +2,10 @@
 
 You have access to MCP tools that enable basic directory creation and discovery. Use them proactively to scan input spaces and prepare target directories before saving outputs.
 
+## TOOL NAMES
+
+Compare the tool names listed in these instructions with what you are presented with. The actual tools may be prefixed with "idl-mcp-" or something similar.
+
 ## Tools
 
 - `create-folder` Recursively creates a folder on the local file system. Errors if the folder already exists.
