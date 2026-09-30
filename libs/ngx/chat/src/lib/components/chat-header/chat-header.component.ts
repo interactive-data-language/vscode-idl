@@ -57,7 +57,7 @@ export class ChatHeaderComponent {
     }
 
     return {
-      title: 'IDL Agent and ENVI Agent',
+      title: 'IDL Agent and ENVI Agent Prototype',
       tooltip: '',
       showLogo: true,
     };
