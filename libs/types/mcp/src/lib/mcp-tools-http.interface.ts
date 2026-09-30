@@ -9,6 +9,10 @@ import {
   MCPToolParams_CreateENVIModelerWorkflow,
 } from './http/mcp-tool-create-envi-modeler-workflow.interface';
 import {
+  MCPTool_CreateFolder,
+  MCPToolParams_CreateFolder,
+} from './http/mcp-tool-create-folder.interface';
+import {
   MCPTool_GetENVIToolParameters,
   MCPToolParams_GetENVIToolParameters,
 } from './http/mcp-tool-get-envi-tool-parameters.interface';
@@ -62,6 +66,7 @@ import {
  */
 export type MCPTools_HTTP =
   | MCPTool_CreateENVIModelerWorkflow
+  | MCPTool_CreateFolder
   | MCPTool_GetENVIToolParameters
   | MCPTool_GetENVIToolWorkflow
   | MCPTool_GetPrompt
@@ -82,31 +87,33 @@ export type MCPTools_HTTP =
 export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
   T extends MCPTool_CreateENVIModelerWorkflow
     ? MCPToolParams_CreateENVIModelerWorkflow
-    : T extends MCPTool_GetENVIToolParameters
-      ? MCPToolParams_GetENVIToolParameters
-      : T extends MCPTool_GetENVIToolWorkflow
-        ? MCPToolParams_GetENVIToolWorkflows
-        : T extends MCPTool_GetPrompt
-          ? MCPToolParams_GetPrompt
-          : T extends MCPTool_GetResource
-            ? MCPToolParams_GetResource
-            : T extends MCPTool_GetRoutineDocs
-              ? MCPToolParams_GetRoutineDocs
-              : T extends MCPTool_ListAllResources
-                ? MCPToolParams_ListAllResources
-                : T extends MCPTool_ListENVITools
-                  ? MCPToolParams_ListENVITools
-                  : T extends MCPTool_SaveENVIToolWorkflow
-                    ? MCPToolParams_SaveENVIToolWorkflow
-                    : T extends MCPTool_SearchForFiles
-                      ? MCPToolParams_SearchForFiles
-                      : T extends MCPTool_SearchForRoutine
-                        ? MCPToolParams_SearchForRoutine
-                        : T extends MCPTool_ListPrompts
-                          ? MCPToolParams_ListPrompts
-                          : T extends MCPTool_SearchResources
-                            ? MCPToolParams_SearchResources
-                            : never;
+    : T extends MCPTool_CreateFolder
+      ? MCPToolParams_CreateFolder
+      : T extends MCPTool_GetENVIToolParameters
+        ? MCPToolParams_GetENVIToolParameters
+        : T extends MCPTool_GetENVIToolWorkflow
+          ? MCPToolParams_GetENVIToolWorkflows
+          : T extends MCPTool_GetPrompt
+            ? MCPToolParams_GetPrompt
+            : T extends MCPTool_GetResource
+              ? MCPToolParams_GetResource
+              : T extends MCPTool_GetRoutineDocs
+                ? MCPToolParams_GetRoutineDocs
+                : T extends MCPTool_ListAllResources
+                  ? MCPToolParams_ListAllResources
+                  : T extends MCPTool_ListENVITools
+                    ? MCPToolParams_ListENVITools
+                    : T extends MCPTool_SaveENVIToolWorkflow
+                      ? MCPToolParams_SaveENVIToolWorkflow
+                      : T extends MCPTool_SearchForFiles
+                        ? MCPToolParams_SearchForFiles
+                        : T extends MCPTool_SearchForRoutine
+                          ? MCPToolParams_SearchForRoutine
+                          : T extends MCPTool_ListPrompts
+                            ? MCPToolParams_ListPrompts
+                            : T extends MCPTool_SearchResources
+                              ? MCPToolParams_SearchResources
+                              : never;
 
 /**
  * CallToolResult with content restricted to TextContent only

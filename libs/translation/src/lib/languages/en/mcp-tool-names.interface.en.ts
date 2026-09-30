@@ -9,6 +9,7 @@ import { ValsOfToStrings } from '../../translation.interface';
  */
 export const MCPToolNames_EN: ValsOfToStrings<MCPTools> = {
   'create-envi-modeler-workflow': 'Create ENVI Modeler Workflow',
+  'create-folder': 'Create Folder',
   'create-idl-notebook': 'Create IDL Notebook',
   'control-idl-and-envi-session': 'Control IDL and ENVI Session',
   'control-idl-debugger': 'Control IDL Debugger',

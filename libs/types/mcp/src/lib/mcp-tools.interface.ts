@@ -1,4 +1,5 @@
 import { MCPTool_CreateENVIModelerWorkflow } from './http/mcp-tool-create-envi-modeler-workflow.interface';
+import { MCPTool_CreateFolder } from './http/mcp-tool-create-folder.interface';
 import { MCPTool_GetENVIToolParameters } from './http/mcp-tool-get-envi-tool-parameters.interface';
 import { MCPTool_GetENVIToolWorkflow } from './http/mcp-tool-get-envi-tool-workflow.interface';
 import { MCPTool_GetPrompt } from './http/mcp-tool-get-prompt.interface';
@@ -74,6 +75,8 @@ interface IMCPToolLookup {
   CONTROL_IDL_DEBUGGER: MCPTool_ControlIDLDebugger;
   /** Create an ENVI Modeler workflow file */
   CREATE_ENVI_MODELER_WORKFLOW: MCPTool_CreateENVIModelerWorkflow;
+  /** Create a folder on the local file system */
+  CREATE_FOLDER: MCPTool_CreateFolder;
   /** Create an IDL Notebook */
   CREATE_IDL_NOTEBOOK: MCPTool_CreateIDLNotebook;
   /** Query parameters for tasks ENVI has */
@@ -129,6 +132,7 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   CONTROL_IDL_AND_ENVI_SESSION: 'control-idl-and-envi-session',
   CONTROL_IDL_DEBUGGER: 'control-idl-debugger',
   CREATE_ENVI_MODELER_WORKFLOW: 'create-envi-modeler-workflow',
+  CREATE_FOLDER: 'create-folder',
   CREATE_IDL_NOTEBOOK: 'create-idl-notebook',
   GET_ENVI_TOOL_PARAMETERS: 'get-envi-tool-parameters',
   GET_ENVI_TOOL_WORKFLOW: 'get-envi-tool-workflow',

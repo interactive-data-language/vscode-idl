@@ -266,7 +266,7 @@ export class Chat {
   /**
    * Load instruction file content for the given instruction type.
    */
-  loadInstructions(instructions: 'todo' | ChatInstructionType): string {
+  loadInstructions(instructions: 'fs' | 'todo' | ChatInstructionType): string {
     const base = 'resources/agents/instructions';
     switch (instructions) {
       /**
@@ -275,6 +275,16 @@ export class Chat {
       case 'envi':
         return readFileSync(
           GetExtensionPath(join(base, 'envi.instructions.md')),
+          'utf-8',
+        );
+      /**
+       * FS instructions
+       */
+      case 'fs':
+        return readFileSync(
+          GetExtensionPath(
+            join('resources/agents/standalone-mcp', 'fs.instructions.md'),
+          ),
           'utf-8',
         );
       /**
@@ -308,7 +318,7 @@ export class Chat {
   /**
    * Loads multiple instructions and joins them together
    */
-  loadManyInstructions(instructions: ('todo' | ChatInstructionType)[]) {
+  loadManyInstructions(instructions: ('fs' | 'todo' | ChatInstructionType)[]) {
     const parts: string[] = [];
     for (let i = 0; i < instructions.length; i++) {
       parts.push(this.loadInstructions(instructions[i]));

@@ -13,6 +13,7 @@ import { RegisterMCPTool_QueryIDLSession } from './tools/idl/register-mcp-tool-q
 import { RegisterMCPTool_RunIDLCode } from './tools/idl/register-mcp-tool-run-idl-code';
 import { RegisterMCPTool_RunIDLFile } from './tools/idl/register-mcp-tool-run-idl-file';
 import { RegisterMCPTool_ControlIDLAndENVISession } from './tools/register-mcp-tool-control-idl-and-envi-session';
+import { RegisterMCPTool_CreateFolder } from './tools/register-mcp-tool-create-folder';
 import { RegisterMCPTool_GetResource } from './tools/register-mcp-tool-get-resource';
 import { RegisterMCPTool_ListAllResources } from './tools/register-mcp-tool-list-all-resources';
 import { RegisterMCPTool_SearchForFiles } from './tools/register-mcp-tool-search-for-files';
@@ -50,6 +51,7 @@ export function RegisterAllMCPTools(isEnviInstalled: boolean) {
   /**
    * Register generic tools
    */
+  RegisterMCPTool_CreateFolder(server);
   RegisterMCPTool_GetResource(server);
   RegisterMCPTool_ListAllResources(server);
   RegisterMCPTool_SearchForFiles(server);

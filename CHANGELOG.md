@@ -18,6 +18,8 @@ Fixed an issue where incorrect file extensions could be passed in for output fil
 
 For files that don't have a folder specified, we set the folder to ENVI's temporary directory to help keep outputs in one location.
 
+Added a new MCP tool that can create folders. This is to reduce errors when some agents have a hard time running IDL code, or are restricted from executing shell commands, to manipulate the file system.
+
 ## 6.2.2 - September 2026
 
 Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.

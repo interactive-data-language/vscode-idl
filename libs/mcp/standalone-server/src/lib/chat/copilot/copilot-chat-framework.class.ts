@@ -19,16 +19,16 @@ import { join } from 'path';
 
 import { GetCopilotExecutable } from '../../helpers/get-copilot-executable';
 import { GetToolDisplayName } from '../../helpers/get-tool-display-name';
-import {
-  RegisterMCPToolsForToDos,
-  TODO_TOOL_NAMES,
-} from './mcp-tools/register-mcp-tools-for-todos';
 import { Chat } from '../chat.class';
 import {
   COPILOT_ALLOWED_TOOLS,
   COPILOT_SESSION_CACHE_CONFIG,
   type ISessionCacheEntry,
 } from './copilot-chat-framework.interface';
+import {
+  RegisterMCPToolsForToDos,
+  TODO_TOOL_NAMES,
+} from './mcp-tools/register-mcp-tools-for-todos';
 
 /**
  * Client name reported to the Copilot runtime in the User-Agent header.
@@ -419,6 +419,7 @@ export class CopilotChatFramework {
             action: 'append',
             content: this.parent.loadManyInstructions([
               'todo',
+              'fs',
               request.instructions,
             ]),
           },

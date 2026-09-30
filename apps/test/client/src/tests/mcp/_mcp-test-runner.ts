@@ -53,6 +53,7 @@ import { RunMCPTestQueryDatasetWithENVI_SpectralLibrary } from './tools/envi/que
 import { RunMCPTestQueryDatasetWithENVI_Vector } from './tools/envi/query-dataset/mcp-test-query-dataset-with-envi-vector';
 import { RunMCPTestGetENVIToolParametersRegression } from './tools/envi/regression-tests/mcp-test-get-envi-tool-parameters-regression';
 import { RunMCPTestListENVIToolsRegression } from './tools/envi/regression-tests/mcp-test-list-envi-tools-regression';
+import { RunMCPTestCreateFolder } from './tools/general/create-folder/mcp-test-create-folder';
 import { RunMCPTestGetResources } from './tools/general/mcp-test-get-resources';
 import { RunMCPTestGetRoutineDocs } from './tools/general/mcp-test-get-routine-docs';
 import { RunMCPTestResourcesWorkflow } from './tools/general/mcp-test-resources-workflow';
@@ -182,9 +183,14 @@ MCP_TEST_RUNNER.addTest({
 
 /**
  * =======================================================================
- * File search tests
+ * File search and creation tests
  * =======================================================================
  */
+MCP_TEST_RUNNER.addTest({
+  fn: RunMCPTestCreateFolder,
+  name: 'File: Create folder recursively and verify existence',
+});
+
 MCP_TEST_RUNNER.addTest({
   fn: RunMCPTestSearchForFiles_All,
   name: 'File search: Make sure we can search for all files in a folder',

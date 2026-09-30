@@ -18,12 +18,12 @@ import { loadMcpTools } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
 import { nanoid } from 'nanoid';
 
+import { Chat } from '../chat.class';
+import { MCPClient } from './mcp-client.class';
 import {
   LANGCHAIN_TODO_TOOL_NAMES,
   RegisterLangChainToolsForToDos,
 } from './mcp-tools/register-langchain-tools-for-todos';
-import { Chat } from '../chat.class';
-import { MCPClient } from './mcp-client.class';
 
 /**
  * Maximum number of agentic loop iterations to prevent infinite loops
@@ -368,6 +368,7 @@ export class LangChainChatFramework {
   ): BaseMessage[] {
     const messages: BaseMessage[] = [
       new SystemMessage(this.parent.loadInstructions('todo')),
+      new SystemMessage(this.parent.loadInstructions('fs')),
     ];
 
     if (request.instructions !== 'none') {
