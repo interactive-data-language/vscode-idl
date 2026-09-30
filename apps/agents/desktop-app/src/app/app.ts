@@ -28,6 +28,17 @@ export default class App {
   static mainWindow: BrowserWindow | null = null;
   static splashWindow: BrowserWindow | null = null;
 
+  /** Focuses the existing main window when a second instance is launched */
+  public static focusMainWindow() {
+    const target = App.mainWindow ?? App.splashWindow;
+    if (target !== null) {
+      if (target.isMinimized()) {
+        target.restore();
+      }
+      target.focus();
+    }
+  }
+
   public static isDevelopmentMode() {
     const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
     const getFromEnvironment = () =>

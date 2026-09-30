@@ -27,9 +27,18 @@ export default class Main {
   }
 }
 
-// handle setup events as quickly as possible
-Main.initialize();
+// only allow a single instance of the app to run at a time
+if (!app.requestSingleInstanceLock()) {
+  app.quit();
+} else {
+  app.on('second-instance', () => {
+    App.focusMainWindow();
+  });
 
-// bootstrap app
-Main.bootstrapApp();
-Main.bootstrapAppEvents();
+  // handle setup events as quickly as possible
+  Main.initialize();
+
+  // bootstrap app
+  Main.bootstrapApp();
+  Main.bootstrapAppEvents();
+}
