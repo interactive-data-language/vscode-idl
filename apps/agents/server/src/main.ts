@@ -13,9 +13,12 @@ async function main() {
       const file = GetExtensionPath('desktop-agents.config.json');
       console.log('[Config] Loading config from file on disk');
       config = JSON.parse(readFileSync(file, 'utf-8'));
-    } catch (err) {
-      console.log('Problem loading config from file');
-      console.log(err);
+    } catch (err: any) {
+      // ignore error if no config file
+      if (!err?.message?.includes('Unable to locate file or folder')) {
+        console.log('Problem loading config from file');
+        console.log(err);
+      }
     }
 
     config.server.port = 3000;

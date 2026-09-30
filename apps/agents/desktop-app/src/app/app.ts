@@ -70,9 +70,12 @@ export default class App {
       const file = GetExtensionPath('desktop-agents.config.json');
       console.log('Loading config from file on disk');
       this.config = JSON.parse(readFileSync(file, 'utf-8'));
-    } catch (err) {
-      console.log('Problem loading config from file');
-      console.log(err);
+    } catch (err: any) {
+      // ignore error if no config file
+      if (!err?.message?.includes('Unable to locate file or folder')) {
+        console.log('Problem loading config from file');
+        console.log(err);
+      }
     }
   }
 
