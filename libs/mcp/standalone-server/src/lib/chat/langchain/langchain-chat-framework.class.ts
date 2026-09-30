@@ -21,7 +21,7 @@ import { nanoid } from 'nanoid';
 import {
   LANGCHAIN_TODO_TOOL_NAMES,
   RegisterLangChainToolsForToDos,
-} from '../../mcp-tools/register-langchain-tools-for-todos';
+} from './mcp-tools/register-langchain-tools-for-todos';
 import { Chat } from '../chat.class';
 import { MCPClient } from './mcp-client.class';
 

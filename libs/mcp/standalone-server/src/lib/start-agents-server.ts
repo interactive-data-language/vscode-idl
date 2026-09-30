@@ -11,7 +11,7 @@ import { LoadConfigFromEnv } from './helpers/load-config-from-env';
 import {
   CreateStandaloneMCPServer,
   LOG_MANAGER,
-} from './mcp-tools/create-standalone-mcp-server';
+} from './mcp/create-standalone-mcp-server';
 import { CreateChatRoutes } from './routes/chat.routes';
 import { CreateConfigRoutes } from './routes/config.routes';
 

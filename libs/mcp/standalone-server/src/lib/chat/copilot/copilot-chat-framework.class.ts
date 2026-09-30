@@ -22,7 +22,7 @@ import { GetToolDisplayName } from '../../helpers/get-tool-display-name';
 import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
-} from '../../mcp-tools/register-mcp-tools-for-todos';
+} from './mcp-tools/register-mcp-tools-for-todos';
 import { Chat } from '../chat.class';
 import {
   COPILOT_ALLOWED_TOOLS,
