@@ -610,10 +610,13 @@ export class ChatState {
     ctx: StateContext<ChatStateModel>,
     action: RestoreChatState,
   ) {
-    // backfill fields that didn't exist in older persisted states
+    // backfill fields that didn't exist in older persisted states and
+    // reset 'in-progress' sessions since no request can actually be running
+    // after a reload, which would otherwise leave the app in a bad state
     const sessions = action.state.sessions?.map((session) => ({
       ...session,
       tokenUsage: session.tokenUsage ?? DEFAULT_TOKEN_USAGE,
+      status: session.status === 'in-progress' ? 'ready' : session.status,
     }));
     ctx.patchState({
       ...action.state,
