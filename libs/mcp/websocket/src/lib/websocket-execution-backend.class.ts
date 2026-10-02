@@ -17,7 +17,7 @@ import { WebSocketToolBridge } from './websocket-tool-bridge.class';
 /**
  * `IDLMachineExecutionBackend` that, if we have a valid websocket connection,
  * routes some tools to run through that instead of an IDL Machine process.
- * 
+ *
  * This allows any agentic session to redirect where some processing
  * runs while preserving full functionality independent of clients.
  */
