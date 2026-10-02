@@ -4,6 +4,10 @@ import { app, BrowserWindow } from 'electron';
 import App from './app/app';
 import ElectronEvents from './app/events/electron.events';
 import SquirrelEvents from './app/events/squirrel.events';
+import { ConsoleFileLogger } from './app/helpers/initialize-console-file-logging';
+
+// mirror console output to disk as early as possible so nothing is missed
+ConsoleFileLogger.initialize();
 
 export default class Main {
   static bootstrapApp() {
