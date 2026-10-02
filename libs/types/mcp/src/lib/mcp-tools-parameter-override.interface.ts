@@ -1,7 +1,11 @@
 import { MCPTool_OpenDatasetsInENVI } from './idl/mcp-tool-open-datasets-in-envi.interface';
+import { MCPTool_QueryDatasetWithENVI } from './idl/mcp-tool-query-dataset-with-envi.interface';
 import { MCPToolParamsOverride_OpenDatasetsInENVI } from './override/mcp-tool-open-datasets-in-envi.interface';
+import { MCPToolParamsOverride_QueryDatasetWithENVI } from './override/mcp-tool-query-dataset-with-envi.interface';
 
-export type MCPTools_ParameterOverride = MCPTool_OpenDatasetsInENVI;
+export type MCPTools_ParameterOverride =
+  | MCPTool_OpenDatasetsInENVI
+  | MCPTool_QueryDatasetWithENVI;
 
 /**
  * Custom MCP parameters when we have a delta between what arrives via HTTP
@@ -15,4 +19,6 @@ export type MCPToolParams_ParameterOverride<
   T extends MCPTools_ParameterOverride,
 > = T extends MCPTool_OpenDatasetsInENVI
   ? MCPToolParamsOverride_OpenDatasetsInENVI
-  : never;
+  : T extends MCPTool_QueryDatasetWithENVI
+    ? MCPToolParamsOverride_QueryDatasetWithENVI
+    : never;

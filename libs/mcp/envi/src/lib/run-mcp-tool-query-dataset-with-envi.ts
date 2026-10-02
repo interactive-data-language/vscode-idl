@@ -1,4 +1,3 @@
-import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { MCPSerializeJSON } from '@idl/mcp/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
@@ -21,25 +20,6 @@ export async function RunMCPTool_QueryDatasetWithENVI(
   params: MCPToolParams<MCPTool_QueryDatasetWithENVI>,
   onProgress?: MCPProgressCallback,
 ): Promise<MCPToolResponse<MCPTool_QueryDatasetWithENVI>> {
-  // Pick the dataset that was provided
-  const dataset =
-    params.raster ??
-    params.vector ??
-    params.roi ??
-    params.spectralLibrary ??
-    params.deepLearningModel ??
-    params.machineLearningModel;
-
-  // Validate that exactly one dataset was passed in
-  if (!dataset) {
-    return {
-      success: false,
-      result: {
-        err: 'No dataset provided. Specify exactly one of: raster, vector, roi, spectralLibrary, deepLearningModel, or machineLearningModel.',
-      },
-    };
-  }
-
   onProgress?.('Starting IDL');
 
   const started = await backend.start(false);
@@ -80,16 +60,8 @@ export async function RunMCPTool_QueryDatasetWithENVI(
 
   onProgress?.('Querying dataset');
 
-  const res = await backend.evaluateENVICommand<MCPTool_QueryDatasetWithENVI>(
-    `agent_queryDatasetWithENVI, '${MCPSerializeJSON(dataset)}'`,
+  return await backend.evaluateENVICommand<MCPTool_QueryDatasetWithENVI>(
+    `agent_queryDatasetWithENVI, '${MCPSerializeJSON(params)}'`,
     { echo: true, echoThis: IDL_TRANSLATION.envi.queryText, silent: false },
   );
-
-  if (!res.result) {
-    res.result = [{}];
-  }
-
-  FixENVIFactory(res.result);
-
-  return res;
 }

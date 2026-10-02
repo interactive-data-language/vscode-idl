@@ -1,4 +1,5 @@
 import {
+  FixENVIFactory,
   MCP_ENVIDeepLearningONNXModel,
   MCP_ENVIMachineLearningModel,
   MCP_ENVIRaster,
@@ -71,18 +72,43 @@ export function RegisterMCPTool_QueryDatasetWithENVI(server: MCPServer) {
         };
       }
 
+      // pick the dataset that was provided
+      const dataset =
+        raster ??
+        vector ??
+        roi ??
+        spectralLibrary ??
+        deepLearningModel ??
+        machineLearningModel;
+
+      // make sure that we got one of our dataset input parameters
+      if (dataset === undefined) {
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text: 'You must specify one of "raster", "vector", "roi", "spectralLibrary", "deepLearningModel", or "machineLearningModel"',
+            },
+          ],
+        };
+      }
+
       const resp = await server.sendIDLRequest(
         id,
         MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
         {
-          raster,
-          vector,
-          roi,
-          spectralLibrary,
-          deepLearningModel,
-          machineLearningModel,
+          dataset,
         },
       );
+
+      // make sure we always have content to normalize/return
+      if (!resp.result) {
+        resp.result = [{}];
+      }
+
+      // fix the factory
+      FixENVIFactory(resp.result);
 
       return {
         isError: !resp.success,
