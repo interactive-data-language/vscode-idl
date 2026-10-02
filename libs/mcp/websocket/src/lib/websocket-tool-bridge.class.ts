@@ -1,8 +1,4 @@
-import {
-  MCPToolParams,
-  MCPToolResponse,
-  MCPTools_IDL,
-} from '@idl/types/mcp';
+import { MCPToolParams, MCPToolResponse, MCPTools_IDL } from '@idl/types/mcp';
 import type { Server as HttpServer } from 'http';
 import { nanoid } from 'nanoid';
 import { WebSocket, WebSocketServer } from 'ws';
@@ -12,7 +8,6 @@ import {
   IWebSocketNotification,
   IWebSocketRequest,
   NO_WEBSOCKET_CLIENT_ERROR,
-  SINGLE_CONNECTION_CLOSE_REASON,
   WebSocketToolResponse,
 } from './websocket-tool-bridge.interface';
 
@@ -98,7 +93,7 @@ export class WebSocketToolBridge {
   ): void {
     const client = this.client;
     if (client === undefined || client.readyState !== WebSocket.OPEN) {
-      return Promise.reject(new Error(NO_WEBSOCKET_CLIENT_ERROR)) as any;
+      throw new Error(NO_WEBSOCKET_CLIENT_ERROR);
     }
 
     const request: IWebSocketNotification<T> = { tool, params };
@@ -138,22 +133,52 @@ export class WebSocketToolBridge {
    * single-client contract and wires up message / lifecycle listeners.
    */
   private handleConnection(ws: WebSocket): void {
-    if (this.isConnected()) {
+    if (this.client !== undefined) {
       console.log(
-        `Websocket already connected, so we are going to close the connection`,
+        `[websocket-bridge] New client connecting while previous client exists. Replacing old client.`,
       );
-      ws.close(1013, SINGLE_CONNECTION_CLOSE_REASON);
-      return;
+      const oldClient = this.client;
+      this.client = undefined;
+      try {
+        oldClient.close(1000, 'Replaced by new connection');
+      } catch {
+        // ignore
+      }
+      this.rejectAllPending(
+        new Error('WebSocket client replaced by new connection'),
+      );
     }
 
     this.client = ws;
     console.log('[websocket-bridge] client connected');
 
+    const messageQueue: string[] = [];
+
     ws.on('message', (raw) => {
-      this.handleMessage(ws, raw.toString());
+      try {
+        messageQueue.push(raw.toString());
+      } catch (err) {
+        console.log('Error handling message', raw);
+      }
     });
 
+    setInterval(() => {
+      try {
+        if (messageQueue.length > 0) {
+          const oldest = messageQueue.shift();
+          if (oldest) {
+            this.handleMessage(ws, oldest);
+          }
+        }
+      } catch (err) {
+        console.log('Error procssing queue', err);
+      }
+    }, 33);
+
     const cleanup = (reason: string) => {
+      if (this.client !== ws) {
+        return;
+      }
       this.client = undefined;
       this.rejectAllPending(
         new Error(`WebSocket client disconnected: ${reason}`),
@@ -192,7 +217,6 @@ export class WebSocketToolBridge {
 
     const entry = this.pending.get(parsed.id);
     if (entry === undefined) {
-      ws.send(JSON.stringify({ message: 'Unknown ID' }));
       console.warn(
         `[websocket-bridge] dropping response for unknown id ${parsed.id}`,
       );
@@ -200,6 +224,7 @@ export class WebSocketToolBridge {
     }
 
     this.pending.delete(parsed.id);
+    delete (parsed as any).id;
     entry.resolve(parsed);
   }
 

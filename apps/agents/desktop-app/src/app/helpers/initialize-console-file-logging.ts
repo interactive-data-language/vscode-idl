@@ -71,6 +71,18 @@ export class ConsoleFileLogger {
       flags: 'a',
     });
 
+    // Handle broken stdout/stderr pipe errors (EPIPE) so they don't trigger uncaughtExceptions
+    process.stdout?.on('error', (err: any) => {
+      if (err?.code === 'EPIPE') {
+        return;
+      }
+    });
+    process.stderr?.on('error', (err: any) => {
+      if (err?.code === 'EPIPE') {
+        return;
+      }
+    });
+
     ConsoleFileLogger.originals = {} as Record<
       ConsoleMethod,
       (...args: any[]) => void
@@ -79,12 +91,18 @@ export class ConsoleFileLogger {
     for (const method of CONSOLE_METHODS) {
       ConsoleFileLogger.originals[method] = console[method].bind(console);
       console[method] = (...args: any[]) => {
-        if (ConsoleFileLogger.stripColor) {
-          ConsoleFileLogger.originals[method](StripANSI(format(...args)));
-        } else {
-          ConsoleFileLogger.originals[method](...args);
-        }
+        // write to disk first so a broken stdout/stderr pipe (e.g. a packaged
+        // app with no attached console) never causes us to lose the message
         ConsoleFileLogger.writeLine(method, args);
+        try {
+          if (ConsoleFileLogger.stripColor) {
+            ConsoleFileLogger.originals[method](StripANSI(format(...args)));
+          } else {
+            ConsoleFileLogger.originals[method](...args);
+          }
+        } catch {
+          // ignore write failures (e.g. EPIPE) on the real console stream
+        }
       };
     }
 

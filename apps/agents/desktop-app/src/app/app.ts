@@ -14,6 +14,7 @@ import { format } from 'url';
 
 import { environment } from '../environments/environment';
 import { rendererAppName, rendererAppPort } from './constants';
+import { PipeRendererConsoleToLog } from './helpers/pipe-renderer-console';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
@@ -63,6 +64,11 @@ export default class App {
       if (App.agentsServer !== undefined) {
         await App.agentsServer.stop();
       }
+    });
+
+    // surface renderer crashes that would otherwise look like a silent freeze
+    App.application.on('render-process-gone', (event, webContents, details) => {
+      console.error('[main] Renderer process gone:', details);
     });
 
     // try to load our config from disk
@@ -123,6 +129,16 @@ export default class App {
         preload: join(__dirname, 'main.preload.js'),
       },
     });
+    PipeRendererConsoleToLog(App.mainWindow);
+
+    // detect a hung renderer, which looks identical to a frozen app otherwise
+    App.mainWindow.webContents.on('unresponsive', () => {
+      console.error('[main] Main window became unresponsive');
+    });
+    App.mainWindow.webContents.on('responsive', () => {
+      console.log('[main] Main window is responsive again');
+    });
+
     App.mainWindow.setMenu(null);
     App.mainWindow.center();
 
