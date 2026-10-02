@@ -25,7 +25,7 @@ export function RegisterMCPTool_CreateFolder(server: MCPServer) {
       try {
         if (existsSync(folder)) {
           return {
-            isError: true,
+            isError: false,
             content: [
               {
                 type: 'text',
