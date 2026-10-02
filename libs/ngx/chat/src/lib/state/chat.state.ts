@@ -623,6 +623,15 @@ export class ChatState {
       ...(sessions ? { sessions } : {}),
       loading: false,
     });
+
+    // tool calls left pending from before a reload will never resolve
+    for (const session of sessions ?? []) {
+      this.cancelPendingToolCalls(
+        ctx,
+        session.id,
+        'An unknown error ocurred. The application was potentially closed while the tool was in progress. Please try again',
+      );
+    }
   }
 
   /**
@@ -763,11 +772,12 @@ export class ChatState {
   }
 
   /**
-   * Helper: Flag every tool call still awaiting a result as cancelled
+   * Helper: Flag every tool call still awaiting a result as cancelled/errored
    */
   private cancelPendingToolCalls(
     ctx: StateContext<ChatStateModel>,
     sessionId: string,
+    errorMessage = 'Cancelled by user',
   ): void {
     const state = ctx.getState();
     const session = state.sessions.find((s) => s.id === sessionId);
@@ -782,7 +792,7 @@ export class ChatState {
       if (isPending) {
         this.appendContentToMessage(ctx, sessionId, message.id, {
           type: 'tool_error',
-          payload: 'Cancelled by user',
+          payload: errorMessage,
         });
       }
     }
