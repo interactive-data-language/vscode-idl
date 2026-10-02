@@ -6,6 +6,7 @@ import {
   ApplicationConfig,
   importProvidersFrom,
   inject,
+  isDevMode,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
@@ -36,8 +37,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideStore(
       [ChatState, ThemeState],
-      withNgxsLoggerPlugin(),
-      withNgxsReduxDevtoolsPlugin(),
+      withNgxsLoggerPlugin({ disabled: !isDevMode() }),
+      withNgxsReduxDevtoolsPlugin({ disabled: !isDevMode() }),
     ),
     importProvidersFrom(
       MarkdownModule.forRoot({
