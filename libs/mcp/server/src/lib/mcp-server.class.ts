@@ -39,7 +39,7 @@ import {
  * - MCP SDK server + transport lifecycle
  * - Tool registry and registration
  * - Tool execution context tracking and progress
- * - Multi-connection support (each client session gets its own SDK McpServer)
+ * - Stateless connections (each request gets its own short-lived SDK McpServer)
  *
  * Uses a singleton pattern accessed via static methods.
  */
@@ -81,12 +81,6 @@ export class MCPServer {
   /** Express app that is listening */
   private appInstance?: ReturnType<express.Application['listen']>;
 
-  /**
-   * Active client connections, keyed by session ID.
-   * Each connection has its own SDK McpServer + StreamableHTTPServerTransport.
-   */
-  private connections = new Map<string, IMCPConnection>();
-
   /** Tool execution contexts that we are currently handling */
   private contexts: {
     [key: string]: ServerContext;
@@ -100,9 +94,6 @@ export class MCPServer {
 
   /** Port server runs on */
   private mcpPort: number;
-
-  /** Interval handle for idle session cleanup */
-  private sessionCleanupInterval?: ReturnType<typeof setInterval>;
 
   /** Queue to throttle MCP server requests - only one tool runs at a time */
   private toolExecutionQueue = new SimplePromiseQueue();
@@ -128,7 +119,6 @@ export class MCPServer {
     this.usingExternalApp = !!options.app;
 
     this.startHttpServer();
-    this.startSessionCleanup();
   }
 
   /**
@@ -234,7 +224,11 @@ export class MCPServer {
       }
     }) as ToolCallback<z.ZodObject<ZodRawShape>>;
 
+    // try setting tool icons
+    // this.tools[name].info.icons = MCP_IDL_ICONS;
+
     // Store in registry
+    // tools are added when connections are made
     this.tools[name] = {
       info: {
         ...info,
@@ -242,19 +236,6 @@ export class MCPServer {
       },
       wrappedCb,
     };
-
-    // try setting tool icons
-    // this.tools[name].info.icons = MCP_IDL_ICONS;
-
-    // Register on all active connections using the registry's concrete
-    // (non-generic) types to avoid overload ambiguity from `Args`
-    for (const conn of this.connections.values()) {
-      conn.mcpServer.registerTool(
-        name,
-        this.tools[name].info,
-        this.tools[name].wrappedCb,
-      );
-    }
   }
 
   /**
@@ -302,27 +283,39 @@ export class MCPServer {
   }
 
   /**
-   * Notifies ALL active connections that the tool list has changed.
-   * Call this after dynamically registering tools post-startup.
+   * No-op kept for callers that register tools post-startup.
+   *
+   * In stateless mode there are no persistent connections to notify - every
+   * request builds a brand-new McpServer from the current tool registry, so
+   * the client always sees up-to-date tools without an explicit notification.
    */
   sendToolListChanged() {
-    for (const conn of this.connections.values()) {
-      try {
-        conn.mcpServer.sendToolListChanged();
-      } catch (err) {
-        // ignore errors for connections that may have closed
-      }
+    // intentionally empty
+  }
+
+  /**
+   * Closes a single-request connection's transport and server
+   */
+  private closeMCPInstanceAndConnection(conn: IMCPConnection) {
+    conn.transport.onerror = undefined;
+
+    try {
+      conn.transport.close();
+    } catch (_e) {
+      // ignore
+    }
+    try {
+      conn.mcpServer.close();
+    } catch (_e) {
+      // ignore
     }
   }
 
   /**
-   * Create a new McpServer + transport pair, register all known tools,
-   * and connect them. Returns the session ID to use for subsequent requests.
+   * Create a new McpServer + transport pair for a single request and
+   * register all known tools. Stateless: no session ID, nothing cached.
    */
-  private async createConnection(): Promise<{
-    sessionId: string;
-    connection: IMCPConnection;
-  }> {
+  private async createMCPInstanceAndConnection(): Promise<IMCPConnection> {
     // Create a new SDK McpServer instance
     const mcpServer = new McpServer(
       {
@@ -338,9 +331,6 @@ export class MCPServer {
       },
     );
 
-    // Generate a new session ID
-    const sessionId = nanoid();
-
     // Register all known tools on this new server instance
     const toolNames = Object.keys(this.tools);
     for (let i = 0; i < toolNames.length; i++) {
@@ -348,46 +338,23 @@ export class MCPServer {
       mcpServer.registerTool(toolNames[i], entry.info, entry.wrappedCb);
     }
 
-    // Create transport with session management
+    // Stateless transport - no session ID tracking across requests
     const transport = new NodeStreamableHTTPServerTransport({
-      sessionIdGenerator: () => sessionId,
+      sessionIdGenerator: undefined,
     });
-
-    // Connect the server to the transport
-    await mcpServer.connect(transport);
-
-    // Clean up when transport closes (client disconnect, DELETE, errors)
-    transport.onclose = () => {
-      this.logManager.log({
-        log: IDL_MCP_LOG,
-        type: 'error',
-        content: `MCP transport closed with ID ${transport}`,
-      });
-      this.removeConnection(sessionId);
-    };
 
     transport.onerror = (error: Error) => {
       this.logManager.log({
         log: IDL_MCP_LOG,
         type: 'error',
-        content: [`MCP transport error (session: ${sessionId}):`, error],
+        content: ['MCP transport error:', error],
       });
     };
 
-    const connection: IMCPConnection = {
-      lastActivity: Date.now(),
-      mcpServer,
-      transport,
-    };
-    this.connections.set(sessionId, connection);
+    // Connect the server to the transport
+    await mcpServer.connect(transport);
 
-    this.logManager.log({
-      log: IDL_MCP_LOG,
-      type: 'info',
-      content: `New MCP connection established (session: ${sessionId})`,
-    });
-
-    return { sessionId, connection };
+    return { mcpServer, transport };
   }
 
   /**
@@ -400,38 +367,6 @@ export class MCPServer {
   }
 
   /**
-   * Remove and clean up a connection by session ID
-   */
-  private removeConnection(sessionId: string, wasIdle = false) {
-    const conn = this.connections.get(sessionId);
-    if (conn) {
-      // Remove from map first to prevent re-entrant cleanup from onclose
-      this.connections.delete(sessionId);
-
-      // Null out handlers to avoid loops
-      conn.transport.onclose = undefined;
-      conn.transport.onerror = undefined;
-
-      try {
-        conn.transport.close();
-      } catch (_e) {
-        // ignore
-      }
-      try {
-        conn.mcpServer.close();
-      } catch (_e) {
-        // ignore
-      }
-
-      this.logManager.log({
-        log: IDL_MCP_LOG,
-        type: 'info',
-        content: `MCP connection closed (session: ${sessionId})${wasIdle ? ' because it was idle' : ''}`,
-      });
-    }
-  }
-
-  /**
    * Removes a context for a running tool
    */
   private removeToolExecutionContext(id: string) {
@@ -441,20 +376,9 @@ export class MCPServer {
   }
 
   /**
-   * Shut down the server and all connections
+   * Shut down the server
    */
   private shutdown() {
-    // Stop the idle session cleanup interval
-    if (this.sessionCleanupInterval) {
-      clearInterval(this.sessionCleanupInterval);
-      this.sessionCleanupInterval = undefined;
-    }
-
-    // Close all connections
-    for (const sessionId of this.connections.keys()) {
-      this.removeConnection(sessionId);
-    }
-
     // Close express
     if (this.appInstance) {
       this.appInstance.close();
@@ -520,10 +444,14 @@ export class MCPServer {
     // Apply localhost middleware to MCP routes
     router.use(localhostMiddleware);
 
-    // POST /mcp — main entry point for MCP protocol messages
+    /**
+     * Stateless handler for MCP requests
+     *
+     * Creates a new MCP instance and connection for each request
+     */
     router.post('/mcp', async (req: express.Request, res: express.Response) => {
-      /** MCP connection */
-      let conn: IMCPConnection;
+      /** MCP connection, scoped to this request only */
+      const conn = await this.createMCPInstanceAndConnection();
 
       // Create interval to keep connection alive during long-running tool executions
       // Sends SSE-style heartbeat messages to prevent timeouts
@@ -531,53 +459,20 @@ export class MCPServer {
         // Check if the connection is still open using the socket's writable state
         if (!res.writableEnded && !res.writableFinished) {
           res.write(':beat\n\n');
-
-          // for long-running tools, make sure to update our last activity
-          if (conn) {
-            conn.lastActivity = Date.now();
-          }
         } else {
           clearInterval(keepAliveInterval);
         }
       }, MCP_SERVER_CONFIG.KEEP_ALIVE_INTERVAL);
 
-      try {
-        // Check for existing session
-        const sessionId = req.headers['mcp-session-id'] as string;
-
-        switch (true) {
-          /**
-           * Get existing session
-           */
-          case sessionId && this.connections.has(sessionId):
-            conn = this.connections.get(sessionId) as any;
-            break;
-          /**
-           * Session was cleaned up, let the client know that session
-           * has been closed - needs a reconnect to work again from the
-           * client
-           */
-          case !!sessionId:
-            clearInterval(keepAliveInterval);
-            res.status(404).json({
-              jsonrpc: '2.0',
-              error: { code: -32000, message: 'Session not found' },
-              id: null,
-            });
-            return;
-          /**
-           * Create new session
-           */
-          default: {
-            const created = await this.createConnection();
-            conn = created.connection;
-            break;
-          }
+      // Tear down the per-request connection once the response is done
+      res.on('close', () => {
+        clearInterval(keepAliveInterval);
+        if (conn) {
+          this.closeMCPInstanceAndConnection(conn);
         }
+      });
 
-        // Update last activity timestamp
-        conn.lastActivity = Date.now();
-
+      try {
         // Delegate to the transport to handle the MCP protocol message
         await conn.transport.handleRequest(req, res, req.body);
       } catch (error) {
@@ -596,13 +491,10 @@ export class MCPServer {
             id: null,
           });
         }
-      } finally {
-        // Always clean up the keep-alive interval
-        clearInterval(keepAliveInterval);
       }
     });
 
-    // GET /mcp — method not allowed
+    // GET /mcp — method not allowed, stateless servers don't support the SSE stream
     router.get('/mcp', async (req: express.Request, res: express.Response) => {
       this.logManager.log({
         log: IDL_MCP_LOG,
@@ -621,32 +513,25 @@ export class MCPServer {
       );
     });
 
-    // DELETE /mcp — client session cleanup
+    // DELETE /mcp — method not allowed, there are no sessions to close
     router.delete(
       '/mcp',
       async (req: express.Request, res: express.Response) => {
-        const sessionId = req.headers['mcp-session-id'] as string;
-
-        if (sessionId && this.connections.has(sessionId)) {
-          this.removeConnection(sessionId);
-          res.status(200).json({ message: 'Session closed' });
-        } else {
-          this.logManager.log({
-            log: IDL_MCP_LOG,
-            type: 'debug',
-            content: 'Received DELETE MCP request for unknown session',
-          });
-          res.writeHead(405).end(
-            JSON.stringify({
-              jsonrpc: '2.0',
-              error: {
-                code: -32000,
-                message: 'Method not allowed.',
-              },
-              id: null,
-            }),
-          );
-        }
+        this.logManager.log({
+          log: IDL_MCP_LOG,
+          type: 'debug',
+          content: 'Received DELETE MCP request',
+        });
+        res.writeHead(405).end(
+          JSON.stringify({
+            jsonrpc: '2.0',
+            error: {
+              code: -32000,
+              message: 'Method not allowed.',
+            },
+            id: null,
+          }),
+        );
       },
     );
 
@@ -699,20 +584,5 @@ export class MCPServer {
         this.failCallback(error);
       }
     }
-  }
-
-  /**
-   * Periodically checks for idle sessions and removes them
-   */
-  private startSessionCleanup() {
-    this.sessionCleanupInterval = setInterval(() => {
-      const now = Date.now();
-      for (const [sessionId, conn] of this.connections.entries()) {
-        const idle = now - conn.lastActivity;
-        if (idle >= MCP_SERVER_CONFIG.SESSION_IDLE_TIMEOUT) {
-          this.removeConnection(sessionId, true);
-        }
-      }
-    }, MCP_SERVER_CONFIG.SESSION_CLEANUP_INTERVAL);
   }
 }

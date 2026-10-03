@@ -8,7 +8,6 @@ import {
   type SessionEvent,
 } from '@github/copilot-sdk';
 import { USER_AGENTS_FOLDER } from '@idl/idl/files';
-import { MCP_SERVER_CONFIG } from '@idl/mcp/server';
 import type { IAgentServerConfig } from '@idl/types/agents';
 import type {
   ChatMessageRequest,
@@ -68,11 +67,6 @@ export class CopilotChatFramework {
   constructor(parent: Chat, config: IAgentServerConfig) {
     this.parent = parent;
     this.config = config;
-
-    /**
-     * Make timeout for MCP match tool timeout for GitHUb Copilot
-     */
-    MCP_SERVER_CONFIG.SESSION_IDLE_TIMEOUT = TIMEOUT;
 
     // create client
     this.client = new CopilotClient({

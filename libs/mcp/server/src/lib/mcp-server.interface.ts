@@ -71,12 +71,11 @@ export interface IRegisteredTool {
 }
 
 /**
- * An active MCP client connection (one SDK McpServer + transport pair)
+ * A single-request MCP connection (one SDK McpServer + transport pair),
+ * built and torn down per request in stateless mode
  */
 export interface IMCPConnection {
-  /** Timestamp of last activity on this connection */
-  lastActivity: number;
-  /** The SDK McpServer instance serving this connection */
+  /** The SDK McpServer instance serving this request */
   mcpServer: McpServer;
   /** The HTTP transport bound to the SDK server */
   transport: NodeStreamableHTTPServerTransport;
@@ -126,8 +125,4 @@ export const MCP_SERVER_CONFIG = {
   PORT: 4142,
   /** Milliseconds to keep connections alive */
   KEEP_ALIVE_INTERVAL: 30000,
-  /** Milliseconds before idle sessions are cleaned up (5 minutes) */
-  SESSION_IDLE_TIMEOUT: 5 * 60 * 1000,
-  /** Interval in milliseconds between idle session checks (1 minute) */
-  SESSION_CLEANUP_INTERVAL: 60 * 1000,
 };
