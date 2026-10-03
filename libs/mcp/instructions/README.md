@@ -1,7 +1,3 @@
-# mcp-instructions
+# MCP: Instructions
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test mcp-instructions` to execute the unit tests via [Jest](https://jestjs.io).
+Helper utility that manages instructions files and operates in the same style as the task registry and tool workflow registry.
