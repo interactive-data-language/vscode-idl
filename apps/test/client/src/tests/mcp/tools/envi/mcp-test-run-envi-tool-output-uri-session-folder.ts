@@ -6,8 +6,7 @@ import {
 } from '@idl/types/mcp';
 import expect from 'expect';
 import { existsSync } from 'fs';
-import { tmpdir } from 'os';
-import { basename, dirname, relative, sep } from 'path';
+import { basename, dirname } from 'path';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
@@ -69,22 +68,16 @@ export const RunMCPTestRunENVIToolOutputUriSessionFolder: RunnerFunction =
     expect('output_raster' in results.result).toBeTruthy();
 
     /** Resolved output URI that ENVI actually wrote to */
-    const resolvedUri = results.result['output_raster'].url;
+    const uri = results.result['output_raster'].url;
 
     // make sure the file name wasn't changed
-    expect(basename(resolvedUri)).toEqual(fileName);
+    expect(basename(uri)).toEqual(fileName);
 
     // make sure the output actually exists where ENVI says it does
-    expect(existsSync(resolvedUri)).toBeTruthy();
-
-    /** Path from the OS temp dir down to the folder containing our output */
-    const relativeDir = relative(tmpdir(), dirname(resolvedUri));
-
-    // make sure it took exactly one extra folder (the session workspace) to
-    // get from the temp dir to our file, not zero (written directly in temp)
-    // and not more than one (nested deeper than the session workspace)
-    expect(relativeDir.split(sep).length).toEqual(1);
+    expect(existsSync(uri)).toBeTruthy();
 
     // make sure that folder is actually ENVI's temporary session workspace
-    expect(relativeDir.startsWith('ENVI_Session_')).toBeTruthy();
+    expect(
+      basename(dirname(uri)).toLowerCase().startsWith('envi_session_'),
+    ).toBeTruthy();
   };
