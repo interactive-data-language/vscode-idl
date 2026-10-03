@@ -6,8 +6,8 @@ import {
 import { LogManager } from '@idl/logger';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLIndex } from '@idl/parsing/index';
+import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/mcp';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { writeFileSync } from 'fs';
 
