@@ -7,7 +7,10 @@ import {
 } from '@idl/types/envi/datasets';
 import { basename, dirname, join } from 'path';
 
-import { IDL_DIR } from './../../../main';
+/**
+ * IDL directory we use for test datasets
+ */
+let OUR_IDL_DIR = '';
 
 /**
  * Class that helps get dehydrated flavors of different ENVI data
@@ -20,8 +23,12 @@ export class ENVITestDatasets {
    * Throws an error if ENVI is not found
    */
   static getENVIDir() {
+    if (!OUR_IDL_DIR) {
+      throw new Error('ENVI directory not configured');
+    }
+
     /** If ENVI + IDL, go up 3 folders from the bin directory */
-    const enviDir = dirname(dirname(dirname(IDL_DIR || '')));
+    const enviDir = dirname(dirname(dirname(OUR_IDL_DIR || '')));
 
     // make sure we have ENVI install location
     if (!basename(enviDir).toLowerCase().startsWith('envi')) {
@@ -92,6 +99,18 @@ export class ENVITestDatasets {
       factory: 'URLROI',
       url: join(envi, 'data', 'qb_boulder_roi.xml'),
     };
+  }
+
+  /**
+   * Set the IDL directory used for getting paths to data
+   *
+   * Assumed under the ENVI folder
+   * 
+   * Does not validate until we try to get the ENVI folder (this is
+   * for compatibility running tests on Mac)
+   */
+  static setIDLDir(dir: string) {
+    OUR_IDL_DIR = dir;
   }
 
   /**

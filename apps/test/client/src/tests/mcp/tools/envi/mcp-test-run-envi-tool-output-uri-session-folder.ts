@@ -1,3 +1,4 @@
+import { ENVITestDatasets } from '@idl/envi/test-datasets';
 import {
   MCP_TOOL_LOOKUP,
   MCPTool_RunENVITool,
@@ -10,7 +11,6 @@ import { basename, dirname, relative, sep } from 'path';
 
 import { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
-import { ENVITestDatasets } from '../../helpers/envi-test-datasets.class';
 import { GetTextContent } from '../../helpers/get-text-content';
 import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
 

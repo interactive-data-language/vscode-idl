@@ -1,3 +1,4 @@
+import { ENVITestDatasets } from '@idl/envi/test-datasets';
 import { FindFiles, FindIDL, GetExtensionPath } from '@idl/idl/files';
 import {
   EXTENSION_FULL_NAME,
@@ -64,6 +65,9 @@ export async function run(): Promise<void> {
 
     // alert user which IDL we are using
     console.log(`Test are using this IDL: "${IDL_DIR}"`);
+
+    // update ENVI test helper
+    ENVITestDatasets.setIDLDir(IDL_DIR);
 
     // basic smoke-test: start idl.exe, print 'foo', verify output ends with 'foo'
     console.log(` `);

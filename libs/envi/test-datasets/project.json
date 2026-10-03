@@ -1,0 +1,9 @@
+{
+  "name": "envi-test-datasets",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/envi/test-datasets/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project envi-test-datasets --web",
+  "targets": {}
+}
