@@ -1,5 +1,4 @@
-export * from './lib/aoi/aoi-map.component';
-export * from './lib/aoi/create-aoi-draw-layer';
+// export * from './lib/aoi/aoi-map.component';
 export * from './lib/create-layers';
 export * from './lib/create-layers.interface';
 export * from './lib/layers/create-basemap-layer';

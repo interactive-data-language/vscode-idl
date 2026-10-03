@@ -6,19 +6,15 @@ import {
   MCPToolInvokedCallback,
   MCPTools,
 } from '@idl/types/mcp';
+import { NodeStreamableHTTPServerTransport } from '@modelcontextprotocol/node';
 import {
+  Icon,
   McpServer,
+  ServerContext,
   ToolCallback,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
-import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import type { ShapeOutput } from '@modelcontextprotocol/sdk/server/zod-compat';
-import { RequestHandlerExtra } from '@modelcontextprotocol/sdk/shared/protocol';
-import {
-  ServerNotification,
-  ServerRequest,
-} from '@modelcontextprotocol/sdk/types';
+} from '@modelcontextprotocol/server';
 import type { Application } from 'express';
-import { ZodRawShape } from 'zod';
+import { z, ZodRawShape } from 'zod';
 
 /**
  * Callback that adds a new argument to each function so that
@@ -30,8 +26,8 @@ import { ZodRawShape } from 'zod';
  */
 export type MCPToolCallback<Args extends ZodRawShape, Tool extends MCPTools> = (
   id: string,
-  args: ShapeOutput<Args>,
-  extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
+  args: z.infer<z.ZodObject<Args>>,
+  extra: ServerContext,
 ) => MCPToolHTTPResponse<Tool> | Promise<MCPToolHTTPResponse<Tool>>;
 
 /**
@@ -41,6 +37,7 @@ export type MCPRegistryToolInfo<Args extends ZodRawShape> = {
   title: string;
   description: string;
   inputSchema: Args;
+  icons?: Icon[];
 };
 
 /**
@@ -67,10 +64,10 @@ export interface IMCPServerOptions {
  * Entry stored in the tool registry for each registered tool
  */
 export interface IRegisteredTool {
-  /** Tool info (title, description, inputSchema) */
+  /** Tool info (title, description, inputSchema) after conversion to a full Zod object schema */
   info: MCPRegistryToolInfo<any>;
   /** The wrapped callback we pass to sdk McpServer.registerTool */
-  wrappedCb: ToolCallback<any>;
+  wrappedCb: ToolCallback<z.ZodObject<ZodRawShape>>;
 }
 
 /**
@@ -82,8 +79,44 @@ export interface IMCPConnection {
   /** The SDK McpServer instance serving this connection */
   mcpServer: McpServer;
   /** The HTTP transport bound to the SDK server */
-  transport: StreamableHTTPServerTransport;
+  transport: NodeStreamableHTTPServerTransport;
 }
+
+// /**
+//  * Icons for IDL tools
+//  *
+//  * VS Code doesn't seem to support this
+//  */
+// export const MCP_IDL_ICONS: Icon[] = [
+//   {
+//     src: `data:image/svg+xml;base64,${readFileSync(GetExtensionPath('resources/images/dark/idlicon-color.svg'), 'base64')}`,
+//     mimeType: 'image/svg+xml',
+//     theme: 'dark',
+//   },
+//   {
+//     src: `data:image/svg+xml;base64,${readFileSync(GetExtensionPath('resources/images/light/idlicon-color.svg'), 'base64')}`,
+//     mimeType: 'image/svg+xml',
+//     theme: 'light',
+//   },
+// ];
+
+// /**
+//  * Icons for ENVI tools
+//  *
+//  * VS Code doesn't seem to support this
+//  */
+// export const MCP_ENVI_ICONS: Icon[] = [
+//   {
+//     src: `data:image/svg+xml;base64,${readFileSync(GetExtensionPath('resources/images/dark/enviicon-color.svg'), 'base64')}`,
+//     mimeType: 'image/svg+xml',
+//     theme: 'dark',
+//   },
+//   {
+//     src: `data:image/svg+xml;base64,${readFileSync(GetExtensionPath('resources/images/light/enviicon-color.svg'), 'base64')}`,
+//     mimeType: 'image/svg+xml',
+//     theme: 'light',
+//   },
+// ];
 
 /**
  * Default port for our docs server

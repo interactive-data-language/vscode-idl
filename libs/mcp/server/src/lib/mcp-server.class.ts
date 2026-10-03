@@ -13,16 +13,12 @@ import {
   MCPTools,
   MCPTools_IDL,
 } from '@idl/types/mcp';
+import { NodeStreamableHTTPServerTransport } from '@modelcontextprotocol/node';
 import {
   McpServer,
+  ServerContext,
   ToolCallback,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
-import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import { RequestHandlerExtra } from '@modelcontextprotocol/sdk/shared/protocol';
-import {
-  ServerNotification,
-  ServerRequest,
-} from '@modelcontextprotocol/sdk/types';
+} from '@modelcontextprotocol/server';
 import express from 'express';
 import { nanoid } from 'nanoid';
 import { z, ZodRawShape } from 'zod';
@@ -93,7 +89,7 @@ export class MCPServer {
 
   /** Tool execution contexts that we are currently handling */
   private contexts: {
-    [key: string]: RequestHandlerExtra<ServerRequest, ServerNotification>;
+    [key: string]: ServerContext;
   } = {};
 
   /** Callback for error failures */
@@ -182,8 +178,8 @@ export class MCPServer {
 
     // Build the wrapped callback that handles context, queue, and errors
     const wrappedCb = (async (
-      params: any,
-      context: RequestHandlerExtra<ServerRequest, ServerNotification>,
+      params: z.infer<z.ZodObject<Args>>,
+      context: ServerContext,
     ) => {
       /** Track context */
       const id = this.registerToolExecutionContext(context);
@@ -200,11 +196,11 @@ export class MCPServer {
         let res!: MCPToolHTTPResponse<Tool>;
 
         // call invoked callback
-        this.toolInvokedCallback(name, params as any);
+        this.toolInvokedCallback(name, params);
 
         // run tool one at a time
         await this.toolExecutionQueue.add(async () => {
-          res = await cb(id, params as any, context);
+          res = await cb(id, params, context);
         });
 
         // cleanup
@@ -236,19 +232,28 @@ export class MCPServer {
           ],
         };
       }
-    }) as ToolCallback<Args>;
-
-    const normalizedInfo: MCPRegistryToolInfo<Args> = {
-      ...info,
-      inputSchema: z.strictObject(info.inputSchema) as any,
-    };
+    }) as ToolCallback<z.ZodObject<ZodRawShape>>;
 
     // Store in registry
-    this.tools[name] = { info: normalizedInfo, wrappedCb };
+    this.tools[name] = {
+      info: {
+        ...info,
+        inputSchema: z.strictObject(info.inputSchema),
+      },
+      wrappedCb,
+    };
 
-    // Register on all active connections
+    // try setting tool icons
+    // this.tools[name].info.icons = MCP_IDL_ICONS;
+
+    // Register on all active connections using the registry's concrete
+    // (non-generic) types to avoid overload ambiguity from `Args`
     for (const conn of this.connections.values()) {
-      conn.mcpServer.registerTool(name, normalizedInfo, wrappedCb);
+      conn.mcpServer.registerTool(
+        name,
+        this.tools[name].info,
+        this.tools[name].wrappedCb,
+      );
     }
   }
 
@@ -269,7 +274,7 @@ export class MCPServer {
   async sendToolExecutionNotification(id: string, progress: IMCPToolProgress) {
     if (id in this.contexts) {
       try {
-        await this.contexts[id].sendNotification({
+        await this.contexts[id].mcpReq.notify({
           method: 'notifications/message',
           params: {
             level: 'info',
@@ -344,7 +349,7 @@ export class MCPServer {
     }
 
     // Create transport with session management
-    const transport = new StreamableHTTPServerTransport({
+    const transport = new NodeStreamableHTTPServerTransport({
       sessionIdGenerator: () => sessionId,
     });
 
@@ -388,9 +393,7 @@ export class MCPServer {
   /**
    * Registers a context and returns an ID for the context
    */
-  private registerToolExecutionContext(
-    context: RequestHandlerExtra<ServerRequest, ServerNotification>,
-  ): string {
+  private registerToolExecutionContext(context: ServerContext): string {
     const id = nanoid();
     this.contexts[id] = context;
     return id;

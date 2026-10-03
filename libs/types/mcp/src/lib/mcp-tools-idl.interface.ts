@@ -2,7 +2,7 @@ import {
   CallToolResult,
   ImageContent,
   TextContent,
-} from '@modelcontextprotocol/sdk/types';
+} from '@modelcontextprotocol/server';
 
 import {
   MCPTool_ControlIDLAndENVISession,
