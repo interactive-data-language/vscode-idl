@@ -1,3 +1,10 @@
+---
+id: todo
+name: To-Do List
+description: To-do list management instructions
+hidden: true
+---
+
 # To-Do List Management
 
 You have access to three tools for managing a persistent task list that is visible to the user in the UI. Use them proactively during any multi-step workflow.

@@ -1,4 +1,3 @@
-import { GetExtensionPath } from '@idl/idl/files';
 import { RuleBasedFilter } from '@idl/mcp/shared';
 import type { IAgentServerConfig } from '@idl/types/agents';
 import type {
@@ -11,15 +10,11 @@ import type {
   TodoItem,
 } from '@idl/types/chat';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import { readFileSync } from 'fs';
 import OpenAI from 'openai';
-import { join } from 'path';
 
-import {
-  CHAT_INSTRUCTION_OPTIONS,
-  DEFAULT_CHAT_INSTRUCTIONS,
-} from '../helpers/chat-instructions.interface';
+import { DEFAULT_CHAT_INSTRUCTIONS } from '../helpers/chat-instructions.interface';
 import { EXAMPLE_PROMPTS } from '../helpers/example-prompts.interface';
+import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
 import { CopilotChatFramework } from './copilot/copilot-chat-framework.class';
 import { LangChainChatFramework } from './langchain/langchain-chat-framework.class';
 
@@ -207,7 +202,15 @@ export class Chat {
    */
   listChatInstructions(): ChatInstructionsResponse {
     return {
-      options: CHAT_INSTRUCTION_OPTIONS,
+      options: [
+        // add option for no instructions
+        {
+          id: 'none',
+          name: 'None',
+          description: 'No system instructions',
+        },
+        ...MCP_INSTRUCTION_REGISTRY.getInstructionOptionsForUI(),
+      ],
       defaultInstructions: DEFAULT_CHAT_INSTRUCTIONS,
     };
   }
@@ -266,64 +269,25 @@ export class Chat {
   /**
    * Load instruction file content for the given instruction type.
    */
-  loadInstructions(instructions: 'fs' | 'todo' | ChatInstructionType): string {
-    const base = 'resources/agents/instructions';
-    switch (instructions) {
-      /**
-       * ENVI instructions
-       */
-      case 'envi':
-        return readFileSync(
-          GetExtensionPath(join(base, 'envi.instructions.md')),
-          'utf-8',
-        );
-      /**
-       * FS instructions
-       */
-      case 'fs':
-        return readFileSync(
-          GetExtensionPath(
-            join('resources/agents/standalone-mcp', 'fs.instructions.md'),
-          ),
-          'utf-8',
-        );
-      /**
-       * IDL instructions
-       */
-      case 'idl':
-        return readFileSync(
-          GetExtensionPath(join(base, 'idl.instructions.md')),
-          'utf-8',
-        );
-      /**
-       * ENVI + IDL instructions
-       */
-      case 'idl-envi':
-        return this.loadManyInstructions(['idl', 'envi']);
-      /**
-       * TODO instructions
-       */
-      case 'todo':
-        return readFileSync(
-          GetExtensionPath(
-            join('resources/agents/standalone-mcp', 'todo.instructions.md'),
-          ),
-          'utf-8',
-        );
-      default:
+  loadInstructions(instructions: ChatInstructionType): string {
+    switch (true) {
+      case MCP_INSTRUCTION_REGISTRY.hasInstruction(instructions):
+        return MCP_INSTRUCTION_REGISTRY.getInstruction(instructions);
+      case instructions === 'none':
         return '';
+      default:
+        throw new Error('Unknown instructions type');
     }
   }
 
   /**
    * Loads multiple instructions and joins them together
    */
-  loadManyInstructions(instructions: ('fs' | 'todo' | ChatInstructionType)[]) {
-    const parts: string[] = [];
-    for (let i = 0; i < instructions.length; i++) {
-      parts.push(this.loadInstructions(instructions[i]));
-    }
-    return parts.join('\n\n---\n\n');
+  loadManyInstructions(instructions: ChatInstructionType[]) {
+    return instructions
+      .map((item) => this.loadInstructions(item))
+      .filter((item) => item.trim())
+      .join('\n\n---\n\n');
   }
 
   streamChatCompletion(

@@ -1,7 +1,14 @@
 /**
  * Instruction type controlling which instruction file is injected as a system message
  */
-export type ChatInstructionType = 'envi' | 'idl-envi' | 'idl' | 'none';
+export type ChatInstructionType =
+  | 'envi-idl'
+  | 'envi'
+  | 'fs'
+  | 'idl'
+  | 'none'
+  | 'todo'
+  | string;
 
 /**
  * Status of a to-do item in the LLM task list

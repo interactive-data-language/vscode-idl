@@ -35,7 +35,7 @@ export function CreateChatRoutes(chat: Chat): Router {
 
       res.json(resp);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).json({
         error: error instanceof Error ? error.message : 'Failed to list models',
       });
@@ -54,7 +54,7 @@ export function CreateChatRoutes(chat: Chat): Router {
 
       res.json(resp);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).json({
         error:
           error instanceof Error
@@ -71,10 +71,9 @@ export function CreateChatRoutes(chat: Chat): Router {
   router.get('/instructions', (_req, res) => {
     try {
       const resp: ChatInstructionsResponse = chat.listChatInstructions();
-
       res.json(resp);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).json({
         error:
           error instanceof Error

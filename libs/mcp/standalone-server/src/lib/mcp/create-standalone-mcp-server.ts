@@ -6,6 +6,7 @@ import {
   LoadIDLSearchPaths,
 } from '@idl/idl/files';
 import { IDL_LSP_LOG, IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { MCPInstructionsRegistry } from '@idl/mcp/instructions';
 import {
   MCPTrackResources,
   RegisterAllLanguageServerMCPTools,
@@ -54,6 +55,11 @@ export const LOG_MANAGER = new LogManager({
 });
 
 /**
+ * Global singleton instance of the instructions registry
+ */
+export const MCP_INSTRUCTION_REGISTRY = new MCPInstructionsRegistry();
+
+/**
  * Starts the language server for our dedicated MCP server - so we can re-use our MCP
  * tools over here.
  *
@@ -84,6 +90,16 @@ export async function CreateStandaloneMCPServer(
 
   // force dark mode
   process.env['IDL_THEME'] = '1';
+
+  // Load default instruction sets
+  MCP_INSTRUCTION_REGISTRY.loadInstructionsFromFolder(
+    GetExtensionPath('resources/agents/instructions'),
+    true,
+  );
+  MCP_INSTRUCTION_REGISTRY.loadInstructionsFromFolder(
+    GetExtensionPath('resources/agents/standalone-mcp'),
+    true,
+  );
 
   /**
    * Check for configuration packaged with our app
@@ -146,6 +162,20 @@ export async function CreateStandaloneMCPServer(
       });
       // load and overwrite any that we already have
       ENVI_TOOL_WORKFLOW_REGISTRY.loadWorkflowsFromFolder(workflows, true);
+    }
+
+    /**
+     * See if we have instructions
+     */
+    const instructions = join(configDir, 'instructions');
+    if (existsSync(instructions)) {
+      LOG_MANAGER.log({
+        log: IDL_LSP_LOG,
+        type: 'info',
+        content: `Registering config/instructions`,
+      });
+      // load and overwrite any that we already have
+      MCP_INSTRUCTION_REGISTRY.loadInstructionsFromFolder(instructions, true);
     }
   } catch (err) {
     LOG_MANAGER.log({

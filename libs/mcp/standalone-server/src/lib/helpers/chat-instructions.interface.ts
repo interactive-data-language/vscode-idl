@@ -20,4 +20,4 @@ export const CHAT_INSTRUCTION_OPTIONS: ChatInstructionOption[] = [
 /**
  * Instruction type that should be selected by default
  */
-export const DEFAULT_CHAT_INSTRUCTIONS: ChatInstructionType = 'idl-envi';
+export const DEFAULT_CHAT_INSTRUCTIONS: ChatInstructionType = 'envi-idl';

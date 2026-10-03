@@ -1,4 +1,6 @@
 ---
+id: envi
+name: ENVI
 description: Instructions for how to work with ENVI, remote sensing, image analysis, or similar problem sets
 ---
 

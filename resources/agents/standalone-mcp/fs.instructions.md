@@ -1,3 +1,10 @@
+---
+id: fs
+name: File System
+description: File system operational instructions
+hidden: true
+---
+
 # File System Operations
 
 You have access to MCP tools that enable basic directory creation and discovery. Use them proactively to scan input spaces and prepare target directories before saving outputs.

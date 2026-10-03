@@ -214,7 +214,8 @@
       "@idl/types/envi/datasets": ["libs/types/envi/datasets/src/index.ts"],
       "@idl/types/electron": ["libs/types/electron/src/index.ts"],
       "@idl/ngx/app-config": ["libs/ngx/app-config/src/index.ts"],
-      "@idl/types/agents": ["libs/types/agents/src/index.ts"]
+      "@idl/types/agents": ["libs/types/agents/src/index.ts"],
+      "@idl/mcp/instructions": ["libs/mcp/instructions/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

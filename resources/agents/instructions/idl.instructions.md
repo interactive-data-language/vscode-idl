@@ -1,4 +1,6 @@
 ---
+id: idl
+name: IDL
 applyTo: '**/*.pro,**/*.idlnb'
 description: 'Guidelines for programming with IDL, writing IDL code, creating IDL Notebooks, and utilizing the Python version included with IDL and ENVI'
 ---
