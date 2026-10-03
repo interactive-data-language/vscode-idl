@@ -2,7 +2,9 @@ import { Logger } from '@idl/logger';
 
 import { DEBUGGING_RUNNER } from './debugging/_debugging-runner';
 import { INTERACTIONS_RUNNER } from './interactions/_interactions-runner';
-import { MCP_TEST_RUNNER } from './mcp/_mcp-test-runner';
+import { MCP_ENVI_TEST_RUNNER } from './mcp/_mcp-test-runner-envi';
+import { MCP_GENERIC_TEST_RUNNER } from './mcp/_mcp-test-runner-generic';
+import { MCP_IDL_TEST_RUNNER } from './mcp/_mcp-test-runner-idl';
 import { NOTEBOOK_RUNNER } from './notebooks/_notebook-runner';
 import { Runner } from './runner.class';
 
@@ -25,7 +27,9 @@ export async function TestRunner(): Promise<number> {
   clientRunner.addRunner(INTERACTIONS_RUNNER);
   clientRunner.addRunner(DEBUGGING_RUNNER);
   clientRunner.addRunner(NOTEBOOK_RUNNER);
-  clientRunner.addRunner(MCP_TEST_RUNNER);
+  clientRunner.addRunner(MCP_GENERIC_TEST_RUNNER);
+  clientRunner.addRunner(MCP_IDL_TEST_RUNNER);
+  clientRunner.addRunner(MCP_ENVI_TEST_RUNNER);
 
   // test and return number of failures
   return await clientRunner.runAllTests();

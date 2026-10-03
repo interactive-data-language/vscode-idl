@@ -169,7 +169,7 @@ To write new integration tests, here's the best process:
 
 4. In the relevant test runner, you should register the test. Open one of the relevant test runners to see an example of this.
 
-> Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps/test/client/src/tests/mcp/_mcp-test-runner.ts`
+> Note: You can limit different tests to skip OS/CPU combinations or be limited to specific versions. You can see examples of this in `apps/test/client/src/tests/mcp/_mcp-test-runner-envi.ts`
 
 ## Releasing
 

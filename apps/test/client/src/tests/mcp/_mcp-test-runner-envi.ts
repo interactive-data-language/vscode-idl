@@ -53,47 +53,22 @@ import { RunMCPTestQueryDatasetWithENVI_SpectralLibrary } from './tools/envi/que
 import { RunMCPTestQueryDatasetWithENVI_Vector } from './tools/envi/query-dataset/mcp-test-query-dataset-with-envi-vector';
 import { RunMCPTestGetENVIToolParametersRegression } from './tools/envi/regression-tests/mcp-test-get-envi-tool-parameters-regression';
 import { RunMCPTestListENVIToolsRegression } from './tools/envi/regression-tests/mcp-test-list-envi-tools-regression';
-import { RunMCPTestCreateFolder } from './tools/general/create-folder/mcp-test-create-folder';
-import { RunMCPTestGetResources } from './tools/general/mcp-test-get-resources';
-import { RunMCPTestGetRoutineDocs } from './tools/general/mcp-test-get-routine-docs';
-import { RunMCPTestResourcesWorkflow } from './tools/general/mcp-test-resources-workflow';
-import {
-  RunMCPTestSearchForRoutineAll,
-  RunMCPTestSearchForRoutineMultiple,
-  RunMCPTestSearchForRoutineSingle,
-} from './tools/general/mcp-test-search-for-routines';
-import { RunMCPTestSearchResources } from './tools/general/mcp-test-search-resources';
-import { RunMCPTestListGetPrompts } from './tools/general/prompts/mcp-test-list-get-prompt';
-import {
-  RunMCPTestListAllPrompts,
-  RunMCPTestListPromptsWithFilters,
-} from './tools/general/prompts/mcp-test-list-prompts';
-import { RunMCPTestSearchForFiles_All } from './tools/general/search-for-files/mcp-test-search-for-files-all';
-import { RunMCPTestSearchForFiles_FailRight } from './tools/general/search-for-files/mcp-test-search-for-files-fail-right';
-import { RunMCPTestSearchForFiles_NoRecursion } from './tools/general/search-for-files/mcp-test-search-for-files-no-recursion';
-import { RunMCPTestSearchForFiles_RecursionAll } from './tools/general/search-for-files/mcp-test-search-for-files-recursion-all';
-import { RunMCPTestSearchForFiles_Single } from './tools/general/search-for-files/mcp-test-search-for-files-single';
-import { RunMCPTestCreateIDLNotebook } from './tools/idl/mcp-test-create-idl-notebook';
-import { RunMCPTestRunIDLCode } from './tools/idl/mcp-test-run-idl-code';
-import { RunMCPTestRunIDLCode_CrashEmulation } from './tools/idl/mcp-test-run-idl-code-crash-emulation';
-import { RunMCPTestRunIDLFile } from './tools/idl/mcp-test-run-idl-file';
-import { RunMCPTestStartIDL } from './tools/idl/mcp-test-start-idl';
 import { RunMCPTestControlIDLAndENVISession } from './tools/mcp-test-control-idl-and-envi-session';
 
 /*
  * Logger to be used for tests related to debugging
  */
-export const MCP_TEST_LOGGER = new Logger(
-  'mcp-tests',
+export const MCP_ENVI_TEST_LOGGER = new Logger(
+  'mcp-envi-tests',
   false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   () => {},
 );
 
 /**
- * Test runner for debugging
+ * Test runner for ENVI MCP tools
  */
-export const MCP_TEST_RUNNER = new Runner(MCP_TEST_LOGGER);
+export const MCP_ENVI_TEST_RUNNER = new Runner(MCP_ENVI_TEST_LOGGER);
 
 /**
  * OS to exclude
@@ -110,7 +85,7 @@ const ENVI_TEST_EXCLUDE_OS: IOSDefinition[] = [
  * Generic tests
  * =======================================================================
  */
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestValidateMCPConnection,
   name: 'Validate MCP connection to server',
   critical: true,
@@ -118,232 +93,99 @@ MCP_TEST_RUNNER.addTest({
 
 /**
  * =======================================================================
- * Prompt tests
- * =======================================================================
- */
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestListAllPrompts,
-  name: 'List all prompts',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestListPromptsWithFilters,
-  name: 'List filtered prompts for IDL and for ENVI',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestListGetPrompts,
-  name: 'Verify we can list and get prompts by name',
-});
-
-/**
- * =======================================================================
- * Search for routine
- * =======================================================================
- */
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestSearchForRoutineAll,
-  name: 'Verify we can search for all matching routines',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestSearchForRoutineSingle,
-  name: 'Verify we can search for a single type of routine',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestSearchForRoutineMultiple,
-  name: 'Verify we can fulfill multiple searches at once',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestGetRoutineDocs,
-  name: 'Verify we can retrieve docs for routines',
-});
-
-/**
- * =======================================================================
- * Resource tests
- * =======================================================================
- */
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestResourcesWorkflow,
-  name: 'Make sure we can list resources and retrieve a resource by name',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestGetResources,
-  name: 'Make sure getting resources fails correctly',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestSearchResources,
-  name: 'Make sure we can search for resources',
-});
-
-/**
- * =======================================================================
- * File search and creation tests
- * =======================================================================
- */
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestCreateFolder,
-  name: 'File: Create folder recursively and verify existence',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestSearchForFiles_All,
-  name: 'File search: Make sure we can search for all files in a folder',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestSearchForFiles_Single,
-  name: 'File search: Make sure we can search for single file extension in a folder',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestSearchForFiles_FailRight,
-  name: 'File: search Make sure we fail with invalid folders',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestSearchForFiles_RecursionAll,
-  name: 'File search: Make sure we recursively search',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestSearchForFiles_NoRecursion,
-  name: 'File search: Honor no recursion',
-});
-
-/**
- * =======================================================================
- * IDL tests
- * =======================================================================
- */
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestStartIDL,
-  name: 'Start IDL via MCP',
-  critical: true,
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestRunIDLCode,
-  name: 'Execute snippet of IDL code',
-  critical: true,
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestRunIDLCode_CrashEmulation,
-  name: 'Execute snippet of IDL code that shuts down IDL',
-  critical: true,
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestRunIDLFile,
-  name: 'Execute file that contains IDL code',
-});
-
-MCP_TEST_RUNNER.addTest({
-  fn: RunMCPTestCreateIDLNotebook,
-  name: 'Create IDL notebook',
-});
-
-/**
- * =======================================================================
  * ENVI tests
  * =======================================================================
  */
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestStartENVI,
   name: 'Start ENVI with and without the UI',
   critical: true,
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestListENVITools,
   name: 'Verify we can list ENVI tools via MCP (at least 200 returned)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestENVIToolNotesLoad,
   name: 'Verify ENVI tool notes are loaded (will always fail until SAVE files bundled)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestInvalidENVIToolName,
   name: 'Verify ENVI tools fail with unknown task name',
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestENVIToolParameterValidation,
   name: 'Verify ENVI parameters are validated and tool execution fails',
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestRunENVITool,
   name: 'Run simple tool and get expected results',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestRunENVIToolOutputUriExtension,
   name: 'Run simple tool and make sure a mismatched output URI extension is replaced, not appended',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestRunENVIToolOutputUriSessionFolder,
   name: 'Run simple tool and make sure a bare output filename resolves inside the ENVI temp session workspace',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestENVIRasterArray,
   name: 'Run simple tool to test array parameters work',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestENVIMultiDimensionalArray,
   name: 'Run tool with multi-dimensional array input',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestENVIMultiDimensionalArrayMultiStep,
   name: 'Run tool with multi-dimensional array task chain',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestListENVIToolWorkflows,
   name: 'Verify we can list ENVI Tool Workflows',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestGetENVIToolWorkflow,
   name: 'Verify we can list ENVI Tool Workflows and retrieve by name',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestInvalidENVIToolWorkflowName,
   name: 'Verify retrieving workflows with bad name fails',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestSaveENVIToolWorkflow,
   name: 'Verify we can save an ENVI Tool Workflow via MCP',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestSaveENVIToolWorkflow_DuplicateError,
   name: 'Verify saving a duplicate ENVI Tool Workflow name fails',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
@@ -352,109 +194,109 @@ MCP_TEST_RUNNER.addTest({
 /**
  * ENVI Modeler Workflow tests
  */
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowAddAggregators,
   name: 'Create workflow: Add Aggregators',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowChangeDetection,
   name: 'Create workflow: Change Detection',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowChangeDetectionML,
   name: 'Create workflow: Change Detection ML',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowCorrectOutput,
   name: 'Create workflow: Correct Output',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowDatasetIndex,
   name: 'Create workflow: Dataset Index',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowDeepLearning,
   name: 'Create workflow: Deep Learning',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowImageClassificationML,
   name: 'Create workflow: Image Classification ML',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowImageRegistration,
   name: 'Create workflow: Image Registration',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowOrthorectification,
   name: 'Create workflow: Orthorectification',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowSelectiveDownsampling,
   name: 'Create workflow: Selective Downsampling',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowSpectralIndexIsodata,
   name: 'Create workflow: Spectral Index ISODATA',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowIsodataWithUri,
   name: 'Create workflow: ISODATA with URI',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowFileExistsError,
   name: 'Create workflow: File exists error',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowStaticInput,
   name: 'Create workflow: Static Input',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowDatamanagerView,
   name: 'Create workflow: Datamanager and View',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowBadEdges,
   name: 'Workflow validation: Bad Edges',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowBadDirection,
   name: 'Workflow validation: Bad Direction',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestWorkflowParamsBad,
   name: 'Workflow validation: Bad Parameters',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
@@ -464,67 +306,67 @@ MCP_TEST_RUNNER.addTest({
  * Query dataset
  */
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_Raster,
   name: 'Query dataset works (Raster)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_ROI,
   name: 'Query dataset works (ROI)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_SpectralLibrary,
   name: 'Query dataset works (Spectral Library)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestQueryDatasetWithENVI_Vector,
   name: 'Query dataset works (Vector)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestOpenDatasetsInENVI_NoInput,
   name: 'Open dataset (fail when no datasets)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestOpenDatasetsInENVI_Raster,
   name: 'Open dataset (Raster)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestOpenDatasetsInENVI_RasterSeries,
   name: 'Open dataset (Raster Series)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestOpenDatasetsInENVI_Vector,
   name: 'Open dataset (Vector)',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestTakeENVIScreenshot,
   name: 'Take a screenshot of the ENVI display via MCP',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestControlIDLAndENVISession,
   name: 'Make sure we can properly manage our ENVI and IDL sessions',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPENVINotInstalledErrors,
   name: 'Verify errors with ENVI Tools when not installed',
   includeOS: [
@@ -540,13 +382,13 @@ MCP_TEST_RUNNER.addTest({
  * Regression tests
  * =======================================================================
  */
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestListENVIToolsRegression,
   name: 'List ENVI Tools regression test',
   excludeOS: ENVI_TEST_EXCLUDE_OS,
 });
 
-MCP_TEST_RUNNER.addTest({
+MCP_ENVI_TEST_RUNNER.addTest({
   fn: RunMCPTestGetENVIToolParametersRegression,
   name: 'Get ENVI Tool Parameters regression test',
   excludeOS: ENVI_TEST_EXCLUDE_OS,

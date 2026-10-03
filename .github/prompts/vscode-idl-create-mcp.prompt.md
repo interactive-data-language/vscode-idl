@@ -393,4 +393,4 @@ export const RunMCPTestExecuteIDLCode: RunnerFunction = async (init) => {
 };
 ```
 
-Then, register the tool in "apps/test/client/src/tests/mcp/_mcp-test-runner.ts"
+Then, register the tool in the matching `_mcp-test-runner-{generic,idl,envi}.ts` file in "apps/test/client/src/tests/mcp/"
