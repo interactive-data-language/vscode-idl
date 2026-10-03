@@ -1,9 +1,9 @@
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
-import { RunnerFunction } from '../../runner.interface';
-import { CallMCPTool } from '../helpers/call-mcp-tool';
-import { GetTextContent } from '../helpers/get-text-content';
+import { RunnerFunction } from '../../../../runner.interface';
+import { CallMCPTool } from '../../../helpers/call-mcp-tool';
+import { GetTextContent } from '../../../helpers/get-text-content';
 
 /**
  * Makes sure we can list ENVI Tool workflows and return the list

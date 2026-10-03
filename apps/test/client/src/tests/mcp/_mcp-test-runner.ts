@@ -63,6 +63,11 @@ import {
   RunMCPTestSearchForRoutineSingle,
 } from './tools/general/mcp-test-search-for-routines';
 import { RunMCPTestSearchResources } from './tools/general/mcp-test-search-resources';
+import { RunMCPTestListGetPrompts } from './tools/general/prompts/mcp-test-list-get-prompt';
+import {
+  RunMCPTestListAllPrompts,
+  RunMCPTestListPromptsWithFilters,
+} from './tools/general/prompts/mcp-test-list-prompts';
 import { RunMCPTestSearchForFiles_All } from './tools/general/search-for-files/mcp-test-search-for-files-all';
 import { RunMCPTestSearchForFiles_FailRight } from './tools/general/search-for-files/mcp-test-search-for-files-fail-right';
 import { RunMCPTestSearchForFiles_NoRecursion } from './tools/general/search-for-files/mcp-test-search-for-files-no-recursion';
@@ -74,11 +79,6 @@ import { RunMCPTestRunIDLCode_CrashEmulation } from './tools/idl/mcp-test-run-id
 import { RunMCPTestRunIDLFile } from './tools/idl/mcp-test-run-idl-file';
 import { RunMCPTestStartIDL } from './tools/idl/mcp-test-start-idl';
 import { RunMCPTestControlIDLAndENVISession } from './tools/mcp-test-control-idl-and-envi-session';
-import { RunMCPTestListGetPrompts } from './tools/mcp-test-list-get-prompt';
-import {
-  RunMCPTestListAllPrompts,
-  RunMCPTestListPromptsWithFilters,
-} from './tools/mcp-test-list-prompts';
 
 /*
  * Logger to be used for tests related to debugging
