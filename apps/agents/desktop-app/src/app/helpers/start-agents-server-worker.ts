@@ -65,11 +65,22 @@ export function StartAgentsServerInWorker(
     const file = GetExtensionPath('dist/apps/agents/server/main.js');
     const worker = new Worker(file, {
       workerData: { port: config.server.port },
+      stdout: true,
+      stderr: true,
+    });
+
+    // drain or ignore streams to ensure buffers never fill:
+    worker.stdout.on('data', () => {
+      // do nothing
+    });
+    worker.stderr.on('data', () => {
+      // do nothing
     });
 
     let ready = false;
 
-    worker.on('message', (msg: WorkerMessage) => {
+    worker.on('message', (raw: string) => {
+      const msg: WorkerMessage = JSON.parse(raw);
       switch (msg.type) {
         case 'error':
           if (!ready) {

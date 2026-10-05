@@ -32,6 +32,13 @@ async function LoadConfig(): Promise<IAgentServerConfig> {
 }
 
 /**
+ * Message wrapper which manually serializes/deserialze on the main
+ */
+function PostMessage(msg: any) {
+  parentPort?.postMessage(JSON.stringify(msg));
+}
+
+/**
  * Starts the agents server when run directly (i.e. not spawned as a worker thread)
  */
 async function main() {
@@ -68,13 +75,13 @@ async function mainAsWorker() {
 
   // pipe all console output to our parent thread
   console.log = (...args: any[]) => {
-    parentPort?.postMessage({ type: 'log', level: 'log', args });
+    PostMessage({ type: 'log', level: 'log', args });
   };
   console.warn = (...args: any[]) => {
-    parentPort?.postMessage({ type: 'log', level: 'warn', args });
+    PostMessage({ type: 'log', level: 'warn', args });
   };
   console.error = (...args: any[]) => {
-    parentPort?.postMessage({ type: 'log', level: 'error', args });
+    PostMessage({ type: 'log', level: 'error', args });
   };
 
   try {
@@ -83,7 +90,7 @@ async function mainAsWorker() {
 
     const result = await StartAgentsServer(config);
 
-    parentPort.postMessage({ type: 'ready', port: result.port });
+    PostMessage({ type: 'ready', port: result.port });
 
     // our parent process tells us when to gracefully shut down
     parentPort.on('message', async (msg: { type: string }) => {
@@ -93,7 +100,7 @@ async function mainAsWorker() {
       }
     });
   } catch (err: any) {
-    parentPort.postMessage({
+    PostMessage({
       type: 'error',
       message: err?.message ?? String(err),
     });

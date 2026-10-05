@@ -6,6 +6,19 @@ import ElectronEvents from './app/events/electron.events';
 import SquirrelEvents from './app/events/squirrel.events';
 import { ConsoleFileLogger } from './app/helpers/initialize-console-file-logging';
 
+// At the absolute entry point of your Electron app (main.ts):
+const envsToPurge = [
+  'CHROME_CRASHPAD_PIPE_NAME', // Prevents Chromium sub-processes from attempting to register IPC crash pipes with VS Code
+  'VSCODE_HANDLES_UNCAUGHT_ERRORS', // Prevents Node/Chromium from deferring unhandled exception behavior to VS Code
+  'VSCODE_NODE_COMPILE_CACHE_ROOT', // Prevents V8 bytecode cache file contention/corruption across processes
+  'VSCODE_NODE_COMPILE_CACHE_KIND', // Companion to compile cache root
+  'ELECTRON_RUN_AS_NODE', // Crucial if ever set; prevents Electron from booting strictly as a Node CLI
+];
+
+for (const envVar of envsToPurge) {
+  delete process.env[envVar];
+}
+
 // mirror console output to disk as early as possible so nothing is missed
 ConsoleFileLogger.initialize();
 
