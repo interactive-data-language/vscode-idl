@@ -16,7 +16,6 @@ import { DEFAULT_CHAT_INSTRUCTIONS } from '../helpers/chat-instructions.interfac
 import { EXAMPLE_PROMPTS } from '../helpers/example-prompts.interface';
 import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
 import { CopilotChatFramework } from './copilot/copilot-chat-framework.class';
-import { LangChainChatFramework } from './langchain/langchain-chat-framework.class';
 
 /**
  * Public chat service facade. Delegates to either CopilotChatService
@@ -38,15 +37,15 @@ export class Chat {
   /**
    * Chat engine
    */
-  private readonly framework: CopilotChatFramework | LangChainChatFramework;
+  private readonly framework: CopilotChatFramework;
 
   constructor(config: IAgentServerConfig) {
     this.config = config;
-    if (config.agent.engine === 'langchain') {
-      this.framework = new LangChainChatFramework(this, config);
-    } else {
-      this.framework = new CopilotChatFramework(this, config);
+    if (config.agent.engine !== 'copilot') {
+      throw new Error('Only GitHub Copilot is supported');
     }
+
+    this.framework = new CopilotChatFramework(this, config);
 
     // update filters
     this.filters.updateFilters({
