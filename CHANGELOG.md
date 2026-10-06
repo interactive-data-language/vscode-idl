@@ -27,6 +27,8 @@ Migrate from prompts to skills for the extension, which has a few changes:
 - Tightened up the names/descriptions to be more fitting
 - Migrated to VS Code's formal contribution point for skills. As part of this, we no longer search user folders for skills.
 
+As part of this migration, we automatically remove any folders from the "~/.idl" directory for the "chat.promptFilesLocations" setting.
+
 ## 6.2.2 - September 2026
 
 Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.
