@@ -1,5 +1,5 @@
-import { MCPPromptRegistry } from '@idl/mcp/skills';
 import { MCPServer } from '@idl/mcp/server';
+import { MCPPromptRegistry } from '@idl/mcp/skills';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
