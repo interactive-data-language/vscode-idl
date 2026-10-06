@@ -17,6 +17,7 @@
         "tsConfig": "apps/agents/sandbox/tsconfig.app.json",
         "assets": ["apps/agents/sandbox/src/assets"],
         "webpackConfig": "apps/agents/sandbox/webpack.config.js",
+        "externalDependencies": "none",
         "generatePackageJson": true
       },
       "configurations": {

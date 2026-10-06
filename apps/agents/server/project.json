@@ -17,6 +17,7 @@
         "tsConfig": "apps/agents/server/tsconfig.app.json",
         "assets": ["apps/agents/server/src/assets"],
         "webpackConfig": "apps/agents/server/webpack.config.js",
+        "externalDependencies": "none",
         "generatePackageJson": true
       },
       "configurations": {
