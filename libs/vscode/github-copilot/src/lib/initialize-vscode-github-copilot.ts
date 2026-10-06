@@ -4,6 +4,7 @@ import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
 import { RegisterCopilotCommands } from './commands/register-copilot-commands';
+import { CleanupLegacyPromptSettings } from './helpers/cleanup-legacy-prompt-settings';
 import { InstructionsSync } from './helpers/instructions-sync.class';
 import { RegisterGitHubCopilotFilesFromExtension } from './helpers/register-github-copilot-files-from-extension';
 import { RegisterGitHubCopilotFilesFromIDLPackages } from './helpers/register-github-copilot-files-from-idl-packages';
@@ -25,10 +26,23 @@ export async function InitializeVSCodeGitHubCopilot(
   RegisterCopilotCommands(ctx);
 
   /**
+   * Clean up legacy prompt settings/folders
+   */
+  try {
+    await CleanupLegacyPromptSettings();
+  } catch (err) {
+    IDL_LOGGER.log({
+      log: IDL_COPILOT_VSCODE_LOG,
+      type: 'warn',
+      content: ['Problem cleaning up legacy prompt settings', err],
+    });
+  }
+
+  /**
    * Attempt to add instructions
    */
   try {
-    await RegisterGitHubCopilotFilesFromExtension('instructions');
+    await RegisterGitHubCopilotFilesFromExtension();
     await RegisterGitHubCopilotFilesFromIDLPackages('instructions');
     await RegisterGitHubCopilotFilesFromUser('instructions');
   } catch (err) {

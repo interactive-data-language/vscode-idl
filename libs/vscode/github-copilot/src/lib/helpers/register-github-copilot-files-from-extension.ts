@@ -3,7 +3,6 @@ import {
   GetExtensionPath,
   OLD_USER_AGENTS_FOLDER,
   USER_AGENT_INSTRUCTIONS_FOLDER,
-  USER_AGENT_PROMPTS_FOLDER,
   USER_AGENTS_FOLDER,
 } from '@idl/idl/files';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
@@ -15,41 +14,23 @@ import { HomeRelativePath } from './home-relative-path';
 import { MoveAndUpdateCopilotFile } from './move-and-update-copilot-file';
 
 /**
- * Registers prompts and instructions files that we provide as
- * part of the extension with GitHub Copilot's configuration
+ * Registers instructions files that we provide as part of the extension
+ * with GitHub Copilot's configuration
  */
-export async function RegisterGitHubCopilotFilesFromExtension(
-  type: 'instructions' | 'prompts',
-) {
+export async function RegisterGitHubCopilotFilesFromExtension() {
   // Get the configuration for chat settings
   const config = vscode.workspace.getConfiguration('chat');
 
-  /** Get settings key */
-  const settingKey =
-    type === 'instructions'
-      ? 'instructionsFilesLocations'
-      : 'promptFilesLocations';
-
-  /** Get the folder our extensions live in */
-  const extensionDir =
-    type === 'instructions'
-      ? 'resources/agents/instructions'
-      : 'resources/agents/prompts';
-
-  /** Get the file extension we search for */
-  const fileExtensions =
-    type === 'instructions' ? '**/*.instructions.md' : '**/*.prompt.md';
+  /** Settings key */
+  const settingKey = 'instructionsFilesLocations';
 
   /** Folder that our instructions should go into */
-  const destinationDir =
-    type === 'instructions'
-      ? USER_AGENT_INSTRUCTIONS_FOLDER
-      : USER_AGENT_PROMPTS_FOLDER;
+  const destinationDir = USER_AGENT_INSTRUCTIONS_FOLDER;
 
   /**
    * Clean up existing files
    *
-   * Don't just nuke the folder - it get's locked sometimes by VSCode when prompts
+   * Don't just nuke the folder - it gets locked sometimes by VSCode when files
    * are registered (or at least it looks like that)
    */
   if (existsSync(destinationDir)) {
@@ -68,7 +49,7 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   const oldRelative = HomeRelativePath(OLD_USER_AGENTS_FOLDER);
 
   /**
-   * Get prompt files
+   * Get instruction files
    *
    * Use spread operator to clone so that we can use it
    */
@@ -76,8 +57,8 @@ export async function RegisterGitHubCopilotFilesFromExtension(
     ...(config.get<Record<string, boolean>>(settingKey) || {}),
   };
 
-  /** Get folder with our prompts */
-  const dir = GetExtensionPath(extensionDir);
+  /** Get folder with our instructions */
+  const dir = GetExtensionPath('resources/agents/instructions');
 
   // remove existing in case we added some that are now gone
   const existing = Object.keys(filesLocations);
@@ -85,7 +66,7 @@ export async function RegisterGitHubCopilotFilesFromExtension(
   // get existing flags
   const states: { [key: string]: boolean } = {};
 
-  // remove any existing files from settings in case we deleted/removed prompts
+  // remove any existing files from settings in case we deleted/removed instructions
   for (let i = 0; i < existing.length; i++) {
     // check if old location to clean up setting
     if (existing[i].startsWith(oldRelative)) {
@@ -103,16 +84,13 @@ export async function RegisterGitHubCopilotFilesFromExtension(
     }
   }
 
-  /** Find prompt files that we should automatically register */
-  let files = await FindFiles(dir, fileExtensions);
+  /** Find instruction files that we should automatically register */
+  let files = await FindFiles(dir, '**/*.instructions.md');
 
   /**
    * Exclude ENVI items from being auto copied/updated
    */
-  if (
-    !IDL_EXTENSION_CONFIG.copilot.registerENVIInstructions &&
-    type === 'instructions'
-  ) {
+  if (!IDL_EXTENSION_CONFIG.copilot.registerENVIInstructions) {
     files = files.filter((item) => !item.toLowerCase().includes('envi'));
   }
 
