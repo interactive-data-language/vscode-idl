@@ -401,7 +401,7 @@ export class CopilotChatFramework {
       },
       mcpServers: {
         /**
-         * If you change this, we need to change the values above for IDL_MCP_NAME
+         * If you change this key name, we need to change the values above for IDL_MCP_NAME
          */
         'idl-mcp': {
           type: 'http',
