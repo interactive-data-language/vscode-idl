@@ -70,19 +70,4 @@ export async function InitializeVSCodeGitHubCopilot(
     ctx.subscriptions.push(enviSync.watchFileChanges());
     ctx.subscriptions.push(enviSync.watchSettingChanges());
   }
-
-  /**
-   * Attempt to add prompt files to VSCode
-   */
-  try {
-    await RegisterGitHubCopilotFilesFromExtension('prompts');
-    await RegisterGitHubCopilotFilesFromIDLPackages('prompts');
-    await RegisterGitHubCopilotFilesFromUser('prompts');
-  } catch (err) {
-    IDL_LOGGER.log({
-      log: IDL_COPILOT_VSCODE_LOG,
-      type: 'error',
-      content: ['Problem while initializing GitHub Copilot prompt files', err],
-    });
-  }
 }

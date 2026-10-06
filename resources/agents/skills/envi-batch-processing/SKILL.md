@@ -1,6 +1,6 @@
 ---
-agent: 'agent'
-description: 'Create image processing workflow and process multiple datasets using ENVI and IDL'
+name: envi-batch-processing
+description: 'Describes how to use ENVI to perform batch processing. Use when individuals are working with imagery, remote sensing, or image analysis problems and have more than one image or set of images to process.'
 ---
 
 Your goal is to help a user create an image processing workflow and process multiple datasets using ENVI and IDL.

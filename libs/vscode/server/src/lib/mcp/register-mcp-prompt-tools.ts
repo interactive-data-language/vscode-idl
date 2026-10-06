@@ -25,11 +25,11 @@ export function RegisterMCPPromptTools(server: MCPServer) {
   RegisterMCPTool_GetPrompt(server, registry);
   RegisterMCPTool_ListPrompts(server, registry);
 
-  /** ENVI prompt dir */
-  const enviDir = GetExtensionPath('resources/agents/prompts/ENVI');
+  /** Skills dir */
+  const skillsDir = GetExtensionPath('resources/agents/skills');
 
   /**
-   * Add ENVI prompts
+   * Add ENVI skills / prompts
    */
   registry.addPrompt({
     name: 'envi',
@@ -38,7 +38,7 @@ export function RegisterMCPPromptTools(server: MCPServer) {
     location: {
       type: 'file',
       meta: {
-        path: join(enviDir, 'envi.prompt.md'),
+        path: join(skillsDir, 'envi', 'SKILL.md'),
       },
     },
     type: 'envi',
@@ -50,7 +50,7 @@ export function RegisterMCPPromptTools(server: MCPServer) {
     location: {
       type: 'file',
       meta: {
-        path: join(enviDir, 'enviBatchProcessing.prompt.md'),
+        path: join(skillsDir, 'envi-batch-processing', 'SKILL.md'),
       },
     },
     type: 'envi',
@@ -62,7 +62,7 @@ export function RegisterMCPPromptTools(server: MCPServer) {
     location: {
       type: 'file',
       meta: {
-        path: join(enviDir, 'enviModelerWorkflow.prompt.md'),
+        path: join(skillsDir, 'envi-modeler-workflow', 'SKILL.md'),
       },
     },
     type: 'envi',
@@ -74,17 +74,14 @@ export function RegisterMCPPromptTools(server: MCPServer) {
     location: {
       type: 'file',
       meta: {
-        path: join(enviDir, 'enviSaveENVIToolWorkflow.prompt.md'),
+        path: join(skillsDir, 'envi-save-envi-tool-workflow', 'SKILL.md'),
       },
     },
     type: 'envi',
   });
 
-  /** IDL prompt dir */
-  const idlDir = GetExtensionPath('resources/agents/prompts/IDL');
-
   /**
-   * Add IDL prompts
+   * Add IDL skills / prompts
    */
   registry.addPrompt({
     name: 'idl-plotting',
@@ -93,7 +90,7 @@ export function RegisterMCPPromptTools(server: MCPServer) {
     location: {
       type: 'file',
       meta: {
-        path: join(idlDir, 'idlCreate2DPlot.prompt.md'),
+        path: join(skillsDir, 'idl-create-2d-plot', 'SKILL.md'),
       },
     },
     type: 'idl',

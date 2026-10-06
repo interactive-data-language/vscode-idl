@@ -260,6 +260,23 @@
         "language": "idl"
       }
     ],
+    "chatSkills": [
+      {
+        "path": "./resources/agents/skills/envi-batch-processing/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/envi-modeler-workflow/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/envi-data-processing/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/save-envi-tool-workflow/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/idl-create-2d-plot/SKILL.md"
+      }
+    ],
     "commands": [
       {
         "command": "idl.client.fileABug",
