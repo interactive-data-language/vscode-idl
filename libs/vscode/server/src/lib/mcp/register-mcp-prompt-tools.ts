@@ -1,11 +1,11 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { MCPPromptRegistry } from '@idl/mcp/prompts';
 import { MCPServer } from '@idl/mcp/server';
 import {
   RegisterMCPTool_GetPrompt,
   RegisterMCPTool_ListPrompts,
 } from '@idl/mcp/server-tools';
+import { MCPPromptRegistry } from '@idl/mcp/skills';
 import { join } from 'path';
 
 /**

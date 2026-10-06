@@ -1,4 +1,4 @@
-import { MCPPromptRegistry } from '@idl/mcp/prompts';
+import { MCPPromptRegistry } from '@idl/mcp/skills';
 import { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
