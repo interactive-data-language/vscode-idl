@@ -14,7 +14,7 @@
   "scripts": {
     "build-client": "nx run-many --target=build --projects=vscode-client,vscode-webview --prod",
     "build-client-web": "npm run merge-client-web-paths && nx build vscode-client-web --prod",
-    "build-desktop-app": "nx run-many --target=build --projects=vscode-parsing-worker,agents-ui,agents-desktop-app --prod",
+    "build-desktop-app": "nx run-many --target=build --projects=build-i18n,vscode-parsing-worker,agents-ui,agents-server,agents-desktop-app --prod",
     "build-docs": "node ./tools/node/build-and-copy-docs.js",
     "build-extension": "npm-run-all -s clean build-package-json build-docs build-client build-notebook build-server build-client-web",
     "build-i18n": "nx build build-i18n && node ./dist/apps/build/i18n/main.js",
