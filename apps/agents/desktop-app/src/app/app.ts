@@ -1,5 +1,8 @@
 import { GetExtensionPath } from '@idl/idl/files';
-import { IStartAgentsServerResult } from '@idl/mcp/standalone-server';
+import {
+  IStartAgentsServerResult,
+  StartAgentsServer,
+} from '@idl/mcp/standalone-server';
 import { getPorts } from '@idl/server-helpers';
 import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
 import { ELECTRON_EVENTS } from '@idl/types/electron';
@@ -12,7 +15,6 @@ import { format } from 'url';
 import { environment } from '../environments/environment';
 import { rendererAppName, rendererAppPort } from './constants';
 import { PipeRendererConsoleToLog } from './helpers/pipe-renderer-console';
-import { StartAgentsServerInWorker } from './helpers/start-agents-server-worker';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
@@ -236,7 +238,11 @@ export default class App {
       // get port to use
       App.config.server.port = await getPorts();
 
-      App.agentsServer = await StartAgentsServerInWorker(App.config);
+      // run agents server in-process
+      App.agentsServer = await StartAgentsServer(App.config);
+
+      // run as worker thread - need to resolve issue with bundling in dev
+      // App.agentsServer = await StartAgentsServerInWorker(App.config);
     } catch (err) {
       console.error('[desktop-app] Failed to start agents server:', err);
     }

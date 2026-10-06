@@ -5,8 +5,64 @@ import {
   IAgentServerConfig,
 } from '@idl/types/agents';
 import { copy } from 'fast-copy';
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
+import Module = require('module');
+import { join } from 'path';
 import { isMainThread, parentPort, workerData } from 'worker_threads';
+
+/**
+ * Configure module resolution paths if unpacked electron dependencies exist
+ */
+function ConfigureModulePaths(): void {
+  const possiblePaths: string[] = [];
+
+  console.log(process.cwd());
+
+  // Check from extension/app root
+  try {
+    possiblePaths.push(
+      GetExtensionPath(
+        'dist/packages/win-unpacked/resources/app.asar.unpacked/node_modules',
+      ),
+    );
+  } catch {
+    // Ignore if not found
+  }
+
+  try {
+    possiblePaths.push(
+      GetExtensionPath('resources/app.asar.unpacked/node_modules'),
+    );
+  } catch {
+    // Ignore if not found
+  }
+
+  // Check from Electron resourcesPath if present
+  const resourcesPath = (process as any).resourcesPath;
+  if (resourcesPath !== undefined) {
+    possiblePaths.push(
+      join(resourcesPath, 'app.asar.unpacked', 'node_modules'),
+    );
+  }
+
+  for (const modulePath of possiblePaths) {
+    if (existsSync(modulePath)) {
+      const globalPaths = (Module as any).globalPaths as string[] | undefined;
+      if (globalPaths && !globalPaths.includes(modulePath)) {
+        globalPaths.unshift(modulePath);
+      }
+      if (module.paths && !module.paths.includes(modulePath)) {
+        module.paths.unshift(modulePath);
+      }
+      if (require.main?.paths && !require.main.paths.includes(modulePath)) {
+        require.main.paths.unshift(modulePath);
+      }
+      break;
+    }
+  }
+}
+
+// ConfigureModulePaths();
 
 /**
  * Loads our config from the optional "desktop-agents.config.json" file on disk,
@@ -85,6 +141,9 @@ async function mainAsWorker() {
   };
 
   try {
+    // see ConfigureModulePaths above
+    throw new Error('Address bundling issue when running as web worker');
+
     const config = await LoadConfig();
     config.server.port = (workerData as { port: number }).port;
 
@@ -93,7 +152,7 @@ async function mainAsWorker() {
     PostMessage({ type: 'ready', port: result.port });
 
     // our parent process tells us when to gracefully shut down
-    parentPort.on('message', async (msg: { type: string }) => {
+    parentPort?.on('message', async (msg: { type: string }) => {
       if (msg?.type === 'stop') {
         await result.stop();
         process.exit(0);
