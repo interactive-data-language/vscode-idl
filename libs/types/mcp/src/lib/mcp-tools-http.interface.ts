@@ -21,10 +21,6 @@ import {
   MCPToolParams_GetENVIToolWorkflows,
 } from './http/mcp-tool-get-envi-tool-workflow.interface';
 import {
-  MCPTool_GetPrompt,
-  MCPToolParams_GetPrompt,
-} from './http/mcp-tool-get-prompt.interface';
-import {
   MCPTool_GetResource,
   MCPToolParams_GetResource,
 } from './http/mcp-tool-get-resource.interface';
@@ -32,6 +28,10 @@ import {
   MCPTool_GetRoutineDocs,
   MCPToolParams_GetRoutineDocs,
 } from './http/mcp-tool-get-routine-docs.interface';
+import {
+  MCPTool_GetSkill,
+  MCPToolParams_GetSkill,
+} from './http/mcp-tool-get-skill.interface';
 import {
   MCPTool_ListAllResources,
   MCPToolParams_ListAllResources,
@@ -41,9 +41,9 @@ import {
   MCPToolParams_ListENVITools,
 } from './http/mcp-tool-list-envi-tools.interface';
 import {
-  MCPTool_ListPrompts,
-  MCPToolParams_ListPrompts,
-} from './http/mcp-tool-list-prompts.interface';
+  MCPTool_ListSkills,
+  MCPToolParams_ListSkills,
+} from './http/mcp-tool-list-skills.interface';
 import {
   MCPTool_SaveENVIToolWorkflow,
   MCPToolParams_SaveENVIToolWorkflow,
@@ -69,12 +69,12 @@ export type MCPTools_HTTP =
   | MCPTool_CreateFolder
   | MCPTool_GetENVIToolParameters
   | MCPTool_GetENVIToolWorkflow
-  | MCPTool_GetPrompt
   | MCPTool_GetResource
   | MCPTool_GetRoutineDocs
+  | MCPTool_GetSkill
   | MCPTool_ListAllResources
   | MCPTool_ListENVITools
-  | MCPTool_ListPrompts
+  | MCPTool_ListSkills
   | MCPTool_SaveENVIToolWorkflow
   | MCPTool_SearchForFiles
   | MCPTool_SearchForRoutine
@@ -93,24 +93,24 @@ export type MCPToolParams_HTTP<T extends MCPTools_HTTP> =
         ? MCPToolParams_GetENVIToolParameters
         : T extends MCPTool_GetENVIToolWorkflow
           ? MCPToolParams_GetENVIToolWorkflows
-          : T extends MCPTool_GetPrompt
-            ? MCPToolParams_GetPrompt
-            : T extends MCPTool_GetResource
-              ? MCPToolParams_GetResource
-              : T extends MCPTool_GetRoutineDocs
-                ? MCPToolParams_GetRoutineDocs
+          : T extends MCPTool_GetResource
+            ? MCPToolParams_GetResource
+            : T extends MCPTool_GetRoutineDocs
+              ? MCPToolParams_GetRoutineDocs
+              : T extends MCPTool_GetSkill
+                ? MCPToolParams_GetSkill
                 : T extends MCPTool_ListAllResources
                   ? MCPToolParams_ListAllResources
                   : T extends MCPTool_ListENVITools
                     ? MCPToolParams_ListENVITools
-                    : T extends MCPTool_SaveENVIToolWorkflow
-                      ? MCPToolParams_SaveENVIToolWorkflow
-                      : T extends MCPTool_SearchForFiles
-                        ? MCPToolParams_SearchForFiles
-                        : T extends MCPTool_SearchForRoutine
-                          ? MCPToolParams_SearchForRoutine
-                          : T extends MCPTool_ListPrompts
-                            ? MCPToolParams_ListPrompts
+                    : T extends MCPTool_ListSkills
+                      ? MCPToolParams_ListSkills
+                      : T extends MCPTool_SaveENVIToolWorkflow
+                        ? MCPToolParams_SaveENVIToolWorkflow
+                        : T extends MCPTool_SearchForFiles
+                          ? MCPToolParams_SearchForFiles
+                          : T extends MCPTool_SearchForRoutine
+                            ? MCPToolParams_SearchForRoutine
                             : T extends MCPTool_SearchResources
                               ? MCPToolParams_SearchResources
                               : never;

@@ -1,6 +1,6 @@
 ---
-name: envi-data-processing
-description: 'Describes how to use ENVI to solve remote sensing and image processing problems. Use when individuals are working with imagery, remote sensing, or image analysis problems.'
+name: envi-image-analysis
+description: 'Guide for solving remote sensing and image analysis problems with ENVI. Use when users need to plan, chain, or execute image processing workflows, analyze satellite or aerial raster data, select ENVI tools, or extract features from imagery.'
 ---
 
 Your goal is to help a user create an image processing workflow using ENVI and IDL.

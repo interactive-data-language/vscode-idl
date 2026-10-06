@@ -19,7 +19,7 @@ export function RegisterMCPTool_SaveENVIToolWorkflow(server: MCPServer) {
         IDL_TRANSLATION.mcp.tools.displayNames[
           MCP_TOOL_LOOKUP.SAVE_ENVI_TOOL_WORKFLOW
         ],
-      description: `Saves an ENVI Tool Workflow so that it can be re-used in future sessions. The workflow name must be unique (case-insensitive). For complete instructions on how to use this tool, retrieve the prompt "enviSaveENVIToolWorkflow" from the MCP tool "${MCP_TOOL_LOOKUP.LIST_PROMPTS}".`,
+      description: `Saves an ENVI Tool Workflow so that it can be re-used in future sessions. The workflow name must be unique (case-insensitive). For complete instructions on how to use this tool, retrieve the skill "save-envi-tool-workflow" from the MCP tool "${MCP_TOOL_LOOKUP.LIST_SKILLS}".`,
       inputSchema: {
         workflowName: z
           .string()

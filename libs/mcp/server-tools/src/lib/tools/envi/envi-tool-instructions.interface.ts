@@ -6,7 +6,7 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 export const ENVI_TOOL_INSTRUCTIONS = `
 For image processing and remote sensing or spectral questions, follow these rules:
 
-If you have not loaded an ENVI prompt, retrieve the prompt "envi" from "${MCP_TOOL_LOOKUP.GET_PROMPT}" for instructions prior to running any tools below.
+If you have not loaded an ENVI skill, retrieve the skill "envi-image-analysis" from "${MCP_TOOL_LOOKUP.GET_SKILL}" for instructions prior to running any tools below.
 
 You can control a software system by using 3 tools.
 

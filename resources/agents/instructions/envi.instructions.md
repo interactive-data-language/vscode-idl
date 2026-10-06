@@ -33,7 +33,7 @@ Always read and reference the retrieved documentation so your answers are accura
 
 When users want to plan or execute remote sensing workflows, you need to:
 
-- Load the "envi" prompt from the MCP tool "get-prompt".
+- Load the "envi-image-analysis" skill from the MCP tool "get-skill".
 - Follow the instructions and guide the user to plan their workflow
 - ALWAYS propose processing steps and wait for the user to confirm them
 
@@ -69,8 +69,8 @@ Prefer these tools when working with ENVI over other tools targeted at programmi
 
 Use these tools to find additional instructions for how to complete overall processes in ENVI.
 
-- "list-prompts" - List available instruction sets, should filter to ENVI, use the decription returned to decide which prompt to load.
-- "get-prompt" - Retrieve instructions, recommended to use the "envi" named prompt
+- "list-skills" - List available skills, use the description returned to decide which skill to load.
+- "get-skill" - Retrieve instructions, recommended to use the "envi-image-analysis" named skill
 
 **ENVI Tools and ENVI Tool Workflows**
 
@@ -91,5 +91,9 @@ Here's a few errors you may encounter that indicate sarscape is not installed or
 - Structure type not defined: ENVISARSCAPEDATA
 
 - "Unknown tool" when getting tool parameters for a SAR processing workflow
+
+## VOCABULARY
+
+ENVI Task = ENVI Tool
 
 ## ADDITIONAL INSTRUCTIONS
