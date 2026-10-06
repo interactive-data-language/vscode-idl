@@ -16,6 +16,7 @@ import { ProcessLanguages } from './contributes/contributes-languages';
 import { ProcessMCP } from './contributes/contributes-mcp';
 import { ProcessNotebooks } from './contributes/contributes-notebooks';
 import { ProcessMainPackageJSON } from './contributes/contributes-package-json';
+import { ProcessSkills } from './contributes/contributes-skills';
 import { ProcessSnippets } from './contributes/contributes-snippets';
 import { ProcessThemes } from './contributes/contributes-themes';
 import { ProcessTreeView } from './contributes/contributes-tree-view';
@@ -92,6 +93,9 @@ export async function ProcessPackage(
 
   // add MCP
   ProcessMCP(packageJSON, nls);
+
+  // add skills
+  await ProcessSkills(packageJSON, nls);
 
   // add walkthroughs
   ProcessWalkthroughs(packageJSON, nls);

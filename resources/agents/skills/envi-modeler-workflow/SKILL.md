@@ -1,6 +1,6 @@
 ---
-agent: 'agent'
-description: 'Create an ENVI Modeler workflow file to automate remote sensing processing pipelines'
+name: envi-modeler-workflow
+description: 'Describes how to design and create an ENVI Modeler workflow file (.model) that automates a chain of ENVI Tasks. Use when a user wants to save a processing pipeline as a reusable, graphical ENVI Modeler workflow.'
 ---
 
 Your goal is to help a user design and create an ENVI Modeler workflow file (`.model`).
@@ -98,32 +98,3 @@ Use `create-envi-modeler-workflow` with:
 inputparameters → task_1 → task_2 → view
                                   → datamanager
 ```
-
-### Batch processing (iterator loop)
-
-```
-inputparameters (ENVIRASTERARRAY) → iterator → task_1 → view
-                                                      → datamanager
-```
-
-### Iterate over value list
-
-```
-arrayvalues → iterator → task_1 → view
-inputparameters        ↗
-```
-
-### Aggregate loop outputs
-
-```
-iterator → task_1 → aggregator → task_2 → view
-```
-
-## Rules
-
-- **Do not** include task parameters in `static_input` if they match the task default.
-- **Do not** add more than one `view`, `datamanager`, or `outputparameters` node — only a single instance of each is valid in a workflow.
-- **Do** add a `comment` property to nodes that need annotation to explain non-obvious design decisions.
-- **Do** add a `view` and `datamanager` node for final raster outputs so the workflow is usable interactively.
-- **Do** expose parameters in `inputparameters` that users will realistically vary between runs.
-- Parameter `name` values in `inputparameters.parameters[]` should be UPPERCASE.

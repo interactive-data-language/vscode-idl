@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "6.2.2",
+  "version": "6.3.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -258,6 +258,23 @@
     "breakpoints": [
       {
         "language": "idl"
+      }
+    ],
+    "chatSkills": [
+      {
+        "path": "./resources/agents/skills/envi-image-analysis/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/envi-modeler-workflow/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/envi-batch-processing/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/idl-create-2d-plot/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/save-envi-tool-workflow/SKILL.md"
       }
     ],
     "commands": [

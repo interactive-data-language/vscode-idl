@@ -1,6 +1,6 @@
 ---
-agent: 'agent'
-description: 'Save ENVI Tool Workflow for re-use'
+name: save-envi-tool-workflow
+description: 'Save ENVI Tool Workflow as image processing recipe for re-use'
 ---
 
 Your goal is to summarize an ENVI processing workflow for a user so that an agent can replicate the processing steps with new datasets.
@@ -98,28 +98,4 @@ Automatically find matching features between images by selecting method based on
 
 - Standard method for same-modality registration
 - Finds features with similar pixel intensity patterns
-
-**For different sensors (Multi-Modal)**, run **GenerateTiePointsByMutualInformation**.
-
-**Notes:**
-
-- Use for SAR-to-Optical, Thermal-to-Visible, or other cross-sensor registration
-- Works when pixel values don't correlate linearly
-
-### Step 3: Filter Tie Points
-
-Remove false matches (outliers) that would distort final image by running **FilterTiePointsByGlobalTransform**.
-
-### Step 4: Warp Image
-
-Resample warp image to match base image's coordinate grid by running **ImageToImageRegistration**.
-
-**Notes:**
-
-- **WARPING = 'Triangulation'**: Best for terrain-induced local distortions (recommended)
-- **WARPING = 'Polynomial'**: Smoother global fit for systematic distortions
 ```
-
-3. Call the **save-envi-tool-workflow** MCP tool with the workflow name and the composed markdown content.
-
-The tool will automatically save the file to the correct location and return an error if a workflow with the same name already exists.

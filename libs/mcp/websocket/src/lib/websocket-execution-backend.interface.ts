@@ -6,7 +6,6 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
  * with an error so the model gets a clear "not available" signal.
  */
 export const WEBSOCKET_TOOL_NAMES: ReadonlySet<string> = new Set<string>([
-  MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
   MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
   MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
   MCP_TOOL_LOOKUP.RETURN_NOTES,

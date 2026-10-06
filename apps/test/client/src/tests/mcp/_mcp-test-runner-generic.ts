@@ -12,16 +12,14 @@ import {
   RunMCPTestSearchForRoutineSingle,
 } from './tools/general/mcp-test-search-for-routines';
 import { RunMCPTestSearchResources } from './tools/general/mcp-test-search-resources';
-import { RunMCPTestListGetPrompts } from './tools/general/prompts/mcp-test-list-get-prompt';
-import {
-  RunMCPTestListAllPrompts,
-  RunMCPTestListPromptsWithFilters,
-} from './tools/general/prompts/mcp-test-list-prompts';
 import { RunMCPTestSearchForFiles_All } from './tools/general/search-for-files/mcp-test-search-for-files-all';
 import { RunMCPTestSearchForFiles_FailRight } from './tools/general/search-for-files/mcp-test-search-for-files-fail-right';
 import { RunMCPTestSearchForFiles_NoRecursion } from './tools/general/search-for-files/mcp-test-search-for-files-no-recursion';
 import { RunMCPTestSearchForFiles_RecursionAll } from './tools/general/search-for-files/mcp-test-search-for-files-recursion-all';
 import { RunMCPTestSearchForFiles_Single } from './tools/general/search-for-files/mcp-test-search-for-files-single';
+import { RunMCPTestInvalidSkillName } from './tools/general/skills/mcp-test-invalid-skill-name';
+import { RunMCPTestListGetSkill } from './tools/general/skills/mcp-test-list-get-skill';
+import { RunMCPTestListAllSkills } from './tools/general/skills/mcp-test-list-skills';
 
 /*
  * Logger to be used for tests related to debugging
@@ -51,22 +49,22 @@ MCP_GENERIC_TEST_RUNNER.addTest({
 
 /**
  * =======================================================================
- * Prompt tests
+ * Skill tests
  * =======================================================================
  */
 MCP_GENERIC_TEST_RUNNER.addTest({
-  fn: RunMCPTestListAllPrompts,
-  name: 'List all prompts',
+  fn: RunMCPTestListAllSkills,
+  name: 'List all skills',
 });
 
 MCP_GENERIC_TEST_RUNNER.addTest({
-  fn: RunMCPTestListPromptsWithFilters,
-  name: 'List filtered prompts for IDL and for ENVI',
+  fn: RunMCPTestListGetSkill,
+  name: 'Verify we can list and get skills by name',
 });
 
 MCP_GENERIC_TEST_RUNNER.addTest({
-  fn: RunMCPTestListGetPrompts,
-  name: 'Verify we can list and get prompts by name',
+  fn: RunMCPTestInvalidSkillName,
+  name: 'Verify error when requesting an invalid skill name',
 });
 
 /**

@@ -66,8 +66,8 @@ You have access to comprehensive IDL resources via MCP tools provided by the IDL
 - `search-resources` - Search for additional documentation, tutorials, and guides
 - `list-all-resources` - Discover available IDL tutorials and helpful content (tutorial resources are prefixed with `tutorial-`)
 - `get-resource` - Fetch specific items by name
-- `list-prompts` - List available instruction sets and tutorials
-- `get-prompt` - Retrieve workflow guidance, tutorials, and best practices
+- `list-skills` - List available skills and tutorials
+- `get-skill` - Retrieve workflow guidance, tutorials, and best practices
 
 **Execute code:**
 

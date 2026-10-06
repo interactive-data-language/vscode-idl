@@ -1,6 +1,6 @@
 ---
-agent: 'agent'
-description: 'Create image processing workflow using ENVI and IDL'
+name: envi-image-analysis
+description: 'Guide for solving remote sensing and image analysis problems with ENVI. Use when users need to plan, chain, or execute image processing workflows, analyze satellite or aerial raster data, select ENVI tools, or extract features from imagery.'
 ---
 
 Your goal is to help a user create an image processing workflow using ENVI and IDL.

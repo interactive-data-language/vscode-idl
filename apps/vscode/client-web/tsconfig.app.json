@@ -180,7 +180,7 @@
       "@idl/mcp/language-server-tools": [
         "libs/mcp/language-server-tools/src/index.ts"
       ],
-      "@idl/mcp/prompts": ["libs/mcp/prompts/src/index.ts"],
+      "@idl/mcp/skills": ["libs/mcp/skills/src/index.ts"],
       "@idl/vscode/walkthroughs": ["libs/vscode/walkthroughs/src/index.ts"],
       "@idl/mcp/analytics-repository": [
         "libs/mcp/analytics-repository/src/index.ts"

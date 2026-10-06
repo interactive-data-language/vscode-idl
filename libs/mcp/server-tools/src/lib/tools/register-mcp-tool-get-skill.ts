@@ -1,34 +1,34 @@
-import { MCPPromptRegistry } from '@idl/mcp/prompts';
 import { MCPServer } from '@idl/mcp/server';
+import { MCPSkillRegistry } from '@idl/mcp/skills';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 
 /**
- * Get a prompt from the server
+ * Get a skill from the server
  */
-export function RegisterMCPTool_GetPrompt(
+export function RegisterMCPTool_GetSkill(
   server: MCPServer,
-  registry: MCPPromptRegistry,
+  registry: MCPSkillRegistry,
 ) {
   server.registerTool(
-    MCP_TOOL_LOOKUP.GET_PROMPT,
+    MCP_TOOL_LOOKUP.GET_SKILL,
     {
-      title: IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_PROMPT],
-      description: `Returns the content of a prompt based on the name. The name should come from "${MCP_TOOL_LOOKUP.LIST_PROMPTS}".`,
+      title: IDL_TRANSLATION.mcp.tools.displayNames[MCP_TOOL_LOOKUP.GET_SKILL],
+      description: `Returns the content of a skill based on the name. The name should come from "${MCP_TOOL_LOOKUP.LIST_SKILLS}".`,
       inputSchema: {
-        name: z.string().describe('The name of the prompts to fetch'),
+        name: z.string().describe('The name of the skill to fetch'),
       },
     },
     async (id, { name }) => {
       // check for invalid ID
-      if (!registry.hasPrompt(name)) {
+      if (!registry.hasSkill(name)) {
         return {
           isError: true,
           content: [
             {
               type: 'text',
-              text: `Unknown prompt name of "${name}"`,
+              text: `Unknown skill name of "${name}"`,
             },
           ],
         };
@@ -39,7 +39,7 @@ export function RegisterMCPTool_GetPrompt(
         content: [
           {
             type: 'text',
-            text: registry.getPrompt(name) as string,
+            text: registry.getSkill(name),
           },
         ],
       };

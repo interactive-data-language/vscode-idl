@@ -20,6 +20,15 @@ For files that don't have a folder specified, we set the folder to ENVI's tempor
 
 Added a new MCP tool that can create folders. This is to reduce errors when some agents have a hard time running IDL code, or are restricted from executing shell commands, to manipulate the file system.
 
+Migrate from prompts to skills for the extension, which has a few changes:
+
+- Rename of "prompt" MCP tools to "skill" tools
+- Refactor the prompts in the extension to match the agentskills.io standard for skills
+- Tightened up the names/descriptions to be more fitting
+- Migrated to VS Code's formal contribution point for skills. As part of this, we no longer search user folders for skills.
+
+As part of this migration, we automatically remove any folders from the "~/.idl" directory for the "chat.promptFilesLocations" setting.
+
 ## 6.2.2 - September 2026
 
 Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.

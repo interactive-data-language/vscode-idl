@@ -62,7 +62,6 @@
       "@idl/mcp/language-server-tools": [
         "libs/mcp/language-server-tools/src/index.ts"
       ],
-      "@idl/mcp/prompts": ["libs/mcp/prompts/src/index.ts"],
       "@idl/mcp/server": ["libs/mcp/server/src/index.ts"],
       "@idl/mcp/server-resources": ["libs/mcp/server-resources/src/index.ts"],
       "@idl/mcp/server-tools": ["libs/mcp/server-tools/src/index.ts"],
@@ -216,7 +215,8 @@
       "@idl/ngx/app-config": ["libs/ngx/app-config/src/index.ts"],
       "@idl/types/agents": ["libs/types/agents/src/index.ts"],
       "@idl/mcp/instructions": ["libs/mcp/instructions/src/index.ts"],
-      "@idl/envi/test-datasets": ["libs/envi/test-datasets/src/index.ts"]
+      "@idl/envi/test-datasets": ["libs/envi/test-datasets/src/index.ts"],
+      "@idl/mcp/skills": ["libs/mcp/skills/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
