@@ -15,6 +15,7 @@ import { format } from 'url';
 import { environment } from '../environments/environment';
 import { rendererAppName, rendererAppPort } from './constants';
 import { PipeRendererConsoleToLog } from './helpers/pipe-renderer-console';
+import { StartAgentsServerInWorker } from './helpers/start-agents-server-worker';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
@@ -238,11 +239,22 @@ export default class App {
       // get port to use
       App.config.server.port = await getPorts();
 
-      // run agents server in-process
-      App.agentsServer = await StartAgentsServer(App.config);
+      /**
+       * If we launch as a worker thread, the module resolution/path is incorrect
+       *
+       * In the electron app, its resources => asar.app.unpacked => node_modules
+       *
+       * As a worker thread, it's expecting node_modules at the root level of the app
+       *
+       * Tried a few things to fix/address this, but not worrying about it for now
+       */
+      const doWorker = false;
 
-      // run as worker thread - need to resolve issue with bundling in dev
-      // App.agentsServer = await StartAgentsServerInWorker(App.config);
+      if (doWorker) {
+        App.agentsServer = await StartAgentsServerInWorker(App.config);
+      } else {
+        App.agentsServer = await StartAgentsServer(App.config);
+      }
     } catch (err) {
       console.error('[desktop-app] Failed to start agents server:', err);
     }

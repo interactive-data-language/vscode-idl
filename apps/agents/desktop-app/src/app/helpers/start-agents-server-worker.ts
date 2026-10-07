@@ -1,6 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IStartAgentsServerResult } from '@idl/mcp/standalone-server';
 import { IAgentServerConfig } from '@idl/types/agents';
+import { join } from 'path';
 import { Worker } from 'worker_threads';
 
 /** Console methods we mirror worker log messages through */
@@ -63,10 +64,30 @@ export function StartAgentsServerInWorker(
 ): Promise<IStartAgentsServerResult> {
   return new Promise((resolve, reject) => {
     const file = GetExtensionPath('dist/apps/agents/server/main.js');
+
+    // duplicate env
+    const env = { ...process.env };
+
+    try {
+      env.NODE_PATH = join(
+        process.resourcesPath, // "resources"
+        'app.asar.unpacked',
+        'node_modules',
+      );
+    } catch (err) {
+      // do nothing
+    }
+
+    /**
+     * Start the worker
+     */
     const worker = new Worker(file, {
-      workerData: { port: config.server.port },
+      workerData: {
+        port: config.server.port,
+      },
       stdout: true,
       stderr: true,
+      env,
     });
 
     // drain or ignore streams to ensure buffers never fill:
