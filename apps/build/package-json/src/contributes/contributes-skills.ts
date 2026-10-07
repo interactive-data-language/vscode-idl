@@ -21,11 +21,11 @@ export async function ProcessSkills(
   const skillsDir = GetExtensionPath(skillPath);
 
   // populate value
-  contrib['chatSkills'] = (await FindFiles(skillsDir, '**/*SKILL.md')).map(
-    (file) => {
+  contrib['chatSkills'] = (await FindFiles(skillsDir, '**/*SKILL.md'))
+    .sort((a, b) => a.localeCompare(b))
+    .map((file) => {
       return {
         path: `./${skillPath}/${basename(dirname(file))}/SKILL.md`,
       };
-    },
-  );
+    });
 }
