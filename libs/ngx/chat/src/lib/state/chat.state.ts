@@ -158,19 +158,18 @@ export class ChatState {
       return;
     }
 
-    // 1. Add user message immediately
-    let updatedSessions = state.sessions.map((session) => {
-      if (session.id === action.sessionId) {
-        return {
-          ...session,
-          messages: [...session.messages, action.message],
-          messageCount: session.messageCount + 1,
-          lastMessageAt: new Date(),
-          status: 'in-progress' as const,
-        };
-      }
-      return session;
-    });
+    // 1. Add user message immediately and move the chat to the top of the list
+    const sessionWithMessage = {
+      ...targetSession,
+      messages: [...targetSession.messages, action.message],
+      messageCount: targetSession.messageCount + 1,
+      lastMessageAt: new Date(),
+      status: 'in-progress' as const,
+    };
+    let updatedSessions = [
+      sessionWithMessage,
+      ...state.sessions.filter((session) => session.id !== action.sessionId),
+    ];
 
     ctx.patchState({ sessions: updatedSessions });
 

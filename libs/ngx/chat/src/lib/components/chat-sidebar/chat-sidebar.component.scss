@@ -25,6 +25,14 @@ mat-nav-list {
   padding-top: 0;
 }
 
+.older-toggle {
+  // Material hard-codes 56px for rows with a leading icon
+  height: 35px !important;
+  --mat-list-list-item-leading-icon-end-space: 8px;
+  // buttons center their text by default
+  text-align: left;
+}
+
 .sidebar-empty-state {
   display: flex;
   flex-direction: column;

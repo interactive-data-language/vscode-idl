@@ -24,13 +24,38 @@
     </div>
   } @else {
     <mat-nav-list>
-      @for (session of sessions(); track session.id) {
+      @for (session of todaySessions(); track session.id) {
         <ngx-chat-sidebar-item
           [session]="session"
           [selected]="selectedSessionId() === session.id"
           (sessionSelected)="selectSession($event)"
           (sessionDeleted)="deleteSession($event)"
         />
+      }
+      @if (olderSessions().length > 0) {
+        <button
+          mat-list-item
+          class="older-toggle"
+          [attr.aria-expanded]="olderOpen()"
+          (click)="toggleOlder()"
+        >
+          <mat-icon matListItemIcon>{{
+            olderOpen() ? 'expand_less' : 'expand_more'
+          }}</mat-icon>
+          <span matListItemTitle
+            >Yesterday & Older ({{ olderSessions().length }})</span
+          >
+        </button>
+        @if (olderOpen()) {
+          @for (session of olderSessions(); track session.id) {
+            <ngx-chat-sidebar-item
+              [session]="session"
+              [selected]="selectedSessionId() === session.id"
+              (sessionSelected)="selectSession($event)"
+              (sessionDeleted)="deleteSession($event)"
+            />
+          }
+        }
       }
     </mat-nav-list>
   }

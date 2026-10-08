@@ -4,7 +4,7 @@
 }
 
 .mat-mdc-list-item {
-  --mat-list-list-item-one-line-container-height: 36px;
+  --mat-list-list-item-two-line-container-height: 48px;
   padding-left: 12px;
   padding-right: 4px;
 }
@@ -12,6 +12,13 @@
 .mat-mdc-list-item-title {
   font-size: 16px;
   line-height: 1.2;
+}
+
+.created-at {
+  font-size: 10px;
+  // a negative margin is absorbed by Material's -20px title margin, so offset instead
+  position: relative;
+  top: -4px;
 }
 
 // Override Material's default blue selected/activated styling

@@ -2,6 +2,9 @@
   <div matListItemTitle>
     {{ session().title }}
   </div>
+  <div matListItemLine class="created-at">
+    {{ session().createdAt | date: 'short' }}
+  </div>
   <button
     mat-icon-button
     matListItemMeta
