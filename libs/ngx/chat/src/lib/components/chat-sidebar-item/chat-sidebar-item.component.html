@@ -2,8 +2,8 @@
   <div matListItemTitle>
     {{ session().title }}
   </div>
-  <div matListItemLine class="created-at">
-    {{ session().createdAt | date: 'short' }}
+  <div matListItemLine class="last-message-at">
+    {{ session().lastMessageAt | date: 'short' }}
   </div>
   <button
     mat-icon-button
