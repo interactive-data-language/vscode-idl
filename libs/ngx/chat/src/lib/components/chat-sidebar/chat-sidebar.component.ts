@@ -103,9 +103,16 @@ export class ChatSidebarComponent implements OnInit {
   }
 
   /**
-   * Create a new chat session
+   * Create a new chat session, unless the selected chat is still empty
    */
   protected createNewChat(): void {
+    if (
+      this.store.selectSnapshot(ChatState.selectedSession)?.messages.length ===
+      0
+    ) {
+      return;
+    }
+
     const newSession: ChatSession = {
       id: `${Date.now()}`,
       title: 'New Chat',
