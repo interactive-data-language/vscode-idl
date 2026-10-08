@@ -499,13 +499,13 @@ export class ChatState {
   }
 
   /**
-   * Add a new chat session
+   * Add a new chat session at the top of the list
    */
   @Action(AddChatSession)
   addSession(ctx: StateContext<ChatStateModel>, action: AddChatSession) {
     const state = ctx.getState();
     ctx.patchState({
-      sessions: [...state.sessions, action.session],
+      sessions: [action.session, ...state.sessions],
     });
   }
 
