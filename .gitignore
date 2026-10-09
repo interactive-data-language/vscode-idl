@@ -7,8 +7,8 @@
 .angular
 .nx
 .env
-docs/extension/.vitepress/cache
-docs/extension/.vitepress/dist
+/docs/extension/.vitepress/cache
+/docs/extension/.vitepress/dist
 build.json
 
 # dependencies

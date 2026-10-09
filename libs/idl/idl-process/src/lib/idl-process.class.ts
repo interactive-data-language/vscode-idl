@@ -29,7 +29,6 @@ import { delimiter } from 'path';
 import { IDLProcessType } from './idl-process.interface';
 import { IDLMachineWrapper } from './wrappers/idl-machine-wrapper.class';
 import { IDLStdIOWrapper } from './wrappers/idl-std-io-wrapper.class';
-import { IDLWebSocketWrapper } from './wrappers/idl-ws-wrapper.class';
 
 /**
  * Class that manages and spawns a session of IDL with event-emitter events
@@ -49,7 +48,7 @@ export class IDLProcess extends EventEmitter {
   /**
    * IDL Web Socket client
    */
-  _ws: IDLWebSocketWrapper;
+  // _ws: IDLWebSocketWrapper;
 
   /** Currently captured output from stdout/stderr */
   capturedOutput = '';
@@ -101,7 +100,7 @@ export class IDLProcess extends EventEmitter {
     // create classes
     this._stdio = new IDLStdIOWrapper(this);
     this._machine = new IDLMachineWrapper(this);
-    this._ws = new IDLWebSocketWrapper(this);
+    // this._ws = new IDLWebSocketWrapper(this);
   }
 
   /**
@@ -143,7 +142,8 @@ export class IDLProcess extends EventEmitter {
         res = await this._machine.evaluate(command);
         break;
       case 'ws':
-        res = await this._ws.evaluate(command);
+        throw new Error('Not implemented');
+        // res = await this._ws.evaluate(command);
         break;
       default:
         res = await this._stdio.evaluate(command);
@@ -216,7 +216,8 @@ export class IDLProcess extends EventEmitter {
         this._machine.pause();
         break;
       case 'ws':
-        this._ws.pause();
+        throw new Error('Not implemented');
+        // this._ws.pause();
         break;
       default:
         this._stdio.pause();
@@ -391,7 +392,8 @@ export class IDLProcess extends EventEmitter {
     if (ws) {
       this.processType = 'ws';
       try {
-        this._ws.start(args, this.startupMessage);
+        throw new Error('Not implemented');
+        // this._ws.start(args, this.startupMessage);
       } catch (err) {
         console.log(`Error`, err);
       }
@@ -563,7 +565,8 @@ export class IDLProcess extends EventEmitter {
         this._machine.stop(notify);
         break;
       case 'ws':
-        this._ws.stop();
+        throw new Error('Not implemented');
+        // this._ws.stop();
         break;
       default:
         this._stdio.stop();
