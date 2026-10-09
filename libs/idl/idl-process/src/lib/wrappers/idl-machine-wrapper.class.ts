@@ -622,7 +622,9 @@ export class IDLMachineWrapper {
 
     // short timeout to make sure it shuts down
     setTimeout(() => {
-      kill(this.process?.idl?.pid);
+      if (typeof this.process?.idl?.pid === 'number') {
+        kill(this.process?.idl?.pid);
+      }
     }, 100);
   }
 
