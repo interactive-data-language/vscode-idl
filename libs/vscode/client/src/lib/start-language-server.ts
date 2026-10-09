@@ -25,7 +25,7 @@ import { execSync } from 'child_process';
 import { compare } from 'compare-versions';
 import { lstatSync } from 'fs';
 import * as path from 'path';
-import { ExtensionContext, LogOutputChannel, workspace } from 'vscode';
+import { ExtensionContext, workspace } from 'vscode';
 import {
   CloseAction,
   CloseHandlerResult,
@@ -198,7 +198,7 @@ export async function StartLanguageServer(ctx: ExtensionContext) {
       ],
     },
     initializationOptions,
-    outputChannel: IDL_CLIENT_OUTPUT_CHANNEL as unknown as LogOutputChannel,
+    outputChannel: IDL_CLIENT_OUTPUT_CHANNEL,
     initializationFailedHandler: (err) => {
       IDL_LOGGER.log({
         type: 'error',

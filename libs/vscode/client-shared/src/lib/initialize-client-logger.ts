@@ -15,7 +15,7 @@ import { LOG_ALERT_CALLBACK } from './logger/log-alert-callback';
  */
 export const IDL_CLIENT_OUTPUT_CHANNEL = vscode.window.createOutputChannel(
   IDL_TRANSLATION.debugger.logs.host,
-  LOG_LANGUAGE_NAME,
+  { log: true },
 );
 
 /**
