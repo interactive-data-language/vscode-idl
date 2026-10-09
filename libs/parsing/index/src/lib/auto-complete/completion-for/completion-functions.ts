@@ -9,8 +9,7 @@ import {
   IFunctionCompletionOptions,
 } from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import { Command } from 'vscode-languageserver-types';
-import { CompletionItemKind } from 'vscode-languageserver-types';
+import { Command, CompletionItemKind } from 'vscode-languageserver-types';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';

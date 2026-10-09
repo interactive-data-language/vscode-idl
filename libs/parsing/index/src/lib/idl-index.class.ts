@@ -58,8 +58,7 @@ import { cpus, platform } from 'os';
 import { basename, dirname } from 'path';
 import { performance } from 'perf_hooks';
 import { NotebookCellKind } from 'vscode-languageserver';
-import { DocumentSymbol } from 'vscode-languageserver-types';
-import { Position } from 'vscode-languageserver-types';
+import { DocumentSymbol, Position } from 'vscode-languageserver-types';
 import { Worker } from 'worker_threads';
 
 import { BuildCompletionItems } from './auto-complete/build-completion-items';

@@ -4,8 +4,7 @@ import {
 } from '@idl/shared/extension';
 import * as vscode from 'vscode';
 import { TextDocumentPositionParams } from 'vscode-languageserver';
-import { CompletionItem } from 'vscode-languageserver-types';
-import { MarkupContent } from 'vscode-languageserver-types';
+import { CompletionItem, MarkupContent } from 'vscode-languageserver-types';
 
 import { LANGUAGE_SERVER_CLIENT } from './start-language-server';
 

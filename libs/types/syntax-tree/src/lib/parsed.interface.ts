@@ -3,8 +3,7 @@ import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
 import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
 import { PositionArray } from '@idl/types/tokenizer';
 import { copy } from 'fast-copy';
-import { DocumentSymbol } from 'vscode-languageserver-types';
-import { SemanticTokens } from 'vscode-languageserver-types';
+import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver-types';
 
 import { SyntaxTree } from './branches.interface';
 import {

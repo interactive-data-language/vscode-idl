@@ -20,8 +20,7 @@ import {
   TextDocumentSyncKind,
   WorkspaceSymbolParams,
 } from 'vscode-languageserver';
-import { CodeActionKind } from 'vscode-languageserver-types';
-import { SymbolInformation } from 'vscode-languageserver-types';
+import { CodeActionKind, SymbolInformation } from 'vscode-languageserver-types';
 
 import { CAPABILITIES } from './capabilities.interface';
 import { InitializeCustomEventHandler } from './events/initialize-custom-event-handler';

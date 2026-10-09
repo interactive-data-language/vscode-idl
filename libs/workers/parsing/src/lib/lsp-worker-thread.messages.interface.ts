@@ -19,8 +19,8 @@ import {
 } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { WorkerIOBaseMessage } from '@idl/workers/workerio';
-import { CompletionItem } from 'vscode-languageserver-types';
 import {
+  CompletionItem,
   DocumentSymbol,
   Position,
   SemanticTokens,

@@ -26,9 +26,7 @@ export async function TestsForAutoComplete(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { readFile } from 'fs/promises';`);
-  strings.push(
-    `import { CompletionItem, Position } from 'vscode-languageserver-types';`,
-  );
+  strings.push(``);
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);
   strings.push(``);

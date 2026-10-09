@@ -1,8 +1,5 @@
 import { copy } from 'fast-copy';
-import {
-  NotebookDocument,
-  NotebookDocuments,
-} from 'vscode-languageserver';
+import { NotebookDocument, NotebookDocuments } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { IDLNotebookDocument } from './idl-notebook-document.interface';
