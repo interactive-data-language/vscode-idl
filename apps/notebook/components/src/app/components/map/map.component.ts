@@ -119,7 +119,7 @@ export class MapComponent
     super();
     window.addEventListener('resize', this.resizeCb);
     this._subscriptions.add(
-      this.messenger.themeChange$.subscribe((isDark) => {
+      this.messenger.themeChange$.subscribe(() => {
         this.baseMapLayer = this.createBaseMapLayer();
         this.propertyChange();
       }),
@@ -187,6 +187,9 @@ export class MapComponent
        * Create instance of deck with basemap and layers
        */
       this.deck = new Deck({
+        deviceProps: {
+          type: 'webgl',
+        },
         canvas: this.canvas().nativeElement,
         initialViewState: INITIAL_VIEW_STATE,
         controller: true,
