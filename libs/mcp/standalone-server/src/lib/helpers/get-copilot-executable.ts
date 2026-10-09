@@ -41,15 +41,18 @@ if (isElectron) {
  * Resolves the standard Copilot platform package name and binary file name.
  */
 function GetCopilotInfo() {
+  const platformKey = `${platform}-${arch}`;
+
   // build package name
   // you can check these in the package.json file for the
-  // @github/copilot package
-  const packageName = `@github/copilot-${platform}-${arch}`;
+  // @github/copilot-sdk package
+  const packageName = `@github/copilot-sdk-${platformKey}`;
 
-  // get what we spawn
-  const binaryName = platform === 'win32' ? 'copilot.exe' : 'copilot';
+  // get what we spawn (copilot-runtime.exe on win32, copilot-runtime on POSIX)
+  const binaryName =
+    platform === 'win32' ? 'copilot-runtime.exe' : 'copilot-runtime';
 
-  return { packageName, binaryName };
+  return { packageName, binaryName, platformKey };
 }
 
 /**
@@ -58,11 +61,19 @@ function GetCopilotInfo() {
  * Handles runtime as node or electron and resolves
  * based on platform and architecture
  */
-export function GetCopilotExecutable() {
+export function GetCopilotExecutable(): string {
+  // If COPILOT_CLI_PATH environment variable is set, respect it
+  if (
+    process.env.COPILOT_CLI_PATH &&
+    existsSync(process.env.COPILOT_CLI_PATH)
+  ) {
+    return process.env.COPILOT_CLI_PATH;
+  }
+
   /**
    * Figure out where copilot executable lives
    */
-  const { packageName, binaryName } = GetCopilotInfo();
+  const { packageName, binaryName, platformKey } = GetCopilotInfo();
 
   let binaryPath = '';
 
@@ -73,6 +84,8 @@ export function GetCopilotExecutable() {
       'app.asar.unpacked',
       'node_modules',
       packageName,
+      'prebuilds',
+      platformKey,
       binaryName,
     );
 
@@ -82,6 +95,8 @@ export function GetCopilotExecutable() {
       'app',
       'node_modules',
       packageName,
+      'prebuilds',
+      platformKey,
       binaryName,
     );
 
@@ -91,12 +106,21 @@ export function GetCopilotExecutable() {
       binaryPath = unpackedAppPath;
     } else {
       // Fallback if electron-builder placed node_modules directly under resources
-      binaryPath = join(resourcesPath, 'node_modules', packageName, binaryName);
+      binaryPath = join(
+        resourcesPath,
+        'node_modules',
+        packageName,
+        'prebuilds',
+        platformKey,
+        binaryName,
+      );
     }
   } else {
     // Development mode / pure Node
-    const binaryDir = dirname(__non_webpack_require__.resolve(packageName));
-    binaryPath = join(binaryDir, binaryName);
+    const packageRoot = dirname(
+      __non_webpack_require__.resolve(join(packageName, 'package.json')),
+    );
+    binaryPath = join(packageRoot, 'prebuilds', platformKey, binaryName);
   }
   return binaryPath;
 }
