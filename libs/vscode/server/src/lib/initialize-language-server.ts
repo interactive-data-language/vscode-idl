@@ -12,7 +12,6 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { ILanguageServerConfig } from '@idl/vscode/extension-config';
 import { copy } from 'fast-copy';
 import {
-  createConnection,
   DidChangeConfigurationNotification,
   InitializeParams,
   InitializeResult,
@@ -20,6 +19,7 @@ import {
   TextDocumentSyncKind,
   WorkspaceSymbolParams,
 } from 'vscode-languageserver';
+import { createConnection } from 'vscode-languageserver/node';
 import { CodeActionKind, SymbolInformation } from 'vscode-languageserver-types';
 
 import { CAPABILITIES } from './capabilities.interface';
