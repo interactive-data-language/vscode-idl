@@ -7,37 +7,144 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: hidden;
 }
 
 .sidebar-header {
-  padding: 16px;
+  padding: 12px;
 }
 
 .new-chat-button {
   width: 100%;
+  height: 38px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 13.5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
+  box-shadow: none;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
 }
 
-mat-nav-list {
-  padding-top: 0;
+.sidebar-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px 0;
+
+  // Custom slim scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(127, 127, 127, 0.25);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(127, 127, 127, 0.45);
+    }
+  }
 }
 
-.older-toggle {
-  // Material hard-codes 56px for rows with a leading icon
-  height: 35px !important;
-  --mat-list-list-item-leading-icon-end-space: 8px;
-  // buttons center their text by default
+.chat-nav-list {
+  padding: 0;
+}
+
+.older-section {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.older-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: calc(100% - 16px);
+  margin: 4px 8px;
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
   text-align: left;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    opacity: 1;
+    background-color: rgba(127, 127, 127, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color, #3f51b5);
+    outline-offset: 1px;
+    opacity: 1;
+  }
+
+  .toggle-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    flex-shrink: 0;
+  }
+
+  .toggle-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .sidebar-empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  gap: 8px;
-  // padding-top: 32px;
+  gap: 10px;
+  padding: 40px 16px;
+  opacity: 0.6;
+
+  mat-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .spinning-icon {
+    animation: spin 1.2s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -13,50 +13,55 @@
 
   <mat-divider />
 
-  @if (loading()) {
-    <div class="sidebar-empty-state">
-      <mat-icon>sync</mat-icon>
-      <p>Loading chats...</p>
-    </div>
-  } @else if (sessions().length === 0) {
-    <div class="sidebar-empty-state">
-      <p>No chats yet</p>
-    </div>
-  } @else {
-    <mat-nav-list>
-      @for (session of todaySessions(); track session.id) {
-        <ngx-chat-sidebar-item
-          [session]="session"
-          [selected]="selectedSessionId() === session.id"
-          (sessionSelected)="selectSession($event)"
-          (sessionDeleted)="deleteSession($event)"
-        />
-      }
-      @if (olderSessions().length > 0) {
-        <button
-          mat-list-item
-          class="older-toggle"
-          [attr.aria-expanded]="olderOpen()"
-          (click)="toggleOlder()"
-        >
-          <mat-icon matListItemIcon>{{
-            olderOpen() ? 'expand_less' : 'expand_more'
-          }}</mat-icon>
-          <span matListItemTitle
-            >Yesterday & Older ({{ olderSessions().length }})</span
-          >
-        </button>
-        @if (olderOpen()) {
-          @for (session of olderSessions(); track session.id) {
-            <ngx-chat-sidebar-item
-              [session]="session"
-              [selected]="selectedSessionId() === session.id"
-              (sessionSelected)="selectSession($event)"
-              (sessionDeleted)="deleteSession($event)"
-            />
-          }
+  <div class="sidebar-scroll-area">
+    @if (loading()) {
+      <div class="sidebar-empty-state">
+        <mat-icon class="spinning-icon">sync</mat-icon>
+        <p>Loading chats...</p>
+      </div>
+    } @else if (sessions().length === 0) {
+      <div class="sidebar-empty-state">
+        <mat-icon class="empty-icon">chat_bubble_outline</mat-icon>
+        <p>No chats yet</p>
+      </div>
+    } @else {
+      <mat-nav-list class="chat-nav-list">
+        @for (session of todaySessions(); track session.id) {
+          <ngx-chat-sidebar-item
+            [session]="session"
+            [selected]="selectedSessionId() === session.id"
+            (sessionSelected)="selectSession($event)"
+            (sessionDeleted)="deleteSession($event)"
+          />
         }
-      }
-    </mat-nav-list>
-  }
+        @if (olderSessions().length > 0) {
+          <div class="older-section">
+            <button
+              type="button"
+              class="older-toggle-btn"
+              [attr.aria-expanded]="olderOpen()"
+              (click)="toggleOlder()"
+            >
+              <mat-icon class="toggle-icon">{{
+                olderOpen() ? 'expand_less' : 'expand_more'
+              }}</mat-icon>
+              <span class="toggle-text"
+                >Yesterday & Older ({{ olderSessions().length }})</span
+              >
+            </button>
+            @if (olderOpen()) {
+              @for (session of olderSessions(); track session.id) {
+                <ngx-chat-sidebar-item
+                  [session]="session"
+                  [selected]="selectedSessionId() === session.id"
+                  (sessionSelected)="selectSession($event)"
+                  (sessionDeleted)="deleteSession($event)"
+                />
+              }
+            }
+          </div>
+        }
+      </mat-nav-list>
+    }
+  </div>
 </div>

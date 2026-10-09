@@ -1,5 +1,9 @@
-<mat-list-item (click)="onSelect()" [activated]="selected()">
-  <div matListItemTitle>
+<mat-list-item
+  class="chat-session-item"
+  (click)="onSelect()"
+  [activated]="selected()"
+>
+  <div matListItemTitle class="chat-title">
     {{ session().title }}
   </div>
   <div matListItemLine class="last-message-at">
