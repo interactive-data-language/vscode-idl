@@ -29,6 +29,7 @@ import {
   IMCPServerOptions,
   IRegisteredTool,
   MCP_SERVER_CONFIG,
+  MCP_SERVER_SUPPORTED_PROTOCOL_VERSIONS,
   MCPRegistryToolInfo,
   MCPToolCallback,
 } from './mcp-server.interface';
@@ -328,6 +329,7 @@ export class MCPServer {
           resources: {},
           tools: {},
         },
+        supportedProtocolVersions: MCP_SERVER_SUPPORTED_PROTOCOL_VERSIONS,
       },
     );
 
@@ -341,6 +343,7 @@ export class MCPServer {
     // Stateless transport - no session ID tracking across requests
     const transport = new NodeStreamableHTTPServerTransport({
       sessionIdGenerator: undefined,
+      supportedProtocolVersions: MCP_SERVER_SUPPORTED_PROTOCOL_VERSIONS,
     });
 
     transport.onerror = (error: Error) => {
@@ -561,7 +564,7 @@ export class MCPServer {
           content: `Attempting to start MCP server on port ${this.mcpPort}`,
         });
 
-        this.appInstance = this.app.listen(this.mcpPort, (err) => {
+        this.appInstance = this.app.listen(this.mcpPort, () => {
           this.logManager.log({
             log: IDL_MCP_LOG,
             type: 'info',

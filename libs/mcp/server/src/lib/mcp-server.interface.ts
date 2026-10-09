@@ -11,10 +11,20 @@ import {
   Icon,
   McpServer,
   ServerContext,
+  SUPPORTED_PROTOCOL_VERSIONS,
   ToolCallback,
 } from '@modelcontextprotocol/server';
 import type { Application } from 'express';
 import { z, ZodRawShape } from 'zod';
+
+/**
+ * Supported protocol versions for MCP server including the modern 2026-07-28 version
+ * and all legacy protocol versions.
+ */
+export const MCP_SERVER_SUPPORTED_PROTOCOL_VERSIONS: string[] = [
+  '2026-07-28',
+  ...SUPPORTED_PROTOCOL_VERSIONS,
+];
 
 /**
  * Callback that adds a new argument to each function so that
