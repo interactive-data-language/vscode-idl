@@ -1,5 +1,5 @@
 import { IDLIndex, NUM_WORKERS } from '@idl/parsing/index';
-import { TextDocuments } from 'vscode-languageserver/node';
+import { TextDocuments } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import {

@@ -25,7 +25,7 @@ export async function TestsForHoverHelp(
     `import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';`,
   );
   strings.push(`import { readFile } from 'fs/promises';`);
-  strings.push(`import { Position } from 'vscode-languageserver/node';`);
+  strings.push(`import { Position } from 'vscode-languageserver-types';`);
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);
   strings.push(``);

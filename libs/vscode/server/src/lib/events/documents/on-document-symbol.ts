@@ -1,10 +1,8 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  DocumentSymbol,
-  DocumentSymbolParams,
-} from 'vscode-languageserver/node';
+import { DocumentSymbolParams } from 'vscode-languageserver';
+import { DocumentSymbol } from 'vscode-languageserver-types';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';

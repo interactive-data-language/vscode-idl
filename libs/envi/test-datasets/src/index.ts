@@ -1,1 +1,1 @@
-export * from './lib/envi-test-datasets.class'
+export * from './lib/envi-test-datasets.class';

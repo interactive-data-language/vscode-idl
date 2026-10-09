@@ -1,7 +1,7 @@
 import { ILogOptions } from '@idl/logger';
 import { MCPTools, MCPTools_IDL } from '@idl/types/mcp';
 import { IUsageMetricAndPayload, UsageMetric } from '@idl/usage-metrics';
-import { DocumentFormattingParams } from 'vscode-languageserver/node';
+import { DocumentFormattingParams } from 'vscode-languageserver';
 
 import {
   DebugConsoleCompletionMessage,

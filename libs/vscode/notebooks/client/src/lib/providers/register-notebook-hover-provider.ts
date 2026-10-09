@@ -1,10 +1,8 @@
 import { IDL_NOTEBOOK_CELL_SELECTOR } from '@idl/shared/extension';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
-import {
-  Hover as LanguageServerHover,
-  TextDocumentPositionParams,
-} from 'vscode-languageserver';
+import { TextDocumentPositionParams } from 'vscode-languageserver';
+import { Hover } from 'vscode-languageserver-types';
 
 import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
 
@@ -13,7 +11,7 @@ import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
  */
 export function RegisterNotebookHoverProvider() {
   vscode.languages.registerHoverProvider(IDL_NOTEBOOK_CELL_SELECTOR, {
-    async provideHover(document, position, _token) {
+    async provideHover(document, position) {
       /**
        * Get notebook and document for index
        */
@@ -40,8 +38,10 @@ export function RegisterNotebookHoverProvider() {
       /**
        * Send and wait for a response from the server
        */
-      const hovered: LanguageServerHover =
-        await LANGUAGE_SERVER_CLIENT.sendRequest('textDocument/hover', params);
+      const hovered: Hover = await LANGUAGE_SERVER_CLIENT.sendRequest(
+        'textDocument/hover',
+        params,
+      );
 
       // return if nothing
       if (!hovered) {

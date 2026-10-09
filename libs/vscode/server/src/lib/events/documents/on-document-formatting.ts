@@ -1,7 +1,8 @@
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { DocumentFormattingParams, TextEdit } from 'vscode-languageserver/node';
+import { DocumentFormattingParams } from 'vscode-languageserver';
+import { TextEdit } from 'vscode-languageserver-types';
 
 import { FormatFile } from '../../helpers/format-file';
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';

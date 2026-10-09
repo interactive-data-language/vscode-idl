@@ -2,10 +2,8 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { Sleep } from '@idl/shared/extension';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
-import {
-  CompletionItem as LanguageServerCompletionItem,
-  TextDocumentPositionParams,
-} from 'vscode-languageserver';
+import { TextDocumentPositionParams } from 'vscode-languageserver';
+import { CompletionItem } from 'vscode-languageserver-types';
 
 import { RunnerFunction } from '../../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../../test-client-config.interface';
@@ -38,11 +36,10 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
   };
 
   // verify definition has return
-  const completion1: LanguageServerCompletionItem[] =
-    await init.client.client.sendRequest(
-      'textDocument/completion',
-      completionParams,
-    );
+  const completion1: CompletionItem[] = await init.client.client.sendRequest(
+    'textDocument/completion',
+    completionParams,
+  );
 
   // verify definition has return
   expect(completion1).toStrictEqual(expect.any(Array));
@@ -61,11 +58,10 @@ export const NotebookCompletionBasic: RunnerFunction = async (init) => {
     },
   };
 
-  const completion2: LanguageServerCompletionItem[] =
-    await init.client.client.sendRequest(
-      'textDocument/completion',
-      completionParams2,
-    );
+  const completion2: CompletionItem[] = await init.client.client.sendRequest(
+    'textDocument/completion',
+    completionParams2,
+  );
 
   // verify definition has return
   expect(completion2).toStrictEqual(expect.any(Array));

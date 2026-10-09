@@ -1,4 +1,4 @@
-import { DocumentFormattingParams } from 'vscode-languageserver/node';
+import { DocumentFormattingParams } from 'vscode-languageserver';
 
 import { SERVER_INITIALIZED } from '../../is-initialized';
 import { ON_DOCUMENT_FORMATTING } from '../documents/on-document-formatting';

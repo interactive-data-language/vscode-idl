@@ -105,7 +105,7 @@ export class ENVITestDatasets {
    * Set the IDL directory used for getting paths to data
    *
    * Assumed under the ENVI folder
-   * 
+   *
    * Does not validate until we try to get the ENVI folder (this is
    * for compatibility running tests on Mac)
    */

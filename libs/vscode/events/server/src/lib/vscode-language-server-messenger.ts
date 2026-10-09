@@ -6,7 +6,7 @@ import {
   MessageNameNormalizer,
   SerializeServerMessage,
 } from '@idl/vscode/events/messages';
-import { _Connection } from 'vscode-languageserver/node';
+import { _Connection } from 'vscode-languageserver';
 
 /**
  * Class for sending/receiving messages between the VSCode language server and client

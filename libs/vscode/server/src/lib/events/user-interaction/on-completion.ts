@@ -6,10 +6,8 @@ import {
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  CompletionItem,
-  TextDocumentPositionParams,
-} from 'vscode-languageserver/node';
+import { TextDocumentPositionParams } from 'vscode-languageserver';
+import { CompletionItem } from 'vscode-languageserver-types';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';

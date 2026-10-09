@@ -1,4 +1,4 @@
-import { CompletionItem } from 'vscode-languageserver/node';
+import { CompletionItem } from 'vscode-languageserver-types';
 
 import { SERVER_CONNECTION } from '../initialize-language-server';
 import { ON_CODE_ACTIONS } from './user-interaction/on-code-action';

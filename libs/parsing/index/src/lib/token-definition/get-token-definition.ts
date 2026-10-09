@@ -7,7 +7,7 @@ import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 import { GetTokenDefResponse } from '@idl/workers/parsing';
-import { Position } from 'vscode-languageserver';
+import { Position } from 'vscode-languageserver-types';
 
 import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { GetKeyword } from '../helpers/get-keyword';

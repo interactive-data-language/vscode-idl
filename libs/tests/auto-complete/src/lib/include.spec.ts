@@ -2,7 +2,7 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { readFile } from 'fs/promises';
-import { CompletionItem, Position } from 'vscode-languageserver/node';
+import { CompletionItem, Position } from 'vscode-languageserver-types';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 

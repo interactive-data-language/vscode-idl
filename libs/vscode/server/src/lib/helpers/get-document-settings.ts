@@ -1,4 +1,4 @@
-import { _Connection } from 'vscode-languageserver/node';
+import { _Connection } from 'vscode-languageserver';
 
 import { CAPABILITIES } from '../capabilities.interface';
 import {

@@ -10,7 +10,7 @@ import {
 } from '@idl/types/auto-complete';
 import { IDL_TYPE_LOOKUP, IParameterLookup } from '@idl/types/idl-data-types';
 import { IParsed, TreeToken } from '@idl/types/syntax-tree';
-import { CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver-types';
 
 import { FindKeyword } from '../../helpers/get-keyword';
 import { GetKeywords } from '../../helpers/get-keywords';

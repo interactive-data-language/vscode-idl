@@ -3,7 +3,7 @@ import {
   DEFAULT_IDL_EXTENSION_CONFIG,
   IDLExtensionConfig,
 } from '@idl/vscode/extension-config';
-import { WorkspaceFolder } from 'vscode-languageserver';
+import { WorkspaceFolder } from 'vscode-languageserver-types';
 import { URI } from 'vscode-uri';
 
 import { SERVER_CONNECTION } from '../initialize-language-server';

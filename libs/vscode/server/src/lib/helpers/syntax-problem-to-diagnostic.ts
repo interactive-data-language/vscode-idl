@@ -11,7 +11,8 @@ import {
   ISyntaxProblem,
   SyntaxProblems,
 } from '@idl/types/problem-codes';
-import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver/node';
+import { Diagnostic } from 'vscode-languageserver-types';
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import { SERVER_INITIALIZATION_OPTIONS } from '../initialize-language-server';
 import { IDL_CLIENT_CONFIG } from './track-workspace-config';

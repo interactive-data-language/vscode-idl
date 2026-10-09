@@ -12,7 +12,8 @@ import {
 } from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { TreeToken } from '@idl/types/syntax-tree';
-import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItem } from 'vscode-languageserver-types';
+import { CompletionItemKind } from 'vscode-languageserver-types';
 
 import { IDLIndex } from '../../idl-index.class';
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';

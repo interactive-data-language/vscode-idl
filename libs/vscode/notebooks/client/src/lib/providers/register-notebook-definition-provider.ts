@@ -1,10 +1,8 @@
 import { IDL_NOTEBOOK_CELL_SELECTOR } from '@idl/shared/extension';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
-import {
-  Location as LanguageServerLocation,
-  TextDocumentPositionParams,
-} from 'vscode-languageserver';
+import { TextDocumentPositionParams } from 'vscode-languageserver';
+import { Location } from 'vscode-languageserver-types';
 import { URI } from 'vscode-uri';
 
 import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
@@ -14,7 +12,7 @@ import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
  */
 export function RegisterNotebookDefinitionProvider() {
   vscode.languages.registerDefinitionProvider(IDL_NOTEBOOK_CELL_SELECTOR, {
-    async provideDefinition(document, position, _token) {
+    async provideDefinition(document, position) {
       /**
        * Get notebook and document for index
        */
@@ -41,11 +39,10 @@ export function RegisterNotebookDefinitionProvider() {
       /**
        * Send and wait for a response from the server
        */
-      const definition: LanguageServerLocation =
-        await LANGUAGE_SERVER_CLIENT.sendRequest(
-          'textDocument/definition',
-          params,
-        );
+      const definition: Location = await LANGUAGE_SERVER_CLIENT.sendRequest(
+        'textDocument/definition',
+        params,
+      );
 
       // return if nothing
       if (!definition) {

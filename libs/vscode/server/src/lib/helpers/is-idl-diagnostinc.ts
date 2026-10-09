@@ -1,4 +1,4 @@
-import { Diagnostic } from 'vscode-languageserver';
+import { Diagnostic } from 'vscode-languageserver-types';
 
 /**
  * Makes sure that a diagnostic comes from IDL and the language server

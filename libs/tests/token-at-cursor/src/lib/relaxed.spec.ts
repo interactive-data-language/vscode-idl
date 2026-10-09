@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
 import { GetTokenAtCursor, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
-import { Position } from 'vscode-languageserver/node';
+import { Position } from 'vscode-languageserver-types';
 
 describe(`[auto generated] Correctly use relaxed options for hover help`, () => {
   it(`[auto generated] at end of assignment`, () => {

@@ -1,7 +1,8 @@
 import { IDL_NOTEBOOK_CELL_SELECTOR } from '@idl/shared/extension';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
-import { DocumentSymbol, DocumentSymbolParams } from 'vscode-languageserver';
+import { DocumentSymbolParams } from 'vscode-languageserver';
+import { DocumentSymbol } from 'vscode-languageserver-types';
 
 import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
 
@@ -10,7 +11,7 @@ import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
  */
 export function RegisterNotebookSymbolProvider() {
   vscode.languages.registerDocumentSymbolProvider(IDL_NOTEBOOK_CELL_SELECTOR, {
-    async provideDocumentSymbols(document, _token) {
+    async provideDocumentSymbols(document) {
       /**
        * Get notebook and document for index
        */

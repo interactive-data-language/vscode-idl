@@ -3,11 +3,9 @@ import {
   COMPLETION_TRIGGER_CHARACTERS,
 } from '@idl/shared/extension';
 import * as vscode from 'vscode';
-import {
-  CompletionItem as LanguageServerCompletionItem,
-  MarkupContent,
-  TextDocumentPositionParams,
-} from 'vscode-languageserver';
+import { TextDocumentPositionParams } from 'vscode-languageserver';
+import { CompletionItem } from 'vscode-languageserver-types';
+import { MarkupContent } from 'vscode-languageserver-types';
 
 import { LANGUAGE_SERVER_CLIENT } from './start-language-server';
 
@@ -35,7 +33,7 @@ export function RegisterCompletionProvider() {
         /**
          * Send and wait for a response from the server
          */
-        const completion: LanguageServerCompletionItem[] =
+        const completion: CompletionItem[] =
           await LANGUAGE_SERVER_CLIENT.sendRequest(
             'textDocument/completion',
             params,

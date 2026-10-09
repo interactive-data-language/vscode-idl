@@ -2,7 +2,7 @@ import { FindFiles, IFolderRecursion } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
-import { InitializedParams } from 'vscode-languageserver/node';
+import { InitializedParams } from 'vscode-languageserver';
 
 import { CAPABILITIES } from '../../capabilities.interface';
 import { GetWorkspaceFSPath } from '../../helpers/get-workspace-fs-path';

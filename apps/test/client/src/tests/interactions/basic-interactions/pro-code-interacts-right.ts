@@ -3,10 +3,10 @@ import { Sleep } from '@idl/shared/extension';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import {
-  SemanticTokens,
   SemanticTokensParams,
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
+import { SemanticTokens } from 'vscode-languageserver-types';
 
 import { RunnerFunction } from '../../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../../test-client-config.interface';

@@ -2,10 +2,8 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
-  SemanticTokens,
-  SemanticTokensParams,
-} from 'vscode-languageserver/node';
+import { SemanticTokensParams } from 'vscode-languageserver';
+import { SemanticTokens } from 'vscode-languageserver-types';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';

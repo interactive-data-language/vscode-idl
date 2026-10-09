@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { SemanticTokens } from 'vscode-languageserver';
+import { SemanticTokens } from 'vscode-languageserver-types';
 
 import {
   GetParsedPROCode,

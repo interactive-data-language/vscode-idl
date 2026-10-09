@@ -1,5 +1,5 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { DocumentSymbol } from 'vscode-languageserver';
+import { DocumentSymbol } from 'vscode-languageserver-types';
 
 import {
   GetParsedPROCode,

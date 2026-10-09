@@ -26,7 +26,7 @@ import {
   VariableCompletion,
 } from '@idl/types/auto-complete';
 import { IBranch, TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
-import { Position } from 'vscode-languageserver/node';
+import { Position } from 'vscode-languageserver-types';
 
 import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { GetTypeBefore } from '../helpers/get-type-before';

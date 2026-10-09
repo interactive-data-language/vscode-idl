@@ -9,7 +9,7 @@ import {
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { TreeToken } from '@idl/types/syntax-tree';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
-import { Position } from 'vscode-languageserver';
+import { Position } from 'vscode-languageserver-types';
 
 import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { CALL_ROUTINE_TOKENS } from '../helpers/get-keywords.interface';

@@ -4,7 +4,7 @@ import {
   CodeAction,
   CodeActionKind,
   WorkspaceEdit,
-} from 'vscode-languageserver';
+} from 'vscode-languageserver-types';
 
 /**
  * Adds actions for quick fix when we have problems
@@ -22,9 +22,10 @@ export function AddQuickFixActions(
 
   /** Create workspace edit to fx the problem */
   const edit: WorkspaceEdit = {
-    changes: {},
+    changes: {
+      [uri]: diag.data.edits,
+    },
   };
-  edit.changes[uri] = diag.data.edits;
 
   /**
    * View problem code docs

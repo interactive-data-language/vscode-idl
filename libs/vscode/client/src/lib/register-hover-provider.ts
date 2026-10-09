@@ -1,9 +1,7 @@
 import { ALL_DOCUMENT_SELECTORS } from '@idl/shared/extension';
 import * as vscode from 'vscode';
-import {
-  Hover as LanguageServerHover,
-  TextDocumentPositionParams,
-} from 'vscode-languageserver';
+import { TextDocumentPositionParams } from 'vscode-languageserver';
+import { Hover as LanguageServerHover } from 'vscode-languageserver-types';
 
 import { LANGUAGE_SERVER_CLIENT } from './start-language-server';
 

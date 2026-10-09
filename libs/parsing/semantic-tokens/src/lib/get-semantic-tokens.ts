@@ -1,9 +1,7 @@
 import { IParsed } from '@idl/types/syntax-tree';
-import {
-  SemanticTokenModifiers,
-  SemanticTokensBuilder,
-  SemanticTokenTypes,
-} from 'vscode-languageserver';
+import { SemanticTokensBuilder } from 'vscode-languageserver';
+import { SemanticTokenModifiers } from 'vscode-languageserver-types';
+import { SemanticTokenTypes } from 'vscode-languageserver-types';
 
 import {
   SEMANTIC_TOKEN_MODIFIER_INDEX_LOOKUP,

@@ -5,7 +5,7 @@ import {
 } from '@idl/types/idl-data-types';
 import { IParsed } from '@idl/types/syntax-tree';
 import { PositionRange } from '@idl/types/tokenizer';
-import { DocumentSymbol } from 'vscode-languageserver';
+import { DocumentSymbol } from 'vscode-languageserver-types';
 
 import {
   DEFAULT_OUTLINE_SYMBOL_KIND,

@@ -2,7 +2,7 @@ import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLDiagnostic } from '@idl/types/diagnostic';
-import { CodeAction, CodeActionKind } from 'vscode-languageserver';
+import { CodeAction, CodeActionKind } from 'vscode-languageserver-types';
 
 import { DisableProblemForFile } from './helpers/disable-problem-file';
 import { DisableProblemForLine } from './helpers/disable-problem-for-line';

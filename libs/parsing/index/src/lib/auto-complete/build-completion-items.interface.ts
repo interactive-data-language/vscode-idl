@@ -3,7 +3,7 @@ import {
   AutoCompleteRecipeOptions,
   AutoCompleteType,
 } from '@idl/types/auto-complete';
-import { CompletionItem } from 'vscode-languageserver';
+import { CompletionItem } from 'vscode-languageserver-types';
 
 import { IDLIndex } from '../idl-index.class';
 import { BuildBlockCompletionItems } from './completion-for/completion-blocks';

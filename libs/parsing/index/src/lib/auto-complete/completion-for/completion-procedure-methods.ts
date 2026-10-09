@@ -11,7 +11,7 @@ import {
   IDLDataTypeBase,
   IDLTypes,
 } from '@idl/types/idl-data-types';
-import { CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver-types';
 
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 import { IProcedureMethodCompletionArg } from './completion-procedure-methods.interface';

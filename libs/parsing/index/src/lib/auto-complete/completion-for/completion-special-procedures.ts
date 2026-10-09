@@ -9,7 +9,7 @@ import {
 } from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { TreeToken } from '@idl/types/syntax-tree';
-import { CompletionItemKind } from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver-types';
 
 import { EvaluateToken } from '../../post-process/populate-type/evaluate/evaluate-token';
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';

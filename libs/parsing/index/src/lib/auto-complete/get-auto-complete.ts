@@ -1,7 +1,7 @@
 import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { GetAutoCompleteResponse } from '@idl/workers/parsing';
-import { Position } from 'vscode-languageserver/node';
+import { Position } from 'vscode-languageserver-types';
 
 import { IDLIndex } from '../idl-index.class';
 import { BuildCompletionItems } from './build-completion-items';

@@ -25,7 +25,7 @@ export function TestsForTokenAtCursor(
   strings.push(
     `import { GetTokenAtCursor, RemoveScopeDetail } from '@idl/parsing/syntax-tree';`,
   );
-  strings.push(`import { Position } from 'vscode-languageserver/node';`);
+  strings.push(`import { Position } from 'vscode-languageserver-types';`);
   strings.push(``);
   strings.push(``);
 

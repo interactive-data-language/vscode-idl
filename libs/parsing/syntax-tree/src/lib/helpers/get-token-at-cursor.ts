@@ -6,7 +6,7 @@ import {
   TokenName,
 } from '@idl/tokenizer';
 import { IBranch, IParsed, TreeToken } from '@idl/types/syntax-tree';
-import { Position } from 'vscode-languageserver';
+import { Position } from 'vscode-languageserver-types';
 
 import { PopulateScopeDetail } from '../populate-scope-detail';
 import { TreeRecurser } from '../recursion-and-callbacks/tree-recurser';

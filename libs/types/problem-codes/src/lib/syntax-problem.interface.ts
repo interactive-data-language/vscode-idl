@@ -1,5 +1,5 @@
 import { PositionArray } from '@idl/types/tokenizer';
-import { TextEdit } from 'vscode-languageserver';
+import { TextEdit } from 'vscode-languageserver-types';
 
 import { IDLProblemCode } from './idl-problem-codes.interface';
 

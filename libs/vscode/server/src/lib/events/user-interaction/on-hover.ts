@@ -1,7 +1,8 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { Hover, TextDocumentPositionParams } from 'vscode-languageserver/node';
+import { TextDocumentPositionParams } from 'vscode-languageserver';
+import { Hover } from 'vscode-languageserver-types';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';

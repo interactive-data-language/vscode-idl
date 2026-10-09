@@ -1,4 +1,4 @@
-import { DiagnosticTag } from 'vscode-languageserver';
+import { DiagnosticTag } from 'vscode-languageserver-types';
 
 import { IDL_PROBLEM_CODES } from './idl-problem-codes.interface';
 

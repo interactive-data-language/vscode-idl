@@ -4,7 +4,8 @@ import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDLDiagnostic } from '@idl/types/diagnostic';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
-import { CodeAction, CodeActionParams } from 'vscode-languageserver/node';
+import { CodeActionParams } from 'vscode-languageserver';
+import { CodeAction } from 'vscode-languageserver-types';
 
 import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { IsIDLDiagnostic } from '../../helpers/is-idl-diagnostinc';

@@ -1,7 +1,7 @@
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IAutoFixIDLDiagnostic, IDLDiagnostic } from '@idl/types/diagnostic';
-import { CodeAction, CodeActionKind } from 'vscode-languageserver';
+import { CodeAction, CodeActionKind } from 'vscode-languageserver-types';
 
 /**
  * Adds problem disabling actions to code actions

@@ -4,11 +4,8 @@ import {
 } from '@idl/shared/extension';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
-import {
-  CompletionItem as LanguageServerCompletionItem,
-  MarkupContent,
-  TextDocumentPositionParams,
-} from 'vscode-languageserver';
+import { TextDocumentPositionParams } from 'vscode-languageserver';
+import { CompletionItem, MarkupContent } from 'vscode-languageserver-types';
 
 import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
 
@@ -46,7 +43,7 @@ export function RegisterNotebookCompletionProvider() {
         /**
          * Send and wait for a response from the server
          */
-        const completion: LanguageServerCompletionItem[] =
+        const completion: CompletionItem[] =
           await LANGUAGE_SERVER_CLIENT.sendRequest(
             'textDocument/completion',
             params,

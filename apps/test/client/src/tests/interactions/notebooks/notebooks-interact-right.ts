@@ -2,10 +2,10 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import {
-  SemanticTokens,
   SemanticTokensParams,
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
+import { SemanticTokens } from 'vscode-languageserver-types';
 
 import { RunnerFunction } from '../../runner.interface';
 

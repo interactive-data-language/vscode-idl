@@ -1,5 +1,5 @@
 import { GetFSPath } from '@idl/idl/files';
-import { WorkspaceFolder } from 'vscode-languageserver/node';
+import { WorkspaceFolder } from 'vscode-languageserver-types';
 
 /**
  * Maps the URI for a workspace folder to the path on disk

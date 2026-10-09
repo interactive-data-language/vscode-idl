@@ -1,8 +1,8 @@
+import { SemanticTokensLegend } from 'vscode-languageserver';
 import {
   SemanticTokenModifiers,
-  SemanticTokensLegend,
   SemanticTokenTypes,
-} from 'vscode-languageserver';
+} from 'vscode-languageserver-types';
 
 /**
  * Types of semantic tokens that we extract

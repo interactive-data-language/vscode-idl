@@ -4,7 +4,7 @@ import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { CompletionItem } from 'vscode-languageserver/node';
+import { CompletionItem } from 'vscode-languageserver-types';
 
 import { IAutoCompleteTest } from '../tests.interface';
 
@@ -27,7 +27,7 @@ export async function TestsForAutoComplete(
   );
   strings.push(`import { readFile } from 'fs/promises';`);
   strings.push(
-    `import { CompletionItem, Position } from 'vscode-languageserver/node';`,
+    `import { CompletionItem, Position } from 'vscode-languageserver-types';`,
   );
   strings.push(``);
   strings.push(`IDL_INDEX_OPTIONS.IS_TEST = true;`);
@@ -88,9 +88,9 @@ export async function TestsForAutoComplete(
       );
 
       // check if we have a filter
-      if (test.startsWith !== undefined) {
+      if (test.startsWith) {
         found = found.filter((item) =>
-          item?.label?.startsWith(test.startsWith),
+          item?.label?.startsWith(test?.startsWith || ''),
         );
       }
 

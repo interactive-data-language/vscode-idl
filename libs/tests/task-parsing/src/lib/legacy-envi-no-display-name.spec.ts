@@ -80,7 +80,7 @@ describe(`[auto generated] Correctly parse task without displayName`, () => {
                   display: 'String',
                   serialized: 'String',
                   args: [],
-                  meta: {},
+                  meta: { default: '!' },
                 },
               ],
               req: true,

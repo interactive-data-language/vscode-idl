@@ -12,16 +12,16 @@ import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
 import { ILanguageServerConfig } from '@idl/vscode/extension-config';
 import { copy } from 'fast-copy';
 import {
-  CodeActionKind,
   createConnection,
   DidChangeConfigurationNotification,
   InitializeParams,
   InitializeResult,
   ProposedFeatures,
-  SymbolInformation,
   TextDocumentSyncKind,
   WorkspaceSymbolParams,
-} from 'vscode-languageserver/node';
+} from 'vscode-languageserver';
+import { CodeActionKind } from 'vscode-languageserver-types';
+import { SymbolInformation } from 'vscode-languageserver-types';
 
 import { CAPABILITIES } from './capabilities.interface';
 import { InitializeCustomEventHandler } from './events/initialize-custom-event-handler';

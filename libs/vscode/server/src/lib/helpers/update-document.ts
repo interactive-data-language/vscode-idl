@@ -1,5 +1,5 @@
-import { WorkspaceChange } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import { WorkspaceChange } from 'vscode-languageserver-types';
 
 import { DOCUMENT_MANAGER } from '../events/initialize-document-manager';
 import { SERVER_CONNECTION } from '../initialize-language-server';

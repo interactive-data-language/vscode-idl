@@ -10,11 +10,8 @@ import {
   CompletionBlockTokens,
 } from '@idl/types/auto-complete';
 import { TreeToken } from '@idl/types/syntax-tree';
-import {
-  CompletionItemKind,
-  InsertTextFormat,
-  Position,
-} from 'vscode-languageserver';
+import { CompletionItemKind } from 'vscode-languageserver-types';
+import { InsertTextFormat, Position } from 'vscode-languageserver-types';
 
 import { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';

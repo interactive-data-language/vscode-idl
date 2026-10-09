@@ -4,7 +4,7 @@ import { IDL_LSP_LOG } from '@idl/logger';
 import {
   DidChangeWatchedFilesParams,
   FileChangeType,
-} from 'vscode-languageserver/node';
+} from 'vscode-languageserver';
 
 import { CacheValidFSPath } from '../../helpers/cache-valid';
 import { GetFileStringsFromFSPath } from '../../helpers/get-file-strings';

@@ -305,7 +305,7 @@ describe(`[auto generated] Correctly parse task file`, () => {
                   display: 'String',
                   serialized: 'String',
                   args: [],
-                  meta: { default: '!', isUri: true },
+                  meta: { autoExtension: '.dat', default: '!', isUri: true },
                 },
               ],
               req: false,

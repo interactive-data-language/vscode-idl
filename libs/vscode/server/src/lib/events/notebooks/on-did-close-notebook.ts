@@ -1,7 +1,7 @@
 import { GetFSPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { NotebookDocument } from 'vscode-languageserver/node';
+import { NotebookDocument } from 'vscode-languageserver';
 
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
 import { SERVER_INITIALIZED } from '../../is-initialized';

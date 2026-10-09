@@ -1,7 +1,7 @@
 import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
 import { IIndexProCodeOptions } from '@idl/parsing/index';
 import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
-import { Position } from 'vscode-languageserver/node';
+import { Position } from 'vscode-languageserver-types';
 
 /**
  * Data structure to automate test creation

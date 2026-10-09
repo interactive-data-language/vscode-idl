@@ -19,12 +19,12 @@ import {
 } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { WorkerIOBaseMessage } from '@idl/workers/workerio';
+import { CompletionItem } from 'vscode-languageserver-types';
 import {
-  CompletionItem,
   DocumentSymbol,
   Position,
   SemanticTokens,
-} from 'vscode-languageserver';
+} from 'vscode-languageserver-types';
 
 /**
  * Message to synchronize with worker threads all of the files that we have on our path

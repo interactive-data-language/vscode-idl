@@ -10,7 +10,7 @@ import {
 import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 import { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
-import { Hover } from 'vscode-languageserver';
+import { Hover } from 'vscode-languageserver-types';
 
 import { GetAllKeywordsForGlobalToken } from '../helpers/get-all-keywords-for-global-token';
 import { GetPropertyDisplayName } from '../helpers/get-property-display-name';

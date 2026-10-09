@@ -1,5 +1,5 @@
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import { SymbolKind } from 'vscode-languageserver/node';
+import { SymbolKind } from 'vscode-languageserver-types';
 
 /**
  * When generating an outline for a document, these are the tokens we report outlines for

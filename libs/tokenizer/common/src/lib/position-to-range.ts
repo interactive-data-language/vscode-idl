@@ -1,5 +1,5 @@
 import { PositionArray } from '@idl/types/tokenizer';
-import { Range } from 'vscode-languageserver';
+import { Range } from 'vscode-languageserver-types';
 
 /**
  * Convert a token position to a range
