@@ -204,6 +204,8 @@
       "@idl/ngx/app-config": ["libs/ngx/app-config/src/index.ts"],
       "@idl/types/electron": ["libs/types/electron/src/index.ts"],
       "@idl/types/agents": ["libs/types/agents/src/index.ts"],
+      "@idl/mcp/instructions": ["libs/mcp/instructions/src/index.ts"],
+      "@idl/envi/test-datasets": ["libs/envi/test-datasets/src/index.ts"],
       "buffer": ["node_modules/buffer"],
       "os": ["node_modules/os-browserify"],
       "path": ["node_modules/path-browserify"],
