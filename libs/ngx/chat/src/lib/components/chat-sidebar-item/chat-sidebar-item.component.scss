@@ -9,8 +9,17 @@
   padding-left: 10px;
   padding-right: 6px;
   cursor: pointer;
+  align-items: center;
   transition: background-color 0.15s ease;
   overflow: hidden;
+
+  ::ng-deep .mdc-list-item__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    padding: 0;
+  }
 
   &:hover {
     background-color: rgba(127, 127, 127, 0.08);
@@ -34,23 +43,38 @@
     font-size: 13.5px;
     font-weight: 500;
     line-height: 1.3;
+    display: block;
+    margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    &::before,
+    &::after {
+      display: none;
+    }
   }
 
   .last-message-at {
     font-size: 11px;
     line-height: 1.2;
     opacity: 0.6;
-    margin-top: 2px;
+    display: block;
+    margin: 2px 0 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    &::before,
+    &::after {
+      display: none;
+    }
   }
 }
 
 .delete-button {
+  align-self: center;
+  margin: 0;
   width: 28px;
   height: 28px;
   padding: 0;
