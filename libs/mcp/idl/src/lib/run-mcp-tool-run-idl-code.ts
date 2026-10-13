@@ -105,6 +105,7 @@ export async function RunMCPTool_RunIDLCode(
           errsWithPrint,
         )}`,
       },
+      idlOutput: firstOutput,
     };
   }
 

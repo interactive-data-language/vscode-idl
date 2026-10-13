@@ -14,8 +14,7 @@ import { ChatMarkdownRendererComponent } from '../chat-markdown-renderer/chat-ma
 
 /**
  * Displays a single extended-thinking/reasoning chat message.
- * Shows streamed reasoning text expanded with a spinner while in progress,
- * then collapses to a summary with an expand toggle once the block completes.
+ * Starts collapsed, labelled "Thinking..." while streaming and "Thought" once done.
  */
 @Component({
   selector: 'ngx-chat-thinking-message',

@@ -206,15 +206,18 @@ export class ChatState {
     // to the correct in-progress tool card in the UI.
     const toolMessageIdByCallId = new Map<string, string>();
 
-    // Map from thinkingId (reasoningId) -> message ID so multiple reasoning
-    // blocks in a single turn each resolve to their own thinking card.
-    const thinkingMessageIdByReasoningId = new Map<string, string>();
-
-    // ID of the most recently created thinking message (and its reasoning
-    // ID), used to close it out if the backend sends a text chunk before
-    // the thinking "done" event (the backend can emit these out of order).
-    let lastThinkingMessageId: string | undefined;
-    let lastThinkingReasoningId: string | undefined;
+    // Consecutive reasoning blocks share one card, closed once text, a tool call, or the turn's end follows
+    let openThinkingMessageId: string | undefined;
+    let openThinkingReasoningId: string | undefined;
+    const closeThinking = () => {
+      if (openThinkingMessageId !== undefined) {
+        this.updateMessage(ctx, action.sessionId, openThinkingMessageId, {
+          status: 'done',
+        });
+        openThinkingMessageId = undefined;
+        openThinkingReasoningId = undefined;
+      }
+    };
 
     // Track the current system message accumulating LLM text. After each
     // tool_result a new system message is created so text and tool calls
@@ -242,12 +245,7 @@ export class ChatState {
             case 'cancelled':
               this.activeRequests.delete(action.sessionId);
               // don't leave a thinking card spinning forever if the user stops mid-reasoning
-              for (const thinkingMessageId of thinkingMessageIdByReasoningId.values()) {
-                this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
-                  status: 'done',
-                });
-              }
-              thinkingMessageIdByReasoningId.clear();
+              closeThinking();
               this.cancelPendingToolCalls(ctx, action.sessionId);
               toolMessageIdByCallId.clear();
               // Append a dedicated marker message so the indicator always
@@ -267,6 +265,7 @@ export class ChatState {
 
             case 'done': {
               this.activeRequests.delete(action.sessionId);
+              closeThinking();
               // Remove the trailing system message if it has no text content
               // (happens when the last LLM iteration ended with a tool call)
               const doneState = ctx.getState();
@@ -303,14 +302,7 @@ export class ChatState {
               this.activeRequests.delete(action.sessionId);
               console.error('Streaming error:', chunk.error);
               // don't leave a thinking card spinning forever if the stream dies mid-reasoning
-              for (const thinkingMessageId of thinkingMessageIdByReasoningId.values()) {
-                this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
-                  status: 'done',
-                });
-              }
-              thinkingMessageIdByReasoningId.clear();
-              lastThinkingMessageId = undefined;
-              lastThinkingReasoningId = undefined;
+              closeThinking();
               this.setMessageError(
                 ctx,
                 action.sessionId,
@@ -320,22 +312,7 @@ export class ChatState {
               break;
 
             case 'text_chunk':
-              // Backend can send a text chunk before closing out the
-              // thinking message it belongs after, so close the last
-              // in-progress thinking message here as a safety net.
-              if (lastThinkingMessageId) {
-                this.updateMessage(
-                  ctx,
-                  action.sessionId,
-                  lastThinkingMessageId,
-                  { status: 'done' },
-                );
-                thinkingMessageIdByReasoningId.delete(
-                  lastThinkingReasoningId as string,
-                );
-                lastThinkingMessageId = undefined;
-                lastThinkingReasoningId = undefined;
-              }
+              closeThinking();
 
               if (needsNewSystemMessage) {
                 // Start a fresh system message after a tool call/result pair
@@ -361,47 +338,29 @@ export class ChatState {
               break;
 
             case 'thinking_chunk': {
-              let thinkingMessageId = thinkingMessageIdByReasoningId.get(
-                chunk.thinkingId,
-              );
-              if (!thinkingMessageId) {
-                thinkingMessageId = nanoid();
-                thinkingMessageIdByReasoningId.set(
-                  chunk.thinkingId,
-                  thinkingMessageId,
-                );
-                const thinkingMessage: ChatMessage = {
-                  id: thinkingMessageId,
+              // the end of a reasoning block leaves the card open for any thinking that follows
+              if (chunk.done || !chunk.content) {
+                break;
+              }
+              let delta = chunk.content;
+              if (openThinkingMessageId === undefined) {
+                openThinkingMessageId = nanoid();
+                this.appendMessageToSession(ctx, action.sessionId, {
+                  id: openThinkingMessageId,
                   type: 'thinking',
                   status: 'in-progress',
                   content: [{ type: 'thinking', payload: '' }],
-                };
-                this.appendMessageToSession(
-                  ctx,
-                  action.sessionId,
-                  thinkingMessage,
-                );
-              }
-              lastThinkingMessageId = thinkingMessageId;
-              lastThinkingReasoningId = chunk.thinkingId;
-
-              if (chunk.done) {
-                this.updateMessage(ctx, action.sessionId, thinkingMessageId, {
-                  status: 'done',
                 });
-                thinkingMessageIdByReasoningId.delete(chunk.thinkingId);
-                if (lastThinkingMessageId === thinkingMessageId) {
-                  lastThinkingMessageId = undefined;
-                  lastThinkingReasoningId = undefined;
-                }
-              } else if (chunk.content) {
-                this.appendThinkingDelta(
-                  ctx,
-                  action.sessionId,
-                  thinkingMessageId,
-                  chunk.content,
-                );
+              } else if (chunk.thinkingId !== openThinkingReasoningId) {
+                delta = `\n\n${delta}`;
               }
+              openThinkingReasoningId = chunk.thinkingId;
+              this.appendThinkingDelta(
+                ctx,
+                action.sessionId,
+                openThinkingMessageId,
+                delta,
+              );
               break;
             }
 
@@ -432,6 +391,8 @@ export class ChatState {
               break;
 
             case 'tool_call': {
+              closeThinking();
+
               // Append the tool message after whatever text has accumulated
               const toolMessageId = nanoid();
               toolMessageIdByCallId.set(chunk.toolCallId, toolMessageId);
@@ -484,6 +445,7 @@ export class ChatState {
         },
         error: (error) => {
           this.activeRequests.delete(action.sessionId);
+          closeThinking();
           console.error('API call error:', error);
           this.setMessageError(
             ctx,

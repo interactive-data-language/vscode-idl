@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
 /**
@@ -20,4 +25,7 @@ export class ChatMarkdownRendererComponent {
    * The markdown content to render
    */
   readonly data = input.required<string>();
+
+  /** Emits after the asynchronous markdown render finishes */
+  readonly ready = output<void>();
 }

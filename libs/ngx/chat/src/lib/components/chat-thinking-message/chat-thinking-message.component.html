@@ -2,26 +2,25 @@
   <div class="message-wrapper thinking-message">
     <mat-card class="message-card">
       <mat-card-content class="thinking-card-content">
-        @if (isInProgress()) {
-          <div class="thinking-header">
+        <details
+          class="thinking-details"
+          (toggle)="body.scrollTop = body.scrollHeight"
+        >
+          <summary class="thinking-header">
             <mat-icon class="thinking-icon">psychology</mat-icon>
-            <span class="thinking-label">Thinking...</span>
+            <span class="thinking-label">{{
+              isInProgress() ? 'Thinking...' : 'Thought'
+            }}</span>
+            <mat-icon class="thinking-chevron">expand_more</mat-icon>
+          </summary>
+
+          <div #body class="thinking-body">
+            <ngx-chat-markdown-renderer
+              [data]="content()"
+              (ready)="body.scrollTop = body.scrollHeight"
+            />
           </div>
-
-          <ngx-chat-markdown-renderer [data]="content()" />
-        } @else {
-          <details class="thinking-details">
-            <summary class="thinking-header">
-              <mat-icon class="thinking-icon">psychology</mat-icon>
-              <span class="thinking-label">Thought</span>
-              <mat-icon class="thinking-chevron">expand_more</mat-icon>
-            </summary>
-
-            <div class="thinking-body">
-              <ngx-chat-markdown-renderer [data]="content()" />
-            </div>
-          </details>
-        }
+        </details>
       </mat-card-content>
     </mat-card>
   </div>
