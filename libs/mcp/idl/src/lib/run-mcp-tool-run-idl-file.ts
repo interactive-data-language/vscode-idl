@@ -50,7 +50,7 @@ export async function RunMCPTool_RunIDLFile(
     return {
       success: false,
       result: {
-        err: `Detected syntax errors in IDL file. Details: ${JSON.stringify(errs)}`,
+        err: `Detected syntax errors in IDL file. Details: ${JSON.stringify(errs)}. Before retrying, use search-for-routine and get-routine-docs to verify any reported routine or API. Do not guess at a replacement and rerun.`,
       },
       idlOutput: compileOutput,
     };
@@ -68,14 +68,18 @@ export async function RunMCPTool_RunIDLFile(
       return {
         success: false,
         idlOutput,
-        result: { err: `An error message was reported:\n\n  ${lastMessage}` },
+        result: {
+          err: `An error message was reported:\n\n  ${lastMessage}. Before retrying, use search-for-routine and get-routine-docs to verify any reported routine or API. Do not guess at a replacement and rerun.`,
+        },
       };
 
     case !backend.isAtMain():
       return {
         success: false,
         idlOutput,
-        result: { err: IDL_TRANSLATION.debugger.commandErrors.idlStopped },
+        result: {
+          err: `${IDL_TRANSLATION.debugger.commandErrors.idlStopped}. Before retrying, use search-for-routine and get-routine-docs to verify any reported routine or API. Do not guess at a replacement and rerun.`,
+        },
       };
 
     default:

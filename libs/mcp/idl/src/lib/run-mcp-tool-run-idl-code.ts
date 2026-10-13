@@ -103,7 +103,7 @@ export async function RunMCPTool_RunIDLCode(
       result: {
         err: `Detected syntax errors in IDL code. Details: ${JSON.stringify(
           errsWithPrint,
-        )}`,
+        )}. Before retrying, use search-for-routine and get-routine-docs to verify any reported routine or API. Do not guess at a replacement and rerun.`,
       },
       idlOutput: firstOutput,
     };
@@ -144,7 +144,7 @@ export async function RunMCPTool_RunIDLCode(
             success: false,
             idlOutput,
             result: {
-              err: `An error message was reported:\n\n  ${lastMessage}`,
+              err: `An error message was reported:\n\n  ${lastMessage}. Before retrying, use search-for-routine and get-routine-docs to verify any reported routine or API. Do not guess at a replacement and rerun.`,
             },
           };
 
@@ -153,7 +153,7 @@ export async function RunMCPTool_RunIDLCode(
             success: false,
             idlOutput,
             result: {
-              err: `The IDL process ran, but likely stopped somewhere, meaning that the code did not finish executing and may have runtime errors that need to be fixed.`,
+              err: `The IDL process ran, but likely stopped somewhere, meaning that the code did not finish executing and may have runtime errors that need to be fixed. Before retrying, use search-for-routine and get-routine-docs to verify any reported routine or API. Do not guess at a replacement and rerun.`,
             },
           };
 
