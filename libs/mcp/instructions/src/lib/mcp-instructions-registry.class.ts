@@ -26,7 +26,16 @@ export class MCPInstructionsRegistry {
    */
   private instructions: {
     [key: string]: IInstructionEntry;
-  } = {};
+  } = {
+    none: {
+      location: { type: 'memory', meta: { content: '' } },
+      metadata: {
+        id: 'none',
+        name: 'None',
+        description: 'No specific system instructions',
+      },
+    },
+  };
 
   /**
    * Local instruction folder path

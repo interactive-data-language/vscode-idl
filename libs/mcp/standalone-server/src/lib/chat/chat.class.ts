@@ -201,15 +201,7 @@ export class Chat {
    */
   listChatInstructions(): ChatInstructionsResponse {
     return {
-      options: [
-        // add option for no instructions
-        {
-          id: 'none',
-          name: 'None',
-          description: 'No system instructions',
-        },
-        ...MCP_INSTRUCTION_REGISTRY.getInstructionOptionsForUI(),
-      ],
+      options: MCP_INSTRUCTION_REGISTRY.getInstructionOptionsForUI(),
       defaultInstructions: DEFAULT_CHAT_INSTRUCTIONS,
     };
   }
@@ -272,8 +264,6 @@ export class Chat {
     switch (true) {
       case MCP_INSTRUCTION_REGISTRY.hasInstruction(instructions):
         return MCP_INSTRUCTION_REGISTRY.getInstruction(instructions);
-      case instructions === 'none':
-        return '';
       default:
         throw new Error('Unknown instructions type');
     }
