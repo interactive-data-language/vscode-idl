@@ -1,5 +1,9 @@
 import { IDL_MCP_LOG, LogManager } from '@idl/logger';
-import { RegistryLocationHelpers } from '@idl/mcp/shared';
+import {
+  IRuleBasedFilters,
+  RegistryLocationHelpers,
+  RuleBasedFilter,
+} from '@idl/mcp/shared';
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { basename, join } from 'path';
 
@@ -15,10 +19,13 @@ export const SKILL_FILE_NAME = 'SKILL.md';
  * Helper class that tracks and manages access to skills
  */
 export class MCPSkillRegistry {
+  /** Object class that handles filtering items from the task registry */
+  filters = new RuleBasedFilter();
+
   /**
    * Logger
    */
-  private logger?: LogManager;
+  private logger: LogManager;
 
   /**
    * Lookup of skills
@@ -27,8 +34,11 @@ export class MCPSkillRegistry {
    */
   private skills: { [key: string]: ISkill } = {};
 
-  constructor(logger?: LogManager) {
+  constructor(logger: LogManager, filters?: Partial<IRuleBasedFilters>) {
     this.logger = logger;
+    if (filters !== undefined) {
+      this.filters.updateFilters(filters);
+    }
   }
 
   /**
@@ -134,6 +144,9 @@ export class MCPSkillRegistry {
     const skillList = Object.values(this.skills);
 
     for (const skill of skillList) {
+      if (!this.filters.isAllowedByFilters(skill.name)) {
+        continue;
+      }
       descriptions[skill.name] = skill.description;
     }
 
