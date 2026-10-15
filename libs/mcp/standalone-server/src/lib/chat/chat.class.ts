@@ -30,14 +30,14 @@ export class Chat {
   private config: IAgentServerConfig;
 
   /**
-   * Filters for which MCP tools are allowed or not
-   */
-  private filters = new RuleBasedFilter();
-
-  /**
    * Chat engine
    */
   private readonly framework: CopilotChatFramework;
+
+  /**
+   * Filters for which MCP tools are allowed or not
+   */
+  private mcpToolFilters = new RuleBasedFilter();
 
   constructor(config: IAgentServerConfig) {
     this.config = config;
@@ -48,7 +48,7 @@ export class Chat {
     this.framework = new CopilotChatFramework(this, config);
 
     // update filters
-    this.filters.updateFilters({
+    this.mcpToolFilters.updateFilters({
       blacklist: this.config.mcp.toolBlackList,
       whitelist: this.config.mcp.toolWhitelist,
     });
@@ -192,7 +192,7 @@ export class Chat {
     const tools: string[] = Object.values(MCP_TOOL_LOOKUP);
 
     // filter and return
-    return tools.filter((val) => this.filters.isAllowedByFilters(val));
+    return tools.filter((val) => this.mcpToolFilters.isAllowedByFilters(val));
   }
 
   /**
