@@ -1,15 +1,26 @@
 <div class="sidebar-container">
-  <div class="sidebar-header">
-    <button
-      mat-raised-button
-      color="primary"
-      class="new-chat-button"
-      (click)="createNewChat()"
-    >
-      <mat-icon>add</mat-icon>
-      New Chat
-    </button>
-  </div>
+  @if (!search.searching()) {
+    <div class="sidebar-header">
+      <button
+        mat-raised-button
+        color="primary"
+        class="new-chat-button"
+        (click)="createNewChat()"
+      >
+        <mat-icon>add</mat-icon>
+        New Chat
+      </button>
+    </div>
+  } @else {
+    <div class="sidebar-header search-header">
+      <div class="search-title">Search results</div>
+      <div class="search-hint">
+        {{ filteredSessions().length }}
+        {{ filteredSessions().length === 1 ? 'chat contains' : 'chats contain' }}
+        "{{ search.query().trim() }}". Select one to see its matches.
+      </div>
+    </div>
+  }
 
   <mat-divider />
 
@@ -23,6 +34,11 @@
       <div class="sidebar-empty-state">
         <mat-icon class="empty-icon">chat_bubble_outline</mat-icon>
         <p>No chats yet</p>
+      </div>
+    } @else if (search.searching() && filteredSessions().length === 0) {
+      <div class="sidebar-empty-state">
+        <mat-icon class="empty-icon">search_off</mat-icon>
+        <p>No matching chats</p>
       </div>
     } @else {
       <mat-nav-list class="chat-nav-list">
@@ -49,7 +65,7 @@
                 >Yesterday & Older ({{ olderSessions().length }})</span
               >
             </button>
-            @if (olderOpen()) {
+            @if (olderOpen() || search.searching()) {
               @for (session of olderSessions(); track session.id) {
                 <ngx-chat-sidebar-item
                   [session]="session"

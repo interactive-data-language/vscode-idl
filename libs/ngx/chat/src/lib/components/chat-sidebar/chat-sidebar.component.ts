@@ -16,6 +16,7 @@ import { ChatSession } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
 
 import { ChatLayoutService } from '../../services/chat-layout.service';
+import { ChatSearchService } from '../../services/chat-search.service';
 import {
   AddChatSession,
   DeleteChatSession,
@@ -54,7 +55,24 @@ function IsBeforeToday(session: ChatSession): boolean {
   standalone: true,
 })
 export class ChatSidebarComponent implements OnInit {
+  /**
+   * Search text shared with the open chat
+   */
+  protected readonly search = inject(ChatSearchService);
+
   private readonly store = inject(Store);
+
+  /**
+   * All available chat sessions
+   */
+  protected readonly sessions = this.store.selectSignal(ChatState.sessions);
+
+  /**
+   * Sessions that match the search, or all of them when it's empty
+   */
+  protected readonly filteredSessions = computed(() =>
+    this.search.filterSessions(this.sessions()),
+  );
 
   /**
    * Loading state
@@ -67,15 +85,10 @@ export class ChatSidebarComponent implements OnInit {
   protected readonly olderOpen = signal(false);
 
   /**
-   * All available chat sessions
-   */
-  protected readonly sessions = this.store.selectSignal(ChatState.sessions);
-
-  /**
-   * Chats last used yesterday or earlier
+   * Chats last used yesterday or earlier that match the search
    */
   protected readonly olderSessions = computed(() =>
-    this.sessions().filter(IsBeforeToday),
+    this.filteredSessions().filter(IsBeforeToday),
   );
 
   /**
@@ -86,10 +99,10 @@ export class ChatSidebarComponent implements OnInit {
   );
 
   /**
-   * Chats created or used today
+   * Chats created or used today that match the search
    */
   protected readonly todaySessions = computed(() =>
-    this.sessions().filter((session) => !IsBeforeToday(session)),
+    this.filteredSessions().filter((s) => !IsBeforeToday(s)),
   );
 
   private readonly chatLayoutService = inject(ChatLayoutService);

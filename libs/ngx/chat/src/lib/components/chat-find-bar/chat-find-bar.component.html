@@ -1,0 +1,37 @@
+@if (search.visible()) {
+  <div class="find-bar">
+    <input
+      #findInput
+      type="text"
+      class="find-input"
+      placeholder="Find in chat"
+      aria-label="Find in chat"
+      [value]="search.query()"
+      (input)="onInput($event)"
+      (keydown)="onKeydown($event)"
+    />
+    <span class="find-count"
+      >{{ search.matchCount() ? search.activeMatch() + 1 : 0 }} /
+      {{ search.matchCount() }}</span
+    >
+    <button
+      mat-icon-button
+      aria-label="Previous match"
+      [disabled]="search.matchCount() === 0"
+      (click)="search.step(-1)"
+    >
+      <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      aria-label="Next match"
+      [disabled]="search.matchCount() === 0"
+      (click)="search.step(1)"
+    >
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Close find" (click)="search.close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+}

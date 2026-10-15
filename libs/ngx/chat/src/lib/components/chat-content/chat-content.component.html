@@ -1,4 +1,9 @@
 <div class="content-container">
+  <ngx-chat-find-bar
+    [root]="messagesArea()?.nativeElement"
+    [session]="selectedSession()"
+  />
+
   @if (!showWelcome()) {
     <div class="chat-messages">
       @if (!chatLayoutService.isMobile()) {

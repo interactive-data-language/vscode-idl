@@ -15,6 +15,7 @@ import { Store } from '@ngxs/store';
 
 import { ChatLayoutService } from '../../services/chat-layout.service';
 import { ChatState } from '../../state/chat.state';
+import { ChatFindBarComponent } from '../chat-find-bar/chat-find-bar.component';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
 import { ChatTodoListComponent } from '../chat-todo-list/chat-todo-list.component';
@@ -30,6 +31,7 @@ import { ChatWelcomeComponent } from '../chat-welcome/chat-welcome.component';
     CommonModule,
     MatCardModule,
     MatIconModule,
+    ChatFindBarComponent,
     ChatMessageComponent,
     ChatInputComponent,
     ChatTodoListComponent,
@@ -42,6 +44,12 @@ import { ChatWelcomeComponent } from '../chat-welcome/chat-welcome.component';
 })
 export class ChatContentComponent {
   protected readonly chatLayoutService = inject(ChatLayoutService);
+
+  /**
+   * Reference to the messages area for scrolling
+   */
+  protected readonly messagesArea =
+    viewChild<ElementRef<HTMLDivElement>>('messagesArea');
 
   /**
    * Currently selected chat session
@@ -67,12 +75,6 @@ export class ChatContentComponent {
   private readonly chatInput = viewChild(ChatInputComponent);
 
   private readonly injector = inject(Injector);
-
-  /**
-   * Reference to the messages area for scrolling
-   */
-  private readonly messagesArea =
-    viewChild<ElementRef<HTMLDivElement>>('messagesArea');
 
   private readonly store = inject(Store);
 
