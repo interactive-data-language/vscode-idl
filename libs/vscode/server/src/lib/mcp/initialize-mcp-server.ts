@@ -16,7 +16,6 @@ import {
   IDL_LANGUAGE_SERVER_LOGGER,
   SERVER_MESSENGER,
 } from '../initialize-language-server';
-import { RegisterMCPSkillTools } from './register-mcp-skill-tools';
 
 /**
  * Starts our MCP Server and adds all of our known tools
@@ -120,17 +119,6 @@ export function InitializeMCPServer(port: number, isEnviInstalled: boolean) {
         }
       },
     );
-
-    // add all skills as server tools
-    try {
-      RegisterMCPSkillTools(mcpServer);
-    } catch (err) {
-      IDL_LANGUAGE_SERVER_LOGGER.log({
-        log: IDL_MCP_LOG,
-        type: 'error',
-        content: [`Problem registering skills`, err],
-      });
-    }
 
     return mcpServer;
   } catch (err) {

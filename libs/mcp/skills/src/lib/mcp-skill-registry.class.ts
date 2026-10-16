@@ -25,7 +25,7 @@ export class MCPSkillRegistry {
   /**
    * Logger
    */
-  private logger: LogManager;
+  logger?: LogManager;
 
   /**
    * Lookup of skills
@@ -34,7 +34,7 @@ export class MCPSkillRegistry {
    */
   private skills: { [key: string]: ISkill } = {};
 
-  constructor(logger: LogManager, filters?: Partial<IRuleBasedFilters>) {
+  constructor(logger?: LogManager, filters?: Partial<IRuleBasedFilters>) {
     this.logger = logger;
     if (filters !== undefined) {
       this.filters.updateFilters(filters);

@@ -7,6 +7,7 @@ import express from 'express';
 import type { Server } from 'http';
 
 import { Chat } from './chat/chat.class';
+import { ApplyRegistryFilters } from './helpers/apply-registry-filters';
 import { LoadConfigFromEnv } from './helpers/load-config-from-env';
 import {
   CreateStandaloneMCPServer,
@@ -38,6 +39,9 @@ export async function StartAgentsServer(
 ): Promise<IStartAgentsServerResult> {
   // check the environment for configuration
   LoadConfigFromEnv(config);
+
+  // apply whitelist/blacklist filters to our registries
+  ApplyRegistryFilters(config);
 
   // start the express app
   const app = express();

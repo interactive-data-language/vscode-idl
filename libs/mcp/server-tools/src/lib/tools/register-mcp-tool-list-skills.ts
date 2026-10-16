@@ -4,6 +4,11 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
 /**
+ * Global singleton instance of the skill registry
+ */
+export const MCP_SKILL_REGISTRY = new MCPSkillRegistry();
+
+/**
  * List registered skills
  */
 export function RegisterMCPTool_ListSkills(

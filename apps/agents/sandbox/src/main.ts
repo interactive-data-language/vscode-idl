@@ -15,6 +15,9 @@ async function Main() {
   // port
   config.server.port = 3000;
   // config.mcp.enviToolWhitelist = ['hastybeachstudy'];
+  // config.mcp.instructionsWhitelist = ['envi'];
+  // config.mcp.skillBlacklist = ['envi-image-analysis'];
+  // config.mcp.toolWorkflowWhitelist = ['my-workflow'];
 
   // start the server
   const result = await StartAgentsServer(config);

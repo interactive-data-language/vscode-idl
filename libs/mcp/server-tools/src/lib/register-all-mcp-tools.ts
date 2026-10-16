@@ -1,3 +1,5 @@
+import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_MCP_LOG } from '@idl/logger';
 import { MCPServer } from '@idl/mcp/server';
 
 import { RegisterMCPTool_GetENVIToolWorkflow } from './tools/envi/register-mcp-tool-get-envi-tool-workflow';
@@ -15,7 +17,12 @@ import { RegisterMCPTool_RunIDLFile } from './tools/idl/register-mcp-tool-run-id
 import { RegisterMCPTool_ControlIDLAndENVISession } from './tools/register-mcp-tool-control-idl-and-envi-session';
 import { RegisterMCPTool_CreateFolder } from './tools/register-mcp-tool-create-folder';
 import { RegisterMCPTool_GetResource } from './tools/register-mcp-tool-get-resource';
+import { RegisterMCPTool_GetSkill } from './tools/register-mcp-tool-get-skill';
 import { RegisterMCPTool_ListAllResources } from './tools/register-mcp-tool-list-all-resources';
+import {
+  MCP_SKILL_REGISTRY,
+  RegisterMCPTool_ListSkills,
+} from './tools/register-mcp-tool-list-skills';
 import { RegisterMCPTool_SearchForFiles } from './tools/register-mcp-tool-search-for-files';
 import { RegisterMCPTool_SearchResources } from './tools/register-mcp-tool-search-resources';
 
@@ -83,6 +90,24 @@ export function RegisterAllMCPTools(isEnviInstalled: boolean) {
   RegisterMCPTool_QueryDatasetWithENVI(server);
   RegisterMCPTool_SaveENVIToolWorkflow(server);
   RegisterMCPTool_TakeENVIScreenshot(server);
+
+  /**
+   * Skill tools
+   */
+  MCP_SKILL_REGISTRY.logger = server.logManager;
+  try {
+    MCP_SKILL_REGISTRY.loadSkillsFromFolder(
+      GetExtensionPath('resources/agents/skills'),
+    );
+  } catch (err) {
+    server.logManager.log({
+      log: IDL_MCP_LOG,
+      type: 'error',
+      content: [`Problem loading skills`, err],
+    });
+  }
+  RegisterMCPTool_GetSkill(server, MCP_SKILL_REGISTRY);
+  RegisterMCPTool_ListSkills(server, MCP_SKILL_REGISTRY);
 
   // update flag that we registered our tools (duplicated throw errors)
   REGISTERED = true;
