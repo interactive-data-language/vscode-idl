@@ -41,9 +41,6 @@ export class Chat {
 
   constructor(config: IAgentServerConfig) {
     this.config = config;
-    if (config.agent.engine !== 'copilot') {
-      throw new Error('Only GitHub Copilot is supported');
-    }
 
     this.framework = new CopilotChatFramework(this, config);
 

@@ -1,4 +1,5 @@
 export * from './lib/agent-config.interface';
 export * from './lib/agents-server-config.interface';
+export * from './lib/migrate-agent-server-config';
 export * from './lib/model-config.interface';
 export * from './lib/server-config.interface';

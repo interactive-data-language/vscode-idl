@@ -1,6 +1,6 @@
-import { GetExtensionPath } from '@idl/idl/files';
 import {
   IStartAgentsServerResult,
+  LoadConfig,
   StartAgentsServer,
 } from '@idl/mcp/standalone-server';
 import { getPorts } from '@idl/server-helpers';
@@ -8,7 +8,6 @@ import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
 import { ELECTRON_EVENTS } from '@idl/types/electron';
 import { BrowserWindow, ipcMain, screen, shell } from 'electron';
 import { copy } from 'fast-copy';
-import { readFileSync } from 'fs';
 import { join } from 'path';
 import { format } from 'url';
 
@@ -71,19 +70,6 @@ export default class App {
     App.application.on('render-process-gone', (event, webContents, details) => {
       console.error('[main] Renderer process gone:', details);
     });
-
-    // try to load our config from disk
-    try {
-      const file = GetExtensionPath('desktop-agents.config.json');
-      console.log('Loading config from file on disk');
-      this.config = JSON.parse(readFileSync(file, 'utf-8'));
-    } catch (err: any) {
-      // ignore error if no config file
-      if (!err?.message?.includes('Unable to locate file or folder')) {
-        console.log('Problem loading config from file');
-        console.log(err);
-      }
-    }
   }
 
   private static createSplashWindow() {
@@ -233,6 +219,9 @@ export default class App {
 
     // show a splash screen right away while the agents server starts and the main window loads
     App.createSplashWindow();
+
+    // Load and auto-migrate configuration from disk
+    App.config = await LoadConfig();
 
     // Start the embedded agents server (MCP + chat routes)
     try {

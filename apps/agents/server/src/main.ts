@@ -1,11 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
-import { StartAgentsServer } from '@idl/mcp/standalone-server';
-import {
-  DEFAULT_AGENT_SERVER_CONFIG,
-  IAgentServerConfig,
-} from '@idl/types/agents';
-import { copy } from 'fast-copy';
-import { existsSync, readFileSync } from 'fs';
+import { LoadConfig, StartAgentsServer } from '@idl/mcp/standalone-server';
+import { existsSync } from 'fs';
 import Module = require('module');
 import { join } from 'path';
 import { isMainThread, parentPort, workerData } from 'worker_threads';
@@ -63,29 +58,6 @@ function ConfigureModulePaths(): void {
 }
 
 // ConfigureModulePaths();
-
-/**
- * Loads our config from the optional "desktop-agents.config.json" file on disk,
- * falling back to our default config if it does not exist
- */
-async function LoadConfig(): Promise<IAgentServerConfig> {
-  let config = copy(DEFAULT_AGENT_SERVER_CONFIG);
-
-  // try to load our config from disk
-  try {
-    const file = GetExtensionPath('desktop-agents.config.json');
-    console.log('[Config] Loading config from file on disk');
-    config = JSON.parse(readFileSync(file, 'utf-8'));
-  } catch (err: any) {
-    // ignore error if no config file
-    if (!err?.message?.includes('Unable to locate file or folder')) {
-      console.log('Problem loading config from file');
-      console.log(err);
-    }
-  }
-
-  return config;
-}
 
 /**
  * Message wrapper which manually serializes/deserialze on the main

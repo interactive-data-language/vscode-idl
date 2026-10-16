@@ -2,6 +2,16 @@ import { IAgentConfig } from './agent-config.interface';
 import { IAgentsMCPConfig } from './mcp-config.interface';
 import { IServerConfig } from './server-config.interface';
 
+/** First version of the agents server config */
+export type AgentServerConfigVersion_1_0_0 = '1.0.0';
+
+/** Allowed versions of the agents server config */
+export type AgentServerConfigVersion = AgentServerConfigVersion_1_0_0;
+
+/** Current version of the agents server config */
+export const CURRENT_AGENT_SERVER_CONFIG_VERSION: AgentServerConfigVersion =
+  '1.0.0';
+
 /** Configuration for the standalone agents server (Electron main process, desktop app, or CLI) */
 export interface IAgentServerConfig {
   /** Configuration for our chat */
@@ -10,6 +20,8 @@ export interface IAgentServerConfig {
   mcp: IAgentsMCPConfig;
   /** Config for HTTP server */
   server: IServerConfig;
+  /** Version of the configuration schema */
+  version: AgentServerConfigVersion;
 }
 
 /**
@@ -17,7 +29,6 @@ export interface IAgentServerConfig {
  */
 export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
   agent: {
-    engine: 'copilot',
     llm: {
       model: 'openai',
       config: {
@@ -48,6 +59,7 @@ export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
     port: 4142,
     language: 'en',
   },
+  version: CURRENT_AGENT_SERVER_CONFIG_VERSION,
 };
 
 // /**
@@ -55,7 +67,6 @@ export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
 //  */
 // export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
 //   agent: {
-//     engine: 'copilot',
 //     llm: {
 //       model: 'ollama',
 //       config: {
