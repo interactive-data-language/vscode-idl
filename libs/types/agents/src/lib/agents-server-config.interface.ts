@@ -34,14 +34,14 @@ export const DEFAULT_AGENT_SERVER_CONFIG: IAgentServerConfig = {
   mcp: {
     enviToolBlacklist: [],
     enviToolWhitelist: [],
+    enviToolWorkflowWhitelist: [],
+    enviToolWorkflowBlacklist: [],
     mcpToolBlackList: [],
     mcpToolWhitelist: [],
     instructionsWhitelist: [],
     instructionsBlacklist: [],
     skillWhitelist: [],
     skillBlacklist: [],
-    enviToolWorkflowWhitelist: [],
-    enviToolWorkflowBlacklist: [],
   },
   server: {
     host: 'localhost',
