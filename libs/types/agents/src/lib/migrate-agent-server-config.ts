@@ -22,13 +22,13 @@ export interface IMigrateAgentServerConfigResult {
 interface IConfigMigrationStep {
   /** Starting version for this step, or undefined for unversioned / legacy configs */
   fromVersion: string | undefined;
-  /** Target version for this step */
-  toVersion: string;
   /**
    * Performs in-place mutation of the config object.
    * Returns true if any modifications were made.
    */
   migrate: (raw: Record<string, any>) => boolean;
+  /** Target version for this step */
+  toVersion: string;
 }
 
 /**
@@ -44,7 +44,11 @@ function MigrateToVersion_1_0_0(raw: Record<string, any>): boolean {
   }
 
   // 2. Ensure mcp object exists
-  if (raw.mcp === undefined || typeof raw.mcp !== 'object' || raw.mcp === null) {
+  if (
+    raw.mcp === undefined ||
+    typeof raw.mcp !== 'object' ||
+    raw.mcp === null
+  ) {
     raw.mcp = copy(DEFAULT_AGENT_SERVER_CONFIG.mcp);
     changed = true;
   }
@@ -97,7 +101,12 @@ function MigrateToVersion_1_0_0(raw: Record<string, any>): boolean {
   }
 
   // 7. Strip obsolete agent.engine property
-  if (raw.agent !== undefined && typeof raw.agent === 'object' && raw.agent !== null && 'engine' in raw.agent) {
+  if (
+    raw.agent !== undefined &&
+    typeof raw.agent === 'object' &&
+    raw.agent !== null &&
+    'engine' in raw.agent
+  ) {
     delete raw.agent.engine;
     changed = true;
   }
@@ -123,7 +132,11 @@ function EnsureDefaults(raw: Record<string, any>): boolean {
   let changed = false;
 
   // Ensure agent section exists
-  if (raw.agent === undefined || typeof raw.agent !== 'object' || raw.agent === null) {
+  if (
+    raw.agent === undefined ||
+    typeof raw.agent !== 'object' ||
+    raw.agent === null
+  ) {
     raw.agent = copy(DEFAULT_AGENT_SERVER_CONFIG.agent);
     changed = true;
   } else {
@@ -131,18 +144,30 @@ function EnsureDefaults(raw: Record<string, any>): boolean {
       delete raw.agent.engine;
       changed = true;
     }
-    if (raw.agent.llm === undefined || typeof raw.agent.llm !== 'object' || raw.agent.llm === null) {
+    if (
+      raw.agent.llm === undefined ||
+      typeof raw.agent.llm !== 'object' ||
+      raw.agent.llm === null
+    ) {
       raw.agent.llm = copy(DEFAULT_AGENT_SERVER_CONFIG.agent.llm);
       changed = true;
     }
-    if (raw.agent.reasoning === undefined || typeof raw.agent.reasoning !== 'object' || raw.agent.reasoning === null) {
+    if (
+      raw.agent.reasoning === undefined ||
+      typeof raw.agent.reasoning !== 'object' ||
+      raw.agent.reasoning === null
+    ) {
       raw.agent.reasoning = copy(DEFAULT_AGENT_SERVER_CONFIG.agent.reasoning);
       changed = true;
     }
   }
 
   // Ensure server section exists
-  if (raw.server === undefined || typeof raw.server !== 'object' || raw.server === null) {
+  if (
+    raw.server === undefined ||
+    typeof raw.server !== 'object' ||
+    raw.server === null
+  ) {
     raw.server = copy(DEFAULT_AGENT_SERVER_CONFIG.server);
     changed = true;
   } else {
@@ -173,8 +198,14 @@ function EnsureDefaults(raw: Record<string, any>): boolean {
  * If any migrations were applied, deprecated properties cleaned up, or defaults
  * filled in, returns `hasChanges: true`.
  */
-export function MigrateAgentServerConfig(rawConfig: any): IMigrateAgentServerConfigResult {
-  if (rawConfig === undefined || typeof rawConfig !== 'object' || rawConfig === null) {
+export function MigrateAgentServerConfig(
+  rawConfig: any,
+): IMigrateAgentServerConfigResult {
+  if (
+    rawConfig === undefined ||
+    typeof rawConfig !== 'object' ||
+    rawConfig === null
+  ) {
     return {
       config: copy(DEFAULT_AGENT_SERVER_CONFIG),
       hasChanges: true,
