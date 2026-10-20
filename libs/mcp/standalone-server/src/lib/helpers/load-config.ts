@@ -1,4 +1,5 @@
 import { GetExtensionPath } from '@idl/idl/files';
+import { IDL_MCP_LOG } from '@idl/logger';
 import {
   DEFAULT_AGENT_SERVER_CONFIG,
   IAgentServerConfig,
@@ -6,6 +7,8 @@ import {
 } from '@idl/types/agents';
 import { copy } from 'fast-copy';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+
+import { LOG_MANAGER } from '../mcp/create-standalone-mcp-server';
 
 /**
  * Saves our agent server config to disk formatted as 2-space indented JSON
@@ -47,23 +50,37 @@ export async function LoadConfig(
 
   let raw: any;
   try {
-    console.log('[Config] Loading config from file on disk');
+    LOG_MANAGER.log({
+      log: IDL_MCP_LOG,
+      type: 'info',
+      content: 'Loading config from file on disk',
+    });
     raw = JSON.parse(readFileSync(file, 'utf-8'));
   } catch (err: any) {
-    console.log('[Config] Problem loading or parsing config from file:', err);
+    LOG_MANAGER.log({
+      log: IDL_MCP_LOG,
+      type: 'error',
+      content: ['Problem loading or parsing config from file:', err],
+    });
     return copy(DEFAULT_AGENT_SERVER_CONFIG);
   }
 
   const { config, hasChanges } = MigrateAgentServerConfig(raw);
 
   if (hasChanges) {
-    console.log(
-      `[Config] Migrated config to version ${config.version}, saving updates to disk`,
-    );
+    LOG_MANAGER.log({
+      log: IDL_MCP_LOG,
+      type: 'info',
+      content: `Migrated config to version ${config.version}, saving updates to disk`,
+    });
     try {
       SaveConfig(config, file);
     } catch (writeErr: any) {
-      console.log('[Config] Problem saving migrated config to disk:', writeErr);
+      LOG_MANAGER.log({
+        log: IDL_MCP_LOG,
+        type: 'error',
+        content: ['Problem saving migrated config to disk:', writeErr],
+      });
     }
   }
 
