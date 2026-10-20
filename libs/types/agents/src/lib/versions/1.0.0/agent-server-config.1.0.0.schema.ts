@@ -76,7 +76,6 @@ export type IAgentServerConfig_1_0_0 = z.infer<
 
 export const DEFAULT_AGENT_SERVER_CONFIG_1_0_0: IAgentServerConfig_1_0_0 =
   AgentServerConfigSchema_1_0_0.parse({
-    agent: { llm: { config: {}, model: 'openai' }, reasoning: {} },
-    mcp: {},
+    agent: { llm: { config: {}, model: 'openai' }, mcp: {}, reasoning: {} },
     server: { port: 3000 },
   });

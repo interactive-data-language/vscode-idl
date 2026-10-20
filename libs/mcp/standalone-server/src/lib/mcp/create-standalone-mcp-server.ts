@@ -292,8 +292,8 @@ export async function CreateStandaloneMCPServer(
   // register MCP task tools
   if (isEnviInstalled) {
     RegisterMCPTaskTools(MCPServer.instance, index, {
-      whitelist: config.mcp.enviToolWhitelist,
-      blacklist: config.mcp.enviToolBlacklist,
+      whitelist: config.agent.mcp.enviToolWhitelist,
+      blacklist: config.agent.mcp.enviToolBlacklist,
     });
   }
 }

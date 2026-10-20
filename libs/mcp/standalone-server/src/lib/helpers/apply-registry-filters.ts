@@ -12,17 +12,17 @@ import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
  */
 export function ApplyRegistryFilters(config: IAgentServerConfig) {
   MCP_INSTRUCTION_REGISTRY.filters.updateFilters({
-    whitelist: config.mcp.instructionsWhitelist,
-    blacklist: config.mcp.instructionsBlacklist,
+    whitelist: config.agent.mcp.instructionsWhitelist,
+    blacklist: config.agent.mcp.instructionsBlacklist,
   });
 
   MCP_SKILL_REGISTRY.filters.updateFilters({
-    whitelist: config.mcp.skillWhitelist,
-    blacklist: config.mcp.skillBlacklist,
+    whitelist: config.agent.mcp.skillWhitelist,
+    blacklist: config.agent.mcp.skillBlacklist,
   });
 
   ENVI_TOOL_WORKFLOW_REGISTRY.filters.updateFilters({
-    whitelist: config.mcp.enviToolWorkflowWhitelist,
-    blacklist: config.mcp.enviToolWorkflowBlacklist,
+    whitelist: config.agent.mcp.enviToolWorkflowWhitelist,
+    blacklist: config.agent.mcp.enviToolWorkflowBlacklist,
   });
 }

@@ -46,8 +46,8 @@ export class Chat {
 
     // update filters
     this.mcpToolFilters.updateFilters({
-      blacklist: this.config.mcp.mcpToolBlackList,
-      whitelist: this.config.mcp.mcpToolWhitelist,
+      blacklist: this.config.agent.mcp.mcpToolBlackList,
+      whitelist: this.config.agent.mcp.mcpToolWhitelist,
     });
   }
 
