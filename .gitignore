@@ -69,3 +69,5 @@ compliance/compliance.json
 
 .claude/worktrees
 .claude/settings.local.json
+
+desktop-agents.config.json
