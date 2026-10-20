@@ -1,5 +1,5 @@
 import { IDL_MCP_LOG } from '@idl/logger';
-import { IAgentServerConfig, OpenAIModelConfig } from '@idl/types/agents';
+import { IAgentServerConfig } from '@idl/types/agents';
 
 import { LOG_MANAGER } from '../mcp/create-standalone-mcp-server';
 
@@ -13,8 +13,6 @@ export function LoadConfigFromEnv(config: IAgentServerConfig) {
       type: 'info',
       content: 'Found OpenAI API Key, overriding server config',
     });
-    config.agent.llm.model = 'openai';
-    (config.agent.llm.config as OpenAIModelConfig).apiKey =
-      process.env.OPENAI_API_KEY;
+    config.agent.llm.config.apiKey = process.env.OPENAI_API_KEY;
   }
 }

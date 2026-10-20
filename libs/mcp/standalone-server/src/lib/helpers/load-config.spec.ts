@@ -1,6 +1,8 @@
 import {
+  AgentServerConfig,
   DEFAULT_AGENT_SERVER_CONFIG,
   IAgentServerConfig,
+  MIGRATE_LEGACY_TO_1_0_0,
   MigrateAgentServerConfig,
 } from '@idl/types/agents';
 import { copy } from 'fast-copy';
@@ -79,18 +81,18 @@ describe('Agent Server Config Migration and Loading', () => {
             effort: 'medium',
             summary: 'detailed',
           },
-        },
-        mcp: {
-          enviToolBlacklist: [],
-          enviToolWhitelist: ['ImageIntersection', 'SpectralIndex'],
-          enviToolWorkflowBlacklist: [],
-          enviToolWorkflowWhitelist: [],
-          instructionsBlacklist: [],
-          instructionsWhitelist: [],
-          mcpToolBlackList: ['run-idl-code', 'run-idl-file'],
-          mcpToolWhitelist: ['create-folder'],
-          skillBlacklist: [],
-          skillWhitelist: [],
+          mcp: {
+            enviToolBlacklist: [],
+            enviToolWhitelist: ['ImageIntersection', 'SpectralIndex'],
+            enviToolWorkflowBlacklist: [],
+            enviToolWorkflowWhitelist: [],
+            instructionsBlacklist: [],
+            instructionsWhitelist: [],
+            mcpToolBlackList: ['run-idl-code', 'run-idl-file'],
+            mcpToolWhitelist: ['create-folder'],
+            skillBlacklist: [],
+            skillWhitelist: [],
+          },
         },
         server: {
           host: 'localhost',
@@ -122,6 +124,45 @@ describe('Agent Server Config Migration and Loading', () => {
 
       expect(result.hasChanges).toBe(true);
       expect(result.config).toEqual(DEFAULT_AGENT_SERVER_CONFIG);
+    });
+
+    it('migrates using the typed MIGRATE_LEGACY_TO_1_0_0 step and validates with Zod', () => {
+      const legacy: AgentServerConfig<'legacy'> = {
+        agent: {
+          engine: 'copilot',
+          llm: {
+            config: {
+              defaultModel: 'gemma4:26b',
+              maxOutputTokens: 2000,
+              maxPromptTokens: 10000,
+              url: 'http://localhost:11434',
+              utilityModel: 'gemma4:26b',
+            },
+            model: 'ollama',
+          },
+          reasoning: {
+            effort: 'medium',
+            summary: 'detailed',
+          },
+        },
+        mcp: {
+          toolBlackList: ['run-idl-code'],
+          toolWhitelist: ['create-folder'],
+        },
+        server: {
+          host: 'localhost',
+          language: 'en',
+          port: 3000,
+        },
+      };
+
+      const migrated = MIGRATE_LEGACY_TO_1_0_0.migrate(legacy);
+      const validation = MIGRATE_LEGACY_TO_1_0_0.schemaTo.safeParse(migrated);
+
+      expect(validation.success).toBe(true);
+      expect(migrated.version).toBe('1.0.0');
+      expect(migrated.agent.mcp.mcpToolBlackList).toEqual(['run-idl-code']);
+      expect(migrated.agent.mcp.mcpToolWhitelist).toEqual(['create-folder']);
     });
   });
 
@@ -178,18 +219,18 @@ describe('Agent Server Config Migration and Loading', () => {
             effort: 'medium',
             summary: 'detailed',
           },
-        },
-        mcp: {
-          enviToolBlacklist: [],
-          enviToolWhitelist: [],
-          enviToolWorkflowBlacklist: [],
-          enviToolWorkflowWhitelist: [],
-          instructionsBlacklist: [],
-          instructionsWhitelist: [],
-          mcpToolBlackList: ['run-idl-code'],
-          mcpToolWhitelist: [],
-          skillBlacklist: [],
-          skillWhitelist: [],
+          mcp: {
+            enviToolBlacklist: [],
+            enviToolWhitelist: [],
+            enviToolWorkflowBlacklist: [],
+            enviToolWorkflowWhitelist: [],
+            instructionsBlacklist: [],
+            instructionsWhitelist: [],
+            mcpToolBlackList: ['run-idl-code'],
+            mcpToolWhitelist: [],
+            skillBlacklist: [],
+            skillWhitelist: [],
+          },
         },
         server: {
           host: 'localhost',
