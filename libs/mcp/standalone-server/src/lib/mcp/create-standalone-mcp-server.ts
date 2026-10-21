@@ -14,10 +14,7 @@ import {
 } from '@idl/mcp/language-server-tools';
 import { MCPServer } from '@idl/mcp/server';
 import { RegisterStaticMCPResources } from '@idl/mcp/server-resources';
-import {
-  ENVI_TOOL_WORKFLOW_REGISTRY,
-  RegisterAllMCPTools,
-} from '@idl/mcp/server-tools';
+import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
 import { WebSocketToolBridge } from '@idl/mcp/websocket';
 import { IDLIndex } from '@idl/parsing/index';
 import { IAgentServerConfig } from '@idl/types/agents';
@@ -28,10 +25,9 @@ import {
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import type { Application } from 'express';
-import { existsSync } from 'fs';
-import { join } from 'path';
 
 import { CreateIDLMachineBackend } from './create-idl-machine-backend';
+import { LoadLocalAgentPersona } from './load-local-agent-persona';
 
 /**
  * Configuration for the MCP language server.
@@ -102,88 +98,13 @@ export async function CreateStandaloneMCPServer(
   );
 
   /**
-   * Check for configuration packaged with our app
+   * Check for a local agent persona that we need to load
    *
-   * This allows us to include extensions, custom_code, and tool workflows
-   * without having to install in other locations
+   * For now, this sits in a "config" folder at the root (next to "resources")
    *
-   * Premise of this is a simpler setup/use without manipulating file systems
+   * But we can move that to other places
    */
-  try {
-    /**
-     * Check for local config at root of extension directory
-     */
-    const configDir = GetExtensionPath('config');
-
-    // log that we found it if we make it here
-    LOG_MANAGER.log({
-      log: IDL_LSP_LOG,
-      type: 'info',
-      content: `Found local config folder, checking for content to load`,
-    });
-
-    /**
-     * See if we have custom code
-     */
-    const customCode = join(configDir, 'custom_code');
-    if (existsSync(customCode)) {
-      LOG_MANAGER.log({
-        log: IDL_LSP_LOG,
-        type: 'info',
-        content: `Registering config/custom_code`,
-      });
-      process.env['ENVI_CUSTOM_CODE'] = customCode;
-      idlSearchPath[customCode] = true;
-    }
-
-    /**
-     * See if we have extensions
-     */
-    const extensions = join(configDir, 'extensions');
-    if (existsSync(extensions)) {
-      LOG_MANAGER.log({
-        log: IDL_LSP_LOG,
-        type: 'info',
-        content: `Registering config/extensions`,
-      });
-      process.env['ENVI_EXTENSIONS'] = extensions;
-      idlSearchPath[extensions] = true;
-    }
-
-    /**
-     * See if we have workflows
-     */
-    const workflows = join(configDir, 'envi-tool-workflows');
-    if (existsSync(workflows)) {
-      LOG_MANAGER.log({
-        log: IDL_LSP_LOG,
-        type: 'info',
-        content: `Registering config/envi-tool-workflows`,
-      });
-      // load and overwrite any that we already have
-      ENVI_TOOL_WORKFLOW_REGISTRY.loadWorkflowsFromFolder(workflows, true);
-    }
-
-    /**
-     * See if we have instructions
-     */
-    const instructions = join(configDir, 'instructions');
-    if (existsSync(instructions)) {
-      LOG_MANAGER.log({
-        log: IDL_LSP_LOG,
-        type: 'info',
-        content: `Registering config/instructions`,
-      });
-      // load and overwrite any that we already have
-      MCP_INSTRUCTION_REGISTRY.loadInstructionsFromFolder(instructions, true);
-    }
-  } catch (err) {
-    LOG_MANAGER.log({
-      log: IDL_LSP_LOG,
-      type: 'info',
-      content: [`Did not find local config folder`, err],
-    });
-  }
+  await LoadLocalAgentPersona(idlSearchPath);
 
   // index
   const index = new IDLIndex(LOG_MANAGER, 1, false);
