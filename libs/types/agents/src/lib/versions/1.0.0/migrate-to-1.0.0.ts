@@ -30,6 +30,9 @@ export const MIGRATE_LEGACY_TO_1_0_0: ITypedMigrationStep<'legacy', '1.0.0'> = {
           mcpToolWhitelist: legacy.mcp?.toolWhitelist,
         },
       },
+      idl: {
+        directory: '',
+      },
       server: {
         host: legacy.server?.host,
         port: legacy.server?.port,
