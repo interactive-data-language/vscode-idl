@@ -95,6 +95,7 @@ describe('Agent Server Config Migration and Loading', () => {
             skillWhitelist: [],
           },
         },
+        idl: { directory: '' },
         server: {
           host: 'localhost',
           language: 'en',
@@ -245,6 +246,7 @@ describe('Agent Server Config Migration and Loading', () => {
             skillWhitelist: [],
           },
         },
+        idl: { directory: '' },
         server: {
           host: 'localhost',
           language: 'en',

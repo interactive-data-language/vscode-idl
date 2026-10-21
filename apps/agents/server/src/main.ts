@@ -1,11 +1,61 @@
-import { LoadConfig, StartAgentsServer } from '@idl/mcp/standalone-server';
-import { isMainThread, parentPort, workerData } from 'worker_threads';
+import {
+  IConfigProblem,
+  IStartAgentsServerResult,
+  LoadConfig,
+  LOG_MANAGER,
+  StartAgentsServer,
+  UpdateConfig,
+  ValidateConfig,
+} from '@idl/mcp/standalone-server';
+import { IAgentServerConfig } from '@idl/types/agents';
+import { isMainThread, parentPort } from 'worker_threads';
+
+import {
+  AGENTS_SERVER_PROTOCOL_VERSION,
+  AgentsServerLogLevel,
+  AgentsServerMessage,
+  AgentsServerRequest,
+} from './protocol.interface';
 
 /**
  * Message wrapper which manually serializes/deserialze on the main
  */
-function PostMessage(msg: any) {
-  parentPort?.postMessage(JSON.stringify(msg));
+function PostMessage(msg: AgentsServerMessage) {
+  try {
+    parentPort?.postMessage(JSON.stringify(msg));
+  } catch (err) {
+    // content that cannot be serialized (i.e. circular) must not take us down
+    parentPort?.postMessage(
+      JSON.stringify({
+        type: 'log',
+        level: 'warn',
+        log: 'idl-agent-server',
+        content: [`Unable to serialize "${msg.type}" message`],
+      }),
+    );
+  }
+}
+
+/**
+ * Prints config problems for users running the server directly
+ */
+function PrintProblems(problems: IConfigProblem[]) {
+  console.error('[server] Unable to start, fix these problems and try again:');
+  for (let i = 0; i < problems.length; i++) {
+    console.error(`  [${problems[i].code}] ${problems[i].message}`);
+  }
+}
+
+/**
+ * Parses a message from our host, returns undefined if it is not one we can handle
+ */
+function ParseRequest(raw: unknown): AgentsServerRequest | undefined {
+  try {
+    const msg = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    return typeof msg?.type === 'string' ? msg : undefined;
+  } catch (err) {
+    return undefined;
+  }
 }
 
 /**
@@ -15,6 +65,12 @@ async function main() {
   try {
     const config = await LoadConfig();
     config.server.port = 3000;
+
+    const problems = ValidateConfig(config);
+    if (problems.length > 0) {
+      PrintProblems(problems);
+      process.exit(1);
+    }
 
     const result = await StartAgentsServer(config);
 
@@ -33,9 +89,11 @@ async function main() {
 }
 
 /**
- * Starts the agents server when spawned as a worker thread (i.e. from the Electron
- * desktop app) — the port comes from `workerData` and console output is piped to
- * our parent thread instead of stdout, since the worker's stdout is not surfaced
+ * Runs the server as a worker thread that a host (Node or Electron) controls
+ * with the messages in `protocol.interface.ts`.
+ *
+ * Nothing heavy happens until the host sends `start`, so the host can inspect
+ * and fix the config first. Logs are forwarded to the host as `log` messages.
  */
 async function mainAsWorker() {
   if (parentPort === null) {
@@ -43,42 +101,142 @@ async function mainAsWorker() {
     process.exit(1);
   }
 
-  // pipe all console output to our parent thread
-  console.log = (...args: any[]) => {
-    PostMessage({ type: 'log', level: 'log', args });
-  };
-  console.warn = (...args: any[]) => {
-    PostMessage({ type: 'log', level: 'warn', args });
-  };
-  console.error = (...args: any[]) => {
-    PostMessage({ type: 'log', level: 'error', args });
-  };
-
-  try {
-    // see ConfigureModulePaths above
-    throw new Error('Address bundling issue when running as web worker');
-
-    const config = await LoadConfig();
-    config.server.port = (workerData as { port: number }).port;
-
-    const result = await StartAgentsServer(config);
-
-    PostMessage({ type: 'ready', port: result.port });
-
-    // our parent process tells us when to gracefully shut down
-    parentPort?.on('message', async (msg: { type: string }) => {
-      if (msg?.type === 'stop') {
-        await result.stop();
-        process.exit(0);
-      }
-    });
-  } catch (err: any) {
+  // forward structured logs from our log manager
+  LOG_MANAGER.setInterceptor((options) => {
     PostMessage({
-      type: 'error',
-      message: err?.message ?? String(err),
+      type: 'log',
+      level: options.type ?? 'info',
+      log: options.log ?? '',
+      content: Array.isArray(options.content)
+        ? options.content
+        : [options.content],
     });
-    process.exit(1);
-  }
+  });
+
+  // forward anything else that writes to the console
+  const forwardConsole = (level: AgentsServerLogLevel) => {
+    return (...args: unknown[]) => {
+      PostMessage({ type: 'log', level, log: 'console', content: args });
+    };
+  };
+  console.log = forwardConsole('log');
+  console.warn = forwardConsole('warn');
+  console.error = forwardConsole('error');
+
+  let config: IAgentServerConfig = await LoadConfig();
+  let server: IStartAgentsServerResult | undefined;
+  let starting: Promise<IStartAgentsServerResult> | undefined;
+
+  const handle = async (msg: AgentsServerRequest) => {
+    try {
+      switch (msg.type) {
+        case 'get-config':
+          PostMessage({ type: 'config', id: msg.id, config });
+          break;
+
+        case 'start': {
+          if (starting !== undefined) {
+            PostMessage({
+              type: 'error',
+              id: msg.id,
+              code: 'ALREADY_STARTED',
+              message: 'The server has already been started',
+            });
+            break;
+          }
+
+          if (msg.overrides?.host !== undefined) {
+            config.server.host = msg.overrides.host;
+          }
+          if (msg.overrides?.port !== undefined) {
+            config.server.port = msg.overrides.port;
+          }
+
+          const problems = ValidateConfig(config);
+          if (problems.length > 0) {
+            PostMessage({
+              type: 'error',
+              id: msg.id,
+              code: 'INVALID_CONFIG',
+              message: 'The config has problems that must be fixed first',
+              problems,
+            });
+            break;
+          }
+
+          starting = StartAgentsServer(config);
+          try {
+            server = await starting;
+          } catch (err) {
+            // a failed start can leave partial state, so the host must make a new worker
+            PostMessage({
+              type: 'error',
+              id: msg.id,
+              code: 'START_FAILED',
+              message: err instanceof Error ? err.message : String(err),
+            });
+            process.exit(1);
+          }
+          PostMessage({ type: 'ready', id: msg.id, port: server.port });
+          break;
+        }
+
+        case 'stop':
+          try {
+            await starting;
+            await server?.stop();
+          } finally {
+            process.exit(0);
+          }
+          break;
+
+        case 'update-config':
+          if (starting !== undefined) {
+            PostMessage({
+              type: 'error',
+              id: msg.id,
+              code: 'ALREADY_STARTED',
+              message: 'Restart the server to apply config changes',
+            });
+            break;
+          }
+          config = UpdateConfig(config, msg.config);
+          PostMessage({ type: 'config', id: msg.id, config });
+          break;
+
+        case 'validate':
+          PostMessage({
+            type: 'validation',
+            id: msg.id,
+            problems: ValidateConfig(config),
+          });
+          break;
+
+        default:
+          // ignore messages from newer hosts
+          break;
+      }
+    } catch (err) {
+      PostMessage({
+        type: 'error',
+        id: 'id' in msg ? msg.id : undefined,
+        code: 'REQUEST_FAILED',
+        message: err instanceof Error ? err.message : String(err),
+      });
+    }
+  };
+
+  parentPort.on('message', (raw: unknown) => {
+    const msg = ParseRequest(raw);
+    if (msg !== undefined) {
+      handle(msg);
+    }
+  });
+
+  PostMessage({
+    type: 'hello',
+    protocolVersion: AGENTS_SERVER_PROTOCOL_VERSION,
+  });
 }
 
 if (isMainThread) {
