@@ -46,7 +46,6 @@ const OllamaModelSchema_1_0_0 = z.object({
 
 export const AgentServerConfigSchema_1_0_0 = z.object({
   agent: z.object({
-    /** ID of the instructions selected by default; falls back to the last available option */
     defaultInstructions: z.string().optional(),
     llm: z.discriminatedUnion('model', [
       CopilotModelSchema_1_0_0,
