@@ -71,10 +71,13 @@ export const AgentServerConfigSchema_1_0_0 = z.object({
       skillWhitelist: z.array(z.string()).default([]),
     }),
   }),
-  idl: z.object({
-    /** Folder containing the IDL executable, leave empty to find IDL automatically */
-    directory: z.string().default(''),
-  }),
+  idl: z
+    .object({
+      /** Folder containing the IDL executable, leave empty to find IDL automatically */
+      directory: z.string(),
+    })
+    .optional()
+    .default({ directory: '' }),
   server: z.object({
     host: z.string().default('localhost'),
     language: z.literal('en').default('en'),
@@ -89,6 +92,10 @@ export type IAgentServerConfig_1_0_0 = z.infer<
 
 export const DEFAULT_AGENT_SERVER_CONFIG_1_0_0: IAgentServerConfig_1_0_0 =
   AgentServerConfigSchema_1_0_0.parse({
-    agent: { llm: { config: {}, model: 'openai' }, mcp: {}, reasoning: {} },
+    agent: {
+      llm: { config: {}, model: 'openai' },
+      mcp: {},
+      reasoning: {},
+    },
     server: { port: 3000 },
   });
