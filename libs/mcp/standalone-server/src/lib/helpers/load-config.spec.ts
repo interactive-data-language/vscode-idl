@@ -72,6 +72,7 @@ describe('Agent Server Config Migration and Loading', () => {
             config: {
               url: 'http://10.111.139.49:11434',
               defaultModel: 'gemma4:26b',
+              headers: {},
               utilityModel: 'gemma4:26b',
               maxPromptTokens: 110000,
               maxOutputTokens: 18000,
@@ -163,6 +164,17 @@ describe('Agent Server Config Migration and Loading', () => {
       expect(migrated.version).toBe('1.0.0');
       expect(migrated.agent.mcp.mcpToolBlackList).toEqual(['run-idl-code']);
       expect(migrated.agent.mcp.mcpToolWhitelist).toEqual(['create-folder']);
+      expect(migrated.agent.llm.config.headers).toEqual({});
+    });
+
+    it('preserves statically configured headers', () => {
+      const config = copy(DEFAULT_AGENT_SERVER_CONFIG);
+      config.agent.llm.config.headers = { 'x-test': 'a' };
+
+      const result = MigrateAgentServerConfig(config);
+
+      expect(result.hasChanges).toBe(false);
+      expect(result.config.agent.llm.config.headers).toEqual({ 'x-test': 'a' });
     });
   });
 
@@ -212,6 +224,7 @@ describe('Agent Server Config Migration and Loading', () => {
             config: {
               apiKey: 'test-key',
               defaultModel: 'gpt-5.4',
+              headers: {},
               utilityModel: 'gpt-5.4-mini',
             },
           },

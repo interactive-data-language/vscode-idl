@@ -116,7 +116,11 @@ export class Chat {
   /**
    * Generates a title for the chat
    */
-  async generateTitle(firstMessage: string, model?: string) {
+  async generateTitle(
+    firstMessage: string,
+    model?: string,
+    requestHeaders?: Record<string, string>,
+  ) {
     /**
      * Init OpenAI client
      */
@@ -131,6 +135,7 @@ export class Chat {
         openai = new OpenAI({
           apiKey: 'ollama',
           baseURL: `${this.config.agent.llm.config.url}/v1`,
+          defaultHeaders: this.getTurnHeaders(requestHeaders),
         });
         model = this.config.agent.llm.config.utilityModel;
         break;
@@ -142,6 +147,7 @@ export class Chat {
       case this.config.agent.llm.model === 'openai': {
         openai = new OpenAI({
           apiKey: this.config.agent.llm.config.apiKey,
+          defaultHeaders: this.getTurnHeaders(requestHeaders),
         });
         model = this.config.agent.llm.config.utilityModel;
         break;
@@ -193,6 +199,22 @@ export class Chat {
   }
 
   /**
+   * Gets the statically configured HTTP headers for the active LLM
+   */
+  getStaticHeaders(): Record<string, string> {
+    return this.config.agent.llm.config.headers;
+  }
+
+  /**
+   * Merges static headers with per-request headers, request headers win
+   */
+  getTurnHeaders(
+    requestHeaders?: Record<string, string>,
+  ): Record<string, string> {
+    return { ...this.getStaticHeaders(), ...requestHeaders };
+  }
+
+  /**
    * Lists the configured chat instruction options and the instructions that
    * should be selected by default
    */
@@ -216,7 +238,9 @@ export class Chat {
   /**
    * Lists what models are available for selection
    */
-  async listModels(): Promise<AvailableModel[]> {
+  async listModels(
+    requestHeaders?: Record<string, string>,
+  ): Promise<AvailableModel[]> {
     switch (true) {
       /**
        * Ollama
@@ -225,6 +249,7 @@ export class Chat {
         const openai = new OpenAI({
           apiKey: 'ollama',
           baseURL: `${this.config.agent.llm.config.url}/v1`,
+          defaultHeaders: this.getTurnHeaders(requestHeaders),
         });
         const page = await openai.models.list();
         return page.data
@@ -238,6 +263,7 @@ export class Chat {
       case this.config.agent.llm.model === 'openai': {
         const openai = new OpenAI({
           apiKey: this.config.agent.llm.config.apiKey,
+          defaultHeaders: this.getTurnHeaders(requestHeaders),
         });
         const page = await openai.models.list();
         return page.data

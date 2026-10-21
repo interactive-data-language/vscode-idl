@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ConfigApiService } from '@idl/ngx/app-config';
 import type {
+  AvailableModelsRequest,
   AvailableModelsResponse,
   ChatInstructionsResponse,
   ChatMessageRequest,
@@ -39,9 +40,17 @@ export class ChatApiService {
 
   /**
    * Get list of available models
+   *
+   * Uses POST so LLM auth headers travel in the body rather than the URL
    */
-  getAvailableModels(): Observable<AvailableModelsResponse> {
-    return this.http.get<AvailableModelsResponse>(`${this.baseUrl}/models`);
+  getAvailableModels(
+    requestHeaders?: Record<string, string>,
+  ): Observable<AvailableModelsResponse> {
+    const body: AvailableModelsRequest = { requestHeaders };
+    return this.http.post<AvailableModelsResponse>(
+      `${this.baseUrl}/models`,
+      body,
+    );
   }
 
   /**

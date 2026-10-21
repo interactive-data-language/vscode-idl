@@ -1,4 +1,5 @@
 import type {
+  AvailableModelsRequest,
   AvailableModelsResponse,
   ChatInstructionsResponse,
   ChatMessageRequest,
@@ -7,6 +8,7 @@ import type {
 import { Router } from 'express';
 
 import { Chat } from '../chat/chat.class';
+import { ValidateRequestHeaders } from '../helpers/validate-request-headers';
 
 /**
  * Idle time (in milliseconds) with no bytes written to an SSE response before
@@ -21,12 +23,21 @@ export function CreateChatRoutes(chat: Chat): Router {
   const router = Router();
 
   /**
-   * GET /api/chat/models
+   * POST /api/chat/models
    * Returns list of available models from the configured provider.
+   * Uses POST so optional `requestHeaders` (e.g. bearer tokens) stay out of the URL.
    */
-  router.get('/models', async (_req, res) => {
+  router.post('/models', async (req, res) => {
     try {
-      const models = await chat.listModels();
+      const { requestHeaders } = (req.body ?? {}) as AvailableModelsRequest;
+
+      const headerError = ValidateRequestHeaders(requestHeaders);
+      if (headerError !== undefined) {
+        res.status(400).json({ error: headerError });
+        return;
+      }
+
+      const models = await chat.listModels(requestHeaders);
       const defaultModel = await chat.defaultModelID();
       const resp: AvailableModelsResponse = {
         models,
@@ -114,6 +125,13 @@ export function CreateChatRoutes(chat: Chat): Router {
         res.status(400).json({
           error: 'Missing required fields: message, model, sessionId',
         });
+        return;
+      }
+
+      // Validate per-request headers
+      const headerError = ValidateRequestHeaders(request.requestHeaders);
+      if (headerError !== undefined) {
+        res.status(400).json({ error: headerError });
         return;
       }
 

@@ -200,7 +200,7 @@ export class CopilotChatFramework {
        */
       if (request.conversationHistory.length === 0) {
         this.parent
-          .generateTitle(request.message, request.model)
+          .generateTitle(request.message, request.model, request.requestHeaders)
           ?.then((title) => {
             if (title) {
               enqueue({ type: 'title', title });
@@ -332,8 +332,14 @@ export class CopilotChatFramework {
       });
 
       // Fire the message but do not await — the event stream drives the iterator.
+      const turnHeaders = this.parent.getTurnHeaders(request.requestHeaders);
       const sendPromise = session
-        .send({ prompt: request.message })
+        .send({
+          prompt: request.message,
+          ...(Object.keys(turnHeaders).length > 0
+            ? { requestHeaders: turnHeaders }
+            : {}),
+        })
         .catch((err: unknown) => {
           enqueue({
             error:
@@ -530,12 +536,14 @@ export class CopilotChatFramework {
           type: 'openai',
           maxPromptTokens: this.config.agent.llm.config.maxPromptTokens,
           maxOutputTokens: this.config.agent.llm.config.maxOutputTokens,
+          headers: this.config.agent.llm.config.headers,
         };
         break;
       case 'openai':
         sessionConfig.provider = {
           apiKey: this.config.agent.llm.config.apiKey,
           baseUrl: 'https://api.openai.com/v1',
+          headers: this.config.agent.llm.config.headers,
           type: 'openai',
           // reasoning summaries are only exposed over the Responses API
           wireApi: 'responses',

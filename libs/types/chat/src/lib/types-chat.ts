@@ -184,6 +184,8 @@ export interface ChatMessageRequest {
   message: string;
   /** The model to use for completion (e.g., 'gpt-4o-mini') */
   model: string;
+  /** HTTP headers for this request's LLM calls; override statically configured headers */
+  requestHeaders?: Record<string, string>;
   /** Unique identifier for the chat session */
   sessionId: string;
 }
@@ -303,6 +305,14 @@ export const DEFAULT_MODELS: AvailableModel[] = [
     description: 'Fast and affordable',
   },
 ];
+
+/**
+ * Request payload for listing available models
+ */
+export interface AvailableModelsRequest {
+  /** HTTP headers for the LLM provider call; override statically configured headers */
+  requestHeaders?: Record<string, string>;
+}
 
 /**
  * Response containing list of available models
