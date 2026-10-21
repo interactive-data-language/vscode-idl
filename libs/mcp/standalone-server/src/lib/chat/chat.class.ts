@@ -12,7 +12,6 @@ import type {
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import OpenAI from 'openai';
 
-import { DEFAULT_CHAT_INSTRUCTIONS } from '../helpers/chat-instructions.interface';
 import { EXAMPLE_PROMPTS } from '../helpers/example-prompts.interface';
 import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
 import { CopilotChatFramework } from './copilot/copilot-chat-framework.class';
@@ -219,10 +218,16 @@ export class Chat {
    * should be selected by default
    */
   listChatInstructions(): ChatInstructionsResponse {
-    return {
-      options: MCP_INSTRUCTION_REGISTRY.getInstructionOptionsForUI(),
-      defaultInstructions: DEFAULT_CHAT_INSTRUCTIONS,
-    };
+    const options = MCP_INSTRUCTION_REGISTRY.getInstructionOptionsForUI();
+    const configured = this.config.agent.defaultInstructions;
+
+    // configured default must be one of the selectable options
+    const defaultInstructions =
+      configured !== undefined && options.some((item) => item.id === configured)
+        ? configured
+        : options[options.length - 1].id;
+
+    return { options, defaultInstructions };
   }
 
   /**
