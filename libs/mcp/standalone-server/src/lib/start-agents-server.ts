@@ -40,9 +40,6 @@ export async function StartAgentsServer(
   // check the environment for configuration
   LoadConfigFromEnv(config);
 
-  // apply whitelist/blacklist filters to our registries
-  ApplyRegistryFilters(config);
-
   // start the express app
   const app = express();
 
@@ -63,6 +60,9 @@ export async function StartAgentsServer(
 
   // Initialize MCP language server (IDL indexing + MCP tools on this Express app)
   await CreateStandaloneMCPServer(app, config, { websocketBridge });
+
+  // apply whitelist/blacklist filters to our registries now that we are booted up
+  ApplyRegistryFilters(config);
 
   // Initialize chat class
   const chat = new Chat(config);

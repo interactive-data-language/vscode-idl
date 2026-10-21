@@ -1,3 +1,4 @@
+import { MCP_TASK_REGISTRY } from '@idl/mcp/language-server-tools';
 import {
   ENVI_TOOL_WORKFLOW_REGISTRY,
   MCP_SKILL_REGISTRY,
@@ -24,5 +25,10 @@ export function ApplyRegistryFilters(config: IAgentServerConfig) {
   ENVI_TOOL_WORKFLOW_REGISTRY.filters.updateFilters({
     whitelist: config.agent.mcp.enviToolWorkflowWhitelist,
     blacklist: config.agent.mcp.enviToolWorkflowBlacklist,
+  });
+
+  MCP_TASK_REGISTRY?.filters?.updateFilters({
+    whitelist: config.agent.mcp.enviToolWhitelist,
+    blacklist: config.agent.mcp.enviToolBlacklist,
   });
 }
