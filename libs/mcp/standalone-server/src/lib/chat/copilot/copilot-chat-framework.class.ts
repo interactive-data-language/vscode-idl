@@ -409,7 +409,7 @@ export class CopilotChatFramework {
         /**
          * If you change this key name, we need to change the values above for IDL_MCP_NAME
          */
-        'idl-mcp': {
+        [IDL_MCP_NAME]: {
           type: 'http',
           url: `http://localhost:${port}/mcp`,
           tools: this.parent.getAllowedTools(),
