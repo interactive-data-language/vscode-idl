@@ -33,6 +33,7 @@
     "docs:build-hosted": "vitepress build docs/extension --base /vscode-idl/",
     "docs:dev": "vitepress dev docs/extension",
     "docs:preview": "vitepress preview docs/extension",
+    "download-stac-samples": "node ./tools/node/download-stac-item-samples.js",
     "format-tests": "node ./tools/node/format-tests.js",
     "generate-tests": "npm-run-all build-test-maker make-tests lint-tests format-tests",
     "lint-tests": "nx run-many --target=lint --fix --projects=\"tests*\" --parallel=8 --skip-nx-cache &&  nx run-many --target=lint --runInBand --projects=parsing-tokenizer --parallel=5",
