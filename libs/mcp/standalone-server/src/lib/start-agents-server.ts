@@ -53,7 +53,10 @@ export async function StartAgentsServer(
       credentials: true,
     }),
   );
-  app.use(express.json());
+
+  // increase body limit beyond 100kb
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
   // WebSocket bridge for remote ENVI tool execution, always on
   const websocketBridge = new WebSocketToolBridge();

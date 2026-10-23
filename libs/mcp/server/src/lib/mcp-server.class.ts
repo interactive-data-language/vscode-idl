@@ -442,7 +442,10 @@ export class MCPServer {
     const router = this.usingExternalApp ? express.Router() : this.app;
 
     // Parse MCP JSON-RPC requests before logging or handling the routes.
-    router.use(express.json());
+    if (!this.usingExternalApp) {
+      router.use(express.json({ limit: '50mb' }));
+      router.use(express.urlencoded({ limit: '50mb', extended: true }));
+    }
 
     // Apply localhost middleware to MCP routes
     router.use(localhostMiddleware);
