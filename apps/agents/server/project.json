@@ -3,6 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/agents/server/src",
   "projectType": "application",
+  "implicitDependencies": ["vscode-parsing-worker"],
   "tags": [],
   "targets": {
     "build": {
