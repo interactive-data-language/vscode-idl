@@ -1,5 +1,5 @@
 const { composePlugins, withNx } = require('@nx/webpack');
-const path = require('path');
+const webpack = require('webpack');
 
 // Nx plugins for webpack.
 module.exports = composePlugins(
@@ -29,6 +29,16 @@ module.exports = composePlugins(
     } else {
       config.externals = [config.externals, ...externalPatterns];
     }
+
+    // makes main.js executable when installed as an npm package (npx / bin)
+    config.plugins = config.plugins || [];
+    config.plugins.push(
+      new webpack.BannerPlugin({
+        banner: '#!/usr/bin/env node',
+        raw: true,
+        entryOnly: true,
+      }),
+    );
 
     // Update the webpack config as needed here.
     // e.g. `config.plugins.push(new MyPlugin())`

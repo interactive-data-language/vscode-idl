@@ -41,24 +41,37 @@ fs.cpSync(
 fs.copyFileSync(
   path.join(process.cwd(), 'compliance', '3rdpartylicenses.md'),
   path.join(agentServer, '3rdpartylicenses.md'),
+  path.join(agentServer, 'LICENSE.md'),
 );
 
-// copy over required dependencies
-fs.cpSync(
-  path.join(process.cwd(), 'node_modules', '@github'),
-  path.join(agentServer, 'node_modules', '@github'),
-  {
-    recursive: true,
-    force: true,
-  },
+// build the package.json from our template and the copilot SDK we built against
+const template = JSON.parse(
+  fs.readFileSync(
+    path.join(process.cwd(), 'apps', 'agents', 'server', 'package.json'),
+    'utf-8',
+  ),
+);
+const sdk = JSON.parse(
+  fs.readFileSync(
+    path.join(
+      process.cwd(),
+      'node_modules',
+      '@github',
+      'copilot-sdk',
+      'package.json',
+    ),
+    'utf-8',
+  ),
 );
 
-// copy over built components
-fs.cpSync(
-  path.join(process.cwd(), 'node_modules', '@koromix'),
-  path.join(agentServer, 'node_modules', '@koromix'),
-  {
-    recursive: true,
-    force: true,
-  },
+// version comes from the template (developers bump it), the SDK is pinned to what we tested
+// npm resolves the SDK's own dependencies and platform-specific optional dependencies
+template.dependencies = {
+  ...template.dependencies,
+  '@github/copilot-sdk': sdk.version,
+};
+
+fs.writeFileSync(
+  path.join(agentServer, 'package.json'),
+  JSON.stringify(template, null, 2) + '\n',
 );
