@@ -41,6 +41,11 @@ fs.cpSync(
 fs.copyFileSync(
   path.join(process.cwd(), 'compliance', '3rdpartylicenses.md'),
   path.join(agentServer, '3rdpartylicenses.md'),
+);
+
+// copy over license
+fs.copyFileSync(
+  path.join(process.cwd(), 'LICENSE.txt'),
   path.join(agentServer, 'LICENSE.txt'),
 );
 

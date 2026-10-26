@@ -1,6 +1,6 @@
 {
   "name": "@idl/agents-server",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Standalone IDL and ENVI agents server",
   "license": "MIT",
   "main": "dist/apps/agents/server/main.js",
