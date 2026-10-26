@@ -90,10 +90,24 @@ export async function LoadLocalAgentPersona(idlSearchPath: IFolderRecursion) {
       MCP_INSTRUCTION_REGISTRY.loadInstructionsFromFolder(instructions, true);
     }
   } catch (err) {
+    // expected when there is no config folder, so log it as informational
+    if (
+      err instanceof Error &&
+      err.message.includes('Unable to locate file or folder: "config"')
+    ) {
+      LOG_MANAGER.log({
+        log: IDL_LSP_LOG,
+        type: 'info',
+        content: `Did not find local config folder`,
+      });
+      return;
+    }
+
+    // anything else is an unexpected problem
     LOG_MANAGER.log({
       log: IDL_LSP_LOG,
-      type: 'info',
-      content: [`Did not find local config folder`, err],
+      type: 'error',
+      content: [`Error while loading local config folder`, err],
     });
   }
 }
