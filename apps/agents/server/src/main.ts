@@ -8,6 +8,8 @@ import {
   ValidateConfig,
 } from '@idl/mcp/standalone-server';
 import { IAgentServerConfig } from '@idl/types/agents';
+import { existsSync } from 'fs';
+import { isAbsolute } from 'path';
 import { isMainThread, parentPort } from 'worker_threads';
 
 import {
@@ -59,11 +61,44 @@ function ParseRequest(raw: unknown): AgentsServerRequest | undefined {
 }
 
 /**
+ * Gets the value of the "--config <path>" or "--config=<path>" CLI argument
+ */
+function GetConfigArg(argv: string[]): string | undefined {
+  for (let i = 0; i < argv.length; i++) {
+    if (argv[i] === '--config') {
+      return argv[i + 1] || '';
+    }
+    if (argv[i].startsWith('--config=')) {
+      return argv[i].substring('--config='.length);
+    }
+  }
+  return undefined;
+}
+
+/**
  * Starts the agents server when run directly (i.e. not spawned as a worker thread)
+ *
+ * Optional argument: `--config <fully qualified path to config file>`
  */
 async function main() {
   try {
-    const config = await LoadConfig();
+    const configFile = GetConfigArg(process.argv.slice(2));
+
+    // LoadConfig silently falls back to defaults, which is not what a user expects when they pass a file
+    if (configFile !== undefined) {
+      if (!isAbsolute(configFile)) {
+        console.error(
+          `[server] --config requires a fully qualified path, received "${configFile}"`,
+        );
+        process.exit(1);
+      }
+      if (!existsSync(configFile)) {
+        console.error(`[server] Config file not found: ${configFile}`);
+        process.exit(1);
+      }
+    }
+
+    const config = await LoadConfig(configFile);
     config.server.port = 3000;
 
     const problems = ValidateConfig(config);
@@ -105,8 +140,8 @@ async function mainAsWorker() {
   LOG_MANAGER.setInterceptor((options) => {
     PostMessage({
       type: 'log',
-      level: options.type ?? 'info',
-      log: options.log ?? '',
+      level: options.type || 'info',
+      log: options.log || '',
       content: Array.isArray(options.content)
         ? options.content
         : [options.content],
