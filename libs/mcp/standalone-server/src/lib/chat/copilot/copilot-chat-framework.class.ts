@@ -282,6 +282,15 @@ export class CopilotChatFramework {
               '';
             toolNameById.delete(toolCallId);
 
+            /**
+             * Get the tool display name
+             */
+            const toolDisplay = GetToolDisplayName(
+              IDL_MCP_NAME
+                ? toolName.replace(`${IDL_MCP_NAME}-`, '')
+                : toolName,
+            );
+
             if (TODO_TOOL_NAMES.has(toolName)) {
               // todo tools mutate the shared list directly inside their handler
               enqueue({ type: 'todo_update', todos: [...todos] });
@@ -289,7 +298,7 @@ export class CopilotChatFramework {
               enqueue({
                 toolCallId,
                 toolError: false,
-                toolName,
+                toolName: toolDisplay,
                 toolOutput: event.data.result?.content || '',
                 type: 'tool_result',
               });
@@ -297,7 +306,7 @@ export class CopilotChatFramework {
               enqueue({
                 toolCallId,
                 toolError: true,
-                toolName,
+                toolName: toolDisplay,
                 toolOutput:
                   event.data.error?.message || 'Tool execution failed',
                 type: 'tool_result',
