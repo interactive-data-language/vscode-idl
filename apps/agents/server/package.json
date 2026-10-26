@@ -10,7 +10,8 @@
   "files": [
     "dist",
     "resources",
-    "3rdpartylicenses.md"
+    "3rdpartylicenses.md",
+    "LICENSE.txt"
   ],
   "engines": {
     "npm": "^12.0",
