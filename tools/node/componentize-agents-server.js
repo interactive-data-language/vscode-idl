@@ -41,7 +41,7 @@ fs.cpSync(
 fs.copyFileSync(
   path.join(process.cwd(), 'compliance', '3rdpartylicenses.md'),
   path.join(agentServer, '3rdpartylicenses.md'),
-  path.join(agentServer, 'LICENSE.md'),
+  path.join(agentServer, 'LICENSE.txt'),
 );
 
 // build the package.json from our template and the copilot SDK we built against
