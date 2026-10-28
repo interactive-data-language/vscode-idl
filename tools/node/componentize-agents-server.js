@@ -1,3 +1,4 @@
+const { execFileSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -47,6 +48,16 @@ fs.copyFileSync(
 fs.copyFileSync(
   path.join(process.cwd(), 'LICENSE.txt'),
   path.join(agentServer, 'LICENSE.txt'),
+);
+
+// type declarations for consumers, available as "@idl/agents-server/types"
+execFileSync(
+  process.execPath,
+  [
+    path.join(process.cwd(), 'tools', 'node', 'build-agents-server-types.js'),
+    path.join(agentServer, 'types'),
+  ],
+  { cwd: process.cwd(), stdio: 'inherit' },
 );
 
 // build the package.json from our template and the copilot SDK we built against

@@ -1,14 +1,29 @@
 {
   "name": "@idl/agents-server",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Standalone IDL and ENVI agents server",
   "license": "MIT",
   "main": "dist/apps/agents/server/main.js",
   "bin": {
     "idl-agents-server": "dist/apps/agents/server/main.js"
   },
+  "exports": {
+    ".": "./dist/apps/agents/server/main.js",
+    "./types": {
+      "types": "./types/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "types": [
+        "types/index.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist",
+    "types",
     "resources",
     "3rdpartylicenses.md",
     "LICENSE.txt"
