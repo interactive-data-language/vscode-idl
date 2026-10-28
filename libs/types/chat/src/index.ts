@@ -1,1 +1,1 @@
-export * from './lib/types-chat';
+export * from './lib/chat-types.interface';
