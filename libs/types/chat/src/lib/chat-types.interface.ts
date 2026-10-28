@@ -296,17 +296,6 @@ export interface AvailableModel {
 }
 
 /**
- * Default models
- */
-export const DEFAULT_MODELS: AvailableModel[] = [
-  {
-    id: 'gpt-4o-mini',
-    name: 'GPT-4o Mini',
-    description: 'Fast and affordable',
-  },
-];
-
-/**
  * Request payload for listing available models
  */
 export interface AvailableModelsRequest {
