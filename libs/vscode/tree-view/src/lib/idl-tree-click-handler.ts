@@ -3,7 +3,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
-import { IDLAction } from './idl-action.class';
+import type { IDLAction } from './idl-action.class';
 
 /**
  * Handles when an item is clicked from our tree

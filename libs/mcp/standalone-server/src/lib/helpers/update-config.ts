@@ -1,5 +1,5 @@
 import {
-  IAgentServerConfig,
+  type IAgentServerConfig,
   MigrateAgentServerConfig,
 } from '@idl/types/agents';
 import merge from 'deepmerge';

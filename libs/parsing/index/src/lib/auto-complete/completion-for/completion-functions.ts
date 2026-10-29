@@ -4,14 +4,14 @@ import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskFunctionName } from '@idl/parsing/syntax-tree';
 import { TASK_REGEX } from '@idl/parsing/type-parser';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   FunctionCompletion,
   IFunctionCompletionOptions,
 } from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import { Command, CompletionItemKind } from 'vscode-languageserver-types';
+import { type Command, CompletionItemKind } from 'vscode-languageserver-types';
 
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**

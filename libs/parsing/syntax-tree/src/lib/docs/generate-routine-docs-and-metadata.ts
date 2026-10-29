@@ -4,30 +4,33 @@ import {
 } from '@idl/parsing/shared';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
-  CommentBlockToken,
-  CommentToken,
-  RoutineFunctionToken,
-  RoutineMethodNameToken,
-  RoutineNameToken,
-  RoutineProcedureToken,
+  type CommentBlockToken,
+  type CommentToken,
+  type RoutineFunctionToken,
+  type RoutineMethodNameToken,
+  type RoutineNameToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalStructureToken,
-  IGlobalIndexedToken,
-  IParameterLookup,
+  type GlobalStructureToken,
+  type IGlobalIndexedToken,
+  type IParameterLookup,
 } from '@idl/types/idl-data-types';
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
-import { IBasicBranch, IBranch, IDocs } from '@idl/types/syntax-tree';
+import {
+  IDL_PROBLEM_CODES,
+  type SyntaxProblems,
+} from '@idl/types/problem-codes';
+import type { IBasicBranch, IBranch, IDocs } from '@idl/types/syntax-tree';
 
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';
 import { IDL_DOCS_HEADERS } from './docs.interface';
 import { ExtractDocs } from './extract-docs';
 import { GenerateRoutineMetadata } from './generate-routine-metadata';
-import {
+import type {
   FunctionRoutineType,
   ProcedureRoutineType,
 } from './generate-routine-metadata.interface';

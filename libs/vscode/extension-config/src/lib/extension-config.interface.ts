@@ -1,8 +1,8 @@
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
   DEFAULT_CODE_STYLE,
-  ICodeStyle,
-  ITrueBaseAssemblerOptions,
+  type ICodeStyle,
+  type ITrueBaseAssemblerOptions,
 } from '@idl/assembling/config';
 import { copy } from 'fast-copy';
 

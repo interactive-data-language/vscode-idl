@@ -1,4 +1,4 @@
-import { IStartIDLConfig } from '@idl/types/idl/idl-process';
+import type { IStartIDLConfig } from '@idl/types/idl/idl-process';
 
 /** When IDL needs to run something */
 export type ToIDLWebSocketMessage_Evaluate = 'evaluate';

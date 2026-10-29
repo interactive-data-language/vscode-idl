@@ -1,4 +1,4 @@
-import { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import type { IDLExtensionConfig } from '@idl/vscode/extension-config';
 
 /** Message to update workspace config */
 export type WorkspaceConfigMessage = 'workspace-config';

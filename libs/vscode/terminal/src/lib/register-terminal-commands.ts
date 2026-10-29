@@ -7,7 +7,7 @@ import {
   LogCommandInfo,
 } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
 import { SendCommandToIDLTerminal } from './idl-terminal';

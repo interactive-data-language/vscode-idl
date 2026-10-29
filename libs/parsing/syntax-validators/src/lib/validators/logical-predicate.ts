@@ -2,19 +2,22 @@ import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
   FindAllBranchChildren,
   IDL_SYNTAX_TREE_VALIDATOR,
-  ITreeRecurserCurrent,
+  type ITreeRecurserCurrent,
 } from '@idl/parsing/syntax-tree';
 import {
-  LogicalCaseToken,
-  LogicalIfToken,
-  LogicalSwitchToken,
-  LoopUntilToken,
-  LoopWhileToken,
+  type LogicalCaseToken,
+  type LogicalIfToken,
+  type LogicalSwitchToken,
+  type LoopUntilToken,
+  type LoopWhileToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { PositionToRange } from '@idl/tokenizer/common';
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import {
+  IDL_PROBLEM_CODES,
+  type IDLProblemCode,
+} from '@idl/types/problem-codes';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Operator problem code lookup

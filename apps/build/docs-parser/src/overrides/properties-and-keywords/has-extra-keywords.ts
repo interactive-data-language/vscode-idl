@@ -1,6 +1,6 @@
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalRoutineTokenType,
+  type GlobalRoutineTokenType,
 } from '@idl/types/idl-data-types';
 
 /**

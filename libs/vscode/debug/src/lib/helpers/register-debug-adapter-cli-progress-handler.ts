@@ -1,7 +1,7 @@
-import { ICLIProgressNotification } from '@idl/types/idl/idl-machine';
+import type { ICLIProgressNotification } from '@idl/types/idl/idl-machine';
 import { OutputEvent } from '@vscode/debugadapter';
 
-import { IDLDebugAdapter } from '../idl-debug-adapter.class';
+import type { IDLDebugAdapter } from '../idl-debug-adapter.class';
 
 /**
  * Handles CLI progress notifications from the IDL Machine

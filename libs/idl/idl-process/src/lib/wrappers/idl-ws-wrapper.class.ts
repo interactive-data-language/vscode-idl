@@ -1,11 +1,11 @@
 import {
   IDL_EVENT_LOOKUP,
-  IDLOutput,
-  IStartIDLConfig,
+  type IDLOutput,
+  type IStartIDLConfig,
 } from '@idl/types/idl/idl-process';
 import { TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP } from '@idl/types/idl/ws-client';
 
-import { IDLProcess } from '../idl-process.class';
+import type { IDLProcess } from '../idl-process.class';
 import { IDLWebSocketClient } from './idl-ws-client.class';
 
 /**

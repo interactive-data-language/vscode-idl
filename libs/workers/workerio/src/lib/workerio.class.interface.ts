@@ -1,8 +1,8 @@
-import { Subject } from 'rxjs';
-import { Worker } from 'worker_threads';
+import type { Subject } from 'rxjs';
+import type { Worker } from 'worker_threads';
 
-import { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
-import { IPostAndReceiveMessageResult } from './workerio.interface';
+import type { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
+import type { IPostAndReceiveMessageResult } from './workerio.interface';
 
 /**
  * Interface for our WorkerIO so that we have something we can

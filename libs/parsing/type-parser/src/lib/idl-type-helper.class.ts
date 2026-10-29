@@ -1,7 +1,7 @@
 import {
-  ICreateIDLDataType,
+  type ICreateIDLDataType,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
 
 import { ParseIDLType, PostProcessIDLType } from './parsing/parse-idl-type';

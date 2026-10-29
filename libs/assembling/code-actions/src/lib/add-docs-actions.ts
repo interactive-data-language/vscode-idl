@@ -1,7 +1,7 @@
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDLDiagnostic } from '@idl/types/diagnostic';
-import { CodeAction, CodeActionKind } from 'vscode-languageserver-types';
+import type { IDLDiagnostic } from '@idl/types/diagnostic';
+import { type CodeAction, CodeActionKind } from 'vscode-languageserver-types';
 
 /**
  * Adds documentations actions to code actions

@@ -1,15 +1,19 @@
 import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
 import {
-  AccessPropertyToken,
-  CallFunctionMethodToken,
-  CallProcedureMethodToken,
-  StructureIndexedPropertyToken,
+  type AccessPropertyToken,
+  type CallFunctionMethodToken,
+  type CallProcedureMethodToken,
+  type StructureIndexedPropertyToken,
   TOKEN_NAMES,
-  TokenName,
+  type TokenName,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { IParsed, TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
+import type {
+  IParsed,
+  TreeBranchToken,
+  TreeToken,
+} from '@idl/types/syntax-tree';
 
 /**
  * Tokens that need to be wrapped

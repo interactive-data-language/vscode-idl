@@ -1,4 +1,4 @@
-import { ITokenDef, TokenName } from '../tokens.interface';
+import type { ITokenDef, TokenName } from '../tokens.interface';
 
 /**
  * Finds matches for all regex expressions

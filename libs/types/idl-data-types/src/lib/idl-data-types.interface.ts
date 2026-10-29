@@ -1,4 +1,4 @@
-import { IPropertyLookup } from './global-types.interface';
+import type { IPropertyLookup } from './global-types.interface';
 
 /** Byte numbers */
 export type IDLByte = 'Byte';

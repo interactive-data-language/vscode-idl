@@ -1,5 +1,5 @@
-import { TokenName } from '@idl/tokenizer';
-import { SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
+import type { TokenName } from '@idl/tokenizer';
+import type { SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Checks the top-level of our syntax tree for a matching token

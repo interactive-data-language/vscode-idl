@@ -1,11 +1,11 @@
-import { TokenName } from '@idl/tokenizer';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { TokenName } from '@idl/tokenizer';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { GetAllKeywordsForGlobalToken } from './get-all-keywords-for-global-token';
-import { IFoundKeywords } from './get-keywords.interface';
+import type { IFoundKeywords } from './get-keywords.interface';
 import { GetRoutine } from './get-routine';
-import { ITokenCache } from './token-cache.interface';
+import type { ITokenCache } from './token-cache.interface';
 
 /**
  * Based on a specific token, we try to find a parent and the keywords that are

@@ -1,8 +1,8 @@
 import {
-  BracketToken,
-  ITokenDef,
-  ParenthesesToken,
-  StructureToken,
+  type BracketToken,
+  type ITokenDef,
+  type ParenthesesToken,
+  type StructureToken,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 

@@ -1,4 +1,4 @@
-import { ISimplePromiseQueueItem } from './simple-promise-queue.interface';
+import type { ISimplePromiseQueueItem } from './simple-promise-queue.interface';
 
 export class SimplePromiseQueue {
   _requests: ISimplePromiseQueueItem[] = [];

@@ -1,5 +1,5 @@
 import { RunMCPTool_CreateIDLNotebook } from '@idl/mcp/idl';
-import {
+import type {
   MCPTool_CreateIDLNotebook,
   MCPToolParams,
   MCPToolResponse,

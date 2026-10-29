@@ -1,7 +1,7 @@
-import { Layer } from '@deck.gl/core';
+import type { Layer } from '@deck.gl/core';
 import { GeoJsonLayer } from '@deck.gl/layers';
 
-import {
+import type {
   NotebookMapLayer,
   NotebookMapLayerType,
 } from './create-layers.interface';

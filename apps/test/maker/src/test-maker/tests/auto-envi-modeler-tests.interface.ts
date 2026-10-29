@@ -1,4 +1,4 @@
-import { IAutoENVIModelerTest } from '../tests.interface';
+import type { IAutoENVIModelerTest } from '../tests.interface';
 import { AUTO_ENVI_MODELER_TEST_ADD_AGGREGATORS } from './envi-modeler-workflows/add-aggregators';
 import { AUTO_ENVI_MODELER_TEST_BAD_DIRECTION } from './envi-modeler-workflows/bad-direction';
 import { AUTO_ENVI_MODELER_TEST_BAD_EDGES } from './envi-modeler-workflows/bad-edges';

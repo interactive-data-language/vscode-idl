@@ -1,19 +1,19 @@
-import {
+import type {
   KeywordBinaryToken,
   KeywordDefinitionToken,
   KeywordToken,
 } from '@idl/tokenizer';
-import {
+import type {
   IParameterLookup,
   IParameterOrPropertyDetails,
 } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { GetKeywordDisplayName } from './get-keyword-display-name';
 import { GetKeywords } from './get-keywords';
-import { IFoundParameter } from './get-property.interface';
-import { ITokenCache } from './token-cache.interface';
+import type { IFoundParameter } from './get-property.interface';
+import type { ITokenCache } from './token-cache.interface';
 
 /**
  * Searches for keywords like IDL resolves them

@@ -1,16 +1,16 @@
-import {
+import type {
   AbortNotification,
   AbortParams,
 } from './notifications/idl-machine.abort.interface';
-import {
+import type {
   ExecuteStringNotification,
   ExecuteStringParams,
 } from './notifications/idl-machine.execute-string.interface';
-import {
+import type {
   ExitNotification,
   ExitParams,
 } from './notifications/idl-machine.exit.interface';
-import {
+import type {
   SetTTYSizeNotification,
   SetTTYSizeParams,
 } from './notifications/idl-machine.set-tty-size.interface';

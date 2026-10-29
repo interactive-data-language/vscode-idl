@@ -1,11 +1,11 @@
-import { GlobalTokens } from '@idl/types/idl-data-types';
+import type { GlobalTokens } from '@idl/types/idl-data-types';
 import {
-  ChangeDetectionResponse,
-  LoadGlobalResponse,
+  type ChangeDetectionResponse,
+  type LoadGlobalResponse,
   LSP_WORKER_THREAD_MESSAGE_LOOKUP,
 } from '@idl/workers/parsing';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { GetChangedGlobals } from './get-changed-globals';
 
 /**

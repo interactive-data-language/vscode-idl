@@ -7,7 +7,7 @@ import type {
 } from '@idl/types/chat';
 import { Router } from 'express';
 
-import { Chat } from '../chat/chat.class';
+import type { Chat } from '../chat/chat.class';
 import { ValidateRequestHeaders } from '../helpers/validate-request-headers';
 
 /**

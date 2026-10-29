@@ -1,11 +1,11 @@
-import {
+import type {
   IDLNotebookEmbeddedItem,
   IDLNotebookMap,
   IDLNotebookMap_GeoJSON,
   IDLNotebookMap_Image,
 } from '@idl/types/notebooks';
 
-import {
+import type {
   LayerBounds,
   NotebookMapLayer,
   NotebookMapLayers,

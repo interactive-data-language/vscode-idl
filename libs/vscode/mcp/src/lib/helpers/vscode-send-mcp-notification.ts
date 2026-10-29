@@ -1,5 +1,5 @@
 import { IDL_MCP_LOG } from '@idl/logger';
-import { IMCPToolProgress } from '@idl/types/mcp';
+import type { IMCPToolProgress } from '@idl/types/mcp';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { IDL_LOGGER } from '@idl/vscode/logger';

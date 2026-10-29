@@ -1,6 +1,6 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-import { IDLDiagnostic } from '@idl/types/diagnostic';
-import { CodeAction } from 'vscode-languageserver-types';
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type { IDLDiagnostic } from '@idl/types/diagnostic';
+import type { CodeAction } from 'vscode-languageserver-types';
 
 import { AddDisableProblemWithCommentsAction } from './add-disable-problem-with-comments-actions';
 import { AddDisableProblemWithSettingsAction } from './add-disable-problem-with-settings-actions';

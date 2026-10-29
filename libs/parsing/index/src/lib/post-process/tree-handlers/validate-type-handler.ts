@@ -1,7 +1,7 @@
 import { TreeCallbackHandler } from '@idl/parsing/syntax-tree';
 
 import { RECURSION_CONTROL } from './recursion-control.interface';
-import {
+import type {
   ValidateTypeHandler,
   ValidateTypeHandlerMeta,
 } from './validate-type-handler.interface';

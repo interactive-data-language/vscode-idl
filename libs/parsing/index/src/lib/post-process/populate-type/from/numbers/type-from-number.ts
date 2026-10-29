@@ -1,4 +1,4 @@
-import { NumberToken } from '@idl/tokenizer';
+import type { NumberToken } from '@idl/tokenizer';
 import {
   IDL_BYTE_TYPE,
   IDL_DOUBLE_COMPLEX_TYPE,
@@ -11,9 +11,9 @@ import {
   IDL_UINT_TYPE,
   IDL_ULONG_TYPE,
   IDL_ULONG64_TYPE,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 import {
   BYTE_REGEX,
   COMPLEX_REGEX,

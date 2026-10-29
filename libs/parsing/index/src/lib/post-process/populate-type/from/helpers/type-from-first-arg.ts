@@ -1,12 +1,12 @@
 import {
-  CallFunctionToken,
-  CallProcedureToken,
+  type CallFunctionToken,
+  type CallProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../../../idl-index.class';
+import type { IDLIndex } from '../../../../idl-index.class';
 import { EvaluateVariableOrToken } from './evaluate-variable-or-token';
 
 /**

@@ -1,5 +1,5 @@
-import { IDL_MCP_LOG, LogManager } from '@idl/logger';
-import {
+import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
+import type {
   IDLRawNotebook,
   IDLRawNotebookVersion,
   IDLRawNotebookVersion_2_0_0,

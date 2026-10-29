@@ -1,15 +1,15 @@
 import { GetNextInBranch } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { TOKEN_NAMES, VariableToken } from '@idl/tokenizer';
+import { TOKEN_NAMES, type VariableToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import {
+import type {
   ILocalIndexedToken,
   LocalVariableToken,
   TreeToken,
 } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../../../idl-index.class';
+import type { IDLIndex } from '../../../../idl-index.class';
 
 /**
  * Which tokens can come come next to indicate that we have

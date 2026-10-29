@@ -2,10 +2,10 @@ import {
   CreateENVIModelerWorkflow,
   ValidateENVIModelerWorkflow,
 } from '@idl/envi/modeler';
-import { MCPServer } from '@idl/mcp/server';
-import { MCPTaskRegistry } from '@idl/mcp/tasks';
+import type { MCPServer } from '@idl/mcp/server';
+import type { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
+import type { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { dirname } from 'path';

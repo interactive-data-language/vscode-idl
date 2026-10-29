@@ -1,4 +1,4 @@
-import { IParsedHTML } from './parser.interface';
+import type { IParsedHTML } from './parser.interface';
 
 /**
  * Routine that recurses to convert elements to text

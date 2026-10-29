@@ -1,4 +1,4 @@
-import { GlobalIndexedToken } from '@idl/parsing/index';
+import type { GlobalIndexedToken } from '@idl/parsing/index';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
 /**

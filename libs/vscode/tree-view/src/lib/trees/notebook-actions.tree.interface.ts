@@ -2,7 +2,7 @@ import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 
-import { IChild } from '../idl-tree-view.interface';
+import type { IChild } from '../idl-tree-view.interface';
 
 /**
  * Buttons for our code actions

@@ -1,4 +1,4 @@
-import { IDL_CONSOLE, LogAlertCallback, LogManager } from '@idl/logger';
+import { IDL_CONSOLE, type LogAlertCallback, LogManager } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 
 /**

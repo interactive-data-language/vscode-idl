@@ -1,16 +1,20 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import {
-  OperatorIncrementDecrementToken,
-  OperatorLogicalToken,
-  OperatorNegativeToken,
-  OperatorToken,
+  type OperatorIncrementDecrementToken,
+  type OperatorLogicalToken,
+  type OperatorNegativeToken,
+  type OperatorToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { SyntaxTree, TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
-import { PositionArray } from '@idl/types/tokenizer';
+import type {
+  SyntaxTree,
+  TreeBranchToken,
+  TreeToken,
+} from '@idl/types/syntax-tree';
+import type { PositionArray } from '@idl/types/tokenizer';
 
 import { TreeRecurserBasic } from '../../recursion-and-callbacks/tree-recurser-basic';
-import { ISplitTreeOnOperators } from './split-tree-on-operators.interface';
+import type { ISplitTreeOnOperators } from './split-tree-on-operators.interface';
 
 /**
  * Operators that we split our syntax tree on

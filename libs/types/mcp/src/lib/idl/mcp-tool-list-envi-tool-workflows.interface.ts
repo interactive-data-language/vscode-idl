@@ -1,4 +1,4 @@
-import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
+import type { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Message when we list known ENVI Tool workflows

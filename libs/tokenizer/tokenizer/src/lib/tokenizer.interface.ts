@@ -1,13 +1,17 @@
-import {
+import type {
   BasicToken,
   EndToken,
   FoundTokenType,
   StartToken,
 } from '@idl/tokenizer/common';
-import { PositionArray } from '@idl/types/tokenizer';
+import type { PositionArray } from '@idl/types/tokenizer';
 
-import { TokenStartMatches } from './token-matches.interface';
-import { ITokenDef, TOKEN_NAMES, TokenName } from './tokens.interface';
+import type { TokenStartMatches } from './token-matches.interface';
+import {
+  type ITokenDef,
+  TOKEN_NAMES,
+  type TokenName,
+} from './tokens.interface';
 import { COMMENT } from './tokens/defs/comment.interface';
 import { ROUTINE_DEF } from './tokens/defs/routines.definition.interface';
 import { STRUCTURE } from './tokens/defs/structure.interface';
@@ -17,7 +21,7 @@ import {
   DEFAULT_TOKENS_FULL,
 } from './tokens/full/def-groups-full.interface';
 import {
-  ISubTokenDefs,
+  type ISubTokenDefs,
   SUB_DEFS_FULL,
 } from './tokens/full/sub-defs-full.interface';
 import { ALL_TYPE_TOKENS } from './tokens/types/def-groups-types.interface';

@@ -1,10 +1,10 @@
-import { IVSCodeServerPorts } from '@idl/types/vscode';
-import { IInitializeClientResult } from '@idl/vscode/client';
-import { IInitializeDebuggerResult } from '@idl/vscode/debug';
-import { IDLDecorationsManager } from '@idl/vscode/decorations';
-import { IInitializeMCPResult } from '@idl/vscode/mcp';
-import { IInitializeNotebooks } from '@idl/vscode/notebooks/client';
-import { IDLWebView } from '@idl/vscode/webview';
+import type { IVSCodeServerPorts } from '@idl/types/vscode';
+import type { IInitializeClientResult } from '@idl/vscode/client';
+import type { IInitializeDebuggerResult } from '@idl/vscode/debug';
+import type { IDLDecorationsManager } from '@idl/vscode/decorations';
+import type { IInitializeMCPResult } from '@idl/vscode/mcp';
+import type { IInitializeNotebooks } from '@idl/vscode/notebooks/client';
+import type { IDLWebView } from '@idl/vscode/webview';
 
 /**
  * Data returned from initializing the VSCode extension.

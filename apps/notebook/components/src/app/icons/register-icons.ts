@@ -1,5 +1,5 @@
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import type { MatIconRegistry } from '@angular/material/icon';
+import type { DomSanitizer } from '@angular/platform-browser';
 
 import { DRAG_INDICATOR } from './svgs/drag-indicator';
 import { FAST_FORWARD } from './svgs/fast-forward';

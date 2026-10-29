@@ -1,4 +1,4 @@
-import { IDLDataType } from '@idl/types/idl-data-types';
+import type { IDLDataType } from '@idl/types/idl-data-types';
 import { copy } from 'fast-copy';
 
 import { DEFAULT_TYPE_ARGS } from './default-type-args.interface';

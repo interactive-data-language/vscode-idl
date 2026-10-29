@@ -1,17 +1,17 @@
 import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import {
-  BasicCallback,
+  type BasicCallback,
   FindDirectBranchChildren,
   GetNextInBranch,
   IsBeforeToken,
 } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, VariableToken } from '@idl/tokenizer';
+import { TOKEN_NAMES, type VariableToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { FAKE_ASSIGNMENT_PARENTS } from '../populators/type-from-assignment';
 import { VALIDATE_TYPE_HANDLER } from '../validate-type-handler';
-import { ValidateTypeHandlerMeta } from '../validate-type-handler.interface';
+import type { ValidateTypeHandlerMeta } from '../validate-type-handler.interface';
 
 /**
  * Routines that we dont want to recurse into for token discovery

@@ -1,4 +1,4 @@
-import { IHoverHelpTranslations } from '../../translation.interface';
+import type { IHoverHelpTranslations } from '../../translation.interface';
 import { BREAK } from './hover-help/break';
 import { CASE } from './hover-help/case';
 import { CONTINUE } from './hover-help/continue';

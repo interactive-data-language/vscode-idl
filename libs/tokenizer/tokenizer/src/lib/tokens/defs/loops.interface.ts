@@ -1,11 +1,11 @@
 import {
-  ITokenDef,
-  LoopDoToken,
-  LoopForeachToken,
-  LoopForToken,
-  LoopRepeatToken,
-  LoopUntilToken,
-  LoopWhileToken,
+  type ITokenDef,
+  type LoopDoToken,
+  type LoopForeachToken,
+  type LoopForToken,
+  type LoopRepeatToken,
+  type LoopUntilToken,
+  type LoopWhileToken,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 import { IDL_STATEMENT_END } from '../regex.interface';

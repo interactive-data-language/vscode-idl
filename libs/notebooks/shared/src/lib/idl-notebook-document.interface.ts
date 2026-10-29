@@ -1,4 +1,4 @@
-import { NotebookCell, NotebookDocument } from 'vscode-languageserver';
+import type { NotebookCell, NotebookDocument } from 'vscode-languageserver';
 
 /**
  * Custom type for notebook cells which bring along they text they contain

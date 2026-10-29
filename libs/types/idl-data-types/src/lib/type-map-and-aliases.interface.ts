@@ -1,4 +1,4 @@
-import { IDL_TYPE_LOOKUP, IDLTypes } from './idl-data-types.interface';
+import { IDL_TYPE_LOOKUP, type IDLTypes } from './idl-data-types.interface';
 
 /**
  * Maps types that we find in code to known types to normalize what we parse

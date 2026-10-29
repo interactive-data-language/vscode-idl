@@ -18,7 +18,7 @@ import {
 } from '@idl/types/idl/idl-process';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
-import { IDLVersionInfo } from '@idl/types/vscode-debug';
+import type { IDLVersionInfo } from '@idl/types/vscode-debug';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSENGER, VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_DECORATIONS_MANAGER } from '@idl/vscode/decorations';
@@ -38,7 +38,7 @@ import {
   TerminatedEvent,
   Thread,
 } from '@vscode/debugadapter';
-import { DebugProtocol } from '@vscode/debugprotocol';
+import type { DebugProtocol } from '@vscode/debugprotocol';
 import { Subject } from 'await-notify';
 import { compareVersions } from 'compare-versions';
 import { platform } from 'os';
@@ -59,8 +59,8 @@ import {
   ADAPTER_METHOD_LOG_LEVEL,
   ADAPTER_STOP_DELAY,
   DEFAULT_EVALUATE_OPTIONS,
-  IDebugEvaluateOptions,
-  IDLDebugConfiguration,
+  type IDebugEvaluateOptions,
+  type IDLDebugConfiguration,
 } from './idl-debug-adapter.interface';
 import { IDLDebugAdapterEventHelper } from './idl-debug-adapter-event-helper.class';
 import { IDL_STATUS_BAR } from './initialize-debugger';

@@ -4,7 +4,7 @@ import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
 } from '@idl/types/idl-data-types';
 
-import {
+import type {
   FunctionRoutineType,
   ProcedureRoutineType,
   RoutineMetadata,

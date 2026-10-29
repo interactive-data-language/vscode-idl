@@ -1,4 +1,4 @@
-import { IDLDataType } from '@idl/types/idl-data-types';
+import type { IDLDataType } from '@idl/types/idl-data-types';
 
 /**
  * Auto-complete for function methods

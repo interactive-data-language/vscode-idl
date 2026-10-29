@@ -1,6 +1,6 @@
 import { IDL_WEB_COMMANDS } from '@idl/shared/extension';
 
-import { IChild } from './idl-tree-view.interface';
+import type { IChild } from './idl-tree-view.interface';
 
 /**
  * Filter web commands

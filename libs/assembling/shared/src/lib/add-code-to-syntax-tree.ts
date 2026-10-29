@@ -3,7 +3,7 @@ import { Parser } from '@idl/parser';
 
 import { ConditionalLineNumberIncrement } from './conditional-line-number-increment';
 import { IncrementLineNumbers } from './increment-line-numbers';
-import { IAddCodeToSyntaxTreeOptions } from './insert-syntax-tree.interface';
+import type { IAddCodeToSyntaxTreeOptions } from './insert-syntax-tree.interface';
 
 /**
  * Inserts new code an existing syntax tree

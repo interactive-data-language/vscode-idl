@@ -1,10 +1,10 @@
-import {
+import type {
   ENVIRaster,
   ENVIRasterSeries,
   ENVIVector,
 } from '@idl/types/envi/datasets';
 
-import { MCPToolParams_HTTPOpenDatasetsInENVI_Base } from '../idl/mcp-tool-open-datasets-in-envi.interface';
+import type { MCPToolParams_HTTPOpenDatasetsInENVI_Base } from '../idl/mcp-tool-open-datasets-in-envi.interface';
 
 interface WithOrder {
   /**

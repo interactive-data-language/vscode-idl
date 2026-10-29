@@ -1,6 +1,6 @@
 import { IDL_ANY_TYPE, IDL_NUMBER_TYPE } from '@idl/types/idl-data-types';
 
-import { ISharedArgsOrKeywords } from './shared.interface';
+import type { ISharedArgsOrKeywords } from './shared.interface';
 
 /**
  * Arguments for type conversion functions

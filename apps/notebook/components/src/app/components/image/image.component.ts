@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
 import { NgxMaterialModule } from '@idl/ngx/material';
-import {
+import type {
   IDLNotebookImage_PNG,
   SaveImageRendererMessage,
 } from '@idl/types/notebooks';

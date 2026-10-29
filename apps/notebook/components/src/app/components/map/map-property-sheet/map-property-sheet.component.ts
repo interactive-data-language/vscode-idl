@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, type OnInit } from '@angular/core';
 import { NgxMaterialModule } from '@idl/ngx/material';
 
 /**

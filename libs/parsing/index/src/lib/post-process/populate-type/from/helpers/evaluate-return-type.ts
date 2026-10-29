@@ -1,15 +1,18 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { CallFunctionMethodToken, CallFunctionToken } from '@idl/tokenizer';
+import type {
+  CallFunctionMethodToken,
+  CallFunctionToken,
+} from '@idl/tokenizer';
 import {
-  GlobalFunctionMethodToken,
-  GlobalFunctionToken,
+  type GlobalFunctionMethodToken,
+  type GlobalFunctionToken,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IGlobalIndexedToken,
+  type IDLDataType,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../../../idl-index.class';
+import type { IDLIndex } from '../../../../idl-index.class';
 import { EvaluateArrayPromotion } from './evaluate-array-promotion';
 import { EvaluateTypeOfArgs } from './evaluate-type-of-args';
 

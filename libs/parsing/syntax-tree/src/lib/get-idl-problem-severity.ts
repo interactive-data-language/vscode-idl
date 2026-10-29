@@ -1,8 +1,8 @@
 import {
   IDL_PROBLEM_SEVERITY_LEVEL_MAP,
   IDL_PROBLEM_SEVERITY_LOOKUP,
-  IDLProblemCode,
-  IDLProblemSeverity,
+  type IDLProblemCode,
+  type IDLProblemSeverity,
 } from '@idl/types/problem-codes';
 
 /**

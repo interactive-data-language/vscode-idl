@@ -3,7 +3,7 @@ import {
   IDL_DOCS_HEADERS,
   MARKDOWN_TYPE_LOOKUP,
 } from '@idl/parsing/syntax-tree';
-import {
+import type {
   ENVITask,
   ENVITaskLegacy,
   ENVITaskLegacyVersion,

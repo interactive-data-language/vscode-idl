@@ -1,15 +1,15 @@
-import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
 import {
-  IRuleBasedFilters,
-  RegistryLocation,
-  RegistryLocation_File,
-  RegistryLocationKind,
+  type IRuleBasedFilters,
+  type RegistryLocation,
+  type RegistryLocation_File,
+  type RegistryLocationKind,
   RuleBasedFilter,
 } from '@idl/mcp/shared';
 import { IDLTypeHelper, TASK_REGEX } from '@idl/parsing/type-parser';
-import {
+import type {
   GlobalFunctionToken,
   GlobalStructureToken,
   IGlobalIndexedToken,
@@ -22,7 +22,7 @@ import { FilterMCPENVITasks } from './helpers/filter-mcp-envi-tasks';
 import { GetCleanDescription } from './helpers/get-clean-description';
 import { SanitizeInputUriParameters } from './helpers/sanitize-input-uri-parameters';
 import { StrictCheck } from './helpers/strict-check';
-import {
+import type {
   ITaskInformation,
   ITaskRegistryEntry,
 } from './mcp-task-registry.interface';

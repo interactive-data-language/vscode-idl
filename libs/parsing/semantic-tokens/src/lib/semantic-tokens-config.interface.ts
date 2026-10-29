@@ -1,4 +1,4 @@
-import { SemanticTokensLegend } from 'vscode-languageserver';
+import type { SemanticTokensLegend } from 'vscode-languageserver';
 import {
   SemanticTokenModifiers,
   SemanticTokenTypes,

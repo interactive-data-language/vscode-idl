@@ -2,8 +2,8 @@ import {
   GA4_CONFIG,
   InitializeUsageMetrics,
   SendUsageMetric,
-  UsageMetric,
-  UsageMetricPayload,
+  type UsageMetric,
+  type UsageMetricPayload,
 } from '@idl/usage-metrics';
 import * as vscode from 'vscode';
 

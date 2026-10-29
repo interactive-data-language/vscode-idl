@@ -3,7 +3,7 @@ import { IDL_EXTENSION_CONFIG, UpdateConfigObject } from '@idl/vscode/config';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import {
   IDL_EXTENSION_CONFIG_KEYS,
-  IDontAskConfig,
+  type IDontAskConfig,
 } from '@idl/vscode/extension-config';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';

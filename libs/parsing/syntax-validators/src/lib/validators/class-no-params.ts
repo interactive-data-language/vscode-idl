@@ -1,18 +1,18 @@
 import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
-  BranchCallback,
+  type BranchCallback,
   FindAllBranchChildren,
   GetRoutineName,
   IDL_SYNTAX_TREE_VALIDATOR,
-  IDLSyntaxValidatorMeta,
+  type IDLSyntaxValidatorMeta,
 } from '@idl/parsing/syntax-tree';
 import {
-  RoutineNameToken,
-  RoutineProcedureToken,
+  type RoutineNameToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Makes sure arguments come first

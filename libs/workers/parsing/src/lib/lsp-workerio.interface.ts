@@ -1,9 +1,12 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { IPostAndReceiveMessageResult, IWorkerIO } from '@idl/workers/workerio';
-import { Subject } from 'rxjs';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type {
+  IPostAndReceiveMessageResult,
+  IWorkerIO,
+} from '@idl/workers/workerio';
+import type { Subject } from 'rxjs';
 
-import { LSPWorkerThreadMessage } from './lsp-worker-thread.messages.interface';
-import {
+import type { LSPWorkerThreadMessage } from './lsp-worker-thread.messages.interface';
+import type {
   PayloadFromLSPWorker,
   PayloadToLSPWorker,
 } from './lsp-worker-thread.payloads.interface';

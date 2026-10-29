@@ -5,17 +5,17 @@ import { copy } from 'fast-copy';
 import {
   DEFAULT_LOGGER_OPTIONS,
   DEFAULT_TRACKER,
-  ILogManagerOptions,
-  ILogOptions,
-  LogInterceptor,
+  type ILogManagerOptions,
+  type ILogOptions,
+  type LogInterceptor,
 } from './log-manager.interface';
 import { ALL_IDL_LOGS, IDL_LOG } from './log-names.interface';
 import { Logger } from './logger.class';
 import {
-  FileLogMode,
-  LogAlertCallback,
+  type FileLogMode,
+  type LogAlertCallback,
   LOGGING_CONFIG,
-  LogLevel,
+  type LogLevel,
 } from './logger.interface';
 
 /**

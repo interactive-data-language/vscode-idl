@@ -1,4 +1,4 @@
-import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
+import type { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 
 /**
  * Node types of which only one instance is meaningful in a workflow.

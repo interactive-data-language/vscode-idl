@@ -1,5 +1,5 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { IDLDataTypeBaseMetadata } from '@idl/types/idl-data-types';
+import type { IDLDataTypeBaseMetadata } from '@idl/types/idl-data-types';
 
 /**
  * Regular expression to check for array data types and allows us to strip

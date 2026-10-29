@@ -1,20 +1,20 @@
 import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
-  MainLevelToken,
-  RoutineFunctionToken,
-  RoutineProcedureToken,
+  type MainLevelToken,
+  type RoutineFunctionToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
-  VariableToken,
+  type VariableToken,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import {
   BRANCH_TYPES,
-  IBranch,
-  ILocalTokenLookup,
-  IParsed,
-  SyntaxTree,
-  TreeBranchToken,
-  TreeToken,
+  type IBranch,
+  type ILocalTokenLookup,
+  type IParsed,
+  type SyntaxTree,
+  type TreeBranchToken,
+  type TreeToken,
 } from '@idl/types/syntax-tree';
 
 /**

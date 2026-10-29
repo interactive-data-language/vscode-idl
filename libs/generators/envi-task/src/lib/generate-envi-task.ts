@@ -1,16 +1,16 @@
 import { TaskAssembler } from '@idl/assembler';
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
+  type FormatterType,
+  type IAssemblerOptions,
 } from '@idl/assembling/config';
 import { GetDisplayName, GetProcedure } from '@idl/generators/tasks-shared';
 import { IDL_DOCS_HEADERS } from '@idl/parsing/syntax-tree';
 import { PRO_FILE_EXTENSION, TASK_FILE_EXTENSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { GenerateTaskResult } from '@idl/types/generators';
-import { IParsed } from '@idl/types/syntax-tree';
-import { ENVITask, ENVITaskSchema33 } from '@idl/types/tasks';
+import type { GenerateTaskResult } from '@idl/types/generators';
+import type { IParsed } from '@idl/types/syntax-tree';
+import type { ENVITask, ENVITaskSchema33 } from '@idl/types/tasks';
 import { existsSync, writeFileSync } from 'fs';
 import { basename, dirname, join } from 'path';
 

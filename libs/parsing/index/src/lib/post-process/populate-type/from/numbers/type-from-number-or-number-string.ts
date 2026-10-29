@@ -1,9 +1,9 @@
 import { GetRoutineNameFromScope } from '@idl/parsing/syntax-tree';
-import { NumberToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLDataType } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import { type NumberToken, TOKEN_NAMES } from '@idl/tokenizer';
+import type { IDLDataType } from '@idl/types/idl-data-types';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../../../idl-index.class';
+import type { IDLIndex } from '../../../../idl-index.class';
 import { TypeFromNumber } from './type-from-number';
 
 /**

@@ -1,5 +1,5 @@
 import { ARG_KW_PROPERTY_TAG } from '@idl/types/syntax-tree';
-import { IndentAction, OnEnterRule } from 'vscode';
+import { IndentAction, type OnEnterRule } from 'vscode';
 
 /** Comment before cursor */
 const COMMENT_BEFORE_REGEX = /^\s*;.*$/;

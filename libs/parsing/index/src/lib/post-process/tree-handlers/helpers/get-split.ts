@@ -1,10 +1,10 @@
 import {
-  ISplitTreeOnArguments,
+  type ISplitTreeOnArguments,
   SplitTreeOnArguments,
 } from '@idl/parsing/syntax-tree';
-import { TreeBranchToken } from '@idl/types/syntax-tree';
+import type { TreeBranchToken } from '@idl/types/syntax-tree';
 
-import { ITokenCache } from '../../../helpers/token-cache.interface';
+import type { ITokenCache } from '../../../helpers/token-cache.interface';
 
 /**
  * Helper method to interact with our cache and get split tree for us

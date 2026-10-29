@@ -1,6 +1,6 @@
 import { MCPSerializeJSON } from '@idl/mcp/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   ENVIMCPToolResponse_Failure,
   IIDLMCPExecutionBackend,
   MCPProgressCallback,

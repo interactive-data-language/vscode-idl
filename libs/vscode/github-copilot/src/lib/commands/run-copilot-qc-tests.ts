@@ -1,5 +1,5 @@
 import { IDL_COMMANDS } from '@idl/shared/extension';
-import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
+import type { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { IDL_DEBUG_ADAPTER, StartIDL } from '@idl/vscode/debug';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';

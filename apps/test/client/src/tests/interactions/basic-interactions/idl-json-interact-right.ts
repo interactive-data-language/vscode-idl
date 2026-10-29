@@ -4,12 +4,12 @@ import { OpenFileInVSCode, ReplaceDocumentContent } from '@idl/vscode/shared';
 import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
-import {
+import type {
   SemanticTokensParams,
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
 
-import { RunnerFunction } from '../../runner.interface';
+import type { RunnerFunction } from '../../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../../test-client-config.interface';
 
 /**

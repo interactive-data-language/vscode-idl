@@ -1,7 +1,7 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { TextDocumentChangeEvent } from 'vscode-languageserver';
-import { TextDocument } from 'vscode-languageserver-textdocument';
+import type { TextDocumentChangeEvent } from 'vscode-languageserver';
+import type { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { CacheValid } from '../../helpers/cache-valid';
 import { IsURIFile } from '../../helpers/is-uri-file';

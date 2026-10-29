@@ -1,6 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import {
-  GlobalDisplayNameLookup,
+  type GlobalDisplayNameLookup,
   OBSOLETE_FUNCTION_METHODS,
   OBSOLETE_FUNCTIONS,
   OBSOLETE_PROCEDURE_METHODS,
@@ -11,14 +11,14 @@ import { existsSync, readFileSync } from 'fs';
 import { parse } from 'himalaya';
 import { basename, join } from 'path';
 
-import { IHTMLByRoutine, IRoutineHTML } from '../main.interface';
+import type { IHTMLByRoutine, IRoutineHTML } from '../main.interface';
 import { InheritanceGuess } from '../type-guess/inheritance-guess';
 import { ElementsToText } from './elements-to-text';
 import { HTMLToDocs } from './html-to-docs';
 import { HTMLToMarkdownBasic } from './html-to-markdown';
 import { JoinCode } from './join-code';
-import { IParsedHTML } from './parser.interface';
-import { IParameterHTML } from './process-parameters.interface';
+import type { IParsedHTML } from './parser.interface';
+import type { IParameterHTML } from './process-parameters.interface';
 
 const HTML_DIR = GetExtensionPath('apps/build/docs-parser/src/htmls');
 

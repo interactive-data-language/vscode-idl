@@ -1,6 +1,6 @@
-import { ChartOptions } from 'chart.js';
+import type { ChartOptions } from 'chart.js';
 
-import { IDLNotebookEmbeddedItem } from './idl-notebook.embed.interface';
+import type { IDLNotebookEmbeddedItem } from './idl-notebook.embed.interface';
 
 /**
  * Base plot with properties for shared access

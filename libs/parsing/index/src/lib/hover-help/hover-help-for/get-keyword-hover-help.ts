@@ -1,18 +1,18 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import {
+import type {
   KeywordBinaryToken,
   KeywordDefinitionToken,
   KeywordToken,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
-import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
 
 import { FindKeyword } from '../../helpers/get-keyword';
 import { GetKeywordDisplayName } from '../../helpers/get-keyword-display-name';
 import { GetKeywords } from '../../helpers/get-keywords';
-import { IDLIndex } from '../../idl-index.class';
+import type { IDLIndex } from '../../idl-index.class';
 
 /**
  * Returns hover help for a routine that is being called

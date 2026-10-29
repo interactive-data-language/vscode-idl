@@ -1,5 +1,5 @@
 import { IDL_MCP_LOG } from '@idl/logger';
-import { IAgentServerConfig } from '@idl/types/agents';
+import type { IAgentServerConfig } from '@idl/types/agents';
 
 import { LOG_MANAGER } from '../mcp/create-standalone-mcp-server';
 

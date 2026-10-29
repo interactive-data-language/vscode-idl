@@ -1,10 +1,10 @@
 import { MatchGlobal } from '@idl/shared/extension';
 
 import { IDL_DIR } from '../idl-dir.interface';
-import { IRoutineDocs } from '../main.interface';
+import type { IRoutineDocs } from '../main.interface';
 import { ParseDocsHTML } from './docs-parser';
 import { HTMLToMarkdown } from './html-to-markdown';
-import { IParsedHTML } from './parser.interface';
+import type { IParsedHTML } from './parser.interface';
 import { ProcessParameters } from './process-parameters';
 import { LINK_REGEX } from './replace-links';
 import { UnescapeMarkdown } from './unescape-markdown';

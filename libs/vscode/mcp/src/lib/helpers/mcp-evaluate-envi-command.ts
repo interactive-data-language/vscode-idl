@@ -1,6 +1,6 @@
-import { IENVISuccess } from '@idl/types/vscode-debug';
+import type { IENVISuccess } from '@idl/types/vscode-debug';
 import {
-  IDebugEvaluateOptions,
+  type IDebugEvaluateOptions,
   IDL_DEBUG_ADAPTER,
   LAST_ENVI_SUCCESS_MESSAGE,
 } from '@idl/vscode/debug';

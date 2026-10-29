@@ -3,7 +3,7 @@ import { IDL_COMMANDS } from '@idl/shared/extension';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 
 /**
  * Array of test strings including Chinese characters and emojis

@@ -5,7 +5,7 @@ import { SanitizeAllProblems } from '@idl/tests/helpers';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { IGlobalProblemTest } from '../tests.interface';
+import type { IGlobalProblemTest } from '../tests.interface';
 
 /**
  * Generates tests to check the logic for global problems

@@ -1,6 +1,6 @@
-import { CommentToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type CommentToken, TOKEN_NAMES } from '@idl/tokenizer';
 
-import { TokenFormatter } from '../../formatter-rule-set.interface';
+import type { TokenFormatter } from '../../formatter-rule-set.interface';
 
 /**
  * For the default assembler, formats comments to be consistent

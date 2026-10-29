@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, type ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfilerComponent } from './profiler.component';
 

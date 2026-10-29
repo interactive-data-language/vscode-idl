@@ -1,5 +1,5 @@
 import { GetExtensionPath } from '@idl/idl/files';
-import Ajv, { ValidateFunction } from 'ajv';
+import Ajv, { type ValidateFunction } from 'ajv';
 import { readFile } from 'fs/promises';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

@@ -1,4 +1,4 @@
-import { MCPToolHTTPResponse, MCPTools } from '@idl/types/mcp';
+import type { MCPToolHTTPResponse, MCPTools } from '@idl/types/mcp';
 
 /**
  * If we expect success, and get an error, log the MCP response

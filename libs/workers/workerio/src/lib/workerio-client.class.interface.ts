@@ -1,10 +1,10 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 
-import {
+import type {
   ErrorMessage,
   UnhandledError,
 } from './messages/workerio.messages.interface';
-import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
+import type { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
 
 /**
  * Interface for our WorkerIOClient so that we have something we can

@@ -1,5 +1,5 @@
 import { CreateNewIDLNotebook } from '@idl/notebooks/shared';
-import {
+import type {
   MCPTool_CreateIDLNotebook,
   MCPToolParams,
   MCPToolResponse,

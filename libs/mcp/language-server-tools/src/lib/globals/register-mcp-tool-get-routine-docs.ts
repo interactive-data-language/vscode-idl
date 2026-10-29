@@ -1,5 +1,5 @@
-import { MCPServer } from '@idl/mcp/server';
-import { IDLIndex } from '@idl/parsing/index';
+import type { MCPServer } from '@idl/mcp/server';
+import type { IDLIndex } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';

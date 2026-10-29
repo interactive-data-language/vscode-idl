@@ -1,4 +1,7 @@
-import { FullCaseStyleFlags, STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
+import {
+  type FullCaseStyleFlags,
+  STYLE_FLAG_LOOKUP,
+} from '@idl/assembling/config';
 import { AdjustCase, TransformCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
 import { TOKEN_NAMES } from '@idl/tokenizer';

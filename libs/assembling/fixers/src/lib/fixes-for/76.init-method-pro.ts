@@ -5,14 +5,14 @@ import {
 import { ASSEMBLER_PROBLEM_FIXERS } from '@idl/assembling/tree-handlers';
 import { FindDirectBranchChildren } from '@idl/parsing/syntax-tree';
 import {
-  CallProcedureToken,
-  MainLevelToken,
-  RoutineFunctionToken,
-  RoutineProcedureToken,
+  type CallProcedureToken,
+  type MainLevelToken,
+  type RoutineFunctionToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { HasProblem } from '../helpers/has-problem';
 

@@ -1,21 +1,21 @@
-import { LogManager } from '@idl/logger';
-import { IDLIndex } from '@idl/parsing/index';
-import {
+import type { LogManager } from '@idl/logger';
+import type { IDLIndex } from '@idl/parsing/index';
+import type {
   MCPSendRequestCallback,
   MCPToolHTTPResponse,
   MCPToolInvokedCallback,
   MCPTools,
 } from '@idl/types/mcp';
-import { NodeStreamableHTTPServerTransport } from '@modelcontextprotocol/node';
+import type { NodeStreamableHTTPServerTransport } from '@modelcontextprotocol/node';
 import {
-  Icon,
-  McpServer,
-  ServerContext,
+  type Icon,
+  type McpServer,
+  type ServerContext,
   SUPPORTED_PROTOCOL_VERSIONS,
-  ToolCallback,
+  type ToolCallback,
 } from '@modelcontextprotocol/server';
 import type { Application } from 'express';
-import { z, ZodRawShape } from 'zod';
+import type { z, ZodRawShape } from 'zod';
 
 /**
  * Supported protocol versions for MCP server including the modern 2026-07-28 version

@@ -3,19 +3,19 @@ import { IDL_COMMANDS } from '@idl/shared/extension';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalRoutineToken,
-  GlobalStructureToken,
-  IGlobalIndexedToken,
+  type GlobalRoutineToken,
+  type GlobalStructureToken,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
-import { IDLExtensionConfig } from '@idl/vscode/extension-config';
-import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
-import { Hover } from 'vscode-languageserver-types';
+import type { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
+import type { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import type { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
+import type { Hover } from 'vscode-languageserver-types';
 
 import { GetAllKeywordsForGlobalToken } from '../helpers/get-all-keywords-for-global-token';
 import { GetPropertyDisplayName } from '../helpers/get-property-display-name';
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 
 /** Allowed local parents for attempting to find keyword definition information */
 const KW_DEF: { [key: string]: boolean } = {};

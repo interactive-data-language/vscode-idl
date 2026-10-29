@@ -1,7 +1,7 @@
-import { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
-import { IParsed, SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
+import type { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
+import type { IParsed, SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
 
-import { ITreeRecurserCurrent } from './tree-recurser.interface';
+import type { ITreeRecurserCurrent } from './tree-recurser.interface';
 
 /**
  * Information passed to each handler callback

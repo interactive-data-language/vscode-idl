@@ -1,6 +1,6 @@
 import * as YAML from 'yaml';
 
-import { IInstructionMetadata } from '../mcp-instructions-registry.interface';
+import type { IInstructionMetadata } from '../mcp-instructions-registry.interface';
 
 /**
  * Parsed result containing extracted content and frontmatter metadata.

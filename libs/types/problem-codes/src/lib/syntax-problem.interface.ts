@@ -1,7 +1,7 @@
-import { PositionArray } from '@idl/types/tokenizer';
-import { TextEdit } from 'vscode-languageserver-types';
+import type { PositionArray } from '@idl/types/tokenizer';
+import type { TextEdit } from 'vscode-languageserver-types';
 
-import { IDLProblemCode } from './idl-problem-codes.interface';
+import type { IDLProblemCode } from './idl-problem-codes.interface';
 
 /**
  * Data structure to represent syntax problems

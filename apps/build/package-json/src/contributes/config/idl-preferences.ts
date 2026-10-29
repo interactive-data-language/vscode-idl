@@ -3,7 +3,7 @@ import {
   IDL_EXTENSION_CONFIG_KEYS,
 } from '@idl/vscode/extension-config';
 
-import { IPackageNLS } from '../../package.interface';
+import type { IPackageNLS } from '../../package.interface';
 import { EXTENSION_CONFIG } from '../contributes-configuration.interface';
 import { IDL_CONFIG_SCOPE } from './idl-config-scope.interface';
 import {

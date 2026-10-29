@@ -1,6 +1,6 @@
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { TOKEN_NAMES, type TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Control tokens that we can provide hover help for with the value as the hover help

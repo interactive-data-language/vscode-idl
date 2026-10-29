@@ -1,5 +1,5 @@
 import { IDL_LOG } from './log-names.interface';
-import {
+import type {
   FileLogMode,
   IBasicLogOptions,
   LogAlertCallback,

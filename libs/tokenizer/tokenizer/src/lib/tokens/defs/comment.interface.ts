@@ -1,7 +1,7 @@
 import {
-  CommentBlockToken,
-  CommentToken,
-  ITokenDef,
+  type CommentBlockToken,
+  type CommentToken,
+  type ITokenDef,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 

@@ -1,4 +1,4 @@
-import { ITaskParsingTests } from '../tests.interface';
+import type { ITaskParsingTests } from '../tests.interface';
 
 /**
  * Automated tests for finding the right definition of a token

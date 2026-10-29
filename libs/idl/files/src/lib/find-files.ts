@@ -3,7 +3,7 @@ import glob from 'fast-glob';
 import { existsSync, realpathSync } from 'fs';
 import { join } from 'path';
 
-import { IFolderRecursion } from './find-files.interface';
+import type { IFolderRecursion } from './find-files.interface';
 
 /**
  * Searches for files of a given pattern

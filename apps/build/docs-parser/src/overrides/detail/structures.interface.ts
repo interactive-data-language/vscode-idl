@@ -1,6 +1,6 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
-  GlobalTokenSource,
+  type GlobalTokenSource,
   IDL_ANY_TYPE,
   IDL_INT_TYPE,
   IDL_LONG_TYPE,
@@ -9,7 +9,7 @@ import {
   IDL_STRING_TYPE,
 } from '@idl/types/idl-data-types';
 
-import { IStructureOverride } from '../detail.interface';
+import type { IStructureOverride } from '../detail.interface';
 import { RECORD_TYPE } from '../shared/entities.interface';
 
 /**

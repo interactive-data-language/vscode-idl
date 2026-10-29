@@ -8,7 +8,7 @@ import {
 } from '@idl/vscode/logger';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { IDLWebView } from '@idl/vscode/webview';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
 import { IDL_DEBUG_ADAPTER } from '../initialize-debugger';

@@ -1,5 +1,5 @@
 import { EN } from './languages/en/en';
-import { ITranslation } from './translation.interface';
+import type { ITranslation } from './translation.interface';
 
 /**
  * Simple wrapper for our IDL extension languages. Index signature and

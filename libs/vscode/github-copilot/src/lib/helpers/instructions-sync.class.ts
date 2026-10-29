@@ -5,7 +5,7 @@ import { join } from 'path';
 import * as vscode from 'vscode';
 
 import {
-  IInstructionsSyncOptions,
+  type IInstructionsSyncOptions,
   INSTRUCTIONS_SYNC_DEBOUNCE_MS,
   INSTRUCTIONS_SYNC_MARKER,
 } from './instructions-sync.interface';

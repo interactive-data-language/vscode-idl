@@ -1,6 +1,6 @@
-import { StructureToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type StructureToken, TOKEN_NAMES } from '@idl/tokenizer';
 
-import { TokenFormatter } from '../../formatter-rule-set.interface';
+import type { TokenFormatter } from '../../formatter-rule-set.interface';
 
 /**
  * Parents that trigger custom formatting

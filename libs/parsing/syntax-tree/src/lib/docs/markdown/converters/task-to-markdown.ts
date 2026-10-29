@@ -1,7 +1,7 @@
-import { IPropertyLookup } from '@idl/types/idl-data-types';
+import type { IPropertyLookup } from '@idl/types/idl-data-types';
 
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
-import { MarkdownInfo, TaskMarkdown } from '../docs-to-markdown.interface';
+import type { MarkdownInfo, TaskMarkdown } from '../docs-to-markdown.interface';
 import { CapitalizeWord } from '../helpers/capitalize-word';
 import { CreateTaskSyntax } from '../helpers/create-task-syntax';
 import { NormalizeIndent } from '../helpers/normalize-indent';

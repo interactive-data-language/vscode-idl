@@ -1,13 +1,13 @@
 import { Assembler } from '@idl/assembler';
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 import {
   ExtractPropertyLines,
-  IPropertiesByVarsByLines,
+  type IPropertiesByVarsByLines,
 } from './helpers/extract-property-lines';
 import { RenameENVITasks } from './helpers/rename-envi-tasks';
 

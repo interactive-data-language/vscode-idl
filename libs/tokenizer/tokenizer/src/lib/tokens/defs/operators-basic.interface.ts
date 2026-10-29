@@ -1,6 +1,6 @@
 import {
-  ITokenDef,
-  OperatorIncrementDecrementToken,
+  type ITokenDef,
+  type OperatorIncrementDecrementToken,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 

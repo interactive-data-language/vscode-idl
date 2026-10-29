@@ -1,4 +1,4 @@
-import { ImageContent, TextContent } from '@modelcontextprotocol/client';
+import type { ImageContent, TextContent } from '@modelcontextprotocol/client';
 
 /**
  * Extracts text content from MCP tool response content array.

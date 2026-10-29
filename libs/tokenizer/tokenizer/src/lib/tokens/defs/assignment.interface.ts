@@ -1,6 +1,6 @@
 import {
-  AssignmentToken,
-  ITokenDef,
+  type AssignmentToken,
+  type ITokenDef,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 import { IDL_ASSIGNMENT_END } from '../regex.interface';

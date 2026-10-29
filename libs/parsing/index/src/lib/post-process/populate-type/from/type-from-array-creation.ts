@@ -2,16 +2,16 @@ import { CancellationToken } from '@idl/cancellation-tokens';
 import { SplitTreeOnCommas } from '@idl/parsing/shared';
 import { SplitTreeOnOperators } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { BracketToken } from '@idl/tokenizer';
+import type { BracketToken } from '@idl/tokenizer';
 import {
   IDL_ARRAY_TYPE,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../../../idl-index.class';
+import type { IDLIndex } from '../../../idl-index.class';
 import { TypeFromOperatorSplit } from './type-from-operator-split';
 import { TypePromotion } from './type-promotion';
 

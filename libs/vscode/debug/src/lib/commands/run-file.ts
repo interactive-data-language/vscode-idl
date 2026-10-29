@@ -1,5 +1,5 @@
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
+import type { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { GetActivePROCodeWindow, GetDocumentOutline } from '@idl/vscode/shared';
 import { OutputEvent } from '@vscode/debugadapter';
 

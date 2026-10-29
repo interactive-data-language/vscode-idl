@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { TodoItem } from '@idl/types/chat';
+import type { TodoItem } from '@idl/types/chat';
 
 /**
  * Material icon and color to display for each to-do status

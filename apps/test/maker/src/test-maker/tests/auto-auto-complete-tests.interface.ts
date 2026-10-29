@@ -1,4 +1,4 @@
-import { IAutoCompleteTests } from '../tests.interface';
+import type { IAutoCompleteTests } from '../tests.interface';
 
 /**
  * Automated tests for auto-complete

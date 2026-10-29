@@ -1,13 +1,13 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
-import {
+import type {
   SemanticTokensParams,
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
-import { SemanticTokens } from 'vscode-languageserver-types';
+import type { SemanticTokens } from 'vscode-languageserver-types';
 
-import { RunnerFunction } from '../../runner.interface';
+import type { RunnerFunction } from '../../runner.interface';
 
 /**
  * Verifies working with notebooks does the right thing with changes and doesnt trigger

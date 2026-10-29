@@ -1,25 +1,31 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-import { MigrationType } from '@idl/assembling/migrators-types';
-import { ILogOptions } from '@idl/logger';
-import { IDLNotebookDocument } from '@idl/notebooks/shared';
-import { AutoCompleteRecipe, AutoCompleteType } from '@idl/types/auto-complete';
-import { GenerateTaskResult } from '@idl/types/generators';
-import {
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type { MigrationType } from '@idl/assembling/migrators-types';
+import type { ILogOptions } from '@idl/logger';
+import type { IDLNotebookDocument } from '@idl/notebooks/shared';
+import type {
+  AutoCompleteRecipe,
+  AutoCompleteType,
+} from '@idl/types/auto-complete';
+import type { GenerateTaskResult } from '@idl/types/generators';
+import type {
   GlobalTokens,
   GlobalTokenType,
   IBaseIndexedToken,
 } from '@idl/types/idl-data-types';
-import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
-import { IParsedLightWeight, ParsedType } from '@idl/types/syntax-tree';
-import { PositionArray } from '@idl/types/tokenizer';
-import {
+import type {
+  IDisabledProblems,
+  SyntaxProblems,
+} from '@idl/types/problem-codes';
+import type { IParsedLightWeight, ParsedType } from '@idl/types/syntax-tree';
+import type { PositionArray } from '@idl/types/tokenizer';
+import type {
   IGenerateTaskPayload,
   PrepareIDLCodeMessage,
   PrepareNotebookCellMessage,
 } from '@idl/vscode/events/messages';
-import { IDLExtensionConfig } from '@idl/vscode/extension-config';
-import { WorkerIOBaseMessage } from '@idl/workers/workerio';
-import {
+import type { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import type { WorkerIOBaseMessage } from '@idl/workers/workerio';
+import type {
   CompletionItem,
   DocumentSymbol,
   Position,

@@ -1,11 +1,11 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { DocumentSymbol } from 'vscode-languageserver-types';
+import type { DocumentSymbol } from 'vscode-languageserver-types';
 
 import {
   GetParsedPROCode,
   PENDING_PRO_CODE,
 } from '../get-parsed/get-parsed-pro-code';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 
 /**
  * Get the outline of our file nicely fro our cache or pending files

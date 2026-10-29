@@ -3,8 +3,11 @@ import { TOKEN_TYPES } from '@idl/tokenizer/common';
 
 import { StripIDs } from '../helpers/strip-ids';
 import { Tokenizer } from '../tokenizer';
-import { IBaseTokenWithoutMatches, IBasicToken } from '../tokenizer.interface';
-import { TOKEN_NAMES, TokenName } from '../tokens.interface';
+import type {
+  IBaseTokenWithoutMatches,
+  IBasicToken,
+} from '../tokenizer.interface';
+import { TOKEN_NAMES, type TokenName } from '../tokens.interface';
 import { STRING_NUMBER_TEST } from '../tokens/defs/quotes.interface';
 
 describe('Validates quote parsing', () => {

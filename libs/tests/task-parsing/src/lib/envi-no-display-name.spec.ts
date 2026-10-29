@@ -2,7 +2,7 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IGlobalsToTrack } from '@idl/types/tasks';
+import type { IGlobalsToTrack } from '@idl/types/tasks';
 
 describe(`[auto generated] Correctly parse task without display_name`, () => {
   it(`[auto generated] envi`, async () => {

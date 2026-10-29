@@ -1,6 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS, IDL_LANGUAGE_NAME, Sleep } from '@idl/shared/extension';
-import { INotebookToProCodeOptions } from '@idl/types/notebooks';
+import type { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
@@ -8,7 +8,7 @@ import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 
 /**
  * Verifies we can convert notebooks to PRO code

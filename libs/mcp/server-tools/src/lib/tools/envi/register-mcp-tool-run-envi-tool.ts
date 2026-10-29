@@ -1,12 +1,12 @@
-import { MCPServer } from '@idl/mcp/server';
-import { RegistryLocation, RegistryLocation_File } from '@idl/mcp/shared';
-import { ITaskInformation, MCPTaskRegistry } from '@idl/mcp/tasks';
+import type { MCPServer } from '@idl/mcp/server';
+import type { RegistryLocation, RegistryLocation_File } from '@idl/mcp/shared';
+import type { ITaskInformation, MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_RunENVITool,
-  MCPToolParams,
-  MCPToolResponse,
+  type MCPTool_RunENVITool,
+  type MCPToolParams,
+  type MCPToolResponse,
 } from '@idl/types/mcp';
 import { z } from 'zod';
 

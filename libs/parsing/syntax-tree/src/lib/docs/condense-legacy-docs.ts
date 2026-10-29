@@ -1,7 +1,7 @@
-import { CommentToken } from '@idl/tokenizer';
+import type { CommentToken } from '@idl/tokenizer';
 import {
   HEADER_TAG_LEGACY,
-  IBasicBranch,
+  type IBasicBranch,
   LEGACY_PARAMETER_NAME_SPLIT,
   REMOVE_COMMENT_REGEX,
 } from '@idl/types/syntax-tree';

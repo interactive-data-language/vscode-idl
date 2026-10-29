@@ -1,4 +1,8 @@
-import { CommaToken, ITokenDef, TOKEN_NAMES } from '../../tokens.interface';
+import {
+  type CommaToken,
+  type ITokenDef,
+  TOKEN_NAMES,
+} from '../../tokens.interface';
 
 export type CommaTokenDef = ITokenDef<CommaToken>;
 

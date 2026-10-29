@@ -1,7 +1,10 @@
-import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/idl-data-types';
+import {
+  GLOBAL_TOKEN_TYPES,
+  type GlobalTokenType,
+} from '@idl/types/idl-data-types';
 
-import { GlobalIndexedToken } from '../../global-index.interface';
-import { IDLIndex } from '../../idl-index.class';
+import type { GlobalIndexedToken } from '../../global-index.interface';
+import type { IDLIndex } from '../../idl-index.class';
 
 /**
  * Returns all matching global tokens given search criteria. Always returns an

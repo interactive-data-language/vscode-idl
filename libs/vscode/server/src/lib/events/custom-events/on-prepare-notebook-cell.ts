@@ -1,6 +1,6 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   PrepareNotebookCellPayload,
   PrepareNotebookCellResponse,
 } from '@idl/vscode/events/messages';

@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  OnInit,
+  type OnInit,
   output,
   signal,
 } from '@angular/core';

@@ -5,7 +5,7 @@ import {
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { TreeBranchToken } from '@idl/types/syntax-tree';
+import type { TreeBranchToken } from '@idl/types/syntax-tree';
 
 import { NAME_TOKENS } from './return-functions';
 

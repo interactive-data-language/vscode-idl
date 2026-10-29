@@ -1,16 +1,16 @@
 import {
-  IRuleBasedFilters,
+  type IRuleBasedFilters,
   RegistryFileWatcher,
   RegistryLocationHelpers,
   RuleBasedFilter,
 } from '@idl/mcp/shared';
-import { ChatInstructionOption } from '@idl/types/chat';
+import type { ChatInstructionOption } from '@idl/types/chat';
 import { existsSync, mkdirSync, readdirSync, readFileSync } from 'fs';
 import { basename, join } from 'path';
 
 import { ParseInstructionFrontmatter } from './helpers/parse-instruction-frontmatter';
 import {
-  IInstructionEntry,
+  type IInstructionEntry,
   INSTRUCTIONS_EXTENSION,
 } from './mcp-instructions-registry.interface';
 

@@ -1,4 +1,4 @@
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 
 /**
  * Initializes walkthrough commands for the Getting Started experience

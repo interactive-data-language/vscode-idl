@@ -1,8 +1,8 @@
 import {
   BRANCH_TYPES,
-  SyntaxTree,
-  TreeBasicToken,
-  TreeBranchToken,
+  type SyntaxTree,
+  type TreeBasicToken,
+  type TreeBranchToken,
 } from '@idl/types/syntax-tree';
 
 /**

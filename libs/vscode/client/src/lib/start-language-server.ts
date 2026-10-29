@@ -8,7 +8,7 @@ import {
 } from '@idl/shared/extension';
 import { NODE_MEMORY_CONFIG } from '@idl/system-memory';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   ILanguageServerInitializationOptions,
   IVSCodeServerPorts,
 } from '@idl/types/vscode';
@@ -25,15 +25,15 @@ import { execSync } from 'child_process';
 import { compare } from 'compare-versions';
 import { lstatSync } from 'fs';
 import * as path from 'path';
-import { ExtensionContext, workspace } from 'vscode';
+import { type ExtensionContext, workspace } from 'vscode';
 import {
   CloseAction,
-  CloseHandlerResult,
+  type CloseHandlerResult,
   ErrorAction,
-  ErrorHandlerResult,
+  type ErrorHandlerResult,
   LanguageClient,
-  LanguageClientOptions,
-  ServerOptions,
+  type LanguageClientOptions,
+  type ServerOptions,
   TransportKind,
 } from 'vscode-languageclient/node';
 

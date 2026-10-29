@@ -1,4 +1,4 @@
-import { SyntaxProblems } from '@idl/types/problem-codes';
+import type { SyntaxProblems } from '@idl/types/problem-codes';
 
 /**
  * Maps a fully-qualified path to a relative path for a specific

@@ -1,4 +1,4 @@
-import {
+import type {
   GlobalRoutineTokenType,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';

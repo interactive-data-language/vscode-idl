@@ -1,6 +1,6 @@
 import { WEB_VIEW_PANEL_ID } from '@idl/shared/extension';
 
-import { IPackageJSON, IPackageNLS } from '../package.interface';
+import type { IPackageJSON, IPackageNLS } from '../package.interface';
 
 /**
  * Adds web view information to our package.json file

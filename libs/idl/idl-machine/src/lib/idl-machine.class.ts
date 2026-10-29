@@ -1,5 +1,5 @@
 import { ObjectifyError } from '@idl/error-shared';
-import {
+import type {
   FromIDLMachineNotificationParams,
   FromIDLMachineNotifications,
   FromIDLMachineRequestHandler,
@@ -11,14 +11,17 @@ import {
   ToIDLMachineRequestResponse,
   ToIDLMachineRequests,
 } from '@idl/types/idl/idl-machine';
-import {
+import type {
   JSONRPCNotification,
   JSONRPCRequest,
   JSONRPCResponse,
 } from '@idl/types/json-rpc';
-import { ChildProcess } from 'child_process';
+import type { ChildProcess } from 'child_process';
 
-import { IRequestHandlers, IRequestResolver } from './idl-machine.interface';
+import type {
+  IRequestHandlers,
+  IRequestResolver,
+} from './idl-machine.interface';
 import { IDLMachineOutputQueue } from './idl-machine-output-queue';
 
 /**

@@ -1,17 +1,17 @@
 import {
-  BranchCallback,
+  type BranchCallback,
   IDL_SYNTAX_TREE_POST_PROCESSOR,
-  IDLSyntaxValidatorMeta,
+  type IDLSyntaxValidatorMeta,
 } from '@idl/parsing/syntax-tree';
 import {
-  ArgDefinitionToken,
-  KeywordDefinitionToken,
-  NonBasicTokenNames,
-  RoutineMethodNameToken,
-  RoutineNameToken,
+  type ArgDefinitionToken,
+  type KeywordDefinitionToken,
+  type NonBasicTokenNames,
+  type RoutineMethodNameToken,
+  type RoutineNameToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IBasicBranch } from '@idl/types/syntax-tree';
+import type { IBasicBranch } from '@idl/types/syntax-tree';
 
 export const SKIP_TOKENS: { [key: string]: any } = {};
 SKIP_TOKENS[TOKEN_NAMES.COMMA] = true;

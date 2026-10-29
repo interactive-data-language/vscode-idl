@@ -4,7 +4,7 @@ import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ISyntaxValidatorTest } from '../tests.interface';
+import type { ISyntaxValidatorTest } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { StringifyCode } from './stringify-code';
 

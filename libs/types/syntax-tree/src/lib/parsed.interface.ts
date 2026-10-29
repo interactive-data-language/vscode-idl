@@ -1,16 +1,25 @@
-import { IFoundTokens } from '@idl/tokenizer';
-import { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
-import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
-import { PositionArray } from '@idl/types/tokenizer';
+import type { IFoundTokens } from '@idl/tokenizer';
+import type { GlobalTokens, ICompileOptions } from '@idl/types/idl-data-types';
+import type {
+  IDisabledProblems,
+  SyntaxProblems,
+} from '@idl/types/problem-codes';
+import type { PositionArray } from '@idl/types/tokenizer';
 import { copy } from 'fast-copy';
-import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver-types';
+import type {
+  DocumentSymbol,
+  SemanticTokens,
+} from 'vscode-languageserver-types';
 
-import { SyntaxTree } from './branches.interface';
+import type { SyntaxTree } from './branches.interface';
 import {
   DEFAULT_USES_THESE_GLOBAL_TOKEN,
-  UsesTheseGlobalTokens,
+  type UsesTheseGlobalTokens,
 } from './build-syntax-tree.interface';
-import { DEFAULT_LOCAL_TOKENS, ILocalTokens } from './populate-local.interface';
+import {
+  DEFAULT_LOCAL_TOKENS,
+  type ILocalTokens,
+} from './populate-local.interface';
 
 /**
  * Type of parsed item that we have

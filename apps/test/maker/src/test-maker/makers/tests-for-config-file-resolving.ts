@@ -4,7 +4,7 @@ import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { IConfigTest } from '../tests.interface';
+import type { IConfigTest } from '../tests.interface';
 
 /**
  * Generates tests to make sure our config files are properly resolved

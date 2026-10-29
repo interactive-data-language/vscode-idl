@@ -1,6 +1,6 @@
-import { IDLNotebookMap_Extents } from '@idl/types/notebooks';
+import type { IDLNotebookMap_Extents } from '@idl/types/notebooks';
 
-import { LayerBounds } from '../create-layers.interface';
+import type { LayerBounds } from '../create-layers.interface';
 
 /**
  * Creates bounds from image extents

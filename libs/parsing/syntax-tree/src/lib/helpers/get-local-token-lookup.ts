@@ -1,5 +1,5 @@
 import { TOKEN_NAMES } from '@idl/tokenizer';
-import {
+import type {
   ILocalTokenLookup,
   IParsed,
   TreeBranchToken,

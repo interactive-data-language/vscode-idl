@@ -1,6 +1,6 @@
-import { IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
 import {
-  IRuleBasedFilters,
+  type IRuleBasedFilters,
   RegistryLocationHelpers,
   RuleBasedFilter,
 } from '@idl/mcp/shared';
@@ -8,7 +8,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { basename, join } from 'path';
 
 import { ParseSkillFrontmatter } from './helpers/parse-skill-frontmatter';
-import { ISkill } from './mcp-skill-registry.interface';
+import type { ISkill } from './mcp-skill-registry.interface';
 
 /**
  * Standard skill file name per agentskills.io

@@ -3,7 +3,7 @@ import { IDL_COMMANDS } from '@idl/shared/extension';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 
 /** Allowed max time to wait for command to return, milliseconds */
 const TIMEOUT = 50;

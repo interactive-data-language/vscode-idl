@@ -2,10 +2,10 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { Sleep } from '@idl/shared/extension';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
-import { TextDocumentPositionParams } from 'vscode-languageserver';
-import { CompletionItem } from 'vscode-languageserver-types';
+import type { TextDocumentPositionParams } from 'vscode-languageserver';
+import type { CompletionItem } from 'vscode-languageserver-types';
 
-import { RunnerFunction } from '../../runner.interface';
+import type { RunnerFunction } from '../../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../../test-client-config.interface';
 
 /**

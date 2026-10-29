@@ -3,21 +3,21 @@ import {
   CleanIDLOutput,
   IDLInteractionManager,
 } from '@idl/idl/idl-interaction-manager';
-import { Logger } from '@idl/logger';
+import type { Logger } from '@idl/logger';
 import { Sleep } from '@idl/shared/extension';
 import {
   IDL_EVENT_LOOKUP,
-  IDLEvaluateOptions,
-  IDLEvent,
-  IDLListenerArgs,
-  IStartIDLConfig,
+  type IDLEvaluateOptions,
+  type IDLEvent,
+  type IDLListenerArgs,
+  type IStartIDLConfig,
 } from '@idl/types/idl/idl-process';
-import { IDLVersionInfo } from '@idl/types/vscode-debug';
+import type { IDLVersionInfo } from '@idl/types/vscode-debug';
 import { compareVersions } from 'compare-versions';
 
 import {
   DEFAULT_MCP_EVALUATE_OPTIONS,
-  IDLMCPExecutionManagerOptions,
+  type IDLMCPExecutionManagerOptions,
 } from './idl-mcp-execution-manager.interface';
 
 /**

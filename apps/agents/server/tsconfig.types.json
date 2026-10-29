@@ -13,9 +13,7 @@
       "@idl/mcp/standalone-server": [
         "libs/mcp/standalone-server/src/lib/helpers/validate-config.interface.ts"
       ],
-      "@idl/types/chat": [
-        "libs/types/chat/src/lib/chat-types.interface.ts"
-      ]
+      "@idl/types/chat": ["libs/types/chat/src/lib/chat-types.interface.ts"]
     }
   },
   "files": ["src/types.ts"],

@@ -1,10 +1,10 @@
 import { copy } from 'fast-copy';
 
-import {
+import type {
   IBaseTokenWithoutMatches,
   TokenizerToken,
 } from '../tokenizer.interface';
-import { TokenName } from '../tokens.interface';
+import type { TokenName } from '../tokens.interface';
 
 /**
  * Copies tokens and strips out any ID fields they may have.

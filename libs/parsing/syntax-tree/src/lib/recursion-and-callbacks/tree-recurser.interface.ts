@@ -1,14 +1,14 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
-  BasicTokenNames,
-  NonBasicTokenNames,
+  type BasicTokenNames,
+  type NonBasicTokenNames,
   TOKEN_NAMES,
-  TokenName,
+  type TokenName,
 } from '@idl/tokenizer';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import {
+import type {
   IParentInformation,
   SelectedTokenParent,
 } from '../helpers/selected-token.interface';

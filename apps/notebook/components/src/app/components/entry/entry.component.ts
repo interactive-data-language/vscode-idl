@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
+  type AfterViewInit,
   Component,
   ElementRef,
   inject,
   Input,
 } from '@angular/core';
-import {
+import type {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
 } from '@idl/types/notebooks';

@@ -1,4 +1,4 @@
-import {
+import type {
   ENVITaskLegacy,
   ENVITaskLegacyParameter,
   ENVITaskLegacyVersion532,

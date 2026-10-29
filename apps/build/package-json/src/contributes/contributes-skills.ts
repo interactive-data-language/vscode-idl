@@ -1,7 +1,7 @@
 import { FindFiles, GetExtensionPath } from '@idl/idl/files';
 import { basename, dirname } from 'path';
 
-import { IPackageJSON, IPackageNLS } from '../package.interface';
+import type { IPackageJSON, IPackageNLS } from '../package.interface';
 
 /**
  * Searches for all SKILL.md (case-sensitive) files under resources/agents/skills/

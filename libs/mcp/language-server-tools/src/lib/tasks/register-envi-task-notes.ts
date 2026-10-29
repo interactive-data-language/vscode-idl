@@ -1,6 +1,6 @@
 import { VSCODE_DOT_IDL_FOLDER } from '@idl/idl/files';
-import { IDL_MCP_LOG, LogManager } from '@idl/logger';
-import { MCPTaskRegistry } from '@idl/mcp/tasks';
+import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
+import type { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 

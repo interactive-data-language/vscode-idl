@@ -2,9 +2,9 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 import { CompareCellKindsAndOutputs } from './helpers/compare-cells';
-import { ICompareCellAndOutputs } from './helpers/compare-cells.interface';
+import type { ICompareCellAndOutputs } from './helpers/compare-cells.interface';
 
 /**
  * Types of outputs from cells that we expect to have

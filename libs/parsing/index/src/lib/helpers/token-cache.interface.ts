@@ -1,5 +1,5 @@
-import { ISplitTreeOnArguments } from '@idl/parsing/syntax-tree';
-import {
+import type { ISplitTreeOnArguments } from '@idl/parsing/syntax-tree';
+import type {
   GlobalFunctionMethodToken,
   GlobalIndexedRoutineToken,
   GlobalProcedureMethodToken,
@@ -7,10 +7,10 @@ import {
   IDLDataType,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { ILocalTokenLookup } from '@idl/types/syntax-tree';
+import type { ILocalTokenLookup } from '@idl/types/syntax-tree';
 
-import { IFoundKeywords } from './get-keywords.interface';
-import { IFoundParameter, IFoundProperty } from './get-property.interface';
+import type { IFoundKeywords } from './get-keywords.interface';
+import type { IFoundParameter, IFoundProperty } from './get-property.interface';
 
 /**
  * Cache stores anything that we could return from a helper

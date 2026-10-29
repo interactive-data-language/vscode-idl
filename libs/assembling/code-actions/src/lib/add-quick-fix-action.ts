@@ -1,9 +1,9 @@
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDLDiagnostic } from '@idl/types/diagnostic';
+import type { IDLDiagnostic } from '@idl/types/diagnostic';
 import {
-  CodeAction,
+  type CodeAction,
   CodeActionKind,
-  WorkspaceEdit,
+  type WorkspaceEdit,
 } from 'vscode-languageserver-types';
 
 /**

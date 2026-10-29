@@ -3,7 +3,7 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import {
-  ApplicationConfig,
+  type ApplicationConfig,
   importProvidersFrom,
   inject,
   isDevMode,

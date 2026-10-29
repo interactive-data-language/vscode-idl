@@ -1,7 +1,7 @@
 import {
-  ITokenDef,
+  type ITokenDef,
   TOKEN_NAMES,
-  TypeOrOperatorToken,
+  type TypeOrOperatorToken,
 } from '../../tokens.interface';
 
 export type TypeOrOperatorTokenDef = ITokenDef<TypeOrOperatorToken>;

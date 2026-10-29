@@ -6,7 +6,7 @@ import {
   IDL_STRING_TYPE,
 } from '@idl/types/idl-data-types';
 
-import { IProcedureOverride } from '../detail.interface';
+import type { IProcedureOverride } from '../detail.interface';
 
 /**
  * Overrides for procedure metadata when generating internal docs

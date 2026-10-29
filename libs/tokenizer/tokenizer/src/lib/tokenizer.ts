@@ -1,23 +1,27 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { TOKEN_TYPES } from '@idl/tokenizer/common';
 import { nanoid } from 'nanoid';
 
 import { FindMatches } from './helpers/find-matches';
 import { GetFirstMatch } from './helpers/get-first-match';
-import { IGetFirstMatch } from './helpers/get-first-match.interface';
+import type { IGetFirstMatch } from './helpers/get-first-match.interface';
 import { GetMatchesArray } from './helpers/get-matches-array';
 import { Iterator } from './iterator.class';
 import {
   CLOSE_PARENTS_ON_CLOSE,
   DEFAULT_FIND_TOKEN_OPTIONS,
-  IBasicToken,
-  IEndToken,
-  IFindTokensOptions,
-  IFoundTokens,
-  IStartToken,
+  type IBasicToken,
+  type IEndToken,
+  type IFindTokensOptions,
+  type IFoundTokens,
+  type IStartToken,
   NO_AUTO_CLOSE,
 } from './tokenizer.interface';
-import { ITokenDef, TOKEN_NAMES, TokenName } from './tokens.interface';
+import {
+  type ITokenDef,
+  TOKEN_NAMES,
+  type TokenName,
+} from './tokens.interface';
 import { IDL_LINE_END } from './tokens/regex.interface';
 import { GetSubDefs } from './tokens/sub-defs';
 

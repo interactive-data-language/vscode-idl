@@ -1,13 +1,13 @@
 import {
   IDL_NOTEBOOK_MIME_TYPE,
-  IDLNotebook_EmbedType,
-  IDLNotebookEmbeddedItem,
-  IDLNotebookImage_PNG,
-  IDLNotebookMap,
-  IDLNotebookMap_Image,
+  type IDLNotebook_EmbedType,
+  type IDLNotebookEmbeddedItem,
+  type IDLNotebookImage_PNG,
+  type IDLNotebookMap,
+  type IDLNotebookMap_Image,
 } from '@idl/types/notebooks';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
-import { NotebookCellKind, NotebookDocument } from 'vscode';
+import { NotebookCellKind, type NotebookDocument } from 'vscode';
 
 import { CreateOutputText } from './create-output-text';
 

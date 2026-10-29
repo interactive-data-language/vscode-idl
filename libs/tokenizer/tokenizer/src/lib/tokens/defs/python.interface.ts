@@ -1,4 +1,8 @@
-import { ITokenDef, PythonToken, TOKEN_NAMES } from '../../tokens.interface';
+import {
+  type ITokenDef,
+  type PythonToken,
+  TOKEN_NAMES,
+} from '../../tokens.interface';
 
 export type PythonTokenDef = ITokenDef<PythonToken>;
 

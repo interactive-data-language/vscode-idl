@@ -1,9 +1,9 @@
 import {
   IDLMachineExecutionBackend,
-  IDLMCPExecutionManager,
+  type IDLMCPExecutionManager,
 } from '@idl/mcp/idl-machine';
-import { IStartIDLConfig } from '@idl/types/idl/idl-process';
-import {
+import type { IStartIDLConfig } from '@idl/types/idl/idl-process';
+import type {
   MCPProgressCallback,
   MCPToolParams,
   MCPToolResponse,
@@ -12,7 +12,7 @@ import {
 } from '@idl/types/mcp';
 
 import { WEBSOCKET_TOOL_NAMES } from './websocket-execution-backend.interface';
-import { WebSocketToolBridge } from './websocket-tool-bridge.class';
+import type { WebSocketToolBridge } from './websocket-tool-bridge.class';
 
 /**
  * `IDLMachineExecutionBackend` that, if we have a valid websocket connection,

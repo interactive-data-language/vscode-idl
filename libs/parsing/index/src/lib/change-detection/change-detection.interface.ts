@@ -1,4 +1,4 @@
-import { GlobalTokens } from '@idl/types/idl-data-types';
+import type { GlobalTokens } from '@idl/types/idl-data-types';
 
 /**
  * rResponse from change detection

@@ -1,4 +1,4 @@
-import { MCPToolParams, MCPTools } from '@idl/types/mcp';
+import type { MCPToolParams, MCPTools } from '@idl/types/mcp';
 
 /** Message to track history for running MCP Tools */
 export type MCPHistory_Message = 'mcp-history';

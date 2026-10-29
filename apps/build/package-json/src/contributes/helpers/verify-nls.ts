@@ -1,4 +1,4 @@
-import { IPackageNLS } from '../../package.interface';
+import type { IPackageNLS } from '../../package.interface';
 
 /**
  * Makes sure that our NLS file matches our configuration

@@ -1,6 +1,6 @@
 import {
-  BasicTokenNames,
-  NonBasicTokenNames,
+  type BasicTokenNames,
+  type NonBasicTokenNames,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 

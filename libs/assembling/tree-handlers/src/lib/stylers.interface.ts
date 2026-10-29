@@ -1,6 +1,6 @@
 import { TreeCallbackHandler } from '@idl/parsing/syntax-tree';
 
-import {
+import type {
   AssemblerStyleMeta,
   AssemblingStyleTreeHandler,
 } from './handlers.interface';

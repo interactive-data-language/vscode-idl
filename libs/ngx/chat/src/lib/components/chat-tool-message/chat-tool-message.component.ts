@@ -8,7 +8,7 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ChatMessage } from '@idl/types/chat';
+import type { ChatMessage } from '@idl/types/chat';
 
 /**
  * Displays a single tool-call/tool-result chat message.

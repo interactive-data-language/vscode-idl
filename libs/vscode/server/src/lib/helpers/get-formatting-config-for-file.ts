@@ -1,8 +1,8 @@
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerInputOptions,
-  IAssemblerOptions,
+  type FormatterType,
+  type IAssemblerInputOptions,
+  type IAssemblerOptions,
 } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
 

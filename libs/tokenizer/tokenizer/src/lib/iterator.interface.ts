@@ -1,4 +1,4 @@
-import { TokenName } from './tokens.interface';
+import type { TokenName } from './tokens.interface';
 
 /**
  * Object with easy-access for what tokens have been found

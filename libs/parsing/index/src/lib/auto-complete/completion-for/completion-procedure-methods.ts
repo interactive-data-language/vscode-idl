@@ -3,18 +3,18 @@ import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IProcedureMethodCompletionOptions } from '@idl/types/auto-complete';
+import type { IProcedureMethodCompletionOptions } from '@idl/types/auto-complete';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IDLDataTypeBase,
-  IDLTypes,
+  type IDLDataType,
+  type IDLDataTypeBase,
+  type IDLTypes,
 } from '@idl/types/idl-data-types';
 import { CompletionItemKind } from 'vscode-languageserver-types';
 
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
-import { IProcedureMethodCompletionArg } from './completion-procedure-methods.interface';
+import type { IProcedureMethodCompletionArg } from './completion-procedure-methods.interface';
 
 /**
  * Display names for procedure methods

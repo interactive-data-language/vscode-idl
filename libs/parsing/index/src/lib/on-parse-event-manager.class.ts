@@ -1,6 +1,6 @@
-import { IDLFileType } from '@idl/shared/extension';
+import type { IDLFileType } from '@idl/shared/extension';
 
-import {
+import type {
   ParseEventListener,
   ParseEventPayloadMap,
 } from './on-parse-event-manager.interface';

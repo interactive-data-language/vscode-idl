@@ -5,10 +5,10 @@ import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../test-client-config.interface';
 import { CompareCellOutputs } from './helpers/compare-cells';
-import { ICompareCellOutputs } from './helpers/compare-cells.interface';
+import type { ICompareCellOutputs } from './helpers/compare-cells.interface';
 
 /**
  * Types of outputs from cells that we expect to have

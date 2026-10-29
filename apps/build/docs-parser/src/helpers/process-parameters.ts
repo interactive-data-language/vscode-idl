@@ -2,7 +2,10 @@ import { dirname } from 'path';
 
 import { HTMLToMarkdown } from './html-to-markdown';
 import { JoinCode } from './join-code';
-import { IParameterDocs, IParameterHTML } from './process-parameters.interface';
+import type {
+  IParameterDocs,
+  IParameterHTML,
+} from './process-parameters.interface';
 
 /**
  * Converts parameters to traditional docs

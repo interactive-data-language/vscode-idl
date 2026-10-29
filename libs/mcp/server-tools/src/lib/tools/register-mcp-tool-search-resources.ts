@@ -1,5 +1,5 @@
 import { IDL_MCP_LOG } from '@idl/logger';
-import { MCPServer } from '@idl/mcp/server';
+import type { MCPServer } from '@idl/mcp/server';
 import { MCPResourceIndex } from '@idl/mcp/server-resources';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';

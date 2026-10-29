@@ -1,9 +1,9 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { CodeChecksum, Parser } from '@idl/parser';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 import { ResolveNotebookVariablesFromProcedures } from '../helpers/resolve-notebook-variables-from-procedures';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { PENDING_NOTEBOOK } from './get-parsed-notebook';
 
 /**

@@ -1,6 +1,6 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { JSONFormatter } from '@idl/assembling/json-formatter';
-import {
+import type {
   ENVITask,
   ENVITaskLegacy,
   ENVITaskLegacyVersion,

@@ -1,4 +1,8 @@
-import { ColonToken, ITokenDef, TOKEN_NAMES } from '../../tokens.interface';
+import {
+  type ColonToken,
+  type ITokenDef,
+  TOKEN_NAMES,
+} from '../../tokens.interface';
 
 export type ColonTokenDef = ITokenDef<ColonToken>;
 

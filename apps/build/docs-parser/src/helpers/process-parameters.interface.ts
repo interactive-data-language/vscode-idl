@@ -1,4 +1,4 @@
-import { IParsedHTML } from './parser.interface';
+import type { IParsedHTML } from './parser.interface';
 
 /**
  * Argument or keyword lookup by parameter name and the HTML children

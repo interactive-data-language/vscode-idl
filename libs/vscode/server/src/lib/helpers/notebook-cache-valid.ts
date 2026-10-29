@@ -1,5 +1,5 @@
 import { deepEqual } from 'fast-equals';
-import { NotebookDocument } from 'vscode-languageserver';
+import type { NotebookDocument } from 'vscode-languageserver';
 
 import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
 

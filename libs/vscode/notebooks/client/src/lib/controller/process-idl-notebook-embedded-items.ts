@@ -1,23 +1,23 @@
 import {
   IDL_NOTEBOOK_MIME_TYPE,
-  IDLNotebookEmbeddedItem,
-  IDLNotebookEmbeddedItems,
-  IDLNotebookImage_AnimationFromPNGs,
-  IDLNotebookImage_AnimationFromUris,
-  IDLNotebookImage_FromURI,
-  IDLNotebookImage_PNG,
-  IDLNotebookMap,
-  IDLNotebookMap_GeoJSON,
-  IDLNotebookMap_GeoJSONFromUri,
-  IDLNotebookMap_Image,
-  IDLNotebookMap_ImageFromUri,
-  IDLNotebookOutputMetadata,
+  type IDLNotebookEmbeddedItem,
+  type IDLNotebookEmbeddedItems,
+  type IDLNotebookImage_AnimationFromPNGs,
+  type IDLNotebookImage_AnimationFromUris,
+  type IDLNotebookImage_FromURI,
+  type IDLNotebookImage_PNG,
+  type IDLNotebookMap,
+  type IDLNotebookMap_GeoJSON,
+  type IDLNotebookMap_GeoJSONFromUri,
+  type IDLNotebookMap_Image,
+  type IDLNotebookMap_ImageFromUri,
+  type IDLNotebookOutputMetadata,
 } from '@idl/types/notebooks';
 import { readFileSync } from 'fs';
 import { nanoid } from 'nanoid';
 import * as vscode from 'vscode';
 
-import { ICurrentCell } from './idl-notebook-controller.interface';
+import type { ICurrentCell } from './idl-notebook-controller.interface';
 
 /**
  * Takes the output from the `IDLNotebook.Export` method and creates the

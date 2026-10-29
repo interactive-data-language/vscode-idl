@@ -3,7 +3,7 @@ import { Parser } from '@idl/parser';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITokenTest } from '../tests.interface';
+import type { ITokenTest } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { StringifyCode } from './stringify-code';
 

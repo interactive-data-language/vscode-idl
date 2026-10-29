@@ -1,8 +1,8 @@
 import { IDL_NOTEBOOK_CELL_SELECTOR } from '@idl/shared/extension';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
-import { TextDocumentPositionParams } from 'vscode-languageserver';
-import { Location } from 'vscode-languageserver-types';
+import type { TextDocumentPositionParams } from 'vscode-languageserver';
+import type { Location } from 'vscode-languageserver-types';
 import { URI } from 'vscode-uri';
 
 import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';

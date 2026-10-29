@@ -10,7 +10,7 @@ import {
   IDL_TYPE_CODE_TYPE,
 } from '@idl/types/idl-data-types';
 
-import { IFunctionOverride } from '../detail.interface';
+import type { IFunctionOverride } from '../detail.interface';
 import { TYPE_FUNCTION_ARGS } from '../shared/dimension-args.interface';
 import { ENVI_ERROR_KEYWORD } from '../shared/envi-error.interface';
 import { SHARED_OVERRIDES } from '../shared/shared-types.interface';

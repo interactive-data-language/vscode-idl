@@ -6,21 +6,24 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import {
   CUSTOM_TYPE_DISPLAY_NAMES,
   GLOBAL_TOKEN_TYPES,
-  GlobalTokens,
-  GlobalTokenType,
-  IGlobalIndexedToken,
+  type GlobalTokens,
+  type GlobalTokenType,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { IDisabledProblems, SyntaxProblems } from '@idl/types/problem-codes';
+import type {
+  IDisabledProblems,
+  SyntaxProblems,
+} from '@idl/types/problem-codes';
 import { copy } from 'fast-copy';
 import * as fuzzysort from 'fuzzysort';
 import { default as GlobToRegExp } from 'glob-to-regexp';
 
 import {
   DEFAULT_FIND_OPTIONS,
-  ExportedGlobalTokensByType,
-  GlobalIndexedToken,
-  GlobalTokensByTypeByName,
-  IFindGlobalTokenOptions,
+  type ExportedGlobalTokensByType,
+  type GlobalIndexedToken,
+  type GlobalTokensByTypeByName,
+  type IFindGlobalTokenOptions,
   PROBLEM_MAP,
 } from './global-index.interface';
 import { SaveGlobalDisplayNames } from './helpers/save-global-display-names';

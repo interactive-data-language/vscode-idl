@@ -7,15 +7,18 @@ import {
   IDL_ARRAY_TYPE,
   IDL_BOOLEAN_TYPE,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
+  type IDLDataType,
   TYPE_ORDER,
 } from '@idl/types/idl-data-types';
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
-import { IParsed } from '@idl/types/syntax-tree';
-import { PositionArray } from '@idl/types/tokenizer';
+import {
+  IDL_PROBLEM_CODES,
+  type IDLProblemCode,
+} from '@idl/types/problem-codes';
+import type { IParsed } from '@idl/types/syntax-tree';
+import type { PositionArray } from '@idl/types/tokenizer';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../../../idl-index.class';
+import type { IDLIndex } from '../../../idl-index.class';
 
 /**
  * Merges/validates types that are being combined together.

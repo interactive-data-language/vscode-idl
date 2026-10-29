@@ -3,8 +3,8 @@ import { TOKEN_TYPES } from '@idl/tokenizer/common';
 
 import { StripIDs } from '../helpers/strip-ids';
 import { Tokenizer } from '../tokenizer';
-import { IBaseTokenWithoutMatches } from '../tokenizer.interface';
-import { TOKEN_NAMES, TokenName } from '../tokens.interface';
+import type { IBaseTokenWithoutMatches } from '../tokenizer.interface';
+import { TOKEN_NAMES, type TokenName } from '../tokens.interface';
 import { VARIABLE } from '../tokens/defs/variables.interface';
 
 describe('Validates variable parsing (mostly done elsewhere)', () => {

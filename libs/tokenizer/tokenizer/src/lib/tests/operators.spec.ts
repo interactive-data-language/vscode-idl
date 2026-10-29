@@ -4,8 +4,8 @@ import { TOKEN_TYPES } from '@idl/tokenizer/common';
 import { StripIDs } from '../helpers/strip-ids';
 import { TestGlobal } from '../helpers/test-global';
 import { Tokenizer } from '../tokenizer';
-import { IBaseTokenWithoutMatches } from '../tokenizer.interface';
-import { TOKEN_NAMES, TokenName } from '../tokens.interface';
+import type { IBaseTokenWithoutMatches } from '../tokenizer.interface';
+import { TOKEN_NAMES, type TokenName } from '../tokens.interface';
 import { OPERATORS } from '../tokens/defs/operators.interface';
 
 describe('Validates operator parsing', () => {

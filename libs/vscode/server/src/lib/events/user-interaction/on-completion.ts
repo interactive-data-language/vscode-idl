@@ -1,13 +1,13 @@
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
+  type FormatterType,
+  type IAssemblerOptions,
 } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { TextDocumentPositionParams } from 'vscode-languageserver';
-import { CompletionItem } from 'vscode-languageserver-types';
+import type { TextDocumentPositionParams } from 'vscode-languageserver';
+import type { CompletionItem } from 'vscode-languageserver-types';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { IDL_CLIENT_CONFIG } from '../../helpers/track-workspace-config';

@@ -1,5 +1,5 @@
-import { ITokenDef, TokenName } from '../tokens.interface';
-import { IGetFirstMatch } from './get-first-match.interface';
+import type { ITokenDef, TokenName } from '../tokens.interface';
+import type { IGetFirstMatch } from './get-first-match.interface';
 
 /**
  * Checks our matches and returns the first one we find

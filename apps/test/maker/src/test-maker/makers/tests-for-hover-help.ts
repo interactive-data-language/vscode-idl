@@ -5,7 +5,7 @@ import { writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
-import { IHoverHelpTest } from '../tests.interface';
+import type { IHoverHelpTest } from '../tests.interface';
 
 /**
  * Generates tests to verify hover help works as expected

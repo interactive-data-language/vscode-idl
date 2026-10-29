@@ -1,11 +1,11 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-import {
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type {
   AutoCompleteRecipeOptions,
   AutoCompleteType,
 } from '@idl/types/auto-complete';
-import { CompletionItem } from 'vscode-languageserver-types';
+import type { CompletionItem } from 'vscode-languageserver-types';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { BuildBlockCompletionItems } from './completion-for/completion-blocks';
 import { BuildCompileOptCompletionItems } from './completion-for/completion-compile-opts';
 import { BuildExecutiveCommandCompletionItems } from './completion-for/completion-executive-commands';

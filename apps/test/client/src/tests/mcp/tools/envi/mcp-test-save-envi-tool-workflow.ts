@@ -1,12 +1,12 @@
 import {
   MCP_TOOL_LOOKUP,
-  MCPToolResponse_SaveENVIToolWorkflow,
+  type MCPToolResponse_SaveENVIToolWorkflow,
 } from '@idl/types/mcp';
 import expect from 'expect';
 import { existsSync } from 'fs';
 
 import { USER_TOOL_WORKFLOW_WRITE } from '../../../../test-setup.interface';
-import { RunnerFunction } from '../../../runner.interface';
+import type { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../helpers/get-text-content';
 import { LogWhenExpectSuccess } from '../../helpers/test-loggers';

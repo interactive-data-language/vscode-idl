@@ -1,4 +1,4 @@
-import { IHoverHelpTests } from '../tests.interface';
+import type { IHoverHelpTests } from '../tests.interface';
 
 /**
  * Automated tests for hover-help extraction

@@ -1,4 +1,4 @@
-import { IAutoENVIModelerTest } from '../../tests.interface';
+import type { IAutoENVIModelerTest } from '../../tests.interface';
 
 export const AUTO_ENVI_MODELER_TEST_ISODATA_WITH_URI: IAutoENVIModelerTest = {
   suiteName: 'ISODATA classification with output URI',

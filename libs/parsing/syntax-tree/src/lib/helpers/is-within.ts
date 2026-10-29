@@ -1,5 +1,5 @@
-import { PositionArray } from '@idl/types/tokenizer';
-import { Position } from 'vscode-languageserver-types';
+import type { PositionArray } from '@idl/types/tokenizer';
+import type { Position } from 'vscode-languageserver-types';
 
 /**
  * Checks if a token is before another token

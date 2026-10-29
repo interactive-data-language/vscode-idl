@@ -1,7 +1,7 @@
 import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
-import { ITokenCache } from '@idl/parsing/index';
+import type { ITokenCache } from '@idl/parsing/index';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 
 /**

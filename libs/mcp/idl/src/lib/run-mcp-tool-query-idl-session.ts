@@ -1,5 +1,5 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
-import {
+import type {
   IIDLMCPExecutionBackend,
   MCPTool_QueryIDLSession,
   MCPToolParams,

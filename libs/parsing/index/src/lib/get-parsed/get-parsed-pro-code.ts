@@ -1,18 +1,18 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { CodeChecksum } from '@idl/parser';
 import { IDLFileHelper } from '@idl/shared/extension';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import { copy } from 'fast-copy';
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import {
   DEFAULT_INDEX_PRO_CODE_OPTIONS,
-  IIndexProCodeOptions,
+  type IIndexProCodeOptions,
 } from '../idl-index.interface';
 import { PENDING_NOTEBOOK } from './get-parsed-notebook';
-import { IGetParsedPROCodePending } from './get-parsed-pro-code.interface';
+import type { IGetParsedPROCodePending } from './get-parsed-pro-code.interface';
 
 /**
  * Track the pending files

@@ -1,5 +1,5 @@
-import { NonBasicTokenNames, TokenName } from '@idl/tokenizer';
-import { IBranch } from '@idl/types/syntax-tree';
+import type { NonBasicTokenNames, TokenName } from '@idl/tokenizer';
+import type { IBranch } from '@idl/types/syntax-tree';
 
 /**
  * Checks if a specified token is in a branch

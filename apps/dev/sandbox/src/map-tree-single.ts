@@ -1,7 +1,7 @@
 import {
   BRANCH_TYPES,
-  SyntaxTree,
-  TreeBranchToken,
+  type SyntaxTree,
+  type TreeBranchToken,
 } from '@idl/types/syntax-tree';
 
 interface ISimplifiedTree {

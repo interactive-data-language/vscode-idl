@@ -1,9 +1,9 @@
 import {
-  IHandlerCallbackMetadata,
+  type IHandlerCallbackMetadata,
   TreeCallbackHandler,
 } from '@idl/parsing/syntax-tree';
 
-import { AssemblingFixerTreeHandler } from './handlers.interface';
+import type { AssemblingFixerTreeHandler } from './handlers.interface';
 
 /**
  * Callback manager for automatically fixing problems in code before

@@ -1,6 +1,6 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 
-import { OverrideParamOrProp } from './shared.interface';
+import type { OverrideParamOrProp } from './shared.interface';
 
 export interface ISharedOverrides {
   /** interleave for rasters */

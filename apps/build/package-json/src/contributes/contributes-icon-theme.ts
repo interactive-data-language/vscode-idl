@@ -3,7 +3,7 @@ import axios from 'axios';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join, resolve, sep } from 'path';
 
-import { IPackageJSON, IPackageNLS } from '../package.interface';
+import type { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';
 
 const ICON_THEMES = [

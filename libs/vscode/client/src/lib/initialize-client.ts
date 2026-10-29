@@ -19,10 +19,10 @@ import {
 import { InitializeDecorations } from '@idl/vscode/decorations';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { join } from 'path';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 
 import { ON_CONFIG_CHANGES_CLIENT } from './helpers/on-config-changes-client';
-import { IInitializeClientResult } from './initialize-client.interface';
+import type { IInitializeClientResult } from './initialize-client.interface';
 import { RegisterClientNodeCommands } from './register-client-node-commands';
 import { RegisterCodeCommands } from './register-code-commands';
 import { RegisterHoverProvider } from './register-hover-provider';

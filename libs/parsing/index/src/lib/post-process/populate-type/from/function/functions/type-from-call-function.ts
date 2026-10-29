@@ -1,8 +1,8 @@
-import { CallFunctionToken } from '@idl/tokenizer';
+import type { CallFunctionToken } from '@idl/tokenizer';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../../../../idl-index.class';
+import type { IDLIndex } from '../../../../../idl-index.class';
 import { TypeFromFirstArg } from '../../helpers/type-from-first-arg';
 
 /**

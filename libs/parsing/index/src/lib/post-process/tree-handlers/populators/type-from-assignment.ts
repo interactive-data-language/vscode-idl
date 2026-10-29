@@ -1,19 +1,19 @@
 import {
-  BasicCallback,
+  type BasicCallback,
   GetBefore,
   GetNextInBranch,
 } from '@idl/parsing/syntax-tree';
 import {
-  SystemVariableToken,
+  type SystemVariableToken,
   TOKEN_NAMES,
-  VariableToken,
+  type VariableToken,
 } from '@idl/tokenizer';
 import { copy } from 'fast-copy';
 
-import { ITokenCache } from '../../../helpers/token-cache.interface';
+import type { ITokenCache } from '../../../helpers/token-cache.interface';
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
 import { POPULATE_TYPE_HANDLER } from '../populate-type-handler';
-import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
+import type { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
 import { TYPE_FROM_KEYWORDS } from './type-from-keywords';
 
 /**

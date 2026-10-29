@@ -1,5 +1,5 @@
-import { IDetailedPosition, TokenizerToken } from '../tokenizer.interface';
-import { TokenName } from '../tokens.interface';
+import type { IDetailedPosition, TokenizerToken } from '../tokenizer.interface';
+import type { TokenName } from '../tokens.interface';
 
 /**
  * Internal function that erases a portion of a line

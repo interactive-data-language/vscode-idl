@@ -1,18 +1,18 @@
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
+  type FormatterType,
+  type IAssemblerOptions,
 } from '@idl/assembling/config';
-import { IDLIndex } from '@idl/parsing/index';
+import type { IDLIndex } from '@idl/parsing/index';
 import {
   GetTaskDisplayName,
   GLOBAL_TOKEN_TYPES,
-  GlobalTokenType,
+  type GlobalTokenType,
   TASK_REGEX,
 } from '@idl/types/idl-data-types';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join } from 'path';
-import { DefaultTheme } from 'vitepress';
+import type { DefaultTheme } from 'vitepress';
 
 import { DOCS_BASE } from './docs-exporter.interface';
 import {

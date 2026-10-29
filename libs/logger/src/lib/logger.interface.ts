@@ -3,7 +3,7 @@ import chalk from 'chalk';
 // force chalk to be enabled
 (chalk as any).level = 2;
 
-import { Logger } from './logger.class';
+import type { Logger } from './logger.class';
 
 // simple type for what types we are allowed to print
 export type LogType = 'debug' | 'error' | 'info' | 'log' | 'warn';

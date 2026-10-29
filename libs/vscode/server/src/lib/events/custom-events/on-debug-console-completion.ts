@@ -1,11 +1,11 @@
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
+  type FormatterType,
+  type IAssemblerOptions,
 } from '@idl/assembling/config';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   DebugConsoleCompletionPayload,
   DebugConsoleCompletionResponse,
 } from '@idl/vscode/events/messages';

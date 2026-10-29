@@ -1,11 +1,11 @@
 import { StartExpressDocsServer } from '@idl/docs/server';
-import { FindFiles, IFolderRecursion } from '@idl/idl/files';
+import { FindFiles, type IFolderRecursion } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   LANGUAGE_SERVER_MESSAGE_LOOKUP,
-  LanguageServerPayload,
-  WorkspaceConfigMessage,
+  type LanguageServerPayload,
+  type WorkspaceConfigMessage,
 } from '@idl/vscode/events/messages';
 
 import { SendProblems } from '../../helpers/send-problems';

@@ -5,7 +5,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import {
   COMPILE_FILE_ERROR,
   IDL_EVENT_LOOKUP,
-  IDLSyntaxErrorLookup,
+  type IDLSyntaxErrorLookup,
 } from '@idl/types/idl/idl-process';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
@@ -16,8 +16,8 @@ import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import * as vscode from 'vscode';
 
-import { ICurrentCell } from '../idl-notebook-controller.interface';
-import { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
+import type { ICurrentCell } from '../idl-notebook-controller.interface';
+import type { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
 import { ENVI_REGEX } from './execute-notebook-cell.interface';
 
 /**

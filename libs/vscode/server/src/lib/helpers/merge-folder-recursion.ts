@@ -1,4 +1,4 @@
-import { IFolderRecursion } from '@idl/idl/files';
+import type { IFolderRecursion } from '@idl/idl/files';
 import { copy } from 'fast-copy';
 
 /**

@@ -1,25 +1,25 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import {
-  IDetailedPosition,
-  IPosition,
+  type IDetailedPosition,
+  type IPosition,
   TOKEN_TYPES,
 } from '@idl/tokenizer/common';
-import { PositionArray } from '@idl/types/tokenizer';
+import type { PositionArray } from '@idl/types/tokenizer';
 
 import { GetMatchesArray } from './helpers/get-matches-array';
 import { NOT_EMPTY_LINE_REGEX } from './helpers/is-empty-line';
 import { SplitCode } from './helpers/split-code';
-import { ICurrent } from './iterator.interface';
+import type { ICurrent } from './iterator.interface';
 import {
-  IBasicToken,
+  type IBasicToken,
   PRESERVE_INTERIOR_SPACE,
-  TokenizerToken,
+  type TokenizerToken,
 } from './tokenizer.interface';
 import {
-  CommentToken,
+  type CommentToken,
   TOKEN_NAMES,
-  TokenName,
-  UnknownToken,
+  type TokenName,
+  type UnknownToken,
 } from './tokens.interface';
 import { COMMENT } from './tokens/defs/comment.interface';
 import {

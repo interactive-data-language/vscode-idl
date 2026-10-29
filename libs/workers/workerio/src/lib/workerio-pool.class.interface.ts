@@ -1,10 +1,10 @@
-import { LogManager } from '@idl/logger';
-import { Subject } from 'rxjs';
+import type { LogManager } from '@idl/logger';
+import type { Subject } from 'rxjs';
 
-import { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
-import { IWorkerIO } from './workerio.class.interface';
-import { IPostAndReceiveMessageResult } from './workerio.interface';
-import { IPostMessageOptions } from './workerio-pool.interface';
+import type { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
+import type { IWorkerIO } from './workerio.class.interface';
+import type { IPostAndReceiveMessageResult } from './workerio.interface';
+import type { IPostMessageOptions } from './workerio-pool.interface';
 
 /**
  * Interface for our WorkerIOPool so that we have something we can

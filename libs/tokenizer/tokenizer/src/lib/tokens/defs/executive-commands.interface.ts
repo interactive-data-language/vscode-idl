@@ -1,6 +1,6 @@
 import {
-  ExecutiveCommandToken,
-  ITokenDef,
+  type ExecutiveCommandToken,
+  type ITokenDef,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 

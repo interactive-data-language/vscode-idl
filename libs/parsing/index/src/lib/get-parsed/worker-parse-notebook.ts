@@ -1,14 +1,14 @@
-import { IDLNotebookDocument } from '@idl/notebooks/shared';
+import type { IDLNotebookDocument } from '@idl/notebooks/shared';
 import { CodeChecksum } from '@idl/parser';
 import {
   LSP_WORKER_THREAD_MESSAGE_LOOKUP,
-  ParseNotebookResponse,
+  type ParseNotebookResponse,
 } from '@idl/workers/parsing';
 import { deepEqual } from 'fast-equals';
 import { NotebookCellKind } from 'vscode-languageserver';
 
-import { IDLIndex } from '../idl-index.class';
-import { IParsedNotebookPending } from './worker-parse-notebook.interface';
+import type { IDLIndex } from '../idl-index.class';
+import type { IParsedNotebookPending } from './worker-parse-notebook.interface';
 
 /**
  * Track the pending files

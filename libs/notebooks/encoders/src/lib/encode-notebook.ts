@@ -1,4 +1,7 @@
-import { IDLRawNotebook, IDLRawNotebookVersion } from '@idl/types/notebooks';
+import type {
+  IDLRawNotebook,
+  IDLRawNotebookVersion,
+} from '@idl/types/notebooks';
 
 /**
  * Encodes a raw notebook and data that can be written to disk

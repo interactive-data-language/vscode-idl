@@ -1,14 +1,14 @@
 import { Assembler } from '@idl/assembler';
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDLNotebookDocument } from '@idl/notebooks/shared';
-import { IDLIndex } from '@idl/parsing/index';
-import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type { IDLNotebookDocument } from '@idl/notebooks/shared';
+import type { IDLIndex } from '@idl/parsing/index';
+import { type MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   DEFAULT_NOTEBOOK_TO_PRO_CODE_OPTIONS,
-  INotebookToProCodeOptions,
+  type INotebookToProCodeOptions,
 } from '@idl/types/notebooks';
-import { SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
+import type { SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
 
 /**

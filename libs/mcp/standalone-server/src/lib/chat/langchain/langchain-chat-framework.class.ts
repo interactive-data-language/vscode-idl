@@ -1,5 +1,5 @@
 import type { IAgentServerConfig } from '@idl/types/agents';
-import {
+import type {
   ChatMessage,
   ChatMessageRequest,
   ChatStreamChunk,
@@ -7,8 +7,8 @@ import {
 } from '@idl/types/chat';
 import {
   AIMessage,
-  AIMessageChunk,
-  BaseMessage,
+  type AIMessageChunk,
+  type BaseMessage,
   HumanMessage,
   SystemMessage,
   ToolMessage,
@@ -18,7 +18,7 @@ import { loadMcpTools } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
 import { nanoid } from 'nanoid';
 
-import { Chat } from '../chat.class';
+import type { Chat } from '../chat.class';
 import { MCPClient } from './mcp-client.class';
 import {
   LANGCHAIN_TODO_TOOL_NAMES,

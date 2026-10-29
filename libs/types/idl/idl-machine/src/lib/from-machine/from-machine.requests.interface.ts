@@ -1,29 +1,29 @@
-import {
+import type {
   GetKeyboardParams,
   GetKeyboardRequest,
   GetKeyboardResponse,
 } from './requests/idl-machine.get-keyboard.interface';
-import {
+import type {
   IDLNotifyParams,
   IDLNotifyRequest,
   IDLNotifyResponse,
 } from './requests/idl-machine.idl-notify.interface';
-import {
+import type {
   ReadIOLineParams,
   ReadIOLineRequest,
   ReadIOLineResponse,
 } from './requests/idl-machine.read-io-line.interface';
-import {
+import type {
   ReadProgramLineParams,
   ReadProgramLineRequest,
   ReadProgramLineResponse,
 } from './requests/idl-machine.read-program-line.interface';
-import {
+import type {
   ResetSessionConfirmParams,
   ResetSessionConfirmRequest,
   ResetSessionConfirmResponse,
 } from './requests/idl-machine.reset-session-confirm.interface';
-import {
+import type {
   SetForegroundWindowConfirmParams,
   SetForegroundWindowConfirmRequest,
   SetForegroundWindowConfirmResponse,

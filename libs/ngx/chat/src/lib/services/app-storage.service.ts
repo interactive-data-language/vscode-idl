@@ -1,5 +1,5 @@
 ﻿import { inject, Injectable } from '@angular/core';
-import { ChatStateModel } from '@idl/types/chat';
+import type { ChatStateModel } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
 import { get, set } from 'idb-keyval';
 import { debounceTime } from 'rxjs/operators';

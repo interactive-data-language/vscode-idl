@@ -1,11 +1,11 @@
 import { StripANSI } from '@idl/strip-ansi';
 import {
   IDL_EVENT_LOOKUP,
-  IDLOutput,
+  type IDLOutput,
   REGEX_EMPTY_LINE,
   REGEX_IDL_PROMPT,
 } from '@idl/types/idl/idl-process';
-import { ChildProcess } from 'child_process';
+import type { ChildProcess } from 'child_process';
 import * as os from 'os';
 
 /**
@@ -14,7 +14,7 @@ import * as os from 'os';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const kill = require('tree-kill');
 
-import { IDLProcess } from '../idl-process.class';
+import type { IDLProcess } from '../idl-process.class';
 
 /**
  * Class that manages talking to IDL directly through standard IO

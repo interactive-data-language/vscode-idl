@@ -1,16 +1,16 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import {
   BRANCH_TYPES,
-  SyntaxTree,
-  TreeBasicToken,
-  TreeBranchToken,
+  type SyntaxTree,
+  type TreeBasicToken,
+  type TreeBranchToken,
 } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
 import {
   BASE_TREE_RECURSER_BASIC_OPTIONS,
-  ITreeRecurserBasicOptions,
-  ITreeRecurserBasicRecursionOptions,
+  type ITreeRecurserBasicOptions,
+  type ITreeRecurserBasicRecursionOptions,
 } from './tree-recurser-basic.interface';
 
 /**

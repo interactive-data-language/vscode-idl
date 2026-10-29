@@ -1,23 +1,23 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import {
+import type {
   MainLevelToken,
   RoutineFunctionToken,
   RoutineProcedureToken,
   TokenName,
 } from '@idl/tokenizer';
-import { IBranch, IParsed, TreeToken } from '@idl/types/syntax-tree';
-import { Position } from 'vscode-languageserver-types';
+import type { IBranch, IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { Position } from 'vscode-languageserver-types';
 
 import { PopulateScopeDetail } from '../populate-scope-detail';
 import { TreeRecurser } from '../recursion-and-callbacks/tree-recurser';
 import {
   DEFAULT_GLOBAL_PARENTS,
-  ITreeRecurserRecursionOptions,
+  type ITreeRecurserRecursionOptions,
 } from '../recursion-and-callbacks/tree-recurser.interface';
 import { SetTokenCache } from '../set-token-cache';
 import { GetRoutineName } from './get-routine-name';
 import { IsWithinBranch, IsWithinToken } from './is-within';
-import { ISelectedToken } from './selected-token.interface';
+import type { ISelectedToken } from './selected-token.interface';
 
 /**
  * Based on a syntax tree cursor location, return the token that we

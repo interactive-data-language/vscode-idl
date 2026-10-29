@@ -1,5 +1,5 @@
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
-import { TextDocument } from 'vscode';
+import type { TextDocument } from 'vscode';
 import * as vscode from 'vscode';
 
 import { ReplaceEditorContent } from './replace-editor-content';

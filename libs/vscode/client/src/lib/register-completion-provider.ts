@@ -3,8 +3,11 @@ import {
   COMPLETION_TRIGGER_CHARACTERS,
 } from '@idl/shared/extension';
 import * as vscode from 'vscode';
-import { TextDocumentPositionParams } from 'vscode-languageserver';
-import { CompletionItem, MarkupContent } from 'vscode-languageserver-types';
+import type { TextDocumentPositionParams } from 'vscode-languageserver';
+import type {
+  CompletionItem,
+  MarkupContent,
+} from 'vscode-languageserver-types';
 
 import { LANGUAGE_SERVER_CLIENT } from './start-language-server';
 

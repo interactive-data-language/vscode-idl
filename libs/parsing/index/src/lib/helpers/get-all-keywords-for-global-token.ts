@@ -1,11 +1,11 @@
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalRoutineToken,
-  IParameterLookup,
+  type GlobalRoutineToken,
+  type IParameterLookup,
 } from '@idl/types/idl-data-types';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 
 /**
  * Regex to test procedure method for get/set property

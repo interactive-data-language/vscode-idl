@@ -1,24 +1,24 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
-  CallFunctionMethodToken,
-  CallProcedureMethodToken,
+  type CallFunctionMethodToken,
+  type CallProcedureMethodToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalFunctionMethodToken,
-  GlobalProcedureMethodToken,
+  type GlobalFunctionMethodToken,
+  type GlobalProcedureMethodToken,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IDLDataTypeBase,
-  IDLTypes,
-  IGlobalIndexedToken,
+  type IDLDataType,
+  type IDLDataTypeBase,
+  type IDLTypes,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';
-import { ITokenCache } from './token-cache.interface';
+import type { ITokenCache } from './token-cache.interface';
 
 /**
  * Returns type information for the specified property

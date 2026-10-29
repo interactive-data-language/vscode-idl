@@ -1,4 +1,4 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { ActivateDefaultSyntaxPostProcessors } from '@idl/parsing/syntax-post-processors';
 import {
   BuildSyntaxTree,
@@ -8,13 +8,13 @@ import {
 import { ActivateDefaultSyntaxRules } from '@idl/parsing/syntax-validators';
 import {
   FAST_FIND_TOKEN_OPTIONS,
-  IFindTokensOptions,
+  type IFindTokensOptions,
   Tokenizer,
 } from '@idl/tokenizer';
 import { DEFAULT_DISABLED_PROBLEMS } from '@idl/types/problem-codes';
 import {
   DEFAULT_USES_THESE_GLOBAL_TOKEN,
-  IParsed,
+  type IParsed,
 } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 import { existsSync, readFileSync } from 'fs';
@@ -22,7 +22,10 @@ import { readFile } from 'fs/promises';
 
 import { CodeChecksum } from './helpers/code-checksum';
 import { ParserGetOutline } from './helpers/parser-get-outline';
-import { DEFAULT_PARSER_OPTIONS, IParserOptions } from './parser.interface';
+import {
+  DEFAULT_PARSER_OPTIONS,
+  type IParserOptions,
+} from './parser.interface';
 
 // call a function from our validators so the code gets loaded and bundled
 ActivateDefaultSyntaxRules();

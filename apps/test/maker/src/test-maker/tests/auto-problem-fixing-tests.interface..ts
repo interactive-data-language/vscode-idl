@@ -1,4 +1,4 @@
-import { IAutoAssemblerTest } from '../tests.interface';
+import type { IAutoAssemblerTest } from '../tests.interface';
 
 /**
  * Automated tests with regards to problems that we fix

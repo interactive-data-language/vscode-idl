@@ -1,4 +1,4 @@
-import { MCPToolParams, MCPTools } from './mcp-tools.interface';
+import type { MCPToolParams, MCPTools } from './mcp-tools.interface';
 
 /**
  * Callback triggered when we call an MCP tool

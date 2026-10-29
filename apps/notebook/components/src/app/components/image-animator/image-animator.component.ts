@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
 import { NgxMaterialModule } from '@idl/ngx/material';
-import { IDLNotebookImage_AnimationFromPNGs } from '@idl/types/notebooks';
+import type { IDLNotebookImage_AnimationFromPNGs } from '@idl/types/notebooks';
 
 import { AnimationControlsComponent } from '../animation-controls/animation-controls.component';
 import { BaseRendererComponent } from '../base-renderer.component';

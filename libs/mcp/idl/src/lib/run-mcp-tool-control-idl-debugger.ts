@@ -1,4 +1,4 @@
-import {
+import type {
   IIDLMCPExecutionBackend,
   MCPTool_ControlIDLDebugger,
   MCPToolParams,

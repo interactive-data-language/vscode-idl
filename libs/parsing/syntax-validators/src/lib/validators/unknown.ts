@@ -3,8 +3,8 @@ import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import {
   IDL_PROBLEM_CODES,
-  IDLProblemCode,
-  ISyntaxProblem,
+  type IDLProblemCode,
+  type ISyntaxProblem,
 } from '@idl/types/problem-codes';
 
 const KNOWN_UNKNOWNS: { [key: string]: IDLProblemCode } = {

@@ -1,6 +1,6 @@
 import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 
-import { IPackageJSON, IPackageNLS } from '../package.interface';
+import type { IPackageJSON, IPackageNLS } from '../package.interface';
 import { AddCodeConfig } from './config/code-config';
 import { AddCopilotConfig } from './config/copilot-config';
 import { AddDocumentationConfig } from './config/documentation-config';

@@ -1,10 +1,13 @@
-import { BranchCallback, GetBeforeInBranch } from '@idl/parsing/syntax-tree';
-import { AssignmentToken, TOKEN_NAMES } from '@idl/tokenizer';
+import {
+  type BranchCallback,
+  GetBeforeInBranch,
+} from '@idl/parsing/syntax-tree';
+import { type AssignmentToken, TOKEN_NAMES } from '@idl/tokenizer';
 
-import { ITokenCache } from '../../../helpers/token-cache.interface';
+import type { ITokenCache } from '../../../helpers/token-cache.interface';
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
 import { VALIDATE_TYPE_HANDLER } from '../validate-type-handler';
-import { ValidateTypeHandlerMeta } from '../validate-type-handler.interface';
+import type { ValidateTypeHandlerMeta } from '../validate-type-handler.interface';
 
 /**
  * Tokens that we are validating

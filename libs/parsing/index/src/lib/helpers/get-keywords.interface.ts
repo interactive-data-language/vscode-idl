@@ -1,15 +1,15 @@
 import {
-  CallFunctionMethodToken,
-  CallFunctionToken,
-  CallProcedureMethodToken,
-  CallProcedureToken,
+  type CallFunctionMethodToken,
+  type CallFunctionToken,
+  type CallProcedureMethodToken,
+  type CallProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import {
+import type {
   GlobalIndexedRoutineToken,
   IParameterLookup,
 } from '@idl/types/idl-data-types';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Tokens that represent calling a routine

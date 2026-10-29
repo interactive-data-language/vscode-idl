@@ -1,4 +1,4 @@
-import { MigrationType } from '@idl/assembling/migrators-types';
+import type { MigrationType } from '@idl/assembling/migrators-types';
 
 /** Message to migrate ENVI DL API to 3.0 */
 export type MigrateCodeLSPMessage = 'migrate-code';

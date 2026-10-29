@@ -1,18 +1,18 @@
-import {
+import type {
   BasicTokenNames,
   NonBasicTokenNames,
   TokenName,
   TokenStartMatches,
 } from '@idl/tokenizer';
-import { IDLProblemCode } from '@idl/types/problem-codes';
-import {
+import type { IDLProblemCode } from '@idl/types/problem-codes';
+import type {
   IHoverOverride,
   SyntaxTreeBasic,
   SyntaxTreeBranch,
   SyntaxTreeUnknown,
   TreeToken,
 } from '@idl/types/syntax-tree';
-import { PositionArray } from '@idl/types/tokenizer';
+import type { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Metadata for any node in our syntax tree

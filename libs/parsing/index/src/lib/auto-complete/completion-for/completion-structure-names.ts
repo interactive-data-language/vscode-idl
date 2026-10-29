@@ -1,10 +1,10 @@
 import { AdjustCase, TransformCase } from '@idl/assembling/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { StructureNameCompletion } from '@idl/types/auto-complete';
+import type { StructureNameCompletion } from '@idl/types/auto-complete';
 import { CUSTOM_TYPE_DISPLAY_NAMES } from '@idl/types/idl-data-types';
 import { CompletionItemKind } from 'vscode-languageserver-types';
 
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**

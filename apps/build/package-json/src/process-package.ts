@@ -22,7 +22,7 @@ import { ProcessThemes } from './contributes/contributes-themes';
 import { ProcessTreeView } from './contributes/contributes-tree-view';
 import { ProcessWalkthroughs } from './contributes/contributes-walkthroughs';
 import { ProcessWebView } from './contributes/contributes-web-view';
-import { IPackageJSON, IPackageNLS } from './package.interface';
+import type { IPackageJSON, IPackageNLS } from './package.interface';
 
 /**
  * Process our package.json file to:

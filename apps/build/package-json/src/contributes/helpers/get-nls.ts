@@ -1,4 +1,4 @@
-import { IPackageNLS } from '../../package.interface';
+import type { IPackageNLS } from '../../package.interface';
 import { VerifyNLS } from './verify-nls';
 
 /**

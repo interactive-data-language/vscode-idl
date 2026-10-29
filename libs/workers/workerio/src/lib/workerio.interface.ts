@@ -1,6 +1,6 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 
-import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
+import type { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
 
 export interface IMessagePromise {
   reject: (data: any) => void;

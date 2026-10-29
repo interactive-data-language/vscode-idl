@@ -2,10 +2,10 @@ import { CreateCodeActions } from '@idl/assembling/code-actions';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDLDiagnostic } from '@idl/types/diagnostic';
+import type { IDLDiagnostic } from '@idl/types/diagnostic';
 import { LINE_SEPARATOR } from '@idl/types/tokenizer';
-import { CodeActionParams } from 'vscode-languageserver';
-import { CodeAction } from 'vscode-languageserver-types';
+import type { CodeActionParams } from 'vscode-languageserver';
+import type { CodeAction } from 'vscode-languageserver-types';
 
 import { GetFormattingConfigForFile } from '../../helpers/get-formatting-config-for-file';
 import { IsIDLDiagnostic } from '../../helpers/is-idl-diagnostinc';

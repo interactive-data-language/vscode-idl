@@ -1,4 +1,4 @@
-import { CompletionItem, Position } from 'vscode-languageserver-types';
+import type { CompletionItem, Position } from 'vscode-languageserver-types';
 
 /** Auto-complete in the debug console */
 export type DebugConsoleCompletionMessage = 'debug-console-completion';

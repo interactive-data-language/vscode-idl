@@ -1,4 +1,4 @@
-import { IParsed, LocalToken } from '@idl/types/syntax-tree';
+import type { IParsed, LocalToken } from '@idl/types/syntax-tree';
 
 /** Resets array of tokens */
 function _ResetVariables(vars: LocalToken[]) {

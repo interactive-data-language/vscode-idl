@@ -1,11 +1,11 @@
 import {
-  MainLevelToken,
-  RoutineFunctionToken,
-  RoutineProcedureToken,
+  type MainLevelToken,
+  type RoutineFunctionToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
-  TokenName,
+  type TokenName,
 } from '@idl/tokenizer';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
 import { GetRoutineName } from './get-routine-name';
 

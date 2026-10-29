@@ -1,5 +1,5 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { IDLDataType } from '@idl/types/idl-data-types';
+import type { IDLDataType } from '@idl/types/idl-data-types';
 
 /**
  * Gets a vitepress badge for function return

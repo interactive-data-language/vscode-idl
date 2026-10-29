@@ -1,4 +1,4 @@
-import { IAutoLocalGlobalScopeCompileTest } from '../tests.interface';
+import type { IAutoLocalGlobalScopeCompileTest } from '../tests.interface';
 
 /**
  * Tests verifying our local, global, and compile options are set.

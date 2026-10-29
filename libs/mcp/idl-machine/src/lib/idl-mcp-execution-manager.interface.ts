@@ -1,4 +1,4 @@
-import { IDLEvaluateOptions } from '@idl/types/idl/idl-process';
+import type { IDLEvaluateOptions } from '@idl/types/idl/idl-process';
 
 /**
  * Options for creating an IDLMCPExecutionManager

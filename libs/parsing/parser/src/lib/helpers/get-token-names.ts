@@ -1,9 +1,9 @@
-import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
+import { type NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
-  IBranch,
-  IParsed,
-  SyntaxTree,
+  type IBranch,
+  type IParsed,
+  type SyntaxTree,
 } from '@idl/types/syntax-tree';
 
 /**

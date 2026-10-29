@@ -1,16 +1,16 @@
 import { GetCancellationTokenSharedArraybuffer } from '@idl/cancellation-tokens';
-import { LogManager } from '@idl/logger';
+import type { LogManager } from '@idl/logger';
 import { nanoid } from 'nanoid';
-import { Worker } from 'worker_threads';
+import type { Worker } from 'worker_threads';
 
-import { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
+import type { PayloadToWorkerBaseMessage } from './messages/workerio.payloads.interface';
 import { WorkerIO } from './workerio.class';
-import {
+import type {
   IMessageToWorker,
   IPostAndReceiveMessageResult,
 } from './workerio.interface';
-import { IWorkerIOPool } from './workerio-pool.class.interface';
-import { IPostMessageOptions } from './workerio-pool.interface';
+import type { IWorkerIOPool } from './workerio-pool.class.interface';
+import type { IPostMessageOptions } from './workerio-pool.interface';
 
 /**
  * Class that manages pools of the same worker thread that have the same

@@ -1,4 +1,4 @@
-import { UsageMetric, UsageMetricPayload } from '@idl/usage-metrics';
+import type { UsageMetric, UsageMetricPayload } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 
 import { SERVER_MESSENGER } from '../initialize-language-server';

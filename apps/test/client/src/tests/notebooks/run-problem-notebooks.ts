@@ -1,6 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 import { RunNotebookAndCompareCells } from './helpers/run-notebook-and-compare-cells';
 
 /**

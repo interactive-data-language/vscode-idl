@@ -1,5 +1,5 @@
-import { IDLDiagnostic } from '@idl/types/diagnostic';
-import * as vscode from 'vscode';
+import type { IDLDiagnostic } from '@idl/types/diagnostic';
+import type * as vscode from 'vscode';
 
 /**
  * Actually gets the diagnostics from VSCode UI that came from language server

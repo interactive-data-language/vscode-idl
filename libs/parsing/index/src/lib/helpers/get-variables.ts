@@ -1,8 +1,12 @@
 import { GetRoutineName } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
-import { ILocalTokenLookup, IParsed, TreeToken } from '@idl/types/syntax-tree';
+import { TOKEN_NAMES, type TokenName } from '@idl/tokenizer';
+import type {
+  ILocalTokenLookup,
+  IParsed,
+  TreeToken,
+} from '@idl/types/syntax-tree';
 
-import { ITokenCache } from './token-cache.interface';
+import type { ITokenCache } from './token-cache.interface';
 
 const IS_PARENT: { [key: string]: any } = {};
 IS_PARENT[TOKEN_NAMES.ROUTINE_FUNCTION] = true;

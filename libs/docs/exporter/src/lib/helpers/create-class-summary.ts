@@ -1,11 +1,11 @@
-import { ExportedGlobalTokensByType } from '@idl/parsing/index';
+import type { ExportedGlobalTokensByType } from '@idl/parsing/index';
 import {
   CreateRoutineSyntax,
   CreateTaskSyntax,
   IDL_DOCS_HEADERS,
 } from '@idl/parsing/syntax-tree';
 import { GLOBAL_TOKEN_TYPES, TASK_REGEX } from '@idl/types/idl-data-types';
-import { DefaultTheme } from 'vitepress';
+import type { DefaultTheme } from 'vitepress';
 
 import { CleanDocs } from './clean-docs';
 import { DocsForProperty } from './docs-for-property';

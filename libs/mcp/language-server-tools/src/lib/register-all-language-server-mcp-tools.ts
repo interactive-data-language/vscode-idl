@@ -1,5 +1,5 @@
-import { MCPServer } from '@idl/mcp/server';
-import { IDLIndex } from '@idl/parsing/index';
+import type { MCPServer } from '@idl/mcp/server';
+import type { IDLIndex } from '@idl/parsing/index';
 
 import { RegisterMCPTool_GetRoutineDocs } from './globals/register-mcp-tool-get-routine-docs';
 import { RegisterMCPTool_ResourcesSearchForRoutine } from './globals/register-mcp-tool-search-for-routine';

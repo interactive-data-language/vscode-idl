@@ -1,4 +1,4 @@
-import { ENVIModelerNode } from '@idl/types/envi/modeler';
+import type { ENVIModelerNode } from '@idl/types/envi/modeler';
 
 // ---------------------------------------------------------------------------
 // Layout constants

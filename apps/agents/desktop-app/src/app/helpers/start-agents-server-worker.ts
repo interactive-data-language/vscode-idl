@@ -1,6 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
-import { IStartAgentsServerResult } from '@idl/mcp/standalone-server';
-import { IAgentServerConfig } from '@idl/types/agents';
+import type { IStartAgentsServerResult } from '@idl/mcp/standalone-server';
+import type { IAgentServerConfig } from '@idl/types/agents';
 import { join } from 'path';
 import { Worker } from 'worker_threads';
 

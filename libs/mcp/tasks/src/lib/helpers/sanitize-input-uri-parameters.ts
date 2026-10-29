@@ -1,8 +1,8 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IPropertyLookup,
+  type IDLDataType,
+  type IPropertyLookup,
 } from '@idl/types/idl-data-types';
 import { basename } from 'path';
 

@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 
-import { ITypedMigrationStep } from '../migrate-agent-server-config.interface';
+import type { ITypedMigrationStep } from '../migrate-agent-server-config.interface';
 import { AgentServerConfigSchema_1_0_0 } from './agent-server-config.1.0.0.schema';
 
 /**

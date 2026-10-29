@@ -1,7 +1,7 @@
 import { EXTENSION_FULL_NAME } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 
-import { IPackageJSON, IPackageNLS } from '../package.interface';
+import type { IPackageJSON, IPackageNLS } from '../package.interface';
 
 /**
  * Updates the package.json file to list our MCP server that we provide

@@ -1,6 +1,6 @@
-import { LogicalExpressionDefaultToken } from '@idl/tokenizer';
+import type { LogicalExpressionDefaultToken } from '@idl/tokenizer';
 
-import { TokenFormatter } from '../../formatter-rule-set.interface';
+import type { TokenFormatter } from '../../formatter-rule-set.interface';
 
 /**
  * Consistent formatting for default logical expressions

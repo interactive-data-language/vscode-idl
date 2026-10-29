@@ -1,5 +1,5 @@
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IIDLMCPExecutionBackend,
   MCPTool_ListENVIToolWorkflows,
   MCPToolParams,

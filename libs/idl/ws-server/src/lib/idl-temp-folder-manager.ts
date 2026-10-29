@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, rmSync } from 'fs';
 import { nanoid } from 'nanoid';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { Socket } from 'socket.io';
+import type { Socket } from 'socket.io';
 
 export class IDLTempFolderManager {
   /** Track temp folders by the ID of teh socket connection */

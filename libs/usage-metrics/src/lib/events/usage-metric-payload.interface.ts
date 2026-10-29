@@ -1,5 +1,5 @@
-import { IGA4EventParameters } from '../ga4/ga4-client.interface';
-import {
+import type { IGA4EventParameters } from '../ga4/ga4-client.interface';
+import type {
   CodeFormattingUsageMetric,
   DisabledProblemCodesUsageMetric,
   IDLStartupUsageMetric,

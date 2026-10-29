@@ -4,7 +4,7 @@ import expect from 'expect';
 import { mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { RunnerFunction } from '../../../../runner.interface';
+import type { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../../helpers/get-text-content';
 import { REGRESSION_TEST_THESE } from './regression-test-these.interface';

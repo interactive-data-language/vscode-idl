@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, NgModule } from '@angular/core';
 import {
   provideTransloco,
-  Translation,
-  TranslocoLoader,
+  type Translation,
+  type TranslocoLoader,
   TranslocoModule,
 } from '@jsverse/transloco';
 

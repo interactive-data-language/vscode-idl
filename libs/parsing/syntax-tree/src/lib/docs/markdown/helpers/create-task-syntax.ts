@@ -1,5 +1,5 @@
 import { GetTaskDisplayName } from '@idl/parsing/type-parser';
-import {
+import type {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';

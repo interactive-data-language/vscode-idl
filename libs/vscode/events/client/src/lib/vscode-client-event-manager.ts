@@ -1,10 +1,10 @@
 import {
-  LanguageServerMessage,
-  LanguageServerPayload,
-  LanguageServerResponse,
+  type LanguageServerMessage,
+  type LanguageServerPayload,
+  type LanguageServerResponse,
   MessageNameNormalizer,
 } from '@idl/vscode/events/messages';
-import { LanguageClient } from 'vscode-languageclient/node';
+import type { LanguageClient } from 'vscode-languageclient/node';
 
 /**
  * Class for sending/receiving messages between the VSCode client and language server

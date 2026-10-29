@@ -1,14 +1,14 @@
 import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
-import { BasicCallback } from '@idl/parsing/syntax-tree';
-import { IncludeToken, TOKEN_NAMES } from '@idl/tokenizer';
+import type { BasicCallback } from '@idl/parsing/syntax-tree';
+import { type IncludeToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
 import { GetVariables } from '../../../helpers/get-variables';
 import { IncludeCache } from '../helpers/include-cache';
 import { POPULATE_TYPE_HANDLER } from '../populate-type-handler';
-import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
+import type { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
 
 /**
  * Skip first comma for these

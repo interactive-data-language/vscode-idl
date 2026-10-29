@@ -1,6 +1,6 @@
 import { Assembler } from '@idl/assembler';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDLIndex } from '@idl/parsing/index';
+import type { IDLIndex } from '@idl/parsing/index';
 
 import { CURRENT_CONFIG } from '../docs-exporter';
 

@@ -1,4 +1,8 @@
-import { ITokenDef, PromptToken, TOKEN_NAMES } from '../../tokens.interface';
+import {
+  type ITokenDef,
+  type PromptToken,
+  TOKEN_NAMES,
+} from '../../tokens.interface';
 
 export type PromptTokenDef = ITokenDef<PromptToken>;
 

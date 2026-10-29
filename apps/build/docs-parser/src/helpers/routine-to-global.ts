@@ -1,4 +1,7 @@
-import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
+import type {
+  GlobalDisplayNameLookup,
+  IGlobalFromIDL,
+} from '@idl/parsing/routines';
 import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { ResolveProductDocsURL, SortObject } from '@idl/shared/extension';
@@ -6,22 +9,22 @@ import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
-  GlobalFunctionMethodToken,
-  GlobalFunctionToken,
-  GlobalProcedureMethodToken,
-  GlobalProcedureToken,
-  GlobalRoutineTokenType,
-  GlobalStructureToken,
-  GlobalSystemVariableToken,
-  GlobalTokens,
-  IGlobalIndexedToken,
-  IParameterOrPropertyDetails,
-  ParameterDirection,
+  type GlobalFunctionMethodToken,
+  type GlobalFunctionToken,
+  type GlobalProcedureMethodToken,
+  type GlobalProcedureToken,
+  type GlobalRoutineTokenType,
+  type GlobalStructureToken,
+  type GlobalSystemVariableToken,
+  type GlobalTokens,
+  type IGlobalIndexedToken,
+  type IParameterOrPropertyDetails,
+  type ParameterDirection,
 } from '@idl/types/idl-data-types';
 import merge from 'deepmerge';
 import { join } from 'path';
 
-import { IDocsByRoutine } from '../main.interface';
+import type { IDocsByRoutine } from '../main.interface';
 import { PROCEDURE_CLEANERS } from '../overrides/cleaners/procedures.interface';
 import { FUNCTION_METHOD_OVERRIDE } from '../overrides/detail/function-methods.interface';
 import { FUNCTION_OVERRIDE } from '../overrides/detail/functions.interface';
@@ -49,12 +52,12 @@ import {
   PROCEDURE_METHOD_TYPE_OVERRIDES,
   PROCEDURE_TYPE_OVERRIDES,
 } from '../overrides/types/type-overrides.interface';
-import { IParameterOverride } from '../overrides/types/types.interface';
+import type { IParameterOverride } from '../overrides/types/types.interface';
 import { InheritanceGuess } from '../type-guess/inheritance-guess';
 import { TypeGuess } from '../type-guess/type-guess';
 import { MethodDisplayName, StructureDisplayName } from './display-names';
 import { DocsParser } from './docs-parser';
-import { IParameterDocs } from './process-parameters.interface';
+import type { IParameterDocs } from './process-parameters.interface';
 import { SKIP_GLOBAL } from './skip-routines.interface';
 
 /**

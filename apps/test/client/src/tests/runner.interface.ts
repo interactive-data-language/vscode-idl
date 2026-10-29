@@ -1,4 +1,4 @@
-import { IInitializeType } from '@idl/vscode/initialize-types';
+import type { IInitializeType } from '@idl/vscode/initialize-types';
 
 /**
  * Function that runs tests, typed so that all test functions

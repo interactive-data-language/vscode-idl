@@ -1,8 +1,8 @@
 import { IDL_NOTEBOOK_CELL_SELECTOR } from '@idl/shared/extension';
 import { LANGUAGE_SERVER_CLIENT } from '@idl/vscode/client';
 import * as vscode from 'vscode';
-import { DocumentSymbolParams } from 'vscode-languageserver';
-import { DocumentSymbol } from 'vscode-languageserver-types';
+import type { DocumentSymbolParams } from 'vscode-languageserver';
+import type { DocumentSymbol } from 'vscode-languageserver-types';
 
 import { GetNotebookCellIndex } from '../helpers/get-notebook-cell-index';
 

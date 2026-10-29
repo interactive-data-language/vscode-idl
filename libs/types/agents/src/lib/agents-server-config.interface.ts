@@ -1,12 +1,12 @@
 import {
   DEFAULT_AGENT_SERVER_CONFIG_1_0_0,
-  IAgentServerConfig_1_0_0,
+  type IAgentServerConfig_1_0_0,
 } from './versions/1.0.0/agent-server-config.1.0.0.schema';
-import {
+import type {
   AgentServerConfigLatestVersion,
   AnyAgentServerConfigVersion,
 } from './versions/agent-server-config-version.type';
-import { IAgentServerConfig_Legacy } from './versions/legacy/agent-server-config.legacy.schema';
+import type { IAgentServerConfig_Legacy } from './versions/legacy/agent-server-config.legacy.schema';
 
 export * from './versions/agent-server-config-version.type';
 

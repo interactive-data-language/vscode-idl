@@ -18,7 +18,7 @@ import { join } from 'path';
 
 import { GetCopilotExecutable } from '../../helpers/get-copilot-executable';
 import { GetToolDisplayName } from '../../helpers/get-tool-display-name';
-import { Chat } from '../chat.class';
+import type { Chat } from '../chat.class';
 import {
   COPILOT_ALLOWED_TOOLS,
   COPILOT_SESSION_CACHE_CONFIG,

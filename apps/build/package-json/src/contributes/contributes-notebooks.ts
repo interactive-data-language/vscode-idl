@@ -7,7 +7,7 @@ import {
 } from '@idl/shared/extension';
 import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/types/notebooks';
 
-import { IPackageJSON, IPackageNLS } from '../package.interface';
+import type { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';
 
 /**

@@ -1,6 +1,6 @@
-import { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
-import { SyntaxProblems } from '@idl/types/problem-codes';
-import { IBasicBranch, IBranch, SyntaxTree } from '@idl/types/syntax-tree';
+import type { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
+import type { SyntaxProblems } from '@idl/types/problem-codes';
+import type { IBasicBranch, IBranch, SyntaxTree } from '@idl/types/syntax-tree';
 
 /**
  * @param {IBasicToken} token The token we are validating

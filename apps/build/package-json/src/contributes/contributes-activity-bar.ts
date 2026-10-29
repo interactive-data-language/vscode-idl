@@ -2,7 +2,7 @@ import { ACTIVITY_BAR_ID } from '@idl/shared/extension';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
-import { IPackageJSON, IPackageNLS } from '../package.interface';
+import type { IPackageJSON, IPackageNLS } from '../package.interface';
 
 export const ACTIVITY_BAR_ICONS = [
   {

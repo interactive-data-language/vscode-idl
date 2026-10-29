@@ -3,12 +3,12 @@ import { Sleep } from '@idl/shared/extension';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
-import {
+import type {
   SemanticTokensParams,
   TextDocumentPositionParams,
 } from 'vscode-languageserver';
 
-import { RunnerFunction } from '../../runner.interface';
+import type { RunnerFunction } from '../../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../../test-client-config.interface';
 
 /**

@@ -1,14 +1,14 @@
 // ...
 
-import { LayerContext, LayerProps } from '@deck.gl/core';
-import { BitmapLayer, BitmapLayerProps } from '@deck.gl/layers';
+import type { LayerContext, LayerProps } from '@deck.gl/core';
+import { BitmapLayer, type BitmapLayerProps } from '@deck.gl/layers';
 import { copy } from 'fast-copy';
 
 import {
   colorTransformUniforms,
   DEFAULT_IMAGE_DISPLAY,
   IMAGE_SHADER_INJECT,
-  ImageDisplayOptions,
+  type ImageDisplayOptions,
 } from './shaders/image-shader.interface';
 
 /**

@@ -1,9 +1,9 @@
-import {
+import type {
   RawNotebookCell_1_0_0,
   RawNotebookCellOutput_1_0_0,
   RawNotebookCellOutputItem_1_0_0,
 } from './raw-notebook-1.0.0.interface';
-import {
+import type {
   RawNotebookCell_2_0_0,
   RawNotebookCellOutput_2_0_0,
   RawNotebookCellOutputItem_2_0_0,

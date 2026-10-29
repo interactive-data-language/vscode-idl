@@ -1,7 +1,7 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_RAW_NOTEBOOK_VERSION_LOOKUP } from '@idl/types/notebooks';
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 
 import { FromIDLRawNotebook } from './from/from-idl-raw-notebook';
 import { ToIDLRawNotebook } from './to/to-idl-raw-notebook';

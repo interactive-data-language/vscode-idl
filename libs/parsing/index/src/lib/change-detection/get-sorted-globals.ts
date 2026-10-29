@@ -1,4 +1,4 @@
-import { GlobalTokens } from '@idl/types/idl-data-types';
+import type { GlobalTokens } from '@idl/types/idl-data-types';
 
 /**
  * Returns sorted globals based on a combination of the type and

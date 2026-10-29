@@ -2,9 +2,9 @@ import { MakeSpaces } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
-  IParsed,
-  SyntaxTree,
-  TreeBranchToken,
+  type IParsed,
+  type SyntaxTree,
+  type TreeBranchToken,
 } from '@idl/types/syntax-tree';
 
 /**

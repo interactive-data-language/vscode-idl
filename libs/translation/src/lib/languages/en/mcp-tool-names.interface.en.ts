@@ -1,6 +1,6 @@
-import { MCPTools } from '@idl/types/mcp';
+import type { MCPTools } from '@idl/types/mcp';
 
-import { ValsOfToStrings } from '../../translation.interface';
+import type { ValsOfToStrings } from '../../translation.interface';
 
 /**
  * Constant with MCP tool names

@@ -1,6 +1,6 @@
-import { StringTemplateString } from '@idl/tokenizer';
+import type { StringTemplateString } from '@idl/tokenizer';
 
-import { TokenFormatter } from '../../formatter-rule-set.interface';
+import type { TokenFormatter } from '../../formatter-rule-set.interface';
 
 /**
  * Dont apply trimming and return whole string

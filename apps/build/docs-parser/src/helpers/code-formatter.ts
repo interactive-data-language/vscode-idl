@@ -9,7 +9,7 @@ import { IDLIndex } from '@idl/parsing/index';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 import { ElementsToText } from './elements-to-text';
-import { IParsedHTML } from './parser.interface';
+import type { IParsedHTML } from './parser.interface';
 
 /**
  * Convert special HTML characters to

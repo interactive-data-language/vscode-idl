@@ -1,9 +1,12 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
-import { IDisabledProblems } from '@idl/types/problem-codes';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IDisabledProblems } from '@idl/types/problem-codes';
+import type { IParsed } from '@idl/types/syntax-tree';
 import { performance } from 'perf_hooks';
-import { DocumentSymbol, SemanticTokens } from 'vscode-languageserver-types';
+import type {
+  DocumentSymbol,
+  SemanticTokens,
+} from 'vscode-languageserver-types';
 
 import { IDL_INDEX_OPTIONS } from './idl-index.interface';
 import {

@@ -1,10 +1,10 @@
-import {
+import type {
   IHandlerCallbackMetadata,
   TreeCallbackHandler,
 } from '@idl/parsing/syntax-tree';
-import { ILocalTokenLookup } from '@idl/types/syntax-tree';
+import type { ILocalTokenLookup } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../idl-index.class';
+import type { IDLIndex } from '../../idl-index.class';
 
 /**
  *Data structure we use for our type population callback handler

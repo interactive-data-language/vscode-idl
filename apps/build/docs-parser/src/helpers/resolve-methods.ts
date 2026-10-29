@@ -1,13 +1,16 @@
-import { GlobalDisplayNameLookup, IGlobalFromIDL } from '@idl/parsing/routines';
+import type {
+  GlobalDisplayNameLookup,
+  IGlobalFromIDL,
+} from '@idl/parsing/routines';
 import { MatchGlobal } from '@idl/shared/extension';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
 import { IDL_DIR } from '../idl-dir.interface';
-import { IDocsByRoutine } from '../main.interface';
+import type { IDocsByRoutine } from '../main.interface';
 import { ClassDisplayName, MethodDisplayName } from './display-names';
 import { ParseDocsHTML } from './docs-parser';
 import { HTMLToMarkdown } from './html-to-markdown';
-import { IParsedHTML } from './parser.interface';
+import type { IParsedHTML } from './parser.interface';
 import { LINK_REGEX } from './replace-links';
 import { UnescapeMarkdown } from './unescape-markdown';
 

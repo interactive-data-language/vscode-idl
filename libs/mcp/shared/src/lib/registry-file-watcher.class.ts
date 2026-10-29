@@ -1,8 +1,8 @@
-import { existsSync, FSWatcher, watch } from 'fs';
+import { existsSync, type FSWatcher, watch } from 'fs';
 import { join } from 'path';
 
-import { IRegistryFileWatcherOptions } from './registry-file-watcher.interface';
-import {
+import type { IRegistryFileWatcherOptions } from './registry-file-watcher.interface';
+import type {
   RegistryLocation,
   RegistryLocation_File,
 } from './registry-location.interface';

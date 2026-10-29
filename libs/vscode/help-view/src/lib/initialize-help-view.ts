@@ -1,4 +1,4 @@
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 
 import { IDLHelpView } from './idl-help-view.class';
 

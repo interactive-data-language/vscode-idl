@@ -1,4 +1,4 @@
-import { ITaskGenerationTests } from '../tests.interface';
+import type { ITaskGenerationTests } from '../tests.interface';
 
 /**
  * Automated tests for hover-help extraction

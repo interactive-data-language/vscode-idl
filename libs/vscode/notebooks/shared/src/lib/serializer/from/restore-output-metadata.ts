@@ -1,9 +1,9 @@
 import {
-  IDLNotebookOutputMetadata,
+  type IDLNotebookOutputMetadata,
   NOTEBOOK_OUTPUT_METADATA_DONT_SAVE_THESE,
 } from '@idl/types/notebooks';
 import { nanoid } from 'nanoid';
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 
 /**
  * Restores output metadata so everything is present that we

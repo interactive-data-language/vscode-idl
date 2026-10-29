@@ -1,6 +1,6 @@
 import expect from 'expect';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 import { CreateMCPClient } from './helpers/create-mcp-client';
 
 /**

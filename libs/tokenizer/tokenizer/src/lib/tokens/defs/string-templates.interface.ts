@@ -1,9 +1,9 @@
 import {
-  ITokenDef,
-  StringTemplateEscape,
-  StringTemplateExpression,
-  StringTemplateLiteral,
-  StringTemplateString,
+  type ITokenDef,
+  type StringTemplateEscape,
+  type StringTemplateExpression,
+  type StringTemplateLiteral,
+  type StringTemplateString,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 

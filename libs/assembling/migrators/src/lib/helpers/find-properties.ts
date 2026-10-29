@@ -1,9 +1,9 @@
-import { AccessPropertyToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type AccessPropertyToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
-  SyntaxTree,
-  TreeBranchToken,
-  TreeToken,
+  type SyntaxTree,
+  type TreeBranchToken,
+  type TreeToken,
 } from '@idl/types/syntax-tree';
 
 /**

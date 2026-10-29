@@ -1,4 +1,4 @@
-import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
+import type { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 /**
  * Message when we return notes for IDL and ENVI Tasks

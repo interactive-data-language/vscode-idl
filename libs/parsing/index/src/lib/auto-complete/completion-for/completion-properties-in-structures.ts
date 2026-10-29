@@ -1,24 +1,24 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { TransformCase } from '@idl/assembling/shared';
 import {
   FindDirectBranchChildren,
   GetPropertyName,
 } from '@idl/parsing/syntax-tree';
-import { StructureNameToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type StructureNameToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IPropertyInStructureCompletionOptions,
   PropertyInStructureCompletion,
 } from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 import {
-  CompletionItem,
+  type CompletionItem,
   CompletionItemKind,
 } from 'vscode-languageserver-types';
 
-import { IDLIndex } from '../../idl-index.class';
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { IDLIndex } from '../../idl-index.class';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**

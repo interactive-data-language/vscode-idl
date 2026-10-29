@@ -1,4 +1,4 @@
-import { IPackageJSON, IPackageNLS } from '../package.interface';
+import type { IPackageJSON, IPackageNLS } from '../package.interface';
 
 export const BASE_ACTIVATION_EVENTS: string[] = [
   '*',

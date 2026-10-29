@@ -1,4 +1,4 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import {
   DocsToMarkdown,
   FindAllBranchChildren,
@@ -6,17 +6,17 @@ import {
   MARKDOWN_TYPE_LOOKUP,
 } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { RoutineFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type RoutineFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalFunctionMethodToken,
-  GlobalFunctionToken,
-  IDLDataType,
-  IGlobalIndexedToken,
+  type GlobalFunctionMethodToken,
+  type GlobalFunctionToken,
+  type IDLDataType,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../../idl-index.class';
+import type { IDLIndex } from '../../../idl-index.class';
 import { TypeFromTokens } from '../from/type-from-tokens';
 
 /**

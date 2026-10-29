@@ -3,7 +3,7 @@ import { MatchGlobal } from '@idl/shared/extension';
 import { INHERITANCE_OVERRIDE } from '../overrides/detail/inheritance-override.interface';
 import { SmartMerge } from '../type-guess/inheritance-guess';
 import { HTMLToMarkdown } from './html-to-markdown';
-import { IParsedHTML } from './parser.interface';
+import type { IParsedHTML } from './parser.interface';
 import { LINK_REGEX } from './replace-links';
 import { UnescapeMarkdown } from './unescape-markdown';
 

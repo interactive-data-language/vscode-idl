@@ -1,7 +1,7 @@
 import {
   CUSTOM_TYPE_DISPLAY_NAMES,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
 
 /**

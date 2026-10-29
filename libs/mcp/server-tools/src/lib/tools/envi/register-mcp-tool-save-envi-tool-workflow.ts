@@ -1,5 +1,5 @@
 import { USER_ENVI_WORKFLOWS_FOLDER } from '@idl/idl/files';
-import { MCPServer } from '@idl/mcp/server';
+import type { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';

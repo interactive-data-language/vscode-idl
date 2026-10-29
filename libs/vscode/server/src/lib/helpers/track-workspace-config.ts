@@ -1,9 +1,9 @@
 import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
-  IDLExtensionConfig,
+  type IDLExtensionConfig,
 } from '@idl/vscode/extension-config';
-import { WorkspaceFolder } from 'vscode-languageserver-types';
+import type { WorkspaceFolder } from 'vscode-languageserver-types';
 import { URI } from 'vscode-uri';
 
 import { SERVER_CONNECTION } from '../initialize-language-server';

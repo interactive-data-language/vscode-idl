@@ -1,7 +1,7 @@
 import {
-  AgentServerConfig,
+  type AgentServerConfig,
   DEFAULT_AGENT_SERVER_CONFIG,
-  IAgentServerConfig,
+  type IAgentServerConfig,
   MIGRATE_LEGACY_TO_1_0_0,
   MigrateAgentServerConfig,
 } from '@idl/types/agents';

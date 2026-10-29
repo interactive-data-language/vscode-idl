@@ -1,5 +1,8 @@
-import { IDLRawNotebook, IDLRawNotebookVersion } from '@idl/types/notebooks';
-import * as vscode from 'vscode';
+import type {
+  IDLRawNotebook,
+  IDLRawNotebookVersion,
+} from '@idl/types/notebooks';
+import type * as vscode from 'vscode';
 
 /**
  * Function signature to convert raw notebooks to vscode Notebooks

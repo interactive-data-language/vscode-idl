@@ -1,5 +1,5 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 import { TreeRecurser } from './recursion-and-callbacks/tree-recurser';
 

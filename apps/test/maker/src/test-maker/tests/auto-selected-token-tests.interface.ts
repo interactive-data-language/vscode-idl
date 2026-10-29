@@ -1,4 +1,4 @@
-import { IAutoSelectedTest } from '../tests.interface';
+import type { IAutoSelectedTest } from '../tests.interface';
 
 /**
  * Automated tests to get our selected token at a cursor position

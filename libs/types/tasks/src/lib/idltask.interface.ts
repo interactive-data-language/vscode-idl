@@ -1,4 +1,4 @@
-import {
+import type {
   ENVIParameterSchema30,
   ENVITaskSchema30Properties,
   ENVITaskSchema31Properties,

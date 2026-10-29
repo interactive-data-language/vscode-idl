@@ -1,7 +1,7 @@
 import { ASSEMBLER_PROBLEM_FIXERS } from '@idl/assembling/tree-handlers';
-import { CallProcedureToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type CallProcedureToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { HasProblem } from '../helpers/has-problem';
 

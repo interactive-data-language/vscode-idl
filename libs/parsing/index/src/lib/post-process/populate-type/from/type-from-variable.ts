@@ -1,10 +1,10 @@
-import { VariableToken } from '@idl/tokenizer';
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { VariableToken } from '@idl/tokenizer';
+import { IDL_ANY_TYPE, type IDLDataType } from '@idl/types/idl-data-types';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
 import { GetVariable } from '../../../helpers/get-variable';
-import { IDLIndex } from '../../../idl-index.class';
+import type { IDLIndex } from '../../../idl-index.class';
 import { EvaluateStaticReference } from './helpers/evaluate-static-reference';
 
 /**

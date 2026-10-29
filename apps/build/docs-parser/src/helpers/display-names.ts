@@ -1,4 +1,4 @@
-import { IStructureOverrideDetail } from '../overrides/detail.interface';
+import type { IStructureOverrideDetail } from '../overrides/detail.interface';
 import { STRUCTURE_DISPLAY_NAME_OVERRIDE } from '../overrides/detail/structure-display-names';
 
 /**

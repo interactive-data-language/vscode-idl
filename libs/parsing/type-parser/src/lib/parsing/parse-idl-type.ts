@@ -10,12 +10,12 @@ import {
 } from '@idl/tokenizer';
 import {
   IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IDLDataTypeBase,
-  IDLTypes,
+  type IDLDataType,
+  type IDLDataTypeBase,
+  type IDLTypes,
 } from '@idl/types/idl-data-types';
-import { SyntaxProblems } from '@idl/types/problem-codes';
-import { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
+import type { SyntaxProblems } from '@idl/types/problem-codes';
+import type { SyntaxTree, TreeBranchToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
 import { GetTaskDisplayName } from '../helpers/get-task-display-name';

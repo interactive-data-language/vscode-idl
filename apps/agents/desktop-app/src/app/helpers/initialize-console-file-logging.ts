@@ -6,7 +6,7 @@ import {
   mkdirSync,
   renameSync,
   statSync,
-  WriteStream,
+  type WriteStream,
 } from 'fs';
 import { dirname } from 'path';
 import { format } from 'util';

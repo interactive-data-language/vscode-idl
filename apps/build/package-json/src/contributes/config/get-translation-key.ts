@@ -1,5 +1,5 @@
 import { NLS } from '../../main.interface';
-import { IPackageNLS } from '../../package.interface';
+import type { IPackageNLS } from '../../package.interface';
 import { VerifyNLS } from '../helpers/verify-nls';
 
 /**

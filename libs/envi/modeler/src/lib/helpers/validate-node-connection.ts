@@ -1,6 +1,6 @@
-import { ITaskInformation } from '@idl/mcp/tasks';
+import type { ITaskInformation } from '@idl/mcp/tasks';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { ENVIModelerEdge } from '@idl/types/envi/modeler';
+import type { ENVIModelerEdge } from '@idl/types/envi/modeler';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
 
 import { ValidateTypes } from './validate-types';

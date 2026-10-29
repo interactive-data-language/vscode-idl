@@ -1,12 +1,12 @@
 import { CANCELLATION_MESSAGE } from '@idl/cancellation-tokens';
 import {
-  LanguageServerMessage,
-  LanguageServerPayload,
-  LanguageServerResponse,
+  type LanguageServerMessage,
+  type LanguageServerPayload,
+  type LanguageServerResponse,
   MessageNameNormalizer,
   SerializeServerMessage,
 } from '@idl/vscode/events/messages';
-import { _Connection } from 'vscode-languageserver';
+import type { _Connection } from 'vscode-languageserver';
 
 /**
  * Class for sending/receiving messages between the VSCode language server and client

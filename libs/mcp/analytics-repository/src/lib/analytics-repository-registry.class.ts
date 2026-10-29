@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 
-import {
+import type {
   IAnalyticRepository_ServerPackage,
   IAnalyticsRepository_Package,
   IAnalyticsRepository_SearchFilter,

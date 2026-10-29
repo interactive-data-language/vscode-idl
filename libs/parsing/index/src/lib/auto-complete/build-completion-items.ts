@@ -1,10 +1,13 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-import { AutoCompleteRecipe, AutoCompleteType } from '@idl/types/auto-complete';
-import { IDLExtensionConfig } from '@idl/vscode/extension-config';
-import { CompletionItem, MarkupKind } from 'vscode-languageserver-types';
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type {
+  AutoCompleteRecipe,
+  AutoCompleteType,
+} from '@idl/types/auto-complete';
+import type { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import { type CompletionItem, MarkupKind } from 'vscode-languageserver-types';
 
 import { ResolveHoverHelpLinks } from '../helpers/resolve-hover-help-links';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { ALL_COMPLETION_ITEM_BUILDERS } from './build-completion-items.interface';
 
 /**

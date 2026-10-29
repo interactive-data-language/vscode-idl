@@ -1,6 +1,6 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   GlobalStructureToken,
   IGlobalIndexedToken,
   IParameterLookup,
@@ -8,7 +8,7 @@ import {
 } from '@idl/types/idl-data-types';
 
 import { IDL_DOCS_HEADERS } from '../docs.interface';
-import {
+import type {
   MarkdownInfo,
   RoutineMarkdown,
 } from '../markdown/docs-to-markdown.interface';

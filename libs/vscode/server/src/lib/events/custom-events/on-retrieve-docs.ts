@@ -1,7 +1,7 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { ResolveHoverHelpLinks } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   LanguageServerPayload,
   LanguageServerResponse,
   RetrieveDocsMessage,

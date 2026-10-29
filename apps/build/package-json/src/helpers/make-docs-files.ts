@@ -2,7 +2,7 @@ import { GetExtensionPath } from '@idl/idl/files';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_CODES,
-  IDLProblemCode,
+  type IDLProblemCode,
 } from '@idl/types/problem-codes';
 import { existsSync, writeFileSync } from 'fs';
 import { join } from 'path';

@@ -1,4 +1,4 @@
-import { GetRoutineDocsRoutineType } from './mcp-tool-get-routine-docs.interface';
+import type { GetRoutineDocsRoutineType } from './mcp-tool-get-routine-docs.interface';
 
 /**
  * Find matching routine names

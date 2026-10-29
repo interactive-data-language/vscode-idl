@@ -1,6 +1,6 @@
-import { ProcedureMethodCompletion } from '@idl/types/auto-complete';
+import type { ProcedureMethodCompletion } from '@idl/types/auto-complete';
 
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 
 export interface IProcedureMethodCompletionArg
   extends BuildCompletionItemsArg<ProcedureMethodCompletion> {

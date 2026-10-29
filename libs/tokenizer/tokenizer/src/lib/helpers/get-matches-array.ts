@@ -1,5 +1,5 @@
-import { TokenStartMatches } from '../token-matches.interface';
-import { TokenName } from '../tokens.interface';
+import type { TokenStartMatches } from '../token-matches.interface';
+import type { TokenName } from '../tokens.interface';
 
 /**
  * Helper function that returns the array elements from regex matches.

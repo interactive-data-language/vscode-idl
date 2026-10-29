@@ -1,4 +1,4 @@
-import { IAutoENVIModelerTest } from '../../tests.interface';
+import type { IAutoENVIModelerTest } from '../../tests.interface';
 
 export const AUTO_ENVI_MODELER_TEST_PARAMS_BAD: IAutoENVIModelerTest = {
   suiteName: 'Parameter error tests',

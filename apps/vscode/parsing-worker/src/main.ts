@@ -24,19 +24,19 @@ import {
 import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { GenerateTaskResult } from '@idl/types/generators';
-import { IDisabledProblems } from '@idl/types/problem-codes';
-import { IParsed, IParsedLightWeight } from '@idl/types/syntax-tree';
+import type { GenerateTaskResult } from '@idl/types/generators';
+import type { IDisabledProblems } from '@idl/types/problem-codes';
+import type { IParsed, IParsedLightWeight } from '@idl/types/syntax-tree';
 import {
-  ChangeDetectionResponse,
-  ILSPWorkerThreadClient,
+  type ChangeDetectionResponse,
+  type ILSPWorkerThreadClient,
   LSP_WORKER_THREAD_MESSAGE_LOOKUP,
-  LSPWorkerThreadMessage,
-  ParseFilesFastResponse,
-  ParseFilesResponse,
-  ParseNotebookResponse,
-  PostProcessFilesResponse,
-  RemoveFilesResponse,
+  type LSPWorkerThreadMessage,
+  type ParseFilesFastResponse,
+  type ParseFilesResponse,
+  type ParseNotebookResponse,
+  type PostProcessFilesResponse,
+  type RemoveFilesResponse,
 } from '@idl/workers/parsing';
 import { WorkerIOClient } from '@idl/workers/workerio';
 import { existsSync } from 'fs';

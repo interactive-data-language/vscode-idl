@@ -1,6 +1,6 @@
 import { VERSION } from '@idl/shared/extension';
 
-import { UsageMetric } from './events/usage-metrics.interface';
+import type { UsageMetric } from './events/usage-metrics.interface';
 import { GA4Client } from './ga4/ga4-client.class';
 import { GA4_CONFIG } from './ga4/ga4-client.interface';
 import { MEASUREMENT } from './helpers/measurement.interface';

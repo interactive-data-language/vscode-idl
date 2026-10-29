@@ -1,5 +1,5 @@
-import { TokenName } from '@idl/tokenizer';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TokenName } from '@idl/tokenizer';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Default formatter to apply to a token.

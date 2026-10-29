@@ -1,4 +1,7 @@
-import { IDL_TYPE_LOOKUP, IDLDataTypeBase } from '@idl/types/idl-data-types';
+import {
+  IDL_TYPE_LOOKUP,
+  type IDLDataTypeBase,
+} from '@idl/types/idl-data-types';
 import {
   BYTE_REGEX,
   COMPLEX_REGEX,

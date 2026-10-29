@@ -1,9 +1,9 @@
-import {
+import type {
   RegistryLocation,
   RegistryLocation_File,
   RegistryLocation_Memory,
 } from '@idl/mcp/shared';
-import { ChatInstructionType } from '@idl/types/chat';
+import type { ChatInstructionType } from '@idl/types/chat';
 
 /**
  * Metadata parsed from GitHub Copilot-style YAML frontmatter in instruction files.

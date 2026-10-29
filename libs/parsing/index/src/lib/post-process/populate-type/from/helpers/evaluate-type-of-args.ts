@@ -1,9 +1,12 @@
 import { IDLTypeEvaluator } from '@idl/parsing/type-parser';
-import { CallFunctionMethodToken, CallFunctionToken } from '@idl/tokenizer';
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type {
+  CallFunctionMethodToken,
+  CallFunctionToken,
+} from '@idl/tokenizer';
+import { IDL_ANY_TYPE, type IDLDataType } from '@idl/types/idl-data-types';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../../../idl-index.class';
+import type { IDLIndex } from '../../../../idl-index.class';
 import { GetArgTypes } from '../../../tree-handlers/helpers/get-arg-types';
 
 /**

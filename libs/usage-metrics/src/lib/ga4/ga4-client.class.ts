@@ -3,10 +3,10 @@ import { copy } from 'fast-copy';
 
 import {
   GA4_CONFIG,
-  GA4DataType,
-  IGA4EventParameters,
-  IGA4Options,
-  IGA4PayloadData,
+  type GA4DataType,
+  type IGA4EventParameters,
+  type IGA4Options,
+  type IGA4PayloadData,
 } from './ga4-client.interface';
 import { E_COMMERCE_EVENTS, GA4_EVENT_MAP } from './helpers/ga4-schema';
 import { IsNumber, RandomInt, TimeStampInSeconds } from './helpers/helpers';

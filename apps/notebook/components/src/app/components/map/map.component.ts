@@ -1,28 +1,28 @@
 import {
-  CdkDragDrop,
-  CdkDragSortEvent,
+  type CdkDragDrop,
+  type CdkDragSortEvent,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import {
-  AfterViewInit,
+  type AfterViewInit,
   Component,
   ElementRef,
   inject,
-  OnDestroy,
+  type OnDestroy,
   viewChild,
 } from '@angular/core';
 import { Deck, FlyToInterpolator, WebMercatorViewport } from '@deck.gl/core';
 import {
   CreateBaseMapLayer,
   CreateLayers,
-  NotebookMapLayer,
-  NotebookMapLayers,
-  NotebookMapLayerType,
+  type NotebookMapLayer,
+  type NotebookMapLayers,
+  type NotebookMapLayerType,
   RecreateLayers,
 } from '@idl/ngx/map';
 import { NgxMaterialModule } from '@idl/ngx/material';
-import { IDLNotebookMap } from '@idl/types/notebooks';
+import type { IDLNotebookMap } from '@idl/types/notebooks';
 import { copy } from 'fast-copy';
 
 import { BaseRendererComponent } from '../base-renderer.component';

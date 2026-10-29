@@ -1,7 +1,7 @@
 import {
-  ITokenDef,
+  type ITokenDef,
   TOKEN_NAMES,
-  TypeVariableToken,
+  type TypeVariableToken,
 } from '../../tokens.interface';
 
 export type TypeVariableTokenDef = ITokenDef<TypeVariableToken>;

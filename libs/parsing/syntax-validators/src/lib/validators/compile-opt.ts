@@ -5,13 +5,16 @@ import {
   IDL_SYNTAX_TREE_VALIDATOR,
 } from '@idl/parsing/syntax-tree';
 import {
-  MainLevelToken,
-  RoutineFunctionToken,
-  RoutineProcedureToken,
+  type MainLevelToken,
+  type RoutineFunctionToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
-import { IBranch, TreeBranchToken } from '@idl/types/syntax-tree';
+import {
+  IDL_PROBLEM_CODES,
+  type SyntaxProblems,
+} from '@idl/types/problem-codes';
+import type { IBranch, TreeBranchToken } from '@idl/types/syntax-tree';
 
 import { IsSingleLine } from '../helpers/is-single-line';
 import { NAME_TOKENS } from './return-functions';

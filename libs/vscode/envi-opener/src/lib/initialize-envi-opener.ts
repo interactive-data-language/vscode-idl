@@ -1,5 +1,5 @@
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
 import { ENVIOpenerProvider } from './envi-opener.class';

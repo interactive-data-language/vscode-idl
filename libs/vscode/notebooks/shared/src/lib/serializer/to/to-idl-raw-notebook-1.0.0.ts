@@ -1,11 +1,11 @@
-import {
+import type {
   IDLRawNotebook,
   IDLRawNotebookCell,
   IDLRawNotebookVersion_1_0_0,
 } from '@idl/types/notebooks';
 import * as vscode from 'vscode';
 
-import { ToIDLRawNotebook } from './to-idl-raw-notebook.interface';
+import type { ToIDLRawNotebook } from './to-idl-raw-notebook.interface';
 
 /**
  * Function that loads a 1.0.0 raw notebook

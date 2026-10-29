@@ -1,4 +1,4 @@
-import { SyntaxTree } from '@idl/types/syntax-tree';
+import type { SyntaxTree } from '@idl/types/syntax-tree';
 
 /**
  * The result when we split a syntax tree on arguments

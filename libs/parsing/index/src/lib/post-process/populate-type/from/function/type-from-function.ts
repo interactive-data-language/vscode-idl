@@ -1,14 +1,14 @@
 import { GetTaskDisplayName, IDLTypeHelper } from '@idl/parsing/type-parser';
-import { CallFunctionToken } from '@idl/tokenizer';
+import type { CallFunctionToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../../../../idl-index.class';
+import type { IDLIndex } from '../../../../idl-index.class';
 import { EvaluateReturnType } from '../helpers/evaluate-return-type';
 import { TypeFromCallFunction } from './functions/type-from-call-function';
 import { TypeFromObjNew } from './functions/type-from-obj-new';

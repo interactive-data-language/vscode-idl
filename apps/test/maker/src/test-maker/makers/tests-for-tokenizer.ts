@@ -5,7 +5,7 @@ import { copy } from 'fast-copy';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITokenTest } from '../tests.interface';
+import type { ITokenTest } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { PrepareString, StringifyCode } from './stringify-code';
 

@@ -1,5 +1,5 @@
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   ENVIMCPToolResponse,
   ENVIMCPToolResponse_Failure,
 } from '@idl/types/mcp';

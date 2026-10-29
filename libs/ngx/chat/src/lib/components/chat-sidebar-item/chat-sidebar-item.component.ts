@@ -8,7 +8,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { ChatSession } from '@idl/types/chat';
+import type { ChatSession } from '@idl/types/chat';
 
 /**
  * Presentational list item for a single chat session in the sidebar.

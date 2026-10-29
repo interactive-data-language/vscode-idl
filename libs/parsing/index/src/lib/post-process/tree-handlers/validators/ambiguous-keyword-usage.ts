@@ -1,24 +1,24 @@
 import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import {
-  BranchCallback,
+  type BranchCallback,
   FindDirectBranchChildren,
 } from '@idl/parsing/syntax-tree';
 import {
-  CallFunctionMethodToken,
-  CallFunctionToken,
-  CallProcedureMethodToken,
-  CallProcedureToken,
-  KeywordBinaryToken,
-  KeywordToken,
+  type CallFunctionMethodToken,
+  type CallFunctionToken,
+  type CallProcedureMethodToken,
+  type CallProcedureToken,
+  type KeywordBinaryToken,
+  type KeywordToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
 import { GetKeywordDisplayName } from '../../../helpers/get-keyword-display-name';
 import { GetKeywords } from '../../../helpers/get-keywords';
-import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
+import type { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
 import { VALIDATE_TYPE_HANDLER } from '../validate-type-handler';
 
 /**

@@ -1,4 +1,4 @@
-import { IIndexProCodeOptions } from '@idl/parsing/index';
+import type { IIndexProCodeOptions } from '@idl/parsing/index';
 
 export interface IParsingPerformanceRunnerOpts
   extends Partial<IIndexProCodeOptions> {

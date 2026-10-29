@@ -1,27 +1,31 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
-  CommentBlockToken,
-  RoutineFunctionToken,
-  RoutineMethodNameToken,
-  RoutineNameToken,
-  RoutineProcedureToken,
+  type CommentBlockToken,
+  type RoutineFunctionToken,
+  type RoutineMethodNameToken,
+  type RoutineNameToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
-  GlobalFunctionMethodToken,
-  GlobalFunctionToken,
-  GlobalProcedureMethodToken,
-  GlobalProcedureToken,
-  GlobalStructureToken,
-  IFunctionMetadata,
-  IGlobalIndexedToken,
-  IRoutineMetadata,
+  type GlobalFunctionMethodToken,
+  type GlobalFunctionToken,
+  type GlobalProcedureMethodToken,
+  type GlobalProcedureToken,
+  type GlobalStructureToken,
+  type IFunctionMetadata,
+  type IGlobalIndexedToken,
+  type IRoutineMetadata,
 } from '@idl/types/idl-data-types';
-import { IBranch, IParsed, LOCAL_TOKEN_LOOKUP } from '@idl/types/syntax-tree';
+import {
+  type IBranch,
+  type IParsed,
+  LOCAL_TOKEN_LOOKUP,
+} from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
 import { GenerateRoutineDocsAndMetadata } from '../docs/generate-routine-docs-and-metadata';

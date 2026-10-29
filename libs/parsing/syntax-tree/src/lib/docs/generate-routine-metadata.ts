@@ -4,25 +4,28 @@ import {
 } from '@idl/parsing/shared';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
-  RoutineMethodNameToken,
-  RoutineNameToken,
+  type RoutineMethodNameToken,
+  type RoutineNameToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalStructureToken,
-  IGlobalIndexedToken,
+  type GlobalStructureToken,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
-import { IBranch, IDocs } from '@idl/types/syntax-tree';
+import {
+  IDL_PROBLEM_CODES,
+  type SyntaxProblems,
+} from '@idl/types/problem-codes';
+import type { IBranch, IDocs } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
 import { FindDirectBranchChildren } from '../helpers/searching/find-direct-branch-children';
 import { IDL_DOCS_HEADERS } from './docs.interface';
 import { ExtractParameterDocs } from './extract-parameter-docs';
-import {
+import type {
   FunctionRoutineType,
   ProcedureRoutineType,
   RoutineMetadata,

@@ -1,8 +1,8 @@
 import { IDLMachine } from '@idl/idl/idl-machine';
-import { LogType } from '@idl/logger';
+import type { LogType } from '@idl/logger';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   ExecuteStringFlags,
   FromIDLMachineNotificationParams,
   FromIDLMachineRequestHandler,
@@ -12,13 +12,13 @@ import {
 } from '@idl/types/idl/idl-machine';
 import {
   IDL_EVENT_LOOKUP,
-  IDLOutput,
-  IDLVariable,
+  type IDLOutput,
+  type IDLVariable,
 } from '@idl/types/idl/idl-process';
-import { ChildProcess } from 'child_process';
+import type { ChildProcess } from 'child_process';
 import { deepEqual } from 'fast-equals';
 
-import { IDLProcess } from '../idl-process.class';
+import type { IDLProcess } from '../idl-process.class';
 import {
   IDL_DATA_TYPE_MAP,
   OBJ_CLASS_REGEX,

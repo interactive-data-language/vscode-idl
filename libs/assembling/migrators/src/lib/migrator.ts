@@ -1,10 +1,10 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import {
   MIGRATION_TYPE_LOOKUP,
-  MigrationType,
+  type MigrationType,
 } from '@idl/assembling/migrators-types';
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 import { MigrateToDL30 } from './migrate-to-dl30';
 import { MigrateToDL40 } from './migrate-to-dl40';

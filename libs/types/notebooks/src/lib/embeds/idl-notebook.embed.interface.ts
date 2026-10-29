@@ -4,15 +4,15 @@
  * These need to match the structures in `resources/idl/vscode/notebooks/idlnotebook__define.pro`
  */
 
-import {
+import type {
   IDLNotebookImage_EmbedType,
   IDLNotebookImage_EmbedTypeData,
 } from './idl-notebook-image.embed.interface';
-import {
+import type {
   IDLNotebookMap_EmbedType,
   IDLNotebookMap_EmbedTypeData,
 } from './idl-notebook-map.embed.interface';
-import {
+import type {
   IDLNotebookPlot_EmbedType,
   IDLNotebookPlot_EmbedTypeData,
 } from './idl-notebook-plot.embed.interface';

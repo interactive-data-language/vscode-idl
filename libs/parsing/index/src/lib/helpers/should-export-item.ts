@@ -1,6 +1,6 @@
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
-import { GlobalIndexedToken } from '../global-index.interface';
+import type { GlobalIndexedToken } from '../global-index.interface';
 
 /**
  * Determines if we should export the given global token or not

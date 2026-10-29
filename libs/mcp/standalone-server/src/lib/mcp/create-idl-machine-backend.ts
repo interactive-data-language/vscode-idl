@@ -1,12 +1,12 @@
 import { GetExtensionPath } from '@idl/idl/files';
-import { IDL_DEBUG_LOG, LogManager } from '@idl/logger';
+import { IDL_DEBUG_LOG, type LogManager } from '@idl/logger';
 import { RegisterENVINotifyHandlers } from '@idl/mcp/envi';
 import { IDLMCPExecutionManager } from '@idl/mcp/idl-machine';
 import {
   WebSocketExecutionBackend,
-  WebSocketToolBridge,
+  type WebSocketToolBridge,
 } from '@idl/mcp/websocket';
-import { PrepareIDLCodeCallback } from '@idl/types/mcp';
+import type { PrepareIDLCodeCallback } from '@idl/types/mcp';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { copy } from 'fast-copy';
 

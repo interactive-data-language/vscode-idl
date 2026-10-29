@@ -1,10 +1,10 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
-  IDLProblemCode,
-  ISyntaxProblem,
+  type IDLProblemCode,
+  type ISyntaxProblem,
 } from '@idl/types/problem-codes';
-import { PositionArray } from '@idl/types/tokenizer';
+import type { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Makes problem code pretty for nice presentation to users

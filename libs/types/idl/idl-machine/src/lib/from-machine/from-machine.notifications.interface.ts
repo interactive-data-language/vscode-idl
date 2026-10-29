@@ -1,92 +1,92 @@
-import {
+import type {
   BreakpointMovedNotification,
   BreakpointMovedParams,
 } from './notifications/idl-machine.breakpoint-moved.interface';
-import {
+import type {
   CommandFinishedNotification,
   CommandFinishedParams,
 } from './notifications/idl-machine.command-finished.interface';
-import {
+import type {
   CommandStartedNotification,
   CommandStartedParams,
 } from './notifications/idl-machine.command-started.interface';
-import {
+import type {
   CompilerOpenFileNotification,
   CompilerOpenFileParams,
 } from './notifications/idl-machine.compiler-open-file.interface';
-import {
+import type {
   DeathHintNotification,
   DeathHintParams,
 } from './notifications/idl-machine.death-hint.interface';
-import {
+import type {
   DebugSendNotification,
   DebugSendParams,
 } from './notifications/idl-machine.debug-send.interface';
-import {
+import type {
   ServerExitNotification,
   ServerExitParams,
 } from './notifications/idl-machine.erver-exit.interface';
-import {
+import type {
   ExitDoneNotification,
   ExitDoneParams,
 } from './notifications/idl-machine.exit-done.interface';
-import {
+import type {
   HelpTopicNotification,
   HelpTopicParams,
 } from './notifications/idl-machine.help-topic.interface';
-import {
+import type {
   InterpreterStoppedNotification,
   InterpreterStoppedParams,
 } from './notifications/idl-machine.interpreter-stopped.interface';
-import {
+import type {
   LicensingEventNotification,
   LicensingEventParams,
 } from './notifications/idl-machine.licensing-event.interface';
-import {
+import type {
   ModalMessageNotification,
   ModalMessageParams,
 } from './notifications/idl-machine.modal-message.interface';
-import {
+import type {
   OpenFileNotification,
   OpenFileParams,
 } from './notifications/idl-machine.open-file.interface';
-import {
+import type {
   PathChangeNotification,
   PathChangeParams,
 } from './notifications/idl-machine.path-change.interface';
-import {
+import type {
   PromptChangeNotification,
   PromptChangeParams,
 } from './notifications/idl-machine.prompt-change.interface';
-import {
+import type {
   ResetSessionDoneNotification,
   ResetSessionDoneParams,
 } from './notifications/idl-machine.reset-session-done.interface';
-import {
+import type {
   RuntimeErrorNotification,
   RuntimeErrorParams,
 } from './notifications/idl-machine.runtime-error.interface';
-import {
+import type {
   ServerReadyNotification,
   ServerReadyParams,
 } from './notifications/idl-machine.server-ready.interface';
-import {
+import type {
   ShowBreakpointNotification,
   ShowBreakpointParams,
 } from './notifications/idl-machine.show-breakpoint.interface';
-import {
+import type {
   CompileOpenFileParams,
   ShowCompileErrorNotification,
 } from './notifications/idl-machine.show-compile-error.interface';
-import {
+import type {
   TOutNotification,
   TOutParams,
 } from './notifications/idl-machine.tout.interface';
-import {
+import type {
   DeletedVariableNotification,
   DeletedVariableParams,
 } from './notifications/idl-machine.variable-deleted.interface';
-import {
+import type {
   WorkingDirChangeNotification,
   WorkingDirChangeParams,
 } from './notifications/idl-machine.working-dir-change.interface';

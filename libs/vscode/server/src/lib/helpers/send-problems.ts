@@ -1,7 +1,7 @@
 import { IDLFileHelper } from '@idl/shared/extension';
 import {
   IDL_DEF_FILE_PROBLEMS,
-  SyntaxProblems,
+  type SyntaxProblems,
 } from '@idl/types/problem-codes';
 import { copy } from 'fast-copy';
 import { deepEqual } from 'fast-equals';

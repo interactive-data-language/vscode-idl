@@ -4,11 +4,11 @@ import * as vscode from 'vscode';
 
 import { RegisterDebugCommands } from './commands/register-debug-commands';
 import { SetIDLDir } from './helpers/set-idl-dir';
-import { IDLDebugAdapter } from './idl-debug-adapter.class';
+import type { IDLDebugAdapter } from './idl-debug-adapter.class';
 import { ServerIDLDebugAdapterFactory } from './idl-debug-adapter-factory.class';
 import { IDLDebugConfigurationProvider } from './idl-debug-configuration';
 import { IDLDebugStatusBar } from './idl-debug-status-bar';
-import { IInitializeDebuggerResult } from './initialize-debugger.interface';
+import type { IInitializeDebuggerResult } from './initialize-debugger.interface';
 
 /**
  * The debug adapter that manages interacting with our session of IDL

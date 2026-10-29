@@ -1,7 +1,7 @@
 import { IDL_COPILOT_VSCODE_LOG } from '@idl/logger';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 
 import { RegisterCopilotCommands } from './commands/register-copilot-commands';
 import { CleanupLegacyPromptSettings } from './helpers/cleanup-legacy-prompt-settings';

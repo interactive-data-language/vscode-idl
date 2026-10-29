@@ -1,9 +1,9 @@
-import { StructureNameToken } from '@idl/tokenizer';
+import type { StructureNameToken } from '@idl/tokenizer';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
-import { GlobalIndexedToken } from '../../global-index.interface';
-import { IDLIndex } from '../../idl-index.class';
+import type { GlobalIndexedToken } from '../../global-index.interface';
+import type { IDLIndex } from '../../idl-index.class';
 
 /**
  * Returns the matching global token for a named structure

@@ -1,4 +1,4 @@
-import { NotebookDocument } from 'vscode-languageserver';
+import type { NotebookDocument } from 'vscode-languageserver';
 
 import { SendProblems } from '../../helpers/send-problems';
 

@@ -6,13 +6,13 @@ import {
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
-import { GetTokenDefResponse } from '@idl/workers/parsing';
-import { Position } from 'vscode-languageserver-types';
+import type { GetTokenDefResponse } from '@idl/workers/parsing';
+import type { Position } from 'vscode-languageserver-types';
 
 import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { GetKeyword } from '../helpers/get-keyword';
 import { GetProperty } from '../helpers/get-property';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { GetCallRoutineTokenDef } from './definitions-for/get-call-routine-token-def';
 import { GetIncludeDef } from './definitions-for/get-include-def';
 import { GetStructureDef } from './definitions-for/get-structure-def';

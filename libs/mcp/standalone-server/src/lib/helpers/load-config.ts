@@ -2,7 +2,7 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_MCP_LOG } from '@idl/logger';
 import {
   DEFAULT_AGENT_SERVER_CONFIG,
-  IAgentServerConfig,
+  type IAgentServerConfig,
   MigrateAgentServerConfig,
 } from '@idl/types/agents';
 import { copy } from 'fast-copy';

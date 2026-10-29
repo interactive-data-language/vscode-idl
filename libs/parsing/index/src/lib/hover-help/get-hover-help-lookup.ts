@@ -1,20 +1,20 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { GetTokenAtCursor } from '@idl/parsing/syntax-tree';
 import {
-  KeywordBinaryToken,
-  KeywordDefinitionToken,
-  KeywordToken,
+  type KeywordBinaryToken,
+  type KeywordDefinitionToken,
+  type KeywordToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import { TreeToken } from '@idl/types/syntax-tree';
-import { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
-import { Position } from 'vscode-languageserver-types';
+import type { TreeToken } from '@idl/types/syntax-tree';
+import type { GetHoverHelpLookupResponse } from '@idl/workers/parsing';
+import type { Position } from 'vscode-languageserver-types';
 
 import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { CALL_ROUTINE_TOKENS } from '../helpers/get-keywords.interface';
 import { GetRoutine } from '../helpers/get-routine';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import {
   CONTROL_HELPERS,
   GetControlHoverHelp,

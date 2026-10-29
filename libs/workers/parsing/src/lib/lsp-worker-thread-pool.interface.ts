@@ -1,12 +1,12 @@
-import { IPostMessageOptions, IWorkerIOPool } from '@idl/workers/workerio';
-import { Subject } from 'rxjs';
+import type { IPostMessageOptions, IWorkerIOPool } from '@idl/workers/workerio';
+import type { Subject } from 'rxjs';
 
-import { LSPWorkerThreadMessage } from './lsp-worker-thread.messages.interface';
-import {
+import type { LSPWorkerThreadMessage } from './lsp-worker-thread.messages.interface';
+import type {
   PayloadFromLSPWorker,
   PayloadToLSPWorker,
 } from './lsp-worker-thread.payloads.interface';
-import {
+import type {
   ILSPWorkerWorkerIO,
   ILSPWorkerWorkerIOPostAndReceiveMessageResult,
 } from './lsp-workerio.interface';

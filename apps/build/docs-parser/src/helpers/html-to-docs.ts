@@ -1,8 +1,8 @@
-import { GlobalDisplayNameLookup } from '@idl/parsing/routines';
+import type { GlobalDisplayNameLookup } from '@idl/parsing/routines';
 import { basename, dirname } from 'path';
 
 import { IDL_DIR } from '../idl-dir.interface';
-import {
+import type {
   IDocsByRoutine,
   IHTMLByRoutine,
   IRoutineDocs,

@@ -1,7 +1,7 @@
-import { TokenName } from '@idl/tokenizer';
-import { TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
+import type { TokenName } from '@idl/tokenizer';
+import type { TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
 
-import { ITreeRecurserCurrent } from '../recursion-and-callbacks/tree-recurser.interface';
+import type { ITreeRecurserCurrent } from '../recursion-and-callbacks/tree-recurser.interface';
 
 /**
  * Parent for a selected token

@@ -1,5 +1,5 @@
 import { GetExtensionPath } from '@idl/idl/files';
-import { LogManager } from '@idl/logger';
+import type { LogManager } from '@idl/logger';
 import { MCPTrackResourcesInFolder } from '@idl/mcp/server-resources';
 
 import { MCPTrackHoverHelpResources } from './mcp-track-hover-help-resources';

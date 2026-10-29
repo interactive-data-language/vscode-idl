@@ -1,4 +1,4 @@
-import { IOutlineTests } from '../tests.interface';
+import type { IOutlineTests } from '../tests.interface';
 
 /**
  * Automated tests for generating an outline based on source code

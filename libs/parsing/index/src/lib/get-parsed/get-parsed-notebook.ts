@@ -1,11 +1,14 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type {
+  IDLNotebookDocument,
+  IParsedIDLNotebook,
+} from '@idl/notebooks/shared';
 import { CodeChecksum } from '@idl/parser';
 import { deepEqual } from 'fast-equals';
 import { NotebookCellKind } from 'vscode-languageserver';
 
-import { IDLIndex } from '../idl-index.class';
-import { IGetParsedNotebookPending } from './get-parsed-notebook.interface';
+import type { IDLIndex } from '../idl-index.class';
+import type { IGetParsedNotebookPending } from './get-parsed-notebook.interface';
 
 /**
  * Track the pending files

@@ -1,4 +1,4 @@
-import { IDLNotebookSerializer } from '@idl/vscode/notebooks/shared';
+import type { IDLNotebookSerializer } from '@idl/vscode/notebooks/shared';
 
 /**
  * Result when we initialize notebooks

@@ -1,6 +1,9 @@
-import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/idl-data-types';
-import { SyntaxProblems } from '@idl/types/problem-codes';
-import { PositionArray } from '@idl/types/tokenizer';
+import {
+  GLOBAL_TOKEN_TYPES,
+  type GlobalTokenType,
+} from '@idl/types/idl-data-types';
+import type { SyntaxProblems } from '@idl/types/problem-codes';
+import type { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Start options we pass into the recurser and shared between all recursions

@@ -1,12 +1,12 @@
-import { BranchCallback } from '@idl/parsing/syntax-tree';
+import type { BranchCallback } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { LoopForeachToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IDLDataType } from '@idl/types/idl-data-types';
+import { type LoopForeachToken, TOKEN_NAMES } from '@idl/tokenizer';
+import type { IDLDataType } from '@idl/types/idl-data-types';
 
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
 import { GetSplit } from '../helpers/get-split';
 import { POPULATE_TYPE_HANDLER } from '../populate-type-handler';
-import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
+import type { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
 
 /**
  * Union type of call routine tokens

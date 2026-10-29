@@ -1,5 +1,5 @@
-import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
-import { ENVIMCPToolResponse } from '@idl/types/mcp';
+import type { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
+import type { ENVIMCPToolResponse } from '@idl/types/mcp';
 
 import { PopulateENVIError } from './populate-envi-error';
 

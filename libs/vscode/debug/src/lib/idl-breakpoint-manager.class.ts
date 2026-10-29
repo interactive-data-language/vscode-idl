@@ -1,11 +1,11 @@
 import { CleanPath, IDLFileHelper } from '@idl/shared/extension';
-import { IDLBreakpoint } from '@idl/types/idl/idl-process';
+import type { IDLBreakpoint } from '@idl/types/idl/idl-process';
 import { Breakpoint, BreakpointEvent, Source } from '@vscode/debugadapter';
-import { DebugProtocol } from '@vscode/debugprotocol';
+import type { DebugProtocol } from '@vscode/debugprotocol';
 
 import { IDL_BREAKPOINT_REGEX } from './idl-breakpoint-manager.interface';
 import { IDLDebugAdapter } from './idl-debug-adapter.class';
-import { IDebugEvaluateOptions } from './idl-debug-adapter.interface';
+import type { IDebugEvaluateOptions } from './idl-debug-adapter.interface';
 
 /**
  * Manages breakpoints for our IDL session

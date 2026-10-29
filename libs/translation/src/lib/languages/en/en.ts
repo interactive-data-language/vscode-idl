@@ -1,4 +1,4 @@
-import { ITranslation } from '../../translation.interface';
+import type { ITranslation } from '../../translation.interface';
 import { HOVER_HELP_EN } from './hover-help.en';
 import { MCPToolNames_EN } from './mcp-tool-names.interface.en';
 

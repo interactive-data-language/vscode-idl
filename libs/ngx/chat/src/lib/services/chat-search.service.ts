@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { ChatSession } from '@idl/types/chat';
+import type { ChatSession } from '@idl/types/chat';
 
 /** Names of the CSS custom highlights styled in the global stylesheet */
 const MATCH_HIGHLIGHT = 'chat-find';

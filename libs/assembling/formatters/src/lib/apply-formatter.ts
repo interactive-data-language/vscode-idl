@@ -1,15 +1,15 @@
 import {
   ASSEMBLER_FORMATTER_LOOKUP,
-  FormatterType,
+  type FormatterType,
 } from '@idl/assembling/config';
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { TreeRecurser } from '@idl/parsing/syntax-tree';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 import { DefaultFormatter } from './default-formatter';
 import { BranchSnap } from './fiddle/formatters/branch-snap';
 import { FIDDLE_FORMATTERS } from './fiddle/rule-set.interface';
-import { FormatterRuleSet } from './formatter-rule-set.interface';
+import type { FormatterRuleSet } from './formatter-rule-set.interface';
 
 /**
  * Applies formatter rule sets to code

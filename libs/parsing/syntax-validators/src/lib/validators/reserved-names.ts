@@ -10,16 +10,16 @@ import {
   IDL_SYNTAX_TREE_VALIDATOR,
 } from '@idl/parsing/syntax-tree';
 import {
-  RoutineFunctionToken,
-  RoutineProcedureToken,
+  type RoutineFunctionToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import {
   IDL_PROBLEM_CODES,
-  ISyntaxProblem,
-  SyntaxProblems,
+  type ISyntaxProblem,
+  type SyntaxProblems,
 } from '@idl/types/problem-codes';
-import { IBranch } from '@idl/types/syntax-tree';
+import type { IBranch } from '@idl/types/syntax-tree';
 
 /**
  * Handles checking a function or procedure branch for a routine or method

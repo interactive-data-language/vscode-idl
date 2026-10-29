@@ -1,4 +1,4 @@
-import { ChatStateModel, ChatTokenUsage } from '@idl/types/chat';
+import type { ChatStateModel, ChatTokenUsage } from '@idl/types/chat';
 
 /**
  * Default state for the chat feature

@@ -1,4 +1,4 @@
-import { LanguageConfiguration } from 'vscode';
+import type { LanguageConfiguration } from 'vscode';
 
 import { ON_ENTER_COMMENTS } from './on-enter-comments';
 

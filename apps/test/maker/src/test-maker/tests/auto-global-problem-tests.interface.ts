@@ -1,4 +1,4 @@
-import { IGlobalProblemTests } from '../tests.interface';
+import type { IGlobalProblemTests } from '../tests.interface';
 
 /**
  * Automated tests to detect conflicts with global routine conflict

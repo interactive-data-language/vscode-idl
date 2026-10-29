@@ -1,4 +1,4 @@
-import { IAutoENVIModelerTest } from '../../tests.interface';
+import type { IAutoENVIModelerTest } from '../../tests.interface';
 
 /**
  * Automated tests for the "generic change detection workflow".

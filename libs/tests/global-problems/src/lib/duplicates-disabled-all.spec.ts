@@ -2,7 +2,7 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
 import { SanitizeAllProblems } from '@idl/tests/helpers';
-import { SyntaxProblems } from '@idl/types/problem-codes';
+import type { SyntaxProblems } from '@idl/types/problem-codes';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;
 

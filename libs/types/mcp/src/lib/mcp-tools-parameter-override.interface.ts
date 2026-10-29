@@ -1,7 +1,7 @@
-import { MCPTool_OpenDatasetsInENVI } from './idl/mcp-tool-open-datasets-in-envi.interface';
-import { MCPTool_QueryDatasetWithENVI } from './idl/mcp-tool-query-dataset-with-envi.interface';
-import { MCPToolParamsOverride_OpenDatasetsInENVI } from './override/mcp-tool-open-datasets-in-envi.interface';
-import { MCPToolParamsOverride_QueryDatasetWithENVI } from './override/mcp-tool-query-dataset-with-envi.interface';
+import type { MCPTool_OpenDatasetsInENVI } from './idl/mcp-tool-open-datasets-in-envi.interface';
+import type { MCPTool_QueryDatasetWithENVI } from './idl/mcp-tool-query-dataset-with-envi.interface';
+import type { MCPToolParamsOverride_OpenDatasetsInENVI } from './override/mcp-tool-open-datasets-in-envi.interface';
+import type { MCPToolParamsOverride_QueryDatasetWithENVI } from './override/mcp-tool-query-dataset-with-envi.interface';
 
 export type MCPTools_ParameterOverride =
   | MCPTool_OpenDatasetsInENVI

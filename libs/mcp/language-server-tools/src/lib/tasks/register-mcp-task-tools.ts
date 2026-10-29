@@ -1,14 +1,14 @@
 import { IDL_LSP_LOG, IDL_MCP_LOG } from '@idl/logger';
-import { MCPServer } from '@idl/mcp/server';
+import type { MCPServer } from '@idl/mcp/server';
 import {
   RegisterMCPTool_CreateENVIModelerWorkflow,
   RegisterMCPTool_GetENVIToolParameters,
   RegisterMCPTool_ListENVITools,
   RegisterMCPTool_RunENVITool,
 } from '@idl/mcp/server-tools';
-import { IRuleBasedFilters } from '@idl/mcp/shared';
+import type { IRuleBasedFilters } from '@idl/mcp/shared';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
-import { IDLIndex } from '@idl/parsing/index';
+import type { IDLIndex } from '@idl/parsing/index';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
 /**

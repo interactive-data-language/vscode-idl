@@ -1,7 +1,7 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 
-import { UsageMetricPayload } from './events/usage-metric-payload.interface';
-import { UsageMetric } from './events/usage-metrics.interface';
+import type { UsageMetricPayload } from './events/usage-metric-payload.interface';
+import type { UsageMetric } from './events/usage-metrics.interface';
 import { GA4 } from './initialize-usage-metrics';
 
 /**

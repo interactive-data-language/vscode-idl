@@ -4,7 +4,7 @@ import expect from 'expect';
 import { mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { RunnerFunction } from '../../../../runner.interface';
+import type { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { SplitDescription } from '../../../helpers/split-description';
 import { LogWhenExpectSuccess } from '../../../helpers/test-loggers';

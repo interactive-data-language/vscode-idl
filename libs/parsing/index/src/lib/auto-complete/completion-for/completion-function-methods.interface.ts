@@ -1,6 +1,6 @@
-import { FunctionMethodCompletion } from '@idl/types/auto-complete';
+import type { FunctionMethodCompletion } from '@idl/types/auto-complete';
 
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 
 export interface IFunctionMethodCompletionArg
   extends BuildCompletionItemsArg<FunctionMethodCompletion> {

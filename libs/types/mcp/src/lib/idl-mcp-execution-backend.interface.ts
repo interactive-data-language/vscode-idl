@@ -1,5 +1,5 @@
-import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
-import {
+import type { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
+import type {
   IDLBreakpoint,
   IDLCodeCoverage,
   IDLEvaluateOptions,
@@ -8,11 +8,11 @@ import {
   IDLSyntaxErrorLookup,
   IDLVariable,
 } from '@idl/types/idl/idl-process';
-import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
+import type { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 
-import { IPrepareIDLCodeResult } from './execute-idl-code.interface';
-import { MCPToolParams, MCPToolResponse } from './mcp-tools.interface';
-import { MCPTools_IDL } from './mcp-tools-idl.interface';
+import type { IPrepareIDLCodeResult } from './execute-idl-code.interface';
+import type { MCPToolParams, MCPToolResponse } from './mcp-tools.interface';
+import type { MCPTools_IDL } from './mcp-tools-idl.interface';
 
 /**
  * Callback to send progress notifications during MCP tool execution

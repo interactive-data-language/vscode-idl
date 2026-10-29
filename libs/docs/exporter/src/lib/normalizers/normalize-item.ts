@@ -1,13 +1,13 @@
 import { TransformCase } from '@idl/assembling/shared';
-import { GlobalIndexedToken } from '@idl/parsing/index';
+import type { GlobalIndexedToken } from '@idl/parsing/index';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalFunctionMethodToken,
-  GlobalFunctionToken,
-  GlobalProcedureMethodToken,
-  GlobalProcedureToken,
-  GlobalStructureToken,
-  IGlobalIndexedToken,
+  type GlobalFunctionMethodToken,
+  type GlobalFunctionToken,
+  type GlobalProcedureMethodToken,
+  type GlobalProcedureToken,
+  type GlobalStructureToken,
+  type IGlobalIndexedToken,
   TASK_REGEX,
 } from '@idl/types/idl-data-types';
 

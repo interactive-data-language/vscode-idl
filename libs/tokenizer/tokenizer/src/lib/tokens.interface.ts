@@ -1,4 +1,4 @@
-import { TokenStartMatches } from './token-matches.interface';
+import type { TokenStartMatches } from './token-matches.interface';
 
 /** Property being accessed */
 export type AccessPropertyToken = 0;

@@ -2,7 +2,7 @@ import { ValidateENVIModelerWorkflow } from '@idl/envi/modeler';
 import { LogManager } from '@idl/logger';
 import { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
+import type { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 

@@ -1,6 +1,6 @@
-import { Logger } from '@idl/logger';
+import type { Logger } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   FromIDLMachineRequestHandler,
   FromIDLMachineRequests,
 } from '@idl/types/idl/idl-machine';
@@ -8,17 +8,17 @@ import {
   DEFAULT_IDL_INFO,
   IDL_EVENT_LOOKUP,
   IDL_STOPS,
-  IDLCallStackItem,
-  IDLEvent,
-  IDLListenerArgs,
-  IDLOutput,
-  IStartIDLConfig,
+  type IDLCallStackItem,
+  type IDLEvent,
+  type IDLListenerArgs,
+  type IDLOutput,
+  type IStartIDLConfig,
   REGEX_NEW_LINE_COMPRESS,
   REGEX_STOP_DETECTION,
   REGEX_STOP_DETECTION_BASIC,
-  StopReason,
+  type StopReason,
 } from '@idl/types/idl/idl-process';
-import { ChildProcess, execSync, spawn } from 'child_process';
+import { type ChildProcess, execSync, spawn } from 'child_process';
 import { EventEmitter } from 'events';
 import { copy } from 'fast-copy';
 import { existsSync } from 'fs';
@@ -26,7 +26,7 @@ import * as os from 'os';
 import * as path from 'path';
 import { delimiter } from 'path';
 
-import { IDLProcessType } from './idl-process.interface';
+import type { IDLProcessType } from './idl-process.interface';
 import { IDLMachineWrapper } from './wrappers/idl-machine-wrapper.class';
 import { IDLStdIOWrapper } from './wrappers/idl-std-io-wrapper.class';
 

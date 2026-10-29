@@ -4,22 +4,25 @@ import {
 } from '@idl/parsing/shared';
 import { IDLTypeHelper, TYPE_DOCS_REGEX } from '@idl/parsing/type-parser';
 import { SortObject } from '@idl/shared/extension';
-import { CommentToken } from '@idl/tokenizer';
+import type { CommentToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   DEFAULT_DATA_TYPE,
   GLOBAL_TOKEN_SOURCE_LOOKUP,
-  IParameterOrPropertyDetails,
-  ParameterDirection,
+  type IParameterOrPropertyDetails,
+  type ParameterDirection,
 } from '@idl/types/idl-data-types';
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
+import {
+  IDL_PROBLEM_CODES,
+  type SyntaxProblems,
+} from '@idl/types/problem-codes';
 import {
   ARG_KW_PROPERTY_TAG,
-  IBasicBranch,
-  IHeaderDocs,
+  type IBasicBranch,
+  type IHeaderDocs,
   REMOVE_COMMENT_REGEX,
 } from '@idl/types/syntax-tree';
-import { PositionArray } from '@idl/types/tokenizer';
+import type { PositionArray } from '@idl/types/tokenizer';
 import { copy } from 'fast-copy';
 
 import {

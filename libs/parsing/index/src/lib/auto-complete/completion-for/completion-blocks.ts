@@ -1,22 +1,22 @@
 import { AdjustCase } from '@idl/assembling/shared';
 import { IsAtEnd, IsWithinToken } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { TOKEN_NAMES, type TokenName } from '@idl/tokenizer';
 import {
   AUTO_COMPLETE_TYPE_LOOKUP,
-  AutoCompleteRecipe,
-  AutoCompleteType,
-  BlockCompletion,
+  type AutoCompleteRecipe,
+  type AutoCompleteType,
+  type BlockCompletion,
   COMPLETION_BLOCKS,
-  CompletionBlockTokens,
+  type CompletionBlockTokens,
 } from '@idl/types/auto-complete';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 import {
   CompletionItemKind,
   InsertTextFormat,
-  Position,
+  type Position,
 } from 'vscode-languageserver-types';
 
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**

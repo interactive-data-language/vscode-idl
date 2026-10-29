@@ -1,4 +1,4 @@
-import { GlobalTokenType } from '@idl/types/idl-data-types';
+import type { GlobalTokenType } from '@idl/types/idl-data-types';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
 export const SEARCH_FOR_ROUTINE_DESCRIPTION = `

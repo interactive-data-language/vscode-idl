@@ -1,6 +1,6 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
-import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
+import type { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
@@ -8,7 +8,7 @@ import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../../runner.interface';
+import type { RunnerFunction } from '../../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../../test-client-config.interface';
 
 /**

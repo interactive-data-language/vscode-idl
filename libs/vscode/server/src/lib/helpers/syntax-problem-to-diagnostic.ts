@@ -3,15 +3,18 @@ import {
   IDL_LANGUAGE_NAME,
   ResolveExtensionDocsURL,
 } from '@idl/shared/extension';
-import { IDLDiagnostic } from '@idl/types/diagnostic';
+import type { IDLDiagnostic } from '@idl/types/diagnostic';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
   IDL_PROBLEM_DIAGNOSTIC_TAGS,
   IDL_PROBLEM_SEVERITY_LOOKUP,
-  ISyntaxProblem,
-  SyntaxProblems,
+  type ISyntaxProblem,
+  type SyntaxProblems,
 } from '@idl/types/problem-codes';
-import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
+import {
+  type Diagnostic,
+  DiagnosticSeverity,
+} from 'vscode-languageserver-types';
 
 import { SERVER_INITIALIZATION_OPTIONS } from '../initialize-language-server';
 import { IDL_CLIENT_CONFIG } from './track-workspace-config';

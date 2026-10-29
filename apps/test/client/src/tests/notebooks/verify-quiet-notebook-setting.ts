@@ -1,13 +1,16 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
-import { GetWorkspaceConfig, IIDLWorkspaceConfig } from '@idl/vscode/config';
+import {
+  GetWorkspaceConfig,
+  type IIDLWorkspaceConfig,
+} from '@idl/vscode/config';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
-import { ICompareCellOutputs } from './helpers/compare-cells.interface';
+import type { RunnerFunction } from '../runner.interface';
+import type { ICompareCellOutputs } from './helpers/compare-cells.interface';
 import { RunNotebookAndCompareCells } from './helpers/run-notebook-and-compare-cells';
 
 /**

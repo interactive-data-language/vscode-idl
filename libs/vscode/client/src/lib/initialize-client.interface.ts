@@ -1,6 +1,6 @@
-import { LogManager } from '@idl/logger';
-import { IIDLWorkspaceConfig } from '@idl/vscode/config';
-import { LanguageClient } from 'vscode-languageclient/node';
+import type { LogManager } from '@idl/logger';
+import type { IIDLWorkspaceConfig } from '@idl/vscode/config';
+import type { LanguageClient } from 'vscode-languageclient/node';
 
 /** What we return from initializing the extension client */
 export interface IInitializeClientResult {

@@ -3,8 +3,8 @@ import { IDL_LSP_LOG } from '@idl/logger';
 import { PRO_CODE_GLOB_PATTERN } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
-  FormatWorkspacePayload,
-  FormatWorkspaceResponse,
+  type FormatWorkspacePayload,
+  type FormatWorkspaceResponse,
   LANGUAGE_SERVER_MESSAGE_LOOKUP,
 } from '@idl/vscode/events/messages';
 import { writeFile } from 'fs/promises';

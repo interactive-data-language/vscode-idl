@@ -3,7 +3,7 @@ import {
   MCP_ENVIRasterSeries,
   MCP_ENVIVector,
 } from '@idl/mcp/envi-to-mcp';
-import { MCPServer } from '@idl/mcp/server';
+import type { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';

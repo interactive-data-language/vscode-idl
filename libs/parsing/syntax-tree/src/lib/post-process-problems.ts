@@ -1,9 +1,9 @@
 import {
   IDL_PROBLEM_CODES,
-  IDLProblemCode,
-  ISyntaxProblem,
+  type IDLProblemCode,
+  type ISyntaxProblem,
 } from '@idl/types/problem-codes';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 /**
  * Merge overlapping problem codes together into a single problem

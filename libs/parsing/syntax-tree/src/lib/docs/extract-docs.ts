@@ -1,10 +1,10 @@
-import { CommentToken, GetMatchesArray } from '@idl/tokenizer';
+import { type CommentToken, GetMatchesArray } from '@idl/tokenizer';
 import {
   END_COMMENT_BLOCK_REGEX,
   HEADER_TAG,
-  IBasicBranch,
-  IDocs,
-  IHeaderDocs,
+  type IBasicBranch,
+  type IDocs,
+  type IHeaderDocs,
   REMOVE_COMMENT_REGEX,
 } from '@idl/types/syntax-tree';
 

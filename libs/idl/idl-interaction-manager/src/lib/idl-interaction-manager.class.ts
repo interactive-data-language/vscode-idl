@@ -1,6 +1,6 @@
 import { IDLProcess } from '@idl/idl/idl-process';
-import { Logger } from '@idl/logger';
-import {
+import type { Logger } from '@idl/logger';
+import type {
   FromIDLMachineRequestHandler,
   FromIDLMachineRequests,
 } from '@idl/types/idl/idl-machine';
@@ -8,24 +8,24 @@ import {
   DEFAULT_IDL_EVALUATE_OPTIONS,
   DEFAULT_IDL_INFO,
   IDL_EVENT_LOOKUP,
-  IDLCallStack,
-  IDLCallStackItem,
-  IDLCodeCoverage,
-  IDLEvaluateOptions,
-  IDLEvent,
-  IDLInfo,
-  IDLListenerArgs,
-  IDLSyntaxError,
-  IDLSyntaxErrorLookup,
-  IDLVariable,
-  IStartIDLConfig,
+  type IDLCallStack,
+  type IDLCallStackItem,
+  type IDLCodeCoverage,
+  type IDLEvaluateOptions,
+  type IDLEvent,
+  type IDLInfo,
+  type IDLListenerArgs,
+  type IDLSyntaxError,
+  type IDLSyntaxErrorLookup,
+  type IDLVariable,
+  type IStartIDLConfig,
   REGEX_SYNTAX_ERROR,
 } from '@idl/types/idl/idl-process';
-import EventEmitter from 'events';
+import type EventEmitter from 'events';
 import { URI } from 'vscode-uri';
 
 import { ProcessScope } from './helpers/process-scope';
-import { IDLEvaluationItem } from './idl-interaction-manager.interface';
+import type { IDLEvaluationItem } from './idl-interaction-manager.interface';
 
 /**
  * Class that manages interacting with IDL.

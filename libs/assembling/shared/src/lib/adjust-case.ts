@@ -1,4 +1,4 @@
-import { CaseStyleFlags, STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
+import { type CaseStyleFlags, STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 
 /**
  * Simply adjust the case of text without anything fancy being applied

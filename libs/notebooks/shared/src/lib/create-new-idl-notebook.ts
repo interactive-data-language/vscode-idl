@@ -1,6 +1,6 @@
 import { EncodeNotebook } from '@idl/notebooks/encoders';
-import { MCPToolParams_CreateIDLNotebook } from '@idl/types/mcp';
-import {
+import type { MCPToolParams_CreateIDLNotebook } from '@idl/types/mcp';
+import type {
   IDLRawNotebook,
   IDLRawNotebookVersion_2_0_0,
 } from '@idl/types/notebooks';

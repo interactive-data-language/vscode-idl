@@ -1,15 +1,19 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { TOKEN_NAMES, type TokenName } from '@idl/tokenizer';
 import {
   IDL_ANY_TYPE,
   IDL_STRING_TYPE,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
-import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/types/syntax-tree';
+import {
+  BRANCH_TYPES,
+  type IParsed,
+  type TreeToken,
+} from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import { ITokenCache } from '../../../helpers/token-cache.interface';
-import { IDLIndex } from '../../../idl-index.class';
+import type { ITokenCache } from '../../../helpers/token-cache.interface';
+import type { IDLIndex } from '../../../idl-index.class';
 import { EvaluateToken } from '../evaluate/evaluate-token';
 import { TypeFromFunction } from './function/type-from-function';
 import { TypeFromNumberOrNumberString } from './numbers/type-from-number-or-number-string';

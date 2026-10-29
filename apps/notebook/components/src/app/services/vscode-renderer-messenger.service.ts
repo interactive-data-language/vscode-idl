@@ -1,5 +1,5 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import {
+import { Injectable, type OnDestroy } from '@angular/core';
+import type {
   IDLNotebookFromRendererBaseMessage,
   IDLNotebookFromRendererMessage,
   IDLNotebookFromRendererMessageType,

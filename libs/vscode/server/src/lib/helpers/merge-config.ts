@@ -1,11 +1,11 @@
-import { IFolderRecursion } from '@idl/idl/files';
+import type { IFolderRecursion } from '@idl/idl/files';
 import { MCP_TASK_REGISTRY } from '@idl/mcp/language-server-tools';
 import {
   IDL_PROBLEM_CODE_SHORTHAND_CODE_LOOKUP,
   IDL_PROBLEM_CODE_SHORTHAND_LOOKUP,
   IDL_PROBLEM_CODES,
   IDL_REVERSE_PROBLEM_CODE_ALIAS_LOOKUP,
-  IDLProblemCode,
+  type IDLProblemCode,
 } from '@idl/types/problem-codes';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { copy } from 'fast-copy';

@@ -1,24 +1,27 @@
 import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
-  BranchCallback,
+  type BranchCallback,
   FindAllBranchChildren,
   FindDirectBranchChildren,
   IDL_SYNTAX_TREE_VALIDATOR,
-  IDLSyntaxValidatorMeta,
+  type IDLSyntaxValidatorMeta,
 } from '@idl/parsing/syntax-tree';
 import {
-  CallFunctionMethodToken,
-  CallFunctionToken,
-  CallProcedureMethodToken,
-  CallProcedureToken,
-  RoutineMethodNameToken,
-  RoutineNameToken,
-  StructureToken,
+  type CallFunctionMethodToken,
+  type CallFunctionToken,
+  type CallProcedureMethodToken,
+  type CallProcedureToken,
+  type RoutineMethodNameToken,
+  type RoutineNameToken,
+  type StructureToken,
   TOKEN_NAMES,
-  TokenName,
+  type TokenName,
 } from '@idl/tokenizer';
-import { IDL_PROBLEM_CODES, IDLProblemCode } from '@idl/types/problem-codes';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import {
+  IDL_PROBLEM_CODES,
+  type IDLProblemCode,
+} from '@idl/types/problem-codes';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Helper function to check and report duplicate problems for

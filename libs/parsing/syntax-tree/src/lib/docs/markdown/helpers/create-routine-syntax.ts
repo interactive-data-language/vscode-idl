@@ -3,10 +3,16 @@ import {
   IDLTypeHelper,
   TASK_REGEX,
 } from '@idl/parsing/type-parser';
-import { IDL_TYPE_LOOKUP, IFunctionMetadata } from '@idl/types/idl-data-types';
+import {
+  IDL_TYPE_LOOKUP,
+  type IFunctionMetadata,
+} from '@idl/types/idl-data-types';
 
 import { TaskFunctionName } from '../../../helpers/task-function-name';
-import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
+import type {
+  MarkdownInfo,
+  RoutineMarkdown,
+} from '../docs-to-markdown.interface';
 
 /**
  * Gets syntax signature for a routine

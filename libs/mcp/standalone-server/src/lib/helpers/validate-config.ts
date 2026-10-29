@@ -1,7 +1,7 @@
 import type { IAgentServerConfig } from '@idl/types/agents';
 
 import { ResolveIDLDirectory } from './resolve-idl-directory';
-import { IConfigProblem } from './validate-config.interface';
+import type { IConfigProblem } from './validate-config.interface';
 
 /**
  * Checks that we have what we need to start the agents server: a copy of IDL

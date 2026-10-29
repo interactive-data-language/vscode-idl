@@ -1,4 +1,4 @@
-import { Route } from '@angular/router';
+import type { Route } from '@angular/router';
 import { ChatLandingComponent } from '@idl/ngx/chat';
 
 export const appRoutes: Route[] = [

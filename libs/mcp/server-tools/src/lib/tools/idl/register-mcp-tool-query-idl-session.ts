@@ -1,9 +1,9 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { MCPServer } from '@idl/mcp/server';
+import type { MCPServer } from '@idl/mcp/server';
 import { ValidateIDLCode } from '@idl/mcp/shared';
 import { Parser } from '@idl/parser';
 import { TreeRecurserBasic } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { TOKEN_NAMES, type TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';

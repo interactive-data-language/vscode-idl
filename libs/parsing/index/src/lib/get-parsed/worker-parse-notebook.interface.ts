@@ -1,5 +1,5 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { ParseNotebookResponse } from '@idl/workers/parsing';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type { ParseNotebookResponse } from '@idl/workers/parsing';
 
 /**
  * Data we track for pending PRO code

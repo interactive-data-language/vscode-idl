@@ -1,4 +1,4 @@
-import { ITokenDef, TokenName } from '../../tokens.interface';
+import type { ITokenDef, TokenName } from '../../tokens.interface';
 import { COMMA } from '../defs/commas.interface';
 import { NUMBER } from '../defs/numbers.interface';
 import { QUOTE_DOUBLE, QUOTE_SINGLE } from '../defs/quotes.interface';

@@ -1,6 +1,10 @@
 import { IDL_NUMBER_REGEX } from '@idl/types/tokenizer';
 
-import { ITokenDef, NumberToken, TOKEN_NAMES } from '../../tokens.interface';
+import {
+  type ITokenDef,
+  type NumberToken,
+  TOKEN_NAMES,
+} from '../../tokens.interface';
 
 export type NumberTokenDef = ITokenDef<NumberToken>;
 

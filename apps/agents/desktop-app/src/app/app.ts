@@ -1,5 +1,5 @@
 import {
-  IStartAgentsServerResult,
+  type IStartAgentsServerResult,
   LoadConfig,
   StartAgentsServer,
 } from '@idl/mcp/standalone-server';

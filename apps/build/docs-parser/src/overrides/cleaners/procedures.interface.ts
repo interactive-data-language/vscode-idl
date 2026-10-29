@@ -1,6 +1,6 @@
-import { GlobalProcedureToken } from '@idl/types/idl-data-types';
+import type { GlobalProcedureToken } from '@idl/types/idl-data-types';
 
-import { Cleaners } from './cleaners.interface';
+import type { Cleaners } from './cleaners.interface';
 
 /**
  * Clean up procedures

@@ -1,62 +1,62 @@
-import {
+import type {
   CallToolResult,
   ImageContent,
   TextContent,
 } from '@modelcontextprotocol/server';
 
-import {
+import type {
   MCPTool_CreateENVIModelerWorkflow,
   MCPToolParams_CreateENVIModelerWorkflow,
 } from './http/mcp-tool-create-envi-modeler-workflow.interface';
-import {
+import type {
   MCPTool_CreateFolder,
   MCPToolParams_CreateFolder,
 } from './http/mcp-tool-create-folder.interface';
-import {
+import type {
   MCPTool_GetENVIToolParameters,
   MCPToolParams_GetENVIToolParameters,
 } from './http/mcp-tool-get-envi-tool-parameters.interface';
-import {
+import type {
   MCPTool_GetENVIToolWorkflow,
   MCPToolParams_GetENVIToolWorkflows,
 } from './http/mcp-tool-get-envi-tool-workflow.interface';
-import {
+import type {
   MCPTool_GetResource,
   MCPToolParams_GetResource,
 } from './http/mcp-tool-get-resource.interface';
-import {
+import type {
   MCPTool_GetRoutineDocs,
   MCPToolParams_GetRoutineDocs,
 } from './http/mcp-tool-get-routine-docs.interface';
-import {
+import type {
   MCPTool_GetSkill,
   MCPToolParams_GetSkill,
 } from './http/mcp-tool-get-skill.interface';
-import {
+import type {
   MCPTool_ListAllResources,
   MCPToolParams_ListAllResources,
 } from './http/mcp-tool-list-all-resources.interface';
-import {
+import type {
   MCPTool_ListENVITools,
   MCPToolParams_ListENVITools,
 } from './http/mcp-tool-list-envi-tools.interface';
-import {
+import type {
   MCPTool_ListSkills,
   MCPToolParams_ListSkills,
 } from './http/mcp-tool-list-skills.interface';
-import {
+import type {
   MCPTool_SaveENVIToolWorkflow,
   MCPToolParams_SaveENVIToolWorkflow,
 } from './http/mcp-tool-save-envi-tool-workflow.interface';
-import {
+import type {
   MCPTool_SearchForFiles,
   MCPToolParams_SearchForFiles,
 } from './http/mcp-tool-search-for-files.interface';
-import {
+import type {
   MCPTool_SearchForRoutine,
   MCPToolParams_SearchForRoutine,
 } from './http/mcp-tool-search-for-routine.interface';
-import {
+import type {
   MCPTool_SearchResources,
   MCPToolParams_SearchResources,
 } from './http/mcp-tool-search-resources.interface';

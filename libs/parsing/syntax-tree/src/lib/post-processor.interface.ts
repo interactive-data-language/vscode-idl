@@ -1,5 +1,5 @@
 import { TreeCallbackHandler } from './recursion-and-callbacks/tree-callback-handler.class';
-import { IHandlerCallbackMetadata } from './recursion-and-callbacks/tree-callback-handler.interface';
+import type { IHandlerCallbackMetadata } from './recursion-and-callbacks/tree-callback-handler.interface';
 
 /**
  * Type for metadata in our validator callbacks

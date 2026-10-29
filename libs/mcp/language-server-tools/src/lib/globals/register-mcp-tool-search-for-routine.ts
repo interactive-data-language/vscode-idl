@@ -1,7 +1,10 @@
-import { MCPServer } from '@idl/mcp/server';
-import { IDLIndex } from '@idl/parsing/index';
+import type { MCPServer } from '@idl/mcp/server';
+import type { IDLIndex } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { GLOBAL_TOKEN_TYPES, GlobalTokenType } from '@idl/types/idl-data-types';
+import {
+  GLOBAL_TOKEN_TYPES,
+  type GlobalTokenType,
+} from '@idl/types/idl-data-types';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { z } from 'zod';
 

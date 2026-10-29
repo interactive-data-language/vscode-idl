@@ -1,9 +1,9 @@
-import {
+import type {
   CallFunctionMethodToken,
   CallProcedureMethodToken,
 } from '@idl/tokenizer';
 
-import { TokenFormatter } from '../../formatter-rule-set.interface';
+import type { TokenFormatter } from '../../formatter-rule-set.interface';
 
 /**
  * Formats method calls to

@@ -1,16 +1,19 @@
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
+  type FormatterType,
+  type IAssemblerOptions,
 } from '@idl/assembling/config';
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { GetExtensionPath, IFolderRecursion } from '@idl/idl/files';
+import { GetExtensionPath, type IFolderRecursion } from '@idl/idl/files';
 import {
   IDL_LSP_LOG,
   IDL_WORKER_THREAD_CONSOLE,
-  LogManager,
+  type LogManager,
 } from '@idl/logger';
-import { IDLNotebookDocument, IParsedIDLNotebook } from '@idl/notebooks/shared';
+import type {
+  IDLNotebookDocument,
+  IParsedIDLNotebook,
+} from '@idl/notebooks/shared';
 import { Parser } from '@idl/parser';
 import { GetIncludeFile } from '@idl/parsing/syntax-tree';
 import { TaskToGlobalToken } from '@idl/parsing/tasks';
@@ -18,37 +21,37 @@ import { LoadConfig } from '@idl/schemas/idl.json';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_FILE_TYPE_LOOKUP, IDLFileHelper } from '@idl/shared/extension';
 import { NODE_MEMORY_CONFIG } from '@idl/system-memory';
-import { IncludeToken } from '@idl/tokenizer';
+import type { IncludeToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalTokens,
-  GlobalTokenType,
+  type GlobalTokens,
+  type GlobalTokenType,
 } from '@idl/types/idl-data-types';
 import {
   DEFAULT_DISABLED_PROBLEMS,
-  IDisabledProblems,
-  SyntaxProblems,
+  type IDisabledProblems,
+  type SyntaxProblems,
 } from '@idl/types/problem-codes';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import {
   DEFAULT_IDL_EXTENSION_CONFIG,
-  IDLExtensionConfig,
+  type IDLExtensionConfig,
 } from '@idl/vscode/extension-config';
 import {
-  GetAutoCompleteResponse,
-  GetSemanticTokensResponse,
-  GetTokenDefResponse,
-  ILSPWorkerThreadPool,
-  LoadGlobalResponse,
+  type GetAutoCompleteResponse,
+  type GetSemanticTokensResponse,
+  type GetTokenDefResponse,
+  type ILSPWorkerThreadPool,
+  type LoadGlobalResponse,
   LSP_WORKER_THREAD_MESSAGE_LOOKUP,
-  LSPWorkerThreadMessage,
-  ParseFilesFastResponse,
-  ParseFilesResponse,
-  PostProcessFilesResponse,
-  RemoveFilesResponse,
-  TrackGlobalTokensPayload,
-  TrackGlobalTokensResponse,
+  type LSPWorkerThreadMessage,
+  type ParseFilesFastResponse,
+  type ParseFilesResponse,
+  type PostProcessFilesResponse,
+  type RemoveFilesResponse,
+  type TrackGlobalTokensPayload,
+  type TrackGlobalTokensResponse,
 } from '@idl/workers/parsing';
 import { WorkerIOPool } from '@idl/workers/workerio';
 import { copy } from 'fast-copy';
@@ -58,7 +61,7 @@ import { cpus, platform } from 'os';
 import { basename, dirname } from 'path';
 import { performance } from 'perf_hooks';
 import { NotebookCellKind } from 'vscode-languageserver';
-import { DocumentSymbol, Position } from 'vscode-languageserver-types';
+import type { DocumentSymbol, Position } from 'vscode-languageserver-types';
 import { Worker } from 'worker_threads';
 
 import { BuildCompletionItems } from './auto-complete/build-completion-items';
@@ -81,8 +84,8 @@ import { GetHoverHelpLookup } from './hover-help/get-hover-help-lookup';
 import {
   DEFAULT_INDEX_PRO_CODE_OPTIONS,
   IDL_INDEX_OPTIONS,
-  IIndexProCodeOptions,
-  IIndexWorkspaceStats,
+  type IIndexProCodeOptions,
+  type IIndexWorkspaceStats,
 } from './idl-index.interface';
 import { IDLParsedCache } from './idl-parsed-cache.class';
 import { IDL_GLOBAL_TOKENS, LoadGlobal } from './load-global/load-global';

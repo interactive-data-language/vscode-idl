@@ -1,4 +1,4 @@
-import { PrepareNotebookCellResponse } from './prepare-notebook-cell.message.interface';
+import type { PrepareNotebookCellResponse } from './prepare-notebook-cell.message.interface';
 
 /** Prepare IDL code for execution */
 export type PrepareIDLCodeMessage = 'prepare-idl-code';

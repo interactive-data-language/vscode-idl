@@ -1,4 +1,8 @@
-import { ITokenDef, TOKEN_NAMES, TokenName } from '../../tokens.interface';
+import {
+  type ITokenDef,
+  TOKEN_NAMES,
+  type TokenName,
+} from '../../tokens.interface';
 import { ACCESS_PROPERTY } from '../defs/access-property.interface';
 import { ASSIGNMENT } from '../defs/assignment.interface';
 import { BLOCK } from '../defs/block.interface';

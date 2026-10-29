@@ -4,14 +4,14 @@ import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
-  GlobalFunctionToken,
-  GlobalStructureToken,
+  type GlobalFunctionToken,
+  type GlobalStructureToken,
   IDL_TYPE_LOOKUP,
-  IDLDataTypeBaseMetadata,
-  IGlobalIndexedToken,
-  IPropertyLookup,
+  type IDLDataTypeBaseMetadata,
+  type IGlobalIndexedToken,
+  type IPropertyLookup,
 } from '@idl/types/idl-data-types';
-import {
+import type {
   ENVITaskLegacy,
   ENVITaskLegacyParameter,
   ENVITaskLegacyVersion,

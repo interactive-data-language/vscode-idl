@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { Parser } from '@idl/parser';
-import { SyntaxProblems } from '@idl/types/problem-codes';
-import { SyntaxTree } from '@idl/types/syntax-tree';
+import type { SyntaxProblems } from '@idl/types/problem-codes';
+import type { SyntaxTree } from '@idl/types/syntax-tree';
 
 describe(`[auto generated] Correctly identify pointer dereferencing`, () => {
   it(`[auto generated] all parts of switch statement`, () => {

@@ -1,7 +1,7 @@
-import { SyntaxTree } from '@idl/types/syntax-tree';
-import { PositionArray } from '@idl/types/tokenizer';
+import type { SyntaxTree } from '@idl/types/syntax-tree';
+import type { PositionArray } from '@idl/types/tokenizer';
 
-import { SplitOperatorToken } from './split-tree-on-operators';
+import type { SplitOperatorToken } from './split-tree-on-operators';
 
 /**
  * Data structure for a split tree

@@ -1,13 +1,13 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { SplitCode } from '@idl/tokenizer';
-import { AutoFixProblem } from '@idl/types/problem-codes';
+import type { AutoFixProblem } from '@idl/types/problem-codes';
 import { OpenFileInVSCode, OpenNotebookInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import { readFileSync } from 'fs';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../../runner.interface';
+import type { RunnerFunction } from '../../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../../test-client-config.interface';
 
 /**

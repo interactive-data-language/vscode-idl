@@ -1,7 +1,7 @@
 import {
   IDL_LOG,
   LOGGING_CONFIG,
-  LogInterceptor,
+  type LogInterceptor,
   StringifyData,
   StringifyDataForLog,
 } from '@idl/logger';

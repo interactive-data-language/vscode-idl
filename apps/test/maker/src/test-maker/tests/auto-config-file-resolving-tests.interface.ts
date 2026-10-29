@@ -1,4 +1,4 @@
-import { IConfigTests } from '../tests.interface';
+import type { IConfigTests } from '../tests.interface';
 
 /**
  * Automated tests to make sure we can properly resolve our configuration

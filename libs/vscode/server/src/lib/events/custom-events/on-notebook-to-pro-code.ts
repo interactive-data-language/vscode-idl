@@ -4,7 +4,7 @@ import { IDL_LSP_LOG } from '@idl/logger';
 import { NotebookToProCode } from '@idl/notebooks/idl-index';
 import { NotebookToIDLNotebook } from '@idl/notebooks/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   INotebookToProCodePayload,
   INotebookToProCodeResponse,
 } from '@idl/vscode/events/messages';

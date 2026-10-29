@@ -4,7 +4,7 @@ import {
   Component,
   computed,
   inject,
-  OnInit,
+  type OnInit,
   signal,
 } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';

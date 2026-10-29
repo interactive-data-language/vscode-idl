@@ -1,5 +1,5 @@
-import { TokenName } from '@idl/tokenizer';
-import {
+import type { TokenName } from '@idl/tokenizer';
+import type {
   ILocalIndexedToken,
   ILocalTokenLookup,
   IParsed,
@@ -8,7 +8,7 @@ import {
 } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import { IParentInformation } from './selected-token.interface';
+import type { IParentInformation } from './selected-token.interface';
 
 /**
  * Returns source information for a variable that we are hovering over.

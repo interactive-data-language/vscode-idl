@@ -1,14 +1,18 @@
-import { MCPToolParams, MCPToolResponse, MCPTools_IDL } from '@idl/types/mcp';
+import type {
+  MCPToolParams,
+  MCPToolResponse,
+  MCPTools_IDL,
+} from '@idl/types/mcp';
 import type { Server as HttpServer } from 'http';
 import { nanoid } from 'nanoid';
 import { WebSocket, WebSocketServer } from 'ws';
 
 import {
-  IPendingRequest,
-  IWebSocketNotification,
-  IWebSocketRequest,
+  type IPendingRequest,
+  type IWebSocketNotification,
+  type IWebSocketRequest,
   NO_WEBSOCKET_CLIENT_ERROR,
-  WebSocketToolResponse,
+  type WebSocketToolResponse,
 } from './websocket-tool-bridge.interface';
 
 /**

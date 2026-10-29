@@ -1,12 +1,15 @@
-import { LayerProps } from '@deck.gl/core';
+import type { LayerProps } from '@deck.gl/core';
 import type { GeoJsonLayer, GeoJsonLayerProps } from '@deck.gl/layers';
-import {
+import type {
   IDLNotebookEmbeddedItem,
   IDLNotebookMap_GeoJSON,
   IDLNotebookMap_Image,
 } from '@idl/types/notebooks';
 
-import { AwesomeImage, AwesomeImageProps } from './layers/awesome-image.class';
+import type {
+  AwesomeImage,
+  AwesomeImageProps,
+} from './layers/awesome-image.class';
 
 /** [xmin, ymin, xmax, ymax] */
 export type LayerBounds = [number, number, number, number];

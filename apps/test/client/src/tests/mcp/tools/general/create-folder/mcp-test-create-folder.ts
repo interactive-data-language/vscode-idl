@@ -4,7 +4,7 @@ import { existsSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
-import { RunnerFunction } from '../../../../runner.interface';
+import type { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../../helpers/get-text-content';
 

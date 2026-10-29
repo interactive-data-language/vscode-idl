@@ -1,5 +1,5 @@
-import { Connection } from 'vscode-languageserver';
-import { CompletionItem } from 'vscode-languageserver-types';
+import type { Connection } from 'vscode-languageserver';
+import type { CompletionItem } from 'vscode-languageserver-types';
 
 export class IDL {
   // connection specific properties for vscode lang server

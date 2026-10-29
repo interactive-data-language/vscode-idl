@@ -1,4 +1,4 @@
-import {
+import type {
   IIDLMCPExecutionBackend,
   MCPProgressCallback,
   MCPTool_ControlIDLAndENVISession,

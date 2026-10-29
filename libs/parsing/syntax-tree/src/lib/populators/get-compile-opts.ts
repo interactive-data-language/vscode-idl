@@ -1,10 +1,10 @@
 import {
-  MainLevelToken,
-  RoutineFunctionToken,
-  RoutineProcedureToken,
+  type MainLevelToken,
+  type RoutineFunctionToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IBranch } from '@idl/types/syntax-tree';
+import type { IBranch } from '@idl/types/syntax-tree';
 
 import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-children';
 

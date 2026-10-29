@@ -1,8 +1,8 @@
 import expect from 'expect';
 import { deepEqual } from 'fast-equals';
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 
-import {
+import type {
   ICompareCellAndOutputs,
   ICompareCellOutputs,
 } from './compare-cells.interface';

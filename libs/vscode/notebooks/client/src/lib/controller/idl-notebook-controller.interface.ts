@@ -1,6 +1,6 @@
-import { IDLEvaluateOptions } from '@idl/types/idl/idl-process';
-import { PrepareNotebookCellResponse } from '@idl/vscode/events/messages';
-import * as vscode from 'vscode';
+import type { IDLEvaluateOptions } from '@idl/types/idl/idl-process';
+import type { PrepareNotebookCellResponse } from '@idl/vscode/events/messages';
+import type * as vscode from 'vscode';
 
 /**
  * Current cell we are executing

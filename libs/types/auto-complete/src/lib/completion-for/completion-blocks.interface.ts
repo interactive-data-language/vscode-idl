@@ -1,10 +1,10 @@
 import {
-  LogicalCaseSwitchThenToken,
-  LogicalElseToken,
-  LogicalExpressionDefaultToken,
-  LogicalIfToken,
-  LogicalThenToken,
-  LoopDoToken,
+  type LogicalCaseSwitchThenToken,
+  type LogicalElseToken,
+  type LogicalExpressionDefaultToken,
+  type LogicalIfToken,
+  type LogicalThenToken,
+  type LoopDoToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 

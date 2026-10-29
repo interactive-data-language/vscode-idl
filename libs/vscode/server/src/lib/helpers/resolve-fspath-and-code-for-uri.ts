@@ -4,7 +4,7 @@ import { URI } from 'vscode-uri';
 
 import { NOTEBOOK_MANAGER } from '../events/initialize-notebook-manager';
 import { GetFileStrings } from './get-file-strings';
-import { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.interface';
+import type { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.interface';
 
 /**
  * Given a URI, resolves the appropriate file system path and retrieves

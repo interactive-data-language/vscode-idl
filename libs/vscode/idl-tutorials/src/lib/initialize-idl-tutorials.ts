@@ -1,5 +1,5 @@
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 
 import { RegisterIDLTutorialsCommands } from './commands/register-idl-tutorials-commands';
 

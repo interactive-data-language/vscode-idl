@@ -1,6 +1,6 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IIDLMCPExecutionBackend,
   MCPTool_RunIDLFile,
   MCPToolParams,

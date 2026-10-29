@@ -6,7 +6,7 @@ import { writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
-import { IOutlineTest } from '../tests.interface';
+import type { IOutlineTest } from '../tests.interface';
 
 /**
  * Generates tests to make sure we can get the outline for a file

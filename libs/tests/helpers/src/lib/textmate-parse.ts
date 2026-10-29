@@ -4,14 +4,14 @@ import { readFile } from 'fs/promises';
 import { loadWASM, OnigScanner, OnigString } from 'vscode-oniguruma';
 import {
   INITIAL,
-  IToken,
-  ITokenizeLineResult,
+  type IToken,
+  type ITokenizeLineResult,
   parseRawGrammar,
   Registry,
 } from 'vscode-textmate';
 
 import {
-  IHelpfulTextMateToken,
+  type IHelpfulTextMateToken,
   KEEP_EMPTY_SCOPES,
 } from './textmate-parse.interface';
 

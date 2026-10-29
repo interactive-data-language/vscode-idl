@@ -2,8 +2,8 @@ import { IDLFileHelper, Sleep } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_CODE_COVERAGE_LOOKUP,
-  IDLCodeCoverage,
-  IDLSyntaxErrorLookup,
+  type IDLCodeCoverage,
+  type IDLSyntaxErrorLookup,
 } from '@idl/types/idl/idl-process';
 import {
   GetTextEditorForURIString,
@@ -14,10 +14,10 @@ import * as vscode from 'vscode';
 import {
   CODE_COVERAGE_DECORATIONS,
   DEBUG_DIAGNOSTIC_COLLECTION,
-  ICodeCoverageLookup,
-  IDecorationLookup,
-  IDLDecorationsResetFlag,
-  IStackTraceLookup,
+  type ICodeCoverageLookup,
+  type IDecorationLookup,
+  type IDLDecorationsResetFlag,
+  type IStackTraceLookup,
   STACK_TRACE_DECORATION,
   STACK_TRACE_DECORATION_WITH_GUTTER,
   SYNTAX_ERROR_DECORATION,

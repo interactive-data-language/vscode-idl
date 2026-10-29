@@ -3,7 +3,7 @@ import {
   IDL_HASH_TYPES,
   IDL_NUMBER_TYPE_ORDER,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
 
 /**

@@ -1,7 +1,7 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IFileRenamePayload } from '@idl/vscode/events/messages';
+import type { IFileRenamePayload } from '@idl/vscode/events/messages';
 
 import { GetFileStringsFromFSPath } from '../../helpers/get-file-strings';
 import { SendProblems } from '../../helpers/send-problems';

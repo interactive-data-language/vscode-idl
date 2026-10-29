@@ -1,5 +1,5 @@
 import { Sleep } from '@idl/shared/extension';
-import {
+import type {
   MCPToolHTTPResponse,
   MCPToolParams,
   MCPToolParams_ParameterOverride,

@@ -1,4 +1,8 @@
-import { BlockToken, ITokenDef, TOKEN_NAMES } from '../../tokens.interface';
+import {
+  type BlockToken,
+  type ITokenDef,
+  TOKEN_NAMES,
+} from '../../tokens.interface';
 import { IDL_BLOCK_END } from '../regex.interface';
 
 export type BlockTokenDef = ITokenDef<BlockToken>;

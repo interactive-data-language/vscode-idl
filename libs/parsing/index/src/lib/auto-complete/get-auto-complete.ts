@@ -1,9 +1,9 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
-import { IDLExtensionConfig } from '@idl/vscode/extension-config';
-import { GetAutoCompleteResponse } from '@idl/workers/parsing';
-import { Position } from 'vscode-languageserver-types';
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import type { GetAutoCompleteResponse } from '@idl/workers/parsing';
+import type { Position } from 'vscode-languageserver-types';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { BuildCompletionItems } from './build-completion-items';
 import { GetCompletionRecipes } from './get-completion-recipes';
 

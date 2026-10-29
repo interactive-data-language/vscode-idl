@@ -1,9 +1,9 @@
 // global tokens
 // dont use token names because they dont properly overlap with what we need to
 
-import { PositionArray, PositionRange } from '@idl/types/tokenizer';
+import type { PositionArray, PositionRange } from '@idl/types/tokenizer';
 
-import { IDLDataType } from './idl-data-types.interface';
+import type { IDLDataType } from './idl-data-types.interface';
 
 // verbosely store
 export type GlobalFunctionToken = 'f';

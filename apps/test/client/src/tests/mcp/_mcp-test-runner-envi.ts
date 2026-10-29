@@ -1,7 +1,7 @@
 import { Logger } from '@idl/logger';
 
 import { Runner } from '../runner.class';
-import { IOSDefinition } from '../runner.interface';
+import type { IOSDefinition } from '../runner.interface';
 import { RunMCPTestValidateMCPConnection } from './mcp-test-validate-mcp-connection';
 import { RunMCPTestWorkflowAddAggregators } from './tools/envi/envi-modeler/mcp-test-workflow-add-aggregators';
 import { RunMCPTestWorkflowBadDirection } from './tools/envi/envi-modeler/mcp-test-workflow-bad-direction';

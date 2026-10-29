@@ -1,9 +1,9 @@
 import {
-  ITokenDef,
-  LineContinuationBasicToken,
-  LineContinuationToken,
-  LineSeparationBasicToken,
-  LineSeparationToken,
+  type ITokenDef,
+  type LineContinuationBasicToken,
+  type LineContinuationToken,
+  type LineSeparationBasicToken,
+  type LineSeparationToken,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 

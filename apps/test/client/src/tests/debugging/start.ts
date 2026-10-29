@@ -4,7 +4,7 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 
 /**
  * Function that verifies that we can do basic debugging of IDL sessions

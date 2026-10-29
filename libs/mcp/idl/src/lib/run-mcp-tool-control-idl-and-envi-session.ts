@@ -1,6 +1,6 @@
 import { RunMCPTool_StartENVISession } from '@idl/mcp/envi';
 import { Sleep } from '@idl/shared/extension';
-import {
+import type {
   IIDLMCPExecutionBackend,
   MCPProgressCallback,
   MCPTool_ControlIDLAndENVISession,

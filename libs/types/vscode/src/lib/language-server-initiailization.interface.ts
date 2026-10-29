@@ -1,4 +1,4 @@
-import { IVSCodeServerPorts } from './vscode-server-ports.interface';
+import type { IVSCodeServerPorts } from './vscode-server-ports.interface';
 
 /**
  * Options for initializing the language server

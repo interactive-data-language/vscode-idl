@@ -1,6 +1,6 @@
 import { TreeCallbackHandler } from '@idl/parsing/syntax-tree';
 
-import {
+import type {
   PopulateTypeHandler,
   PopulateTypeHandlerMeta,
 } from './populate-type-handler.interface';

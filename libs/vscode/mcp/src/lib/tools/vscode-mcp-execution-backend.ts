@@ -13,27 +13,27 @@ import {
   RunMCPTool_QueryIDLSession,
   RunMCPTool_RunIDLCode,
 } from '@idl/mcp/idl';
-import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
-import { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
+import type { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
+import type { IDLSyntaxErrorLookup } from '@idl/types/idl/idl-process';
 import {
   DEFAULT_ENVI_MCP_TOOL_RESPONSE,
   DEFAULT_MCP_EVALUATE_OPTIONS,
-  ENVIMCPToolResponse,
-  ENVIMCPToolResponse_Failure,
-  IIDLMCPExecutionBackend,
-  IPrepareIDLCodeResult,
+  type ENVIMCPToolResponse,
+  type ENVIMCPToolResponse_Failure,
+  type IIDLMCPExecutionBackend,
+  type IPrepareIDLCodeResult,
   MCP_TOOL_LOOKUP,
-  MCPProgressCallback,
-  MCPTool_RunENVITool,
-  MCPToolParams,
-  MCPToolResponse,
-  MCPTools_IDL,
+  type MCPProgressCallback,
+  type MCPTool_RunENVITool,
+  type MCPToolParams,
+  type MCPToolResponse,
+  type MCPTools_IDL,
 } from '@idl/types/mcp';
-import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
+import type { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import {
-  IDebugEvaluateOptions,
+  type IDebugEvaluateOptions,
   IDL_DEBUG_ADAPTER,
   LAST_ENVI_MCP_MESSAGE,
   StartIDL,

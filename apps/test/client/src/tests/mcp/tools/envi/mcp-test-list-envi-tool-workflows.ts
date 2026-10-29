@@ -7,7 +7,7 @@ import {
   USER_TOOL_WORKFLOW,
   USER_TOOL_WORKFLOW_FS,
 } from '../../../../test-setup.interface';
-import { RunnerFunction } from '../../../runner.interface';
+import type { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../helpers/get-text-content';
 

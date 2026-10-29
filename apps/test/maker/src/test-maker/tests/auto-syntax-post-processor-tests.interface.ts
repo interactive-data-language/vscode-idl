@@ -1,4 +1,4 @@
-import { IAutoTest } from '../tests.interface';
+import type { IAutoTest } from '../tests.interface';
 
 /**
  * Automated tests to make sure post-processors for parsing do what they are

@@ -1,6 +1,6 @@
-import { IDLNotebookSerializer } from '@idl/vscode/notebooks/shared';
+import type { IDLNotebookSerializer } from '@idl/vscode/notebooks/shared';
 
-import { IDLNotebookController } from './controller/idl-notebook-controller.class';
+import type { IDLNotebookController } from './controller/idl-notebook-controller.class';
 
 /**
  * Result when we initialize notebooks

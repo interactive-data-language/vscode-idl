@@ -1,10 +1,10 @@
-import {
+import type {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { IDocs } from '@idl/types/syntax-tree';
+import type { IDocs } from '@idl/types/syntax-tree';
 
-import {
+import type {
   FunctionRoutineType,
   ProcedureRoutineType,
   RoutineMetadata,

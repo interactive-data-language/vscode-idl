@@ -2,8 +2,11 @@ import { CleanPath } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { IsIDLDirValid } from '@idl/vscode/debug';
-import { GetActivePROCodeWindow, IDLCommandAction } from '@idl/vscode/shared';
-import { IDLAction } from '@idl/vscode/tree-view';
+import {
+  GetActivePROCodeWindow,
+  type IDLCommandAction,
+} from '@idl/vscode/shared';
+import type { IDLAction } from '@idl/vscode/tree-view';
 import { platform } from 'os';
 import * as vscode from 'vscode';
 

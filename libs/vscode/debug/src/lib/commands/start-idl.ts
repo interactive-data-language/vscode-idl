@@ -1,6 +1,6 @@
 import { IDL_TRANSLATION } from '@idl/translation';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
-import { IIDLStartResult } from '@idl/types/vscode-debug';
+import type { IIDLStartResult } from '@idl/types/vscode-debug';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
 import { copy } from 'fast-copy';
 import * as vscode from 'vscode';

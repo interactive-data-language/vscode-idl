@@ -1,6 +1,6 @@
-import { PropertyCompletion } from '@idl/types/auto-complete';
+import type { PropertyCompletion } from '@idl/types/auto-complete';
 
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 
 export interface IPropertyCompletionArg
   extends BuildCompletionItemsArg<PropertyCompletion> {

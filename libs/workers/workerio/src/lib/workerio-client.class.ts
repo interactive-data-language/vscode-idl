@@ -1,16 +1,19 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { ObjectifyError } from '@idl/error-shared';
 import { SimplePromiseQueue } from '@idl/shared/extension';
-import { MessagePort } from 'worker_threads';
+import type { MessagePort } from 'worker_threads';
 
-import {
+import type {
   ErrorMessage,
   LogMessage,
   UnhandledError,
 } from './messages/workerio.messages.interface';
-import { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
-import { IMessageFromWorker, ISentMessageToWorker } from './workerio.interface';
-import { IWorkerIOClient } from './workerio-client.class.interface';
+import type { PayloadFromWorkerBaseMessage } from './messages/workerio.payloads.interface';
+import type {
+  IMessageFromWorker,
+  ISentMessageToWorker,
+} from './workerio.interface';
+import type { IWorkerIOClient } from './workerio-client.class.interface';
 import { WorkerIOParseMessageToWorker } from './workerio-message';
 
 /**

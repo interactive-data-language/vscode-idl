@@ -6,7 +6,7 @@ import {
   input,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { ChatMessage } from '@idl/types/chat';
+import type { ChatMessage } from '@idl/types/chat';
 
 import { ChatMarkdownRendererComponent } from '../chat-markdown-renderer/chat-markdown-renderer.component';
 import { ChatThinkingMessageComponent } from '../chat-thinking-message/chat-thinking-message.component';

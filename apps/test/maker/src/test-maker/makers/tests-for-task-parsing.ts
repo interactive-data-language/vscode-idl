@@ -2,11 +2,11 @@ import { GetExtensionPath } from '@idl/idl/files';
 import { ResetGlobalDisplayNames } from '@idl/parsing/index';
 import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IGlobalsToTrack } from '@idl/types/tasks';
+import type { IGlobalsToTrack } from '@idl/types/tasks';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITaskParsingTest } from '../tests.interface';
+import type { ITaskParsingTest } from '../tests.interface';
 
 /**
  * Generates automated tests verifying our local, global, and compile options are set.

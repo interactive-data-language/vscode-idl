@@ -1,4 +1,4 @@
-import { ITokenDef, TokenName } from '../../tokens.interface';
+import type { ITokenDef, TokenName } from '../../tokens.interface';
 import { ASSIGNMENT } from '../defs/assignment.interface';
 import { COMMA } from '../defs/commas.interface';
 import { COMMENT } from '../defs/comment.interface';

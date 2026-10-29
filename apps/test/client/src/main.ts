@@ -7,7 +7,7 @@ import {
 import { Sleep } from '@idl/tests/helpers';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
-import { IInitializeType } from '@idl/vscode/initialize-types';
+import type { IInitializeType } from '@idl/vscode/initialize-types';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import { spawnSync } from 'child_process';
 import expect from 'expect';

@@ -1,8 +1,8 @@
 import { GetExtensionPath } from '@idl/idl/files';
-import { IStackTraceLookup } from '@idl/vscode/decorations';
+import type { IStackTraceLookup } from '@idl/vscode/decorations';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 import { RunNotebookAndCheckCallStackDecorations } from './helpers/run-notebook-and-check-call-stack-decorations';
 
 /**

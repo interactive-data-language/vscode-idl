@@ -1,4 +1,4 @@
-import { IMCPToolProgress } from '@idl/types/mcp';
+import type { IMCPToolProgress } from '@idl/types/mcp';
 
 /** Message to execute an MCP action through our language server (server to client) */
 export type MCPProgress_LSP_Message = 'mcp-progress';

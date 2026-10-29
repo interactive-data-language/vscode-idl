@@ -1,11 +1,11 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IDLNotebookFromRendererMessage,
   IDLNotebookFromRendererMessageType,
 } from '@idl/types/notebooks';
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 
 import { SaveNotebookImage } from './save-notebook-image';
 

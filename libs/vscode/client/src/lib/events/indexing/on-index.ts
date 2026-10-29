@@ -1,4 +1,4 @@
-import {
+import type {
   IndexingMessage,
   LanguageServerPayload,
 } from '@idl/vscode/events/messages';

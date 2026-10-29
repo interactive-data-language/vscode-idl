@@ -4,7 +4,7 @@ import {
   Component,
   DestroyRef,
   effect,
-  ElementRef,
+  type ElementRef,
   inject,
   Injector,
   input,
@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ChatSession } from '@idl/types/chat';
+import type { ChatSession } from '@idl/types/chat';
 
 import { ChatSearchService } from '../../services/chat-search.service';
 

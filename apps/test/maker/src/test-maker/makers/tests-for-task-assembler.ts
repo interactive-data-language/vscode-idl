@@ -3,7 +3,7 @@ import { LoadTask } from '@idl/schemas/tasks';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITaskAssemblerTest } from '../tests.interface';
+import type { ITaskAssemblerTest } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { StringifyCode } from './stringify-code';
 

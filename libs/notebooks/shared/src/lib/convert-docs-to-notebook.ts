@@ -1,11 +1,11 @@
 import { EncodeNotebook } from '@idl/notebooks/encoders';
-import {
+import type {
   IDLRawNotebook,
   IDLRawNotebookCell,
   IDLRawNotebookCellType,
   IDLRawNotebookVersion_2_0_0,
 } from '@idl/types/notebooks';
-import { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
+import type { IRetrieveDocsPayload } from '@idl/vscode/events/messages';
 
 import { CreateCodeForNotebooks } from './create-code-for-notebooks';
 

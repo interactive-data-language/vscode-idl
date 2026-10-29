@@ -1,8 +1,8 @@
-import {
+import type {
   GlobalProcedureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { ParsedTask } from '@idl/types/tasks';
+import type { ParsedTask } from '@idl/types/tasks';
 
 /**
  * Conditional properties based on our success

@@ -1,7 +1,10 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDLFileHelper } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { Definition, TextDocumentPositionParams } from 'vscode-languageserver';
+import type {
+  Definition,
+  TextDocumentPositionParams,
+} from 'vscode-languageserver';
 
 import { ResolveFSPathAndCodeForURI } from '../../helpers/resolve-fspath-and-code-for-uri';
 import { URIFromIDLIndexFile } from '../../helpers/uri-from-idl-index-file';

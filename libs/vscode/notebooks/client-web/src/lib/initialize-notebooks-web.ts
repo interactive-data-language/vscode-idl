@@ -1,10 +1,10 @@
 import { IDL_NOTEBOOK_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { IDLNotebookSerializer } from '@idl/vscode/notebooks/shared';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
-import { IInitializeNotebooksWeb } from './initialize-notebooks-web.interface';
+import type { IInitializeNotebooksWeb } from './initialize-notebooks-web.interface';
 
 /**
  * Serializer for IDL notebooks

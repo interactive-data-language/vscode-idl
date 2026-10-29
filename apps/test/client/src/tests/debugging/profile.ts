@@ -2,7 +2,7 @@ import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 
 /**
  * Make sure that profiling works at a basic level

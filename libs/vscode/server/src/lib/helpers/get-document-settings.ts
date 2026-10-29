@@ -1,11 +1,11 @@
-import { _Connection } from 'vscode-languageserver';
+import type { _Connection } from 'vscode-languageserver';
 
 import { CAPABILITIES } from '../capabilities.interface';
 import {
   DOCUMENT_SETTINGS,
   GLOBAL_SERVER_SETTINGS,
 } from '../initialize-language-server';
-import { IServerSettings } from '../settings.interface';
+import type { IServerSettings } from '../settings.interface';
 
 /**
  * Gets document settings for a specific file

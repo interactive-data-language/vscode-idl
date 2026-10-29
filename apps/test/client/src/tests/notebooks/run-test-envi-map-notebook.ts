@@ -1,8 +1,8 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_NOTEBOOK_MIME_TYPE } from '@idl/types/notebooks';
 
-import { RunnerFunction } from '../runner.interface';
-import { ICompareCellOutputs } from './helpers/compare-cells.interface';
+import type { RunnerFunction } from '../runner.interface';
+import type { ICompareCellOutputs } from './helpers/compare-cells.interface';
 import { RunNotebookAndCompareCells } from './helpers/run-notebook-and-compare-cells';
 
 /**

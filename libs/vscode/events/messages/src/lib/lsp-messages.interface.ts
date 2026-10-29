@@ -1,82 +1,82 @@
-import { ILogOptions } from '@idl/logger';
-import { MCPTools, MCPTools_IDL } from '@idl/types/mcp';
-import { IUsageMetricAndPayload, UsageMetric } from '@idl/usage-metrics';
-import { DocumentFormattingParams } from 'vscode-languageserver';
+import type { ILogOptions } from '@idl/logger';
+import type { MCPTools, MCPTools_IDL } from '@idl/types/mcp';
+import type { IUsageMetricAndPayload, UsageMetric } from '@idl/usage-metrics';
+import type { DocumentFormattingParams } from 'vscode-languageserver';
 
-import {
+import type {
   DebugConsoleCompletionMessage,
   DebugConsoleCompletionPayload,
   DebugConsoleCompletionResponse,
 } from './messages/debug-console-completion.interface';
-import {
+import type {
   FolderDeleteMessage,
   IFolderDeletePayload,
 } from './messages/folder-delete.message.interface';
-import {
+import type {
   AddDocsMessage,
   FormatFileMessage,
   FormatWorkspaceMessage,
   FormatWorkspacePayload,
   FormatWorkspaceResponse,
 } from './messages/formatting-messages.interface';
-import {
+import type {
   GenerateTaskMessage,
   IGenerateTaskPayload,
 } from './messages/generate-task.message.interface';
-import {
+import type {
   IIndexingMessagePayload,
   IndexingMessage,
 } from './messages/indexing.message.interface';
-import { LoggingMessage } from './messages/logging.message.interface';
-import {
+import type { LoggingMessage } from './messages/logging.message.interface';
+import type {
   MCPHistory_Message,
   MCPHistory_MessagePayload,
 } from './messages/mcp-history.interface';
-import {
+import type {
   MCP_LSP_Message,
   MCP_LSP_MessagePayload,
   MCP_LSP_MessageResponse,
 } from './messages/mcp-messages.interface';
-import {
+import type {
   MCPProgress_LSP_Message,
   MCPProgress_LSP_MessagePayload,
 } from './messages/mcp-progress-messages.interface';
-import {
+import type {
   MigrateCodeLSPMessage,
   MigrateCodeLSPPayload,
   MigrateCodeLSPResponse,
 } from './messages/migrate-code.message.interface';
-import {
+import type {
   INotebookToProCodePayload,
   INotebookToProCodeResponse,
   NotebookToProCodeMessage,
 } from './messages/notebook-to-pro-code.message.interface';
-import {
+import type {
   PrepareIDLCodeMessage,
   PrepareIDLCodePayload,
   PrepareIDLCodeResponse,
 } from './messages/prepare-idl-code.message.interface';
-import {
+import type {
   PrepareNotebookCellMessage,
   PrepareNotebookCellPayload,
   PrepareNotebookCellResponse,
 } from './messages/prepare-notebook-cell.message.interface';
-import {
+import type {
   ProgressMessage,
   ProgressMessagePayload,
 } from './messages/progress.message.interface';
-import { RefreshMCPToolsMessage } from './messages/refresh-mcp-tools.interface';
-import {
+import type { RefreshMCPToolsMessage } from './messages/refresh-mcp-tools.interface';
+import type {
   FileRenameMessage,
   IFileRenamePayload,
 } from './messages/rename.message.interface';
-import {
+import type {
   IRetrieveDocsPayload,
   IRetrieveDocsResponse,
   RetrieveDocsMessage,
 } from './messages/retrieve-docs.message.interface';
-import { UsageMetricLSPMessage } from './messages/usage-metric.message.interface';
-import {
+import type { UsageMetricLSPMessage } from './messages/usage-metric.message.interface';
+import type {
   IInitWorkspaceConfigPayload,
   InitWorkspaceConfigMessage,
   IWorkspaceConfigPayload,

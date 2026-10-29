@@ -1,5 +1,5 @@
 import { CodeFormatter } from './code-formatter';
-import { IParsedHTML } from './parser.interface';
+import type { IParsedHTML } from './parser.interface';
 
 /**
  * Joins code blocks within the children of the specified elements.

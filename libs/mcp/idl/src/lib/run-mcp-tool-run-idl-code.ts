@@ -2,7 +2,7 @@ import { CreateRandomFilename, MCP_IDL_FOLDER } from '@idl/idl/files';
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { COMPILE_FILE_ERROR } from '@idl/types/idl/idl-process';
-import {
+import type {
   IIDLMCPExecutionBackend,
   MCPTool_RunIDLCode,
   MCPToolParams,

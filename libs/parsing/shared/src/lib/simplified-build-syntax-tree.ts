@@ -1,24 +1,24 @@
 import {
-  IBasicToken,
+  type IBasicToken,
   TOKEN_NAMES,
-  TokenizerToken,
-  TokenName,
-  UnknownToken,
+  type TokenizerToken,
+  type TokenName,
+  type UnknownToken,
 } from '@idl/tokenizer';
 import { TOKEN_TYPES } from '@idl/tokenizer/common';
 import {
   IDL_PROBLEM_CODES,
-  IDLProblemCode,
-  SyntaxProblems,
+  type IDLProblemCode,
+  type SyntaxProblems,
 } from '@idl/types/problem-codes';
 import {
   BRANCH_TYPES,
-  IBasicBranch,
-  IBranch,
-  IRecurserCloseOptions,
-  IRecurserOptions,
-  SyntaxTree,
-  TreeToken,
+  type IBasicBranch,
+  type IBranch,
+  type IRecurserCloseOptions,
+  type IRecurserOptions,
+  type SyntaxTree,
+  type TreeToken,
 } from '@idl/types/syntax-tree';
 
 import { SyntaxProblemWithTranslation } from './syntax-problem-with';

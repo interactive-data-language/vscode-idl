@@ -1,4 +1,4 @@
-import { DEFAULT_PARSER_OPTIONS, IParserOptions } from '@idl/parser';
+import { DEFAULT_PARSER_OPTIONS, type IParserOptions } from '@idl/parser';
 import { copy } from 'fast-copy';
 
 /**

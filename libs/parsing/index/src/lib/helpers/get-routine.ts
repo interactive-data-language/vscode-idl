@@ -1,27 +1,27 @@
 import {
-  CallFunctionMethodToken,
-  CallProcedureMethodToken,
-  RoutineMethodNameToken,
-  RoutineNameToken,
+  type CallFunctionMethodToken,
+  type CallProcedureMethodToken,
+  type RoutineMethodNameToken,
+  type RoutineNameToken,
   TOKEN_NAMES,
-  TokenName,
+  type TokenName,
 } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalIndexedRoutineToken,
+  type GlobalIndexedRoutineToken,
 } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { GetGlobalsFromFunctionCall } from './get-globals-from-function-call';
 import { GetGlobalsFromProcedureCall } from './get-globals-from-procedure-call';
 import {
   CALL_ROUTINE_TOKENS,
-  CallRoutineToken,
+  type CallRoutineToken,
 } from './get-keywords.interface';
 import { GetMethod } from './get-method';
 import { ROUTINE_NAME_TOKENS } from './get-routine.interface';
-import { ITokenCache } from './token-cache.interface';
+import type { ITokenCache } from './token-cache.interface';
 
 /**
  * Gets a routine definition based on the name where it is defined in code

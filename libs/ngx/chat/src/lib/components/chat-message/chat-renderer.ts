@@ -1,5 +1,5 @@
 import { Parser } from 'marked';
-import { MarkedOptions, MarkedRenderer } from 'ngx-markdown';
+import { type MarkedOptions, MarkedRenderer } from 'ngx-markdown';
 
 // function that returns `MarkedOptions` with renderer override
 export function chatMarkdownFactory(): MarkedOptions {

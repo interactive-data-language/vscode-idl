@@ -1,13 +1,13 @@
-import { ENVIModelerNode } from '@idl/types/envi/modeler';
+import type { ENVIModelerNode } from '@idl/types/envi/modeler';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_CreateENVIModelerWorkflow,
+  type MCPTool_CreateENVIModelerWorkflow,
 } from '@idl/types/mcp';
 import expect from 'expect';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
-import { RunnerFunction } from '../../../../runner.interface';
+import type { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 
 /**

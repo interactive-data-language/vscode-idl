@@ -5,10 +5,10 @@ import { I18N_FOLDER } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG, UpdateConfigObject } from '@idl/vscode/config';
 import {
   IDL_EXTENSION_CONFIG_KEYS,
-  IDontShowConfig,
+  type IDontShowConfig,
 } from '@idl/vscode/extension-config';
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import {
+import type {
   IProfilerMessage,
   VSCodeWebViewMessage,
 } from '@idl/vscode/webview-shared';

@@ -1,7 +1,7 @@
 import {
-  ITokenDef,
-  OperatorIncrementDecrementToken,
-  OperatorToken,
+  type ITokenDef,
+  type OperatorIncrementDecrementToken,
+  type OperatorToken,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 import { IDL_OPERATOR_END } from '../regex.interface';

@@ -2,7 +2,10 @@ import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IDL_PROBLEM_CODES, ISyntaxProblem } from '@idl/types/problem-codes';
+import {
+  IDL_PROBLEM_CODES,
+  type ISyntaxProblem,
+} from '@idl/types/problem-codes';
 
 import { RESERVED_WORDS } from '../reserved.interface';
 

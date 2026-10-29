@@ -1,6 +1,6 @@
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IFolderDeletePayload } from '@idl/vscode/events/messages';
+import type { IFolderDeletePayload } from '@idl/vscode/events/messages';
 
 import { SendProblems } from '../../helpers/send-problems';
 import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';

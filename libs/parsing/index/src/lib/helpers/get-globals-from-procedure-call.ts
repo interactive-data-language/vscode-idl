@@ -1,12 +1,12 @@
-import { CallProcedureToken } from '@idl/tokenizer';
+import type { CallProcedureToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalIndexedRoutineToken,
+  type GlobalIndexedRoutineToken,
   IDL_TYPE_LOOKUP,
 } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { TypeFromFirstArg } from '../post-process/populate-type/from/helpers/type-from-first-arg';
 
 /**

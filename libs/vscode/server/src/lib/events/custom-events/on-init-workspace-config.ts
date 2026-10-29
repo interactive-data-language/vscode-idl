@@ -1,12 +1,12 @@
 import {
   DEFAULT_ASSEMBLER_OPTIONS,
-  FormatterType,
-  IAssemblerOptions,
+  type FormatterType,
+  type IAssemblerOptions,
 } from '@idl/assembling/config';
 import { GenerateIDLJSON } from '@idl/generators/idl.json';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   InitWorkspaceConfigMessage,
   LanguageServerPayload,
 } from '@idl/vscode/events/messages';

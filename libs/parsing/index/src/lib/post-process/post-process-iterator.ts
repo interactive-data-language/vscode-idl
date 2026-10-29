@@ -1,22 +1,22 @@
 import './tree-handlers/populate-type.index';
 import './tree-handlers/validate-type.index';
 
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import {
   FindDirectBranchChildren,
-  ITreeRecurserOptions,
+  type ITreeRecurserOptions,
   TreeRecurser,
 } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import {
+import type {
   ILocalTokenLookup,
   IParsed,
   TreeBranchToken,
 } from '@idl/types/syntax-tree';
 
 import { GetMethod } from '../helpers/get-method';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { PopulateAndValidateReturnType } from './populate-type/return/populate-and-validate-return-type';
 import { RECURSE_INTO } from './post-process-iterator.interface';
 import { POPULATE_TYPE_HANDLER } from './tree-handlers/populate-type-handler';

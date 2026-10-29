@@ -1,11 +1,11 @@
 import { ObjectifyError } from '@idl/error-shared';
 import chalk from 'chalk';
 
-import { LogInterceptor } from './log-manager.interface';
+import type { LogInterceptor } from './log-manager.interface';
 import {
-  IBasicLogOptions,
-  LogAlertCallback,
-  LogType,
+  type IBasicLogOptions,
+  type LogAlertCallback,
+  type LogType,
   PRETTY_LOG_NAMES,
   UGLY_LOG_NAMES,
 } from './logger.interface';

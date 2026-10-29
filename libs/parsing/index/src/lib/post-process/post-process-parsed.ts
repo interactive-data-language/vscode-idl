@@ -1,13 +1,13 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { GetSemanticTokens } from '@idl/parsing/semantic-tokens';
 import {
   PopulateScopeDetailAndResetTokenCache,
   ResetVariables,
 } from '@idl/parsing/syntax-tree';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 import { GetSyntaxProblems } from '../helpers/get-syntax-problems';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { PostProcessIterator } from './post-process-iterator';
 
 /**

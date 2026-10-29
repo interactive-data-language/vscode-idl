@@ -1,9 +1,9 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { ICLIProgressNotification } from '@idl/types/idl/idl-machine';
+import type { ICLIProgressNotification } from '@idl/types/idl/idl-machine';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 
-import { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
+import type { IDLNotebookExecutionManager } from '../idl-notebook-execution-manager.class';
 
 /**
  * Handles progress messages via IDL Machine for IDL CLI

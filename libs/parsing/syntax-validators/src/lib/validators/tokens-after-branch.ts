@@ -1,10 +1,10 @@
 import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import {
-  BranchCallback,
+  type BranchCallback,
   IDL_SYNTAX_TREE_VALIDATOR,
-  IDLSyntaxValidatorMeta,
+  type IDLSyntaxValidatorMeta,
 } from '@idl/parsing/syntax-tree';
-import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
+import { type NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
 /**

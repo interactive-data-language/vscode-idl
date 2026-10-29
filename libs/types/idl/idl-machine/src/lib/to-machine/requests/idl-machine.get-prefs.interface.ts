@@ -1,4 +1,4 @@
-import { IIDLPreference } from './idl-machine.set-prefs.interface';
+import type { IIDLPreference } from './idl-machine.set-prefs.interface';
 
 /**
  * Get IDL preferences

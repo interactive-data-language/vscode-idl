@@ -1,10 +1,10 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import {
-  IBaseToken,
+  type IBaseToken,
   StripIDs,
   TOKEN_NAMES,
   Tokenizer,
-  TokenName,
+  type TokenName,
 } from '@idl/tokenizer';
 import { TOKEN_TYPES } from '@idl/tokenizer/common';
 

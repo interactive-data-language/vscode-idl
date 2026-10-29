@@ -1,4 +1,4 @@
-import { IDLEvent, IDLListenerArgs } from '@idl/types/idl/idl-process';
+import type { IDLEvent, IDLListenerArgs } from '@idl/types/idl/idl-process';
 
 /** Message from our IDL Process that */
 export type FromIDLWebSocketMessage_IDLEvent = 'idl-event';

@@ -1,7 +1,7 @@
 import { stringify } from 'himalaya';
 import { NodeHtmlMarkdown } from 'node-html-markdown';
 
-import { IParsedHTML } from './parser.interface';
+import type { IParsedHTML } from './parser.interface';
 import { ReplaceLinks } from './replace-links';
 
 /** HTML to markdown converter */

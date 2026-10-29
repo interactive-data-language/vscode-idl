@@ -1,5 +1,5 @@
-import { ISentMessageToWorker } from './workerio.interface';
-import { WorkerIOSerializedMessageToWorker } from './workerio-messages.interface';
+import type { ISentMessageToWorker } from './workerio.interface';
+import type { WorkerIOSerializedMessageToWorker } from './workerio-messages.interface';
 
 /**
  * Serializes a message to the worker

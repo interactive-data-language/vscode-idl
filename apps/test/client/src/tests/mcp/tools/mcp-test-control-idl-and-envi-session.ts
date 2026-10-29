@@ -4,7 +4,7 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
 import { DEBUG_PAUSE } from '../../debugging/_shared.interface';
-import { RunnerFunction } from '../../runner.interface';
+import type { RunnerFunction } from '../../runner.interface';
 import { CallMCPTool } from '../helpers/call-mcp-tool';
 import { LogWhenExpectSuccess } from '../helpers/test-loggers';
 

@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject, OnInit } from '@angular/core';
+import { Component, HostBinding, inject, type OnInit } from '@angular/core';
 import { DEFAULT_VSCODE_MESSAGE } from '@idl/vscode/webview-shared';
 import { MaterialCssVarsService } from 'angular-material-css-vars';
 

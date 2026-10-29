@@ -1,5 +1,8 @@
-import { IDisabledProblems, IDLProblemCode } from '@idl/types/problem-codes';
-import { IParsed } from '@idl/types/syntax-tree';
+import type {
+  IDisabledProblems,
+  IDLProblemCode,
+} from '@idl/types/problem-codes';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 /**
  * Checks if a problem for a line should be disabled

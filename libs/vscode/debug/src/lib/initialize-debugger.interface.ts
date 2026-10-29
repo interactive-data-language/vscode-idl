@@ -1,5 +1,5 @@
-import { IDLDebugAdapter } from './idl-debug-adapter.class';
-import { IDLDebugStatusBar } from './idl-debug-status-bar';
+import type { IDLDebugAdapter } from './idl-debug-adapter.class';
+import type { IDLDebugStatusBar } from './idl-debug-status-bar';
 
 /**
  * Results from initializing debugger

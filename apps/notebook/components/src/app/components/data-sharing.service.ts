@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
+import type {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
 } from '@idl/types/notebooks';

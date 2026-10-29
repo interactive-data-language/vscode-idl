@@ -1,9 +1,9 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { inject, Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, type StateContext } from '@ngxs/store';
 
 import { InitializeTheme, SetThemeMode, ToggleTheme } from './theme.actions';
-import { ThemeStateModel } from './theme.model';
+import type { ThemeStateModel } from './theme.model';
 
 /**
  * Default state for the theme feature

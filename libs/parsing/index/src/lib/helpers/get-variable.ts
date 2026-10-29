@@ -1,5 +1,5 @@
-import { VariableToken } from '@idl/tokenizer';
-import {
+import type { VariableToken } from '@idl/tokenizer';
+import type {
   ILocalIndexedToken,
   IParsed,
   LocalVariableToken,

@@ -6,7 +6,7 @@ import {
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 
 /**
  * Verifies we can create a new notebook document and open it with the right language ID

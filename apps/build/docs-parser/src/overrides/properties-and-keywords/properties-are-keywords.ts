@@ -1,6 +1,6 @@
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
 
-import { UpdateThese } from '../../helpers/set-keywords-as-properties.interface';
+import type { UpdateThese } from '../../helpers/set-keywords-as-properties.interface';
 
 /**
  * Define which functions, procedures, or methods need to have additional keywords added

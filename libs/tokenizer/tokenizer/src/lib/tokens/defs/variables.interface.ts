@@ -1,8 +1,8 @@
 import {
-  ITokenDef,
-  SystemVariableToken,
+  type ITokenDef,
+  type SystemVariableToken,
   TOKEN_NAMES,
-  VariableToken,
+  type VariableToken,
 } from '../../tokens.interface';
 
 export type VariableTokenDef = ITokenDef<SystemVariableToken | VariableToken>;

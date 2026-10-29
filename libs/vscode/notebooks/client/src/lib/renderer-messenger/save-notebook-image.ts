@@ -1,4 +1,4 @@
-import {
+import type {
   IDLNotebookEmbeddedItem,
   IDLNotebookImage_PNG,
 } from '@idl/types/notebooks';

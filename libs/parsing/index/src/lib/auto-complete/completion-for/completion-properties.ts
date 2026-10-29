@@ -2,18 +2,18 @@ import { TransformCase } from '@idl/assembling/shared';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { GetSortIndexForStrings } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IPropertyCompletionOptions } from '@idl/types/auto-complete';
+import type { IPropertyCompletionOptions } from '@idl/types/auto-complete';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IDLDataTypeBase,
-  IDLTypes,
+  type IDLDataType,
+  type IDLDataTypeBase,
+  type IDLTypes,
 } from '@idl/types/idl-data-types';
 import { CompletionItemKind } from 'vscode-languageserver-types';
 
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
-import { IPropertyCompletionArg } from './completion-properties.interface';
+import type { IPropertyCompletionArg } from './completion-properties.interface';
 
 /**
  * Adds variables to our completion items

@@ -1,7 +1,7 @@
 import {
   DEFAULT_NOTEBOOK,
-  IDLRawNotebook,
-  IDLRawNotebookVersion,
+  type IDLRawNotebook,
+  type IDLRawNotebookVersion,
 } from '@idl/types/notebooks';
 import { copy } from 'fast-copy';
 

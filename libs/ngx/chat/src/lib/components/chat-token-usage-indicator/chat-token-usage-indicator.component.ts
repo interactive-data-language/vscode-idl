@@ -5,7 +5,7 @@ import {
   computed,
   inject,
 } from '@angular/core';
-import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenuModule, type MatMenuTrigger } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Store } from '@ngxs/store';
 

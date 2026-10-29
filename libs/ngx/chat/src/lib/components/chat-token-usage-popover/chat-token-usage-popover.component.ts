@@ -6,7 +6,7 @@ import {
   input,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { ChatTokenUsage } from '@idl/types/chat';
+import type { ChatTokenUsage } from '@idl/types/chat';
 
 /**
  * Displays the exact token counts behind the usage indicator's percentage

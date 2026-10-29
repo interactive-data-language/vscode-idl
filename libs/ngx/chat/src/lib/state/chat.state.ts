@@ -1,14 +1,14 @@
 import { inject, Injectable } from '@angular/core';
-import {
+import type {
   ChatMessage,
   ChatMessageContent,
   ChatSession,
   ChatStateModel,
   ChatTokenUsage,
 } from '@idl/types/chat';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, type StateContext } from '@ngxs/store';
 import { nanoid } from 'nanoid';
-import { Subscription } from 'rxjs';
+import type { Subscription } from 'rxjs';
 
 import { ChatApiService } from '../services/chat-api.service';
 import {

@@ -1,14 +1,14 @@
-import { BranchCallback } from '@idl/parsing/syntax-tree';
+import type { BranchCallback } from '@idl/parsing/syntax-tree';
 import {
-  CallFunctionMethodToken,
-  CallFunctionToken,
-  CallProcedureMethodToken,
-  CallProcedureToken,
+  type CallFunctionMethodToken,
+  type CallFunctionToken,
+  type CallProcedureMethodToken,
+  type CallProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 
 import { GetArgTypes } from '../helpers/get-arg-types';
-import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
+import type { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
 import { VALIDATE_TYPE_HANDLER } from '../validate-type-handler';
 
 /**

@@ -4,7 +4,7 @@ import { GetTokenAtCursor, RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ISelectedTests } from '../tests.interface';
+import type { ISelectedTests } from '../tests.interface';
 import { ArrayifyCode } from './arrayify-code';
 import { StringifyCode } from './stringify-code';
 

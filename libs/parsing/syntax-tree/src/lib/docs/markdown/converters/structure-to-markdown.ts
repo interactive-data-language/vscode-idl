@@ -1,5 +1,5 @@
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
-import {
+import type {
   RoutineMarkdownInfo,
   StructureMarkdown,
 } from '../docs-to-markdown.interface';

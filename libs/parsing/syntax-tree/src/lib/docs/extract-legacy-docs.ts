@@ -1,11 +1,11 @@
-import { CommentToken, GetMatchesArray } from '@idl/tokenizer';
+import { type CommentToken, GetMatchesArray } from '@idl/tokenizer';
 import {
   ARG_KW_PROPERTY_TAG,
   END_COMMENT_BLOCK_REGEX,
   HEADER_TAG_LEGACY,
-  IBasicBranch,
-  IDocs,
-  IHeaderDocs,
+  type IBasicBranch,
+  type IDocs,
+  type IHeaderDocs,
   LEGACY_PARAMETER_DIRECTION_IN,
   LEGACY_PARAMETER_DIRECTION_OUT,
   LEGACY_PARAMETER_INFO,

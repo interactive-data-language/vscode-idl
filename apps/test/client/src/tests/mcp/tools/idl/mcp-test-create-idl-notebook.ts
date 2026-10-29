@@ -6,7 +6,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 
 import { CompareNotebookJSONCells } from '../../../notebooks/helpers/compare-notebook-json-cells';
-import { RunnerFunction } from '../../../runner.interface';
+import type { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 
 /**

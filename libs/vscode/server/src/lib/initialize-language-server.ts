@@ -6,21 +6,24 @@ import {
 } from '@idl/shared/extension';
 import { GetVSCodeLocale } from '@idl/shared/node';
 import { IDL_TRANSLATION, InitializeTranslation } from '@idl/translation';
-import { ILanguageServerInitializationOptions } from '@idl/types/vscode';
+import type { ILanguageServerInitializationOptions } from '@idl/types/vscode';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
 import { VSCodeLanguageServerMessenger } from '@idl/vscode/events/server';
-import { ILanguageServerConfig } from '@idl/vscode/extension-config';
+import type { ILanguageServerConfig } from '@idl/vscode/extension-config';
 import { copy } from 'fast-copy';
 import {
   DidChangeConfigurationNotification,
-  InitializeParams,
-  InitializeResult,
+  type InitializeParams,
+  type InitializeResult,
   ProposedFeatures,
   TextDocumentSyncKind,
-  WorkspaceSymbolParams,
+  type WorkspaceSymbolParams,
 } from 'vscode-languageserver';
 import { createConnection } from 'vscode-languageserver/node';
-import { CodeActionKind, SymbolInformation } from 'vscode-languageserver-types';
+import {
+  CodeActionKind,
+  type SymbolInformation,
+} from 'vscode-languageserver-types';
 
 import { CAPABILITIES } from './capabilities.interface';
 import { InitializeCustomEventHandler } from './events/initialize-custom-event-handler';

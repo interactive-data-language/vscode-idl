@@ -1,10 +1,10 @@
 import { ConditionalLineNumberIncrement } from '@idl/assembling/shared';
-import { LogicalOfToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type LogicalOfToken, TOKEN_NAMES } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
-  SyntaxTree,
-  TreeBranchToken,
-  TreeToken,
+  type SyntaxTree,
+  type TreeBranchToken,
+  type TreeToken,
 } from '@idl/types/syntax-tree';
 /**
  * Routine definitions for special cases snapping after names

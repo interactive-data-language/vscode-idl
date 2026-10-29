@@ -1,7 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { readFileSync } from 'fs';
 
-import {
+import type {
   IFunctionMethodTypeOverride,
   IFunctionTypeOverride,
   IProcedureMethodTypeOverride,

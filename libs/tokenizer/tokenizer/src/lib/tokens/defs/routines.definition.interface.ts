@@ -1,9 +1,9 @@
 import {
-  ITokenDef,
-  RoutineFunctionToken,
-  RoutineMethodNameToken,
-  RoutineNameToken,
-  RoutineProcedureToken,
+  type ITokenDef,
+  type RoutineFunctionToken,
+  type RoutineMethodNameToken,
+  type RoutineNameToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 import { IDL_LINE_END } from '../regex.interface';

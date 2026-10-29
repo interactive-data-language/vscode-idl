@@ -1,5 +1,5 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 import { PopulateIndex } from './populate-index';
 import { PopulateScope } from './populate-scope';
@@ -8,7 +8,7 @@ import { IDL_SYNTAX_TREE_POST_PROCESSOR } from './post-processor.interface';
 import { DEFAULT_CURRENT } from './recursion-and-callbacks/tree-recurser.interface';
 import {
   IDL_SYNTAX_TREE_VALIDATOR,
-  IDLSyntaxValidatorMeta,
+  type IDLSyntaxValidatorMeta,
 } from './validator.interface';
 
 /**

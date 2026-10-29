@@ -16,7 +16,9 @@
       <div class="search-title">Search results</div>
       <div class="search-hint">
         {{ filteredSessions().length }}
-        {{ filteredSessions().length === 1 ? 'chat contains' : 'chats contain' }}
+        {{
+          filteredSessions().length === 1 ? 'chat contains' : 'chats contain'
+        }}
         "{{ search.query().trim() }}". Select one to see its matches.
       </div>
     </div>

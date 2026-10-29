@@ -1,12 +1,12 @@
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalStructureToken,
-  GlobalTokens,
-  IGlobalIndexedToken,
+  type GlobalStructureToken,
+  type GlobalTokens,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 
 import { GET_KEYWORDS_FROM } from '../overrides/properties-and-keywords/get-keywords-from';
-import { UpdateThese } from './set-keywords-as-properties.interface';
+import type { UpdateThese } from './set-keywords-as-properties.interface';
 import { GetMatch } from './set-keywords-from-properties';
 
 /**

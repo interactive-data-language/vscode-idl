@@ -1,6 +1,6 @@
 import {
   IDL_STRING_TYPE,
-  IParameterOrPropertyDetails,
+  type IParameterOrPropertyDetails,
 } from '@idl/types/idl-data-types';
 
 /**

@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron';
+import type { BrowserWindow } from 'electron';
 
 /** Console methods we can forward renderer log messages to */
 type ConsoleMethod = 'debug' | 'error' | 'log' | 'warn';

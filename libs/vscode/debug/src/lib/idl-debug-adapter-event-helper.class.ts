@@ -1,6 +1,6 @@
 import { IDL_DEBUG_ADAPTER_LOG } from '@idl/logger';
 import { Sleep } from '@idl/shared/extension';
-import { IDLCallStackItem, StopReason } from '@idl/types/idl/idl-process';
+import type { IDLCallStackItem, StopReason } from '@idl/types/idl/idl-process';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { ContinuedEvent, StoppedEvent } from '@vscode/debugadapter';
 import * as vscode from 'vscode';

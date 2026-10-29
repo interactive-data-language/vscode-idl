@@ -1,8 +1,8 @@
-import { IncludeToken } from '@idl/tokenizer';
-import { IBaseIndexedToken } from '@idl/types/idl-data-types';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { IncludeToken } from '@idl/tokenizer';
+import type { IBaseIndexedToken } from '@idl/types/idl-data-types';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../idl-index.class';
+import type { IDLIndex } from '../../idl-index.class';
 
 /**
  * Finds the source file for an include

@@ -1,7 +1,7 @@
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalTokenType,
-  IGlobalIndexedToken,
+  type GlobalTokenType,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 
 /**

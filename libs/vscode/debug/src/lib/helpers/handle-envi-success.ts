@@ -1,6 +1,6 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { PopulateENVIError } from '@idl/mcp/envi';
-import {
+import type {
   ENVIMCPToolResponse,
   ENVIMCPToolResponse_Failure,
 } from '@idl/types/mcp';

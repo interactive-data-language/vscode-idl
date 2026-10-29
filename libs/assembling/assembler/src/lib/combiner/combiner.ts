@@ -1,20 +1,24 @@
-import { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
+import type { FormatterType, IAssemblerOptions } from '@idl/assembling/config';
 import { MakeSpaces } from '@idl/parsing/syntax-tree';
-import { NonBasicTokenNames, TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import {
+  type NonBasicTokenNames,
+  TOKEN_NAMES,
+  type TokenName,
+} from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
-  IBranch,
-  IParsed,
-  SyntaxTree,
-  TreeToken,
+  type IBranch,
+  type IParsed,
+  type SyntaxTree,
+  type TreeToken,
 } from '@idl/types/syntax-tree';
 
 import { GetNewLine } from '../helpers/get-new-line';
 import { Stringify } from '../helpers/stringify';
 import {
   HANGING_ROUTINES,
-  ICombinerRecursionOptions,
-  IStringsByLine,
+  type ICombinerRecursionOptions,
+  type IStringsByLine,
   PROCEDURE_TOKENS,
 } from './combiner.interface';
 import {

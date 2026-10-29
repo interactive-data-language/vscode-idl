@@ -1,8 +1,8 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type { BasicTokenNames, NonBasicTokenNames } from '@idl/tokenizer';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import {
+import type {
   BasicCallback,
   BasicCallbackLookup,
   BranchCallback,
@@ -13,7 +13,7 @@ import {
   TreeCallbackLookup,
 } from './tree-callback-handler.interface';
 import { TreeCallbackRunner } from './tree-callback-runner';
-import {
+import type {
   ITreeRecurserCurrent,
   ITreeRecurserOptions,
 } from './tree-recurser.interface';

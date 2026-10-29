@@ -1,8 +1,8 @@
 import {
   IDL_NUMBER_TYPE_ORDER,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IDLDataTypeBase,
+  type IDLDataType,
+  type IDLDataTypeBase,
   KNOWN_IDL_TYPE_ARG_PROMOTIONS,
 } from '@idl/types/idl-data-types';
 

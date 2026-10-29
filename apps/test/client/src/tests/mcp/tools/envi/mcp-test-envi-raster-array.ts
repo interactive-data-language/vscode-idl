@@ -2,7 +2,7 @@ import { FindFiles, GetExtensionPath } from '@idl/idl/files';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 
-import { RunnerFunction } from '../../../runner.interface';
+import type { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { LogWhenExpectSuccess } from '../../helpers/test-loggers';
 

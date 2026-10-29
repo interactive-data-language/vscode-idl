@@ -1,14 +1,17 @@
 import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
 import {
-  CallProcedureMethodToken,
-  CallProcedureToken,
-  ControlGoToToken,
-  RoutineNameToken,
+  type CallProcedureMethodToken,
+  type CallProcedureToken,
+  type ControlGoToToken,
+  type RoutineNameToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
-import { IBranch } from '@idl/types/syntax-tree';
+import {
+  IDL_PROBLEM_CODES,
+  type SyntaxProblems,
+} from '@idl/types/problem-codes';
+import type { IBranch } from '@idl/types/syntax-tree';
 
 /**
  * Tokens that, if they have children, expect a comma to be the first thing

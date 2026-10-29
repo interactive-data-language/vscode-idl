@@ -1,6 +1,6 @@
 import {
   IDL_PROBLEM_CODES,
-  IDLProblemCode,
+  type IDLProblemCode,
 } from './idl-problem-codes.interface';
 
 /**

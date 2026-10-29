@@ -1,4 +1,4 @@
-import { IToken } from 'vscode-textmate';
+import type { IToken } from 'vscode-textmate';
 
 /**
  * Add useful information to the tokens that we extract vis

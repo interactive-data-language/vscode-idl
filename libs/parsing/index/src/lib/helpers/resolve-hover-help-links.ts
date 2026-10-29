@@ -1,6 +1,6 @@
 import { IDL_COMMANDS, MatchGlobal } from '@idl/shared/extension';
 import { PRODUCT_DOCS_IMAGES } from '@idl/types/websites';
-import { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import type { IDLExtensionConfig } from '@idl/vscode/extension-config';
 import { existsSync } from 'fs';
 import { basename, dirname } from 'path';
 import { pathToFileURL } from 'url';

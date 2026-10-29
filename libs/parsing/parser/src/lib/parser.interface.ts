@@ -1,4 +1,4 @@
-import { ParsedType } from '@idl/types/syntax-tree';
+import type { ParsedType } from '@idl/types/syntax-tree';
 
 /**
  * Options for parsing

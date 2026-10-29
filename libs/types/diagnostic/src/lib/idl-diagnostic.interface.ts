@@ -1,5 +1,5 @@
-import { IDLProblemCode } from '@idl/types/problem-codes';
-import { Diagnostic, TextEdit } from 'vscode-languageserver-types';
+import type { IDLProblemCode } from '@idl/types/problem-codes';
+import type { Diagnostic, TextEdit } from 'vscode-languageserver-types';
 
 /**
  * Type of IDL diagnostic

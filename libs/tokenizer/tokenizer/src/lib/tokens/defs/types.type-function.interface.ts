@@ -1,7 +1,7 @@
 import {
-  ITokenDef,
+  type ITokenDef,
   TOKEN_NAMES,
-  TypeFunctionToken,
+  type TypeFunctionToken,
 } from '../../tokens.interface';
 
 export type TypeFunctionTokenDef = ITokenDef<TypeFunctionToken>;

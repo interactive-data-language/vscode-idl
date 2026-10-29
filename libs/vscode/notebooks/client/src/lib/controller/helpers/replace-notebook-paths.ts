@@ -9,7 +9,7 @@ import {
 } from '@idl/types/idl/idl-process';
 import { basename } from 'path';
 
-import { IDLNotebookController } from '../idl-notebook-controller.class';
+import type { IDLNotebookController } from '../idl-notebook-controller.class';
 
 /**
  * Replace paths from syntax errors

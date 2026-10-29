@@ -1,4 +1,8 @@
-import { IDLTask, IDLTaskParameter, IDLTaskSchema12 } from '@idl/types/tasks';
+import type {
+  IDLTask,
+  IDLTaskParameter,
+  IDLTaskSchema12,
+} from '@idl/types/tasks';
 
 /**
  * IDL Task reference for key order of root properties

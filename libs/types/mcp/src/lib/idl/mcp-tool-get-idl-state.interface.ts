@@ -1,4 +1,4 @@
-import { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
+import type { IMCPToolIDL_BaseResponse } from '../mcp-base-response.interface';
 
 // name for server.
 export type MCPTool_GetIDLState = 'get-idl-state';

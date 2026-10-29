@@ -1,14 +1,14 @@
 import {
-  BranchCallback,
+  type BranchCallback,
   IDL_SYNTAX_TREE_POST_PROCESSOR,
-  IDLSyntaxValidatorMeta,
+  type IDLSyntaxValidatorMeta,
 } from '@idl/parsing/syntax-tree';
 import {
-  ControlCommonToken,
-  ControlCompileOptToken,
-  ControlForwardFunctionOptToken,
-  ControlGoToToken,
-  NonBasicTokenNames,
+  type ControlCommonToken,
+  type ControlCompileOptToken,
+  type ControlForwardFunctionOptToken,
+  type ControlGoToToken,
+  type NonBasicTokenNames,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 

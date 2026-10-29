@@ -5,18 +5,18 @@ import {
   GetRoutineNameFromScope,
 } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { StructureToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type StructureToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_STRUCTURE_TYPE,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../../../idl-index.class';
+import type { IDLIndex } from '../../../idl-index.class';
 import { TypeFromTokens } from './type-from-tokens';
 
 /**

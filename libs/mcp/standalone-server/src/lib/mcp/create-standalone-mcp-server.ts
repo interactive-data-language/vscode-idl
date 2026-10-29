@@ -1,7 +1,7 @@
 import {
   FindFiles,
   GetExtensionPath,
-  IFolderRecursion,
+  type IFolderRecursion,
   LoadIDLSearchPaths,
 } from '@idl/idl/files';
 import { IDL_LSP_LOG, IDL_MCP_LOG, LogManager } from '@idl/logger';
@@ -14,10 +14,10 @@ import {
 import { MCPServer } from '@idl/mcp/server';
 import { RegisterStaticMCPResources } from '@idl/mcp/server-resources';
 import { RegisterAllMCPTools } from '@idl/mcp/server-tools';
-import { WebSocketToolBridge } from '@idl/mcp/websocket';
+import type { WebSocketToolBridge } from '@idl/mcp/websocket';
 import { IDLIndex } from '@idl/parsing/index';
-import { IAgentServerConfig } from '@idl/types/agents';
-import {
+import type { IAgentServerConfig } from '@idl/types/agents';
+import type {
   IIDLMCPExecutionBackend,
   PrepareIDLCodeCallback,
 } from '@idl/types/mcp';

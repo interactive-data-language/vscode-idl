@@ -1,7 +1,15 @@
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
-import { MainLevelToken, TOKEN_NAMES, VariableToken } from '@idl/tokenizer';
+import {
+  type MainLevelToken,
+  TOKEN_NAMES,
+  type VariableToken,
+} from '@idl/tokenizer';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import { BRANCH_TYPES, IParsed, TreeToken } from '@idl/types/syntax-tree';
+import {
+  BRANCH_TYPES,
+  type IParsed,
+  type TreeToken,
+} from '@idl/types/syntax-tree';
 
 /**
  * Display names for procedures

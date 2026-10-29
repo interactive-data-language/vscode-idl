@@ -1,5 +1,9 @@
-import { NonBasicTokenNames } from '@idl/tokenizer';
-import { BRANCH_TYPES, IBranch, SyntaxTree } from '@idl/types/syntax-tree';
+import type { NonBasicTokenNames } from '@idl/tokenizer';
+import {
+  BRANCH_TYPES,
+  type IBranch,
+  type SyntaxTree,
+} from '@idl/types/syntax-tree';
 
 /**
  * Conditionally increments line numbers for tokens in our tree for any tokens

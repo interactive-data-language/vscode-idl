@@ -5,13 +5,17 @@ import {
   IDL_SYNTAX_TREE_VALIDATOR,
 } from '@idl/parsing/syntax-tree';
 import {
-  NonBasicTokenNames,
-  OperatorIncrementDecrementToken,
+  type NonBasicTokenNames,
+  type OperatorIncrementDecrementToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { IParsed, TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
-import { PositionArray } from '@idl/types/tokenizer';
+import type {
+  IParsed,
+  TreeBranchToken,
+  TreeToken,
+} from '@idl/types/syntax-tree';
+import type { PositionArray } from '@idl/types/tokenizer';
 
 /**
  * Tokens that can appear first

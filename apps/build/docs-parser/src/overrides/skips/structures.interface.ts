@@ -1,4 +1,4 @@
-import { IStructureOverride } from '../detail.interface';
+import type { IStructureOverride } from '../detail.interface';
 
 /**
  * OStructures that we should skip

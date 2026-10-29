@@ -1,9 +1,9 @@
 import { DocsToMarkdown, MARKDOWN_TYPE_LOOKUP } from '@idl/parsing/syntax-tree';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalStructureToken,
-  GlobalTokens,
-  IGlobalIndexedToken,
+  type GlobalStructureToken,
+  type GlobalTokens,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 
 /**

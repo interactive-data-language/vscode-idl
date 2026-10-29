@@ -1,5 +1,5 @@
-import { MCPServer } from '@idl/mcp/server';
-import { MCPTaskRegistry } from '@idl/mcp/tasks';
+import type { MCPServer } from '@idl/mcp/server';
+import type { MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 

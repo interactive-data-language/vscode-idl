@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
   DEFAULT_AGENT_SERVER_CONFIG,
-  IAgentServerConfig,
-  IServerConfig,
+  type IAgentServerConfig,
+  type IServerConfig,
 } from '@idl/types/agents';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 

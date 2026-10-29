@@ -1,17 +1,17 @@
 import { IDL_EVENT_LOOKUP } from '@idl/types/idl/idl-process';
 import {
   FROM_IDL_WEB_SOCKET_MESSAGE_LOOKUP,
-  FromIDLWebSocketMessage,
-  FromIDLWebSocketMessage_IDLEvent,
-  FromIDLWebSocketMessageTypes,
+  type FromIDLWebSocketMessage,
+  type FromIDLWebSocketMessage_IDLEvent,
+  type FromIDLWebSocketMessageTypes,
   IDL_WS_MESSAGE,
-  ToIDLWebSocketMessage,
-  ToIDLWebSocketMessageTypes,
-  ToIDLWebSocketPayload,
+  type ToIDLWebSocketMessage,
+  type ToIDLWebSocketMessageTypes,
+  type ToIDLWebSocketPayload,
 } from '@idl/types/idl/ws-client';
-import { io, Socket } from 'socket.io-client';
+import { io, type Socket } from 'socket.io-client';
 
-import { IDLProcess } from '../idl-process.class';
+import type { IDLProcess } from '../idl-process.class';
 
 /**
  * CLient to IDL web socket server

@@ -1,9 +1,9 @@
-import { ENVITask, ENVITaskSchemaVersion } from './envitask.interface';
-import {
+import type { ENVITask, ENVITaskSchemaVersion } from './envitask.interface';
+import type {
   ENVITaskLegacy,
   ENVITaskLegacyVersion,
 } from './envitasklegacy.interface';
-import { IDLTask, IDLTaskSchemaVersion } from './idltask.interface';
+import type { IDLTask, IDLTaskSchemaVersion } from './idltask.interface';
 
 /**
  * Type for parsed task file

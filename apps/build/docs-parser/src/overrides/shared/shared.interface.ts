@@ -1,4 +1,4 @@
-import { IParameterOrPropertyDetails } from '@idl/types/idl-data-types';
+import type { IParameterOrPropertyDetails } from '@idl/types/idl-data-types';
 
 export interface ISharedArgsOrKeywords {
   [key: string]: Partial<IParameterOrPropertyDetails>;

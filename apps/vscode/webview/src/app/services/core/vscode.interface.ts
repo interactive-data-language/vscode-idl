@@ -1,6 +1,6 @@
 import {
   DEFAULT_VSCODE_MESSAGE,
-  VSCodeWebViewMessage,
+  type VSCodeWebViewMessage,
 } from '@idl/vscode/webview-shared';
 
 export interface IVSCodeState {

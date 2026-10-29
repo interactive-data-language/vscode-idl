@@ -1,4 +1,4 @@
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 
 import { RegisterDocsCommands } from './register-docs-commands';
 

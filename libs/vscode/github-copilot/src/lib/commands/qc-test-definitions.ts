@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 import {
   compareIDLFunctions,
   extractCodeBlock,
-  QCTest,
+  type QCTest,
   runIDLFile,
   TestCodeDirectory,
 } from './run-copilot-qc-tests';

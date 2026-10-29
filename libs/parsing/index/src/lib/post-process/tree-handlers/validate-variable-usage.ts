@@ -1,7 +1,7 @@
 import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { ILocalTokenLookup, IParsed } from '@idl/types/syntax-tree';
+import type { ILocalTokenLookup, IParsed } from '@idl/types/syntax-tree';
 
 /**
  * Variables that we skip

@@ -1,8 +1,11 @@
 import { copy } from 'fast-copy';
-import { NotebookDocument, NotebookDocuments } from 'vscode-languageserver';
-import { TextDocument } from 'vscode-languageserver-textdocument';
+import type {
+  NotebookDocument,
+  NotebookDocuments,
+} from 'vscode-languageserver';
+import type { TextDocument } from 'vscode-languageserver-textdocument';
 
-import { IDLNotebookDocument } from './idl-notebook-document.interface';
+import type { IDLNotebookDocument } from './idl-notebook-document.interface';
 
 /**
  * Converts a notebook document to an IDL Notebook Document which contains

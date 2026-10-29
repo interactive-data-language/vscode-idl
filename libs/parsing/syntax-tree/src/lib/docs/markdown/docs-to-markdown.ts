@@ -1,4 +1,4 @@
-import { IDocs } from '@idl/types/syntax-tree';
+import type { IDocs } from '@idl/types/syntax-tree';
 
 import { GeneralToMarkdown } from './converters/general-to-markdown';
 import { RoutinesToMarkdown } from './converters/routines-to-markdown';
@@ -7,11 +7,11 @@ import { TaskToMarkdown } from './converters/task-to-markdown';
 import { VariablesToMarkdown } from './converters/variables-to-markdown';
 import {
   MARKDOWN_TYPE_LOOKUP,
-  MarkdownInfo,
-  MarkdownType,
-  RoutineMarkdown,
-  StructureMarkdown,
-  TaskMarkdown,
+  type MarkdownInfo,
+  type MarkdownType,
+  type RoutineMarkdown,
+  type StructureMarkdown,
+  type TaskMarkdown,
 } from './docs-to-markdown.interface';
 
 /**

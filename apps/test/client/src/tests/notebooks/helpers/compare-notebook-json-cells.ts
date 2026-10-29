@@ -1,4 +1,4 @@
-import {
+import type {
   IDLRawNotebook,
   IDLRawNotebookVersion_2_0_0,
 } from '@idl/types/notebooks';

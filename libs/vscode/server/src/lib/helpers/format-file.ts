@@ -1,5 +1,8 @@
 import { TaskAssembler } from '@idl/assembler';
-import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
+import type {
+  FormatterType,
+  IAssemblerInputOptions,
+} from '@idl/assembling/config';
 import { IDLPackageFormatter } from '@idl/assembling/idlpackage';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDLFileHelper } from '@idl/shared/extension';
@@ -7,7 +10,7 @@ import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 
 import { IDL_INDEX } from '../events/initialize-document-manager';
 import { GetFormattingConfigForFile } from './get-formatting-config-for-file';
-import { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.interface';
+import type { IResolvedFSPathAndCodeForURI } from './resolve-fspath-and-code-for-uri.interface';
 
 /**
  * Formats a file in the language server

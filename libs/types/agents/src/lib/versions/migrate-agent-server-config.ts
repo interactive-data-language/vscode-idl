@@ -3,14 +3,14 @@ import { deepEqual } from 'fast-equals';
 
 import {
   CURRENT_AGENT_SERVER_CONFIG_VERSION,
-  IAgentServerConfig,
+  type IAgentServerConfig,
 } from '../agents-server-config.interface';
 import {
   AgentServerConfigSchema_1_0_0,
   DEFAULT_AGENT_SERVER_CONFIG_1_0_0,
 } from './1.0.0/agent-server-config.1.0.0.schema';
 import { MIGRATE_LEGACY_TO_1_0_0 } from './1.0.0/migrate-to-1.0.0';
-import { IMigrateAgentServerConfigResult } from './migrate-agent-server-config.interface';
+import type { IMigrateAgentServerConfigResult } from './migrate-agent-server-config.interface';
 
 /**
  * Registered migration steps in sequential order

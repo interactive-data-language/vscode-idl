@@ -1,4 +1,4 @@
-import { ILocalTokenLookup } from '@idl/types/syntax-tree';
+import type { ILocalTokenLookup } from '@idl/types/syntax-tree';
 
 /**
  * Auto-complete for variables

@@ -4,7 +4,7 @@ import { GenerateIDLTask } from '@idl/generators/idl-task';
 import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDL_INDEX_OPTIONS, IDLIndex } from '@idl/parsing/index';
-import { GenerateTaskResult } from '@idl/types/generators';
+import type { GenerateTaskResult } from '@idl/types/generators';
 import { readFileSync } from 'fs';
 
 IDL_INDEX_OPTIONS.IS_TEST = true;

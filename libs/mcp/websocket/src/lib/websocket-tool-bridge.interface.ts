@@ -1,4 +1,4 @@
-import {
+import type {
   MCPToolParams,
   MCPToolResponse_IDL,
   MCPTools_IDL,

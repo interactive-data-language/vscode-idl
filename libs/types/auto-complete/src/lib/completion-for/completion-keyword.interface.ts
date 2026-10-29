@@ -1,4 +1,4 @@
-import { IParameterLookup } from '@idl/types/idl-data-types';
+import type { IParameterLookup } from '@idl/types/idl-data-types';
 
 /**
  * Auto-complete for keywords

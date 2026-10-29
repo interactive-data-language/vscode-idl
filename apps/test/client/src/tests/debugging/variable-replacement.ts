@@ -6,7 +6,7 @@ import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 
 /**
  * Make sure that we replace values in the environment variable

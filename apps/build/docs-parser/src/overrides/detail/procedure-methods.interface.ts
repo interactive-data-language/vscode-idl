@@ -5,7 +5,7 @@ import {
   IDL_NUMBER_TYPE,
 } from '@idl/types/idl-data-types';
 
-import { IProcedureMethodOverride } from '../detail.interface';
+import type { IProcedureMethodOverride } from '../detail.interface';
 
 /**
  * Overrides for procedure method metadata when generating internal docs

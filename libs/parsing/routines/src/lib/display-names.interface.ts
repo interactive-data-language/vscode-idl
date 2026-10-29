@@ -4,7 +4,7 @@ import { MANUAL_FUNCTION_METHOD_DISPLAY_NAMES } from './display-overrides/manual
 import { MANUAL_FUNCTION_DISPLAY_NAMES } from './display-overrides/manual-functions.interface';
 import { MANUAL_PROCEDURE_METHOD_DISPLAY_NAMES } from './display-overrides/manual-procedure-methods.interface';
 import { MANUAL_PROCEDURE_DISPLAY_NAMES } from './display-overrides/manual-procedures.interface';
-import { GlobalDisplayNameLookup } from './routines.interface';
+import type { GlobalDisplayNameLookup } from './routines.interface';
 
 /**
  * Lookup of the display names for symbols in idl

@@ -1,4 +1,4 @@
-import { IAutoTest } from '../tests.interface';
+import type { IAutoTest } from '../tests.interface';
 
 /**
  * Automated tests for token parsing and syntax highlighting

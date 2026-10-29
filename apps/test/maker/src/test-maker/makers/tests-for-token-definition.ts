@@ -5,7 +5,7 @@ import { writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
-import { ITokenDefTest } from '../tests.interface';
+import type { ITokenDefTest } from '../tests.interface';
 
 /**
  * Test creation that can return the source of a token (ctrl + click) withing

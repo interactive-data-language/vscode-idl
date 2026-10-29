@@ -1,9 +1,9 @@
-import { TokenName } from '@idl/tokenizer';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { TokenName } from '@idl/tokenizer';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { GlobalIndexedToken } from '../../global-index.interface';
+import type { GlobalIndexedToken } from '../../global-index.interface';
 import { GetRoutine } from '../../helpers/get-routine';
-import { IDLIndex } from '../../idl-index.class';
+import type { IDLIndex } from '../../idl-index.class';
 import { CACHE_FOR_TOKEN_DEF } from '../get-token-definition';
 
 /**

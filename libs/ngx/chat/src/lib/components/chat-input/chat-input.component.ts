@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ChatSession } from '@idl/types/chat';
+import type { ChatSession } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
 import { nanoid } from 'nanoid';
 

@@ -1,12 +1,12 @@
 import {
   ASSEMBLER_STYLER_LOOKUP,
-  AssemblerStyler,
-  ICodeStyle,
+  type AssemblerStyler,
+  type ICodeStyle,
 } from '@idl/assembling/config';
 import { ASSEMBLER_DEFAULT_STYLING } from '@idl/assembling/tree-handlers';
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { PopulateScopeDetail } from '@idl/parsing/syntax-tree';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 /**
  * Applies styles from a tree handler to our parsed code

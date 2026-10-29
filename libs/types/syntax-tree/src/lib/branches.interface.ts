@@ -1,12 +1,12 @@
-import {
+import type {
   BasicTokenNames,
   NonBasicTokenNames,
   TokenizerToken,
   TokenName,
   TokenStartMatches,
 } from '@idl/tokenizer';
-import { IDLProblemCode } from '@idl/types/problem-codes';
-import { PositionArray } from '@idl/types/tokenizer';
+import type { IDLProblemCode } from '@idl/types/problem-codes';
+import type { PositionArray } from '@idl/types/tokenizer';
 
 /** Branch in our syntax tree that has a start, end, and potentially children */
 export type SyntaxTreeBranch = 0;

@@ -1,10 +1,14 @@
 import {
-  CommentBlockToken,
-  NonBasicTokenNames,
+  type CommentBlockToken,
+  type NonBasicTokenNames,
   TOKEN_NAMES,
-  TokenName,
+  type TokenName,
 } from '@idl/tokenizer';
-import { BRANCH_TYPES, IBranch, TreeToken } from '@idl/types/syntax-tree';
+import {
+  BRANCH_TYPES,
+  type IBranch,
+  type TreeToken,
+} from '@idl/types/syntax-tree';
 
 /**
  * Recurser to find children and their docs

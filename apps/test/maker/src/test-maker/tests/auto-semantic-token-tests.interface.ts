@@ -1,4 +1,4 @@
-import { IAutoSyntaxValidatorTest } from '../tests.interface';
+import type { IAutoSyntaxValidatorTest } from '../tests.interface';
 
 /**
  * Automated tests for generating semantic tokens for code

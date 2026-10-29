@@ -1,70 +1,70 @@
-import {
+import type {
   CallToolResult,
   ImageContent,
   TextContent,
 } from '@modelcontextprotocol/server';
 
-import {
+import type {
   MCPTool_ControlIDLAndENVISession,
   MCPToolParams_ControlIDLAndENVISession,
   MCPToolResponse_ControlIDLAndENVISession,
 } from './idl/mcp-tool-control-idl-and-envi-session.interface';
-import {
+import type {
   MCPTool_ControlIDLDebugger,
   MCPToolParams_ControlIDLDebugger,
   MCPToolResponse_ControlIDLDebugger,
 } from './idl/mcp-tool-control-idl-debugger.interface';
-import {
+import type {
   MCPTool_CreateIDLNotebook,
   MCPToolParams_CreateIDLNotebook,
   MCPToolResponse_CreateIDLNotebook,
 } from './idl/mcp-tool-create-idl-notebook.interface';
-import {
+import type {
   MCPTool_GetIDLState,
   MCPToolParams_GetIDLState,
   MCPToolResponse_GetIDLState,
 } from './idl/mcp-tool-get-idl-state.interface';
-import {
+import type {
   MCPTool_ListENVIToolWorkflows,
   MCPToolParams_ListENVIToolWorkflows,
   MCPToolResponse_ListENVIToolWorkflows,
 } from './idl/mcp-tool-list-envi-tool-workflows.interface';
-import {
+import type {
   MCPTool_OpenDatasetsInENVI,
   MCPToolParams_OpenDatasetsInENVI,
   MCPToolResponse_OpenDatasetsInENVI,
 } from './idl/mcp-tool-open-datasets-in-envi.interface';
-import {
+import type {
   MCPTool_QueryDatasetWithENVI,
   MCPToolParams_QueryDatasetWithENVI,
   MCPToolResponse_QueryDatasetWithENVI,
 } from './idl/mcp-tool-query-dataset-with-envi.interface';
-import {
+import type {
   MCPTool_QueryIDLSession,
   MCPToolParams_QueryIDLSession,
   MCPToolResponse_QueryIDLSession,
 } from './idl/mcp-tool-query-idl-session.interface';
-import {
+import type {
   MCPTool_ReturnNotes,
   MCPToolParams_ReturnNotes,
   MCPToolResponse_ReturnNotes,
 } from './idl/mcp-tool-return-notes.interface';
-import {
+import type {
   MCPTool_RunENVITool,
   MCPToolParams_RunENVITool,
   MCPToolResponse_RunENVITool,
 } from './idl/mcp-tool-run-envi-tool.interface';
-import {
+import type {
   MCPTool_RunIDLCode,
   MCPToolParams_RunIDLCode,
   MCPToolResponse_RunIDLCode,
 } from './idl/mcp-tool-run-idl-code.interface';
-import {
+import type {
   MCPTool_RunIDLFile,
   MCPToolParams_RunIDLFile,
   MCPToolResponse_RunIDLFile,
 } from './idl/mcp-tool-run-idl-file.interface';
-import {
+import type {
   MCPTool_TakeENVIScreenshot,
   MCPToolParams_TakeENVIScreenshot,
   MCPToolResponse_TakeENVIScreenshot,

@@ -1,5 +1,5 @@
-import { MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
-import { IBranch, IParsed } from '@idl/types/syntax-tree';
+import { type MainLevelToken, TOKEN_NAMES } from '@idl/tokenizer';
+import type { IBranch, IParsed } from '@idl/types/syntax-tree';
 
 import { PopulateVariables } from './populate-variables';
 

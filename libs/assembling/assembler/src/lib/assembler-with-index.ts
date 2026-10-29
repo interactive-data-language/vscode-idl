@@ -1,6 +1,9 @@
-import { FormatterType, IAssemblerInputOptions } from '@idl/assembling/config';
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { GetParsedPROCode, IDLIndex } from '@idl/parsing/index';
+import type {
+  FormatterType,
+  IAssemblerInputOptions,
+} from '@idl/assembling/config';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import { GetParsedPROCode, type IDLIndex } from '@idl/parsing/index';
 
 import { Assembler } from './assembler';
 

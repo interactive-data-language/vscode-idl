@@ -1,9 +1,9 @@
-import { AccessPropertyToken } from '@idl/tokenizer';
-import { IBaseIndexedToken } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { AccessPropertyToken } from '@idl/tokenizer';
+import type { IBaseIndexedToken } from '@idl/types/idl-data-types';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
 import { GetProperty } from '../../helpers/get-property';
-import { IDLIndex } from '../../idl-index.class';
+import type { IDLIndex } from '../../idl-index.class';
 import { CACHE_FOR_TOKEN_DEF } from '../get-token-definition';
 
 /**

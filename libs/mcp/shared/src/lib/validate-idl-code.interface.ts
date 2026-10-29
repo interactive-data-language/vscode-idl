@@ -1,4 +1,4 @@
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { TOKEN_NAMES, type TokenName } from '@idl/tokenizer';
 
 /**
  * Tokens that we dont allow when we validate code

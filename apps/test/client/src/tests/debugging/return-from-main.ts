@@ -1,11 +1,11 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
-import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
+import type { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 
 /**
  * Function that makes sure we return from main on compiling main

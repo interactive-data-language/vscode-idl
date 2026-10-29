@@ -2,8 +2,8 @@ import { copy } from 'fast-copy';
 
 import {
   DEFAULT_FILTER_SETS,
-  IRuleBasedFilters,
-  RuleBasedFilterType,
+  type IRuleBasedFilters,
+  type RuleBasedFilterType,
 } from './rule-based-filter.interface';
 
 export class RuleBasedFilter {

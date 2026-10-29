@@ -1,4 +1,8 @@
-import { BracketToken, ITokenDef, TOKEN_NAMES } from '../../tokens.interface';
+import {
+  type BracketToken,
+  type ITokenDef,
+  TOKEN_NAMES,
+} from '../../tokens.interface';
 
 export type BracketTokenDef = ITokenDef<BracketToken>;
 

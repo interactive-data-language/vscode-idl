@@ -1,6 +1,10 @@
 import { IDL_SYNTAX_TREE_POST_PROCESSOR } from '@idl/parsing/syntax-tree';
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
-import { BRANCH_TYPES, IBranch, SyntaxTree } from '@idl/types/syntax-tree';
+import { TOKEN_NAMES, type TokenName } from '@idl/tokenizer';
+import {
+  BRANCH_TYPES,
+  type IBranch,
+  type SyntaxTree,
+} from '@idl/types/syntax-tree';
 
 /**
  * Recursion options

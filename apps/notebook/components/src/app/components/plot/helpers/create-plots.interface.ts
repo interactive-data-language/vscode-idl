@@ -1,4 +1,4 @@
-import { ChartDataset } from 'chart.js';
+import type { ChartDataset } from 'chart.js';
 
 /**
  * Callback data structure for an animation frame

@@ -1,12 +1,12 @@
 import { IDL_NOTEBOOK_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import { IDLNotebookSerializer } from '@idl/vscode/notebooks/shared';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
 import { RegisterNotebookCommands } from './commands/register-notebook-commands';
 import { IDLNotebookController } from './controller/idl-notebook-controller.class';
-import { IInitializeNotebooks } from './initialize-notebooks.interface';
+import type { IInitializeNotebooks } from './initialize-notebooks.interface';
 import { InitializeNotebookRendererMessenger } from './renderer-messenger/initialize-notebook-renderer-messenger';
 
 /**

@@ -1,26 +1,26 @@
 import { GetPropertyName } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
-  AccessPropertyToken,
-  StructurePropertyToken,
+  type AccessPropertyToken,
+  type StructurePropertyToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_STRUCTURE_TYPE,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IDLDataTypeBase,
-  IDLTypes,
-  IPropertyLookup,
+  type IDLDataType,
+  type IDLDataTypeBase,
+  type IDLTypes,
+  type IPropertyLookup,
 } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { TypeFromTokens } from '../post-process/populate-type/from/type-from-tokens';
-import { IFoundProperty } from './get-property.interface';
-import { ITokenCache } from './token-cache.interface';
+import type { IFoundProperty } from './get-property.interface';
+import type { ITokenCache } from './token-cache.interface';
 
 /**
  * Returns type information for the specified property

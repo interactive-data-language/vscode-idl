@@ -1,6 +1,6 @@
 import { IDL_COMMANDS, IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 
-import { IPackageJSON, IPackageNLS } from '../package.interface';
+import type { IPackageJSON, IPackageNLS } from '../package.interface';
 import { VerifyNLS } from './helpers/verify-nls';
 
 export const DEBUGGERS = [

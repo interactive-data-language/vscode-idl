@@ -1,6 +1,6 @@
 import {
-  CaseStyleFlags,
-  FullCaseStyleFlags,
+  type CaseStyleFlags,
+  type FullCaseStyleFlags,
   STYLE_FLAG_LOOKUP,
 } from '@idl/assembling/config';
 import { camelCase, pascalCase } from 'case-anything';

@@ -1,4 +1,4 @@
-import {
+import type {
   IDLDataType,
   IParameterOrPropertyDetails,
 } from '@idl/types/idl-data-types';

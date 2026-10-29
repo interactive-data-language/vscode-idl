@@ -1,5 +1,5 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsedIDLNotebook } from '@idl/notebooks/shared';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type { IParsedIDLNotebook } from '@idl/notebooks/shared';
 
 /**
  * Data we track for pending PRO code

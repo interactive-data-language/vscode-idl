@@ -4,7 +4,7 @@ import {
   Component,
   computed,
   effect,
-  ElementRef,
+  type ElementRef,
   inject,
   Injector,
   viewChild,
@@ -49,27 +49,10 @@ export class ChatContentComponent {
   protected readonly chatLayoutService = inject(ChatLayoutService);
 
   /**
-   * Reference to the messages area for scrolling
-   */
-  protected readonly messagesArea =
-    viewChild<ElementRef<HTMLDivElement>>('messagesArea');
-
-  /**
    * Currently selected chat session
    */
   protected readonly selectedSession = inject(Store).selectSignal(
     ChatState.selectedSession,
-  );
-
-  /**
-   * True when there is no session selected, or the selected session has no messages yet
-   */
-  protected readonly showWelcome = computed(
-    () => (this.selectedSession()?.messages?.length ?? 0) === 0,
-  );
-
-  protected readonly todos = computed(
-    () => this.selectedSession()?.todos ?? [],
   );
 
   /**
@@ -82,6 +65,23 @@ export class ChatContentComponent {
       session?.status === 'in-progress',
     );
   });
+
+  /**
+   * Reference to the messages area for scrolling
+   */
+  protected readonly messagesArea =
+    viewChild<ElementRef<HTMLDivElement>>('messagesArea');
+
+  /**
+   * True when there is no session selected, or the selected session has no messages yet
+   */
+  protected readonly showWelcome = computed(
+    () => (this.selectedSession()?.messages?.length ?? 0) === 0,
+  );
+
+  protected readonly todos = computed(
+    () => this.selectedSession()?.todos ?? [],
+  );
 
   /**
    * Reference to the input component, used to send example prompts

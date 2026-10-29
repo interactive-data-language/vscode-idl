@@ -1,11 +1,11 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { SemanticTokens } from 'vscode-languageserver-types';
+import type { SemanticTokens } from 'vscode-languageserver-types';
 
 import {
   GetParsedPROCode,
   PENDING_PRO_CODE,
 } from '../get-parsed/get-parsed-pro-code';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 
 /**
  * Get the semantic tokens for a file

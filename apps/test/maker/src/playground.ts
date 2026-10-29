@@ -4,13 +4,13 @@ import { Parser } from '@idl/parser';
 import { RemoveScopeDetail } from '@idl/parsing/syntax-tree';
 import { TimeIt } from '@idl/shared/extension';
 import { TextMateParse } from '@idl/tests/helpers';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { performance } from 'perf_hooks';
 import * as prettier from 'prettier';
-import { IToken } from 'vscode-textmate';
+import type { IToken } from 'vscode-textmate';
 
 import { PLAYGROUND_CODE } from './playground-code';
 

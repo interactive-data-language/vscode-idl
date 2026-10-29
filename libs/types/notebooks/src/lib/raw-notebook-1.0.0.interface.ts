@@ -1,4 +1,4 @@
-import {
+import type {
   IDLRawNotebookCellBase,
   IDLRawNotebookCellOutputBase,
 } from './raw-notebook.interface';

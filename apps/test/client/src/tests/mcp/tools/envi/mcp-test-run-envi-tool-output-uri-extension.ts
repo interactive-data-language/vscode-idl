@@ -1,15 +1,15 @@
 import { ENVITestDatasets } from '@idl/envi/test-datasets';
 import {
   MCP_TOOL_LOOKUP,
-  MCPTool_RunENVITool,
-  MCPToolResponse,
+  type MCPTool_RunENVITool,
+  type MCPToolResponse,
 } from '@idl/types/mcp';
 import expect from 'expect';
 import { existsSync, unlinkSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
-import { RunnerFunction } from '../../../runner.interface';
+import type { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../helpers/get-text-content';
 import { LogWhenExpectSuccess } from '../../helpers/test-loggers';

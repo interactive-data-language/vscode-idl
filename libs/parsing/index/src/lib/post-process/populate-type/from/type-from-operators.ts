@@ -1,14 +1,14 @@
-import { ISplitTreeOnOperators } from '@idl/parsing/syntax-tree';
+import type { ISplitTreeOnOperators } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   IDL_ANY_TYPE,
   IDL_BOOLEAN_TYPE,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../../../idl-index.class';
+import type { IDLIndex } from '../../../idl-index.class';
 import { TypeFromOperatorSplit } from './type-from-operator-split';
 import { TypePromotion } from './type-promotion';
 

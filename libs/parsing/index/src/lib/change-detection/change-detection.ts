@@ -1,17 +1,17 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { IDL_LSP_LOG } from '@idl/logger';
-import { GlobalTokens } from '@idl/types/idl-data-types';
+import type { GlobalTokens } from '@idl/types/idl-data-types';
 import {
-  ChangeDetectionResponse,
+  type ChangeDetectionResponse,
   LSP_WORKER_THREAD_MESSAGE_LOOKUP,
 } from '@idl/workers/parsing';
 import { deepEqual } from 'fast-equals';
 import { performance } from 'perf_hooks';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import {
   CHANGE_DETECTION_MAX_DEPTH,
-  IChangeDetection,
+  type IChangeDetection,
 } from './change-detection.interface';
 import { GetChangedGlobals } from './get-changed-globals';
 import { GetSortedGlobals } from './get-sorted-globals';

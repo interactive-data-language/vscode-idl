@@ -1,13 +1,13 @@
 import { GeoJsonLayer } from '@deck.gl/layers';
-import {
+import type {
   IDLNotebookEmbeddedItem,
   IDLNotebookMap_GeoJSON,
 } from '@idl/types/notebooks';
 import { bboxify } from '@mapbox/geojson-extent';
 import { nanoid } from 'nanoid';
 
-import { LayerBounds } from '../create-layers.interface';
-import { CreatedLayerNotebookMapLayer } from './created-layer.interface';
+import type { LayerBounds } from '../create-layers.interface';
+import type { CreatedLayerNotebookMapLayer } from './created-layer.interface';
 
 /**
  * Creates a notebook map image

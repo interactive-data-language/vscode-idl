@@ -1,10 +1,10 @@
 import { FindAllBranchChildren } from '@idl/parsing/syntax-tree';
-import { CallFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type CallFunctionToken, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_TYPE_LOOKUP } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { basename } from 'path';
 
-import { IDLIndex } from '../../../../../idl-index.class';
+import type { IDLIndex } from '../../../../../idl-index.class';
 import { EvaluateToken } from '../../../evaluate/evaluate-token';
 import { EvaluateVariableOrToken } from '../../helpers/evaluate-variable-or-token';
 

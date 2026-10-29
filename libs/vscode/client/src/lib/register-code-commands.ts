@@ -6,9 +6,9 @@ import {
   IDL_LANGUAGE_NAME,
 } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
+import type { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
 import {
-  AutoFixProblem,
+  type AutoFixProblem,
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
 } from '@idl/types/problem-codes';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
@@ -28,7 +28,7 @@ import {
 } from '@idl/vscode/shared';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { basename } from 'path';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
 // handle URI to file system and back

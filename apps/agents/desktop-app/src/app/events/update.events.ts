@@ -1,4 +1,4 @@
-import { app, autoUpdater, dialog, MessageBoxOptions } from 'electron';
+import { app, autoUpdater, dialog, type MessageBoxOptions } from 'electron';
 import { arch, platform } from 'os';
 
 import App from '../app';

@@ -7,7 +7,7 @@ import {
   IDL_STRUCTURE_TYPE,
 } from '@idl/types/idl-data-types';
 
-import { IFunctionMethodOverride } from '../detail.interface';
+import type { IFunctionMethodOverride } from '../detail.interface';
 import { ENVI_ERROR_KEYWORD } from '../shared/envi-error.interface';
 import {
   HTTP_REQUEST_ARGS,

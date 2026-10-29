@@ -1,4 +1,4 @@
-import {
+import type {
   MCPToolHTTPResponse,
   MCPToolParams,
   MCPToolParams_ParameterOverride,

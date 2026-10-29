@@ -8,7 +8,7 @@ import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { cp } from 'fs/promises';
 import { join } from 'path';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
 // get the command errors from IDL translation

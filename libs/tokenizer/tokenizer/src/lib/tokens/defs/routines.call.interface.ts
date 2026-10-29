@@ -1,10 +1,10 @@
 import {
-  CallFunctionMethodToken,
-  CallFunctionToken,
-  CallLambdaFunctionToken,
-  CallProcedureMethodToken,
-  CallProcedureToken,
-  ITokenDef,
+  type CallFunctionMethodToken,
+  type CallFunctionToken,
+  type CallLambdaFunctionToken,
+  type CallProcedureMethodToken,
+  type CallProcedureToken,
+  type ITokenDef,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 import { IDL_PRO_END } from '../regex.interface';

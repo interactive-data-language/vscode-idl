@@ -3,14 +3,14 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   effect,
-  ElementRef,
+  type ElementRef,
   inject,
-  OnInit,
+  type OnInit,
   viewChild,
 } from '@angular/core';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort, type Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IProfilerItem } from '@idl/types/profiler';
+import type { IProfilerItem } from '@idl/types/profiler';
 import { TranslocoModule } from '@jsverse/transloco';
 
 import { MaterialModule } from '../../material.module';

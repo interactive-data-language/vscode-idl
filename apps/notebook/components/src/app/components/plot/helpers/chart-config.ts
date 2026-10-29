@@ -1,4 +1,4 @@
-import {
+import type {
   IDLNotebookEmbeddedItem,
   IDLNotebookPlot,
   IDLNotebookPlot_Properties,

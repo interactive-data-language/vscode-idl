@@ -34,8 +34,8 @@ import {
   MCP_ENVIVector,
   MCP_SARscapeData,
 } from '@idl/mcp/envi-to-mcp';
-import { IDLDataTypeBase, IDLTypes } from '@idl/types/idl-data-types';
-import { z } from 'zod';
+import type { IDLDataTypeBase, IDLTypes } from '@idl/types/idl-data-types';
+import type { z } from 'zod';
 
 import { MCP_Boolean } from './types/mcp-boolean';
 import { MCP_List } from './types/mcp-list';

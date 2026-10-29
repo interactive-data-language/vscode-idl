@@ -2,24 +2,27 @@ import { AdjustCase } from '@idl/assembling/shared';
 import { FindDirectBranchChildren } from '@idl/parsing/syntax-tree';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import { GetSortIndexForStrings } from '@idl/shared/extension';
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
+import { TOKEN_NAMES, type TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IKeywordCompletionOptions,
   KeywordCompletion,
 } from '@idl/types/auto-complete';
-import { IDL_TYPE_LOOKUP, IParameterLookup } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import {
+  IDL_TYPE_LOOKUP,
+  type IParameterLookup,
+} from '@idl/types/idl-data-types';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { CompletionItemKind } from 'vscode-languageserver-types';
 
 import { FindKeyword } from '../../helpers/get-keyword';
 import { GetKeywords } from '../../helpers/get-keywords';
 import {
   CALL_ROUTINE_TOKENS,
-  CallRoutineToken,
+  type CallRoutineToken,
 } from '../../helpers/get-keywords.interface';
-import { IDLIndex } from '../../idl-index.class';
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { IDLIndex } from '../../idl-index.class';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**

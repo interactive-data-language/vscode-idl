@@ -1,28 +1,28 @@
-import {
+import type {
   BreakpointParams,
   BreakpointRequest,
 } from './requests/idl-machine.breakpoint.interface';
-import {
+import type {
   CommandHistoryParams,
   CommandHistoryRequest,
   CommandHistoryResponse,
 } from './requests/idl-machine.command-history.interface';
-import {
+import type {
   GetPrefsParams,
   GetPrefsRequest,
   GetPrefsResponse,
 } from './requests/idl-machine.get-prefs.interface';
-import {
+import type {
   GetVarParams,
   GetVarRequest,
   GetVarResponse,
 } from './requests/idl-machine.get-var.interface';
-import {
+import type {
   IsQueueEmptyParams,
   IsQueueEmptyRequest,
   IsQueueEmptyResponse,
 } from './requests/idl-machine.is-queue-empty.interface';
-import {
+import type {
   SetPrefsParams,
   SetPrefsRequest,
   SetPrefsResponse,

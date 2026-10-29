@@ -1,5 +1,5 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import {
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type {
   MainLevelToken,
   NonBasicTokenNames,
   RoutineFunctionToken,
@@ -7,11 +7,11 @@ import {
 } from '@idl/tokenizer';
 import {
   BRANCH_TYPES,
-  IBranch,
-  SyntaxTree,
-  TreeBasicToken,
-  TreeBranchToken,
-  TreeToken,
+  type IBranch,
+  type SyntaxTree,
+  type TreeBasicToken,
+  type TreeBranchToken,
+  type TreeToken,
 } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
@@ -19,8 +19,8 @@ import { GetRoutineName } from '../helpers/get-routine-name';
 import {
   BASE_TREE_RECURSER_OPTIONS,
   DEFAULT_CURRENT,
-  ITreeRecurserOptions,
-  ITreeRecurserRecursionOptions,
+  type ITreeRecurserOptions,
+  type ITreeRecurserRecursionOptions,
 } from './tree-recurser.interface';
 
 /**

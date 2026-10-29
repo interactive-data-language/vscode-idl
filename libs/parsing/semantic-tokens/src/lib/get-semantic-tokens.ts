@@ -1,4 +1,4 @@
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 import { SemanticTokensBuilder } from 'vscode-languageserver';
 import {
   SemanticTokenModifiers,

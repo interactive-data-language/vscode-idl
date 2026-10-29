@@ -4,13 +4,16 @@ import {
   IDL_SYNTAX_TREE_VALIDATOR,
 } from '@idl/parsing/syntax-tree';
 import {
-  CallProcedureToken,
-  MainLevelToken,
-  RoutineProcedureToken,
+  type CallProcedureToken,
+  type MainLevelToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IDL_PROBLEM_CODES, SyntaxProblems } from '@idl/types/problem-codes';
-import { IBranch } from '@idl/types/syntax-tree';
+import {
+  IDL_PROBLEM_CODES,
+  type SyntaxProblems,
+} from '@idl/types/problem-codes';
+import type { IBranch } from '@idl/types/syntax-tree';
 
 import { FILTER_TOKENS } from './expected-comma';
 

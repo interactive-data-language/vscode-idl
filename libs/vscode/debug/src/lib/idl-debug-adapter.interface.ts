@@ -1,11 +1,11 @@
 import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IDLEvaluateOptions,
   IStartIDLConfig,
 } from '@idl/types/idl/idl-process';
-import { DebugProtocol } from '@vscode/debugprotocol';
-import * as vscode from 'vscode';
+import type { DebugProtocol } from '@vscode/debugprotocol';
+import type * as vscode from 'vscode';
 
 export interface IFileBreakpoint {
   [key: number]: boolean;

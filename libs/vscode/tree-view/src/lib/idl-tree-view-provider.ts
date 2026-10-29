@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 
 import { FilterWebCommands, HasWebCommands } from './has-web-commands';
 import { IDLAction } from './idl-action.class';
-import { IChild } from './idl-tree-view.interface';
+import type { IChild } from './idl-tree-view.interface';
 import { TREE_VIEW_CLICK_HANDLER } from './initialize-tree';
 import { CODE_ACTIONS } from './trees/code-actions.tree.interface';
 import { DEBUGGING_BUTTONS } from './trees/debugging.tree.interface';

@@ -1,5 +1,5 @@
-import { ICodeStyle } from '@idl/assembling/config';
-import {
+import type { ICodeStyle } from '@idl/assembling/config';
+import type {
   IHandlerCallbackMetadata,
   TreeCallbackHandler,
 } from '@idl/parsing/syntax-tree';

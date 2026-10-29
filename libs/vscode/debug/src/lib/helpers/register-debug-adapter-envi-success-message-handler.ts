@@ -1,7 +1,7 @@
 import { RegisterENVINotifyHandlers } from '@idl/mcp/envi';
-import { ENVIMCPToolResponse } from '@idl/types/mcp';
+import type { ENVIMCPToolResponse } from '@idl/types/mcp';
 
-import { IDLDebugAdapter } from '../idl-debug-adapter.class';
+import type { IDLDebugAdapter } from '../idl-debug-adapter.class';
 
 /** Track the last message we got from IDL */
 export let LAST_ENVI_MCP_MESSAGE: ENVIMCPToolResponse;

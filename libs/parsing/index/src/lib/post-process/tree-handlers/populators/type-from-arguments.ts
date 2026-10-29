@@ -1,9 +1,9 @@
-import { BranchCallback } from '@idl/parsing/syntax-tree';
+import type { BranchCallback } from '@idl/parsing/syntax-tree';
 import {
-  CallFunctionMethodToken,
-  CallFunctionToken,
-  CallProcedureMethodToken,
-  CallProcedureToken,
+  type CallFunctionMethodToken,
+  type CallFunctionToken,
+  type CallProcedureMethodToken,
+  type CallProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import { IDL_ANY_TYPE } from '@idl/types/idl-data-types';
@@ -11,7 +11,7 @@ import { IDL_ANY_TYPE } from '@idl/types/idl-data-types';
 import { GetRoutine } from '../../../helpers/get-routine';
 import { GetSplit } from '../helpers/get-split';
 import { POPULATE_TYPE_HANDLER } from '../populate-type-handler';
-import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
+import type { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
 
 /**
  * Union type of call routine tokens

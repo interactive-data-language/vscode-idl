@@ -1,5 +1,5 @@
-import { IDLNotebookEmbeddedItem } from './idl-notebook.embed.interface';
-import {
+import type { IDLNotebookEmbeddedItem } from './idl-notebook.embed.interface';
+import type {
   IDLNotebookImage_FromURIData,
   IDLNotebookImage_PNGData,
 } from './idl-notebook-image.embed.interface';

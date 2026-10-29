@@ -4,7 +4,7 @@ import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { OpenNotebookInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../test-client-config.interface';
 import { CompareCellOutputs } from './helpers/compare-cells';
 import { VerifyEmpty } from './helpers/verify-empty';

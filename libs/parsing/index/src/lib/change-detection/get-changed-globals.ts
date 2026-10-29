@@ -1,15 +1,15 @@
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalFunctionMethodToken,
-  GlobalFunctionToken,
-  GlobalProcedureMethodToken,
-  GlobalProcedureToken,
-  GlobalStructureToken,
-  GlobalSystemVariableToken,
-  GlobalTokens,
-  IGlobalIndexedToken,
-  IParameterLookup,
-  IPropertyLookup,
+  type GlobalFunctionMethodToken,
+  type GlobalFunctionToken,
+  type GlobalProcedureMethodToken,
+  type GlobalProcedureToken,
+  type GlobalStructureToken,
+  type GlobalSystemVariableToken,
+  type GlobalTokens,
+  type IGlobalIndexedToken,
+  type IParameterLookup,
+  type IPropertyLookup,
 } from '@idl/types/idl-data-types';
 import { deepEqual } from 'fast-equals';
 

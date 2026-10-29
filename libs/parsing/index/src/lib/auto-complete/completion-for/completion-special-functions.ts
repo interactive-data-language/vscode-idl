@@ -1,18 +1,18 @@
 import { TransformCase } from '@idl/assembling/shared';
 import { IDL_DISPLAY_NAMES } from '@idl/parsing/routines';
 import { TaskNameOnly } from '@idl/parsing/syntax-tree';
-import { TokenName } from '@idl/tokenizer';
+import type { TokenName } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   ISpecialFunctionCompletionOptions,
   SpecialFunctionCompletion,
 } from '@idl/types/auto-complete';
 import { GLOBAL_TOKEN_TYPES } from '@idl/types/idl-data-types';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 import { CompletionItemKind } from 'vscode-languageserver-types';
 
 import { EvaluateToken } from '../../post-process/populate-type/evaluate/evaluate-token';
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 import {
   ALLOWED_SPECIAL_COMPLETION,

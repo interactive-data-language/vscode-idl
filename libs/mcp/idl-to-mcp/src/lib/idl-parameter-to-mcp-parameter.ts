@@ -2,8 +2,8 @@ import { MCP_ENVIURI } from '@idl/mcp/envi-to-mcp';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 import {
   IDL_TYPE_LOOKUP,
-  IDLDataType,
-  IParameterOrPropertyDetails,
+  type IDLDataType,
+  type IParameterOrPropertyDetails,
 } from '@idl/types/idl-data-types';
 import { z } from 'zod';
 

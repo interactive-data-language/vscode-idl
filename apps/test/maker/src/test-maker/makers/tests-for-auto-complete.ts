@@ -4,9 +4,9 @@ import { IDLIndex } from '@idl/parsing/index';
 import { writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { CompletionItem } from 'vscode-languageserver-types';
+import type { CompletionItem } from 'vscode-languageserver-types';
 
-import { IAutoCompleteTest } from '../tests.interface';
+import type { IAutoCompleteTest } from '../tests.interface';
 
 /**
  * Generates test to verify auto-complete works as expected

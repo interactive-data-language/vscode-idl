@@ -1,5 +1,5 @@
-import { MCPTaskRegistry } from '@idl/mcp/tasks';
-import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
+import type { MCPTaskRegistry } from '@idl/mcp/tasks';
+import type { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import { copy } from 'fast-copy';
 
 import {

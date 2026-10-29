@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 
 type MimeTypes =
   | 'idl/notebook-renderer'

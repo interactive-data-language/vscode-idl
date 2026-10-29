@@ -10,11 +10,11 @@ import {
 import { GetExtensionPath } from '@idl/idl/files';
 import { LogManager } from '@idl/logger';
 import { IDLIndex } from '@idl/parsing/index';
-import { GenerateTaskResult } from '@idl/types/generators';
+import type { GenerateTaskResult } from '@idl/types/generators';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { ITaskGenerationTest } from '../tests.interface';
+import type { ITaskGenerationTest } from '../tests.interface';
 
 /**
  * Generates tests to verify hover help works as expected

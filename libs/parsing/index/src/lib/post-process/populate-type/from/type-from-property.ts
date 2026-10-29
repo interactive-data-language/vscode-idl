@@ -1,10 +1,10 @@
-import { AccessPropertyToken } from '@idl/tokenizer';
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import type { AccessPropertyToken } from '@idl/tokenizer';
+import { IDL_ANY_TYPE, type IDLDataType } from '@idl/types/idl-data-types';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
 import { GetProperty } from '../../../helpers/get-property';
-import { IDLIndex } from '../../../idl-index.class';
+import type { IDLIndex } from '../../../idl-index.class';
 
 /**
  * Attempts to determine the type from system variables

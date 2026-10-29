@@ -1,6 +1,6 @@
 import { STYLE_FLAG_LOOKUP } from '@idl/assembling/config';
 
-import { IAutoAssemblerTest } from '../tests.interface';
+import type { IAutoAssemblerTest } from '../tests.interface';
 
 /**
  * Automated tests to verify we assemble code correctly based on

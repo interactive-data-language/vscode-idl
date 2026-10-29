@@ -4,12 +4,12 @@ import { LoadTask } from '@idl/schemas/tasks';
 import { TASK_FILE_GLOB_PATTERN } from '@idl/shared/extension';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalFunctionToken,
-  GlobalStructureToken,
-  GlobalTokens,
-  IGlobalIndexedToken,
+  type GlobalFunctionToken,
+  type GlobalStructureToken,
+  type GlobalTokens,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { ParsedTask } from '@idl/types/tasks';
+import type { ParsedTask } from '@idl/types/tasks';
 import glob from 'fast-glob';
 import { join } from 'path';
 

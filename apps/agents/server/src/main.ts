@@ -1,22 +1,22 @@
 import {
-  IConfigProblem,
-  IStartAgentsServerResult,
+  type IConfigProblem,
+  type IStartAgentsServerResult,
   LoadConfig,
   LOG_MANAGER,
   StartAgentsServer,
   UpdateConfig,
   ValidateConfig,
 } from '@idl/mcp/standalone-server';
-import { IAgentServerConfig } from '@idl/types/agents';
+import type { IAgentServerConfig } from '@idl/types/agents';
 import { existsSync } from 'fs';
 import { isAbsolute } from 'path';
 import { isMainThread, parentPort, workerData } from 'worker_threads';
 
 import {
   AGENTS_SERVER_PROTOCOL_VERSION,
-  AgentsServerLogLevel,
-  AgentsServerMessage,
-  AgentsServerRequest,
+  type AgentsServerLogLevel,
+  type AgentsServerMessage,
+  type AgentsServerRequest,
 } from './protocol.interface';
 
 /**

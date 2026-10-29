@@ -1,7 +1,7 @@
 import { existsSync } from 'fs';
 
 import { IDL_PACKAGE_DIR } from './dot-idl-folder.interface';
-import { IFolderRecursion } from './find-files.interface';
+import type { IFolderRecursion } from './find-files.interface';
 import { GetExtensionPath } from './get-extension-path';
 import { LoadENVIPaths } from './load-envi-paths';
 

@@ -1,8 +1,8 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { TOKEN_NAMES, TokenName } from '@idl/tokenizer';
-import { IParsed, TreeToken } from '@idl/types/syntax-tree';
+import { TOKEN_NAMES, type TokenName } from '@idl/tokenizer';
+import type { IParsed, TreeToken } from '@idl/types/syntax-tree';
 
-import { IDLIndex } from '../../../../idl-index.class';
+import type { IDLIndex } from '../../../../idl-index.class';
 import { EvaluateToken } from '../../evaluate/evaluate-token';
 import { TypeFromVariable } from '../type-from-variable';
 

@@ -1,64 +1,64 @@
-import {
+import type {
   BlockCompletion,
   IBlockCompletionOptions,
 } from './completion-for/completion-blocks.interface';
-import {
+import type {
   CompileOptCompletion,
   ICompileOptCompletionOptions,
 } from './completion-for/completion-compile-opts.interface';
-import {
+import type {
   ExecutiveCommandCompletion,
   IExecutiveCommandCompletionOptions,
 } from './completion-for/completion-executive-commands.interface';
-import {
+import type {
   FunctionMethodCompletion,
   IFunctionMethodCompletionOptions,
 } from './completion-for/completion-function-methods.interface';
-import {
+import type {
   FunctionCompletion,
   IFunctionCompletionOptions,
 } from './completion-for/completion-functions.interface';
-import {
+import type {
   IIncludeCompletionOptions,
   IncludeCompletion,
 } from './completion-for/completion-include.interface';
-import {
+import type {
   IKeywordCompletionOptions,
   KeywordCompletion,
 } from './completion-for/completion-keyword.interface';
-import {
+import type {
   IProcedureMethodCompletionOptions,
   ProcedureMethodCompletion,
 } from './completion-for/completion-procedure-methods.interface';
-import {
+import type {
   IProcedureCompletionOptions,
   ProcedureCompletion,
 } from './completion-for/completion-procedures.interface';
-import {
+import type {
   IPropertyCompletionOptions,
   PropertyCompletion,
 } from './completion-for/completion-properties.interface';
-import {
+import type {
   IPropertyInStructureCompletionOptions,
   PropertyInStructureCompletion,
 } from './completion-for/completion-properties-in-structures.interface';
-import {
+import type {
   ISpecialFunctionCompletionOptions,
   SpecialFunctionCompletion,
 } from './completion-for/completion-special-functions.interface';
-import {
+import type {
   ISpecialProcedureCompletionOptions,
   SpecialProcedureCompletion,
 } from './completion-for/completion-special-procedures.interface';
-import {
+import type {
   IStructureNameCompletionOptions,
   StructureNameCompletion,
 } from './completion-for/completion-structure-names.interface';
-import {
+import type {
   ISystemVariableCompletionOptions,
   SystemVariableCompletion,
 } from './completion-for/completion-system-variables.interface';
-import {
+import type {
   IVariableCompletionOptions,
   VariableCompletion,
 } from './completion-for/completion-variables.interface';

@@ -1,20 +1,20 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IDLProcess } from '@idl/idl/idl-process';
-import { Logger } from '@idl/logger';
+import type { Logger } from '@idl/logger';
 import {
   FROM_IDL_WEB_SOCKET_MESSAGE_LOOKUP,
-  FromIDLWebSocketMessage,
-  FromIDLWebSocketMessageTypes,
-  FromIDLWebSocketPayload,
+  type FromIDLWebSocketMessage,
+  type FromIDLWebSocketMessageTypes,
+  type FromIDLWebSocketPayload,
   IDL_WS_MESSAGE,
   TO_IDL_WEB_SOCKET_MESSAGE_LOOKUP,
-  ToIDLWebSocketMessage,
-  ToIDLWebSocketMessage_Evaluate,
-  ToIDLWebSocketMessage_StartIDL,
-  ToIDLWebSocketMessageTypes,
+  type ToIDLWebSocketMessage,
+  type ToIDLWebSocketMessage_Evaluate,
+  type ToIDLWebSocketMessage_StartIDL,
+  type ToIDLWebSocketMessageTypes,
 } from '@idl/types/idl/ws-client';
 import { join } from 'path';
-import { Socket } from 'socket.io';
+import type { Socket } from 'socket.io';
 
 import { IDLTempFolderManager } from './idl-temp-folder-manager';
 

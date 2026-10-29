@@ -1,4 +1,4 @@
-import { GetExtensionPath, IFolderRecursion } from '@idl/idl/files';
+import { GetExtensionPath, type IFolderRecursion } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { ENVI_TOOL_WORKFLOW_REGISTRY } from '@idl/mcp/server-tools';
 import { existsSync } from 'fs';

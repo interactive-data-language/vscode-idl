@@ -1,27 +1,27 @@
 import {
-  CommentToken,
-  MainLevelToken,
-  RoutineFunctionToken,
-  RoutineMethodNameToken,
-  RoutineNameToken,
-  RoutineProcedureToken,
+  type CommentToken,
+  type MainLevelToken,
+  type RoutineFunctionToken,
+  type RoutineMethodNameToken,
+  type RoutineNameToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
-  GlobalRoutineToken,
+  type GlobalRoutineToken,
   IDL_ANY_TYPE,
-  IParameterOrPropertyDetails,
+  type IParameterOrPropertyDetails,
 } from '@idl/types/idl-data-types';
 import {
-  IBasicBranch,
-  IBranch,
-  ILocalIndexedToken,
-  ILocalTokenLookup,
-  IParsed,
+  type IBasicBranch,
+  type IBranch,
+  type ILocalIndexedToken,
+  type ILocalTokenLookup,
+  type IParsed,
   LOCAL_TOKEN_LOOKUP,
-  LocalVariableToken,
-  TreeToken,
+  type LocalVariableToken,
+  type TreeToken,
 } from '@idl/types/syntax-tree';
 
 import { IDL_DOCS_HEADERS } from '../docs/docs.interface';

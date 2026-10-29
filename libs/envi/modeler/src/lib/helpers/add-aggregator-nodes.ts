@@ -1,4 +1,4 @@
-import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
+import type { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 
 import { BuildConnectionMap } from './build-connection-map';
 

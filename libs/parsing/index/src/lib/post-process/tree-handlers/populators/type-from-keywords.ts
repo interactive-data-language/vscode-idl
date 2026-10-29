@@ -1,10 +1,10 @@
-import { BasicCallback, GetNextInBranch } from '@idl/parsing/syntax-tree';
-import { KeywordToken, TOKEN_NAMES } from '@idl/tokenizer';
+import { type BasicCallback, GetNextInBranch } from '@idl/parsing/syntax-tree';
+import { type KeywordToken, TOKEN_NAMES } from '@idl/tokenizer';
 
 import { GetKeyword } from '../../../helpers/get-keyword';
-import { ITokenCache } from '../../../helpers/token-cache.interface';
+import type { ITokenCache } from '../../../helpers/token-cache.interface';
 import { TypeFromTokens } from '../../populate-type/from/type-from-tokens';
-import { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
+import type { PopulateTypeHandlerMeta } from '../populate-type-handler.interface';
 
 /**
  * Tokens that we are validating

@@ -1,5 +1,5 @@
 import expect from 'expect';
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 
 /**
  * Verifies that a notebook is empty

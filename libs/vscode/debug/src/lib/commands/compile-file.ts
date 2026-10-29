@@ -1,6 +1,6 @@
 import { CleanPath } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
+import type { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { GetActivePROCodeWindow } from '@idl/vscode/shared';
 import { OutputEvent } from '@vscode/debugadapter';
 

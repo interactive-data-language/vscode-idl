@@ -1,13 +1,13 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import {
-  ENVIMCPToolResponse_Failure,
+  type ENVIMCPToolResponse_Failure,
   MCP_TOOL_LOOKUP,
-  MCPTool_RunIDLCode,
-  MCPToolResponse_IDL,
+  type MCPTool_RunIDLCode,
+  type MCPToolResponse_IDL,
 } from '@idl/types/mcp';
 import expect from 'expect';
 
-import { RunnerFunction } from '../../../runner.interface';
+import type { RunnerFunction } from '../../../runner.interface';
 import { CallMCPTool } from '../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../helpers/get-text-content';
 

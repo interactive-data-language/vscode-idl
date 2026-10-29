@@ -1,4 +1,4 @@
-import { ITokenDefTests } from '../tests.interface';
+import type { ITokenDefTests } from '../tests.interface';
 
 /**
  * Automated tests for finding the right definition of a token

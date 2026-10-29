@@ -1,7 +1,7 @@
 import { CleanPath, ENVI_OPENER_TYPE } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { OpenInENVI } from '@idl/vscode/debug';
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 
 /**
  * HTML for our fake editor for ENVI files

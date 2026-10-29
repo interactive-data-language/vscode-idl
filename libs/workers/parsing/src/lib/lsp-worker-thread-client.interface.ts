@@ -1,7 +1,7 @@
-import { IWorkerIOClient } from '@idl/workers/workerio';
+import type { IWorkerIOClient } from '@idl/workers/workerio';
 
-import { LSPWorkerThreadMessage } from './lsp-worker-thread.messages.interface';
-import {
+import type { LSPWorkerThreadMessage } from './lsp-worker-thread.messages.interface';
+import type {
   LSPMessageHandler,
   PayloadFromLSPWorker,
 } from './lsp-worker-thread.payloads.interface';

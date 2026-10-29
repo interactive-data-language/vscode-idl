@@ -1,10 +1,10 @@
 import {
-  AccessPropertyToken,
+  type AccessPropertyToken,
   STRUCTURE_PROPERTY_CLEANER_REGEX,
-  StructurePropertyToken,
+  type StructurePropertyToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Gets the name of our property

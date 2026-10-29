@@ -12,10 +12,10 @@ import {
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_PROBLEM_CODE_ALIAS_LOOKUP,
-  IDLProblemCode,
+  type IDLProblemCode,
 } from '@idl/types/problem-codes';
 import {
-  ILanguageServerStartupPayload,
+  type ILanguageServerStartupPayload,
   USAGE_METRIC_LOOKUP,
 } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';

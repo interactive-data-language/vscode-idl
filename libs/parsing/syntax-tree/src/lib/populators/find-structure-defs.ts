@@ -1,17 +1,17 @@
 import {
-  RoutineFunctionToken,
-  RoutineProcedureToken,
+  type RoutineFunctionToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalStructureToken,
+  type GlobalStructureToken,
   IDL_ANY_TYPE,
-  IGlobalIndexedToken,
-  IPropertyLookup,
+  type IGlobalIndexedToken,
+  type IPropertyLookup,
 } from '@idl/types/idl-data-types';
-import { TreeToken } from '@idl/types/syntax-tree';
-import { PositionRange } from '@idl/types/tokenizer';
+import type { TreeToken } from '@idl/types/syntax-tree';
+import type { PositionRange } from '@idl/types/tokenizer';
 
 import { GetPropertyName } from '../helpers/get-property-name';
 import { FindAllBranchChildren } from '../helpers/searching/find-all-branch-children';

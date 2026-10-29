@@ -1,15 +1,15 @@
 import { AdjustCase } from '@idl/assembling/shared';
 import { IDLFileHelper } from '@idl/shared/extension';
-import { TokenName } from '@idl/tokenizer';
-import {
+import type { TokenName } from '@idl/tokenizer';
+import type {
   ExecutiveCommandCompletion,
   IExecutiveCommandCompletionOptions,
 } from '@idl/types/auto-complete';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 import { basename } from 'path';
 import { CompletionItemKind } from 'vscode-languageserver-types';
 
-import { BuildCompletionItemsArg } from '../build-completion-items.interface';
+import type { BuildCompletionItemsArg } from '../build-completion-items.interface';
 import { COMPLETION_SORT_PRIORITY } from '../completion-sort-priority.interface';
 
 /**

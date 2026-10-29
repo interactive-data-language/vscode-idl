@@ -1,17 +1,17 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { SplitTreeOnOperators } from '@idl/parsing/syntax-tree';
 import {
-  AssignmentToken,
-  LogicalTernaryThenToken,
+  type AssignmentToken,
+  type LogicalTernaryThenToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IDLDataType } from '@idl/types/idl-data-types';
-import { IParsed, SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
+import type { IDLDataType } from '@idl/types/idl-data-types';
+import type { IParsed, SyntaxTree, TreeToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
 import { GetVariable } from '../../../helpers/get-variable';
-import { ITokenCache } from '../../../helpers/token-cache.interface';
-import { IDLIndex } from '../../../idl-index.class';
+import type { ITokenCache } from '../../../helpers/token-cache.interface';
+import type { IDLIndex } from '../../../idl-index.class';
 import { TypeFromOperators } from './type-from-operators';
 import { TypeFromTernary } from './type-from-ternary';
 

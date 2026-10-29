@@ -1,4 +1,4 @@
-import { IObsolete } from './obsolete.interface';
+import type { IObsolete } from './obsolete.interface';
 
 /**
  * Obsolete functions

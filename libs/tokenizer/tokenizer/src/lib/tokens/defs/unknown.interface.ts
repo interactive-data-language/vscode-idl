@@ -1,4 +1,8 @@
-import { ITokenDef, TOKEN_NAMES, UnknownToken } from '../../tokens.interface';
+import {
+  type ITokenDef,
+  TOKEN_NAMES,
+  type UnknownToken,
+} from '../../tokens.interface';
 
 export type UnknownTokenDef = ITokenDef<UnknownToken>;
 

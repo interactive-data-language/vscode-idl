@@ -1,4 +1,4 @@
-import { IAutoENVIModelerTest } from '../../tests.interface';
+import type { IAutoENVIModelerTest } from '../../tests.interface';
 
 export const AUTO_ENVI_MODELER_TEST_DATASET_INDEX: IAutoENVIModelerTest = {
   suiteName: 'Spectral index computation (dataset index)',

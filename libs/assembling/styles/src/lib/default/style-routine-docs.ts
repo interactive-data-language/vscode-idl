@@ -1,28 +1,28 @@
-import { ICodeStyle } from '@idl/assembling/config';
+import type { ICodeStyle } from '@idl/assembling/config';
 import { IncrementLineNumbers } from '@idl/assembling/shared';
 import { DocsToIDL } from '@idl/parsing/syntax-tree';
 import {
-  CommentBlockToken,
-  RoutineFunctionToken,
-  RoutineProcedureToken,
+  type CommentBlockToken,
+  type RoutineFunctionToken,
+  type RoutineProcedureToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalFunctionMethodToken,
-  GlobalFunctionToken,
-  GlobalProcedureMethodToken,
-  GlobalProcedureToken,
-  GlobalRoutineToken,
-  IGlobalIndexedToken,
+  type GlobalFunctionMethodToken,
+  type GlobalFunctionToken,
+  type GlobalProcedureMethodToken,
+  type GlobalProcedureToken,
+  type GlobalRoutineToken,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import {
   BRANCH_TYPES,
-  IBranch,
-  IParsed,
-  SyntaxTree,
-  TreeBranchToken,
-  TreeToken,
+  type IBranch,
+  type IParsed,
+  type SyntaxTree,
+  type TreeBranchToken,
+  type TreeToken,
 } from '@idl/types/syntax-tree';
 
 import { FormatKeyword } from './style-keywords';

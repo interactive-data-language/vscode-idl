@@ -1,4 +1,4 @@
-import {
+import type {
   RegistryLocation,
   RegistryLocation_File,
   RegistryLocation_Memory,

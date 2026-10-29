@@ -1,5 +1,5 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import {
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type {
   MigrateCodeLSPMessage,
   PrepareIDLCodeMessage,
   PrepareIDLCodePayload,
@@ -8,12 +8,12 @@ import {
   PrepareNotebookCellPayload,
   PrepareNotebookCellResponse,
 } from '@idl/vscode/events/messages';
-import {
+import type {
   PayloadFromWorkerBaseMessage,
   WorkerIOBaseMessage,
 } from '@idl/workers/workerio';
 
-import {
+import type {
   AllFilesMessage,
   AllFilesPayload,
   AllFilesResponse,

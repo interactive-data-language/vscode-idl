@@ -1,4 +1,4 @@
-import {
+import type {
   ENVITask,
   ENVITaskParameter,
   ENVITaskSchema33,

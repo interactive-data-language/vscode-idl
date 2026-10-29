@@ -4,7 +4,11 @@
  * For example: when we find a string or comment, allwe check for are strings or other comments
  */
 
-import { ITokenDef, TOKEN_NAMES, TokenName } from '../../tokens.interface';
+import {
+  type ITokenDef,
+  TOKEN_NAMES,
+  type TokenName,
+} from '../../tokens.interface';
 import { COMMENT } from '../defs/comment.interface';
 import { ROUTINE_NAME } from '../defs/routines.definition.interface';
 import {

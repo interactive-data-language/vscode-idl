@@ -3,7 +3,7 @@ import {
   ENVI_TOOL_WORKFLOW_REGISTRY,
   MCP_SKILL_REGISTRY,
 } from '@idl/mcp/server-tools';
-import { IAgentServerConfig } from '@idl/types/agents';
+import type { IAgentServerConfig } from '@idl/types/agents';
 
 import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
 

@@ -1,4 +1,8 @@
-import { IncludeToken, ITokenDef, TOKEN_NAMES } from '../../tokens.interface';
+import {
+  type IncludeToken,
+  type ITokenDef,
+  TOKEN_NAMES,
+} from '../../tokens.interface';
 
 export type IncludeTokenDef = ITokenDef<IncludeToken>;
 

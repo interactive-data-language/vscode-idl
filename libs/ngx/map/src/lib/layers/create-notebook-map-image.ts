@@ -1,11 +1,11 @@
-import {
+import type {
   IDLNotebookEmbeddedItem,
   IDLNotebookMap_Image,
 } from '@idl/types/notebooks';
 
 import { BoundsFromExtents } from '../helpers/bounds-from-extents';
 import { CreateImage } from './create-image';
-import { CreatedLayerNotebookMapLayer } from './created-layer.interface';
+import type { CreatedLayerNotebookMapLayer } from './created-layer.interface';
 
 /**
  * Creates a notebook map image

@@ -1,13 +1,16 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, type OnDestroy } from '@angular/core';
 import { ObjectifyError } from '@idl/error-shared';
 import {
   DEFAULT_VSCODE_MESSAGE,
-  IProfilerMessage,
-  VSCodeWebViewMessage,
+  type IProfilerMessage,
+  type VSCodeWebViewMessage,
 } from '@idl/vscode/webview-shared';
 import { BehaviorSubject } from 'rxjs';
 
-import { DEFAULT_VSCODE_STATE, IVSCodeState } from '../core/vscode.interface';
+import {
+  DEFAULT_VSCODE_STATE,
+  type IVSCodeState,
+} from '../core/vscode.interface';
 
 @Injectable({
   providedIn: 'root',

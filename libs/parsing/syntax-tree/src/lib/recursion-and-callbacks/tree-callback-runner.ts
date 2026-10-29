@@ -1,8 +1,8 @@
-import { CancellationToken } from '@idl/cancellation-tokens';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { CancellationToken } from '@idl/cancellation-tokens';
+import type { IParsed } from '@idl/types/syntax-tree';
 
-import { TreeCallbackHandler } from './tree-callback-handler.class';
-import { IHandlerCallbackMetadata } from './tree-callback-handler.interface';
+import type { TreeCallbackHandler } from './tree-callback-handler.class';
+import type { IHandlerCallbackMetadata } from './tree-callback-handler.interface';
 import { TreeRecurser } from './tree-recurser';
 
 /**

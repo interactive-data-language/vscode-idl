@@ -1,5 +1,5 @@
-import { IDLNotebookOutputMetadata } from './idl-notebook-metadata.interface';
-import {
+import type { IDLNotebookOutputMetadata } from './idl-notebook-metadata.interface';
+import type {
   IDLRawNotebookCellBase,
   IDLRawNotebookCellOutputBase,
 } from './raw-notebook.interface';

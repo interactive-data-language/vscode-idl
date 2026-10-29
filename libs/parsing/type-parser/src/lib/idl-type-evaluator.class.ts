@@ -1,7 +1,7 @@
 import {
   IDL_ANY_TYPE,
   IDL_TYPE_LOOKUP,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
 
 import { IDLTypeHelper } from './idl-type-helper.class';

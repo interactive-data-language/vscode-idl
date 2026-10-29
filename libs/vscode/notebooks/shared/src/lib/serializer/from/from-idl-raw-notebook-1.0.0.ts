@@ -1,14 +1,14 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IDLRawNotebook,
   IDLRawNotebookVersion_1_0_0,
 } from '@idl/types/notebooks';
 import { IDL_LOGGER } from '@idl/vscode/logger';
 import * as vscode from 'vscode';
 
-import { FromIDLRawNotebook } from './from-idl-raw-notebook.interface';
+import type { FromIDLRawNotebook } from './from-idl-raw-notebook.interface';
 
 /**
  * Function that loads a 1.0.0 raw notebook

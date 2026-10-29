@@ -1,8 +1,8 @@
 import { SyntaxProblemWithTranslation } from '@idl/parsing/shared';
 import { IDL_SYNTAX_TREE_VALIDATOR } from '@idl/parsing/syntax-tree';
-import { NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
+import { type NonBasicTokenNames, TOKEN_NAMES } from '@idl/tokenizer';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
-import { BRANCH_TYPES, IBranch } from '@idl/types/syntax-tree';
+import { BRANCH_TYPES, type IBranch } from '@idl/types/syntax-tree';
 
 /**
  * Track token names that trigger this happening from the reverse search.

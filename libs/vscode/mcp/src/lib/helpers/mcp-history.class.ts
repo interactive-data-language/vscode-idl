@@ -1,4 +1,4 @@
-import { MCPToolParams, MCPTools } from '@idl/types/mcp';
+import type { MCPToolParams, MCPTools } from '@idl/types/mcp';
 
 /**
  * Data structure for a history item

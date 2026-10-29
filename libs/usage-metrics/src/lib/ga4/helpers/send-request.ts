@@ -1,6 +1,6 @@
-import axios, { AxiosError } from 'axios';
+import axios, { type AxiosError } from 'axios';
 
-import { GA4_CONFIG, IGA4EventParameters } from '../ga4-client.interface';
+import { GA4_CONFIG, type IGA4EventParameters } from '../ga4-client.interface';
 
 /**
  * Helper function to send event to GA

@@ -1,5 +1,5 @@
-import { IDLVariable } from '@idl/types/idl/idl-process';
-import { Variable } from '@vscode/debugadapter';
+import type { IDLVariable } from '@idl/types/idl/idl-process';
+import type { Variable } from '@vscode/debugadapter';
 
 /**
  * Maps variables from what IDL captures to what VSCode needs

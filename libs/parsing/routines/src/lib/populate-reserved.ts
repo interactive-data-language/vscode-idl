@@ -1,7 +1,7 @@
 import {
   GLOBAL_TOKEN_SOURCE_LOOKUP,
   GLOBAL_TOKEN_TYPES,
-  GlobalTokens,
+  type GlobalTokens,
 } from '@idl/types/idl-data-types';
 
 import {

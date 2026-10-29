@@ -1,4 +1,4 @@
-import {
+import type {
   AccessPropertyToken,
   CallFunctionMethodToken,
   CallFunctionToken,
@@ -21,34 +21,34 @@ import {
   UnknownToken,
   VariableToken,
 } from './tokens.interface';
-import { AccessPropertyMatches } from './tokens/defs/access-property.interface';
-import {
+import type { AccessPropertyMatches } from './tokens/defs/access-property.interface';
+import type {
   CommentBlockMatches,
   CommentMatches,
 } from './tokens/defs/comment.interface';
-import {
+import type {
   KeywordBinaryMatches,
   KeywordDefinitionMatches,
 } from './tokens/defs/keywords.interface';
-import { OperatorMatches } from './tokens/defs/operators.interface';
-import { QuoteMatches } from './tokens/defs/quotes.interface';
-import {
+import type { OperatorMatches } from './tokens/defs/operators.interface';
+import type { QuoteMatches } from './tokens/defs/quotes.interface';
+import type {
   CallFunctionMatches,
   CallFunctionMethodMatches,
   CallProcedureMatches,
   CallProcedureMethodMatches,
 } from './tokens/defs/routines.call.interface';
-import {
+import type {
   RoutineMethodNameMatches,
   RoutineNameMatches,
 } from './tokens/defs/routines.definition.interface';
-import {
+import type {
   StructureInheritanceMatches,
   StructurePropertyMatches,
 } from './tokens/defs/structure.interface';
-import { TypeFunctionMatches } from './tokens/defs/types.type-function.interface';
-import { UnknownMatches } from './tokens/defs/unknown.interface';
-import { VariableMatches } from './tokens/defs/variables.interface';
+import type { TypeFunctionMatches } from './tokens/defs/types.type-function.interface';
+import type { UnknownMatches } from './tokens/defs/unknown.interface';
+import type { VariableMatches } from './tokens/defs/variables.interface';
 
 /**
  * Matches for start tokens

@@ -1,15 +1,15 @@
 import {
   CanAssemble,
-  FormatterType,
-  IAssemblerInputOptions,
+  type FormatterType,
+  type IAssemblerInputOptions,
 } from '@idl/assembling/config';
 import { ApplyFixers } from '@idl/assembling/fixers';
 import { ApplyFormatter } from '@idl/assembling/formatters';
 import { ApplyStyle, ReplaceRoutineDocs } from '@idl/assembling/styles';
-import { CancellationToken } from '@idl/cancellation-tokens';
+import type { CancellationToken } from '@idl/cancellation-tokens';
 import { SaveGlobalDisplayNames } from '@idl/parsing/index';
 import { MergeConfig } from '@idl/schemas/idl.json';
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 import { Combiner } from './combiner/combiner';
 import { CombinerBasic } from './combiner/combiner-basic';

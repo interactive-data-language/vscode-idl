@@ -1,5 +1,5 @@
-import { Component, inject, Input, OnDestroy } from '@angular/core';
-import {
+import { Component, inject, Input, type OnDestroy } from '@angular/core';
+import type {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
 } from '@idl/types/notebooks';

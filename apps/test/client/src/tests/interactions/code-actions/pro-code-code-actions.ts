@@ -3,9 +3,9 @@ import { Sleep } from '@idl/shared/extension';
 import { GetRealDiagnostic, OpenFileInVSCode } from '@idl/vscode/shared';
 import expect from 'expect';
 import * as vscode from 'vscode';
-import { CodeActionParams } from 'vscode-languageserver';
+import type { CodeActionParams } from 'vscode-languageserver';
 
-import { RunnerFunction } from '../../runner.interface';
+import type { RunnerFunction } from '../../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../../test-client-config.interface';
 
 /**

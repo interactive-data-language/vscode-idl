@@ -1,4 +1,4 @@
-import {
+import type {
   IDLNotebookEmbeddedItem,
   IDLNotebookPlot,
   IDLNotebookPlot_Bubble,
@@ -6,9 +6,12 @@ import {
   IDLNotebookPlot_Line,
   IDLNotebookPlot_LineAnimation,
 } from '@idl/types/notebooks';
-import { ChartDataset } from 'chart.js';
+import type { ChartDataset } from 'chart.js';
 
-import { CreatedPlots, PlotAnimationCallback } from './create-plots.interface';
+import type {
+  CreatedPlots,
+  PlotAnimationCallback,
+} from './create-plots.interface';
 
 /**
  * Creates plot data for display in an IDL Notebook

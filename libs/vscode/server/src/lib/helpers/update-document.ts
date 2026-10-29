@@ -1,4 +1,4 @@
-import { TextDocument } from 'vscode-languageserver-textdocument';
+import type { TextDocument } from 'vscode-languageserver-textdocument';
 import { WorkspaceChange } from 'vscode-languageserver-types';
 
 import { DOCUMENT_MANAGER } from '../events/initialize-document-manager';

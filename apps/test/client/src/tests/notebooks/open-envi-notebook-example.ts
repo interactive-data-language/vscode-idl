@@ -9,7 +9,7 @@ import expect from 'expect';
 import { join } from 'path';
 import * as vscode from 'vscode';
 
-import { RunnerFunction } from '../runner.interface';
+import type { RunnerFunction } from '../runner.interface';
 
 /**
  * Verifies we can open our IDL example notebook

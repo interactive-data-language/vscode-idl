@@ -1,5 +1,5 @@
-import { IDLFileType } from '@idl/shared/extension';
-import { IGlobalsToTrack } from '@idl/types/tasks';
+import type { IDLFileType } from '@idl/shared/extension';
+import type { IGlobalsToTrack } from '@idl/types/tasks';
 
 /**
  * Base payload for all parse events

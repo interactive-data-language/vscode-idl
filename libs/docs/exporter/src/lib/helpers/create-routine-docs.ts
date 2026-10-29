@@ -1,4 +1,4 @@
-import {
+import type {
   ExportedGlobalTokensByType,
   GlobalIndexedToken,
 } from '@idl/parsing/index';
@@ -9,7 +9,7 @@ import {
 } from '@idl/parsing/syntax-tree';
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalRoutineToken,
+  type GlobalRoutineToken,
 } from '@idl/types/idl-data-types';
 
 import { CleanDocs } from './clean-docs';

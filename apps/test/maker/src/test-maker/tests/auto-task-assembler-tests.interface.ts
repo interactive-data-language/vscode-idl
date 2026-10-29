@@ -1,4 +1,4 @@
-import { IAutoTaskAssemblerTest } from '../tests.interface';
+import type { IAutoTaskAssemblerTest } from '../tests.interface';
 
 /**
  * Automated tests for the task assembler

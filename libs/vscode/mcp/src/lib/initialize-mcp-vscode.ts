@@ -12,7 +12,7 @@ import { FetchWithRetry } from './helpers/fetch-with-retry';
 import { MCPHistory } from './helpers/mcp-history.class';
 import { RemoveLegacyMCPConfig } from './helpers/remove-legacy-mcp-config';
 import { VSCodeSendMCPNotification } from './helpers/vscode-send-mcp-notification';
-import { IInitializeMCPResult } from './initialize-mcp-vscode.interface';
+import type { IInitializeMCPResult } from './initialize-mcp-vscode.interface';
 import { VSCodeMCPExecutionBackend } from './tools/vscode-mcp-execution-backend';
 
 export const MCP_CHANGE_EVENT_EMITTER = new vscode.EventEmitter<void>();

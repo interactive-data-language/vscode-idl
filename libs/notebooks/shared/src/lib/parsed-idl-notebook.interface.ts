@@ -1,4 +1,4 @@
-import { IParsed } from '@idl/types/syntax-tree';
+import type { IParsed } from '@idl/types/syntax-tree';
 
 /**
  * Data structure for a parsed notebook file

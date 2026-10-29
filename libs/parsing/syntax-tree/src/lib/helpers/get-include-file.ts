@@ -1,5 +1,5 @@
-import { IncludeToken } from '@idl/tokenizer';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { IncludeToken } from '@idl/tokenizer';
+import type { TreeToken } from '@idl/types/syntax-tree';
 
 /**
  * Gets the lower-case filename that we are including

@@ -1,6 +1,6 @@
 import { TOKEN_NAMES } from '@idl/tokenizer';
 
-import { FormatterRuleSet } from '../formatter-rule-set.interface';
+import type { FormatterRuleSet } from '../formatter-rule-set.interface';
 import { COMMENT_FORMATTER } from './formatters/comment-formatter';
 import { EXECUTIVE_COMMAND_FORMATTER } from './formatters/executive-command-formatter';
 import { KEYWORD_FORMATTER } from './formatters/keyword-formatter';

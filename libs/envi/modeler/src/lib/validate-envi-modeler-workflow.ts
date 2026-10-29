@@ -1,6 +1,6 @@
-import { ITaskInformation, MCPTaskRegistry } from '@idl/mcp/tasks';
+import type { ITaskInformation, MCPTaskRegistry } from '@idl/mcp/tasks';
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
+import type { ENVIModelerEdge, ENVIModelerNode } from '@idl/types/envi/modeler';
 import {
   IDL_NUMBER_TYPE_ORDER,
   IDL_TYPE_LOOKUP,

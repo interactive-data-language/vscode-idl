@@ -1,9 +1,9 @@
 import { ObjectifyError } from '@idl/error-shared';
-import { IDL_MCP_LOG, LogManager } from '@idl/logger';
-import { IDLIndex } from '@idl/parsing/index';
+import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
+import type { IDLIndex } from '@idl/parsing/index';
 import { SimplePromiseQueue, VERSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IMCPToolProgress,
   MCPSendRequestCallback,
   MCPToolHTTPResponse,
@@ -16,22 +16,22 @@ import {
 import { NodeStreamableHTTPServerTransport } from '@modelcontextprotocol/node';
 import {
   McpServer,
-  ServerContext,
-  ToolCallback,
+  type ServerContext,
+  type ToolCallback,
 } from '@modelcontextprotocol/server';
 import express from 'express';
 import { nanoid } from 'nanoid';
-import { z, ZodRawShape } from 'zod';
+import { z, type ZodRawShape } from 'zod';
 
 import { LOCAL_IPS } from './local-ips.interface';
 import {
-  IMCPConnection,
-  IMCPServerOptions,
-  IRegisteredTool,
+  type IMCPConnection,
+  type IMCPServerOptions,
+  type IRegisteredTool,
   MCP_SERVER_CONFIG,
   MCP_SERVER_SUPPORTED_PROTOCOL_VERSIONS,
-  MCPRegistryToolInfo,
-  MCPToolCallback,
+  type MCPRegistryToolInfo,
+  type MCPToolCallback,
 } from './mcp-server.interface';
 
 /**

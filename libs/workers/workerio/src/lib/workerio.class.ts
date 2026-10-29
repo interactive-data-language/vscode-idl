@@ -1,22 +1,22 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
-import { IDL_WORKER_THREAD_CONSOLE, LogManager } from '@idl/logger';
+import { IDL_WORKER_THREAD_CONSOLE, type LogManager } from '@idl/logger';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
-import { Worker } from 'worker_threads';
+import type { Worker } from 'worker_threads';
 
-import {
+import type {
   PayloadFromWorkerBaseMessage,
   PayloadToWorkerBaseMessage,
 } from './messages/workerio.payloads.interface';
-import { IWorkerIO } from './workerio.class.interface';
-import {
+import type { IWorkerIO } from './workerio.class.interface';
+import type {
   IMessageFromWorker,
   IMessagePromise,
   IMessageToWorker,
   IPostAndReceiveMessageResult,
 } from './workerio.interface';
 import { WorkerIOSerializeMessageToWorker } from './workerio-message';
-import { WorkerIOSerializedMessageToWorker } from './workerio-messages.interface';
+import type { WorkerIOSerializedMessageToWorker } from './workerio-messages.interface';
 
 /**
  * Object class that manages sending and receiving messages from worker threads in a

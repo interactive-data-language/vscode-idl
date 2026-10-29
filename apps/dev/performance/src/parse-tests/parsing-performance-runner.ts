@@ -16,7 +16,7 @@ import { readFileSync } from 'fs';
 import { performance } from 'perf_hooks';
 import progressBar from 'progress';
 
-import { IParsingPerformanceRunnerOpts } from './options.interface';
+import type { IParsingPerformanceRunnerOpts } from './options.interface';
 
 interface IProblem {
   erased: string;

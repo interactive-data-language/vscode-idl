@@ -1,6 +1,6 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
 
-import { OverrideParamOrProp } from './shared.interface';
+import type { OverrideParamOrProp } from './shared.interface';
 
 export const HTTP_REQUEST_ARGS: { [key: string]: OverrideParamOrProp } = {
   url: {

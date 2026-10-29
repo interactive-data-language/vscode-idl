@@ -3,7 +3,7 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import expect from 'expect';
 import { dirname, sep } from 'path';
 
-import { RunnerFunction } from '../../../../runner.interface';
+import type { RunnerFunction } from '../../../../runner.interface';
 import { CallMCPTool } from '../../../helpers/call-mcp-tool';
 import { GetTextContent } from '../../../helpers/get-text-content';
 

@@ -1,13 +1,13 @@
 import { CleanIDLOutput } from '@idl/idl/idl-interaction-manager';
 import { IDL_COMMANDS } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IIDLMCPExecutionBackend,
   MCPTool_RunIDLFile,
   MCPToolParams,
   MCPToolResponse,
 } from '@idl/types/mcp';
-import { IRunIDLCommandResult } from '@idl/types/vscode-debug';
+import type { IRunIDLCommandResult } from '@idl/types/vscode-debug';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';
 

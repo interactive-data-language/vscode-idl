@@ -9,11 +9,11 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EVENT_LOOKUP,
   IDL_PROGRESS,
-  IDLEvaluateOptions,
+  type IDLEvaluateOptions,
   REGEX_NEW_LINE,
 } from '@idl/types/idl/idl-process';
-import { IDLNotebookEmbeddedItems } from '@idl/types/notebooks';
-import { IDLVersionInfo } from '@idl/types/vscode-debug';
+import type { IDLNotebookEmbeddedItems } from '@idl/types/notebooks';
+import type { IDLVersionInfo } from '@idl/types/vscode-debug';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { VSCODE_NOTEBOOK_PRO_DIR, VSCODE_PRO_DIR } from '@idl/vscode/client';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
@@ -34,12 +34,12 @@ import { URI } from 'vscode-uri';
 import { ExecuteNotebookCell } from './helpers/execute-notebook-cell';
 import { RegisterNotebookCLIProgressHandler } from './helpers/register-notebook-cli-progress-handler';
 import { ReplaceNotebookPaths } from './helpers/replace-notebook-paths';
-import { IDLNotebookController } from './idl-notebook-controller.class';
+import type { IDLNotebookController } from './idl-notebook-controller.class';
 import {
   DEFAULT_END_CELL_EXECUTION_ACTIONS,
   DEFAULT_NOTEBOOK_EVALUATE_OPTIONS,
-  ICurrentCell,
-  IEndCellExecutionActions,
+  type ICurrentCell,
+  type IEndCellExecutionActions,
 } from './idl-notebook-controller.interface';
 import { ProcessIDLNotebookEmbeddedItems } from './process-idl-notebook-embedded-items';
 

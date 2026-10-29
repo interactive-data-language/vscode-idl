@@ -6,7 +6,7 @@ import {
 } from '@idl/vscode/extension-config';
 import { readFileSync, writeFileSync } from 'fs';
 
-import { IPackageNLS } from '../../package.interface';
+import type { IPackageNLS } from '../../package.interface';
 import { EXTENSION_CONFIG } from '../contributes-configuration.interface';
 import { GetNLS } from '../helpers/get-nls';
 import { VerifyNLS } from '../helpers/verify-nls';

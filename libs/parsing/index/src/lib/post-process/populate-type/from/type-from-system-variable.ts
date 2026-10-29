@@ -1,15 +1,15 @@
 import { IDLTypeHelper } from '@idl/parsing/type-parser';
-import { SystemVariableToken } from '@idl/tokenizer';
+import type { SystemVariableToken } from '@idl/tokenizer';
 import {
   GLOBAL_TOKEN_TYPES,
   IDL_ANY_TYPE,
   IDL_NULL_TYPE,
-  IDLDataType,
+  type IDLDataType,
 } from '@idl/types/idl-data-types';
-import { TreeToken } from '@idl/types/syntax-tree';
+import type { TreeToken } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../../../idl-index.class';
+import type { IDLIndex } from '../../../idl-index.class';
 
 /**
  * Attempts to determine the type from a single variable

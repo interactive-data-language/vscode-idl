@@ -1,9 +1,9 @@
 import {
-  IRuleBasedFilters,
+  type IRuleBasedFilters,
   RegistryFileWatcher,
-  RegistryLocation,
-  RegistryLocation_File,
-  RegistryLocation_Memory,
+  type RegistryLocation,
+  type RegistryLocation_File,
+  type RegistryLocation_Memory,
   RegistryLocationHelpers,
   RuleBasedFilter,
 } from '@idl/mcp/shared';

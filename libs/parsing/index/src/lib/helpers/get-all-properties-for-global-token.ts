@@ -1,13 +1,13 @@
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalStructureToken,
-  IGlobalIndexedToken,
-  IParameterLookup,
-  IPropertyLookup,
+  type GlobalStructureToken,
+  type IGlobalIndexedToken,
+  type IParameterLookup,
+  type IPropertyLookup,
 } from '@idl/types/idl-data-types';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 
 /**
  * Returns all properties for a global token and accounts for inheritance

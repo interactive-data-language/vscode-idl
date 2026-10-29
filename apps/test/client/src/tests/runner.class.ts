@@ -1,4 +1,4 @@
-import { Logger } from '@idl/logger';
+import type { Logger } from '@idl/logger';
 import { IDL_COMMANDS, Sleep } from '@idl/shared/extension';
 import { GetWorkspaceConfig } from '@idl/vscode/config';
 import { arch, platform } from 'os';
@@ -7,7 +7,7 @@ import * as vscode from 'vscode';
 
 import { ACTIVATION_RESULT } from '../main';
 import { ResetSettingsForTests } from './helpers/reset-settings-for-tests';
-import { IRunnerTest, TEST_PAUSE_MS } from './runner.interface';
+import { type IRunnerTest, TEST_PAUSE_MS } from './runner.interface';
 
 /**
  * Basic class that runs and manages tests for the VSCode client

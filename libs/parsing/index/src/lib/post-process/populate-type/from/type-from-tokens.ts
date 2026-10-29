@@ -1,8 +1,8 @@
-import { IDL_ANY_TYPE, IDLDataType } from '@idl/types/idl-data-types';
-import { IParsed, SyntaxTree } from '@idl/types/syntax-tree';
+import { IDL_ANY_TYPE, type IDLDataType } from '@idl/types/idl-data-types';
+import type { IParsed, SyntaxTree } from '@idl/types/syntax-tree';
 import { copy } from 'fast-copy';
 
-import { IDLIndex } from '../../../idl-index.class';
+import type { IDLIndex } from '../../../idl-index.class';
 import { TypeFromMultipleTokens } from './type-from-multiple-tokens';
 import { TypeFromSingleToken } from './type-from-single-token';
 

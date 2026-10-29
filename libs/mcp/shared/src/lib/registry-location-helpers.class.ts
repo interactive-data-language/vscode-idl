@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 
-import {
+import type {
   RegistryLocation,
   RegistryLocation_File,
   RegistryLocation_Memory,

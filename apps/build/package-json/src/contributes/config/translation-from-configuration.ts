@@ -1,4 +1,4 @@
-import { IPackageNLS } from '../../package.interface';
+import type { IPackageNLS } from '../../package.interface';
 import { GetTranslationKey } from './get-translation-key';
 
 /**

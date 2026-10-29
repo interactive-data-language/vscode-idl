@@ -1,5 +1,5 @@
 import { IDL_LOGGER } from '@idl/vscode/logger';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 
 import { IDLTreeClickHandler } from './idl-tree-click-handler';
 import { IDLTreeViewProvider } from './idl-tree-view-provider';

@@ -1,7 +1,7 @@
 import { IDL_NOTEBOOK_LOG } from '@idl/logger';
 import { DecodeNotebook } from '@idl/notebooks/encoders';
 import { IDL_TRANSLATION } from '@idl/translation';
-import {
+import type {
   IDLRawNotebook,
   IDLRawNotebookVersion_1_0_0,
   IDLRawNotebookVersion_2_0_0,

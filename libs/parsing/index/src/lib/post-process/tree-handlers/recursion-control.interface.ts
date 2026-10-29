@@ -1,4 +1,4 @@
-import { ITreeRecurserOptions } from '@idl/parsing/syntax-tree';
+import type { ITreeRecurserOptions } from '@idl/parsing/syntax-tree';
 import { TOKEN_NAMES } from '@idl/tokenizer';
 
 /**

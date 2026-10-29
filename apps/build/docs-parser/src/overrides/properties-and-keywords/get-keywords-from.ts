@@ -1,4 +1,4 @@
-import { UpdateThese } from '../../helpers/set-keywords-as-properties.interface';
+import type { UpdateThese } from '../../helpers/set-keywords-as-properties.interface';
 
 /**
  * Lookup that defines the locations of other routines that we should get keywords

@@ -1,4 +1,4 @@
-import {
+import type {
   IParameterDocs,
   IParameterHTML,
 } from './helpers/process-parameters.interface';

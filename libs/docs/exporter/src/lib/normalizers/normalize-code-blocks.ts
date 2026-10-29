@@ -1,4 +1,4 @@
-import { IDLIndex, ResolveHoverHelpLinks } from '@idl/parsing/index';
+import { type IDLIndex, ResolveHoverHelpLinks } from '@idl/parsing/index';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 
 import { FormatDocsCode } from '../helpers/format-docs-code';

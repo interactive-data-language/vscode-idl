@@ -2,7 +2,7 @@ import { GetFSPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NotebookToIDLNotebook } from '@idl/notebooks/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { NotebookDocumentChangeEvent } from 'vscode-languageserver/lib/common/notebook';
+import type { NotebookDocumentChangeEvent } from 'vscode-languageserver/lib/common/notebook';
 
 import { NotebookCacheValid } from '../../helpers/notebook-cache-valid';
 import {

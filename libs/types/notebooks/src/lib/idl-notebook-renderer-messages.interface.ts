@@ -1,5 +1,5 @@
-import { IDLNotebookEmbeddedItem } from './embeds/idl-notebook.embed.interface';
-import { IDLNotebookImage_PNG } from './embeds/idl-notebook-image.embed.interface';
+import type { IDLNotebookEmbeddedItem } from './embeds/idl-notebook.embed.interface';
+import type { IDLNotebookImage_PNG } from './embeds/idl-notebook-image.embed.interface';
 
 /**
  * Message when we want to save an animation

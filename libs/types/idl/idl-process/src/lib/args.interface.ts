@@ -1,4 +1,4 @@
-import {
+import type {
   ContinueEvent,
   CrashEvent,
   EndEvent,
@@ -14,8 +14,8 @@ import {
   StopEvent,
   UnhandledErrorEvent,
 } from './events.interface';
-import { IDLCallStackItem, StopReason } from './idl.interface';
-import { IDLOutput } from './idl-output.interface';
+import type { IDLCallStackItem, StopReason } from './idl.interface';
+import type { IDLOutput } from './idl-output.interface';
 
 /**
  * Because our IDL class (./idl.class.ts) inherits from EventEmitter,

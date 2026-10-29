@@ -1,4 +1,4 @@
-import { ChatSession } from '@idl/types/chat';
+import type { ChatSession } from '@idl/types/chat';
 import { nanoid } from 'nanoid';
 
 /**

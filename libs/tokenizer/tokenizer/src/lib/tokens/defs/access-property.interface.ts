@@ -1,6 +1,6 @@
 import {
-  AccessPropertyToken,
-  ITokenDef,
+  type AccessPropertyToken,
+  type ITokenDef,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 

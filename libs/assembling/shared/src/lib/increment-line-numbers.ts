@@ -1,5 +1,9 @@
-import { NonBasicTokenNames } from '@idl/tokenizer';
-import { BRANCH_TYPES, IBranch, SyntaxTree } from '@idl/types/syntax-tree';
+import type { NonBasicTokenNames } from '@idl/tokenizer';
+import {
+  BRANCH_TYPES,
+  type IBranch,
+  type SyntaxTree,
+} from '@idl/types/syntax-tree';
 
 /**
  * Recurser to fix line numbers when we add or remove tokens inside of

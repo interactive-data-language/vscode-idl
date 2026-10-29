@@ -14,8 +14,8 @@ import {
   RunMCPTool_RunIDLCode,
   RunMCPTool_RunIDLFile,
 } from '@idl/mcp/idl';
-import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
-import {
+import type { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
+import type {
   IDLBreakpoint,
   IDLEvaluateOptions,
   IDLScopeItem,
@@ -25,22 +25,22 @@ import {
 import {
   DEFAULT_ENVI_MCP_TOOL_RESPONSE,
   DEFAULT_MCP_EVALUATE_OPTIONS,
-  ENVIMCPToolResponse,
-  ENVIMCPToolResponse_Failure,
-  IIDLMCPExecutionBackend,
-  IPrepareIDLCodeResult,
+  type ENVIMCPToolResponse,
+  type ENVIMCPToolResponse_Failure,
+  type IIDLMCPExecutionBackend,
+  type IPrepareIDLCodeResult,
   MCP_TOOL_LOOKUP,
-  MCPProgressCallback,
-  MCPToolParams,
-  MCPToolResponse,
-  MCPTools_IDL,
-  PrepareIDLCodeCallback,
+  type MCPProgressCallback,
+  type MCPToolParams,
+  type MCPToolResponse,
+  type MCPTools_IDL,
+  type PrepareIDLCodeCallback,
 } from '@idl/types/mcp';
-import { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
+import type { IDLVersionInfo, IIDLStartResult } from '@idl/types/vscode-debug';
 import { compareVersions } from 'compare-versions';
 import { copy } from 'fast-copy';
 
-import { IDLMCPExecutionManager } from './idl-mcp-execution-manager.class';
+import type { IDLMCPExecutionManager } from './idl-mcp-execution-manager.class';
 
 const DEFAULT_SUCCESS = copy(DEFAULT_ENVI_MCP_TOOL_RESPONSE);
 

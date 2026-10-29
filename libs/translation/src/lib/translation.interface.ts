@@ -1,8 +1,11 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { ICodeStyle, ITrueBaseAssemblerOptions } from '@idl/assembling/config';
-import { MCPTools } from '@idl/types/mcp';
-import { ProblemCodeLookup } from '@idl/types/problem-codes';
-import {
+import type {
+  ICodeStyle,
+  ITrueBaseAssemblerOptions,
+} from '@idl/assembling/config';
+import type { MCPTools } from '@idl/types/mcp';
+import type { ProblemCodeLookup } from '@idl/types/problem-codes';
+import type {
   IDLExtensionsConfigKeys,
   IDLHistoryConfig,
 } from '@idl/vscode/extension-config';

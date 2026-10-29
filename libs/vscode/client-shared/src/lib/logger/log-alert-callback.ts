@@ -1,4 +1,4 @@
-import { LogAlertCallback } from '@idl/logger';
+import type { LogAlertCallback } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { OpenFileInVSCode } from '@idl/vscode/shared';
 import * as vscode from 'vscode';

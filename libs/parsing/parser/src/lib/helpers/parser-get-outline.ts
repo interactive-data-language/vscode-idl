@@ -1,11 +1,11 @@
 import {
   GLOBAL_TOKEN_TYPES,
-  GlobalTokenType,
-  IGlobalIndexedToken,
+  type GlobalTokenType,
+  type IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { IParsed } from '@idl/types/syntax-tree';
-import { PositionRange } from '@idl/types/tokenizer';
-import { DocumentSymbol } from 'vscode-languageserver-types';
+import type { IParsed } from '@idl/types/syntax-tree';
+import type { PositionRange } from '@idl/types/tokenizer';
+import type { DocumentSymbol } from 'vscode-languageserver-types';
 
 import {
   DEFAULT_OUTLINE_SYMBOL_KIND,

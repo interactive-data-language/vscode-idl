@@ -1,5 +1,5 @@
 import {
-  AutoFixProblem,
+  type AutoFixProblem,
   DISABLED_PROBLEM_FLAGS,
   IS_LINE_DISABLED,
 } from '@idl/types/problem-codes';

@@ -1,6 +1,10 @@
 import { SyntaxProblemWithoutTranslation } from '@idl/parsing/shared';
-import { BasicCallback } from '@idl/parsing/syntax-tree';
-import { KeywordBinaryToken, KeywordToken, TOKEN_NAMES } from '@idl/tokenizer';
+import type { BasicCallback } from '@idl/parsing/syntax-tree';
+import {
+  type KeywordBinaryToken,
+  type KeywordToken,
+  TOKEN_NAMES,
+} from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { IDL_PROBLEM_CODES } from '@idl/types/problem-codes';
 
@@ -8,7 +12,7 @@ import { FindKeyword } from '../../../helpers/get-keyword';
 import { GetKeywordDisplayName } from '../../../helpers/get-keyword-display-name';
 import { GetKeywords } from '../../../helpers/get-keywords';
 import { VALIDATE_TYPE_HANDLER } from '../validate-type-handler';
-import { ValidateTypeHandlerMeta } from '../validate-type-handler.interface';
+import type { ValidateTypeHandlerMeta } from '../validate-type-handler.interface';
 
 /**
  * Keywords that we don't validate

@@ -1,5 +1,5 @@
-import { FindFiles, IFolderRecursion } from '@idl/idl/files';
-import { MCPServer } from '@idl/mcp/server';
+import { FindFiles, type IFolderRecursion } from '@idl/idl/files';
+import type { MCPServer } from '@idl/mcp/server';
 import { IDL_TRANSLATION } from '@idl/translation';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 import { existsSync } from 'fs';

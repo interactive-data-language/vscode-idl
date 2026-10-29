@@ -1,5 +1,8 @@
 import { IDL_DOCS_HEADERS } from '../../docs.interface';
-import { MarkdownInfo, RoutineMarkdown } from '../docs-to-markdown.interface';
+import type {
+  MarkdownInfo,
+  RoutineMarkdown,
+} from '../docs-to-markdown.interface';
 import { CapitalizeWord } from '../helpers/capitalize-word';
 import { CreateRoutineSyntax } from '../helpers/create-routine-syntax';
 import { NormalizeIndent } from '../helpers/normalize-indent';

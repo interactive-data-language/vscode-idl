@@ -1,18 +1,18 @@
 import {
-  BranchCallback,
+  type BranchCallback,
   IDL_SYNTAX_TREE_POST_PROCESSOR,
-  IDLSyntaxValidatorMeta,
+  type IDLSyntaxValidatorMeta,
 } from '@idl/parsing/syntax-tree';
 import {
-  CallFunctionMethodToken,
-  CallFunctionToken,
-  CallProcedureMethodToken,
-  CallProcedureToken,
-  KeywordToken,
-  NonBasicTokenNames,
+  type CallFunctionMethodToken,
+  type CallFunctionToken,
+  type CallProcedureMethodToken,
+  type CallProcedureToken,
+  type KeywordToken,
+  type NonBasicTokenNames,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
-import { IBasicBranch } from '@idl/types/syntax-tree';
+import type { IBasicBranch } from '@idl/types/syntax-tree';
 
 import { SKIP_TOKENS } from './arg-kw-def';
 

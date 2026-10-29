@@ -10,13 +10,13 @@ import {
   Sleep,
 } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
-import { INotebookToProCodeOptions } from '@idl/types/notebooks';
+import type { INotebookToProCodeOptions } from '@idl/types/notebooks';
 import { VSCODE_COMMANDS } from '@idl/types/vscode';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { LANGUAGE_SERVER_MESSENGER } from '@idl/vscode/client';
 import { BasicQuestionAsker } from '@idl/vscode/config';
 import {
-  IRetrieveDocsPayload,
+  type IRetrieveDocsPayload,
   LANGUAGE_SERVER_MESSAGE_LOOKUP,
 } from '@idl/vscode/events/messages';
 import {
@@ -32,7 +32,7 @@ import {
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
 import { NotebookToMarkdown } from '../conversion/notebook-to-markdown';

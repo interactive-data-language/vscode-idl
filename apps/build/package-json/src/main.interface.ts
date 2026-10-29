@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-import { IPackageNLS } from './package.interface';
+import type { IPackageNLS } from './package.interface';
 
 /** Path to package.json */
 export const PACKAGE_URI = join(process.cwd(), 'package.json');

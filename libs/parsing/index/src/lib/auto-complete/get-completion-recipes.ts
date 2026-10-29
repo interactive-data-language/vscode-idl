@@ -1,36 +1,40 @@
 import { CancellationToken } from '@idl/cancellation-tokens';
 import { GetTokenAtCursor, IsWithinToken } from '@idl/parsing/syntax-tree';
 import {
-  ControlCompileOptToken,
-  StructureNameToken,
+  type ControlCompileOptToken,
+  type StructureNameToken,
   TOKEN_NAMES,
 } from '@idl/tokenizer';
 import {
   AUTO_COMPLETE_TYPE_LOOKUP,
-  AutoCompleteRecipe,
-  AutoCompleteType,
-  CompileOptCompletion,
-  ExecutiveCommandCompletion,
-  FunctionCompletion,
-  FunctionMethodCompletion,
-  IncludeCompletion,
-  KeywordCompletion,
-  ProcedureCompletion,
-  ProcedureMethodCompletion,
-  PropertyCompletion,
-  PropertyInStructureCompletion,
-  SpecialFunctionCompletion,
-  SpecialProcedureCompletion,
-  StructureNameCompletion,
-  SystemVariableCompletion,
-  VariableCompletion,
+  type AutoCompleteRecipe,
+  type AutoCompleteType,
+  type CompileOptCompletion,
+  type ExecutiveCommandCompletion,
+  type FunctionCompletion,
+  type FunctionMethodCompletion,
+  type IncludeCompletion,
+  type KeywordCompletion,
+  type ProcedureCompletion,
+  type ProcedureMethodCompletion,
+  type PropertyCompletion,
+  type PropertyInStructureCompletion,
+  type SpecialFunctionCompletion,
+  type SpecialProcedureCompletion,
+  type StructureNameCompletion,
+  type SystemVariableCompletion,
+  type VariableCompletion,
 } from '@idl/types/auto-complete';
-import { IBranch, TreeBranchToken, TreeToken } from '@idl/types/syntax-tree';
-import { Position } from 'vscode-languageserver-types';
+import type {
+  IBranch,
+  TreeBranchToken,
+  TreeToken,
+} from '@idl/types/syntax-tree';
+import type { Position } from 'vscode-languageserver-types';
 
 import { GetParsedPROCode } from '../get-parsed/get-parsed-pro-code';
 import { GetTypeBefore } from '../helpers/get-type-before';
-import { IDLIndex } from '../idl-index.class';
+import type { IDLIndex } from '../idl-index.class';
 import { GetBlockCompletionOptions } from './completion-for/completion-blocks';
 import { GetCompileOptCompletionOptions } from './completion-for/completion-compile-opts';
 import { GetExecutiveCommandCompletionOptions } from './completion-for/completion-executive-commands';

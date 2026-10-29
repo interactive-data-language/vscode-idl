@@ -1,5 +1,5 @@
-import { MCPToolParams, MCPToolResponse } from './mcp-tools.interface';
-import { MCPTools_IDL } from './mcp-tools-idl.interface';
+import type { MCPToolParams, MCPToolResponse } from './mcp-tools.interface';
+import type { MCPTools_IDL } from './mcp-tools-idl.interface';
 
 /**
  * Callback for sending a request from the MCP server to something

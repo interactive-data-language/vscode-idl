@@ -11,14 +11,14 @@ import { InitializeDocs } from '@idl/vscode/docs';
 import { InitializeENVIOpener } from '@idl/vscode/envi-opener';
 import { InitializeVSCodeGitHubCopilot } from '@idl/vscode/github-copilot';
 import { InitializeIDLTutorials } from '@idl/vscode/idl-tutorials';
-import { IInitializeType } from '@idl/vscode/initialize-types';
+import type { IInitializeType } from '@idl/vscode/initialize-types';
 import { InitializeMCPVSCode } from '@idl/vscode/mcp';
 import { InitializeNotebooks } from '@idl/vscode/notebooks/client';
 import { InitializeIDLTerminal } from '@idl/vscode/terminal';
 import { InitializeTree } from '@idl/vscode/tree-view';
 import { InitializeWalkthroughs } from '@idl/vscode/walkthroughs';
 import { InitializeWebView } from '@idl/vscode/webview';
-import { ExtensionContext } from 'vscode';
+import type { ExtensionContext } from 'vscode';
 
 import { environment } from './environments/environment';
 

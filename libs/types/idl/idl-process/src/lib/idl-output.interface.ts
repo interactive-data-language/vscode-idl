@@ -1,4 +1,4 @@
-import { IDLCallStackItem, StopReason } from './idl.interface';
+import type { IDLCallStackItem, StopReason } from './idl.interface';
 
 /**
  * Output that gets returned from our IDL process

@@ -1,21 +1,21 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
+  type AfterViewInit,
   Component,
   ElementRef,
   inject,
-  OnDestroy,
+  type OnDestroy,
   viewChild,
 } from '@angular/core';
 import { NgxMaterialModule } from '@idl/ngx/material';
-import { IDLNotebookPlot } from '@idl/types/notebooks';
+import type { IDLNotebookPlot } from '@idl/types/notebooks';
 import Chart from 'chart.js/auto';
 
 import { AnimationControlsComponent } from '../animation-controls/animation-controls.component';
 import { BaseRendererComponent } from '../base-renderer.component';
 import { ChartConfig } from './helpers/chart-config';
 import { CreatePlots } from './helpers/create-plots';
-import { CreatedPlots } from './helpers/create-plots.interface';
+import type { CreatedPlots } from './helpers/create-plots.interface';
 
 /**
  * ID for notebook image selector

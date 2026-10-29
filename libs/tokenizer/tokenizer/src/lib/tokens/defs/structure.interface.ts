@@ -1,10 +1,10 @@
 import {
-  ITokenDef,
-  StructureIndexedPropertyToken,
-  StructureInheritanceToken,
-  StructureNameToken,
-  StructurePropertyToken,
-  StructureToken,
+  type ITokenDef,
+  type StructureIndexedPropertyToken,
+  type StructureInheritanceToken,
+  type StructureNameToken,
+  type StructurePropertyToken,
+  type StructureToken,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 import { IDL_ASSIGNMENT_END } from '../regex.interface';

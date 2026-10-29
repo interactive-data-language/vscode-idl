@@ -1,6 +1,6 @@
-import { TokenName } from '@idl/tokenizer';
+import type { TokenName } from '@idl/tokenizer';
 
-import { TokenFormatter } from '../../formatter-rule-set.interface';
+import type { TokenFormatter } from '../../formatter-rule-set.interface';
 
 /**
  * Consistent formatting for executive commands

@@ -10,7 +10,7 @@ import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { IENVIModelerTest } from '../tests.interface';
+import type { IENVIModelerTest } from '../tests.interface';
 
 /**
  * Generates tests for ENVI Modeler validation and workflow creation.

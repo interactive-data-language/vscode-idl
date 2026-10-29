@@ -1,10 +1,10 @@
-import { RegistryLocation, RegistryLocationKind } from '@idl/mcp/shared';
-import {
+import type { RegistryLocation, RegistryLocationKind } from '@idl/mcp/shared';
+import type {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import { ValidateFunction } from 'ajv';
-import { JsonSchema7Type } from 'zod-to-json-schema';
+import type { ValidateFunction } from 'ajv';
+import type { JsonSchema7Type } from 'zod-to-json-schema';
 
 /**
  * Internal registry entry that stores all information about a single task

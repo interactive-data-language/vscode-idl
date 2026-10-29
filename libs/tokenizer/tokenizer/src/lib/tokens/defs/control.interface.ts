@@ -1,12 +1,12 @@
 import {
-  ControlBreakToken,
-  ControlCommonToken,
-  ControlCompileOptToken,
-  ControlContinueToken,
-  ControlForwardFunctionOptToken,
-  ControlGoToToken,
-  ControlJumpToken,
-  ITokenDef,
+  type ControlBreakToken,
+  type ControlCommonToken,
+  type ControlCompileOptToken,
+  type ControlContinueToken,
+  type ControlForwardFunctionOptToken,
+  type ControlGoToToken,
+  type ControlJumpToken,
+  type ITokenDef,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 import { IDL_LOGICAL_STATEMENT_END } from '../regex.interface';

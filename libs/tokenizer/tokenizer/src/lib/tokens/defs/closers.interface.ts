@@ -1,8 +1,8 @@
 import {
-  ITokenDef,
-  MainLevelEndToken,
+  type ITokenDef,
+  type MainLevelEndToken,
   TOKEN_NAMES,
-  UnexpectedCloserToken,
+  type UnexpectedCloserToken,
 } from '../../tokens.interface';
 
 export type CloserTokenDef = ITokenDef<UnexpectedCloserToken>;

@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { NotebookMapLayer, NotebookMapLayerType } from '@idl/ngx/map';
+import type { NotebookMapLayer, NotebookMapLayerType } from '@idl/ngx/map';
 import { NgxMaterialModule } from '@idl/ngx/material';
 
 @Component({

@@ -1,8 +1,8 @@
 import {
-  ITokenDef,
-  NumberToken,
-  QuoteDoubleToken,
-  QuoteSingleToken,
+  type ITokenDef,
+  type NumberToken,
+  type QuoteDoubleToken,
+  type QuoteSingleToken,
   TOKEN_NAMES,
 } from '../../tokens.interface';
 import {
