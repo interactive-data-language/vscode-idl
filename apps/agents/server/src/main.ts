@@ -10,7 +10,7 @@ import {
 import { IAgentServerConfig } from '@idl/types/agents';
 import { existsSync } from 'fs';
 import { isAbsolute } from 'path';
-import { isMainThread, parentPort } from 'worker_threads';
+import { isMainThread, parentPort, workerData } from 'worker_threads';
 
 import {
   AGENTS_SERVER_PROTOCOL_VERSION,
@@ -158,7 +158,13 @@ async function mainAsWorker() {
   console.warn = forwardConsole('warn');
   console.error = forwardConsole('error');
 
-  let config: IAgentServerConfig = await LoadConfig();
+  // hosts pick where the config lives with `new Worker(file, { workerData: { configFile } })`
+  const configFile: string | undefined =
+    typeof workerData?.configFile === 'string' && workerData.configFile !== ''
+      ? workerData.configFile
+      : undefined;
+
+  let config: IAgentServerConfig = await LoadConfig(configFile);
   let server: IStartAgentsServerResult | undefined;
   let starting: Promise<IStartAgentsServerResult> | undefined;
 
@@ -235,7 +241,7 @@ async function mainAsWorker() {
             });
             break;
           }
-          config = UpdateConfig(config, msg.config);
+          config = UpdateConfig(config, msg.config, configFile);
           PostMessage({ type: 'config', id: msg.id, config });
           break;
 
