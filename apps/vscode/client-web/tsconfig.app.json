@@ -199,7 +199,7 @@
       "@idl/parsing/tasks": ["libs/parsing/tasks/src/index.ts"],
       "@idl/mcp/shared": ["libs/mcp/shared/src/index.ts"],
       "@idl/mcp/websocket": ["libs/mcp/websocket/src/index.ts"],
-      "@idl/mcp/standalone-server": ["libs/mcp/standalone-server/src/index.ts"],
+      "@idl/mcp/agents-server": ["libs/mcp/agents-server/src/index.ts"],
       "@idl/types/envi/datasets": ["libs/types/envi/datasets/src/index.ts"],
       "@idl/ngx/app-config": ["libs/ngx/app-config/src/index.ts"],
       "@idl/types/electron": ["libs/types/electron/src/index.ts"],

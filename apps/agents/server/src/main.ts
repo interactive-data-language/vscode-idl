@@ -6,7 +6,7 @@ import {
   StartAgentsServer,
   UpdateConfig,
   ValidateConfig,
-} from '@idl/mcp/standalone-server';
+} from '@idl/mcp/agents-server';
 import type { IAgentServerConfig } from '@idl/types/agents';
 import { existsSync } from 'fs';
 import { isAbsolute } from 'path';

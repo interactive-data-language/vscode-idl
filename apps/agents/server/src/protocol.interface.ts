@@ -1,4 +1,4 @@
-import type { IConfigProblem } from '@idl/mcp/standalone-server';
+import type { IConfigProblem } from '@idl/mcp/agents-server';
 
 /**
  * Bump when a change to the messages below is not backwards compatible.

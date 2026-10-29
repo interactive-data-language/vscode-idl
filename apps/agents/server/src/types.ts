@@ -13,10 +13,7 @@
  */
 
 export * from './protocol.interface';
-export type {
-  ConfigProblemCode,
-  IConfigProblem,
-} from '@idl/mcp/standalone-server';
+export type { ConfigProblemCode, IConfigProblem } from '@idl/mcp/agents-server';
 export type {
   AvailableModel,
   AvailableModelsRequest,

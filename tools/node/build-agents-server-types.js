@@ -38,12 +38,12 @@ const emitted = {
   'chat-types.interface.d.ts':
     'libs/types/chat/src/lib/chat-types.interface.d.ts',
   'validate-config.interface.d.ts':
-    'libs/mcp/standalone-server/src/lib/helpers/validate-config.interface.d.ts',
+    'libs/mcp/agents-server/src/lib/helpers/validate-config.interface.d.ts',
 };
 
 // workspace aliases from tsconfig.types.json and where they end up
 const aliases = {
-  '@idl/mcp/standalone-server': './validate-config.interface',
+  '@idl/mcp/agents-server': './validate-config.interface',
   '@idl/types/chat': './chat-types.interface',
 };
 

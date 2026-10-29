@@ -1,10 +1,10 @@
 module.exports = {
-  displayName: 'mcp-standalone-server',
+  displayName: 'mcp-agents-server',
   preset: '../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/mcp/standalone-server',
+  coverageDirectory: '../../../coverage/libs/mcp/agents-server',
 };

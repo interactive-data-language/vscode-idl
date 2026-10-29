@@ -1,6 +1,6 @@
 import { ENVITestDatasets } from '@idl/envi/test-datasets';
 import { FindIDL } from '@idl/idl/files';
-import { StartAgentsServer } from '@idl/mcp/standalone-server';
+import { StartAgentsServer } from '@idl/mcp/agents-server';
 import { Sleep } from '@idl/shared/extension';
 import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';

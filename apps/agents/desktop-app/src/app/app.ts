@@ -2,7 +2,7 @@ import {
   type IStartAgentsServerResult,
   LoadConfig,
   StartAgentsServer,
-} from '@idl/mcp/standalone-server';
+} from '@idl/mcp/agents-server';
 import { getPorts } from '@idl/server-helpers';
 import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
 import { ELECTRON_EVENTS } from '@idl/types/electron';

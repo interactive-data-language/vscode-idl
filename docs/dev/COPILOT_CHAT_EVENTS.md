@@ -2,7 +2,7 @@
 
 How the GitHub Copilot SDK session events that drive our chat fit together, and how they map to what we send to the chat UI. Read this before changing how events become `ChatStreamChunk`s.
 
-- Handler: `libs/mcp/standalone-server/src/lib/chat/copilot/copilot-chat-framework.class.ts` (`streamChatCompletion`, the `session.on` callback)
+- Handler: `libs/mcp/agents-server/src/lib/chat/copilot/copilot-chat-framework.class.ts` (`streamChatCompletion`, the `session.on` callback)
 - Chunk types: `libs/types/chat/src/lib/chat-types.interface.ts`
 - Client reducer: `libs/ngx/chat/src/lib/state/chat.state.ts`
 - SDK event typings: `node_modules/@github/copilot-sdk/dist/generated/session-events.d.ts`
@@ -115,7 +115,7 @@ Caveat: **do not use `assistant.reasoning` as the end of thinking.** It is emitt
 ## Model differences
 
 - `assistant.intent` was **not** emitted in the captured trace (a BYOK OpenAI model). Treat it as optional and always have a fallback title.
-- For tool titles, use `GetToolDisplayName` (`libs/mcp/standalone-server/src/lib/helpers/get-tool-display-name.ts`). It looks up a human-readable name from our translation and an internal lookup, after stripping the `idl-mcp-` prefix from `toolName`. It returns the raw name when there is no entry. The SDK also sends `toolTitle` (for example "Search Resources") and `mcpToolName` on `assistant.message.toolRequests[]` and `tool.execution_start`; treat `toolTitle` only as a fallback when the lookup has no entry.
+- For tool titles, use `GetToolDisplayName` (`libs/mcp/agents-server/src/lib/helpers/get-tool-display-name.ts`). It looks up a human-readable name from our translation and an internal lookup, after stripping the `idl-mcp-` prefix from `toolName`. It returns the raw name when there is no entry. The SDK also sends `toolTitle` (for example "Search Resources") and `mcpToolName` on `assistant.message.toolRequests[]` and `tool.execution_start`; treat `toolTitle` only as a fallback when the lookup has no entry.
 - `reasoningText` also appears on the final `assistant.message`. The streamed deltas are the primary source; `reasoningText` could backfill if deltas were missed.
 - A turn can have no thinking (turn 0) or several text/thinking phases. Do not assume one of each.
 
@@ -144,4 +144,4 @@ Set `IDL_COPILOT_EVENT_TRACE` to a file path before starting the chat server:
 $env:IDL_COPILOT_EVENT_TRACE = 'C:\tmp\copilot-trace.jsonl'
 ```
 
-Every SDK event is appended as one JSON line (`type`, `id`, `parentId`, `agentId`, `timestamp`, `ephemeral`, and `data` with strings truncated to 200 characters). The logger is `libs/mcp/standalone-server/src/lib/chat/copilot/trace-copilot-event.ts`. The file gets large quickly, about 2,400 lines for one request, because of the delta events. Count by `type` or collapse the deltas before reading it.
+Every SDK event is appended as one JSON line (`type`, `id`, `parentId`, `agentId`, `timestamp`, `ephemeral`, and `data` with strings truncated to 200 characters). The logger is `libs/mcp/agents-server/src/lib/chat/copilot/trace-copilot-event.ts`. The file gets large quickly, about 2,400 lines for one request, because of the delta events. Count by `type` or collapse the deltas before reading it.
