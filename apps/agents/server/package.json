@@ -1,6 +1,6 @@
 {
   "name": "@idl/agents-server",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Standalone IDL and ENVI agents server",
   "license": "MIT",
   "main": "dist/apps/agents/server/main.js",
@@ -12,18 +12,27 @@
     "./types": {
       "types": "./types/index.d.ts"
     },
+    "./client": {
+      "types": "./client/index.d.ts",
+      "import": "./client/index.mjs",
+      "require": "./client/index.js"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
       "types": [
         "types/index.d.ts"
+      ],
+      "client": [
+        "client/index.d.ts"
       ]
     }
   },
   "files": [
     "dist",
     "types",
+    "client",
     "resources",
     "3rdpartylicenses.md",
     "LICENSE.txt"
@@ -31,6 +40,14 @@
   "engines": {
     "npm": "^12.0",
     "node": ">=22.22.0"
+  },
+  "peerDependenciesMeta": {
+    "@modelcontextprotocol/server": {
+      "optional": true
+    },
+    "axios": {
+      "optional": true
+    }
   },
   "dependencies": {}
 }

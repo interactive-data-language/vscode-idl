@@ -5,9 +5,7 @@
  * Add or remove exports here to change what the package publishes. Keep this to
  * types that are safe in a browser (no Node types, no `Date` fields).
  *
- * The type file is built by two things:
- * 1. apps/agents/server/tsconfig.types.json
- * 2. tools/node/build-agents-server-types.js
+ * The type file is built by tools/node/build-agents-server-types.js
  *
  * And all of that is called by `npm run package-agents-server`
  */

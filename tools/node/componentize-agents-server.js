@@ -60,6 +60,16 @@ execFileSync(
   { cwd: process.cwd(), stdio: 'inherit' },
 );
 
+// client for consumers, available as "@idl/agents-server/client"
+execFileSync(
+  process.execPath,
+  [
+    path.join(process.cwd(), 'tools', 'node', 'build-agents-server-client.js'),
+    path.join(agentServer, 'client'),
+  ],
+  { cwd: process.cwd(), stdio: 'inherit' },
+);
+
 // build the package.json from our template and the copilot SDK we built against
 const template = JSON.parse(
   fs.readFileSync(
@@ -86,6 +96,20 @@ template.dependencies = {
   ...template.dependencies,
   '@github/copilot-sdk': sdk.version,
 };
+
+// peer dependencies of the client match the ranges this repo builds and tests against
+const rootPackage = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'),
+);
+template.peerDependencies = {};
+for (const name of Object.keys(template.peerDependenciesMeta ?? {})) {
+  const range =
+    rootPackage.dependencies?.[name] ?? rootPackage.devDependencies?.[name];
+  if (!range) {
+    throw new Error(`Peer dependency "${name}" not found in root package.json`);
+  }
+  template.peerDependencies[name] = range;
+}
 
 fs.writeFileSync(
   path.join(agentServer, 'package.json'),

@@ -189,6 +189,7 @@
     "buffer": "^6.0.3",
     "chart.js": "^4.4.3",
     "cypress": "15.8.0",
+    "dts-bundle-generator": "^9.5.1",
     "electron": "^43.1.1",
     "esbuild": "0.19.2",
     "eslint": "8.57.0",
