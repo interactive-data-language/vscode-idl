@@ -216,7 +216,10 @@
       "@idl/types/agents": ["libs/types/agents/src/index.ts"],
       "@idl/mcp/instructions": ["libs/mcp/instructions/src/index.ts"],
       "@idl/envi/test-datasets": ["libs/envi/test-datasets/src/index.ts"],
-      "@idl/mcp/skills": ["libs/mcp/skills/src/index.ts"]
+      "@idl/mcp/skills": ["libs/mcp/skills/src/index.ts"],
+      "@idl/mcp/agents-server-client": [
+        "./libs/mcp/agents-server-client/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
