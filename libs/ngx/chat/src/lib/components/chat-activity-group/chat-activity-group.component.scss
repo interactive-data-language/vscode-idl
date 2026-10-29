@@ -1,0 +1,46 @@
+.activity-group {
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+}
+
+.activity-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  opacity: 0.8;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.activity-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.activity-meta {
+  opacity: 0.6;
+}
+
+.activity-chevron {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.6;
+  transition: transform 0.15s ease;
+}
+
+.activity-details[open] .activity-chevron {
+  transform: rotate(180deg);
+}
+
+.activity-body {
+  margin-top: 8px;
+  padding-left: 12px;
+  border-left: 2px solid rgba(128, 128, 128, 0.25);
+}

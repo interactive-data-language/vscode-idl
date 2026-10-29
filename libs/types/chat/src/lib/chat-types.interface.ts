@@ -50,10 +50,20 @@ export interface ChatMessage {
    * Content of the message
    */
   content: ChatMessageContent[];
+  /** When the message finished, epoch ms */
+  endedAt?: number;
   /** ID of the chat message */
   id: string;
+  /** Whether this is the agent's final answer for the request */
+  isFinal?: boolean;
+  /** When the message started, epoch ms from the source events; with endedAt gives its duration */
+  startedAt?: number;
   /** Streaming status; 'stopped' indicates the user cancelled generation mid-stream */
   status?: 'done' | 'in-progress' | 'stopped';
+  /** Step (agent turn) the message belongs to; messages sharing a stepId are grouped */
+  stepId?: string;
+  /** Short title to show instead of generated text: the agent's intent or a tool display name */
+  title?: string;
   /** Type of the message */
   type: 'system' | 'thinking' | 'tool' | 'user';
 }
@@ -183,9 +193,70 @@ export interface ChatMessageRequest {
   sessionId: string;
 }
 
+/**
+ * Fields shared by chunks that originate from an agent step
+ *
+ * See docs/dev/COPILOT_CHAT_EVENTS.md for how these map to SDK events
+ */
+export interface ChatStreamChunk_Base {
+  /** Step (assistant turn) that produced this chunk */
+  stepId?: string;
+  /**
+   * When the source event happened, as epoch milliseconds from the SDK event.
+   * Use differences between chunks to compute durations, not arrival time.
+   */
+  timestamp?: number;
+}
+
 /** Streaming ended successfully */
 export interface ChatStreamChunk_Done {
   type: 'done';
+}
+
+/** The agent started a step (one model call plus the tools it requests) */
+export interface ChatStreamChunk_StepStart extends ChatStreamChunk_Base {
+  /** Sub-agent that owns the step; absent for the main agent */
+  agentId?: string;
+  /** Model used for the step, when known */
+  model?: string;
+  stepId: string;
+  type: 'step_start';
+}
+
+/** The agent finished a step */
+export interface ChatStreamChunk_StepEnd extends ChatStreamChunk_Base {
+  /** True if the model requested tools during this step */
+  hasToolCalls: boolean;
+  stepId: string;
+  type: 'step_end';
+}
+
+/** The agent began streaming a text message */
+export interface ChatStreamChunk_MessageStart extends ChatStreamChunk_Base {
+  /** True when the SDK flagged this as the final answer */
+  isFinal: boolean;
+  /** Identifies the message that following text_chunks belong to */
+  messageId: string;
+  stepId: string;
+  type: 'message_start';
+}
+
+/** A text message is complete */
+export interface ChatStreamChunk_MessageEnd extends ChatStreamChunk_Base {
+  /** True when the message requested no tools, which makes it the final answer */
+  isFinal: boolean;
+  messageId: string;
+  stepId: string;
+  type: 'message_end';
+}
+
+/** Short description of what the agent is doing; not emitted by every model */
+export interface ChatStreamChunk_Intent extends ChatStreamChunk_Base {
+  /** What the agent says it is doing */
+  intent: string;
+  /** Tool call the intent resolved to, if any; otherwise it applies to the step */
+  toolCallId?: string;
+  type: 'intent';
 }
 
 /** Streaming was cancelled by the user before completion */
@@ -201,9 +272,11 @@ export interface ChatStreamChunk_Error {
 }
 
 /** A chunk of assistant text to append to the current message */
-export interface ChatStreamChunk_TextChunk {
+export interface ChatStreamChunk_TextChunk extends ChatStreamChunk_Base {
   /** Text content to append */
   content: string;
+  /** Message this text belongs to, when known */
+  messageId?: string;
   type: 'text_chunk';
 }
 
@@ -215,7 +288,7 @@ export interface ChatStreamChunk_Title {
 }
 
 /** The model is invoking a tool */
-export interface ChatStreamChunk_ToolCall {
+export interface ChatStreamChunk_ToolCall extends ChatStreamChunk_Base {
   /** Arguments passed to the tool */
   toolArgs: Record<string, unknown>;
   /** Unique identifier correlating this call to its tool_result chunk */
@@ -226,7 +299,7 @@ export interface ChatStreamChunk_ToolCall {
 }
 
 /** Result (or error) returned from a tool invocation */
-export interface ChatStreamChunk_ToolResult {
+export interface ChatStreamChunk_ToolResult extends ChatStreamChunk_Base {
   /** Unique identifier correlating this result to its tool_call chunk */
   toolCallId: string;
   /** Whether the tool returned an error */
@@ -246,10 +319,13 @@ export interface ChatStreamChunk_TodoUpdate {
 }
 
 /** Extended-thinking/reasoning content, streamed before the final answer */
-export interface ChatStreamChunk_ThinkingChunk {
+export interface ChatStreamChunk_ThinkingChunk extends ChatStreamChunk_Base {
   /** Delta text to append; empty string on the finalize (done=true) event */
   content: string;
-  /** Whether this is the finalize event for the reasoning block identified by thinkingId */
+  /**
+   * Whether this is the finalize event for the reasoning block identified by thinkingId.
+   * Its timestamp is the last reasoning delta, so it reflects when thinking stopped.
+   */
   done: boolean;
   /** Correlates deltas and the finalize event for a single reasoning block */
   thinkingId: string;
@@ -268,6 +344,11 @@ export type ChatStreamChunk =
   | ChatStreamChunk_Cancelled
   | ChatStreamChunk_Done
   | ChatStreamChunk_Error
+  | ChatStreamChunk_Intent
+  | ChatStreamChunk_MessageEnd
+  | ChatStreamChunk_MessageStart
+  | ChatStreamChunk_StepEnd
+  | ChatStreamChunk_StepStart
   | ChatStreamChunk_TextChunk
   | ChatStreamChunk_ThinkingChunk
   | ChatStreamChunk_Title

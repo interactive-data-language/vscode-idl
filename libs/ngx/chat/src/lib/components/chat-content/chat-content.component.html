@@ -27,8 +27,18 @@
 
       <div class="messages-area" #messagesArea>
         <div class="messages-inner">
-          @for (message of selectedSession()?.messages; track message.id) {
-            <ngx-chat-message [message]="message" />
+          @for (
+            item of displayItems();
+            track item.kind === 'message' ? item.message.id : item.id
+          ) {
+            @if (item.kind === 'activity') {
+              <ngx-chat-activity-group
+                [active]="item.active"
+                [messages]="item.messages"
+              />
+            } @else {
+              <ngx-chat-message [message]="item.message" />
+            }
           }
         </div>
       </div>

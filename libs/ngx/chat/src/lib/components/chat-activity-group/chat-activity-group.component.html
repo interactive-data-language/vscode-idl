@@ -1,0 +1,29 @@
+<div class="activity-group">
+  <details class="activity-details" [open]="active()">
+    <summary class="activity-header">
+      @if (active()) {
+        <mat-progress-spinner
+          mode="indeterminate"
+          [diameter]="16"
+          class="activity-spinner"
+        ></mat-progress-spinner>
+      } @else {
+        <mat-icon class="activity-icon">auto_awesome</mat-icon>
+      }
+      <span class="activity-label">{{ label() }}</span>
+      @if (stepsCompleted() > 0) {
+        <span class="activity-meta"
+          >{{ stepsCompleted() }}
+          {{ stepsCompleted() === 1 ? 'step' : 'steps' }} completed</span
+        >
+      }
+      <mat-icon class="activity-chevron">expand_more</mat-icon>
+    </summary>
+
+    <div class="activity-body">
+      @for (message of messages(); track message.id) {
+        <ngx-chat-message [message]="message" />
+      }
+    </div>
+  </details>
+</div>

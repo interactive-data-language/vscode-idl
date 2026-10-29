@@ -4,12 +4,12 @@ import {
   Component,
   computed,
   inject,
-  OnInit,
+  type OnInit,
   signal,
 } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { type AvailableModel, DEFAULT_MODELS } from '@idl/types/chat';
+import type { AvailableModel } from '@idl/types/chat';
 import { Store } from '@ngxs/store';
 
 import { ChatApiService } from '../../services/chat-api.service';
@@ -96,7 +96,7 @@ export class ChatModelSelectorComponent implements OnInit {
         this.loading.set(false);
 
         // Set default models as fallback
-        this.availableModels.set(DEFAULT_MODELS);
+        this.availableModels.set([]);
       },
     });
   }

@@ -214,55 +214,233 @@ export class CopilotChatFramework {
       /** Map of in-flight tool call id -> tool name (start-event names are authoritative). */
       const toolNameById = new Map<string, string>();
 
-      unsubscribe = session.on((event: SessionEvent) => {
-        if (event.type === 'assistant.intent') {
-          console.log(`Intent: ${event.data.intent}`);
+      /** Tool call id -> display name resolved when the tool started */
+      const toolDisplayById = new Map<string, string>();
+
+      /** Event id -> tool call id, used to resolve what an intent's parentId points at */
+      const toolCallByEventId = new Map<string, string>();
+
+      /** Step (assistant turn) that is currently running */
+      let currentStepId: string | undefined;
+
+      /** Whether the running step has started any tool */
+      let stepHasTools = false;
+
+      /** Reasoning block that has received deltas but has not been closed */
+      let openReasoning: { id: string; lastTimestamp: number } | undefined;
+
+      /**
+       * Close the open reasoning block, timestamped at its last delta.
+       *
+       * assistant.reasoning arrives after the model call finishes, so it can't
+       * be used to measure how long thinking took.
+       */
+      const closeReasoning = () => {
+        if (openReasoning === undefined) {
+          return;
         }
+        enqueue({
+          content: '',
+          done: true,
+          stepId: currentStepId,
+          thinkingId: openReasoning.id,
+          timestamp: openReasoning.lastTimestamp,
+          type: 'thinking_chunk',
+        });
+        openReasoning = undefined;
+      };
+
+      /** Display name for a tool, preferring our lookup over the SDK's title */
+      const getToolDisplay = (toolName: string, toolTitle?: string) => {
+        const stripped = IDL_MCP_NAME
+          ? toolName.replace(`${IDL_MCP_NAME}-`, '')
+          : toolName;
+        const display = GetToolDisplayName(stripped);
+        return display === stripped && toolTitle ? toolTitle : display;
+      };
+
+      unsubscribe = session.on((event: SessionEvent) => {
+        // TraceCopilotEvent(event);
+        const timestamp = Date.parse(event.timestamp);
         switch (event.type) {
+          /**
+           * When we cancel/abort the request
+           */
           case 'abort': {
             // User-requested interruption via interruptMainTurn(); keep the
             // session alive, just end this turn's stream.
+            closeReasoning();
             enqueue({ type: 'cancelled' });
             enqueue(null);
             break;
           }
-          case 'assistant.message_delta': {
-            const delta = event.data.deltaContent;
-            if (typeof delta === 'string' && delta.length > 0) {
-              enqueue({ type: 'text_chunk', content: delta });
+
+          /**
+           * Summarize an action that the agent did
+           *
+           * We don't get this with our own API keys, but placed in here
+           * if there's a way to plug in or replicate
+           *
+           * You see this in GitHub Copilot chat when it tells you what
+           * it did for a tool call or a chunk of thinking
+           */
+          case 'assistant.intent': {
+            enqueue({
+              intent: event.data.intent,
+              stepId: currentStepId,
+              timestamp,
+              toolCallId: event.parentId
+                ? toolCallByEventId.get(event.parentId)
+                : undefined,
+              type: 'intent',
+            });
+            break;
+          }
+
+          /**
+           * Normal text is finished
+           */
+          case 'assistant.message': {
+            closeReasoning();
+            if (currentStepId !== undefined) {
+              enqueue({
+                isFinal: (event.data.toolRequests?.length || 0) === 0,
+                messageId: event.data.messageId,
+                stepId: currentStepId,
+                timestamp,
+                type: 'message_end',
+              });
             }
             break;
           }
-          case 'assistant.reasoning': {
-            // full content is redundant with the accumulated deltas, so this only signals completion
-            enqueue({
-              content: '',
-              done: true,
-              thinkingId: event.data.reasoningId,
-              type: 'thinking_chunk',
-            });
+
+          /**
+           * A chunk of a normal message
+           */
+          case 'assistant.message_delta': {
+            closeReasoning();
+            const delta = event.data.deltaContent;
+            if (typeof delta === 'string' && delta.length > 0) {
+              enqueue({
+                content: delta,
+                messageId: event.data.messageId,
+                stepId: currentStepId,
+                timestamp,
+                type: 'text_chunk',
+              });
+            }
             break;
           }
+
+          /**
+           * Start sending normal text
+           */
+          case 'assistant.message_start': {
+            closeReasoning();
+            if (currentStepId !== undefined) {
+              enqueue({
+                isFinal: event.data.phase === 'final_answer',
+                messageId: event.data.messageId,
+                stepId: currentStepId,
+                timestamp,
+                type: 'message_start',
+              });
+            }
+            break;
+          }
+
+          /**
+           * Finished reasoning
+           */
+          case 'assistant.reasoning': {
+            // arrives after the model call, so only close if deltas never did
+            if (openReasoning?.id === event.data.reasoningId) {
+              closeReasoning();
+            }
+            break;
+          }
+
+          /**
+           * A chunk of reasoning text
+           */
           case 'assistant.reasoning_delta': {
+            openReasoning = {
+              id: event.data.reasoningId,
+              lastTimestamp: timestamp,
+            };
             enqueue({
               content: event.data.deltaContent,
               done: false,
+              stepId: currentStepId,
               thinkingId: event.data.reasoningId,
+              timestamp,
               type: 'thinking_chunk',
             });
             break;
           }
+
+          /**
+           * Delta for tools running (not used, jut closes reasoning loops)
+           */
+          case 'assistant.tool_call_delta': {
+            closeReasoning();
+            break;
+          }
+
+          /**
+           * Agent finishes a chunk of work
+           */
+          case 'assistant.turn_end': {
+            closeReasoning();
+            enqueue({
+              hasToolCalls: stepHasTools,
+              stepId: event.data.turnId,
+              timestamp,
+              type: 'step_end',
+            });
+            break;
+          }
+
+          /**
+           * Agent starts a chunk of work
+           */
+          case 'assistant.turn_start': {
+            currentStepId = event.data.turnId;
+            stepHasTools = false;
+            enqueue({
+              agentId: event.agentId,
+              model: event.data.model,
+              stepId: event.data.turnId,
+              timestamp,
+              type: 'step_start',
+            });
+            break;
+          }
+
+          /**
+           * Error in the session should result in an error/stoppage
+           * for our turn
+           */
           case 'session.error': {
             // don't reuse a session that reported an error
             this.disconnectSession(request.sessionId);
+            closeReasoning();
             enqueue({ type: 'error', error: event.data.message });
             enqueue(null);
             break;
           }
+
+          /**
+           * We are ready for user input
+           */
           case 'session.idle': {
             enqueue(null);
             break;
           }
+
+          /**
+           * Stats on the session for token usage
+           */
           case 'session.usage_info': {
             enqueue({
               conversationTokens: event.data.conversationTokens,
@@ -274,6 +452,10 @@ export class CopilotChatFramework {
             });
             break;
           }
+
+          /**
+           * A tool has finished running
+           */
           case 'tool.execution_complete': {
             const { toolCallId, success } = event.data;
             const toolName =
@@ -281,55 +463,78 @@ export class CopilotChatFramework {
               event.data.toolDescription?.name ||
               '';
             toolNameById.delete(toolCallId);
+            toolCallByEventId.set(event.id, toolCallId);
 
-            /**
-             * Get the tool display name
-             */
-            const toolDisplay = GetToolDisplayName(
-              IDL_MCP_NAME
-                ? toolName.replace(`${IDL_MCP_NAME}-`, '')
-                : toolName,
-            );
+            const toolDisplay =
+              toolDisplayById.get(toolCallId) || getToolDisplay(toolName);
+            toolDisplayById.delete(toolCallId);
 
-            if (TODO_TOOL_NAMES.has(toolName)) {
-              // todo tools mutate the shared list directly inside their handler
-              enqueue({ type: 'todo_update', todos: [...todos] });
-            } else if (success) {
-              enqueue({
-                toolCallId,
-                toolError: false,
-                toolName: toolDisplay,
-                toolOutput: event.data.result?.content || '',
-                type: 'tool_result',
-              });
-            } else {
-              enqueue({
-                toolCallId,
-                toolError: true,
-                toolName: toolDisplay,
-                toolOutput:
-                  event.data.error?.message || 'Tool execution failed',
-                type: 'tool_result',
-              });
+            switch (true) {
+              /**
+               * Special todo update message
+               */
+              case TODO_TOOL_NAMES.has(toolName):
+                enqueue({ type: 'todo_update', todos: [...todos] });
+                break;
+              /**
+               * Tool success
+               */
+              case success:
+                enqueue({
+                  stepId: currentStepId,
+                  timestamp,
+                  toolCallId,
+                  toolError: false,
+                  toolName: toolDisplay,
+                  toolOutput: event.data.result?.content || '',
+                  type: 'tool_result',
+                });
+                break;
+              /**
+               * Tool failure
+               */
+              default:
+                enqueue({
+                  stepId: currentStepId,
+                  timestamp,
+                  toolCallId,
+                  toolError: true,
+                  toolName: toolDisplay,
+                  toolOutput:
+                    event.data.error?.message || 'Tool execution failed',
+                  type: 'tool_result',
+                });
+                break;
             }
             break;
           }
+
+          /**
+           * We started running a tool
+           */
           case 'tool.execution_start': {
             const { toolCallId, toolName } = event.data;
+            closeReasoning();
+            stepHasTools = true;
             toolNameById.set(toolCallId, toolName);
+            toolCallByEventId.set(event.id, toolCallId);
+
             // send to the front-end when it is not a ToDo tool
             if (!TODO_TOOL_NAMES.has(toolName)) {
+              const toolDisplay = getToolDisplay(
+                toolName,
+                event.data.toolTitle,
+              );
+              toolDisplayById.set(toolCallId, toolDisplay);
               enqueue({
+                stepId: currentStepId,
+                timestamp,
                 toolArgs: (event.data.arguments || {}) as Record<
                   string,
                   unknown
                 >,
                 toolCallId,
-                toolName: GetToolDisplayName(
-                  IDL_MCP_NAME
-                    ? toolName.replace(`${IDL_MCP_NAME}-`, '')
-                    : toolName,
-                ),
+                toolName: toolDisplay,
                 type: 'tool_call',
               });
             }
@@ -366,10 +571,20 @@ export class CopilotChatFramework {
             resolveNext = resolve;
           });
         }
+
+        // get next message
         const next = queue.shift();
+
+        // skip if undefined
         if (next === undefined) continue;
+
+        // null is the exit key
         if (next === null) break drain;
+
+        // send value
         yield next;
+
+        // check for exit
         if (next.type === 'error' || next.type === 'cancelled') {
           terminatedEarly = true;
           break drain;
@@ -401,7 +616,7 @@ export class CopilotChatFramework {
     todos: TodoItem[],
   ): ResumeSessionConfig {
     const tools = RegisterMCPToolsForToDos(todos);
-    const port = this.config.server.port || 3000;
+    const port = this.config.server.port;
 
     const sessionConfig: ResumeSessionConfig = {
       // Restrict the agent to MCP-sourced tools plus our custom todo tools —
@@ -426,7 +641,9 @@ export class CopilotChatFramework {
         },
       },
       model: request.model,
+
       onPermissionRequest: approveAll,
+
       reasoningSummary: this.config.agent.reasoning.summary,
       reasoningEffort: this.config.agent.reasoning.effort,
 
@@ -444,6 +661,9 @@ export class CopilotChatFramework {
             ]),
           },
         },
+      },
+      memory: {
+        enabled: false,
       },
       tools,
     };

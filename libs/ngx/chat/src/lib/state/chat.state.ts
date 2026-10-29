@@ -225,6 +225,18 @@ export class ChatState {
     let currentSystemMessageId = systemMessageId;
     let needsNewSystemMessage = false;
 
+    // Step tracking. Agents that emit step events tell us where each group of
+    // messages begins, so we only fall back to the tool_result heuristic when
+    // no step_start has been seen.
+    let stepsSeen = false;
+    let currentStepId: string | undefined;
+    let stepIntent: string | undefined;
+    // the pre-created system message is adopted by the first step
+    let initialMessageUnused = true;
+    let systemMessageHasText = false;
+    // set by message_start so the final answer is flagged as soon as it begins streaming
+    let nextTextIsFinal = false;
+
     const controller = new AbortController();
 
     const subscription = this.chatApiService
@@ -311,11 +323,62 @@ export class ChatState {
               );
               break;
 
+            case 'intent': {
+              const intentMessageId = chunk.toolCallId
+                ? toolMessageIdByCallId.get(chunk.toolCallId)
+                : undefined;
+              if (intentMessageId) {
+                this.updateMessage(ctx, action.sessionId, intentMessageId, {
+                  title: chunk.intent,
+                });
+                break;
+              }
+              stepIntent = chunk.intent;
+              this.setStepTitle(
+                ctx,
+                action.sessionId,
+                chunk.stepId ?? currentStepId,
+                chunk.intent,
+              );
+              break;
+            }
+
+            case 'message_end':
+              if (systemMessageHasText) {
+                this.updateMessage(
+                  ctx,
+                  action.sessionId,
+                  currentSystemMessageId,
+                  { endedAt: chunk.timestamp, isFinal: chunk.isFinal },
+                );
+              }
+              break;
+
+            case 'message_start':
+              nextTextIsFinal = chunk.isFinal;
+              break;
+
+            case 'step_end':
+              closeThinking();
+              break;
+
+            case 'step_start':
+              closeThinking();
+              stepsSeen = true;
+              currentStepId = chunk.stepId;
+              stepIntent = undefined;
+              if (initialMessageUnused) {
+                initialMessageUnused = false;
+              } else {
+                needsNewSystemMessage = true;
+              }
+              break;
+
             case 'text_chunk':
               closeThinking();
 
               if (needsNewSystemMessage) {
-                // Start a fresh system message after a tool call/result pair
+                // Start a fresh system message for the next step (or after a tool call/result pair)
                 currentSystemMessageId = nanoid();
                 const newSystemMessage: ChatMessage = {
                   id: currentSystemMessageId,
@@ -328,6 +391,22 @@ export class ChatState {
                   newSystemMessage,
                 );
                 needsNewSystemMessage = false;
+                systemMessageHasText = false;
+              }
+              if (!systemMessageHasText) {
+                systemMessageHasText = true;
+                this.updateMessage(
+                  ctx,
+                  action.sessionId,
+                  currentSystemMessageId,
+                  {
+                    startedAt: chunk.timestamp,
+                    stepId: currentStepId,
+                    ...(nextTextIsFinal ? { isFinal: true } : {}),
+                    ...(stepIntent ? { title: stepIntent } : {}),
+                  },
+                );
+                nextTextIsFinal = false;
               }
               this.appendToMessage(
                 ctx,
@@ -338,8 +417,20 @@ export class ChatState {
               break;
 
             case 'thinking_chunk': {
-              // the end of a reasoning block leaves the card open for any thinking that follows
-              if (chunk.done || !chunk.content) {
+              // the end of a reasoning block records when thinking stopped and
+              // leaves the card open for any thinking that follows
+              if (chunk.done) {
+                if (openThinkingMessageId !== undefined) {
+                  this.updateMessage(
+                    ctx,
+                    action.sessionId,
+                    openThinkingMessageId,
+                    { endedAt: chunk.timestamp },
+                  );
+                }
+                break;
+              }
+              if (!chunk.content) {
                 break;
               }
               let delta = chunk.content;
@@ -350,6 +441,9 @@ export class ChatState {
                   type: 'thinking',
                   status: 'in-progress',
                   content: [{ type: 'thinking', payload: '' }],
+                  startedAt: chunk.timestamp,
+                  stepId: currentStepId,
+                  title: stepIntent,
                 });
               } else if (chunk.thinkingId !== openThinkingReasoningId) {
                 delta = `\n\n${delta}`;
@@ -399,6 +493,9 @@ export class ChatState {
               const toolMessage: ChatMessage = {
                 id: toolMessageId,
                 type: 'tool',
+                startedAt: chunk.timestamp,
+                stepId: currentStepId,
+                title: chunk.toolName,
                 content: [
                   {
                     type: 'tool_call',
@@ -431,8 +528,11 @@ export class ChatState {
                   },
                 );
                 toolMessageIdByCallId.delete(chunk.toolCallId);
-                // Open a new system message once all in-flight tools complete
-                if (toolMessageIdByCallId.size === 0) {
+                this.updateMessage(ctx, action.sessionId, targetMessageId, {
+                  endedAt: chunk.timestamp,
+                });
+                // Without step events, open a new system message once all in-flight tools complete
+                if (!stepsSeen && toolMessageIdByCallId.size === 0) {
                   needsNewSystemMessage = true;
                 }
               }
@@ -777,6 +877,31 @@ export class ChatState {
       ],
     });
     this.updateSession(ctx, sessionId, { status: 'error' });
+  }
+
+  /**
+   * Helper: Set the title of thinking and text messages in a step
+   */
+  private setStepTitle(
+    ctx: StateContext<ChatStateModel>,
+    sessionId: string,
+    stepId: string | undefined,
+    title: string,
+  ): void {
+    if (stepId === undefined) return;
+    const sessions = ctx.getState().sessions.map((session) => {
+      if (session.id !== sessionId) return session;
+      return {
+        ...session,
+        messages: session.messages.map((msg) =>
+          msg.stepId === stepId &&
+          (msg.type === 'thinking' || msg.type === 'system')
+            ? { ...msg, title }
+            : msg,
+        ),
+      };
+    });
+    ctx.patchState({ sessions });
   }
 
   /**

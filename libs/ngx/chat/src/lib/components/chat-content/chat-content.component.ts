@@ -15,6 +15,8 @@ import { Store } from '@ngxs/store';
 
 import { ChatLayoutService } from '../../services/chat-layout.service';
 import { ChatState } from '../../state/chat.state';
+import { ChatActivityGroupComponent } from '../chat-activity-group/chat-activity-group.component';
+import { GroupChatMessages } from '../chat-activity-group/group-chat-messages';
 import { ChatFindBarComponent } from '../chat-find-bar/chat-find-bar.component';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
@@ -31,6 +33,7 @@ import { ChatWelcomeComponent } from '../chat-welcome/chat-welcome.component';
     CommonModule,
     MatCardModule,
     MatIconModule,
+    ChatActivityGroupComponent,
     ChatFindBarComponent,
     ChatMessageComponent,
     ChatInputComponent,
@@ -68,6 +71,17 @@ export class ChatContentComponent {
   protected readonly todos = computed(
     () => this.selectedSession()?.todos ?? [],
   );
+
+  /**
+   * Messages with agent activity grouped into collapsible blocks
+   */
+  protected readonly displayItems = computed(() => {
+    const session = this.selectedSession();
+    return GroupChatMessages(
+      session?.messages ?? [],
+      session?.status === 'in-progress',
+    );
+  });
 
   /**
    * Reference to the input component, used to send example prompts
