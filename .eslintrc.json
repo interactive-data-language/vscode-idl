@@ -55,6 +55,11 @@
       "extends": ["plugin:@nx/typescript"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/consistent-type-imports": [
+          "error",
+          { "prefer": "type-imports", "fixStyle": "inline-type-imports" }
+        ],
+        "@typescript-eslint/no-import-type-side-effects": "error",
         "no-shadow": "error",
         "@typescript-eslint/no-extra-semi": "error",
         "no-extra-semi": "off"
