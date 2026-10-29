@@ -1,10 +1,7 @@
 import { GetExtensionPath } from '@idl/idl/files';
 import { IStartAgentsServerResult } from '@idl/mcp/standalone-server';
 import { IAgentServerConfig } from '@idl/types/agents';
-import { app } from 'electron';
-import { existsSync } from 'fs';
 import { join } from 'path';
-import { arch, platform } from 'process';
 import { Worker } from 'worker_threads';
 
 /** Console methods we mirror worker log messages through */
@@ -33,33 +30,6 @@ interface IErrorMessage {
 }
 
 type WorkerMessage = IErrorMessage | ILogMessage | IReadyMessage;
-
-/**
- * Finds the Copilot runtime in a packaged app, where the server cannot
- * resolve it from node_modules on its own. Returned to the server via
- * the `COPILOT_CLI_PATH` environment variable.
- */
-function GetPackagedCopilotPath(): string | undefined {
-  if (!app.isPackaged) {
-    return undefined;
-  }
-
-  const key = `${platform}-${arch}`;
-  const tail = [
-    'node_modules',
-    `@github/copilot-sdk-${key}`,
-    'prebuilds',
-    key,
-    platform === 'win32' ? 'copilot-runtime.exe' : 'copilot-runtime',
-  ];
-
-  // asar unpacked, asar disabled, then node_modules directly under resources
-  return [
-    join(process.resourcesPath, 'app.asar.unpacked', ...tail),
-    join(process.resourcesPath, 'app', ...tail),
-    join(process.resourcesPath, ...tail),
-  ].find((candidate) => existsSync(candidate));
-}
 
 /**
  * Posts a "stop" message to our worker and waits for it to exit gracefully,
@@ -106,11 +76,6 @@ export function StartAgentsServerInWorker(
       );
     } catch (err) {
       // do nothing
-    }
-
-    const copilotPath = GetPackagedCopilotPath();
-    if (copilotPath !== undefined) {
-      env.COPILOT_CLI_PATH = copilotPath;
     }
 
     /**

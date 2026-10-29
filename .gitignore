@@ -10,7 +10,6 @@
 .env
 /docs/extension/.vitepress/cache
 /docs/extension/.vitepress/dist
-/docs/dev
 build.json
 
 # dependencies
