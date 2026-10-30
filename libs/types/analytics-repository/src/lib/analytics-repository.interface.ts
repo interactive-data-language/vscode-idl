@@ -2,6 +2,8 @@
  * Information for an analytics repository server
  */
 export interface IAnalyticsRepository_ServerInfo {
+  /** Static HTTP headers sent with every request */
+  headers?: { [key: string]: string };
   /** Password for authentication */
   password?: string;
   /** URL for the server (ex: http://localhost:9194) */
