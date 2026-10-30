@@ -59,8 +59,10 @@ export interface IAnalyticsRepository_PackageMetadata {
   idltasks?: { [key: string]: { [key: string]: any } };
   /** Name and workflow content */
   idltoolworkflows?: { [key: string]: string };
-  /** Prompts by name/value of prompt */
-  prompts?: { [key: string]: { description: string; prompt: string } };
+  /** System instructions */
+  instructions?: { [key: string]: string };
+  /** Skills by name/value of prompt */
+  skills?: { [key: string]: { description: string; prompt: string } };
 }
 
 /**
@@ -107,8 +109,11 @@ export interface IAnalyticsRepository_SearchResponse {
  * Data structure for found packages that bundles the server information in
  * the package so that we always keep them to get them
  */
-export interface IAnalyticRepository_ServerPackage
-  extends IAnalyticsRepository_Package {
+export interface IAnalyticRepository_ServerPackage {
+  /**
+   * Metadata for the package we found
+   */
+  package: IAnalyticsRepository_Package;
   /**
    * Access information for the server that the package comes from
    */

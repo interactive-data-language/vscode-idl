@@ -73,6 +73,15 @@ export class AnalyticsRepositoryRegistry {
   }
 
   /**
+   * Retrieve packages that have skills
+   */
+  async getSkillPackages() {
+    return await this.searchRepositories({
+      tags: ['Skill'],
+    });
+  }
+
+  /**
    * Search all configured analytics repositories and retrieve
    * all package matches based on filters
    *
@@ -155,7 +164,7 @@ export class AnalyticsRepositoryRegistry {
 
     // embed server information and return
     return packages.map((pkg) => {
-      return { ...pkg, server };
+      return { package: pkg, server };
     });
   }
 }
