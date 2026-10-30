@@ -1,9 +1,11 @@
 import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
+import { LatestPackages } from '@idl/mcp/analytics-repository';
 import {
   type IRuleBasedFilters,
   RegistryLocationHelpers,
   RuleBasedFilter,
 } from '@idl/mcp/shared';
+import type { IAnalyticRepository_ServerPackage } from '@idl/types/analytics-repository';
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { basename, join } from 'path';
 
@@ -79,9 +81,9 @@ export class MCPSkillRegistry {
   /**
    * Gets a skill's markdown content by name.
    *
-   * Returns empty string if no matching skill is found.
+   * Returns empty string if no matching skill is found or we can't retrieve it.
    */
-  getSkill(name: string): string {
+  async getSkill(name: string): Promise<string> {
     const lc = name.toLowerCase();
 
     if (!(lc in this.skills)) {
@@ -90,11 +92,14 @@ export class MCPSkillRegistry {
 
     const rawContent = RegistryLocationHelpers.retrieveContent(
       this.skills[lc].location,
+      'skills',
+      this.skills[lc].name,
     );
 
     // Return the body content (frontmatter stripped if present)
-    const parsed = ParseSkillFrontmatter(rawContent, name);
-    return parsed.content;
+    return rawContent.startsWith('---')
+      ? ParseSkillFrontmatter(rawContent, name).content
+      : rawContent;
   }
 
   /**
@@ -133,6 +138,44 @@ export class MCPSkillRegistry {
         type: 'error',
         content: [`Failed to load skills from folder: ${folderPath}`, err],
       });
+    }
+  }
+
+  /**
+   * Removes all skills that came from a repository and replaces them with
+   * the latest version of each package.
+   *
+   * Skills that come from local files or memory always win name conflicts
+   */
+  replaceRepositorySkills(packages: IAnalyticRepository_ServerPackage[]) {
+    // remove everything we got from a repository
+    for (const key of Object.keys(this.skills)) {
+      if (this.skills[key].location.type === 'repository') {
+        delete this.skills[key];
+      }
+    }
+
+    for (const item of LatestPackages(packages)) {
+      const skills = item.package.metadata.skills ?? {};
+
+      for (const name of Object.keys(skills)) {
+        // local skills win
+        if (name.toLowerCase() in this.skills) {
+          continue;
+        }
+
+        this.addSkill({
+          name,
+          description: ParseSkillFrontmatter(skills[name], name).description,
+          location: {
+            type: 'repository',
+            meta: {
+              package: item.package,
+              url: item.server.url,
+            },
+          },
+        });
+      }
     }
   }
 

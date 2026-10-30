@@ -64,7 +64,7 @@ export interface IAnalyticsRepository_PackageMetadata {
   /** System instructions */
   instructions?: { [key: string]: string };
   /** Skills by name/value of prompt */
-  skills?: { [key: string]: { description: string; prompt: string } };
+  skills?: { [key: string]: string };
 }
 
 /**

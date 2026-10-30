@@ -45,6 +45,16 @@ const OllamaModelSchema_1_0_0 = z.object({
 });
 
 export const AgentServerConfigSchema_1_0_0 = z.object({
+  /** Analytics repositories to search for skills, workflows, and tools */
+  analyticsRepositories: z
+    .array(
+      z.object({
+        headers: HeadersSchema_1_0_0,
+        url: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   agent: z.object({
     defaultInstructions: z.string().optional(),
     llm: z.discriminatedUnion('model', [

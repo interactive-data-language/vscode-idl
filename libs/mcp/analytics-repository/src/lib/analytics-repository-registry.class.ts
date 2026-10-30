@@ -1,5 +1,3 @@
-import axios, { type AxiosResponse } from 'axios';
-
 import type {
   IAnalyticRepository_ServerPackage,
   IAnalyticsRepository_Package,
@@ -7,7 +5,8 @@ import type {
   IAnalyticsRepository_SearchResponse,
   IAnalyticsRepository_ServerInfo,
   IAnalyticsRepositoryAccessInfo,
-} from './analytics-repository-registry.interface';
+} from '@idl/types/analytics-repository';
+import axios, { type AxiosResponse } from 'axios';
 
 export class AnalyticsRepositoryRegistry {
   /**
@@ -29,7 +28,7 @@ export class AnalyticsRepositoryRegistry {
   }
 
   /**
-   *
+   * Adds a server to search
    */
   addServer(server: IAnalyticsRepository_ServerInfo) {
     this.servers.push(server);
@@ -73,6 +72,33 @@ export class AnalyticsRepositoryRegistry {
   }
 
   /**
+   * Retrieves a specific package version from a server, or undefined if
+   * we can't find it
+   */
+  async getPackage(
+    url: string,
+    name: string,
+    version: string,
+  ): Promise<IAnalyticRepository_ServerPackage | undefined> {
+    const clean = (value: string) => value.replace(/\/$/, '');
+
+    /** Find the server we need to talk to, so we have the headers */
+    const server = this.servers.find((item) => clean(item.url) === clean(url));
+    if (!server) {
+      return undefined;
+    }
+
+    const found = await this.searchServerRepositories(server, {
+      name,
+      version,
+    });
+
+    return found.find(
+      (item) => item.package.name === name && item.package.version === version,
+    );
+  }
+
+  /**
    * Retrieve packages that have skills
    */
   async getSkillPackages() {
@@ -97,6 +123,14 @@ export class AnalyticsRepositoryRegistry {
         ),
       )
     ).flat();
+  }
+
+  /**
+   * Replaces all servers, such as when the configuration changes
+   */
+  setServers(servers: IAnalyticsRepository_ServerInfo[]) {
+    this.servers = [...servers];
+    this.accessInfo = servers.map(() => undefined);
   }
 
   /**
@@ -146,6 +180,7 @@ export class AnalyticsRepositoryRegistry {
                 username: server.username ?? '',
               }
             : undefined,
+        headers: server.headers,
         responseType: 'json',
       });
       const responsePackages = response.data.packages ?? [];
@@ -168,3 +203,8 @@ export class AnalyticsRepositoryRegistry {
     });
   }
 }
+
+/**
+ * Global singleton instance of the analytics repository registry
+ */
+export const ANALYTICS_REPOSITORY_REGISTRY = new AnalyticsRepositoryRegistry();

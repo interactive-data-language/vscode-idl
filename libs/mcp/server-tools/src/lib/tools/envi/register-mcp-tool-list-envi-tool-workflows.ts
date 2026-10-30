@@ -1,4 +1,6 @@
 import { USER_ENVI_WORKFLOWS_FOLDER } from '@idl/idl/files';
+import { IDL_MCP_LOG } from '@idl/logger';
+import { ANALYTICS_REPOSITORY_REGISTRY } from '@idl/mcp/analytics-repository';
 import type { MCPServer } from '@idl/mcp/server';
 import { MCPToolWorkflowRegistry } from '@idl/mcp/tool-workflows';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -86,6 +88,22 @@ export function RegisterMCPTool_ListENVIToolWorkflows(server: MCPServer) {
             content: [{ type: 'text', text: JSON.stringify(resp) }],
           };
         }
+      }
+
+      // refresh repository workflows so we always have the latest versions
+      try {
+        ENVI_TOOL_WORKFLOW_REGISTRY.replaceRepositoryWorkflows(
+          await ANALYTICS_REPOSITORY_REGISTRY.getENVIToolWorkflowPackages(),
+        );
+      } catch (err) {
+        server.logManager.log({
+          log: IDL_MCP_LOG,
+          type: 'error',
+          content: [
+            'Unable to refresh ENVI Tool workflows from analytics repositories',
+            err,
+          ],
+        });
       }
 
       return {

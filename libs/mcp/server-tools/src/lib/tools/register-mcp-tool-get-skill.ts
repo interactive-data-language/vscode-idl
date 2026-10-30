@@ -39,7 +39,7 @@ export function RegisterMCPTool_GetSkill(
         content: [
           {
             type: 'text',
-            text: registry.getSkill(name),
+            text: await registry.getSkill(name),
           },
         ],
       };

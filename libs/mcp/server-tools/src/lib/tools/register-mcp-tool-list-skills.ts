@@ -1,3 +1,5 @@
+import { IDL_MCP_LOG } from '@idl/logger';
+import { ANALYTICS_REPOSITORY_REGISTRY } from '@idl/mcp/analytics-repository';
 import type { MCPServer } from '@idl/mcp/server';
 import { MCPSkillRegistry } from '@idl/mcp/skills';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -25,6 +27,22 @@ export function RegisterMCPTool_ListSkills(
       inputSchema: {},
     },
     async (id) => {
+      // refresh repository skills so we always have the latest versions
+      try {
+        registry.replaceRepositorySkills(
+          await ANALYTICS_REPOSITORY_REGISTRY.getSkillPackages(),
+        );
+      } catch (err) {
+        server.logManager.log({
+          log: IDL_MCP_LOG,
+          type: 'error',
+          content: [
+            'Unable to refresh skills from analytics repositories',
+            err,
+          ],
+        });
+      }
+
       return {
         isError: false,
         content: [

@@ -1,3 +1,5 @@
+import type { IAnalyticsRepository_Package } from '@idl/types/analytics-repository';
+
 /**
  * When a task come from a file
  */
@@ -38,13 +40,9 @@ export type RegistryLocation_Repository = 'repository';
  */
 export interface RegistryLocationMetadata_Repository {
   /**
-   * Name of the package
+   * Save package metadata for quick access to some items
    */
-  packageName: string;
-  /**
-   * The version of the package to download
-   */
-  packageVersion: string;
+  package: IAnalyticsRepository_Package;
   /**
    * The URL for the analytics repository that we download from
    */

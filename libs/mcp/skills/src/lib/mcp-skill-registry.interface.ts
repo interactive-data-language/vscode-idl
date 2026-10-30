@@ -2,6 +2,7 @@ import type {
   RegistryLocation,
   RegistryLocation_File,
   RegistryLocation_Memory,
+  RegistryLocation_Repository,
 } from '@idl/mcp/shared';
 
 /**
@@ -11,7 +12,11 @@ export interface ISkill {
   /** Description for when the skill should be used */
   description: string;
   /** Location of the skill content */
-  location: RegistryLocation<RegistryLocation_File | RegistryLocation_Memory>;
+  location: RegistryLocation<
+    | RegistryLocation_File
+    | RegistryLocation_Memory
+    | RegistryLocation_Repository
+  >;
   /** Lower-case name / ID of the skill */
   name: string;
 }
