@@ -172,7 +172,6 @@ export class Chat {
           },
         ],
         model,
-        temperature: 0,
       });
       const content = completion.choices[0]?.message?.content;
       return typeof content === 'string' ? content.trim() : '';
