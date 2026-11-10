@@ -47,6 +47,10 @@ export interface RegistryLocationMetadata_Repository {
    * The URL for the analytics repository that we download from
    */
   url: string;
+  /**
+   * The version of the package
+   */
+  version: string;
 }
 
 /**

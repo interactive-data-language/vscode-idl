@@ -358,6 +358,7 @@ export class MCPInstructionsRegistry {
             meta: {
               package: item.package,
               url: item.server.url,
+              version: item.package.version,
             },
           },
           metadata: { ...parsed.metadata, id },

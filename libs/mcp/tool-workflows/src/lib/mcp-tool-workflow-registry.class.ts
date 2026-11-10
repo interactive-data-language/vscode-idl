@@ -295,6 +295,7 @@ export class MCPToolWorkflowRegistry {
           meta: {
             package: item.package,
             url: item.server.url,
+            version: item.package.version,
           },
         };
       }
