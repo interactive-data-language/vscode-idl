@@ -1,14 +1,20 @@
 import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
+import {
+  type AnalyticsRepositoryRegistry,
+  LatestPackages,
+} from '@idl/mcp/analytics-repository';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
 import {
-  type IRuleBasedFilters,
   type RegistryLocation,
   type RegistryLocation_File,
   type RegistryLocationKind,
   RuleBasedFilter,
 } from '@idl/mcp/shared';
+import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { IDLTypeHelper, TASK_REGEX } from '@idl/parsing/type-parser';
+import { LoadTask } from '@idl/schemas/tasks';
+import type { IAnalyticRepository_ServerPackage } from '@idl/types/analytics-repository';
 import type {
   GlobalFunctionToken,
   GlobalStructureToken,
@@ -23,6 +29,7 @@ import { GetCleanDescription } from './helpers/get-clean-description';
 import { SanitizeInputUriParameters } from './helpers/sanitize-input-uri-parameters';
 import { StrictCheck } from './helpers/strict-check';
 import type {
+  IMCPTaskRegistryOptions,
   ITaskInformation,
   ITaskRegistryEntry,
 } from './mcp-task-registry.interface';
@@ -68,6 +75,11 @@ export class MCPTaskRegistry {
   });
 
   /**
+   * Optional analytics repositories that we pull tasks from
+   */
+  private analytics?: AnalyticsRepositoryRegistry;
+
+  /**
    * Logger
    */
   private logger: LogManager;
@@ -87,13 +99,11 @@ export class MCPTaskRegistry {
    */
   private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
-  constructor(
-    logger: LogManager,
-    strict = true,
-    filters?: Partial<IRuleBasedFilters>,
-  ) {
+  constructor(options: IMCPTaskRegistryOptions) {
+    const { analytics, filters, logger, strict = true } = options;
     this.logger = logger;
     this.strict = strict;
+    this.analytics = analytics;
     if (filters !== undefined) {
       this.filters.updateFilters(filters);
     }
@@ -169,18 +179,48 @@ export class MCPTaskRegistry {
   }
 
   /**
+   * Refreshes tasks from analytics repositories (if configured) and returns
+   * the descriptions for all registered tasks.
+   *
+   * If we can't reach the repositories, we log and keep the current tasks.
+   */
+  async list() {
+    if (this.analytics) {
+      try {
+        await this.replaceRepositoryTasks(
+          await this.analytics.getENVITaskPackages(),
+        );
+      } catch (err) {
+        this.logger.log({
+          log: IDL_MCP_LOG,
+          type: 'error',
+          content: [
+            'Unable to refresh ENVI Tools from analytics repositories',
+            err,
+          ],
+        });
+      }
+    }
+
+    return this.getDescriptions();
+  }
+
+  /**
    * Register a task
    *
    * The function contains the helpful docs and syntax examples
    *
    * The structure contains all properties and docs for them
    *
-   * **DO NOT** use the docs in the overall structure definition, as
+   * **DO NOT** use the docs in the structure definition, as
    * it *only* contains properties
+   *
+   * Provide a location when the structure doesn't come from a file on disk
    */
   registerTask(
     taskFunction: IGlobalIndexedToken<GlobalFunctionToken>,
     taskStructure: IGlobalIndexedToken<GlobalStructureToken>,
+    taskLocation?: RegistryLocation<RegistryLocationKind>,
   ) {
     // extract task name
     const match = TASK_REGEX.exec(taskStructure.meta.display);
@@ -333,9 +373,9 @@ export class MCPTaskRegistry {
         ),
     );
 
-    // create location metadata if we have a file
-    let location: RegistryLocation<RegistryLocationKind> | undefined;
-    if (taskStructure.file) {
+    // use the location we were given, or create metadata if we have a file
+    let location = taskLocation;
+    if (!location && taskStructure.file) {
       /** Create metadata so its strictly types */
       location = {
         type: 'file',
@@ -434,6 +474,13 @@ export class MCPTaskRegistry {
   }
 
   /**
+   * Sets the logger used to report problems
+   */
+  setLogger(logger: LogManager) {
+    this.logger = logger;
+  }
+
+  /**
    * Validate input parameters for a task
    *
    * We can validate them before they ever get to ENVI and, in fact, we should
@@ -492,5 +539,58 @@ export class MCPTaskRegistry {
 
     // made it here, so our schema is valid
     return { success: true };
+  }
+
+  /**
+   * Removes all tasks that came from a repository and replaces them with
+   * the ENVI Tasks from the latest version of each package.
+   *
+   * Tasks that are already registered from other locations always win name
+   * conflicts. Tasks that fail to parse are logged and skipped.
+   */
+  private async replaceRepositoryTasks(
+    packages: IAnalyticRepository_ServerPackage[],
+  ) {
+    // remove everything we got from a repository
+    for (const key of Object.keys(this.tasks)) {
+      if (this.tasks[key].location?.type === 'repository') {
+        delete this.tasks[key];
+      }
+    }
+
+    for (const item of LatestPackages(packages)) {
+      const tasks = item.package.metadata.envitasks ?? {};
+
+      for (const file of Object.keys(tasks)) {
+        try {
+          const globals = TaskToGlobalToken(
+            await LoadTask(file, JSON.stringify(tasks[file])),
+          );
+
+          // local tasks win
+          const match = TASK_REGEX.exec(globals.structure.meta.display);
+          if (match !== null && this.hasTask(match[1])) {
+            continue;
+          }
+
+          this.registerTask(globals.function, globals.structure, {
+            type: 'repository',
+            meta: {
+              package: item.package,
+              url: item.server.url,
+            },
+          });
+        } catch (err) {
+          this.logger.log({
+            log: IDL_MCP_LOG,
+            type: 'warn',
+            content: [
+              `Unable to load ENVI Task "${file}" from package "${item.package.name}"`,
+              err,
+            ],
+          });
+        }
+      }
+    }
   }
 }

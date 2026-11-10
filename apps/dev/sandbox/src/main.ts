@@ -197,7 +197,7 @@ async function Main() {
   // load global tokens
   index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
 
-  const registry = new MCPTaskRegistry(logManager);
+  const registry = new MCPTaskRegistry({ logger: logManager });
 
   registry.registerTasksFromGlobalTokens(
     index.globalIndex.globalTokensByTypeByName[GLOBAL_TOKEN_TYPES.FUNCTION],

@@ -1,9 +1,14 @@
+import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
 import {
-  type IRuleBasedFilters,
+  type AnalyticsRepositoryRegistry,
+  LatestPackages,
+} from '@idl/mcp/analytics-repository';
+import {
   RegistryFileWatcher,
   RegistryLocationHelpers,
   RuleBasedFilter,
 } from '@idl/mcp/shared';
+import type { IAnalyticRepository_ServerPackage } from '@idl/types/analytics-repository';
 import type { ChatInstructionOption } from '@idl/types/chat';
 import { existsSync, mkdirSync, readdirSync, readFileSync } from 'fs';
 import { basename, join } from 'path';
@@ -11,6 +16,7 @@ import { basename, join } from 'path';
 import { ParseInstructionFrontmatter } from './helpers/parse-instruction-frontmatter';
 import {
   type IInstructionEntry,
+  type IMCPInstructionsRegistryOptions,
   INSTRUCTIONS_EXTENSION,
 } from './mcp-instructions-registry.interface';
 
@@ -20,6 +26,11 @@ import {
 export class MCPInstructionsRegistry {
   /** Object class that handles filtering items from the instructions registry */
   filters = new RuleBasedFilter();
+
+  /**
+   * Optional analytics repositories that we pull instructions from
+   */
+  private analytics?: AnalyticsRepositoryRegistry;
 
   /**
    * Lookup of instructions by ID and location metadata
@@ -43,12 +54,20 @@ export class MCPInstructionsRegistry {
   private localDir?: string;
 
   /**
+   * Logger, used to report problems reaching analytics repositories
+   */
+  private logger?: LogManager;
+
+  /**
    * Watches the local instruction folder so new/removed files stay in sync
    */
   private watcher?: RegistryFileWatcher;
 
-  constructor(localDir?: string, filters?: Partial<IRuleBasedFilters>) {
+  constructor(options: IMCPInstructionsRegistryOptions = {}) {
+    const { analytics, filters, localDir, logger } = options;
     this.localDir = localDir;
+    this.analytics = analytics;
+    this.logger = logger;
 
     if (this.localDir) {
       // make the local folder if it doesn't exist
@@ -165,10 +184,21 @@ export class MCPInstructionsRegistry {
       this.getInstruction(id, seen),
     );
 
-    return [
-      RegistryLocationHelpers.retrieveContent(entry.location),
-      ...includes,
-    ]
+    // file and repository content is raw, so always strip the frontmatter
+    const content = ParseInstructionFrontmatter(
+      RegistryLocationHelpers.retrieveContent(
+        entry.location,
+        'instructions',
+        entry.location.type === 'repository'
+          ? Object.keys(
+              entry.location.meta.package.metadata.instructions ?? {},
+            ).find((key) => key.toLowerCase() === lc)
+          : undefined,
+      ),
+      lc,
+    ).content;
+
+    return [content, ...includes]
       .filter((item) => item.trim())
       .join('\n\n---\n\n');
   }
@@ -206,6 +236,33 @@ export class MCPInstructionsRegistry {
    */
   hasInstruction(instructionId: string): boolean {
     return instructionId.toLowerCase() in this.instructions;
+  }
+
+  /**
+   * Refreshes instructions from analytics repositories (if configured) and
+   * returns the options available for the UI.
+   *
+   * If we can't reach the repositories, we log and keep the current instructions.
+   */
+  async list(): Promise<ChatInstructionOption[]> {
+    if (this.analytics) {
+      try {
+        this.replaceRepositoryInstructions(
+          await this.analytics.getInstructionPackages(),
+        );
+      } catch (err) {
+        this.logger?.log({
+          log: IDL_MCP_LOG,
+          type: 'error',
+          content: [
+            'Unable to refresh instructions from analytics repositories',
+            err,
+          ],
+        });
+      }
+    }
+
+    return this.getInstructionOptionsForUI();
   }
 
   /**
@@ -248,6 +305,64 @@ export class MCPInstructionsRegistry {
     // if found, delete
     if (match) {
       delete this.instructions[match.metadata.id];
+    }
+  }
+
+  /**
+   * Sets the logger used to report problems, like reaching analytics repositories
+   */
+  setLogger(logger?: LogManager) {
+    this.logger = logger;
+  }
+
+  /**
+   * Removes all instructions that came from a repository and replaces them
+   * with the latest version of each package.
+   *
+   * Instructions that come from local files or memory always win ID conflicts
+   */
+  private replaceRepositoryInstructions(
+    packages: IAnalyticRepository_ServerPackage[],
+  ) {
+    // remove everything we got from a repository
+    for (const key of Object.keys(this.instructions)) {
+      if (this.instructions[key].location.type === 'repository') {
+        delete this.instructions[key];
+      }
+    }
+
+    for (const item of LatestPackages(packages)) {
+      const instructions = item.package.metadata.instructions ?? {};
+
+      for (const packageKey of Object.keys(instructions)) {
+        // the package key is the ID, which the frontmatter ID has to match
+        const id = packageKey.toLowerCase();
+        const parsed = ParseInstructionFrontmatter(
+          instructions[packageKey],
+          packageKey,
+        );
+
+        // if the IDs dont match, then skip
+        if (id !== parsed.metadata.id) {
+          continue;
+        }
+
+        // local instructions win
+        if (id in this.instructions) {
+          continue;
+        }
+
+        this.instructions[id] = {
+          location: {
+            type: 'repository',
+            meta: {
+              package: item.package,
+              url: item.server.url,
+            },
+          },
+          metadata: { ...parsed.metadata, id },
+        };
+      }
     }
   }
 }

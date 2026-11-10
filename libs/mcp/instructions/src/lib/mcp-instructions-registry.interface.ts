@@ -1,9 +1,27 @@
+import type { LogManager } from '@idl/logger';
+import type { AnalyticsRepositoryRegistry } from '@idl/mcp/analytics-repository';
 import type {
+  IRuleBasedFilters,
   RegistryLocation,
   RegistryLocation_File,
   RegistryLocation_Memory,
+  RegistryLocation_Repository,
 } from '@idl/mcp/shared';
 import type { ChatInstructionType } from '@idl/types/chat';
+
+/**
+ * Options for creating an instructions registry
+ */
+export interface IMCPInstructionsRegistryOptions {
+  /** Analytics repositories to pull instructions from */
+  analytics?: AnalyticsRepositoryRegistry;
+  /** Initial whitelist and blacklist */
+  filters?: Partial<IRuleBasedFilters>;
+  /** Local folder to load (and watch) instructions from */
+  localDir?: string;
+  /** Logger for reporting problems */
+  logger?: LogManager;
+}
 
 /**
  * Metadata parsed from GitHub Copilot-style YAML frontmatter in instruction files.
@@ -47,7 +65,11 @@ export interface IInstructionEntry {
   /**
    * Location of the instruction file or memory content
    */
-  location: RegistryLocation<RegistryLocation_File | RegistryLocation_Memory>;
+  location: RegistryLocation<
+    | RegistryLocation_File
+    | RegistryLocation_Memory
+    | RegistryLocation_Repository
+  >;
 
   /**
    * Metadata associated with the instruction

@@ -79,9 +79,9 @@ export function CreateChatRoutes(chat: Chat): Router {
    * GET /api/chat/instructions
    * Returns the configured list of chat instruction options and the default selection.
    */
-  router.get('/instructions', (_req, res) => {
+  router.get('/instructions', async (_req, res) => {
     try {
-      const resp: ChatInstructionsResponse = chat.listChatInstructions();
+      const resp: ChatInstructionsResponse = await chat.listChatInstructions();
       res.json(resp);
     } catch (error) {
       console.error(error);

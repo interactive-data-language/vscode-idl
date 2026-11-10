@@ -5,6 +5,7 @@ import {
   LoadIDLSearchPaths,
 } from '@idl/idl/files';
 import { IDL_LSP_LOG, IDL_MCP_LOG, LogManager } from '@idl/logger';
+import { ANALYTICS_REPOSITORY_REGISTRY } from '@idl/mcp/analytics-repository';
 import { MCPInstructionsRegistry } from '@idl/mcp/instructions';
 import {
   MCPTrackResources,
@@ -53,7 +54,10 @@ export const LOG_MANAGER = new LogManager({
 /**
  * Global singleton instance of the instructions registry
  */
-export const MCP_INSTRUCTION_REGISTRY = new MCPInstructionsRegistry();
+export const MCP_INSTRUCTION_REGISTRY = new MCPInstructionsRegistry({
+  analytics: ANALYTICS_REPOSITORY_REGISTRY,
+});
+MCP_INSTRUCTION_REGISTRY.setLogger(LOG_MANAGER);
 
 /**
  * Starts the language server for our dedicated MCP server - so we can re-use our MCP

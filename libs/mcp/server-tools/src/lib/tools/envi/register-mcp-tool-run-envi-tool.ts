@@ -106,12 +106,34 @@ export function RegisterMCPTool_RunENVITool(
         inputParameters,
       };
 
-      // check if we have a task file to use instead
+      /**
+       * Check if we have location information that we need to process
+       */
       if (detail.location) {
-        if (detail.location.type === 'file') {
-          params.uri = (
-            detail.location as RegistryLocation<RegistryLocation_File>
-          ).meta.path;
+        switch (detail.location.type) {
+          // file
+          case 'file':
+            params.uri = (
+              detail.location as RegistryLocation<RegistryLocation_File>
+            ).meta.path;
+            break;
+
+          // from a repository
+          // @TODO install the package before execution
+          case 'repository':
+            throw new Error('Unhandled case to download from repository');
+            // return {
+            //   isError: true,
+            //   content: [
+            //     {
+            //       type: 'text',
+            //       text: `Tool exists in a repository and we haven't updated the logic to support. Stop execution and alert the user.`,
+            //     },
+            //   ],
+            // };
+            break;
+          default:
+            break;
         }
       }
 

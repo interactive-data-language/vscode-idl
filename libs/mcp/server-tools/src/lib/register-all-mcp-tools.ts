@@ -3,7 +3,10 @@ import { IDL_MCP_LOG } from '@idl/logger';
 import { MCPServer } from '@idl/mcp/server';
 
 import { RegisterMCPTool_GetENVIToolWorkflow } from './tools/envi/register-mcp-tool-get-envi-tool-workflow';
-import { RegisterMCPTool_ListENVIToolWorkflows } from './tools/envi/register-mcp-tool-list-envi-tool-workflows';
+import {
+  ENVI_TOOL_WORKFLOW_REGISTRY,
+  RegisterMCPTool_ListENVIToolWorkflows,
+} from './tools/envi/register-mcp-tool-list-envi-tool-workflows';
 import { RegisterMCPTool_OpenDatasetsInENVI } from './tools/envi/register-mcp-tool-open-datasets-in-envi';
 import { RegisterMCPTool_QueryDatasetWithENVI } from './tools/envi/register-mcp-tool-query-dataset-with-envi';
 import { RegisterMCPTool_SaveENVIToolWorkflow } from './tools/envi/register-mcp-tool-save-envi-tool-workflow';
@@ -85,6 +88,7 @@ export function RegisterAllMCPTools(isEnviInstalled: boolean) {
    * The tools that use tasks are registered after the language server has started up
    */
   RegisterMCPTool_GetENVIToolWorkflow(server);
+  ENVI_TOOL_WORKFLOW_REGISTRY.setLogger(server.logManager);
   RegisterMCPTool_ListENVIToolWorkflows(server);
   RegisterMCPTool_OpenDatasetsInENVI(server);
   RegisterMCPTool_QueryDatasetWithENVI(server);
@@ -94,7 +98,7 @@ export function RegisterAllMCPTools(isEnviInstalled: boolean) {
   /**
    * Skill tools
    */
-  MCP_SKILL_REGISTRY.logger = server.logManager;
+  MCP_SKILL_REGISTRY.setLogger(server.logManager);
   try {
     MCP_SKILL_REGISTRY.loadSkillsFromFolder(
       GetExtensionPath('resources/agents/skills'),

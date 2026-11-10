@@ -1,4 +1,5 @@
 import { IDL_LSP_LOG, IDL_MCP_LOG } from '@idl/logger';
+import { ANALYTICS_REPOSITORY_REGISTRY } from '@idl/mcp/analytics-repository';
 import type { MCPServer } from '@idl/mcp/server';
 import {
   RegisterMCPTool_CreateENVIModelerWorkflow,
@@ -32,7 +33,11 @@ export async function RegisterMCPTaskTools(
   });
 
   /** Create task registry */
-  const registry = new MCPTaskRegistry(server.logManager, false);
+  const registry = new MCPTaskRegistry({
+    analytics: ANALYTICS_REPOSITORY_REGISTRY,
+    logger: server.logManager,
+    strict: false,
+  });
 
   // expose registry so config changes can update filters without a server restart
   MCP_TASK_REGISTRY = registry;

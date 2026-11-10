@@ -1,10 +1,30 @@
-import type { RegistryLocation, RegistryLocationKind } from '@idl/mcp/shared';
+import type { LogManager } from '@idl/logger';
+import type { AnalyticsRepositoryRegistry } from '@idl/mcp/analytics-repository';
+import type {
+  IRuleBasedFilters,
+  RegistryLocation,
+  RegistryLocationKind,
+} from '@idl/mcp/shared';
 import type {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import type { ValidateFunction } from 'ajv';
 import type { JsonSchema7Type } from 'zod-to-json-schema';
+
+/**
+ * Options for creating a task registry
+ */
+export interface IMCPTaskRegistryOptions {
+  /** Analytics repositories to pull tasks from */
+  analytics?: AnalyticsRepositoryRegistry;
+  /** Initial whitelist and blacklist */
+  filters?: Partial<IRuleBasedFilters>;
+  /** Logger for reporting problems */
+  logger: LogManager;
+  /** Are we operating in strict mode or not? Defaults to true */
+  strict?: boolean;
+}
 
 /**
  * Internal registry entry that stores all information about a single task

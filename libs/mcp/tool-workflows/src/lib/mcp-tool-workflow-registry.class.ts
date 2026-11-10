@@ -1,14 +1,22 @@
+import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
 import {
-  type IRuleBasedFilters,
+  type AnalyticsRepositoryRegistry,
+  LatestPackages,
+} from '@idl/mcp/analytics-repository';
+import {
   RegistryFileWatcher,
   type RegistryLocation,
   type RegistryLocation_File,
   type RegistryLocation_Memory,
+  type RegistryLocation_Repository,
   RegistryLocationHelpers,
   RuleBasedFilter,
 } from '@idl/mcp/shared';
+import type { IAnalyticRepository_ServerPackage } from '@idl/types/analytics-repository';
 import { existsSync, mkdirSync, readdirSync } from 'fs';
 import { basename, join } from 'path';
+
+import type { IMCPToolWorkflowRegistryOptions } from './mcp-tool-workflow-registry.interface';
 
 /**
  * Helper class that tracks and manages access to tool workflows
@@ -18,9 +26,19 @@ export class MCPToolWorkflowRegistry {
   filters = new RuleBasedFilter();
 
   /**
+   * Optional analytics repositories that we pull workflows from
+   */
+  private analytics?: AnalyticsRepositoryRegistry;
+
+  /**
    * Local workflow folder
    */
   private localDir: string;
+
+  /**
+   * Logger, used to report problems reaching analytics repositories
+   */
+  private logger?: LogManager;
 
   /**
    * Watches the local workflow folder so new/removed files stay in sync
@@ -35,12 +53,17 @@ export class MCPToolWorkflowRegistry {
    */
   private workflows: {
     [key: string]: RegistryLocation<
-      RegistryLocation_File | RegistryLocation_Memory
+      | RegistryLocation_File
+      | RegistryLocation_Memory
+      | RegistryLocation_Repository
     >;
   } = {};
 
-  constructor(localDir: string, filters?: Partial<IRuleBasedFilters>) {
+  constructor(options: IMCPToolWorkflowRegistryOptions) {
+    const { analytics, filters, localDir, logger } = options;
     this.localDir = localDir;
+    this.analytics = analytics;
+    this.logger = logger;
 
     // make the local folder if it doesn't exist
     if (!existsSync(this.localDir)) {
@@ -140,7 +163,21 @@ export class MCPToolWorkflowRegistry {
       return '';
     }
 
-    return RegistryLocationHelpers.retrieveContent(this.workflows[lc]);
+    const location = this.workflows[lc];
+
+    // names are tracked in lower case, so find the original key in the package
+    const key =
+      location.type === 'repository'
+        ? Object.keys(
+            location.meta.package.metadata.envitoolworkflows ?? {},
+          ).find((name) => name.toLowerCase() === lc)
+        : undefined;
+
+    return RegistryLocationHelpers.retrieveContent(
+      location,
+      'envitoolworkflows',
+      key,
+    );
   }
 
   /**
@@ -157,6 +194,33 @@ export class MCPToolWorkflowRegistry {
    */
   hasWorkflow(workflowName: string) {
     return workflowName.toLowerCase() in this.workflows;
+  }
+
+  /**
+   * Refreshes workflows from analytics repositories (if configured) and returns
+   * the names of all registered workflows.
+   *
+   * If we can't reach the repositories, we log and keep the current workflows.
+   */
+  async list(): Promise<string[]> {
+    if (this.analytics) {
+      try {
+        this.replaceRepositoryWorkflows(
+          await this.analytics.getENVIToolWorkflowPackages(),
+        );
+      } catch (err) {
+        this.logger?.log({
+          log: IDL_MCP_LOG,
+          type: 'error',
+          content: [
+            'Unable to refresh ENVI Tool workflows from analytics repositories',
+            err,
+          ],
+        });
+      }
+    }
+
+    return this.getWorkflowNames();
   }
 
   /**
@@ -188,5 +252,50 @@ export class MCPToolWorkflowRegistry {
    */
   removeToolWorkflowFromFile(filePath: string) {
     delete this.workflows[basename(filePath, '.md').toLowerCase()];
+  }
+
+  /**
+   * Sets the logger used to report problems, like reaching analytics repositories
+   */
+  setLogger(logger?: LogManager) {
+    this.logger = logger;
+  }
+
+  /**
+   * Removes all workflows that came from a repository and replaces them with
+   * the latest version of each package.
+   *
+   * Workflows that come from local files or memory always win name conflicts
+   */
+  private replaceRepositoryWorkflows(
+    packages: IAnalyticRepository_ServerPackage[],
+  ) {
+    // remove everything we got from a repository
+    for (const key of Object.keys(this.workflows)) {
+      if (this.workflows[key].type === 'repository') {
+        delete this.workflows[key];
+      }
+    }
+
+    for (const item of LatestPackages(packages)) {
+      const names = Object.keys(item.package.metadata.envitoolworkflows ?? {});
+
+      for (const name of names) {
+        const lc = name.toLowerCase();
+
+        // local workflows win
+        if (lc in this.workflows) {
+          continue;
+        }
+
+        this.workflows[lc] = {
+          type: 'repository',
+          meta: {
+            package: item.package,
+            url: item.server.url,
+          },
+        };
+      }
+    }
   }
 }

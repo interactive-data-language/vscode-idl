@@ -56,7 +56,7 @@ export function RegisterMCPTool_ListENVITools(
              * - apps/test/client/src/tests/mcp/tools/envi/mcp-test-list-envi-tools.ts
              * - apps/test/client/src/tests/mcp/tools/envi/regression-tests/mcp-test-list-envi-tools-regression.ts
              */
-            text: `${JSON.stringify(registry.getDescriptions())}`,
+            text: `${JSON.stringify(await registry.list())}`,
           },
         ],
       };

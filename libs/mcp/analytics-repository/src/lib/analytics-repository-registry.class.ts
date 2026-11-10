@@ -72,6 +72,15 @@ export class AnalyticsRepositoryRegistry {
   }
 
   /**
+   * Retrieve packages that have instructions
+   */
+  async getInstructionPackages() {
+    return await this.searchRepositories({
+      tags: ['Instructions'],
+    });
+  }
+
+  /**
    * Retrieves a specific package version from a server, or undefined if
    * we can't find it
    */

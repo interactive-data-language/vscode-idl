@@ -1,3 +1,4 @@
+import { ANALYTICS_REPOSITORY_REGISTRY } from '@idl/mcp/analytics-repository';
 import { MCP_TASK_REGISTRY } from '@idl/mcp/language-server-tools';
 import {
   ENVI_TOOL_WORKFLOW_REGISTRY,
@@ -12,6 +13,8 @@ import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
  * instruction, skill, and tool workflow registries
  */
 export function ApplyRegistryFilters(config: IAgentServerConfig) {
+  ANALYTICS_REPOSITORY_REGISTRY.setServers(config.analyticsRepositories);
+
   MCP_INSTRUCTION_REGISTRY.filters.updateFilters({
     whitelist: config.agent.mcp.instructionsWhitelist,
     blacklist: config.agent.mcp.instructionsBlacklist,

@@ -217,8 +217,8 @@ export class Chat {
    * Lists the configured chat instruction options and the instructions that
    * should be selected by default
    */
-  listChatInstructions(): ChatInstructionsResponse {
-    const options = MCP_INSTRUCTION_REGISTRY.getInstructionOptionsForUI();
+  async listChatInstructions(): Promise<ChatInstructionsResponse> {
+    const options = await MCP_INSTRUCTION_REGISTRY.list();
     const configured = this.config.agent.defaultInstructions;
 
     // configured default must be one of the selectable options
