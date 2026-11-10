@@ -1,3 +1,7 @@
+import { readdir, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+
+import { IDL_PACKAGE_DIR } from '@idl/idl/files';
 import type {
   IAnalyticRepository_ServerPackage,
   IAnalyticsRepository_Package,
@@ -9,6 +13,7 @@ import type {
 import axios, { type AxiosResponse } from 'axios';
 
 import { REPOSITORY_TAGS } from './analytics-repository-registry.interface';
+import { MatchesFilter } from './matches-filter';
 
 export class AnalyticsRepositoryRegistry {
   /**
@@ -18,6 +23,12 @@ export class AnalyticsRepositoryRegistry {
    * value already
    */
   private accessInfo: (IAnalyticsRepositoryAccessInfo | undefined)[] = [];
+
+  /**
+   * Folder with locally installed packages, where each package is a
+   * sub-folder with a "manifest.json" file
+   */
+  private localDir = IDL_PACKAGE_DIR;
 
   /**
    * Track servers
@@ -92,6 +103,58 @@ export class AnalyticsRepositoryRegistry {
   }
 
   /**
+   * Reads the packages that are installed locally
+   *
+   * Each sub-folder of the local directory is a package with a "manifest.json"
+   * file that has the same structure as a package from a server. Folders
+   * without a valid manifest are skipped.
+   */
+  async getLocalPackages(): Promise<IAnalyticRepository_ServerPackage[]> {
+    /**
+     * Track candidate folders that have packages
+     */
+    let folders: string[];
+    try {
+      folders = (await readdir(this.localDir, { withFileTypes: true }))
+        .filter((entry) => entry.isDirectory())
+        .map((entry) => entry.name);
+    } catch {
+      return [];
+    }
+
+    /** Track found packages */
+    const found: IAnalyticRepository_ServerPackage[] = [];
+
+    // process each folder
+    for (const folder of folders) {
+      const localPath = join(this.localDir, folder);
+      try {
+        const manifest = JSON.parse(
+          await readFile(join(localPath, 'manifest.json'), 'utf-8'),
+        ) as IAnalyticsRepository_Package;
+
+        // validate local manifest file
+        if (
+          typeof manifest?.name !== 'string' ||
+          typeof manifest?.version !== 'string'
+        ) {
+          continue;
+        }
+
+        // save package information
+        found.push({
+          localPath,
+          package: { ...manifest, metadata: manifest.metadata || {} },
+        });
+      } catch {
+        // missing or invalid manifest, not a package we can use
+      }
+    }
+
+    return found;
+  }
+
+  /**
    * Retrieves a specific package version from a server, or undefined if
    * we can't find it
    */
@@ -119,21 +182,47 @@ export class AnalyticsRepositoryRegistry {
   }
 
   /**
-   * Search all configured analytics repositories and retrieve
-   * all package matches based on filters
+   * Search locally installed packages and all configured analytics
+   * repositories and retrieve all package matches based on filters
+   *
+   * Only one version of a package can be installed, so locally installed
+   * packages always win and remote packages with the same name are dropped.
    *
    * Returns all pages
    */
   async searchRepositories(
     filter: IAnalyticsRepository_SearchFilter = {},
   ): Promise<IAnalyticRepository_ServerPackage[]> {
-    return (
+    const local = await this.getLocalPackages();
+
+    /** Names of everything installed, regardless of the filter */
+    const installed = new Set(
+      local.map((item) => item.package.name.toLowerCase()),
+    );
+
+    // find remote packages
+    // filter our local installed packages by name
+    const remote = (
       await Promise.all(
         this.servers.map((server) =>
           this.searchServerRepositories(server, filter),
         ),
       )
-    ).flat();
+    )
+      .flat()
+      .filter((item) => !installed.has(item.package.name.toLowerCase()));
+
+    return [
+      ...local.filter((item) => MatchesFilter(item.package, filter)),
+      ...remote,
+    ];
+  }
+
+  /**
+   * Sets the folder with locally installed packages
+   */
+  setLocalDir(dir: string) {
+    this.localDir = dir;
   }
 
   /**

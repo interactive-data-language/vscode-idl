@@ -7,17 +7,21 @@ function Pkg(
   instructions: { [key: string]: string },
 ): IAnalyticRepository_ServerPackage {
   return {
-    package: { name: 'pkg', version, metadata: { instructions } } as any,
+    package: {
+      name: 'pkg',
+      version,
+      metadata: { agent_instructions: instructions },
+    } as any,
     server: { url: 'http://localhost' },
   };
 }
 
 function Analytics(...results: IAnalyticRepository_ServerPackage[][]) {
-  const getInstructionPackages = jest.fn();
+  const getAgentInstructionPackages = jest.fn();
   for (const result of results) {
-    getInstructionPackages.mockResolvedValueOnce(result);
+    getAgentInstructionPackages.mockResolvedValueOnce(result);
   }
-  return { getInstructionPackages } as any;
+  return { getAgentInstructionPackages } as any;
 }
 
 describe('MCPInstructionsRegistry repository instructions', () => {
@@ -61,7 +65,7 @@ describe('MCPInstructionsRegistry repository instructions', () => {
     const registry = new MCPInstructionsRegistry({ repository: analytics });
     await registry.list();
 
-    analytics.getInstructionPackages.mockRejectedValueOnce(
+    analytics.getAgentInstructionPackages.mockRejectedValueOnce(
       new Error('offline'),
     );
 

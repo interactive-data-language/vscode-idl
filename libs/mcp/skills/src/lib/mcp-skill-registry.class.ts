@@ -2,6 +2,7 @@ import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
 import {
   type AnalyticsRepositoryRegistry,
   LatestPackages,
+  PackageSource,
 } from '@idl/mcp/analytics-repository';
 import { RegistryLocationHelpers, RuleBasedFilter } from '@idl/mcp/shared';
 import type { IAnalyticRepository_ServerPackage } from '@idl/types/analytics-repository';
@@ -218,7 +219,7 @@ export class MCPSkillRegistry {
     }
 
     for (const item of LatestPackages(packages)) {
-      const skills = item.package.metadata.skills ?? {};
+      const skills = item.package.metadata.agent_skills || {};
 
       for (const name of Object.keys(skills)) {
         // local skills win
@@ -233,7 +234,7 @@ export class MCPSkillRegistry {
             type: 'repository',
             meta: {
               package: item.package,
-              url: item.server.url,
+              url: PackageSource(item),
               version: item.package.version,
             },
           },

@@ -2,6 +2,7 @@ import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
 import {
   type AnalyticsRepositoryRegistry,
   LatestPackages,
+  PackageSource,
 } from '@idl/mcp/analytics-repository';
 import {
   RegistryFileWatcher,
@@ -191,7 +192,7 @@ export class MCPInstructionsRegistry {
         'agent_instructions',
         entry.location.type === 'repository'
           ? Object.keys(
-              entry.location.meta.package.metadata.instructions ?? {},
+              entry.location.meta.package.metadata.agent_instructions ?? {},
             ).find((key) => key.toLowerCase() === lc)
           : undefined,
       ),
@@ -332,7 +333,7 @@ export class MCPInstructionsRegistry {
     }
 
     for (const item of LatestPackages(packages)) {
-      const instructions = item.package.metadata.instructions ?? {};
+      const instructions = item.package.metadata.agent_instructions || {};
 
       for (const packageKey of Object.keys(instructions)) {
         // the package key is the ID, which the frontmatter ID has to match
@@ -357,7 +358,7 @@ export class MCPInstructionsRegistry {
             type: 'repository',
             meta: {
               package: item.package,
-              url: item.server.url,
+              url: PackageSource(item),
               version: item.package.version,
             },
           },

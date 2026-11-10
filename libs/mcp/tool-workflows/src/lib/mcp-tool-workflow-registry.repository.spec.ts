@@ -10,7 +10,11 @@ function Pkg(
   envitoolworkflows: { [key: string]: string },
 ): IAnalyticRepository_ServerPackage {
   return {
-    package: { name: 'pkg', version, metadata: { envitoolworkflows } } as any,
+    package: {
+      name: 'pkg',
+      version,
+      metadata: { envi_tool_workflows: envitoolworkflows },
+    } as any,
     server: { url: 'http://localhost' },
   };
 }

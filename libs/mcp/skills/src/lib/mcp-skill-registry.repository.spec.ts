@@ -4,17 +4,21 @@ import { MCPSkillRegistry } from './mcp-skill-registry.class';
 
 function Pkg(version: string, skills: any): IAnalyticRepository_ServerPackage {
   return {
-    package: { name: 'pkg', version, metadata: { skills } } as any,
+    package: {
+      name: 'pkg',
+      version,
+      metadata: { agent_skills: skills },
+    } as any,
     server: { url: 'http://localhost' },
   };
 }
 
 function Analytics(...results: IAnalyticRepository_ServerPackage[][]) {
-  const getSkillPackages = jest.fn();
+  const getAgentSkillPackages = jest.fn();
   for (const result of results) {
-    getSkillPackages.mockResolvedValueOnce(result);
+    getAgentSkillPackages.mockResolvedValueOnce(result);
   }
-  return { getSkillPackages } as any;
+  return { getAgentSkillPackages } as any;
 }
 
 describe('MCPSkillRegistry repository skills', () => {
@@ -71,7 +75,7 @@ describe('MCPSkillRegistry repository skills', () => {
     const registry = new MCPSkillRegistry({ repository: analytics });
     await registry.list();
 
-    analytics.getSkillPackages.mockRejectedValueOnce(new Error('offline'));
+    analytics.getAgentSkillPackages.mockRejectedValueOnce(new Error('offline'));
 
     expect(await registry.list()).toEqual({ New: 'new' });
   });

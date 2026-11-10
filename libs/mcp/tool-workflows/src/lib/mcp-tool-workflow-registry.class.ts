@@ -2,6 +2,7 @@ import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
 import {
   type AnalyticsRepositoryRegistry,
   LatestPackages,
+  PackageSource,
 } from '@idl/mcp/analytics-repository';
 import {
   RegistryFileWatcher,
@@ -294,7 +295,7 @@ export class MCPToolWorkflowRegistry {
           type: 'repository',
           meta: {
             package: item.package,
-            url: item.server.url,
+            url: PackageSource(item),
             version: item.package.version,
           },
         };

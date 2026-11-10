@@ -13,7 +13,11 @@ function Pkg(
   envitasks: any,
 ): IAnalyticRepository_ServerPackage {
   return {
-    package: { name: 'pkg', version, metadata: { envitasks } } as any,
+    package: {
+      name: 'pkg',
+      version,
+      metadata: { envi_tasks: envitasks },
+    } as any,
     server: { url: 'http://localhost' },
   };
 }

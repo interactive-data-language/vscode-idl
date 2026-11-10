@@ -113,11 +113,17 @@ export interface IAnalyticsRepository_SearchResponse {
  */
 export interface IAnalyticRepository_ServerPackage {
   /**
+   * Folder the package is installed in, only set for packages that were found
+   * locally (these do not have a server)
+   */
+  localPath?: string;
+  /**
    * Metadata for the package we found
    */
   package: IAnalyticsRepository_Package;
   /**
-   * Access information for the server that the package comes from
+   * Access information for the server that the package comes from, undefined
+   * for packages that are installed locally
    */
-  server: IAnalyticsRepository_ServerInfo;
+  server?: IAnalyticsRepository_ServerInfo;
 }

@@ -44,7 +44,8 @@ export interface RegistryLocationMetadata_Repository {
    */
   package: IAnalyticsRepository_Package;
   /**
-   * The URL for the analytics repository that we download from
+   * The URL for the analytics repository that we download from, or the install
+   * folder for packages that are installed locally
    */
   url: string;
   /**

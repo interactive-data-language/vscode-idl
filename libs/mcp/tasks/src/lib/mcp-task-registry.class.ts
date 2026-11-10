@@ -2,6 +2,7 @@ import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
 import {
   type AnalyticsRepositoryRegistry,
   LatestPackages,
+  PackageSource,
 } from '@idl/mcp/analytics-repository';
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
@@ -577,7 +578,7 @@ export class MCPTaskRegistry {
             type: 'repository',
             meta: {
               package: item.package,
-              url: item.server.url,
+              url: PackageSource(item),
               version: item.package.version,
             },
           });
