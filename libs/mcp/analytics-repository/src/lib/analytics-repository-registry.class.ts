@@ -235,13 +235,13 @@ export class AnalyticsRepositoryRegistry {
     const endpoint = `${baseUrl}/api/search/packages`;
 
     /** Start limit for response */
-    const limit = filter.limit ?? 100;
+    const limit = filter.limit || 100;
 
     /** Track packages we return */
     const packages: IAnalyticsRepository_Package[] = [];
 
     /** Page we are on */
-    let page = filter.page ?? 0;
+    let page = filter.page || 0;
 
     /**
      * Search recursively for packages
@@ -264,14 +264,14 @@ export class AnalyticsRepositoryRegistry {
         auth:
           server.username !== undefined || server.password !== undefined
             ? {
-                password: server.password ?? '',
-                username: server.username ?? '',
+                password: server.password || '',
+                username: server.username || '',
               }
             : undefined,
         headers: server.headers,
         responseType: 'json',
       });
-      const responsePackages = response.data.packages ?? [];
+      const responsePackages = response.data.packages || [];
 
       // save packages that we get back
       packages.push(...responsePackages);
