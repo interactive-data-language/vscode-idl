@@ -101,7 +101,7 @@ export class MCPSkillRegistry {
 
     const rawContent = RegistryLocationHelpers.retrieveContent(
       this.skills[lc].location,
-      'skills',
+      'agentskills',
       this.skills[lc].name,
     );
 

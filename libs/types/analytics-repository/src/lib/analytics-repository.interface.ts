@@ -53,6 +53,10 @@ export interface IAnalyticsRepository_SearchFilter {
  */
 export interface IAnalyticsRepository_PackageMetadata {
   [key: string]: any;
+  /** System instructions */
+  agentinstructions?: { [key: string]: string };
+  /** Skills by name/value of prompt */
+  agentskills?: { [key: string]: string };
   /** Nested object: first key is filepath in package with task JSON as the value */
   envitasks?: { [key: string]: { [key: string]: any } };
   /** Name and workflow content */
@@ -61,10 +65,6 @@ export interface IAnalyticsRepository_PackageMetadata {
   idltasks?: { [key: string]: { [key: string]: any } };
   /** Name and workflow content */
   idltoolworkflows?: { [key: string]: string };
-  /** System instructions */
-  instructions?: { [key: string]: string };
-  /** Skills by name/value of prompt */
-  skills?: { [key: string]: string };
 }
 
 /**
