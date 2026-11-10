@@ -54,17 +54,17 @@ export interface IAnalyticsRepository_SearchFilter {
 export interface IAnalyticsRepository_PackageMetadata {
   [key: string]: any;
   /** System instructions */
-  agentinstructions?: { [key: string]: string };
+  agent_instructions?: { [key: string]: string };
   /** Skills by name/value of prompt */
-  agentskills?: { [key: string]: string };
+  agent_skills?: { [key: string]: string };
   /** Nested object: first key is filepath in package with task JSON as the value */
-  envitasks?: { [key: string]: { [key: string]: any } };
+  envi_tasks?: { [key: string]: { [key: string]: any } };
   /** Name and workflow content */
-  envitoolworkflows?: { [key: string]: string };
+  envi_tool_workflows?: { [key: string]: string };
   /** Nested object: first key is filepath in package with task JSON as the value */
-  idltasks?: { [key: string]: { [key: string]: any } };
+  idl_tasks?: { [key: string]: { [key: string]: any } };
   /** Name and workflow content */
-  idltoolworkflows?: { [key: string]: string };
+  idl_tool_workflows?: { [key: string]: string };
 }
 
 /**

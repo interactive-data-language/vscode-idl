@@ -169,13 +169,13 @@ export class MCPToolWorkflowRegistry {
     const key =
       location.type === 'repository'
         ? Object.keys(
-            location.meta.package.metadata.envitoolworkflows ?? {},
+            location.meta.package.metadata.envi_tool_workflows ?? {},
           ).find((name) => name.toLowerCase() === lc)
         : undefined;
 
     return RegistryLocationHelpers.retrieveContent(
       location,
-      'envitoolworkflows',
+      'envi_tool_workflows',
       key,
     );
   }
@@ -278,7 +278,9 @@ export class MCPToolWorkflowRegistry {
     }
 
     for (const item of LatestPackages(packages)) {
-      const names = Object.keys(item.package.metadata.envitoolworkflows ?? {});
+      const names = Object.keys(
+        item.package.metadata.envi_tool_workflows ?? {},
+      );
 
       for (const name of names) {
         const lc = name.toLowerCase();

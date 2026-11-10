@@ -188,7 +188,7 @@ export class MCPInstructionsRegistry {
     const content = ParseInstructionFrontmatter(
       RegistryLocationHelpers.retrieveContent(
         entry.location,
-        'agentinstructions',
+        'agent_instructions',
         entry.location.type === 'repository'
           ? Object.keys(
               entry.location.meta.package.metadata.instructions ?? {},

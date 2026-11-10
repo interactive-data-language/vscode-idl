@@ -559,7 +559,7 @@ export class MCPTaskRegistry {
     }
 
     for (const item of LatestPackages(packages)) {
-      const tasks = item.package.metadata.envitasks ?? {};
+      const tasks = item.package.metadata.envi_tasks ?? {};
 
       for (const file of Object.keys(tasks)) {
         try {
