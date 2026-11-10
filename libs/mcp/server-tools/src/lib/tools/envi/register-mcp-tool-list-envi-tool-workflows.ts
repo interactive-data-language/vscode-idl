@@ -13,7 +13,7 @@ import { ENVI_TOOL_WORKFLOW_INSTRUCTIONS } from './envi-tool-workflow-instructio
  * ENVI tool workflow registry
  */
 export const ENVI_TOOL_WORKFLOW_REGISTRY = new MCPToolWorkflowRegistry({
-  analytics: ANALYTICS_REPOSITORY_REGISTRY,
+  repository: ANALYTICS_REPOSITORY_REGISTRY,
   localDir: USER_ENVI_WORKFLOWS_FOLDER,
 });
 

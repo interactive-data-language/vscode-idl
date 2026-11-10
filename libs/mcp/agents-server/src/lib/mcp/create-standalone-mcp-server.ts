@@ -55,7 +55,7 @@ export const LOG_MANAGER = new LogManager({
  * Global singleton instance of the instructions registry
  */
 export const MCP_INSTRUCTION_REGISTRY = new MCPInstructionsRegistry({
-  analytics: ANALYTICS_REPOSITORY_REGISTRY,
+  repository: ANALYTICS_REPOSITORY_REGISTRY,
 });
 MCP_INSTRUCTION_REGISTRY.setLogger(LOG_MANAGER);
 

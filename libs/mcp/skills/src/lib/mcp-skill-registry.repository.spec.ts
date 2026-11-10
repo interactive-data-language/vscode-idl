@@ -20,7 +20,7 @@ function Analytics(...results: IAnalyticRepository_ServerPackage[][]) {
 describe('MCPSkillRegistry repository skills', () => {
   it('replaces repository skills with the latest version and keeps local skills', async () => {
     const registry = new MCPSkillRegistry({
-      analytics: Analytics(
+      repository: Analytics(
         [
           Pkg('1.0.0', { Old: '---\nname: Old\ndescription: old\n---\nold' }),
           Pkg('2.0.0', {
@@ -51,7 +51,7 @@ describe('MCPSkillRegistry repository skills', () => {
 
   it('retrieves repository content on-demand', async () => {
     const registry = new MCPSkillRegistry({
-      analytics: Analytics([
+      repository: Analytics([
         Pkg('1.0.0', {
           New: '---\nname: New\ndescription: new\n---\nnew prompt',
         }),
@@ -68,7 +68,7 @@ describe('MCPSkillRegistry repository skills', () => {
         New: '---\nname: New\ndescription: new\n---\nnew prompt',
       }),
     ]);
-    const registry = new MCPSkillRegistry({ analytics });
+    const registry = new MCPSkillRegistry({ repository: analytics });
     await registry.list();
 
     analytics.getSkillPackages.mockRejectedValueOnce(new Error('offline'));

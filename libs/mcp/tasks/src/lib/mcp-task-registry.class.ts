@@ -75,11 +75,6 @@ export class MCPTaskRegistry {
   });
 
   /**
-   * Optional analytics repositories that we pull tasks from
-   */
-  private analytics?: AnalyticsRepositoryRegistry;
-
-  /**
    * Logger
    */
   private logger: LogManager;
@@ -88,6 +83,11 @@ export class MCPTaskRegistry {
    * Notes for tasks, separate to simplify book keeping
    */
   private notes: { [key: string]: string[] } = {};
+
+  /**
+   * Optional analytics repositories that we pull tasks from
+   */
+  private repository?: AnalyticsRepositoryRegistry;
 
   /** Are we operating in strict mode or not? */
   private strict = true;
@@ -100,10 +100,10 @@ export class MCPTaskRegistry {
   private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
   constructor(options: IMCPTaskRegistryOptions) {
-    const { analytics, filters, logger, strict = true } = options;
+    const { repository, filters, logger, strict = true } = options;
     this.logger = logger;
     this.strict = strict;
-    this.analytics = analytics;
+    this.repository = repository;
     if (filters !== undefined) {
       this.filters.updateFilters(filters);
     }
@@ -185,10 +185,10 @@ export class MCPTaskRegistry {
    * If we can't reach the repositories, we log and keep the current tasks.
    */
   async list() {
-    if (this.analytics) {
+    if (this.repository) {
       try {
         await this.replaceRepositoryTasks(
-          await this.analytics.getENVITaskPackages(),
+          await this.repository.getENVITaskPackages(),
         );
       } catch (err) {
         this.logger.log({

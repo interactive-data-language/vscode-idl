@@ -23,7 +23,7 @@ function Analytics(...results: IAnalyticRepository_ServerPackage[][]) {
 describe('MCPInstructionsRegistry repository instructions', () => {
   it('uses the latest version, strips frontmatter, and replaces stale items', async () => {
     const registry = new MCPInstructionsRegistry({
-      analytics: Analytics(
+      repository: Analytics(
         [
           Pkg('1.0.0', { old: 'old content' }),
           Pkg('2.0.0', {
@@ -47,7 +47,7 @@ describe('MCPInstructionsRegistry repository instructions', () => {
 
   it('lets local instructions win ID conflicts', async () => {
     const registry = new MCPInstructionsRegistry({
-      analytics: Analytics([Pkg('1.0.0', { shared: 'repository content' })]),
+      repository: Analytics([Pkg('1.0.0', { shared: 'repository content' })]),
     });
     registry.addInstruction('shared', 'local content');
 
@@ -58,7 +58,7 @@ describe('MCPInstructionsRegistry repository instructions', () => {
 
   it('keeps existing repository instructions when the refresh fails', async () => {
     const analytics = Analytics([Pkg('1.0.0', { kept: 'kept content' })]);
-    const registry = new MCPInstructionsRegistry({ analytics });
+    const registry = new MCPInstructionsRegistry({ repository: analytics });
     await registry.list();
 
     analytics.getInstructionPackages.mockRejectedValueOnce(

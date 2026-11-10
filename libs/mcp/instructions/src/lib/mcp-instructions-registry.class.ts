@@ -28,11 +28,6 @@ export class MCPInstructionsRegistry {
   filters = new RuleBasedFilter();
 
   /**
-   * Optional analytics repositories that we pull instructions from
-   */
-  private analytics?: AnalyticsRepositoryRegistry;
-
-  /**
    * Lookup of instructions by ID and location metadata
    */
   private instructions: {
@@ -59,14 +54,19 @@ export class MCPInstructionsRegistry {
   private logger?: LogManager;
 
   /**
+   * Optional analytics repositories that we pull instructions from
+   */
+  private repository?: AnalyticsRepositoryRegistry;
+
+  /**
    * Watches the local instruction folder so new/removed files stay in sync
    */
   private watcher?: RegistryFileWatcher;
 
   constructor(options: IMCPInstructionsRegistryOptions = {}) {
-    const { analytics, filters, localDir, logger } = options;
+    const { repository, filters, localDir, logger } = options;
     this.localDir = localDir;
-    this.analytics = analytics;
+    this.repository = repository;
     this.logger = logger;
 
     if (this.localDir) {
@@ -245,10 +245,10 @@ export class MCPInstructionsRegistry {
    * If we can't reach the repositories, we log and keep the current instructions.
    */
   async list(): Promise<ChatInstructionOption[]> {
-    if (this.analytics) {
+    if (this.repository) {
       try {
         this.replaceRepositoryInstructions(
-          await this.analytics.getInstructionPackages(),
+          await this.repository.getInstructionPackages(),
         );
       } catch (err) {
         this.logger?.log({

@@ -13,14 +13,14 @@ import type { ChatInstructionType } from '@idl/types/chat';
  * Options for creating an instructions registry
  */
 export interface IMCPInstructionsRegistryOptions {
-  /** Analytics repositories to pull instructions from */
-  analytics?: AnalyticsRepositoryRegistry;
   /** Initial whitelist and blacklist */
   filters?: Partial<IRuleBasedFilters>;
   /** Local folder to load (and watch) instructions from */
   localDir?: string;
   /** Logger for reporting problems */
   logger?: LogManager;
+  /** Analytics repositories to pull instructions from */
+  repository?: AnalyticsRepositoryRegistry;
 }
 
 /**

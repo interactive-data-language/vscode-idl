@@ -12,12 +12,12 @@ import type {
  * Options for creating a skill registry
  */
 export interface IMCPSkillRegistryOptions {
-  /** Analytics repositories to pull skills from */
-  analytics?: AnalyticsRepositoryRegistry;
   /** Initial whitelist and blacklist */
   filters?: Partial<IRuleBasedFilters>;
   /** Logger for reporting problems */
   logger?: LogManager;
+  /** Analytics repositories to pull skills from */
+  repository?: AnalyticsRepositoryRegistry;
 }
 
 /**

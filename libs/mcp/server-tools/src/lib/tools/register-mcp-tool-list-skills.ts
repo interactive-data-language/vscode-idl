@@ -8,7 +8,7 @@ import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
  * Global singleton instance of the skill registry
  */
 export const MCP_SKILL_REGISTRY = new MCPSkillRegistry({
-  analytics: ANALYTICS_REPOSITORY_REGISTRY,
+  repository: ANALYTICS_REPOSITORY_REGISTRY,
 });
 
 /**

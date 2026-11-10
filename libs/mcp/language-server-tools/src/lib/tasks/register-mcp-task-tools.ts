@@ -34,7 +34,7 @@ export async function RegisterMCPTaskTools(
 
   /** Create task registry */
   const registry = new MCPTaskRegistry({
-    analytics: ANALYTICS_REPOSITORY_REGISTRY,
+    repository: ANALYTICS_REPOSITORY_REGISTRY,
     logger: server.logManager,
     strict: false,
   });

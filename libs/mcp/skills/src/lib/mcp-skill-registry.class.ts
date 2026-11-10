@@ -27,14 +27,14 @@ export class MCPSkillRegistry {
   filters = new RuleBasedFilter();
 
   /**
-   * Optional analytics repositories that we pull skills from
-   */
-  private analytics?: AnalyticsRepositoryRegistry;
-
-  /**
    * Logger
    */
   private logger?: LogManager;
+
+  /**
+   * Optional analytics repositories that we pull skills from
+   */
+  private repository?: AnalyticsRepositoryRegistry;
 
   /**
    * Lookup of skills
@@ -44,9 +44,9 @@ export class MCPSkillRegistry {
   private skills: { [key: string]: ISkill } = {};
 
   constructor(options: IMCPSkillRegistryOptions = {}) {
-    const { analytics, filters, logger } = options;
+    const { repository, filters, logger } = options;
     this.logger = logger;
-    this.analytics = analytics;
+    this.repository = repository;
     if (filters !== undefined) {
       this.filters.updateFilters(filters);
     }
@@ -125,9 +125,9 @@ export class MCPSkillRegistry {
    * If we can't reach the repositories, we log and keep the current skills.
    */
   async list(): Promise<{ [key: string]: string }> {
-    if (this.analytics) {
+    if (this.repository) {
       try {
-        this.replaceRepositorySkills(await this.analytics.getSkillPackages());
+        this.replaceRepositorySkills(await this.repository.getSkillPackages());
       } catch (err) {
         this.logger?.log({
           log: IDL_MCP_LOG,

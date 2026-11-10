@@ -16,12 +16,12 @@ import type { JsonSchema7Type } from 'zod-to-json-schema';
  * Options for creating a task registry
  */
 export interface IMCPTaskRegistryOptions {
-  /** Analytics repositories to pull tasks from */
-  analytics?: AnalyticsRepositoryRegistry;
   /** Initial whitelist and blacklist */
   filters?: Partial<IRuleBasedFilters>;
   /** Logger for reporting problems */
   logger: LogManager;
+  /** Analytics repositories to pull tasks from */
+  repository?: AnalyticsRepositoryRegistry;
   /** Are we operating in strict mode or not? Defaults to true */
   strict?: boolean;
 }

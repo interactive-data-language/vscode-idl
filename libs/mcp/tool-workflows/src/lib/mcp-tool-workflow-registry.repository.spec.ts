@@ -39,7 +39,7 @@ describe('MCPToolWorkflowRegistry repository workflows', () => {
   it('uses the latest version and replaces stale repository workflows', async () => {
     registry = new MCPToolWorkflowRegistry({
       localDir: dir,
-      analytics: Analytics(
+      repository: Analytics(
         [
           Pkg('1.0.0', { Old: 'old content' }),
           Pkg('2.0.0', { New: 'new content' }),
@@ -57,7 +57,7 @@ describe('MCPToolWorkflowRegistry repository workflows', () => {
   it('lets local workflows win name conflicts', async () => {
     registry = new MCPToolWorkflowRegistry({
       localDir: dir,
-      analytics: Analytics([
+      repository: Analytics([
         Pkg('1.0.0', { Shared: 'repository content', Other: 'other' }),
       ]),
     });
@@ -69,7 +69,10 @@ describe('MCPToolWorkflowRegistry repository workflows', () => {
 
   it('keeps existing repository workflows when the refresh fails', async () => {
     const analytics = Analytics([Pkg('1.0.0', { New: 'new content' })]);
-    registry = new MCPToolWorkflowRegistry({ localDir: dir, analytics });
+    registry = new MCPToolWorkflowRegistry({
+      localDir: dir,
+      repository: analytics,
+    });
     await registry.list();
 
     analytics.getENVIToolWorkflowPackages.mockRejectedValueOnce(

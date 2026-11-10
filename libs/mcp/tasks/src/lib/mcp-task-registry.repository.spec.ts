@@ -39,7 +39,7 @@ describe('MCPTaskRegistry repository tasks', () => {
   it('registers tasks from the latest package and replaces stale ones', async () => {
     const registry = new MCPTaskRegistry({
       logger: logManager,
-      analytics: Analytics(
+      repository: Analytics(
         [
           Pkg('1.0.0', {}),
           Pkg('2.0.0', { 'test_task_no_display_name_envi.task': taskJson }),
@@ -65,7 +65,7 @@ describe('MCPTaskRegistry repository tasks', () => {
   it('skips bad tasks without throwing', async () => {
     const registry = new MCPTaskRegistry({
       logger: logManager,
-      analytics: Analytics([Pkg('1.0.0', { 'Bad.task': { nope: true } })]),
+      repository: Analytics([Pkg('1.0.0', { 'Bad.task': { nope: true } })]),
     });
 
     expect(await registry.list()).toEqual({});
@@ -75,7 +75,10 @@ describe('MCPTaskRegistry repository tasks', () => {
     const analytics = Analytics([
       Pkg('1.0.0', { 'test_task_no_display_name_envi.task': taskJson }),
     ]);
-    const registry = new MCPTaskRegistry({ logger: logManager, analytics });
+    const registry = new MCPTaskRegistry({
+      logger: logManager,
+      repository: analytics,
+    });
     await registry.list();
 
     analytics.getENVITaskPackages.mockRejectedValueOnce(new Error('offline'));

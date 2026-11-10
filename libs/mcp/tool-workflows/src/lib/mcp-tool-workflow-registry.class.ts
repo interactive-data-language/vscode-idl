@@ -26,11 +26,6 @@ export class MCPToolWorkflowRegistry {
   filters = new RuleBasedFilter();
 
   /**
-   * Optional analytics repositories that we pull workflows from
-   */
-  private analytics?: AnalyticsRepositoryRegistry;
-
-  /**
    * Local workflow folder
    */
   private localDir: string;
@@ -39,6 +34,11 @@ export class MCPToolWorkflowRegistry {
    * Logger, used to report problems reaching analytics repositories
    */
   private logger?: LogManager;
+
+  /**
+   * Optional analytics repositories that we pull workflows from
+   */
+  private repository?: AnalyticsRepositoryRegistry;
 
   /**
    * Watches the local workflow folder so new/removed files stay in sync
@@ -60,9 +60,9 @@ export class MCPToolWorkflowRegistry {
   } = {};
 
   constructor(options: IMCPToolWorkflowRegistryOptions) {
-    const { analytics, filters, localDir, logger } = options;
+    const { repository, filters, localDir, logger } = options;
     this.localDir = localDir;
-    this.analytics = analytics;
+    this.repository = repository;
     this.logger = logger;
 
     // make the local folder if it doesn't exist
@@ -203,10 +203,10 @@ export class MCPToolWorkflowRegistry {
    * If we can't reach the repositories, we log and keep the current workflows.
    */
   async list(): Promise<string[]> {
-    if (this.analytics) {
+    if (this.repository) {
       try {
         this.replaceRepositoryWorkflows(
-          await this.analytics.getENVIToolWorkflowPackages(),
+          await this.repository.getENVIToolWorkflowPackages(),
         );
       } catch (err) {
         this.logger?.log({
