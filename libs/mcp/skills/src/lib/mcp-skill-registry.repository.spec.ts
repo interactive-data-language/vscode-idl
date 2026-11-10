@@ -9,9 +9,28 @@ function Pkg(version: string, skills: any): IAnalyticRepository_ServerPackage {
   };
 }
 
+function Analytics(...results: IAnalyticRepository_ServerPackage[][]) {
+  const getSkillPackages = jest.fn();
+  for (const result of results) {
+    getSkillPackages.mockResolvedValueOnce(result);
+  }
+  return { getSkillPackages } as any;
+}
+
 describe('MCPSkillRegistry repository skills', () => {
   it('replaces repository skills with the latest version and keeps local skills', async () => {
-    const registry = new MCPSkillRegistry();
+    const registry = new MCPSkillRegistry({
+      analytics: Analytics(
+        [
+          Pkg('1.0.0', { Old: '---\nname: Old\ndescription: old\n---\nold' }),
+          Pkg('2.0.0', {
+            Local: '---\nname: Local\ndescription: conflict\n---\nnope',
+            New: '---\nname: New\ndescription: new\n---\nnew prompt',
+          }),
+        ],
+        [],
+      ),
+    });
     registry.addSkill({
       name: 'Local',
       description: 'local',
@@ -21,32 +40,50 @@ describe('MCPSkillRegistry repository skills', () => {
       },
     });
 
-    registry.replaceRepositorySkills([
-      Pkg('1.0.0', { Old: '---\nname: Old\ndescription: old\n---\nold' }),
-      Pkg('2.0.0', {
-        Local: '---\nname: Local\ndescription: conflict\n---\nnope',
-        New: '---\nname: New\ndescription: new\n---\nnew prompt',
-      }),
-    ]);
-
-    expect(registry.skillDescriptions()).toEqual({
+    expect(await registry.list()).toEqual({
       Local: 'local',
       New: 'new',
     });
 
-    // replaced again with nothing, repository items go away
-    registry.replaceRepositorySkills([]);
-    expect(Object.keys(registry.skillDescriptions())).toEqual(['Local']);
+    // listed again with nothing, repository items go away
+    expect(Object.keys(await registry.list())).toEqual(['Local']);
   });
 
   it('retrieves repository content on-demand', async () => {
-    const registry = new MCPSkillRegistry();
-    registry.replaceRepositorySkills([
+    const registry = new MCPSkillRegistry({
+      analytics: Analytics([
+        Pkg('1.0.0', {
+          New: '---\nname: New\ndescription: new\n---\nnew prompt',
+        }),
+      ]),
+    });
+    await registry.list();
+
+    expect(await registry.getSkill('new')).toBe('new prompt');
+  });
+
+  it('keeps existing repository skills when the refresh fails', async () => {
+    const analytics = Analytics([
       Pkg('1.0.0', {
         New: '---\nname: New\ndescription: new\n---\nnew prompt',
       }),
     ]);
+    const registry = new MCPSkillRegistry({ analytics });
+    await registry.list();
 
-    expect(await registry.getSkill('new')).toBe('new prompt');
+    analytics.getSkillPackages.mockRejectedValueOnce(new Error('offline'));
+
+    expect(await registry.list()).toEqual({ New: 'new' });
+  });
+
+  it('lists local skills when there are no analytics repositories', async () => {
+    const registry = new MCPSkillRegistry();
+    registry.addSkill({
+      name: 'Local',
+      description: 'local',
+      location: { type: 'memory', meta: { content: 'local' } },
+    });
+
+    expect(await registry.list()).toEqual({ Local: 'local' });
   });
 });

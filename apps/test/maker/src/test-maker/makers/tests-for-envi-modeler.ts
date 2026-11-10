@@ -70,7 +70,7 @@ export async function TestsForENVIModeler(
   strings.push(`index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);`);
   strings.push(``);
   strings.push(`// create registry`);
-  strings.push(`const registry = new MCPTaskRegistry(logManager);`);
+  strings.push(`const registry = new MCPTaskRegistry({ logger: logManager });`);
   strings.push(``);
   strings.push(`// populate registry`);
   strings.push(`registry.registerTasksFromGlobalTokens(`);
@@ -97,7 +97,7 @@ export async function TestsForENVIModeler(
   genIndex.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
 
   // create task registry
-  const genRegistry = new MCPTaskRegistry(genLogManager);
+  const genRegistry = new MCPTaskRegistry({ logger: genLogManager });
 
   // load the global tokens
   genRegistry.registerTasksFromGlobalTokens(

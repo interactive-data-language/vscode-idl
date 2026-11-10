@@ -6,14 +6,19 @@
       "type": "string",
       "title": "Formatter",
       "description": "Specify the formatting ruleset for your code.",
-      "enum": ["fiddle"],
+      "enum": [
+        "fiddle"
+      ],
       "default": "fiddle"
     },
     "eol": {
       "type": "string",
       "title": "End-of-line",
       "description": "Indicate whether we use the new line character (\"lf\", recommended) or Windows-style carriage-return-new-line (\"crlf\").",
-      "enum": ["lf", "crlf"],
+      "enum": [
+        "lf",
+        "crlf"
+      ],
       "default": "lf"
     },
     "tabWidth": {

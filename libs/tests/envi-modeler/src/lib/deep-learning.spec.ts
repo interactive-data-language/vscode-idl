@@ -30,7 +30,7 @@ const index = new IDLIndex(logManager, 1, false);
 index.loadGlobalTokens(DEFAULT_IDL_EXTENSION_CONFIG);
 
 // create registry
-const registry = new MCPTaskRegistry(logManager);
+const registry = new MCPTaskRegistry({ logger: logManager });
 
 // populate registry
 registry.registerTasksFromGlobalTokens(
