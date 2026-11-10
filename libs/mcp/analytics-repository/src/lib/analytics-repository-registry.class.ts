@@ -8,6 +8,8 @@ import type {
 } from '@idl/types/analytics-repository';
 import axios, { type AxiosResponse } from 'axios';
 
+import { REPOSITORY_TAGS } from './analytics-repository-registry.interface';
+
 export class AnalyticsRepositoryRegistry {
   /**
    * Track server access information
@@ -36,11 +38,29 @@ export class AnalyticsRepositoryRegistry {
   }
 
   /**
+   * Retrieve packages that have instructions
+   */
+  async getAgentInstructionPackages() {
+    return await this.searchRepositories({
+      tags: [REPOSITORY_TAGS.AGENT_INSTRUCTIONS],
+    });
+  }
+
+  /**
+   * Retrieve packages that have skills
+   */
+  async getAgentSkillPackages() {
+    return await this.searchRepositories({
+      tags: [REPOSITORY_TAGS.AGENT_SKILL],
+    });
+  }
+
+  /**
    * Retrieve packages that have ENVI Tasks
    */
   async getENVITaskPackages() {
     return await this.searchRepositories({
-      tags: ['ENVI Task'],
+      tags: [REPOSITORY_TAGS.ENVI_TASK],
     });
   }
 
@@ -49,7 +69,7 @@ export class AnalyticsRepositoryRegistry {
    */
   async getENVIToolWorkflowPackages() {
     return await this.searchRepositories({
-      tags: ['ENVI Tool Workflow'],
+      tags: [REPOSITORY_TAGS.ENVI_TOOL_WORKFLOW],
     });
   }
 
@@ -58,7 +78,7 @@ export class AnalyticsRepositoryRegistry {
    */
   async getIDLTaskPackages() {
     return await this.searchRepositories({
-      tags: ['IDL Task'],
+      tags: [REPOSITORY_TAGS.IDL_TASK],
     });
   }
 
@@ -67,16 +87,7 @@ export class AnalyticsRepositoryRegistry {
    */
   async getIDLToolWorkflowPackages() {
     return await this.searchRepositories({
-      tags: ['IDL Tool Workflow'],
-    });
-  }
-
-  /**
-   * Retrieve packages that have instructions
-   */
-  async getInstructionPackages() {
-    return await this.searchRepositories({
-      tags: ['Instructions'],
+      tags: [REPOSITORY_TAGS.IDL_TOOL_WORKFLOW],
     });
   }
 
@@ -105,15 +116,6 @@ export class AnalyticsRepositoryRegistry {
     return found.find(
       (item) => item.package.name === name && item.package.version === version,
     );
-  }
-
-  /**
-   * Retrieve packages that have skills
-   */
-  async getSkillPackages() {
-    return await this.searchRepositories({
-      tags: ['Skill'],
-    });
   }
 
   /**

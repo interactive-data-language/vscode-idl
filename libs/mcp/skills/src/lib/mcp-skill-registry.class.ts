@@ -127,7 +127,9 @@ export class MCPSkillRegistry {
   async list(): Promise<{ [key: string]: string }> {
     if (this.repository) {
       try {
-        this.replaceRepositorySkills(await this.repository.getSkillPackages());
+        this.replaceRepositorySkills(
+          await this.repository.getAgentSkillPackages(),
+        );
       } catch (err) {
         this.logger?.log({
           log: IDL_MCP_LOG,
