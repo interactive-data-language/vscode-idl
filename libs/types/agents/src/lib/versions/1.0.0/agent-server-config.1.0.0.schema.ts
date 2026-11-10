@@ -44,15 +44,20 @@ const OllamaModelSchema_1_0_0 = z.object({
   model: z.literal('ollama'),
 });
 
+/**
+ * Accessing an analytics repository
+ */
+const AnalyticsRepository_1_0_0 = z.object({
+  headers: HeadersSchema_1_0_0,
+  url: z.string(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+});
+
 export const AgentServerConfigSchema_1_0_0 = z.object({
   /** Analytics repositories to search for skills, workflows, and tools */
   analyticsRepositories: z
-    .array(
-      z.object({
-        headers: HeadersSchema_1_0_0,
-        url: z.string(),
-      }),
-    )
+    .array(AnalyticsRepository_1_0_0)
     .optional()
     .default([]),
   agent: z.object({

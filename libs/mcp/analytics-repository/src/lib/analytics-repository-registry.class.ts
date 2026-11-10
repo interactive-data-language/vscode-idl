@@ -8,7 +8,6 @@ import type {
   IAnalyticsRepository_SearchFilter,
   IAnalyticsRepository_SearchResponse,
   IAnalyticsRepository_ServerInfo,
-  IAnalyticsRepositoryAccessInfo,
 } from '@idl/types/analytics-repository';
 import axios, { type AxiosResponse } from 'axios';
 
@@ -16,14 +15,6 @@ import { REPOSITORY_TAGS } from './analytics-repository-registry.interface';
 import { MatchesFilter } from './matches-filter';
 
 export class AnalyticsRepositoryRegistry {
-  /**
-   * Track server access information
-   *
-   * Literal value of "undefined" if we haven't retrieved the
-   * value already
-   */
-  private accessInfo: (IAnalyticsRepositoryAccessInfo | undefined)[] = [];
-
   /**
    * Folder with locally installed packages, where each package is a
    * sub-folder with a "manifest.json" file
@@ -37,7 +28,6 @@ export class AnalyticsRepositoryRegistry {
 
   constructor(servers: IAnalyticsRepository_ServerInfo[] = []) {
     this.servers = servers;
-    this.accessInfo = servers.map(() => undefined);
   }
 
   /**
@@ -45,7 +35,6 @@ export class AnalyticsRepositoryRegistry {
    */
   addServer(server: IAnalyticsRepository_ServerInfo) {
     this.servers.push(server);
-    this.accessInfo.push(undefined);
   }
 
   /**
@@ -230,7 +219,6 @@ export class AnalyticsRepositoryRegistry {
    */
   setServers(servers: IAnalyticsRepository_ServerInfo[]) {
     this.servers = [...servers];
-    this.accessInfo = servers.map(() => undefined);
   }
 
   /**

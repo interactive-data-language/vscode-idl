@@ -13,18 +13,6 @@ export interface IAnalyticsRepository_ServerInfo {
 }
 
 /**
- * Information about access token so we can refresh automatically
- */
-export interface IAnalyticsRepositoryAccessInfo {
-  /** Time we created the token at */
-  created: number;
-  /** Refresh token */
-  refresh: string;
-  /** Access token */
-  token: string;
-}
-
-/**
  * Filter options when searching repository packages
  */
 export interface IAnalyticsRepository_SearchFilter {
