@@ -6,18 +6,31 @@ import type { ChatInstructionOption } from './chat-types.interface';
 export type ListAgentInstructionsResponse = ChatInstructionOption[];
 
 /**
- * Response for GET /api/config/list/skills
- *
- * Skill names and their descriptions
+ * Common shape for items returned from list routes
  */
-export type ListAgentSkillsResponse = { [name: string]: string };
+export interface IListItem {
+  /** Optional description */
+  description?: string;
+  /** Unique ID for the item */
+  id: string;
+  /** Display name */
+  name: string;
+}
 
 /**
- * Response for GET /api/config/list/idl-installs
+ * Response for GET /api/config/list/agent-skills
  *
- * Available IDL versions that match our version requirement
+ * Skills with their descriptions
  */
-export type ListIDLLocationsResponse = string[];
+export type ListAgentSkillsResponse = IListItem[];
+
+/**
+ * Response for GET /api/config/list/idl-locations
+ *
+ * Available IDL installs that match our version requirement, where the ID
+ * and name are the install location
+ */
+export type ListIDLLocationsResponse = IListItem[];
 
 /**
  * Details for a tool on the MCP server
@@ -48,13 +61,13 @@ export type ListMCPToolsResponse = IMCPToolListItem[];
 /**
  * Response for GET /api/config/list/envi-tools
  *
- * ENVI tool display names and their descriptions
+ * ENVI tools with their descriptions
  */
-export type ListENVIToolsResponse = { [displayName: string]: string };
+export type ListENVIToolsResponse = IListItem[];
 
 /**
  * Response for GET /api/config/list/envi-tool-workflows
  *
- * Names of ENVI tool workflows
+ * ENVI tool workflows
  */
-export type ListENVIToolWorkflowsResponse = string[];
+export type ListENVIToolWorkflowsResponse = IListItem[];

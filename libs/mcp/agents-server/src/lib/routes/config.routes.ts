@@ -80,7 +80,10 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListAgentSkillsResponse>(
     '/list/agent-skills',
     'Agent Skills',
-    () => MCP_SKILL_REGISTRY.list({ ignoreFilters: true }),
+    async () =>
+      Object.entries(
+        await MCP_SKILL_REGISTRY.list({ ignoreFilters: true }),
+      ).map(([name, description]) => ({ id: name, name, description })),
   );
 
   /**
@@ -97,7 +100,14 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListENVIToolsResponse>(
     '/list/envi-tools',
     'ENVI tools',
-    async () => (await MCP_TASK_REGISTRY?.list({ ignoreFilters: true })) || {},
+    async () =>
+      Object.entries(
+        (await MCP_TASK_REGISTRY?.list({ ignoreFilters: true })) || {},
+      ).map(([name, description]) => ({
+        id: name,
+        name,
+        description,
+      })),
   );
 
   /**
@@ -107,7 +117,10 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListENVIToolWorkflowsResponse>(
     '/list/envi-tool-workflows',
     'ENVI Tool workflows',
-    () => ENVI_TOOL_WORKFLOW_REGISTRY.list({ ignoreFilters: true }),
+    async () =>
+      (await ENVI_TOOL_WORKFLOW_REGISTRY.list({ ignoreFilters: true })).map(
+        (name) => ({ id: name, name }),
+      ),
   );
 
   /**
@@ -116,7 +129,11 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListIDLLocationsResponse>(
     '/list/idl-locations',
     'IDL Locations',
-    () => FindMatchingIDLInstalls('9.2', '>='),
+    async () =>
+      (await FindMatchingIDLInstalls('9.2', '>=')).map((location) => ({
+        id: location,
+        name: location,
+      })),
   );
 
   return router;
