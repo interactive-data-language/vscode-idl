@@ -1,6 +1,12 @@
-import { compare, type CompareOperator } from 'compare-versions';
+import {
+  compare,
+  type CompareOperator,
+  compareVersions,
+} from 'compare-versions';
 import * as os from 'os';
+import { normalize } from 'path';
 
+import { FindIDLInWindowsRegistry } from './find-idl-in-windows-registry';
 import { IDL_DIRS } from './idl-dirs.interface';
 import { ValidateIDLDir } from './validate-idl-dir';
 
@@ -46,10 +52,36 @@ export function GetIDLVersionFromDir(dir: string): string | undefined {
 }
 
 /**
- * Finds all valid IDL installations in the default locations that
- * satisfy a version comparison.
+ * Checks if an IDL installation directory satisfies a version comparison
  *
- * Results are in the order of IDL_DIRS (newest first).
+ * @param dir IDL installation directory
+ * @param version IDL version to compare against, as "idl92" or "9.2".
+ *   If not provided, every directory matches.
+ * @param operator How the directory is compared to the version
+ */
+export function MatchesIDLVersion(
+  dir: string,
+  version?: string,
+  operator: CompareOperator = '=',
+): boolean {
+  if (!version) {
+    return true;
+  }
+
+  const target = NormalizeIDLVersion(version);
+  const dirVersion = GetIDLVersionFromDir(dir);
+  if (!target || !dirVersion) {
+    return false;
+  }
+
+  return compare(dirVersion, target, operator);
+}
+
+/**
+ * Finds all valid IDL installations that satisfy a version comparison.
+ *
+ * Checks the default locations first (in the order of IDL_DIRS, newest first)
+ * and then, on Windows, any other installs found in the registry (newest first).
  *
  * @param version IDL version to compare against, as "idl92" or "9.2".
  *   If not provided, all installations are returned.
@@ -60,26 +92,42 @@ export function FindMatchingIDLInstalls(
   version?: string,
   operator: CompareOperator = '=',
 ): string[] {
-  const target = version ? NormalizeIDLVersion(version) : undefined;
-  if (version && !target) {
-    return [];
-  }
-
   const found: string[] = [];
-  const testDirs = IDL_DIRS[os.platform()] || [];
-  for (let i = 0; i < testDirs.length; i++) {
-    const dir = testDirs[i];
+  const seen = new Set<string>();
 
-    if (target) {
-      const dirVersion = GetIDLVersionFromDir(dir);
-      if (!dirVersion || !compare(dirVersion, target, operator)) {
-        continue;
-      }
+  /** Adds a directory if it matches and we haven't seen it */
+  const add = (dir: string) => {
+    const key = normalize(dir).toLowerCase();
+    if (seen.has(key) || !MatchesIDLVersion(dir, version, operator)) {
+      return;
     }
 
+    // make sure dir exists and has IDL executable
     if (ValidateIDLDir(dir)) {
+      seen.add(key);
       found.push(dir);
     }
+  };
+
+  /**
+   * Check all known folders
+   */
+  const testDirs = IDL_DIRS[os.platform()] || [];
+  for (let i = 0; i < testDirs.length; i++) {
+    add(testDirs[i]);
+  }
+
+  /**
+   * Check windows registry
+   */
+  const registry = FindIDLInWindowsRegistry().sort((a, b) =>
+    compareVersions(
+      GetIDLVersionFromDir(b) || '0.0',
+      GetIDLVersionFromDir(a) || '0.0',
+    ),
+  );
+  for (let i = 0; i < registry.length; i++) {
+    add(registry[i]);
   }
 
   return found;

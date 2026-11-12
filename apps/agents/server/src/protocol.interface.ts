@@ -43,6 +43,12 @@ export interface IValidateRequest {
   type: 'validate';
 }
 
+/** Lists the IDL installations (9.2 or newer) the server can use */
+export interface IListIDLLocationsRequest {
+  id: number;
+  type: 'list-idl-locations';
+}
+
 export interface IStartRequest {
   id: number;
   overrides?: IAgentsServerStartOverrides;
@@ -55,6 +61,7 @@ export interface IStopRequest {
 
 export type AgentsServerRequest =
   | IGetConfigRequest
+  | IListIDLLocationsRequest
   | IStartRequest
   | IStopRequest
   | IUpdateConfigRequest
@@ -79,6 +86,14 @@ export interface IValidationMessage {
   id: number;
   problems: IConfigProblem[];
   type: 'validation';
+}
+
+/** Response to `list-idl-locations` */
+export interface IIDLLocationsMessage {
+  id: number;
+  /** Folders where the IDL executable lives (i.e. bin directory), newest first */
+  locations: string[];
+  type: 'idl-locations';
 }
 
 /** Response to `start` once the server is listening */
@@ -110,6 +125,7 @@ export type AgentsServerMessage =
   | IConfigMessage
   | IErrorMessage
   | IHelloMessage
+  | IIDLLocationsMessage
   | ILogMessage
   | IReadyMessage
   | IValidationMessage;

@@ -1,36 +1,29 @@
+import type { CompareOperator } from 'compare-versions';
 import * as os from 'os';
 import * as path from 'path';
 
-import { FindIDLInWindowsRegistry } from './find-idl-in-windows-registry';
-import { IDL_DIRS } from './idl-dirs.interface';
-import { ValidateIDLDir } from './validate-idl-dir';
+import { FindMatchingIDLInstalls } from './find-matching-idl-installs';
 
 /**
  * Checks expected locations for IDL 8.4+ and returns
  * the folder if found.
  *
  * The folder is where the IDL executable lives (i.e. bin directory)
+ *
+ * @param version IDL version to compare against, as "idl92" or "9.2".
+ *   If not provided, the newest install is returned.
+ * @param operator How each install is compared to the version. For example,
+ *   `>=` returns the newest install that is the same as or newer than `version`.
  */
-export function FindIDL(version?: string): string | undefined {
-  // detect IDL's installation directory
-  let idlDir: string | undefined = undefined;
-
-  // check default locations
-  const testDirs = IDL_DIRS[os.platform()];
-  for (let i = 0; i < testDirs.length; i++) {
-    const dir = testDirs[i];
-    if (version) {
-      if (ValidateIDLDir(dir) && dir.toLowerCase().includes(version)) {
-        idlDir = dir;
-        break;
-      }
-    } else {
-      if (ValidateIDLDir(dir)) {
-        idlDir = dir;
-        break;
-      }
-    }
-  }
+export function FindIDL(
+  version?: string,
+  operator: CompareOperator = '=',
+): string | undefined {
+  // check default locations and, on Windows, the registry
+  let idlDir: string | undefined = FindMatchingIDLInstalls(
+    version,
+    operator,
+  )[0];
 
   // check the environment variable if we didnt find anything
   if (idlDir === undefined) {
@@ -56,16 +49,6 @@ export function FindIDL(version?: string): string | undefined {
         idlDir += `${path.sep}${add}`;
       }
     }
-  }
-
-  /**
-   * If windows, check registry key for IDL installation
-   */
-  if (idlDir === undefined && os.platform() === 'win32') {
-    const registry = FindIDLInWindowsRegistry();
-    idlDir = version
-      ? registry.find((dir) => dir.toLowerCase().includes(version))
-      : registry[0];
   }
 
   return idlDir;

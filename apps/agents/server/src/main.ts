@@ -1,3 +1,4 @@
+import { FindMatchingIDLInstalls } from '@idl/idl/files';
 import {
   type IConfigProblem,
   type IStartAgentsServerResult,
@@ -173,6 +174,14 @@ async function mainAsWorker() {
       switch (msg.type) {
         case 'get-config':
           PostMessage({ type: 'config', id: msg.id, config });
+          break;
+
+        case 'list-idl-locations':
+          PostMessage({
+            type: 'idl-locations',
+            id: msg.id,
+            locations: FindMatchingIDLInstalls('9.2', '>='),
+          });
           break;
 
         case 'start': {

@@ -31,13 +31,14 @@ sequenceDiagram
 
 Host to server. Every request except `stop` has a numeric `id` that is echoed in the response.
 
-| Type            | Fields                        | Response                                                                    |
-| --------------- | ----------------------------- | --------------------------------------------------------------------------- |
-| `get-config`    |                               | `config`                                                                    |
-| `update-config` | `config` (partial)            | `config`. Deep-merged, defaults filled, saved to disk. Arrays are replaced. |
-| `validate`      |                               | `validation` with `problems`. No side effects.                              |
-| `start`         | `overrides?` (`host`, `port`) | `ready` with `port`, or `error`. Validates again before starting.           |
-| `stop`          |                               | None. The worker shuts down and exits.                                      |
+| Type                 | Fields                        | Response                                                                     |
+| -------------------- | ----------------------------- | ---------------------------------------------------------------------------- |
+| `get-config`         |                               | `config`                                                                     |
+| `update-config`      | `config` (partial)            | `config`. Deep-merged, defaults filled, saved to disk. Arrays are replaced.  |
+| `validate`           |                               | `validation` with `problems`. No side effects.                               |
+| `list-idl-locations` |                               | `idl-locations` with `locations`, the IDL 9.2+ folders found (newest first). |
+| `start`              | `overrides?` (`host`, `port`) | `ready` with `port`, or `error`. Validates again before starting.            |
+| `stop`               |                               | None. The worker shuts down and exits.                                       |
 
 Server to host.
 
@@ -53,7 +54,7 @@ After `start`, config changes need a new worker. If `start` fails (`START_FAILED
 
 ## Example
 
-[launch-as-worker.example.cjs](../../apps/agents/server/src/examples/launch-as-worker.example.cjs) is a self-contained host that runs `hello`, `validate`, `start`, then `stop` on Ctrl+C.
+[launch-as-worker.example.cjs](../../apps/agents/server/src/examples/launch-as-worker.example.cjs) is a self-contained host that runs `hello`, `list-idl-locations`, `validate`, `start`, then `stop` on Ctrl+C.
 
 ```bash
 nx build agents-server

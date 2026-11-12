@@ -1,8 +1,6 @@
 import { execFileSync } from 'child_process';
-import { compareVersions } from 'compare-versions';
 import { join } from 'path';
 
-import { GetIDLVersionFromDir } from './find-matching-idl-installs';
 import { ValidateIDLDir } from './validate-idl-dir';
 
 /**
@@ -53,8 +51,8 @@ function QueryRegistry(key: string): string {
  * Checks the Windows registry for IDL installations, which finds installs
  * that are not in our default locations.
  *
- * Returns the folders where the IDL executable lives (i.e. bin directory),
- * newest version first. Always empty on non-Windows platforms.
+ * Returns the folders where the IDL executable lives (i.e. bin directory).
+ * Always empty on non-Windows platforms.
  */
 export function FindIDLInWindowsRegistry(): string[] {
   if (process.platform !== 'win32') {
@@ -72,11 +70,5 @@ export function FindIDLInWindowsRegistry(): string[] {
     }
   }
 
-  // newest first, unknown versions last
-  return Array.from(found).sort((a, b) =>
-    compareVersions(
-      GetIDLVersionFromDir(b) || '0.0',
-      GetIDLVersionFromDir(a) || '0.0',
-    ),
-  );
+  return Array.from(found);
 }

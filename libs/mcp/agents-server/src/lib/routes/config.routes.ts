@@ -15,7 +15,6 @@ import type {
   ListMCPToolsResponse,
 } from '@idl/types/chat';
 import { Router } from 'express';
-import { existsSync } from 'fs';
 
 import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
 
@@ -117,13 +116,7 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListIDLLocationsResponse>(
     '/list/idl-locations',
     'IDL Locations',
-    () => {
-      // load candidate locations for version 9.2 or later (required for agent)
-      const candidates = FindMatchingIDLInstalls('9.2');
-
-      // return which folders exist
-      return candidates.filter((item) => existsSync(item));
-    },
+    () => FindMatchingIDLInstalls('9.2', '>='),
   );
 
   return router;

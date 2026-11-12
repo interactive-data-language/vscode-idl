@@ -127,6 +127,10 @@ async function main() {
     console.log(`[${msg.level}] [${msg.log}]`, ...msg.content);
   });
 
+  // IDL installs (9.2 or newer) that can be set in the config before starting
+  const { locations } = await server.request('list-idl-locations');
+  console.log('IDL locations:', locations);
+
   const { problems } = await server.request('validate');
 
   if (problems.length > 0) {
