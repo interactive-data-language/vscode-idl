@@ -4,6 +4,7 @@ export * from './lib/dot-idl-folder.interface';
 export * from './lib/find-files';
 export * from './lib/find-files.interface';
 export * from './lib/find-idl';
+export * from './lib/find-matching-idl-installs';
 export * from './lib/get-canonical-path';
 export * from './lib/get-extension-path';
 export * from './lib/get-fs-path';

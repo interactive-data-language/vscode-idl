@@ -42,6 +42,8 @@ export type MCPToolCallback<Args extends ZodRawShape, Tool extends MCPTools> = (
 
 /**
  * Parameters for registering a new tool
+ *
+ * Any changes to this should be reflected in IMCPToolListItem in: libs\types\chat\src\lib\chat-lists.interface.ts
  */
 export type MCPRegistryToolInfo<Args extends ZodRawShape> = {
   title: string;
@@ -49,6 +51,22 @@ export type MCPRegistryToolInfo<Args extends ZodRawShape> = {
   inputSchema: Args;
   icons?: Icon[];
 };
+
+/**
+ * Public details for a registered tool (no callbacks or schemas)
+ *
+ * Any changes to this should be reflected in IMCPToolListItem in: libs\types\chat\src\lib\chat-lists.interface.ts
+ */
+export interface IMCPToolListItem {
+  /** Full description */
+  description: string;
+  /** Optional icons */
+  icons?: Icon[];
+  /** Tool ID (the name it is registered with) */
+  id: string;
+  /** Display title */
+  title: string;
+}
 
 /**
  * Options for starting the MCPServer

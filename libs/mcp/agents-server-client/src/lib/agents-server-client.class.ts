@@ -5,6 +5,12 @@ import type {
   ChatMessageRequest,
   ChatStreamChunk,
   ExamplePromptsResponse,
+  ListAgentInstructionsResponse,
+  ListAgentSkillsResponse,
+  ListENVIToolsResponse,
+  ListENVIToolWorkflowsResponse,
+  ListIDLLocationsResponse,
+  ListMCPToolsResponse,
 } from '@idl/types/chat';
 import type {
   MCPToolHTTPResponse,
@@ -166,6 +172,89 @@ export class AgentsServerClient {
       await this.axios.post<AvailableModelsResponse>(
         '/api/chat/models',
         request,
+        options,
+      )
+    ).data;
+  }
+
+  /**
+   * Lists the agent instructions
+   */
+  async listAgentInstructions(
+    options?: IAgentsServerRequestOptions,
+  ): Promise<ListAgentInstructionsResponse> {
+    return (
+      await this.axios.get<ListAgentInstructionsResponse>(
+        '/api/config/list/agent-instructions',
+        options,
+      )
+    ).data;
+  }
+
+  /**
+   * Lists the skills available for the agent
+   */
+  async listAgentSkills(
+    options?: IAgentsServerRequestOptions,
+  ): Promise<ListAgentSkillsResponse> {
+    return (
+      await this.axios.get<ListAgentSkillsResponse>(
+        '/api/config/list/agent-skills',
+        options,
+      )
+    ).data;
+  }
+
+  /**
+   * Lists the tools that the agent server has available
+   */
+  async listENVITools(
+    options?: IAgentsServerRequestOptions,
+  ): Promise<ListENVIToolsResponse> {
+    return (
+      await this.axios.get<ListENVIToolsResponse>(
+        '/api/config/list/envi-tools',
+        options,
+      )
+    ).data;
+  }
+
+  /**
+   * Lists the ENVI Tool Workflows that the agent server has
+   */
+  async listENVIToolWorkflows(
+    options?: IAgentsServerRequestOptions,
+  ): Promise<ListENVIToolWorkflowsResponse> {
+    return (
+      await this.axios.get<ListENVIToolWorkflowsResponse>(
+        '/api/config/list/envi-tool-workflows',
+        options,
+      )
+    ).data;
+  }
+
+  /**
+   * Lists the available install locations for IDL and ENVI
+   *
+   * Filtered to make sure we have the right version
+   */
+  async listIDLLocations(): Promise<ListIDLLocationsResponse> {
+    return (
+      await this.axios.get<ListIDLLocationsResponse>(
+        '/api/config/list/idl-locations',
+      )
+    ).data;
+  }
+
+  /**
+   * Lists the MCP tools that our server has available
+   */
+  async listMCPTools(
+    options?: IAgentsServerRequestOptions,
+  ): Promise<ListMCPToolsResponse> {
+    return (
+      await this.axios.get<ListMCPToolsResponse>(
+        '/api/config/list/mcp-tools',
         options,
       )
     ).data;

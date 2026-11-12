@@ -27,6 +27,7 @@ import { LOCAL_IPS } from './local-ips.interface';
 import {
   type IMCPConnection,
   type IMCPServerOptions,
+  type IMCPToolListItem,
   type IRegisteredTool,
   MCP_SERVER_CONFIG,
   MCP_SERVER_SUPPORTED_PROTOCOL_VERSIONS,
@@ -141,6 +142,18 @@ export class MCPServer {
       MCPServer._instance.shutdown();
       MCPServer._instance = undefined;
     }
+  }
+
+  /**
+   * Lists the registered tools with their ID, title, description, and icons
+   */
+  listTools(): IMCPToolListItem[] {
+    return Object.entries(this.tools).map(([id, tool]) => ({
+      id,
+      title: tool.info.title,
+      description: tool.info.description,
+      icons: tool.info.icons,
+    }));
   }
 
   /**
