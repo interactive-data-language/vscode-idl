@@ -6,6 +6,7 @@ import {
 } from '@idl/mcp/analytics-repository';
 import {
   RegistryFileWatcher,
+  type IRegistryListOptions,
   type RegistryLocation,
   type RegistryLocation_File,
   type RegistryLocation_Memory,
@@ -184,9 +185,9 @@ export class MCPToolWorkflowRegistry {
   /**
    * Returns all workflow names
    */
-  getWorkflowNames() {
-    return Object.keys(this.workflows).filter((itemName) =>
-      this.filters.isAllowedByFilters(itemName),
+  getWorkflowNames(ignoreFilters = false) {
+    return Object.keys(this.workflows).filter(
+      (itemName) => ignoreFilters || this.filters.isAllowedByFilters(itemName),
     );
   }
 
@@ -203,7 +204,7 @@ export class MCPToolWorkflowRegistry {
    *
    * If we can't reach the repositories, we log and keep the current workflows.
    */
-  async list(): Promise<string[]> {
+  async list(options?: IRegistryListOptions): Promise<string[]> {
     if (this.repository) {
       try {
         this.replaceRepositoryWorkflows(
@@ -221,7 +222,7 @@ export class MCPToolWorkflowRegistry {
       }
     }
 
-    return this.getWorkflowNames();
+    return this.getWorkflowNames(options?.ignoreFilters);
   }
 
   /**

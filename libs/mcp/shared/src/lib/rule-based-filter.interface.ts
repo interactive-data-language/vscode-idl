@@ -38,3 +38,15 @@ export const DEFAULT_FILTER_SETS: IRuleBasedFilterSets = {
   blacklist: new Set(),
   whitelist: new Set(),
 };
+
+/**
+ * Options for the `list()` method on registries
+ */
+export interface IRegistryListOptions {
+  /**
+   * If true, the configured whitelist and blacklist are not applied.
+   *
+   * Use for configuration where everything needs to be available
+   */
+  ignoreFilters?: boolean;
+}

@@ -5,6 +5,7 @@ import {
   PackageSource,
 } from '@idl/mcp/analytics-repository';
 import {
+  type IRegistryListOptions,
   RegistryFileWatcher,
   RegistryLocationHelpers,
   RuleBasedFilter,
@@ -216,11 +217,12 @@ export class MCPInstructionsRegistry {
   /**
    * Returns available chat instruction options formatted for the API / UI
    */
-  getInstructionOptionsForUI(): ChatInstructionOption[] {
+  getInstructionOptionsForUI(ignoreFilters = false): ChatInstructionOption[] {
     return Object.values(this.instructions)
       .filter(
         (item) =>
-          this.filters.isAllowedByFilters(item.metadata.id) &&
+          (ignoreFilters ||
+            this.filters.isAllowedByFilters(item.metadata.id)) &&
           !item.metadata.hidden,
       )
       .map((item) => {
@@ -245,7 +247,7 @@ export class MCPInstructionsRegistry {
    *
    * If we can't reach the repositories, we log and keep the current instructions.
    */
-  async list(): Promise<ChatInstructionOption[]> {
+  async list(options?: IRegistryListOptions): Promise<ChatInstructionOption[]> {
     if (this.repository) {
       try {
         this.replaceRepositoryInstructions(
@@ -263,7 +265,7 @@ export class MCPInstructionsRegistry {
       }
     }
 
-    return this.getInstructionOptionsForUI();
+    return this.getInstructionOptionsForUI(options?.ignoreFilters);
   }
 
   /**

@@ -72,7 +72,7 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListAgentInstructionsResponse>(
     '/list/agent-instructions',
     'Agent Instructions',
-    () => MCP_INSTRUCTION_REGISTRY.list(),
+    () => MCP_INSTRUCTION_REGISTRY.list({ ignoreFilters: true }),
   );
 
   /**
@@ -81,7 +81,7 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListAgentSkillsResponse>(
     '/list/agent-skills',
     'Agent Skills',
-    () => MCP_SKILL_REGISTRY.list(),
+    () => MCP_SKILL_REGISTRY.list({ ignoreFilters: true }),
   );
 
   /**
@@ -98,7 +98,7 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListENVIToolsResponse>(
     '/list/envi-tools',
     'ENVI tools',
-    async () => (await MCP_TASK_REGISTRY?.list()) || {},
+    async () => (await MCP_TASK_REGISTRY?.list({ ignoreFilters: true })) || {},
   );
 
   /**
@@ -108,7 +108,7 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListENVIToolWorkflowsResponse>(
     '/list/envi-tool-workflows',
     'ENVI Tool workflows',
-    () => ENVI_TOOL_WORKFLOW_REGISTRY.list(),
+    () => ENVI_TOOL_WORKFLOW_REGISTRY.list({ ignoreFilters: true }),
   );
 
   /**

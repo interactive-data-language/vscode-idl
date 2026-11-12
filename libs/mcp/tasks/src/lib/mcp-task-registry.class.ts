@@ -7,6 +7,7 @@ import {
 import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
 import {
+  type IRegistryListOptions,
   type RegistryLocation,
   type RegistryLocation_File,
   type RegistryLocationKind,
@@ -144,11 +145,11 @@ export class MCPTaskRegistry {
    * Returns all task descriptions by task name, filtered by the current
    * whitelist and blacklist
    */
-  getDescriptions() {
+  getDescriptions(ignoreFilters = false) {
     const descriptions: { [key: string]: string } = {};
     const entries = Object.entries(this.tasks);
     for (let i = 0; i < entries.length; i++) {
-      if (!this.filters.isAllowedByFilters(entries[i][0])) {
+      if (!ignoreFilters && !this.filters.isAllowedByFilters(entries[i][0])) {
         continue;
       }
       descriptions[entries[i][1].displayName] = entries[i][1].description;
@@ -185,7 +186,7 @@ export class MCPTaskRegistry {
    *
    * If we can't reach the repositories, we log and keep the current tasks.
    */
-  async list() {
+  async list(options?: IRegistryListOptions) {
     if (this.repository) {
       try {
         await this.replaceRepositoryTasks(
@@ -203,7 +204,7 @@ export class MCPTaskRegistry {
       }
     }
 
-    return this.getDescriptions();
+    return this.getDescriptions(options?.ignoreFilters);
   }
 
   /**

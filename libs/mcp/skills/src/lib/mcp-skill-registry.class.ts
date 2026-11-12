@@ -4,7 +4,11 @@ import {
   LatestPackages,
   PackageSource,
 } from '@idl/mcp/analytics-repository';
-import { RegistryLocationHelpers, RuleBasedFilter } from '@idl/mcp/shared';
+import {
+  type IRegistryListOptions,
+  RegistryLocationHelpers,
+  RuleBasedFilter,
+} from '@idl/mcp/shared';
 import type { IAnalyticRepository_ServerPackage } from '@idl/types/analytics-repository';
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { basename, join } from 'path';
@@ -125,7 +129,9 @@ export class MCPSkillRegistry {
    *
    * If we can't reach the repositories, we log and keep the current skills.
    */
-  async list(): Promise<{ [key: string]: string }> {
+  async list(
+    options?: IRegistryListOptions,
+  ): Promise<{ [key: string]: string }> {
     if (this.repository) {
       try {
         this.replaceRepositorySkills(
@@ -143,7 +149,7 @@ export class MCPSkillRegistry {
       }
     }
 
-    return this.skillDescriptions();
+    return this.skillDescriptions(options?.ignoreFilters);
   }
 
   /**
@@ -188,12 +194,12 @@ export class MCPSkillRegistry {
   /**
    * Returns descriptions for all registered skills
    */
-  skillDescriptions(): { [key: string]: string } {
+  skillDescriptions(ignoreFilters = false): { [key: string]: string } {
     const descriptions: { [key: string]: string } = {};
     const skillList = Object.values(this.skills);
 
     for (const skill of skillList) {
-      if (!this.filters.isAllowedByFilters(skill.name)) {
+      if (!ignoreFilters && !this.filters.isAllowedByFilters(skill.name)) {
         continue;
       }
       descriptions[skill.name] = skill.description;
