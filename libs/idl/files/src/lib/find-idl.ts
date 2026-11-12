@@ -1,6 +1,7 @@
 import * as os from 'os';
 import * as path from 'path';
 
+import { FindIDLInWindowsRegistry } from './find-idl-in-windows-registry';
 import { IDL_DIRS } from './idl-dirs.interface';
 import { ValidateIDLDir } from './validate-idl-dir';
 
@@ -55,6 +56,16 @@ export function FindIDL(version?: string): string | undefined {
         idlDir += `${path.sep}${add}`;
       }
     }
+  }
+
+  /**
+   * If windows, check registry key for IDL installation
+   */
+  if (idlDir === undefined && os.platform() === 'win32') {
+    const registry = FindIDLInWindowsRegistry();
+    idlDir = version
+      ? registry.find((dir) => dir.toLowerCase().includes(version))
+      : registry[0];
   }
 
   return idlDir;
