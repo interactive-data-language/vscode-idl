@@ -16,8 +16,6 @@ compliance/copyrights.json
 compliance/licenses.json
 dist/.client-id
 dist/apps/agents/**
-dist/apps/agents-desktop-app
-dist/apps/agents-ui
 dist/apps/vscode/client/3rdpartylicenses.txt
 dist/apps/vscode/client/assets/.gitkeep
 dist/apps/test/client/**
