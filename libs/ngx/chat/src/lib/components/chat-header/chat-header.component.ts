@@ -39,6 +39,15 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class ChatHeaderComponent {
   protected readonly chatLayoutService = inject(ChatLayoutService);
 
+  private readonly store = inject(Store);
+
+  /**
+   * Currently selected chat session, used for the mobile title
+   */
+  protected readonly selectedSession = this.store.selectSignal(
+    ChatState.selectedSession,
+  );
+
   /**
    * Title, tooltip, and whether to show the logo to display in the header,
    * based on the current mobile/list/session state
@@ -69,15 +78,6 @@ export class ChatHeaderComponent {
    * Current theme mode
    */
   protected readonly isDarkMode = this.themeService.isDarkMode;
-
-  private readonly store = inject(Store);
-
-  /**
-   * Currently selected chat session, used for the mobile title
-   */
-  protected readonly selectedSession = this.store.selectSignal(
-    ChatState.selectedSession,
-  );
 
   private readonly dialog = inject(MatDialog);
 
