@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
   type AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -59,6 +60,7 @@ const OUTLINED_CLASS = 'vscode-outlined-focus';
     MapComponent,
     PlotComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [DataSharingService],
 })
 export class EntryComponent implements AfterViewInit {

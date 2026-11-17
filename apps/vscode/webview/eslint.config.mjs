@@ -1,45 +1,34 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import js from '@eslint/js';
+import angular from 'angular-eslint';
 import baseConfig from '../../../eslint.config.mjs';
 import nx from '@nx/eslint-plugin';
-
-const compat = new FlatCompat({
-  baseDirectory: dirname(fileURLToPath(import.meta.url)),
-  recommendedConfig: js.configs.recommended,
-});
 
 export default [
   ...baseConfig,
   ...nx.configs['flat/angular'],
-  ...compat
-    .config({
-      extends: ['plugin:@angular-eslint/template/process-inline-templates'],
-    })
-    .map((config) => ({
-      ...config,
-      files: ['**/*.ts'],
-      rules: {
-        ...config.rules,
-        '@angular-eslint/prefer-standalone': 'off',
-        '@angular-eslint/directive-selector': [
-          'error',
-          {
-            type: 'attribute',
-            prefix: 'idlwv',
-            style: 'camelCase',
-          },
-        ],
-        '@angular-eslint/component-selector': [
-          'error',
-          {
-            type: 'element',
-            prefix: 'idlwv',
-            style: 'kebab-case',
-          },
-        ],
-      },
-    })),
+  {
+    files: ['**/*.ts'],
+    processor: angular.processInlineTemplates,
+    rules: {
+      // components were pinned to Eager during the Angular 22 migration
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
+      '@angular-eslint/prefer-standalone': 'off',
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'idlwv',
+          style: 'camelCase',
+        },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'idlwv',
+          style: 'kebab-case',
+        },
+      ],
+    },
+  },
   ...nx.configs['flat/angular-template'],
 ];

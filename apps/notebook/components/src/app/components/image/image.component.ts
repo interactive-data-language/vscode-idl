@@ -1,4 +1,4 @@
-import { Component, type OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
 import { NgxMaterialModule } from '@idl/ngx/material';
 import type {
   IDLNotebookImage_PNG,
@@ -24,6 +24,7 @@ export const IDL_NB_IMAGE_COMPONENT_SELECTOR = 'idl-nb-image';
     `,
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgxMaterialModule],
 })
 export class ImageComponent
