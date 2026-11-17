@@ -143,8 +143,6 @@
     "@material/material-color-utilities": "^0.4.0",
     "@mdi/js": "^7.3.67",
     "@ngbracket/ngx-layout": "^22.0.2",
-    "@ngxs/devtools-plugin": "^22.0.0",
-    "@ngxs/logger-plugin": "^22.0.0",
     "@ngxs/store": "^22.0.0",
     "@nx/angular": "24.0.6",
     "@nx/cypress": "24.0.6",
