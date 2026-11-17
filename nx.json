@@ -91,7 +91,12 @@
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"],
+      "inputs": [
+        "production",
+        "^production",
+        "{workspaceRoot}/webpack.node.config.js",
+        "{workspaceRoot}/webpack.vscode.config.js"
+      ],
       "cache": true
     },
     "e2e": {
