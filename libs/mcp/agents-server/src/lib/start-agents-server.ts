@@ -7,8 +7,8 @@ import express from 'express';
 import type { Server } from 'http';
 
 import { Chat } from './chat/chat.class';
-import { ApplyRegistryFilters } from './helpers/apply-registry-filters';
 import { LoadConfigFromEnv } from './helpers/load-config-from-env';
+import { UpdateServerConfig } from './helpers/update-server-config';
 import {
   CreateStandaloneMCPServer,
   LOG_MANAGER,
@@ -36,6 +36,7 @@ export interface IStartAgentsServerResult {
  */
 export async function StartAgentsServer(
   config: IAgentServerConfig,
+  configFile?: string,
 ): Promise<IStartAgentsServerResult> {
   // check the environment for configuration
   LoadConfigFromEnv(config);
@@ -65,7 +66,7 @@ export async function StartAgentsServer(
   await CreateStandaloneMCPServer(app, config, { websocketBridge });
 
   // apply whitelist/blacklist filters to our registries now that we are booted up
-  ApplyRegistryFilters(config);
+  UpdateServerConfig(config);
 
   // Initialize chat class
   const chat = new Chat(config);
@@ -76,7 +77,7 @@ export async function StartAgentsServer(
   });
 
   app.use('/api/chat', CreateChatRoutes(chat));
-  app.use('/api/config', CreateConfigRoutes(config));
+  app.use('/api/config', CreateConfigRoutes(config, configFile));
 
   // Error handling middleware
   app.use(

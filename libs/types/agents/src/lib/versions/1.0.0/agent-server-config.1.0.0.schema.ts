@@ -55,11 +55,16 @@ const AnalyticsRepository_1_0_0 = z.object({
 });
 
 export const AgentServerConfigSchema_1_0_0 = z.object({
-  /** Analytics repositories to search for skills, workflows, and tools */
-  analyticsRepositories: z
-    .array(AnalyticsRepository_1_0_0)
+  /** Analytics repositories and local locations to search for packages */
+  packages: z
+    .object({
+      /** Folders that we find packages in */
+      paths: z.array(z.string()).default([]),
+      /** Analytics repositories that we connect to */
+      repositories: z.array(AnalyticsRepository_1_0_0).default([]),
+    })
     .optional()
-    .default([]),
+    .default({ paths: [], repositories: [] }),
   agent: z.object({
     defaultInstructions: z.string().optional(),
     llm: z.discriminatedUnion('model', [

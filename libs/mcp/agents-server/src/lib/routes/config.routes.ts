@@ -5,7 +5,10 @@ import {
   ENVI_TOOL_WORKFLOW_REGISTRY,
   MCP_SKILL_REGISTRY,
 } from '@idl/mcp/server-tools';
-import type { IAgentServerConfig } from '@idl/types/agents';
+import {
+  AGENT_SERVER_CONFIG_SCHEMA,
+  type IAgentServerConfig,
+} from '@idl/types/agents';
 import type {
   ListAgentInstructionsResponse,
   ListAgentSkillsResponse,
@@ -14,17 +17,36 @@ import type {
   ListIDLLocationsResponse,
   ListMCPToolsResponse,
 } from '@idl/types/chat';
+import merge from 'deepmerge';
 import { Router } from 'express';
+import { copy } from 'fast-copy';
 
+import { GetRestartReasons } from '../helpers/get-restart-reasons';
+import { SaveConfig } from '../helpers/load-config';
+import { UpdateServerConfig } from '../helpers/update-server-config';
+import { ValidateConfig } from '../helpers/validate-config';
 import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
 
 /**
  * Create config routes
  *
- * No schema validation yet — the config object passed in is mutated in
- * place so other consumers (e.g. `Chat`) holding the same reference see updates.
+ * The config object passed in is updated in place so other consumers
+ * (e.g. `Chat`) holding the same reference see updates.
+ *
+ * If `configFile` is provided, updates are saved to it, otherwise the default
+ * config location is used.
  */
-export function CreateConfigRoutes(config: IAgentServerConfig): Router {
+export function CreateConfigRoutes(
+  config: IAgentServerConfig,
+  configFile?: string,
+): Router {
+  /**
+   * Snapshot of what the running server was started with, used to figure out
+   * if changes need a restart
+   */
+  const runningConfig = copy(config);
+
+  /** Create router */
   const router = Router();
 
   /**
@@ -37,11 +59,64 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
 
   /**
    * PUT /api/config
-   * Merges the request body into the current configuration and returns it.
+   * Deep-merges the request body into the current configuration, validates and
+   * saves it, and returns the new configuration.
+   *
+   * Properties that can't change while running are saved, but they are
+   * reported in `restartReasons` and `requiresRestart` is true.
    */
   router.put('/', (req, res) => {
-    Object.assign(config, req.body);
-    res.json(config);
+    const body = req.body;
+    if (typeof body !== 'object' || body === null || Array.isArray(body)) {
+      res.status(400).json({ error: 'Request body must be a JSON object' });
+      return;
+    }
+
+    // arrays replace instead of concatenate, and version can't change
+    const merged = merge(copy(config), body, {
+      arrayMerge: (_target, source) => source,
+    });
+    merged.version = config.version;
+
+    const parsed = AGENT_SERVER_CONFIG_SCHEMA.safeParse(merged);
+    if (!parsed.success) {
+      res
+        .status(400)
+        .json({ error: 'Invalid configuration', issues: parsed.error.issues });
+      return;
+    }
+    const next = parsed.data as IAgentServerConfig;
+
+    const problems = ValidateConfig(next);
+    if (problems.length > 0) {
+      res.status(400).json({ error: 'Invalid configuration', problems });
+      return;
+    }
+
+    try {
+      SaveConfig(next, configFile);
+    } catch (err) {
+      res.status(500).json({
+        error: err instanceof Error ? err.message : 'Failed to save config',
+      });
+      return;
+    }
+
+    // update in place so everything holding the reference sees the change
+    for (const key of Object.keys(config)) {
+      delete (config as any)[key];
+    }
+    Object.assign(config, next);
+
+    // apply what can change while running
+    UpdateServerConfig(config);
+
+    const restartReasons = GetRestartReasons(runningConfig, config);
+    res.json({
+      config,
+      requiresRestart: restartReasons.length > 0,
+      restartReasons,
+    });
   });
 
   /**
@@ -71,7 +146,13 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
   addListRoute<ListAgentInstructionsResponse>(
     '/list/agent-instructions',
     'Agent Instructions',
-    () => MCP_INSTRUCTION_REGISTRY.list({ ignoreFilters: true }),
+    async () =>
+      (await MCP_INSTRUCTION_REGISTRY.list({ ignoreFilters: true })).map(
+        (item) => ({
+          ...item,
+          enabled: MCP_INSTRUCTION_REGISTRY.filters.isAllowedByFilters(item.id),
+        }),
+      ),
   );
 
   /**
@@ -83,15 +164,27 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
     async () =>
       Object.entries(
         await MCP_SKILL_REGISTRY.list({ ignoreFilters: true }),
-      ).map(([name, description]) => ({ id: name, name, description })),
+      ).map(([name, description]) => ({
+        id: name,
+        name,
+        description,
+        enabled: MCP_SKILL_REGISTRY.filters.isAllowedByFilters(name),
+      })),
   );
 
   /**
    * Returns details for the tools our MCP server has, empty until it starts
    */
-  addListRoute<ListMCPToolsResponse>('/list/mcp-tools', 'MCP tools', () =>
-    MCPServer.isStarted ? MCPServer.instance.listTools() : [],
-  );
+  addListRoute<ListMCPToolsResponse>('/list/mcp-tools', 'MCP tools', () => {
+    if (!MCPServer.isStarted) {
+      return [];
+    }
+
+    return MCPServer.instance.listTools().map((tool) => ({
+      ...tool,
+      enabled: MCPServer.instance.filters.isAllowedByFilters(tool.id),
+    }));
+  });
 
   /**
    * Returns descriptions for ENVI tools, empty until the language server has
@@ -107,6 +200,7 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
         id: name,
         name,
         description,
+        enabled: !!MCP_TASK_REGISTRY?.filters?.isAllowedByFilters(name),
       })),
   );
 
@@ -119,7 +213,11 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
     'ENVI Tool workflows',
     async () =>
       (await ENVI_TOOL_WORKFLOW_REGISTRY.list({ ignoreFilters: true })).map(
-        (name) => ({ id: name, name }),
+        (name) => ({
+          id: name,
+          name,
+          enabled: ENVI_TOOL_WORKFLOW_REGISTRY.filters.isAllowedByFilters(name),
+        }),
       ),
   );
 
@@ -130,7 +228,7 @@ export function CreateConfigRoutes(config: IAgentServerConfig): Router {
     '/list/idl-locations',
     'IDL Locations',
     async () =>
-      (await FindMatchingIDLInstalls('9.2', '>=')).map((location) => ({
+      FindMatchingIDLInstalls('9.2', '>=').map((location) => ({
         id: location,
         name: location,
       })),

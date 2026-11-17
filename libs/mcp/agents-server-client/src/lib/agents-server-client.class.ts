@@ -1,3 +1,4 @@
+import type { IUpdateAgentServerConfigResponse } from '@idl/types/agents';
 import type {
   AvailableModelsRequest,
   AvailableModelsResponse,
@@ -309,12 +310,19 @@ export class AgentsServerClient {
   /**
    * PUT /api/config
    *
-   * Merges the config into the server config and returns the result
+   * Merges the config into the server config, saves it, and returns the
+   * result along with whether a restart is required
    */
-  async putConfig<Config = Record<string, unknown>>(
-    config: Partial<Config>,
+  async putConfig(
+    config: Record<string, unknown>,
     options?: IAgentsServerRequestOptions,
-  ): Promise<Config> {
-    return (await this.axios.put<Config>('/api/config', config, options)).data;
+  ): Promise<IUpdateAgentServerConfigResponse> {
+    return (
+      await this.axios.put<IUpdateAgentServerConfigResponse>(
+        '/api/config',
+        config,
+        options,
+      )
+    ).data;
   }
 }

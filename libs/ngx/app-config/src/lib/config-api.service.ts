@@ -11,6 +11,7 @@ import {
   DEFAULT_AGENT_SERVER_CONFIG,
   type IAgentServerConfig,
   type IServerConfig,
+  type IUpdateAgentServerConfigResponse,
 } from '@idl/types/agents';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
@@ -30,6 +31,11 @@ export class ConfigApiService {
   /** True when running inside the Electron shell */
   readonly isElectron =
     typeof window !== 'undefined' && window.electron !== undefined;
+
+  private readonly _restartReasons$ = new BehaviorSubject<string[]>([]);
+
+  /** Properties that were changed and need a server restart to take effect */
+  readonly restartReasons$ = this._restartReasons$.asObservable();
 
   get config(): IAgentServerConfig {
     return this._config$.value;
@@ -56,10 +62,11 @@ export class ConfigApiService {
   async set(patch: Partial<IAgentServerConfig>): Promise<void> {
     const url = await this.baseUrl();
     // PUT response is authoritative — no optimistic update needed
-    const cfg = await firstValueFrom(
-      this.http.put<IAgentServerConfig>(url, patch),
+    const response = await firstValueFrom(
+      this.http.put<IUpdateAgentServerConfigResponse>(url, patch),
     );
-    this._config$.next(cfg);
+    this._config$.next(response.config);
+    this._restartReasons$.next(response.restartReasons);
   }
 
   /**

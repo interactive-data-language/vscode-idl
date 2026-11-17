@@ -9,6 +9,7 @@ export * from './lib/find-matching-idl-installs';
 export * from './lib/get-canonical-path';
 export * from './lib/get-extension-path';
 export * from './lib/get-fs-path';
+export * from './lib/get-idl-package-path';
 export * from './lib/idl-dirs.interface';
 export * from './lib/load-envi-paths';
 export * from './lib/load-idl-search-paths';

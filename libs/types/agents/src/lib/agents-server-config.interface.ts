@@ -1,4 +1,5 @@
 import {
+  AgentServerConfigSchema_1_0_0,
   DEFAULT_AGENT_SERVER_CONFIG_1_0_0,
   type IAgentServerConfig_1_0_0,
 } from './versions/1.0.0/agent-server-config.1.0.0.schema';
@@ -26,6 +27,11 @@ export type AgentServerConfig<
  */
 export type IAgentServerConfig =
   AgentServerConfig<AgentServerConfigLatestVersion>;
+
+/**
+ * Schema for the latest version of the agents server config
+ */
+export const AGENT_SERVER_CONFIG_SCHEMA = AgentServerConfigSchema_1_0_0;
 
 /**
  * Default config for the agents server
