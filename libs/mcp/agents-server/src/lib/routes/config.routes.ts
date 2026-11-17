@@ -146,7 +146,13 @@ export function CreateConfigRoutes(
   addListRoute<ListAgentInstructionsResponse>(
     '/list/agent-instructions',
     'Agent Instructions',
-    () => MCP_INSTRUCTION_REGISTRY.list({ ignoreFilters: true }),
+    async () =>
+      (await MCP_INSTRUCTION_REGISTRY.list({ ignoreFilters: true })).map(
+        (item) => ({
+          ...item,
+          enabled: MCP_INSTRUCTION_REGISTRY.filters.isAllowedByFilters(item.id),
+        }),
+      ),
   );
 
   /**
@@ -158,15 +164,27 @@ export function CreateConfigRoutes(
     async () =>
       Object.entries(
         await MCP_SKILL_REGISTRY.list({ ignoreFilters: true }),
-      ).map(([name, description]) => ({ id: name, name, description })),
+      ).map(([name, description]) => ({
+        id: name,
+        name,
+        description,
+        enabled: MCP_SKILL_REGISTRY.filters.isAllowedByFilters(name),
+      })),
   );
 
   /**
    * Returns details for the tools our MCP server has, empty until it starts
    */
-  addListRoute<ListMCPToolsResponse>('/list/mcp-tools', 'MCP tools', () =>
-    MCPServer.isStarted ? MCPServer.instance.listTools() : [],
-  );
+  addListRoute<ListMCPToolsResponse>('/list/mcp-tools', 'MCP tools', () => {
+    if (!MCPServer.isStarted) {
+      return [];
+    }
+
+    return MCPServer.instance.listTools().map((tool) => ({
+      ...tool,
+      enabled: MCPServer.instance.filters.isAllowedByFilters(tool.id),
+    }));
+  });
 
   /**
    * Returns descriptions for ENVI tools, empty until the language server has
@@ -182,6 +200,7 @@ export function CreateConfigRoutes(
         id: name,
         name,
         description,
+        enabled: !!MCP_TASK_REGISTRY?.filters?.isAllowedByFilters(name),
       })),
   );
 
@@ -194,7 +213,11 @@ export function CreateConfigRoutes(
     'ENVI Tool workflows',
     async () =>
       (await ENVI_TOOL_WORKFLOW_REGISTRY.list({ ignoreFilters: true })).map(
-        (name) => ({ id: name, name }),
+        (name) => ({
+          id: name,
+          name,
+          enabled: ENVI_TOOL_WORKFLOW_REGISTRY.filters.isAllowedByFilters(name),
+        }),
       ),
   );
 
@@ -205,7 +228,7 @@ export function CreateConfigRoutes(
     '/list/idl-locations',
     'IDL Locations',
     async () =>
-      (await FindMatchingIDLInstalls('9.2', '>=')).map((location) => ({
+      FindMatchingIDLInstalls('9.2', '>=').map((location) => ({
         id: location,
         name: location,
       })),

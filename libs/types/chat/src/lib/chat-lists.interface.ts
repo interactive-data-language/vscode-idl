@@ -3,7 +3,8 @@ import type { ChatInstructionOption } from './chat-types.interface';
 /**
  * Response for GET /api/config/list/instructions
  */
-export type ListAgentInstructionsResponse = ChatInstructionOption[];
+export type ListAgentInstructionsResponse =
+  WithEnabled<ChatInstructionOption>[];
 
 /**
  * Common shape for items returned from list routes
@@ -18,11 +19,19 @@ export interface IListItem {
 }
 
 /**
+ * Adds whether an item is enabled (allowed by the current configuration)
+ */
+export type WithEnabled<T> = {
+  /** True if the item is allowed by the current configuration filters */
+  enabled: boolean;
+} & T;
+
+/**
  * Response for GET /api/config/list/agent-skills
  *
  * Skills with their descriptions
  */
-export type ListAgentSkillsResponse = IListItem[];
+export type ListAgentSkillsResponse = WithEnabled<IListItem>[];
 
 /**
  * Response for GET /api/config/list/idl-locations
@@ -56,18 +65,18 @@ export interface IMCPToolListItem {
  *
  * Details for the tools the MCP server has
  */
-export type ListMCPToolsResponse = IMCPToolListItem[];
+export type ListMCPToolsResponse = WithEnabled<IMCPToolListItem>[];
 
 /**
  * Response for GET /api/config/list/envi-tools
  *
  * ENVI tools with their descriptions
  */
-export type ListENVIToolsResponse = IListItem[];
+export type ListENVIToolsResponse = WithEnabled<IListItem>[];
 
 /**
  * Response for GET /api/config/list/envi-tool-workflows
  *
  * ENVI tool workflows
  */
-export type ListENVIToolWorkflowsResponse = IListItem[];
+export type ListENVIToolWorkflowsResponse = WithEnabled<IListItem>[];

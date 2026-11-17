@@ -1,5 +1,6 @@
 import { ANALYTICS_REPOSITORY_REGISTRY } from '@idl/mcp/analytics-repository';
 import { MCP_TASK_REGISTRY } from '@idl/mcp/language-server-tools';
+import { MCPServer } from '@idl/mcp/server';
 import {
   ENVI_TOOL_WORKFLOW_REGISTRY,
   MCP_SKILL_REGISTRY,
@@ -28,6 +29,12 @@ export function UpdateServerConfig(config: IAgentServerConfig) {
     whitelist: config.agent.mcp.enviToolWorkflowWhitelist,
     blacklist: config.agent.mcp.enviToolWorkflowBlacklist,
   });
+
+  if (MCPServer.isStarted) {
+    MCPServer.instance.filters.updateFilters({
+      whitelist: config.agent.mcp.mcpToolWhitelist,
+    });
+  }
 
   MCP_TASK_REGISTRY?.filters?.updateFilters({
     whitelist: config.agent.mcp.enviToolWhitelist,

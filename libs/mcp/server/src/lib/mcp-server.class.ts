@@ -1,5 +1,6 @@
 import { ObjectifyError } from '@idl/error-shared';
 import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
+import { RuleBasedFilter } from '@idl/mcp/shared';
 import type { IDLIndex } from '@idl/parsing/index';
 import { SimplePromiseQueue, VERSION } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -67,6 +68,9 @@ export class MCPServer {
 
   /** The singleton instance */
   private static _instance: MCPServer | undefined;
+
+  /** Filters that determine which tools are enabled */
+  filters = new RuleBasedFilter();
 
   /** Access IDL index */
   idlIndex: IDLIndex;
