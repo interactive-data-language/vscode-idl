@@ -10,6 +10,6 @@ export function DefaultFormatter(token: TreeToken<TokenName>) {
   if (token.match.length === 0) {
     token.match.push('');
   } else {
-    token.match[0] === token.match[0].trim();
+    token.match[0] = token.match[0].trim();
   }
 }

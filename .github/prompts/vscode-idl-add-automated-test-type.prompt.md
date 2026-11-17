@@ -157,7 +157,7 @@ If `libs/tests/<name>/` does not yet exist, scaffold it to match the pattern of 
 - `project.json` — name: `"tests-<name>"`, executor: `@nx/jest:jest`
 - `jest.config.ts`
 - `tsconfig.json`, `tsconfig.lib.json`, `tsconfig.spec.json`
-- `.eslintrc.json`
+- `eslint.config.mjs`
 - `src/index.ts` — leave empty (no exports)
 - `src/lib/` — directory for generated spec files
 

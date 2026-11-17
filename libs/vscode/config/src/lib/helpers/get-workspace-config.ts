@@ -2,7 +2,7 @@ import { IDL_LANGUAGE_NAME } from '@idl/shared/extension';
 import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import * as vscode from 'vscode';
 
-import { IIDLWorkspaceConfig } from '../idl-config.interface';
+import type { IIDLWorkspaceConfig } from '../idl-config.interface';
 
 /**
  * Get's IDL's configuration for the current VSCode workspace

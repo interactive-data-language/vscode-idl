@@ -9,6 +9,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/notebook/components",
         "index": "apps/notebook/components/src/index.html",
@@ -54,11 +55,17 @@
           "sourceMap": false,
           "namedChunks": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "defaultConfiguration": "development",
+      "continuous": true,
+      "options": {
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/notebook/components/src/app/styles"]
+        }
+      },
       "configurations": {
         "production": {
           "buildTarget": "notebook-components:build:production"
@@ -66,14 +73,7 @@
         "development": {
           "buildTarget": "notebook-components:build:development"
         }
-      },
-      "defaultConfiguration": "development",
-      "options": {
-        "stylePreprocessorOptions": {
-          "includePaths": ["apps/notebook/components/src/app/styles"]
-        }
-      },
-      "continuous": true
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
