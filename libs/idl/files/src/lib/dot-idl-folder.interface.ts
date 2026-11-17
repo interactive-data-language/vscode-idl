@@ -13,6 +13,10 @@ export const DOT_IDL_FOLDER = CleanPath(join(homedir(), '.idl'));
 export const VSCODE_DOT_IDL_FOLDER = join(DOT_IDL_FOLDER, 'vscode');
 
 /**
- * IDL package directory
+ * IDL package directory for user
+ *
+ * Default location, could be overridden
+ *
+ * Use GetIDLPackagePath() for runtime path with env
  */
 export const IDL_PACKAGE_DIR = join(DOT_IDL_FOLDER, 'idl', 'packages');

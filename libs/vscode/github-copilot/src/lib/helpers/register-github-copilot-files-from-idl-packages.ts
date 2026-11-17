@@ -1,4 +1,4 @@
-import { IDL_PACKAGE_DIR } from '@idl/idl/files';
+import { GetIDLPackagePath } from '@idl/idl/files';
 import { existsSync } from 'fs';
 import * as vscode from 'vscode';
 
@@ -21,12 +21,13 @@ export async function RegisterGitHubCopilotFilesFromIDLPackages(
       : 'promptFilesLocations';
 
   // return if .idl folder doesnt exist
-  if (!existsSync(IDL_PACKAGE_DIR)) {
+  const packageDir = GetIDLPackagePath();
+  if (!existsSync(packageDir)) {
     return;
   }
 
   // relative path for destination
-  const destinationRelative = HomeRelativePath(IDL_PACKAGE_DIR);
+  const destinationRelative = HomeRelativePath(packageDir);
 
   /**
    * Get prompt files
@@ -47,7 +48,7 @@ export async function RegisterGitHubCopilotFilesFromIDLPackages(
   for (let i = 0; i < existing.length; i++) {
     if (
       // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
-      existing[i].startsWith(IDL_PACKAGE_DIR) ||
+      existing[i].startsWith(packageDir) ||
       existing[i].startsWith(destinationRelative)
     ) {
       states[existing[i]] = filesLocations[existing[i]];

@@ -1,8 +1,8 @@
 import { existsSync } from 'fs';
 
-import { IDL_PACKAGE_DIR } from './dot-idl-folder.interface';
 import type { IFolderRecursion } from './find-files.interface';
 import { GetExtensionPath } from './get-extension-path';
+import { GetIDLPackagePath } from './get-idl-package-path';
 import { LoadENVIPaths } from './load-envi-paths';
 
 /**
@@ -21,8 +21,9 @@ export function LoadIDLSearchPaths(
   paths[GetExtensionPath('resources/idl/vscode/packaging')] = false;
 
   // check for .idl package folder and auto-add if it exists
-  if (existsSync(IDL_PACKAGE_DIR)) {
-    paths[IDL_PACKAGE_DIR] = true;
+  const packageDir = GetIDLPackagePath();
+  if (existsSync(packageDir)) {
+    paths[packageDir] = true;
   }
 
   // return if we don't have a folder

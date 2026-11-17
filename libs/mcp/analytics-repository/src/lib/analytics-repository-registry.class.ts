@@ -1,7 +1,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import { IDL_PACKAGE_DIR } from '@idl/idl/files';
+import { GetIDLPackagePath } from '@idl/idl/files';
 import type {
   IAnalyticRepository_ServerPackage,
   IAnalyticsRepository_Package,
@@ -19,7 +19,7 @@ export class AnalyticsRepositoryRegistry {
    * Folder with locally installed packages, where each package is a
    * sub-folder with a "manifest.json" file
    */
-  private localDir = IDL_PACKAGE_DIR;
+  private localDir = GetIDLPackagePath();
 
   /**
    * Track servers
