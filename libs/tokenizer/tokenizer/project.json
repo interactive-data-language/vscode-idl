@@ -4,17 +4,6 @@
   "sourceRoot": "libs/tokenizer/tokenizer/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/tokenizer/tokenizer"],
-      "options": {
-        "jestConfig": "libs/tokenizer/tokenizer/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project tokenizer-tokenizer --web",
+  "targets": {}
 }

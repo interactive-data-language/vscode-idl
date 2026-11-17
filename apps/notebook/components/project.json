@@ -61,6 +61,9 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "defaultConfiguration": "development",
       "continuous": true,
+      "readyWhen": {
+        "signal": true
+      },
       "options": {
         "stylePreprocessorOptions": {
           "includePaths": ["apps/notebook/components/src/app/styles"]
@@ -81,23 +84,15 @@
         "buildTarget": "notebook-components:build"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/notebook/components/jest.config.ts",
-        "tsConfig": "apps/notebook/components/tsconfig.spec.json"
-      }
-    },
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "notebook-components:build"
-      }
+      },
+      "readyWhen": {
+        "signal": true
+      },
+      "dependsOn": ["build"]
     }
   }
 }

@@ -4,17 +4,6 @@
   "sourceRoot": "libs/assembling/assembler/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/assembling/assembler"],
-      "options": {
-        "jestConfig": "libs/assembling/assembler/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project assembling-assembler --web",
+  "targets": {}
 }

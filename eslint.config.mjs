@@ -21,7 +21,7 @@ export default [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: [],
+          allow: ['/webpack\\.(node|vscode)\\.config$'],
           depConstraints: [
             {
               sourceTag: '*',

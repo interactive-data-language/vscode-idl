@@ -4,17 +4,6 @@
   "sourceRoot": "libs/vscode/events/client/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/vscode/events/client"],
-      "options": {
-        "jestConfig": "libs/vscode/events/client/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project vscode-events-client --web",
+  "targets": {}
 }

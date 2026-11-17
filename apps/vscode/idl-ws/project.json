@@ -6,26 +6,10 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
-      "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "externalDependencies": "none",
-        "outputPath": "dist/apps/vscode/idl-ws",
-        "main": "apps/vscode/idl-ws/src/main.ts",
-        "tsConfig": "apps/vscode/idl-ws/tsconfig.app.json",
-        "assets": ["apps/vscode/idl-ws/src/assets"],
-        "webpackConfig": "webpack.node.config.js"
-      },
       "configurations": {
         "development": {},
-        "production": {
-          "optimization": true,
-          "extractLicenses": true,
-          "inspect": false
-        }
+        "production": {}
       }
     },
     "serve": {
@@ -43,16 +27,6 @@
         "production": {
           "buildTarget": "idl-ws:build:production"
         }
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/vscode/idl-ws/jest.config.ts"
       }
     }
   }

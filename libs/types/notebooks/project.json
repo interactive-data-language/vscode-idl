@@ -4,17 +4,6 @@
   "sourceRoot": "libs/types/notebooks/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/types/notebooks/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project notebooks-types --web",
+  "targets": {}
 }

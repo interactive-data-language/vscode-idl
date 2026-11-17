@@ -4,17 +4,6 @@
   "sourceRoot": "libs/workers/workerio/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/workers/workerio"],
-      "options": {
-        "jestConfig": "libs/workers/workerio/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project workers-workerio --web",
+  "targets": {}
 }

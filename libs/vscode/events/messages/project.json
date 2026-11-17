@@ -4,17 +4,6 @@
   "sourceRoot": "libs/vscode/events/messages/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/vscode/events/messages"],
-      "options": {
-        "jestConfig": "libs/vscode/events/messages/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project vscode-events-messages --web",
+  "targets": {}
 }

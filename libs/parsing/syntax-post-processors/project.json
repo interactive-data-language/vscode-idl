@@ -4,19 +4,6 @@
   "sourceRoot": "libs/parsing/syntax-post-processors/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/libs/parsing/syntax-post-processors"
-      ],
-      "options": {
-        "jestConfig": "libs/parsing/syntax-post-processors/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project parsing-syntax-post-processors --web",
+  "targets": {}
 }

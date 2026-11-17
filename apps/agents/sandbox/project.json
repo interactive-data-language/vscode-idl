@@ -6,24 +6,9 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
-      "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "outputPath": "dist/apps/agents/sandbox",
-        "main": "apps/agents/sandbox/src/main.ts",
-        "tsConfig": "apps/agents/sandbox/tsconfig.app.json",
-        "assets": ["apps/agents/sandbox/src/assets"],
-        "webpackConfig": "apps/agents/sandbox/webpack.config.js",
-        "externalDependencies": "none",
-        "generatePackageJson": true
-      },
       "configurations": {
-        "development": {
-          "outputHashing": "none"
-        },
+        "development": {},
         "production": {}
       }
     },
@@ -69,9 +54,6 @@
           "buildTarget": "agents-sandbox:build:production"
         }
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

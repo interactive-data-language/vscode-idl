@@ -70,24 +70,15 @@
         "development": {
           "buildTarget": "vscode-webview:build:development"
         }
+      },
+      "readyWhen": {
+        "signal": true
       }
     },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "vscode-webview:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/vscode/webview"],
-      "options": {
-        "jestConfig": "apps/vscode/webview/jest.config.ts",
-        "tsConfig": "apps/vscode/webview/tsconfig.spec.json"
       }
     }
   }

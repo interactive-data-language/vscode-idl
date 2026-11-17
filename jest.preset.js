@@ -2,6 +2,10 @@ const nxPreset = require('@nx/jest/preset').default;
 
 module.exports = {
   ...nxPreset,
+  setupFiles: [
+    ...(nxPreset.setupFiles ?? []),
+    require.resolve('./tools/node/jest-workspace-cwd.js'),
+  ],
   /* TODO: Update to latest Jest snapshotFormat
    * By default Nx has kept the older style of Jest Snapshot formats
    * to prevent breaking of any existing tests with snapshots.

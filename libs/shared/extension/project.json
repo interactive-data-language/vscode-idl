@@ -4,17 +4,6 @@
   "sourceRoot": "libs/shared/extension/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/shared/extension"],
-      "options": {
-        "jestConfig": "libs/shared/extension/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project shared-extension --web",
+  "targets": {}
 }
