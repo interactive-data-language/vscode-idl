@@ -155,22 +155,22 @@ describe(`[auto generated] Correctly return auto-complete from obj-destroy`, () 
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('DeepLearningPixelClassification')",
-        insertText: "ENVITask('DeepLearningPixelClassification')",
+        label: "ENVITask('PublishENVIDeepLearningOnnxModel')",
+        insertText: "ENVITask('PublishENVIDeepLearningOnnxModel')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
       },
       {
-        label: "ENVITask('BuildLabelRasterFromClassification')",
-        insertText: "ENVITask('BuildLabelRasterFromClassification')",
+        label: "ENVITask('ExtractDeepLearningKerasModelFromFile')",
+        insertText: "ENVITask('ExtractDeepLearningKerasModelFromFile')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
       },
       {
-        label: "ENVITask('ClassActivationToPolylineShapefile')",
-        insertText: "ENVITask('ClassActivationToPolylineShapefile')",
+        label: "ENVITask('BuildObjectDetectionRasterFromAnnotation')",
+        insertText: "ENVITask('BuildObjectDetectionRasterFromAnnotation')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -183,12 +183,11 @@ describe(`[auto generated] Correctly return auto-complete from obj-destroy`, () 
         detail: 'Function',
       },
       {
-        label: 'ENVIBoundingBoxSet()',
-        insertText: 'ENVIBoundingBoxSet()',
+        label: "ENVITask('DeepLearningInstanceClassification')",
+        insertText: "ENVITask('DeepLearningInstanceClassification')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
       },
     ];
 
