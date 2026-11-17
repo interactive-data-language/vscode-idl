@@ -92,6 +92,11 @@ export async function CreateStandaloneMCPServer(
   // register other paths we need to index
   const isEnviInstalled = LoadIDLSearchPaths(idlSearchPath, idlPath);
 
+  // set package paths
+  for (let i = 0; i < config.packages.paths.length; i++) {
+    idlSearchPath[config.packages.paths[i]] = true;
+  }
+
   // force dark mode
   process.env['IDL_THEME'] = '1';
 
