@@ -1906,13 +1906,10 @@
     ]
   },
   "allowScripts": {
-    "esbuild@0.27.2": true,
-    "esbuild@0.19.2": true,
-    "esbuild@0.28.1": true,
-    "esbuild@0.21.5": true,
-    "nx@22.6.0": true,
-    "cypress@15.8.0": true,
-    "@vscode/vsce-sign@2.0.9": true,
-    "@swc/core@1.16.22": true
+    "cypress": true,
+    "esbuild": true,
+    "koffi": true,
+    "nx": true,
+    "@vscode/vsce-sign": true
   }
 }
