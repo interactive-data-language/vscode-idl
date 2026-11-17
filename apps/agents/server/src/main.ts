@@ -108,7 +108,7 @@ async function main() {
       process.exit(1);
     }
 
-    const result = await StartAgentsServer(config);
+    const result = await StartAgentsServer(config, configFile);
 
     // Graceful shutdown — stop the server so on-disk state flushes
     const shutdown = async (signal: NodeJS.Signals) => {
@@ -214,7 +214,7 @@ async function mainAsWorker() {
             break;
           }
 
-          starting = StartAgentsServer(config);
+          starting = StartAgentsServer(config, configFile);
           try {
             server = await starting;
           } catch (err) {

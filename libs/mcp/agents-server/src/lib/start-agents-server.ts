@@ -36,6 +36,7 @@ export interface IStartAgentsServerResult {
  */
 export async function StartAgentsServer(
   config: IAgentServerConfig,
+  configFile?: string,
 ): Promise<IStartAgentsServerResult> {
   // check the environment for configuration
   LoadConfigFromEnv(config);
@@ -76,7 +77,7 @@ export async function StartAgentsServer(
   });
 
   app.use('/api/chat', CreateChatRoutes(chat));
-  app.use('/api/config', CreateConfigRoutes(config));
+  app.use('/api/config', CreateConfigRoutes(config, configFile));
 
   // Error handling middleware
   app.use(

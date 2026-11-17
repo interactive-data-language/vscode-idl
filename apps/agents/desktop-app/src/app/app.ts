@@ -1,3 +1,4 @@
+import { GetExtensionPath } from '@idl/idl/files';
 import {
   type IStartAgentsServerResult,
   LoadConfig,
@@ -242,7 +243,10 @@ export default class App {
       if (doWorker) {
         App.agentsServer = await StartAgentsServerInWorker(App.config);
       } else {
-        App.agentsServer = await StartAgentsServer(App.config);
+        App.agentsServer = await StartAgentsServer(
+          App.config,
+          GetExtensionPath('desktop-agents.config.json'),
+        );
       }
     } catch (err) {
       console.error('[desktop-app] Failed to start agents server:', err);

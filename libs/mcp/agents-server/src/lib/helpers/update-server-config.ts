@@ -1,4 +1,3 @@
-import { GetIDLPackagePath } from '@idl/idl/files';
 import { ANALYTICS_REPOSITORY_REGISTRY } from '@idl/mcp/analytics-repository';
 import { MCP_TASK_REGISTRY } from '@idl/mcp/language-server-tools';
 import {
@@ -14,10 +13,6 @@ import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
  */
 export function UpdateServerConfig(config: IAgentServerConfig) {
   ANALYTICS_REPOSITORY_REGISTRY.setServers(config.packages.repositories);
-  ANALYTICS_REPOSITORY_REGISTRY.setLocalDirs([
-    ...config.packages.paths,
-    GetIDLPackagePath(),
-  ]);
 
   MCP_INSTRUCTION_REGISTRY.filters.updateFilters({
     whitelist: config.agent.mcp.instructionsWhitelist,
