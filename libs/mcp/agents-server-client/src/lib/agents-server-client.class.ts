@@ -13,12 +13,14 @@ import type {
   ListIDLLocationsResponse,
   ListMCPToolsResponse,
 } from '@idl/types/chat';
-import type {
-  MCPToolHTTPResponse,
-  MCPToolParams,
-  MCPToolParams_ParameterOverride,
-  MCPTools,
-  MCPTools_ParameterOverride,
+import {
+  MCP_TOOLS_IDL,
+  type MCPToolHTTPResponse,
+  type MCPToolParams,
+  type MCPToolParams_ParameterOverride,
+  type MCPToolParsedHTTPResponse,
+  type MCPTools,
+  type MCPTools_ParameterOverride,
 } from '@idl/types/mcp';
 import type { AxiosInstance } from 'axios';
 import { createParser } from 'eventsource-parser';
@@ -73,6 +75,9 @@ export class AgentsServerClient {
    *
    * Calls an MCP tool and returns the strictly-typed response. Tool-level
    * failures are returned (`isError`), protocol-level failures throw.
+   *
+   * For tools that run in IDL and don't error, the raw tool output can
+   * be found on the `response` property.
    */
   async callMCPTool<T extends MCPTools>(
     tool: T,
@@ -80,7 +85,7 @@ export class AgentsServerClient {
       ? MCPToolParams_ParameterOverride<T>
       : MCPToolParams<T>,
     options?: IAgentsServerRequestOptions,
-  ): Promise<MCPToolHTTPResponse<T>> {
+  ): Promise<MCPToolParsedHTTPResponse<T>> {
     const resp = await this.axios.post<string>(
       '/mcp',
       {
@@ -106,7 +111,22 @@ export class AgentsServerClient {
     if (!message?.result) {
       throw new Error(`MCP tool "${tool}" returned no result`);
     }
-    return message.result as MCPToolHTTPResponse<T>;
+    const result = message.result as MCPToolHTTPResponse<T>;
+    const parsed = result as MCPToolParsedHTTPResponse<T>;
+
+    // IDL tools return JSON of their typed response, unless they failed before running
+    if (!result.isError && MCP_TOOLS_IDL.has(tool)) {
+      const text = result.content.find((c) => c.type === 'text');
+      if (text && 'text' in text) {
+        try {
+          parsed.response = JSON.parse(text.text);
+        } catch {
+          // leave undefined, raw content is still available
+        }
+      }
+    }
+
+    return parsed;
   }
 
   /**
