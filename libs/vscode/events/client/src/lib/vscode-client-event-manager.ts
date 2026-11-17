@@ -36,7 +36,10 @@ export class VSCodeClientEventManager {
       payload: LanguageServerPayload<T>,
     ) => LanguageServerResponse<T> | Promise<LanguageServerResponse<T>>,
   ) {
-    this.client.onRequest(MessageNameNormalizer(message), callback);
+    this.client.onRequest<any, unknown>(
+      MessageNameNormalizer(message),
+      callback,
+    );
   }
 
   /**

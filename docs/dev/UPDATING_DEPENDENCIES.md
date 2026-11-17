@@ -80,6 +80,22 @@ The big honcho, takes a while and updates key components. Read through this befo
 
 This makes sure that formatting rules are updated and match whatever version of prettier are included in the library.
 
+### Notes From The NX 22 => 24 Migration
+
+- Update in phases and commit between them: NX 23 + ESLint, then Angular + TypeScript, then NX 24. NX does not ship package updates for every Angular version, so Angular companion libs (ngxs, ngx-layout, ngx-markdown, jest-preset-angular, angular-eslint) are bumped by hand.
+
+- With npm 12, `nx migrate` fails the provenance check. Run it with `NX_SKIP_PROVENANCE_CHECK=true NX_MIGRATE_CLI_VERSION=<target version> npx nx migrate <target version>`. It takes about 10 minutes and, as of NX 24, asks interactive questions (pick "Required only" and skip Nx Cloud), so do not redirect its output.
+
+- Instead of deleting `package-lock.json`, remove the lock entries for the libraries being migrated (`nx`, `@nx/*`, etc.), delete `node_modules`, and run `npm i`. This avoids bumping about 40 unrelated packages. Compare against `git show HEAD:package-lock.json` to verify.
+
+- Do not bump the ESM-only libs (ansi-styles, chalk, case-anything, json-stringify-pretty-compact, nanoid) because they do not work with jest.
+
+- Executors (`@nx/webpack:webpack`, `@nx/jest:jest`, `@nx/eslint:lint`, `@nx/cypress:cypress`) are replaced by inferred plugins in `nx.json`.
+  - Each webpack app has its own `webpack.config.js` built with `createNodeConfig` or `createVscodeConfig` from `webpack.node.config.js` and `webpack.vscode.config.js`. The `production` configuration is read from `NX_TASK_TARGET_CONFIGURATION`.
+  - Jest tests expect to run from the workspace root, which `tools/node/jest-workspace-cwd.js` (set in `jest.preset.js`) handles.
+
+- TypeScript 6 uses `moduleResolution: bundler` (with `module: commonjs` for the compile targets) and has no `baseUrl`, so `paths` start with `./`. The `apps/vscode/client-web/tsconfig.app.json` paths are kept in sync by `npm run merge-client-web-paths`.
+
 ## Migrating Libraries
 
 Anything not auto-managed by NX, we also need to try to update to resolve vulnerabilities and more.

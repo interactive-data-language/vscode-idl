@@ -1,4 +1,10 @@
-import { Component, inject, Input, type OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  type OnDestroy,
+} from '@angular/core';
 import type {
   IDLNotebook_EmbedType,
   IDLNotebookEmbeddedItem,
@@ -11,6 +17,7 @@ import { DataSharingService } from './data-sharing.service';
 @Component({
   selector: 'idl-base-renderer',
   template: ` <p>base works!</p> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [],
 })
 export class BaseRendererComponent<T extends IDLNotebook_EmbedType>

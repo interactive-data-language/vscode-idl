@@ -6,6 +6,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import {
   type AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -66,6 +67,7 @@ export const IDL_NB_MAP_COMPONENT_SELECTOR = 'idl-nb-map';
     `,
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgxMaterialModule, MapLayerCardComponent],
 })
 export class MapComponent

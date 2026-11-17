@@ -7,7 +7,7 @@ import {
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   IDL_EXTENSION_CONFIG_KEYS,
-  IDontAskConfig,
+  type IDontAskConfig,
 } from '@idl/vscode/extension-config';
 import { copy } from 'fast-copy';
 import * as vscode from 'vscode';
@@ -16,7 +16,7 @@ import { GetWorkspaceConfig } from './helpers/get-workspace-config';
 import { BasicQuestionAsker, QuestionAsker } from './helpers/question-asker';
 import { UpdateConfigObject } from './helpers/update-config';
 import { ValidateConfig } from './helpers/validate-config';
-import { IIDLWorkspaceConfig } from './idl-config.interface';
+import type { IIDLWorkspaceConfig } from './idl-config.interface';
 /**
  * IDL's current workspace configuration
  */

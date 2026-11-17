@@ -5,8 +5,8 @@ import {
   PackageSource,
 } from '@idl/mcp/analytics-repository';
 import {
-  RegistryFileWatcher,
   type IRegistryListOptions,
+  RegistryFileWatcher,
   type RegistryLocation,
   type RegistryLocation_File,
   type RegistryLocation_Memory,

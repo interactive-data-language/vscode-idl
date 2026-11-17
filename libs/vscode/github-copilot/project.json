@@ -4,16 +4,6 @@
   "sourceRoot": "libs/vscode/github-copilot/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/vscode/github-copilot/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project vscode-github-copilot --web",
+  "targets": {}
 }

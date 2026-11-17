@@ -51,6 +51,7 @@ tmp/**
 .all-contributorsrc
 .editorconfig
 .eslintrc.json
+eslint.config.mjs
 .gitignore
 .npmrc
 .prettierignore

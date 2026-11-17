@@ -1,4 +1,4 @@
-import { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
+import type { FromIDLMachineRequestHandler } from '@idl/types/idl/idl-machine';
 import * as vscode from 'vscode';
 
 /**

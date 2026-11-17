@@ -1,6 +1,7 @@
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from '@angular/common/http';
 import { provideZoneChangeDetection } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
@@ -22,7 +23,7 @@ createApplication({
   providers: [
     provideZoneChangeDetection(),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
   ],
 })
   .then((appRef) => {

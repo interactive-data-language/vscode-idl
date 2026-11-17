@@ -1,5 +1,5 @@
-import { IDLExtensionConfig } from '@idl/vscode/extension-config';
-import * as vscode from 'vscode';
+import type { IDLExtensionConfig } from '@idl/vscode/extension-config';
+import type * as vscode from 'vscode';
 
 /**
  * Workspace config for IDL

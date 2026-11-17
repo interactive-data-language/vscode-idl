@@ -1,6 +1,6 @@
 import { copy } from 'fast-copy';
 
-import { ICodeStyle, STYLE_FLAG_LOOKUP } from './style.interface';
+import { type ICodeStyle, STYLE_FLAG_LOOKUP } from './style.interface';
 
 /**
  * Rule set for our modern style

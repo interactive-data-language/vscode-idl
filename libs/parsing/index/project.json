@@ -4,17 +4,6 @@
   "sourceRoot": "libs/parsing/index/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/parsing/index"],
-      "options": {
-        "jestConfig": "libs/parsing/index/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project parsing-index --web",
+  "targets": {}
 }

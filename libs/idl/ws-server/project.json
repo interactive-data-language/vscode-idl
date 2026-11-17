@@ -4,16 +4,6 @@
   "sourceRoot": "libs/idl/ws-server/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/idl/ws-server/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project idl-ws-server --web",
+  "targets": {}
 }

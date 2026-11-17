@@ -1,4 +1,9 @@
-import { Component, input, type OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  type OnInit,
+} from '@angular/core';
 import { NgxMaterialModule } from '@idl/ngx/material';
 
 /**
@@ -24,6 +29,7 @@ export const IDL_NB_MAP_PROPERTY_SHEET_SELECTOR = 'idl-nb-map-property-sheet';
     `,
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgxMaterialModule],
 })
 export class MapPropertySheetComponent implements OnInit {

@@ -1,4 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import type { NotebookMapLayer, NotebookMapLayerType } from '@idl/ngx/map';
 import { NgxMaterialModule } from '@idl/ngx/material';
 
@@ -29,6 +34,7 @@ import { NgxMaterialModule } from '@idl/ngx/material';
     `,
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgxMaterialModule],
 })
 export class MapLayerCardComponent {

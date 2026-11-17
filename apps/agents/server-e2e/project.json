@@ -5,16 +5,21 @@
   "implicitDependencies": ["agents-server"],
   "targets": {
     "e2e": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{e2eProjectRoot}",
+        "{workspaceRoot}/coverage/agents-server-e2e"
+      ],
+      "dependsOn": ["agents-server:build", "agents-server:serve"],
       "options": {
-        "jestConfig": "apps/agents/server-e2e/jest.config.cts",
         "passWithNoTests": true
       },
-      "dependsOn": ["agents-server:build", "agents-server:serve"]
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "coverage": true
+        }
+      }
     }
   }
 }

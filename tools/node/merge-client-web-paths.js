@@ -54,7 +54,9 @@ const sharedPaths = Object.keys(base);
 for (let i = 0; i < sharedPaths.length; i++) {
   // check for new lib or for one we are already saving
   if (!(sharedPaths[i] in toExtend) && !(sharedPaths[i] in saveThese)) {
-    toExtend[sharedPaths[i]] = base[sharedPaths[i]];
+    toExtend[sharedPaths[i]] = base[sharedPaths[i]].map(
+      (p) => `../../../${p.replace(/^\.\//, '')}`,
+    );
     changes = true;
   }
 }

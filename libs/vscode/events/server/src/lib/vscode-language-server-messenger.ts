@@ -38,7 +38,10 @@ export class VSCodeLanguageServerMessenger {
       payload: LanguageServerPayload<T>,
     ) => LanguageServerResponse<T> | Promise<LanguageServerResponse<T>>,
   ) {
-    this.connection.onRequest(MessageNameNormalizer(message), callback);
+    this.connection.onRequest<any, unknown>(
+      MessageNameNormalizer(message),
+      callback,
+    );
   }
 
   /**

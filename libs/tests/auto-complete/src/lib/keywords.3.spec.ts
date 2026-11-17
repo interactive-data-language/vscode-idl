@@ -482,13 +482,13 @@ describe(`[auto generated] Correctly include keywords`, () => {
         sortText: '90',
         detail: 'System Variable',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       {
         label: 'ENVITensorBoard',
         kind: 3,
         sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results
@@ -649,13 +649,13 @@ describe(`[auto generated] Correctly include keywords`, () => {
         sortText: '90',
         detail: 'System Variable',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       {
         label: 'ENVITensorBoard',
         kind: 3,
         sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
     // verify results

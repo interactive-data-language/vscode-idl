@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+} from '@angular/core';
 import { TranslocoModule } from '@jsverse/transloco';
 
 import { MaterialModule } from '../../material.module';
@@ -11,6 +16,7 @@ import { VSCodeService } from '../../services/services/vscode.service';
   styleUrls: ['./home.component.scss'],
   standalone: true,
   imports: [CommonModule, MaterialModule, TranslocoModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomeComponent {

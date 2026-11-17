@@ -4,17 +4,6 @@
   "sourceRoot": "libs/parsing/syntax-tree/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/parsing/syntax-tree"],
-      "options": {
-        "jestConfig": "libs/parsing/syntax-tree/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project parsing-syntax-tree --web",
+  "targets": {}
 }

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   effect,
@@ -27,6 +28,7 @@ import { VSCodeService } from '../../services/services/vscode.service';
   styleUrls: ['./profiler.component.scss'],
   standalone: true,
   imports: [CommonModule, MaterialModule, TranslocoModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProfilerComponent implements OnInit {

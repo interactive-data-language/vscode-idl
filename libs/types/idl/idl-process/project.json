@@ -4,16 +4,6 @@
   "sourceRoot": "libs/types/idl/idl-process/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/types/idl/idl-process/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project types-idl-idl-process --web",
+  "targets": {}
 }
