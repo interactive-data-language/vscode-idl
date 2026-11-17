@@ -28,11 +28,46 @@ describe('AnalyticsRepositoryRegistry local packages', () => {
   beforeEach(() => {
     dir = mkdtempSync(join(tmpdir(), 'idl-packages-'));
     registry = new AnalyticsRepositoryRegistry();
-    registry.setLocalDir(dir);
+    registry.setLocalDirs([dir]);
   });
 
   afterEach(() => {
     rmSync(dir, { recursive: true, force: true });
+  });
+
+  it('reads multiple locations, single package folders, and first wins', async () => {
+    const other = mkdtempSync(join(tmpdir(), 'idl-packages-'));
+    try {
+      Install('dup', Manifest('dup', '1.0.0'));
+      mkdirSync(join(other, 'dup'));
+      writeFileSync(
+        join(other, 'dup', 'manifest.json'),
+        JSON.stringify(Manifest('dup', '2.0.0')),
+      );
+      mkdirSync(join(other, 'solo'));
+      writeFileSync(
+        join(other, 'solo', 'manifest.json'),
+        JSON.stringify(Manifest('solo', '1.0.0')),
+      );
+
+      registry.setLocalDirs([
+        dir,
+        other,
+        join(other, 'solo'),
+        join(other, 'missing'),
+      ]);
+      const found = await registry.getLocalPackages();
+
+      expect(found.map((item) => item.package.name).sort()).toEqual([
+        'dup',
+        'solo',
+      ]);
+      expect(
+        found.find((item) => item.package.name === 'dup')?.package.version,
+      ).toBe('1.0.0');
+    } finally {
+      rmSync(other, { recursive: true, force: true });
+    }
   });
 
   function Install(folder: string, manifest: any) {
@@ -63,7 +98,7 @@ describe('AnalyticsRepositoryRegistry local packages', () => {
       ),
     ).toEqual(['a']);
 
-    registry.setLocalDir(join(dir, 'does-not-exist'));
+    registry.setLocalDirs([join(dir, 'does-not-exist')]);
     expect(await registry.searchRepositories()).toEqual([]);
   });
 

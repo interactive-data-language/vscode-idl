@@ -1,5 +1,5 @@
 import { readdir, readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 
 import { GetIDLPackagePath } from '@idl/idl/files';
 import type {
@@ -16,10 +16,10 @@ import { MatchesFilter } from './matches-filter';
 
 export class AnalyticsRepositoryRegistry {
   /**
-   * Folder with locally installed packages, where each package is a
-   * sub-folder with a "manifest.json" file
+   * Local locations to search for packages. Each entry is a folder containing
+   * sub-folders of packages.
    */
-  private localDir = GetIDLPackagePath();
+  private localDirs: string[] = [GetIDLPackagePath()];
 
   /**
    * Track servers
@@ -28,6 +28,13 @@ export class AnalyticsRepositoryRegistry {
 
   constructor(servers: IAnalyticsRepository_ServerInfo[] = []) {
     this.servers = servers;
+  }
+
+  /**
+   * Adds a location to search for local packages
+   */
+  addLocalDir(dir: string) {
+    this.localDirs.push(dir);
   }
 
   /**
@@ -94,49 +101,30 @@ export class AnalyticsRepositoryRegistry {
   /**
    * Reads the packages that are installed locally
    *
-   * Each sub-folder of the local directory is a package with a "manifest.json"
-   * file that has the same structure as a package from a server. Folders
-   * without a valid manifest are skipped.
+   * Each local location is either a single package folder or a folder whose
+   * sub-folders are packages. A package has a "manifest.json" file that has
+   * the same structure as a package from a server. Folders without a valid
+   * manifest are skipped.
+   *
+   * If a package name is found more than once, the first location wins.
    */
   async getLocalPackages(): Promise<IAnalyticRepository_ServerPackage[]> {
-    /**
-     * Track candidate folders that have packages
-     */
-    let folders: string[];
-    try {
-      folders = (await readdir(this.localDir, { withFileTypes: true }))
-        .filter((entry) => entry.isDirectory())
-        .map((entry) => entry.name);
-    } catch {
-      return [];
-    }
-
     /** Track found packages */
     const found: IAnalyticRepository_ServerPackage[] = [];
 
-    // process each folder
-    for (const folder of folders) {
-      const localPath = join(this.localDir, folder);
-      try {
-        const manifest = JSON.parse(
-          await readFile(join(localPath, 'manifest.json'), 'utf-8'),
-        ) as IAnalyticsRepository_Package;
+    /** Track names so the first location wins */
+    const names = new Set<string>();
 
-        // validate local manifest file
-        if (
-          typeof manifest?.name !== 'string' ||
-          typeof manifest?.version !== 'string'
-        ) {
-          continue;
+    /** Skip duplicate locations */
+    const dirs = new Set(this.localDirs.map((dir) => resolve(dir)));
+
+    for (const dir of dirs) {
+      for (const item of await this.readLocalDir(dir)) {
+        const key = item.package.name.toLowerCase();
+        if (!names.has(key)) {
+          names.add(key);
+          found.push(item);
         }
-
-        // save package information
-        found.push({
-          localPath,
-          package: { ...manifest, metadata: manifest.metadata || {} },
-        });
-      } catch {
-        // missing or invalid manifest, not a package we can use
       }
     }
 
@@ -208,10 +196,11 @@ export class AnalyticsRepositoryRegistry {
   }
 
   /**
-   * Sets the folder with locally installed packages
+   * Sets the locations (folders of packages or single package folders) to
+   * search for locally installed packages
    */
-  setLocalDir(dir: string) {
-    this.localDir = dir;
+  setLocalDirs(dirs: string[]) {
+    this.localDirs = [...dirs];
   }
 
   /**
@@ -219,6 +208,61 @@ export class AnalyticsRepositoryRegistry {
    */
   setServers(servers: IAnalyticsRepository_ServerInfo[]) {
     this.servers = [...servers];
+  }
+
+  /**
+   * Reads all packages that are sub-folders of a directory
+   */
+  private async readLocalDir(
+    dir: string,
+  ): Promise<IAnalyticRepository_ServerPackage[]> {
+    let folders: string[];
+    try {
+      folders = (await readdir(dir, { withFileTypes: true }))
+        .filter((entry) => entry.isDirectory())
+        .map((entry) => entry.name);
+    } catch {
+      return [];
+    }
+
+    const found: IAnalyticRepository_ServerPackage[] = [];
+    for (const folder of folders) {
+      const pkg = await this.readLocalPackage(join(dir, folder));
+      if (pkg) {
+        found.push(pkg);
+      }
+    }
+    return found;
+  }
+
+  /**
+   * Reads a single package folder, or returns undefined if it does not have
+   * a valid manifest
+   */
+  private async readLocalPackage(
+    localPath: string,
+  ): Promise<IAnalyticRepository_ServerPackage | undefined> {
+    try {
+      const manifest = JSON.parse(
+        await readFile(join(localPath, 'manifest.json'), 'utf-8'),
+      ) as IAnalyticsRepository_Package;
+
+      // validate local manifest file
+      if (
+        typeof manifest?.name !== 'string' ||
+        typeof manifest?.version !== 'string'
+      ) {
+        return undefined;
+      }
+
+      return {
+        localPath,
+        package: { ...manifest, metadata: manifest.metadata || {} },
+      };
+    } catch {
+      // missing or invalid manifest, not a package we can use
+      return undefined;
+    }
   }
 
   /**

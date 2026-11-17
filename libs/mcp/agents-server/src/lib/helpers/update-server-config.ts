@@ -1,3 +1,4 @@
+import { GetIDLPackagePath } from '@idl/idl/files';
 import { ANALYTICS_REPOSITORY_REGISTRY } from '@idl/mcp/analytics-repository';
 import { MCP_TASK_REGISTRY } from '@idl/mcp/language-server-tools';
 import {
@@ -9,11 +10,14 @@ import type { IAgentServerConfig } from '@idl/types/agents';
 import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
 
 /**
- * Applies whitelist/blacklist filters from the server config to our
- * instruction, skill, and tool workflow registries
+ * Updates server configuration across different server components
  */
-export function ApplyRegistryFilters(config: IAgentServerConfig) {
-  ANALYTICS_REPOSITORY_REGISTRY.setServers(config.analyticsRepositories);
+export function UpdateServerConfig(config: IAgentServerConfig) {
+  ANALYTICS_REPOSITORY_REGISTRY.setServers(config.packages.repositories);
+  ANALYTICS_REPOSITORY_REGISTRY.setLocalDirs([
+    ...config.packages.paths,
+    GetIDLPackagePath(),
+  ]);
 
   MCP_INSTRUCTION_REGISTRY.filters.updateFilters({
     whitelist: config.agent.mcp.instructionsWhitelist,
