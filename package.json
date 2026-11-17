@@ -219,7 +219,7 @@
     "progress": "^2.0.3",
     "rimraf": "^6.0.1",
     "stream-browserify": "^3.0.0",
-    "ts-jest": "29.4.7",
+    "ts-jest": "29.4.15",
     "ts-node": "10.9.1",
     "tty-browserify": "^0.0.1",
     "typescript": "5.9.3",
