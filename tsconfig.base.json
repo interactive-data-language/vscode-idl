@@ -219,8 +219,6 @@
         "./libs/mcp/analytics-repository/src/index.ts"
       ],
       "@idl/ngx/material": ["./libs/ngx/material/src/index.ts"],
-      "@idl/ngx/theme": ["./libs/ngx/theme/src/index.ts"],
-      "@idl/ngx/chat": ["./libs/ngx/chat/src/index.ts"],
       "@idl/ngx/map": ["./libs/ngx/map/src/index.ts"],
       "@idl/types/chat": ["./libs/types/chat/src/index.ts"],
       "@idl/mcp/idl-machine": ["./libs/mcp/idl-machine/src/index.ts"],
@@ -234,8 +232,6 @@
       "@idl/mcp/websocket": ["./libs/mcp/websocket/src/index.ts"],
       "@idl/mcp/agents-server": ["./libs/mcp/agents-server/src/index.ts"],
       "@idl/types/envi/datasets": ["./libs/types/envi/datasets/src/index.ts"],
-      "@idl/types/electron": ["./libs/types/electron/src/index.ts"],
-      "@idl/ngx/app-config": ["./libs/ngx/app-config/src/index.ts"],
       "@idl/types/agents": ["./libs/types/agents/src/index.ts"],
       "@idl/mcp/instructions": ["./libs/mcp/instructions/src/index.ts"],
       "@idl/envi/test-datasets": ["./libs/envi/test-datasets/src/index.ts"],

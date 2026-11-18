@@ -4,7 +4,6 @@ How the GitHub Copilot SDK session events that drive our chat fit together, and 
 
 - Handler: `libs/mcp/agents-server/src/lib/chat/copilot/copilot-chat-framework.class.ts` (`streamChatCompletion`, the `session.on` callback)
 - Chunk types: `libs/types/chat/src/lib/chat-types.interface.ts`
-- Client reducer: `libs/ngx/chat/src/lib/state/chat.state.ts`
 - SDK event typings: `node_modules/@github/copilot-sdk/dist/generated/session-events.d.ts`
 
 The timeline below was captured from a real run (BYOK `gpt-5.4`, three assistant turns, five tool calls). Behavior may differ slightly by model or provider; see [Model differences](#model-differences).
