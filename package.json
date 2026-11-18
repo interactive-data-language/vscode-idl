@@ -24,6 +24,7 @@
     "build-server": "nx run-many --target=build --projects=vscode-server,vscode-parsing-worker --prod",
     "build-test": "nx build test-vscode-e2e-runner && nx build test-client",
     "build-test-maker": "nx build test-maker",
+    "build-json-schemas": "nx build build-json-schemas && node ./dist/apps/build/json-schemas/main.js && prettier --write ./resources/language/schemas/idlpackage",
     "build-tmlang": "nx build build-tmlang-maker && node ./dist/apps/build/tmlang-maker/main.js --trace-warnings",
     "clean": "rimraf ./dist",
     "code-prep": "nx run-many --all --target=lint --fix --parallel=8 && nx format:write",

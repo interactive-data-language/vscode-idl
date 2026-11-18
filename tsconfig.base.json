@@ -241,7 +241,8 @@
       ],
       "@idl/types/analytics-repository": [
         "./libs/types/analytics-repository/src/index.ts"
-      ]
+      ],
+      "@idl/schemas/idlpackage": ["./libs/schemas/idlpackage/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

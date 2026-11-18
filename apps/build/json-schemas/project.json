@@ -1,0 +1,15 @@
+{
+  "name": "build-json-schemas",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/build/json-schemas/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    }
+  }
+}
