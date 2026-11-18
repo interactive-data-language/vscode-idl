@@ -8,10 +8,13 @@
 ;     If set, errors are stopped on
 ;   output_manifest_uri: in, optional, String
 ;     Fully-qualified path to where the manifest file should be written
+;   silent: bidirectional, optional, any
+;     If no idlpackage.json file is found, silently returns without an error
 ;
 ;-
 pro vscode_createManifest, packageDir, debug = debug, $
-  output_manifest_uri = output_manifest_uri
+  output_manifest_uri = output_manifest_uri, $
+  silent = silent
   compile_opt idl2, hidden
   if ~keyword_set(debug) then on_error, 2
 
@@ -20,6 +23,12 @@ pro vscode_createManifest, packageDir, debug = debug, $
 
   ;+ get the package file
   packageFile = strjoin([dir, 'idlpackage.json'], path_sep())
+
+  ; check for package file existence
+  if ~file_test(packageFile) then begin
+    if keyword_set(silent) then return
+    message, `No idlpackage.json file in "${packageDir}"`
+  endif
 
   ; parse the package
   package = json_parse(packageFile)

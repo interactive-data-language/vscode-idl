@@ -10,7 +10,7 @@
 ;     The path to a dependency that we need to try to include or not
 ;
 ;-
-function vscode_BuildWorkspace_skipRoutine, path
+function vscode_buildWorkspace_skipRoutine, path
   compile_opt idl2, hidden
 
   ; return if we dont have a path
@@ -57,7 +57,7 @@ end
 ;     to limit recursion.
 ;
 ;-
-pro vscode_BuildWorkspace_resolve, bdg, routines, processed, unresolved, skip
+pro vscode_buildWorkspace_resolve, bdg, routines, processed, unresolved, skip
   compile_opt idl2, hidden
 
   ; track routines that we have processed
@@ -114,7 +114,7 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, unresolved, skip
     src = json_parse(bdg.getVar('info'), /fold_case)
 
     ; skip internal routines
-    if vscode_BuildWorkspace_skipRoutine(src['path']) then begin
+    if vscode_buildWorkspace_skipRoutine(src['path']) then begin
       skip[routine] = !true
       continue
     endif
@@ -136,7 +136,7 @@ pro vscode_BuildWorkspace_resolve, bdg, routines, processed, unresolved, skip
     if isa(allRoutines['functions'], 'list') then toProcess.add, allRoutines['functions'], /extract
 
     ; recurse
-    vscode_BuildWorkspace_resolve, bdg, toProcess, processed, unresolved, skip
+    vscode_buildWorkspace_resolve, bdg, toProcess, processed, unresolved, skip
   endif
 end
 
@@ -150,7 +150,7 @@ end
 ;     File extensions that we copy as part of the build
 ;
 ;-
-pro vscode_BuildWorkspace_CopyFiles, workspace, destination, types
+pro vscode_buildWorkspace_CopyFiles, workspace, destination, types
   compile_opt idl2, hidden
 
   ; search for files
@@ -220,6 +220,8 @@ end
 ;     a "dist" folder is created in the root of the workspace.
 ;
 ;     Output folder is deleted and recreated during the build process.
+;   output_directory: out, optional, String
+;     Fully qualified path to output folder
 ;   silent: in, optional, Boolean
 ;     If set, we don't alert users about unresolved routines and we don't
 ;     write them out to disk.
@@ -229,17 +231,18 @@ end
 ;   Here's a simple example showing how to run this procedure:
 ;
 ;   ```idl
-;   vscode_BuildWorkspace, 'C:\Users\awesome-user\my-workspace'
+;   vscode_buildWorkspace, 'C:\Users\awesome-user\my-workspace'
 ;   ```
 ;
 ;   It does expect that all source code for the workspace is in a `src` folder
 ;   found within the workspace.
 ;
 ;-
-pro vscode_BuildWorkspace, workspace, $
+pro vscode_buildWorkspace, workspace, $
   condense_to = condense_to, $
   description = description, $
   destination = destination, $
+  output_directory = outDir, $
   silent = silent
   compile_opt idl2, hidden
   on_error, 2
@@ -366,7 +369,7 @@ pro vscode_BuildWorkspace, workspace, $
 
   ; recurse
   print, 'Resolving all dependencies'
-  vscode_BuildWorkspace_resolve, bdg, toProcess, processed, unresolved
+  vscode_buildWorkspace_resolve, bdg, toProcess, processed, unresolved
 
   ; add object classes for resolving
   ; processed['awesomeenviprogress__define'] = !true
@@ -458,4 +461,17 @@ pro vscode_BuildWorkspace, workspace, $
   ; check if we need to clean up the dependency folder
   !null = file_search(depDir, '*.sav', count = nSave)
   if (nSave eq 0) then file_delete, depDir
+
+  ; check for common files that we need to copy/move
+  checkFiles = [ $
+    'idlpackage.json', $
+    'README.md' $
+    ]
+
+  ; check for an IDL Package file
+  foreach file, workspace + path_sep() + checkFiles do $
+    if file_test(file) then file_copy, file, outDir
+
+  ; try to create the package manifest
+  vscode_createManifest, outDir, /silent
 end
