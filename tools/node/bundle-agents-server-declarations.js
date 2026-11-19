@@ -38,8 +38,16 @@ function BundleAgentsServerDeclarations(entry, outDir) {
       compilerOptions: {
         ...base.compilerOptions,
         rootDir: root,
-        baseUrl: root,
-        paths: { ...base.compilerOptions.paths, ...NARROW_ALIASES },
+        // "baseUrl" is deprecated, so make every path absolute instead
+        paths: Object.fromEntries(
+          Object.entries({
+            ...base.compilerOptions.paths,
+            ...NARROW_ALIASES,
+          }).map(([key, values]) => [
+            key,
+            values.map((value) => path.resolve(root, value)),
+          ]),
+        ),
         types: [],
       },
       files: [path.join(root, entry)],
