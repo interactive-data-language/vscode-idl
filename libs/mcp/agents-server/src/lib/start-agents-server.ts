@@ -7,6 +7,7 @@ import express from 'express';
 import type { Server } from 'http';
 
 import { Chat } from './chat/chat.class';
+import { API_DOCS_ROUTE } from './docs/api-routes-config';
 import { AssertPortAvailable } from './helpers/assert-port-available';
 import { LoadConfigFromEnv } from './helpers/load-config-from-env';
 import { UpdateServerConfig } from './helpers/update-server-config';
@@ -16,6 +17,7 @@ import {
 } from './mcp/create-standalone-mcp-server';
 import { CreateChatRoutes } from './routes/chat.routes';
 import { CreateConfigRoutes } from './routes/config.routes';
+import { CreateDocsRoutes } from './routes/docs.routes';
 
 /**
  * Result returned by `StartAgentsServer`. Call `stop()` to gracefully shut
@@ -82,6 +84,7 @@ export async function StartAgentsServer(
 
   app.use('/api/chat', CreateChatRoutes(chat));
   app.use('/api/config', CreateConfigRoutes(config, configFile));
+  app.use(API_DOCS_ROUTE, CreateDocsRoutes());
 
   // Error handling middleware
   app.use(

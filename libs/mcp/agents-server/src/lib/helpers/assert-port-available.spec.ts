@@ -27,4 +27,16 @@ describe('AssertPortAvailable', () => {
       `Port ${port} is already in use`,
     );
   });
+
+  it('throws when a wildcard-bound server holds the port', async () => {
+    blocker = createServer();
+    await new Promise<void>((resolve) =>
+      blocker?.listen(0, '0.0.0.0', () => resolve()),
+    );
+    const port = (blocker.address() as { port: number }).port;
+
+    await expect(AssertPortAvailable('127.0.0.1', port)).rejects.toThrow(
+      `Port ${port} is already in use`,
+    );
+  });
 });
