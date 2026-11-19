@@ -14,9 +14,9 @@ export const API_DOCS_ROUTE = '/api/docs';
 export const API_ROUTES_CONFIG: OpenAPIObject = {
   openapi: '3.0.3',
   info: {
-    title: 'IDL Agents Server API',
+    title: 'IDL Agent and ENVI Agent Server API',
     version: '1.0.0',
-    description: 'HTTP API for the IDL/ENVI agents server',
+    description: 'HTTP API for IDL Agent and ENVI Agent',
   },
   tags: [
     { name: 'Chat', description: 'Chat sessions and streaming completions' },
