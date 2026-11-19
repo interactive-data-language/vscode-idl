@@ -75,24 +75,13 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
     baseProp.default = baseDefault[properties1[i]];
   }
 
-  // write to disk
-  writeFileSync(
-    GetExtensionPath('resources/language/schemas/config/schema.json'),
-    JSON.stringify(base, undefined, 2),
-  );
-
-  // load actual schema for config tags
-  const details = JSON.parse(
-    readFileSync(
-      GetExtensionPath('resources/language/schemas/config/v1.schema.json'),
-      { encoding: 'utf-8' },
-    ),
-  );
+  // style options are definitions in the same schema file
+  const details = base;
 
   // verify child
   if (!('definitions' in details)) {
     throw new Error(
-      'Expected "definitions" key not found in idl.json v1.schema.json file',
+      'Expected "definitions" key not found in idl.json schema.json file',
     );
   }
   const detailDefinitions = details['definitions'];
@@ -100,7 +89,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
   // verify child
   if (!('1.0.0-options' in detailDefinitions)) {
     throw new Error(
-      'Expected "1.0.0-options" key not found in idl.json v1.schema.json "definitions"',
+      'Expected "1.0.0-options" key not found in idl.json schema.json "definitions"',
     );
   }
 
@@ -129,7 +118,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
     // validate correctness
     if (!(properties2[i] in detailProperties)) {
       throw new Error(
-        `Property "${properties2[i]}" is missing from the idl.json v1.schema.json file`,
+        `Property "${properties2[i]}" is missing from the idl.json schema.json definitions`,
       );
     }
     const vsProp = vsCodeDetailProperties[properties2[i]];
@@ -150,8 +139,8 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
 
   // save to disk
   writeFileSync(
-    GetExtensionPath('resources/language/schemas/config/v1.schema.json'),
-    JSON.stringify(details, undefined, 2),
+    GetExtensionPath('resources/language/schemas/config/schema.json'),
+    JSON.stringify(base, undefined, 2),
   );
 }
 

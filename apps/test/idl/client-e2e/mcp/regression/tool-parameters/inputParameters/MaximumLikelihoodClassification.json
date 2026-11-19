@@ -100,7 +100,7 @@
         "If you do not specify this parameter, the OUTPUT_RASTER will not be created.",
         "If you set this parameter to an asterisk symbol (*), the OUTPUT_RASTER will be virtual and not written to disk.",
         "To force the creation of a temporary file, set this parameter to an exclamation symbol (!).",
-        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes.. The file extension should match .dat"
       ],
       "default": "!",
       "type": "string"
@@ -111,7 +111,7 @@
         "",
         "If you do not specify this parameter, the OUTPUT_RULE_RASTER will not be created.",
         "To force the creation of a temporary file set the parameter to an exclamation symbol (!).",
-        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes.. The file extension should match .dat"
       ],
       "default": "!",
       "type": "string"
@@ -158,7 +158,7 @@
     "regularization_tolerance": {
       "type": "number",
       "description": [
-        "Specify the tolerance value to use for matrix regularization. If not set, the following values will be used based on the regularization method",
+        "Specify the tolerance value to use for matrix regularization. If not set, the following values will be used based on the regularization method:",
         "",
         "Diagonal: Ten times the smallest nonzero singular value.",
         "Dominant: The value prescribed by Gavish & Donoho.",

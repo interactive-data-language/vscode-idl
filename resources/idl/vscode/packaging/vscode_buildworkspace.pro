@@ -198,7 +198,7 @@ end
 ;   is deleted and re-created every time you build.
 ;
 ;   Dependency resolution is done using IDL's search path through VSCode with the workspace
-;   preprended so it is always discovered first.
+;   prepended so it is always discovered first.
 ;
 ;   This means that, if your path is incorrect, not all dependencies will be properly
 ;   bundled as source code.
@@ -220,6 +220,9 @@ end
 ;     a "dist" folder is created in the root of the workspace.
 ;
 ;     Output folder is deleted and recreated during the build process.
+;   no_delete: in, optional, Boolean
+;     If set, we don't delete the output folder before building. This supports
+;     use cases where it is generated in the build process before this runs.
 ;   output_directory: out, optional, String
 ;     Fully qualified path to output folder
 ;   silent: in, optional, Boolean
@@ -242,6 +245,7 @@ pro vscode_buildWorkspace, workspace, $
   condense_to = condense_to, $
   description = description, $
   destination = destination, $
+  no_delete = no_delete, $
   output_directory = outDir, $
   silent = silent
   compile_opt idl2, hidden
@@ -263,7 +267,7 @@ pro vscode_buildWorkspace, workspace, $
   outDir = keyword_set(destination) ? destination : workspace + path_sep() + 'dist'
 
   ; clean up if the output folder exists already
-  if file_test(outDir, /directory) then file_delete, outDir, /recursive
+  if ~keyword_set(no_delete) && file_test(outDir, /directory) then file_delete, outDir, /recursive
 
   ; make our output folder
   file_mkdir, outDir

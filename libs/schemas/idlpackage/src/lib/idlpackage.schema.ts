@@ -113,6 +113,34 @@ export const IDLPackageSchema = z
       .meta({ title: 'Dependencies' })
       .describe('Dependencies of the IDL Package.')
       .optional(),
+    declarations: z
+      .object({
+        agent_instructions: z
+          .array(z.string())
+          .describe('Relative paths to *.instructions.md files for agents')
+          .optional(),
+        agent_skills: z
+          .array(z.string())
+          .describe(
+            'Relative paths to directories that include a SKILL.md file. Each folder should match the agentskills.io spec, with one change: everything needs to be in a single file right now',
+          )
+          .optional(),
+        envi_extensions: z
+          .array(z.string())
+          .describe(
+            'Relative paths to .pro files for ENVI Extensions. On publish, these are updated to be .sav files if code is compiled',
+          )
+          .optional(),
+        envi_tasks: z
+          .array(z.string())
+          .describe('Relative paths to .task files for ENVI Tasks.')
+          .optional(),
+        envi_tool_workflows: z
+          .array(z.string())
+          .describe('Relative paths to .md files for ENVI Tool Workflows.')
+          .optional(),
+      })
+      .optional(),
   })
   .describe('Description of an IDL Package for the IDL Package Manager.');
 

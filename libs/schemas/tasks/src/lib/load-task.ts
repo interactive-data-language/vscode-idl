@@ -3,7 +3,7 @@ import type { ParsedTask } from '@idl/types/tasks';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 
-import { LoadTaskSchema } from './load-task-schema';
+import { ValidateTaskFile } from './schemas/task.schema';
 
 /**
  * Loads a config file from disk that controls formatting within
@@ -56,31 +56,21 @@ export async function LoadTask(
     parsed['parameters'] = params;
   }
 
-  /** Load our schema validation function */
-  const validator = await LoadTaskSchema();
-
   /** Validate parsed JSON via schema */
-  const valid = validator(parsed);
+  const result = ValidateTaskFile(parsed);
 
   // check if we are valid or not
-  if (!valid) {
-    let errAdd = '';
-    // check for error details
-    if (Array.isArray(validator.errors)) {
-      // get useful error information
-      const useErrors = validator.errors.map((val) => {
-        return {
-          message: `Property '${val.instancePath.substring(1)}' ${val.message}`,
-          params: val.params,
-        };
-      });
-
-      errAdd = JSON.stringify(useErrors, null, 2);
-    }
+  if (!result.success) {
+    // get useful error information
+    const useErrors = result.issues.map((issue) => {
+      return {
+        message: `Property '${issue.path.join('/')}' ${issue.message}`,
+      };
+    });
 
     // throw actual error
     throw new Error(
-      `${IDL_TRANSLATION.tasks.parsing.errors.invalidTaskFile}. File: "${fsPath}"\n  ${errAdd}`,
+      `${IDL_TRANSLATION.tasks.parsing.errors.invalidTaskFile}. File: "${fsPath}"\n  ${JSON.stringify(useErrors, null, 2)}`,
     );
   }
 

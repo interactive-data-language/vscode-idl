@@ -64,7 +64,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for instructions
         ;-
         strcmp(key, 'agent_instructions', /fold_case): begin
-          vscode_createManifest_manageInstructions, dir, metadata, value
+          vscode_createManifest_manageInstructions, dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'Agent Instructions'
         end
 
@@ -80,7 +80,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for ENVI extension
         ;-
         strcmp(key, 'envi_extensions', /fold_case): begin
-          vscode_createManifest_manageENVIExtensions, dir, metadata, value
+          vscode_createManifest_manageENVIExtensions, dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'ENVI Extension'
         end
 
@@ -88,7 +88,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for ENVI Machine Learning Models
         ;-
         strcmp(key, 'envi_machine_learning_models', /fold_case): begin
-          vscode_createManifest_manageENVIMachineLearningModels, dir, metadata, value
+          vscode_createManifest_manageENVIMachineLearningModels, dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'ENVI Machine Learning Model'
         end
 
@@ -103,7 +103,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for ENVI ONNX mdoels
         ;-
         strcmp(key, 'envi_onnx_models', /fold_case): begin
-          vscode_createManifest_manageENVIONNXModels, dir, metadata, value
+          vscode_createManifest_manageENVIONNXModels, dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'ENVI ONNX Model'
         end
 
@@ -111,7 +111,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for ENVI tasks
         ;-
         strcmp(key, 'envi_tasks', /fold_case): begin
-          vscode_createManifest_manageTasks, 'envi_tasks', dir, metadata, value
+          vscode_createManifest_manageTasks, 'envi_tasks', dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'ENVI Task'
         end
 
@@ -127,7 +127,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for IDL tasks
         ;-
         strcmp(key, 'idl_tasks', /fold_case): begin
-          vscode_createManifest_manageTasks, 'idl_tasks', dir, metadata, value
+          vscode_createManifest_manageTasks, 'idl_tasks', dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'IDL Task'
         end
 

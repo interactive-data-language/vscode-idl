@@ -44,6 +44,46 @@
       },
       "title": "Dependencies",
       "description": "Dependencies of the IDL Package."
+    },
+    "declarations": {
+      "type": "object",
+      "properties": {
+        "agent_instructions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to *.instructions.md files for agents"
+        },
+        "agent_skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to directories that include a SKILL.md file. Each folder should match the agentskills.io spec, with one change: everything needs to be in a single file right now"
+        },
+        "envi_extensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to .pro files for ENVI Extensions. On publish, these are updated to be .sav files if code is compiled"
+        },
+        "envi_tasks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to .task files for ENVI Tasks."
+        },
+        "envi_tool_workflows": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to .md files for ENVI Tool Workflows."
+        }
+      }
     }
   },
   "additionalProperties": {},

@@ -89,14 +89,14 @@
     },
     "output_class_activation_raster_uri": {
       "description": [
-        "Specify a string with the fully qualified filename and path of the associated OUTPUT_CLASS_ACTIVATION_RASTER. If you do not set this parameter, the class activation raster will not be created. You must set this parameter or the OUTPUT_CLASSIFICATION_RASTER_URI parameter. You can also set both."
+        "Specify a string with the fully qualified filename and path of the associated OUTPUT_CLASS_ACTIVATION_RASTER. If you do not set this parameter, the class activation raster will not be created. You must set this parameter or the OUTPUT_CLASSIFICATION_RASTER_URI parameter. You can also set both.. The file extension should match .dat"
       ],
       "default": "!",
       "type": "string"
     },
     "output_classification_raster_uri": {
       "description": [
-        "Specify a string with the fully qualified filename and path of the associated OUTPUT_CLASSIFICATION_RASTER. If you do not set this parameter, the classification raster will not be created. You must set this parameter or the OUTPUT_CLASS_ACTIVATION_RASTER_URI parameter. You can also set both."
+        "Specify a string with the fully qualified filename and path of the associated OUTPUT_CLASSIFICATION_RASTER. If you do not set this parameter, the classification raster will not be created. You must set this parameter or the OUTPUT_CLASS_ACTIVATION_RASTER_URI parameter. You can also set both.. The file extension should match .dat"
       ],
       "default": "!",
       "type": "string"
