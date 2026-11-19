@@ -4,9 +4,6 @@
   "sourceRoot": "libs/types/agents/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
-  }
+  "// targets": "to see all targets run: nx show project types-agents --web",
+  "targets": {}
 }

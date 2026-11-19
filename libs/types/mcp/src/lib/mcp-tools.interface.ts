@@ -66,6 +66,15 @@ export type MCPToolHTTPResponse<T extends MCPTools> = T extends MCPTools_HTTP
     : never;
 
 /**
+ * HTTP response from an MCP tool plus, for tools that run in IDL and succeed,
+ * the parsed payload from the response content
+ */
+export type MCPToolParsedHTTPResponse<T extends MCPTools> = {
+  /** Parsed IDL response, only set for IDL tools that didn't error */
+  response?: T extends MCPTools_IDL ? MCPToolResponse<T> : never;
+} & MCPToolHTTPResponse<T>;
+
+/**
  * Strictly typed messages that we can send back and forth
  */
 interface IMCPToolLookup {
@@ -157,3 +166,23 @@ export const MCP_TOOL_LOOKUP: IMCPToolLookup = {
   SEARCH_RESOURCES: 'search-resources',
   TAKE_ENVI_SCREENSHOT: 'take-envi-screenshot',
 };
+
+/**
+ * Names of the tools that run in IDL, whose HTTP response content is the JSON
+ * of `MCPToolResponse`
+ */
+export const MCP_TOOLS_IDL: ReadonlySet<string> = new Set<MCPTools_IDL>([
+  MCP_TOOL_LOOKUP.CONTROL_IDL_AND_ENVI_SESSION,
+  MCP_TOOL_LOOKUP.CONTROL_IDL_DEBUGGER,
+  MCP_TOOL_LOOKUP.CREATE_IDL_NOTEBOOK,
+  MCP_TOOL_LOOKUP.GET_IDL_STATE,
+  MCP_TOOL_LOOKUP.LIST_ENVI_TOOL_WORKFLOWS,
+  MCP_TOOL_LOOKUP.OPEN_DATASETS_IN_ENVI,
+  MCP_TOOL_LOOKUP.QUERY_DATASET_WITH_ENVI,
+  MCP_TOOL_LOOKUP.QUERY_IDL_SESSION,
+  MCP_TOOL_LOOKUP.RETURN_NOTES,
+  MCP_TOOL_LOOKUP.RUN_ENVI_TOOL,
+  MCP_TOOL_LOOKUP.RUN_IDL_CODE,
+  MCP_TOOL_LOOKUP.RUN_IDL_FILE,
+  MCP_TOOL_LOOKUP.TAKE_ENVI_SCREENSHOT,
+]);

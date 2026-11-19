@@ -2,8 +2,8 @@ import { IDL_TRANSLATION } from '@idl/translation';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 
-import { LoadSchema } from './load-schema';
 import { MergeConfig } from './merge-config';
+import { IDLConfigSchema } from './schemas/idl-config.schema';
 
 /**
  * Loads a config file from disk that controls formatting within
@@ -35,31 +35,21 @@ export async function LoadConfig(uri: string, content?: string) {
     throw new Error(IDL_TRANSLATION.assembling.config.errors.invalidJSON);
   }
 
-  /** Load our schema validation function */
-  const validator = await LoadSchema();
-
   /** Validate parsed JSON via schema */
-  const valid = validator(parsed);
+  const result = IDLConfigSchema.safeParse(parsed);
 
   // check if we are valid or not
-  if (!valid) {
-    let errAdd = '';
-    // check for error details
-    if (validator.errors !== undefined) {
-      // get useful error information
-      const useErrors = validator.errors.map((val) => {
-        return {
-          message: `Property '${val.instancePath.substring(1)}' ${val.message}`,
-          params: val.params,
-        };
-      });
-
-      errAdd = JSON.stringify(useErrors, null, 2);
-    }
+  if (!result.success) {
+    // get useful error information
+    const useErrors = result.error.issues.map((issue) => {
+      return {
+        message: `Property '${issue.path.join('/')}' ${issue.message}`,
+      };
+    });
 
     // throw actual error
     throw new Error(
-      `${IDL_TRANSLATION.assembling.config.errors.invalidConfigFile}. File: "${uri}"\n  ${errAdd}`,
+      `${IDL_TRANSLATION.assembling.config.errors.invalidConfigFile}. File: "${uri}"\n  ${JSON.stringify(useErrors, null, 2)}`,
     );
   }
 

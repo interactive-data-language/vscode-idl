@@ -6,7 +6,7 @@
 ;     Package directory
 ;   metadata: in, required, Hash<any>
 ;     Package metadata
-;   toolWorkfows: in, required, List<Hash<any>>
+;   toolWorkfows: in, required, List<String>
 ;     The tool workflows that we need to register
 ;
 ;-
@@ -23,19 +23,20 @@ pro vscode_createManifest_manageToolWorkflows, type, dir, metadata, toolWorkfows
   ; process each configured tool workflow
   foreach workflow, toolWorkfows do begin
     ;+ get path
-    workflowUri = strjoin([dir, workflow['source']], path_sep())
+    workflowUri = strjoin([dir, workflow], path_sep())
 
     ; make sure it exists
-    if ~file_test(workflowUri) then message, `Declared tool workflow file doesn't exist: ${workflow}`
+    if ~file_test(workflowUri) then message, `Declared tool workflow file doesn't exist: "${workflow}"`
 
     ;+ strings of workflow file
-    strings = strarr(file_lines(workflowUri))
-    openr, lun, workflowUri, /get_lun
-    readf, lun, strings
-    free_lun, lun
+    strings = vscode_createManifest_readFile(workflowUri)
+
+    ;+ frontmatter
+    frontmatter = vscode_createManifest_parseFrontmatter(workflowUri)
+    workflowName = ~frontmatter.hasKey('name') ? file_basename(workflow, '.md') : frontmatter['name']
 
     ; save task definition
-    workflowMeta[workflow['name']] = strjoin(strings, `\n`)
+    workflowMeta[workflowName] = strjoin(strings, `\n`)
   endforeach
 
   ; save metadata

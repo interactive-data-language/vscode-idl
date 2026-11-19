@@ -142,7 +142,7 @@
     },
     "cloud_raster_uri": {
       "description": [
-        "Specify a string with the fully qualified filename and path of the associated CLOUD_RASTER. If you do not set this parameter to a valid filename, a cloud raster will not be generated."
+        "Specify a string with the fully qualified filename and path of the associated CLOUD_RASTER. If you do not set this parameter to a valid filename, a cloud raster will not be generated.. The file extension should match .dat"
       ],
       "default": "!",
       "type": "string"
@@ -418,7 +418,7 @@
         "Specify a string with the fully qualified filename and path of the associated OUTPUT_RASTER.",
         "",
         "If you do not specify this parameter, or set it to an exclamation symbol (!), ENVI creates a temporary file.",
-        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes.. The file extension should match .dat"
       ],
       "default": "!",
       "type": "string"
@@ -722,7 +722,7 @@
     },
     "water_raster_uri": {
       "description": [
-        "Specify a string with the fully qualified filename and path of the associated WATER_RASTER. If you do not set this parameter to a valid filename, a water vapor raster will not be generated."
+        "Specify a string with the fully qualified filename and path of the associated WATER_RASTER. If you do not set this parameter to a valid filename, a water vapor raster will not be generated.. The file extension should match .dat"
       ],
       "default": "!",
       "type": "string"

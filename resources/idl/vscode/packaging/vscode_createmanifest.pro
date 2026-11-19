@@ -8,10 +8,13 @@
 ;     If set, errors are stopped on
 ;   output_manifest_uri: in, optional, String
 ;     Fully-qualified path to where the manifest file should be written
+;   silent: bidirectional, optional, any
+;     If no idlpackage.json file is found, silently returns without an error
 ;
 ;-
 pro vscode_createManifest, packageDir, debug = debug, $
-  output_manifest_uri = output_manifest_uri
+  output_manifest_uri = output_manifest_uri, $
+  silent = silent
   compile_opt idl2, hidden
   if ~keyword_set(debug) then on_error, 2
 
@@ -20,6 +23,12 @@ pro vscode_createManifest, packageDir, debug = debug, $
 
   ;+ get the package file
   packageFile = strjoin([dir, 'idlpackage.json'], path_sep())
+
+  ; check for package file existence
+  if ~file_test(packageFile) then begin
+    if keyword_set(silent) then return
+    message, `No idlpackage.json file in "${packageDir}"`
+  endif
 
   ; parse the package
   package = json_parse(packageFile)
@@ -55,7 +64,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for instructions
         ;-
         strcmp(key, 'agent_instructions', /fold_case): begin
-          vscode_createManifest_manageInstructions, dir, metadata, value
+          vscode_createManifest_manageInstructions, dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'Agent Instructions'
         end
 
@@ -71,7 +80,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for ENVI extension
         ;-
         strcmp(key, 'envi_extensions', /fold_case): begin
-          vscode_createManifest_manageENVIExtensions, dir, metadata, value
+          vscode_createManifest_manageENVIExtensions, dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'ENVI Extension'
         end
 
@@ -79,7 +88,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for ENVI Machine Learning Models
         ;-
         strcmp(key, 'envi_machine_learning_models', /fold_case): begin
-          vscode_createManifest_manageENVIMachineLearningModels, dir, metadata, value
+          vscode_createManifest_manageENVIMachineLearningModels, dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'ENVI Machine Learning Model'
         end
 
@@ -94,7 +103,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for ENVI ONNX mdoels
         ;-
         strcmp(key, 'envi_onnx_models', /fold_case): begin
-          vscode_createManifest_manageENVIONNXModels, dir, metadata, value
+          vscode_createManifest_manageENVIONNXModels, dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'ENVI ONNX Model'
         end
 
@@ -102,7 +111,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for ENVI tasks
         ;-
         strcmp(key, 'envi_tasks', /fold_case): begin
-          vscode_createManifest_manageTasks, 'envi_tasks', dir, metadata, value
+          vscode_createManifest_manageTasks, 'envi_tasks', dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'ENVI Task'
         end
 
@@ -118,7 +127,7 @@ pro vscode_createManifest, packageDir, debug = debug, $
         ; Check for IDL tasks
         ;-
         strcmp(key, 'idl_tasks', /fold_case): begin
-          vscode_createManifest_manageTasks, 'idl_tasks', dir, metadata, value
+          vscode_createManifest_manageTasks, 'idl_tasks', dir, metadata, vscode_createManifest_expandGlobs(dir, value)
           vscode_createManifest_addTag, manifest['tags'], 'IDL Task'
         end
 

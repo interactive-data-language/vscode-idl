@@ -4,12 +4,6 @@ Snapshot of every Angular app/lib in the workspace against modern Angular (root 
 
 ## Apps
 
-### `apps/agents/ui` — Modern (5/5)
-
-- Executor: `@angular/build:application`
-- Standalone components, `inject()` throughout, no `constructor()` DI found.
-- No action needed; use as the reference implementation.
-
 ### `apps/vscode/webview` — Modernized (5/5)
 
 - Executor: `@angular/build:application` ✅ (migrated)
@@ -30,15 +24,12 @@ Snapshot of every Angular app/lib in the workspace against modern Angular (root 
 
 ## Libs
 
-| Lib                   | Status                       | Notes                                                                                                                                     |
-| --------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `libs/ngx/chat`       | Modern (5/5)                 | Standalone, `inject()`, signals (`signal`/`computed`/`effect`), `OnPush`, `toSignal()`. Reference implementation for signals-based state. |
-| `libs/ngx/theme`      | Modern services              | `inject()`-based service + NGXS state, no components to standalone-ize.                                                                   |
-| `libs/ngx/app-config` | Modern services              | `inject(HttpClient)`-based service, no components.                                                                                        |
-| `libs/ngx/material`   | Intentional NgModule wrapper | Re-exports Angular Material/CDK modules; **do not convert** — this pattern is the correct one for a module re-export lib.                 |
-| `libs/ngx/map`        | No Angular code found        | Zero `@angular/core` imports — stub/marker lib only, needs no action.                                                                     |
+| Lib                 | Status                       | Notes                                                                                                                     |
+| ------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `libs/ngx/material` | Intentional NgModule wrapper | Re-exports Angular Material/CDK modules; **do not convert** — this pattern is the correct one for a module re-export lib. |
+| `libs/ngx/map`      | No Angular code found        | Zero `@angular/core` imports — stub/marker lib only, needs no action.                                                     |
 
-Confirmed via `@angular/core` import grep across `libs/**`: only the 22 files listed above import it; no other Angular libs exist outside `libs/ngx/*`.
+Confirmed via `@angular/core` import grep across `libs/**`: no Angular libs exist outside `libs/ngx/*`.
 
 ## Priority order
 

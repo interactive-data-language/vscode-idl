@@ -139,13 +139,13 @@ describe(`[auto generated] Add names of procedures that we can auto-complete`, (
         sortText: '90',
         detail: 'System Variable',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       {
         label: 'ENVITensorBoard',
         kind: 3,
         sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
@@ -168,13 +168,13 @@ describe(`[auto generated] Add names of procedures that we can auto-complete`, (
 
     // define expected token we extract
     const expectedFound_1: CompletionItem[] = [
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       {
         label: 'ENVITensorBoard',
         kind: 3,
         sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
@@ -325,13 +325,13 @@ describe(`[auto generated] Add names of procedures that we can auto-complete`, (
 
     // define expected token we extract
     const expectedFound_2: CompletionItem[] = [
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       {
         label: 'ENVITensorBoard',
         kind: 3,
         sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },
@@ -482,13 +482,13 @@ describe(`[auto generated] Add names of procedures that we can auto-complete`, (
 
     // define expected token we extract
     const expectedFound_3: CompletionItem[] = [
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       {
         label: 'ENVITensorBoard',
         kind: 3,
         sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openu', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openw', kind: 3, sortText: '40', detail: 'Procedure' },

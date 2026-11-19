@@ -1,30 +1,79 @@
-const { composePlugins, withNx } = require('@nx/webpack');
+const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
 const path = require('path');
 
 /**
  * ABOUT
  *
- * Base webpack file for our apps that need webpack
+ * Shared webpack config factory for the apps that build with webpack
  *
- * Some issue migrating where this is something that should be set for anything
- * that builds using webpack.
+ * Replaces the options from the removed @nx/webpack:webpack executor. Each app
+ * has a webpack.config.js that calls this with its folder. Nx infers the build
+ * target from that file and runs webpack-cli from the project folder.
  *
- * Setting this up for a shared webpack file that all of the other configs can use
+ * The `production` configuration is detected with NX_TASK_TARGET_CONFIGURATION
  */
+function createNodeConfig(projectDir, config = {}) {
+  const {
+    assets = ['./src/assets'],
+    environments = false,
+    externalDependencies = 'all',
+    externals = [],
+    generatePackageJson = false,
+    production = { optimization: true, extractLicenses: true },
+    sourceMap = false,
+    target = 'node',
+    apply,
+  } = config;
 
-// Nx plugins for webpack.
-module.exports = composePlugins(withNx(), (config) => {
-  // Find the ForkTsCheckerWebpackPlugin instance
-  // const tsCheckerPlugin = config.plugins.find(
-  //   (p) => p.constructor.name === 'ForkTsCheckerWebpackPlugin'
-  // );
+  const isProd = process.env.NX_TASK_TARGET_CONFIGURATION === 'production';
+  const workspaceRoot = __dirname;
+  const outputPath = path.join(
+    workspaceRoot,
+    'dist',
+    path.relative(workspaceRoot, projectDir),
+  );
 
-  // if (tsCheckerPlugin) {
-  // Increase memory to 4GB (4096) or 8GB (8192)
-  // tsCheckerPlugin.options.typescript.memoryLimit = 8192;
-  // tsCheckerPlugin.options.typescript.mode = 'write-references';
-  // tsCheckerPlugin.options.async = false;
-  // }
+  return {
+    // output path is needed here so Nx can infer the outputs for caching
+    // the library type must be set here because the Nx plugin runs after webpack
+    // normalizes the output options, so its libraryTarget default is ignored and
+    // the bundle would not export `activate`/`deactivate`
+    output: {
+      path: outputPath,
+      ...(target === 'node' && { library: { type: 'commonjs' } }),
+    },
+    externals,
+    plugins: [
+      new NxAppWebpackPlugin({
+        outputPath,
+        main: './src/main.ts',
+        tsConfig: './tsconfig.app.json',
+        assets,
+        target,
+        compiler: 'tsc',
+        externalDependencies,
+        generatePackageJson,
+        mergeExternals: true,
+        optimization: false,
+        extractLicenses: false,
+        outputHashing: 'none',
+        sourceMap,
+        ...(isProd && {
+          ...production,
+          ...(environments && {
+            fileReplacements: [
+              {
+                replace: './src/environments/environment.ts',
+                with: './src/environments/environment.prod.ts',
+              },
+            ],
+          }),
+        }),
+      }),
+      // runs after the Nx plugin so it can change what the Nx plugin sets
+      ...(apply ? [{ apply }] : []),
+    ],
+  };
+}
 
-  return config;
-});
+module.exports = { createNodeConfig };

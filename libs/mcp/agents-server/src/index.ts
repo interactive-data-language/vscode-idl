@@ -2,6 +2,7 @@ export * from './lib/chat/chat.class';
 export * from './lib/chat/copilot/copilot-chat-framework.class';
 export * from './lib/chat/copilot/copilot-chat-framework.interface';
 export * from './lib/chat/copilot/mcp-tools/register-mcp-tools-for-todos';
+export * from './lib/docs/api-routes-config';
 export * from './lib/helpers/load-config';
 export * from './lib/helpers/resolve-idl-directory';
 export * from './lib/helpers/update-config';

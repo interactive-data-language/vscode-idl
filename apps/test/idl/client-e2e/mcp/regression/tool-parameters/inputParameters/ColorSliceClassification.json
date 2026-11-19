@@ -424,7 +424,7 @@
         "Specify a string with the fully qualified filename and path of the associated OUTPUT_RASTER.",
         "",
         "If you do not specify this parameter, or set it to an exclamation symbol (!), ENVI creates a temporary file.",
-        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes.. The file extension should match .dat"
       ],
       "default": "!",
       "type": "string"

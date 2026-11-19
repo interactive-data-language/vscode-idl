@@ -1,0 +1,9 @@
+{
+  "name": "schemas-idlpackage",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/schemas/idlpackage/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project schemas-idlpackage --web",
+  "targets": {}
+}

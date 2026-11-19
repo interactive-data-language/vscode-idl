@@ -81,6 +81,7 @@
         "Normalized Difference Moisture Index (NDMSI)",
         "Normalized Difference Nitrogen Index (NDNI)",
         "Normalized Difference Pond Index (NDPI)",
+        "Normalized Difference Red Index (NDRE)",
         "Normalized Difference Snow Index (NDSI)",
         "Normalized Difference Vegetation Index (NDVI)",
         "Normalized Difference Water Index (NDWI)",
@@ -108,6 +109,8 @@
         "Triangular Greenness (TGI)",
         "Triangular Vegetation Index (TVI)",
         "Visible Atmospherically Resistant Index (VARI)",
+        "Vogelmann Red Edge Index 1 (VREI1)",
+        "Vogelmann Red Edge Index 2 (VREI2)",
         "Water Band Index (WBI)",
         "Water Ratio Index (WRI)",
         "Wide Dynamic Range Vegetation Index (WDRVI)",
@@ -167,7 +170,7 @@
         "",
         "If you set this parameter to an asterisk symbol (*), the output raster will be virtual and not written to disk.",
         "If you do not specify this parameter, or set it to an exclamation symbol (!), a temporary file will be created.",
-        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes."
+        "If you set it to the hash symbol (#), ENVI creates a file in the temporary directory, but this file will not be deleted when ENVI closes.. The file extension should match .dat"
       ],
       "default": "!",
       "type": "string"

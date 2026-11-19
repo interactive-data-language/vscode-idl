@@ -9,8 +9,7 @@ import type {
   GlobalStructureToken,
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
-import type { ValidateFunction } from 'ajv';
-import type { JsonSchema7Type } from 'zod-to-json-schema';
+import type { z } from 'zod';
 
 /**
  * Options for creating a task registry
@@ -35,13 +34,13 @@ export interface ITaskRegistryEntry {
   /** Display name of the task */
   displayName: string;
   /** Input parameters for task */
-  inputParameters: JsonSchema7Type;
-  /** Validation function for input parameters */
-  inputValidator: ValidateFunction<any>;
+  inputParameters: z.core.JSONSchema.BaseSchema;
+  /** Zod schema used to validate input parameters */
+  inputSchema: z.ZodType;
   /** Location of the task if we know it */
   location?: RegistryLocation<RegistryLocationKind>;
   /** Output parameters for task */
-  outputParameters: JsonSchema7Type;
+  outputParameters: z.core.JSONSchema.BaseSchema;
   /** The task structure */
   structure: IGlobalIndexedToken<GlobalStructureToken>;
 }

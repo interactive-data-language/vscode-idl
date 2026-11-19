@@ -40,7 +40,7 @@ export function PopulateSyntaxTree(
    *
    * If it is off, we dont get hover help or useful auto-complete
    */
-  PopulateGlobalLocalCompileOpts(parsed, cancel, true || parsed.type === 'def');
+  PopulateGlobalLocalCompileOpts(parsed, cancel, true);
 
   // validate tree
   if (full) {

@@ -2,7 +2,8 @@ import { GetFSPath } from '@idl/idl/files';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { NotebookToIDLNotebook } from '@idl/notebooks/shared';
 import { IDL_TRANSLATION } from '@idl/translation';
-import type { NotebookDocumentChangeEvent } from 'vscode-languageserver/lib/common/notebook';
+import type { NotebookDocuments } from 'vscode-languageserver';
+import type { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { NotebookCacheValid } from '../../helpers/notebook-cache-valid';
 import {
@@ -13,6 +14,13 @@ import { SERVER_INITIALIZED } from '../../is-initialized';
 import { IDL_INDEX } from '../initialize-document-manager';
 import { NOTEBOOK_MANAGER } from '../initialize-notebook-manager';
 import { SendNotebookProblems } from './send-notebook-problems';
+
+/**
+ * The event type is not exported from the package root, so derive it
+ */
+type NotebookDocumentChangeEvent = Parameters<
+  Parameters<NotebookDocuments<TextDocument>['onDidChange']>[0]
+>[0];
 
 /**
  * Callback to handle notebook changes

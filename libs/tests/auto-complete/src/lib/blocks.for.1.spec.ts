@@ -168,13 +168,13 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '90',
         detail: 'System Variable',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       {
         label: 'ENVITensorBoard',
         kind: 3,
         sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 
@@ -330,13 +330,13 @@ describe(`[auto generated] Custom block auto-complete`, () => {
         sortText: '90',
         detail: 'System Variable',
       },
+      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       {
         label: 'ENVITensorBoard',
         kind: 3,
         sortText: '40',
         detail: 'Procedure',
       },
-      { label: 'printf', kind: 3, sortText: '40', detail: 'Procedure' },
       { label: 'openr', kind: 3, sortText: '40', detail: 'Procedure' },
     ];
 

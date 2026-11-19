@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, type OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
 import { NgxMaterialModule } from '@idl/ngx/material';
 import type { IDLNotebookImage_AnimationFromPNGs } from '@idl/types/notebooks';
 
@@ -27,6 +27,7 @@ export function RoundToNearest(num: number, to: number) {
     `,
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, NgxMaterialModule, AnimationControlsComponent],
 })
 export class ImageAnimatorComponent

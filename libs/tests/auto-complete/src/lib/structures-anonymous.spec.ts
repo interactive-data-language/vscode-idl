@@ -929,25 +929,31 @@ describe(`[auto generated] Structures`, () => {
       { label: '!y', kind: 7, sortText: '10', detail: 'Structure' },
       { label: '!z', kind: 7, sortText: '10', detail: 'Structure' },
       {
-        label: 'ENVIDeepLearningPixelClassificationTask',
+        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIClassActivationToPolylineShapefileTask',
+        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
         label: 'ENVIClassActivationToPixelROITask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningInstanceClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -971,6 +977,12 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIBuildClassificationMaskFromVectorTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIDeepLearningLabelRaster',
         kind: 7,
         sortText: '10',
@@ -989,25 +1001,19 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIDeepLearningPixelClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIBuildLabelRasterFromROITask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -1067,6 +1073,12 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIClassActivationToPolylineShapefileTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
         kind: 7,
         sortText: '10',
@@ -1097,12 +1109,6 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVIPostProcessObjectClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
         label: 'ENVIDeepLearningOnnxModel',
         kind: 7,
         sortText: '10',
@@ -1110,6 +1116,12 @@ describe(`[auto generated] Structures`, () => {
       },
       {
         label: 'ENVIDeepLearningRaster',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPostProcessObjectClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -1188,18 +1200,6 @@ describe(`[auto generated] Structures`, () => {
       },
       { label: 'ENVITask', kind: 7, sortText: '10', detail: 'Structure' },
       { label: 'ENVIAbortable', kind: 7, sortText: '10', detail: 'Structure' },
-      {
-        label: 'ENVIVectorRecordsToBoundingBoxTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIMaximumLikelihoodClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
     ];
 
     // verify results
@@ -1221,25 +1221,31 @@ describe(`[auto generated] Structures`, () => {
       { label: '!y', kind: 7, sortText: '10', detail: 'Structure' },
       { label: '!z', kind: 7, sortText: '10', detail: 'Structure' },
       {
-        label: 'ENVIDeepLearningPixelClassificationTask',
+        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIClassActivationToPolylineShapefileTask',
+        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
         label: 'ENVIClassActivationToPixelROITask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningInstanceClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -1263,6 +1269,12 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIBuildClassificationMaskFromVectorTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIDeepLearningLabelRaster',
         kind: 7,
         sortText: '10',
@@ -1281,25 +1293,19 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIDeepLearningPixelClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIBuildLabelRasterFromROITask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -1359,6 +1365,12 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIClassActivationToPolylineShapefileTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
         kind: 7,
         sortText: '10',
@@ -1389,12 +1401,6 @@ describe(`[auto generated] Structures`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVIPostProcessObjectClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
         label: 'ENVIDeepLearningOnnxModel',
         kind: 7,
         sortText: '10',
@@ -1402,6 +1408,12 @@ describe(`[auto generated] Structures`, () => {
       },
       {
         label: 'ENVIDeepLearningRaster',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPostProcessObjectClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -1480,18 +1492,6 @@ describe(`[auto generated] Structures`, () => {
       },
       { label: 'ENVITask', kind: 7, sortText: '10', detail: 'Structure' },
       { label: 'ENVIAbortable', kind: 7, sortText: '10', detail: 'Structure' },
-      {
-        label: 'ENVIVectorRecordsToBoundingBoxTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIMaximumLikelihoodClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
     ];
 
     // verify results

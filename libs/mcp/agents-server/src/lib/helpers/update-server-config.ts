@@ -13,7 +13,16 @@ import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
  * Updates server configuration across different server components
  */
 export function UpdateServerConfig(config: IAgentServerConfig) {
-  ANALYTICS_REPOSITORY_REGISTRY.setServers(config.packages.repositories);
+  // make sure URLs always have a protocol so requests don't fail at runtime
+  ANALYTICS_REPOSITORY_REGISTRY.setServers(
+    config.packages.repositories.map((repo) => {
+      const url = repo.url.trim();
+      return {
+        ...repo,
+        url: /^https?:\/\//i.test(url) ? url : `http://${url}`,
+      };
+    }),
+  );
 
   MCP_INSTRUCTION_REGISTRY.filters.updateFilters({
     whitelist: config.agent.mcp.instructionsWhitelist,

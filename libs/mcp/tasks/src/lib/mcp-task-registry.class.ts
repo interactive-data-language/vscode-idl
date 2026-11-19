@@ -1,4 +1,4 @@
-import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
+﻿import { IDL_MCP_LOG, type LogManager } from '@idl/logger';
 import {
   type AnalyticsRepositoryRegistry,
   LatestPackages,
@@ -23,7 +23,6 @@ import type {
   IGlobalIndexedToken,
 } from '@idl/types/idl-data-types';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
-import draft2020 from 'ajv/dist/2020';
 import { toJSONSchema, z } from 'zod';
 
 import { FilterMCPENVITasks } from './helpers/filter-mcp-envi-tasks';
@@ -45,36 +44,6 @@ import type {
 export class MCPTaskRegistry {
   /** Object class that handles filtering items from the task registry */
   filters = new RuleBasedFilter();
-
-  /** Create instance of AJV with Draft 2020-12 support */
-  private ajv = new draft2020({
-    allErrors: true,
-    allowUnionTypes: true,
-    /**
-     * Zod v4's toJSONSchema uses JSON Schema Draft 2020-12's prefixItems
-     * for tuples, but doesn't add the strict metadata (minItems, maxItems,
-     * items: false) that AJV's strict mode expects. Since the validation
-     * works fine without these extra properties, disabling strictTuples is
-     * the cleanest solution.
-     */
-    strictTuples: false,
-    /**
-     * Mutate the validated object in-place, populating any missing
-     * properties that have a "default" value in the JSON schema.
-     *
-     * WARNING: Any union types (only from some of the JSON schemas we create),
-     * this causes problems with default values inside of the unions
-     *
-     * MCP_ENVIGridDefinition is one example where we had to remove a default
-     * value
-     */
-    useDefaults: true,
-    // /**
-    //  * Disable strict mode so AJV does not throw when a "default" appears
-    //  * inside a union (anyOf/oneOf) where it cannot be automatically applied.
-    //  */
-    // strict: false,
-  });
 
   /**
    * Logger
@@ -358,13 +327,12 @@ export class MCPTaskRegistry {
     }
 
     // create input parameters schema
-    const inputParameters = toJSONSchema(
-      z
-        .object(inputArgs)
-        .describe(
-          `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${fullDescription}`,
-        ),
-    );
+    const inputSchema = z
+      .strictObject(inputArgs)
+      .describe(
+        `Inputs for running the tool. These *MUST* be specified based on the schema. Summary:\n\n${fullDescription}`,
+      );
+    const inputParameters = toJSONSchema(inputSchema);
 
     // create output parameters schema
     const outputParameters = toJSONSchema(
@@ -392,7 +360,7 @@ export class MCPTaskRegistry {
       description,
       displayName: taskDisplay,
       inputParameters,
-      inputValidator: this.ajv.compile(inputParameters),
+      inputSchema,
       outputParameters,
       location,
       structure: taskStructure,
@@ -503,23 +471,18 @@ export class MCPTaskRegistry {
       };
     }
 
-    // Validate inputParameters against the JSON schema
+    // Validate inputParameters against the Zod schema
     try {
-      /** Get the validator function */
-      const validate = this.tasks[lc].inputValidator;
-
       /** Validate parameters */
-      const valid = validate(inputParameters);
+      const result = this.tasks[lc].inputSchema.safeParse(inputParameters);
 
-      // check if we have JSON schema problems
-      if (!valid) {
+      // check if we have validation problems
+      if (!result.success) {
         // Format validation errors for the response
-        const errors = (validate.errors || [])
+        const errors = result.error.issues
           .map(
-            (err) =>
-              `- ${err.instancePath || 'root'}: ${err.message}${
-                err.params ? ` (${JSON.stringify(err.params)})` : ''
-              }`,
+            (issue) =>
+              `- ${issue.path.length > 0 ? '/' + issue.path.join('/') : 'root'}: ${issue.message}`,
           )
           .join('\n');
 
@@ -528,6 +491,9 @@ export class MCPTaskRegistry {
           reason: `MCP Error -32602: Input parameters validation failed for task '${taskName}':\n${errors}\n\nYou *must* follow the task schema provided by "${MCP_TOOL_LOOKUP.GET_ENVI_TOOL_PARAMETERS}"`,
         };
       }
+
+      // populate defaults in-place so callers see the same object they passed
+      Object.assign(inputParameters, result.data);
     } catch (validationError) {
       return {
         success: false,

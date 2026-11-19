@@ -4,9 +4,6 @@
   "sourceRoot": "libs/types/idl/idl-machine/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
-  }
+  "// targets": "to see all targets run: nx show project types-idl-idl-machine --web",
+  "targets": {}
 }

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
   type AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -34,6 +35,7 @@ export const IDL_NB_PLOT_COMPONENT_SELECTOR = 'idl-nb-plot';
     `,
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, NgxMaterialModule, AnimationControlsComponent],
 })
 export class PlotComponent

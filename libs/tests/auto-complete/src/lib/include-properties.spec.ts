@@ -100,7 +100,7 @@ describe(`[auto generated] Include properties`, () => {
         documentation: {
           kind: 'markdown',
           value:
-            'A 4-by-_N_ floating-point array that specifies the coefficients of the clipping planes to be applied to this object. The four coefficients for each clipping plane are of the form \\[A, B, C, D\\], where A_x_ \\+ B_y_ \\+ C_z_ \\+ D = 0\\. Portions of this object that fall in the half space A_x_ \\+ B_y_ \\+ C_z_ \\+ D > 0 will be clipped. By default, the value of this property is a scalar (-1) indicating that no clipping planes are to be applied.\n\n_Note:_ The clipping planes specified via this property are applied in addition to the near and far clipping planes associated with the IDLgrView in which this object appears.\n\n_Note:_ Clipping planes are applied in the data space of this object (prior to the application of any _x_, _y_, or _z_ coordinate conversion).\n\n_Note:_ To determine the maximum number of clipping planes supported by the device, use the MAX\\_NUM\\_CLIP\\_PLANES property of the GetDeviceInfo method for the IDLgrBuffer, IDLgrClipboard, IDLgrWindow, and IDLgrVRML objects.\n\n| **Property Type** | Floating-point array |               |                    |\n| ----------------- | -------------------- | ------------- | ------------------ |\n| **Name String**   | _not displayed_      |               |                    |\n| **Get:** Yes      | **Set:** Yes         | **Init:** Yes | **Registered:** No |',
+            'A 4-by-_N_ floating-point array that specifies the coefficients of the clipping planes to be applied to this object. The four coefficients for each clipping plane are of the form \\[A, B, C, D\\], where A_x_ \\+ B_y_ \\+ C_z_ \\+ D = 0\\. Portions of this object that fall in the half space A_x_ \\+ B_y_ \\+ C_z_ \\+ D > 0 will be clipped. By default, the value of this property is a scalar (-1) indicating that no clipping planes are to be applied.\n\n_Note:_ The clipping planes specified via this property are applied in addition to the near and far clipping planes associated with the IDLgrView in which this object appears.\n\n_Note:_ Clipping planes are applied in the data space of this object (prior to the application of any _x_, _y_, or _z_ coordinate conversion).\n\n_Note:_ To determine the maximum number of clipping planes supported by the device, use the MAX\\_NUM\\_CLIP\\_PLANES property of the GetDeviceInfo method for the IDLgrBuffer, IDLgrClipboard, or IDLgrWindow object.\n\n| **Property Type** | Floating-point array |               |                    |\n| ----------------- | -------------------- | ------------- | ------------------ |\n| **Name String**   | _not displayed_      |               |                    |\n| **Get:** Yes      | **Set:** Yes         | **Init:** Yes | **Registered:** No |',
         },
       },
       {
@@ -885,14 +885,6 @@ describe(`[auto generated] Include properties`, () => {
       {
         label: 'ENVI::downloadFromRepository()',
         insertText: 'downloadFromRepository()',
-        kind: 2,
-        sortText: '40',
-        detail: 'Function Method',
-        command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: 'ENVI::editRepositoryPackage()',
-        insertText: 'editRepositoryPackage()',
         kind: 2,
         sortText: '40',
         detail: 'Function Method',

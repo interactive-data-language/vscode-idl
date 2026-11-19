@@ -143,18 +143,6 @@
     "notes": "For development, ",
     "encryption": "no"
   },
-  "@ngxs/devtools-plugin": {
-    "notes": "State management for Angular front end applications",
-    "encryption": "no"
-  },
-  "@ngxs/logger-plugin": {
-    "notes": "State management for Angular front end applications",
-    "encryption": "no"
-  },
-  "@ngxs/store": {
-    "notes": "State management for Angular front end applications",
-    "encryption": "no"
-  },
   "@nx/angular": {
     "notes": "For development, plugins/libraries for monorepo management using Nx",
     "encryption": "no"
@@ -363,10 +351,6 @@
     "notes": "",
     "encryption": "no"
   },
-  "electron": {
-    "notes": "For development, ",
-    "encryption": "yes"
-  },
   "emoji-regex": {
     "notes": "",
     "encryption": "no"
@@ -451,10 +435,6 @@
     "notes": "For development, parsing HTML",
     "encryption": "no"
   },
-  "idb-keyval": {
-    "notes": "",
-    "encryption": "no"
-  },
   "jest": {
     "notes": "For development, test writing/running library",
     "encryption": "no"
@@ -503,10 +483,6 @@
     "notes": "",
     "encryption": "no"
   },
-  "ngx-markdown": {
-    "notes": "3rd party library for Angular front end applications",
-    "encryption": "no"
-  },
   "node-html-markdown": {
     "notes": "For development, ",
     "encryption": "no"
@@ -516,10 +492,6 @@
     "encryption": "no"
   },
   "nx": {
-    "notes": "For development, ",
-    "encryption": "no"
-  },
-  "nx-electron": {
     "notes": "For development, ",
     "encryption": "no"
   },

@@ -151,22 +151,22 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'System Variable',
       },
       {
-        label: "ENVITask('DeepLearningPixelClassification')",
-        insertText: "ENVITask('DeepLearningPixelClassification')",
+        label: "ENVITask('PublishENVIDeepLearningOnnxModel')",
+        insertText: "ENVITask('PublishENVIDeepLearningOnnxModel')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
       },
       {
-        label: "ENVITask('BuildLabelRasterFromClassification')",
-        insertText: "ENVITask('BuildLabelRasterFromClassification')",
+        label: "ENVITask('ExtractDeepLearningKerasModelFromFile')",
+        insertText: "ENVITask('ExtractDeepLearningKerasModelFromFile')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
       },
       {
-        label: "ENVITask('ClassActivationToPolylineShapefile')",
-        insertText: "ENVITask('ClassActivationToPolylineShapefile')",
+        label: "ENVITask('BuildObjectDetectionRasterFromAnnotation')",
+        insertText: "ENVITask('BuildObjectDetectionRasterFromAnnotation')",
         kind: 3,
         sortText: '40',
         detail: 'Function',
@@ -179,19 +179,19 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Function',
       },
       {
+        label: "ENVITask('DeepLearningInstanceClassification')",
+        insertText: "ENVITask('DeepLearningInstanceClassification')",
+        kind: 3,
+        sortText: '40',
+        detail: 'Function',
+      },
+      {
         label: 'ENVIBoundingBoxSet()',
         insertText: 'ENVIBoundingBoxSet()',
         kind: 3,
         sortText: '40',
         detail: 'Function',
         command: { title: 'Cursor Adjust', command: 'cursorLeft' },
-      },
-      {
-        label: "ENVITask('ConfigureOnnxModel')",
-        insertText: "ENVITask('ConfigureOnnxModel')",
-        kind: 3,
-        sortText: '40',
-        detail: 'Function',
       },
     ];
 
@@ -214,25 +214,31 @@ describe(`[auto generated] Add class names for obj_new`, () => {
       { label: '!y', kind: 7, sortText: '10', detail: 'Structure' },
       { label: '!z', kind: 7, sortText: '10', detail: 'Structure' },
       {
-        label: 'ENVIDeepLearningPixelClassificationTask',
+        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIClassActivationToPolylineShapefileTask',
+        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
         label: 'ENVIClassActivationToPixelROITask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningInstanceClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -256,6 +262,12 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIBuildClassificationMaskFromVectorTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIDeepLearningLabelRaster',
         kind: 7,
         sortText: '10',
@@ -274,25 +286,19 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIDeepLearningPixelClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIBuildLabelRasterFromROITask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -352,6 +358,12 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIClassActivationToPolylineShapefileTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
         kind: 7,
         sortText: '10',
@@ -382,12 +394,6 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVIPostProcessObjectClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
         label: 'ENVIDeepLearningOnnxModel',
         kind: 7,
         sortText: '10',
@@ -395,6 +401,12 @@ describe(`[auto generated] Add class names for obj_new`, () => {
       },
       {
         label: 'ENVIDeepLearningRaster',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPostProcessObjectClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -473,18 +485,6 @@ describe(`[auto generated] Add class names for obj_new`, () => {
       },
       { label: 'ENVITask', kind: 7, sortText: '10', detail: 'Structure' },
       { label: 'ENVIAbortable', kind: 7, sortText: '10', detail: 'Structure' },
-      {
-        label: 'ENVIVectorRecordsToBoundingBoxTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIMaximumLikelihoodClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
     ];
 
     // verify results
@@ -506,25 +506,31 @@ describe(`[auto generated] Add class names for obj_new`, () => {
       { label: '!y', kind: 7, sortText: '10', detail: 'Structure' },
       { label: '!z', kind: 7, sortText: '10', detail: 'Structure' },
       {
-        label: 'ENVIDeepLearningPixelClassificationTask',
+        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIClassActivationToPolylineShapefileTask',
+        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
         label: 'ENVIClassActivationToPixelROITask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningInstanceClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -548,6 +554,12 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIBuildClassificationMaskFromVectorTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIDeepLearningLabelRaster',
         kind: 7,
         sortText: '10',
@@ -566,25 +578,19 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIDeepLearningPixelClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIBuildLabelRasterFromROITask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -644,6 +650,12 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIClassActivationToPolylineShapefileTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
         kind: 7,
         sortText: '10',
@@ -674,12 +686,6 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVIPostProcessObjectClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
         label: 'ENVIDeepLearningOnnxModel',
         kind: 7,
         sortText: '10',
@@ -687,6 +693,12 @@ describe(`[auto generated] Add class names for obj_new`, () => {
       },
       {
         label: 'ENVIDeepLearningRaster',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPostProcessObjectClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -765,18 +777,6 @@ describe(`[auto generated] Add class names for obj_new`, () => {
       },
       { label: 'ENVITask', kind: 7, sortText: '10', detail: 'Structure' },
       { label: 'ENVIAbortable', kind: 7, sortText: '10', detail: 'Structure' },
-      {
-        label: 'ENVIVectorRecordsToBoundingBoxTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIMaximumLikelihoodClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
     ];
 
     // verify results
@@ -798,25 +798,31 @@ describe(`[auto generated] Add class names for obj_new`, () => {
       { label: '!y', kind: 7, sortText: '10', detail: 'Structure' },
       { label: '!z', kind: 7, sortText: '10', detail: 'Structure' },
       {
-        label: 'ENVIDeepLearningPixelClassificationTask',
+        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
-        label: 'ENVIClassActivationToPolylineShapefileTask',
+        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
       },
       {
         label: 'ENVIClassActivationToPixelROITask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIDeepLearningInstanceClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -840,6 +846,12 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIBuildClassificationMaskFromVectorTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIDeepLearningLabelRaster',
         kind: 7,
         sortText: '10',
@@ -858,25 +870,19 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIDeepLearningPixelClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIBuildLabelRasterFromClassificationTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIBuildLabelRasterFromROITask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIExtractDeepLearningKerasModelFromFileTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIPublishENVIDeepLearningOnnxModelTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIBuildObjectDetectionRasterFromAnnotationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -936,6 +942,12 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
+        label: 'ENVIClassActivationToPolylineShapefileTask',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
         label: 'ENVIExtractDeepLearningLabelRasterFromFileTask',
         kind: 7,
         sortText: '10',
@@ -966,12 +978,6 @@ describe(`[auto generated] Add class names for obj_new`, () => {
         detail: 'Structure',
       },
       {
-        label: 'ENVIPostProcessObjectClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
         label: 'ENVIDeepLearningOnnxModel',
         kind: 7,
         sortText: '10',
@@ -979,6 +985,12 @@ describe(`[auto generated] Add class names for obj_new`, () => {
       },
       {
         label: 'ENVIDeepLearningRaster',
+        kind: 7,
+        sortText: '10',
+        detail: 'Structure',
+      },
+      {
+        label: 'ENVIPostProcessObjectClassificationTask',
         kind: 7,
         sortText: '10',
         detail: 'Structure',
@@ -1057,18 +1069,6 @@ describe(`[auto generated] Add class names for obj_new`, () => {
       },
       { label: 'ENVITask', kind: 7, sortText: '10', detail: 'Structure' },
       { label: 'ENVIAbortable', kind: 7, sortText: '10', detail: 'Structure' },
-      {
-        label: 'ENVIVectorRecordsToBoundingBoxTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
-      {
-        label: 'ENVIMaximumLikelihoodClassificationTask',
-        kind: 7,
-        sortText: '10',
-        detail: 'Structure',
-      },
     ];
 
     // verify results

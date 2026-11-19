@@ -4,17 +4,6 @@
   "sourceRoot": "libs/assembling/migrators-types/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/assembling/migrators-types/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project assembling-migrators-types --web",
+  "targets": {}
 }

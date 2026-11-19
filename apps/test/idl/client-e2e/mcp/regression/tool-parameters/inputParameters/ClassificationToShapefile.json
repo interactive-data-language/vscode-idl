@@ -80,7 +80,7 @@
     },
     "output_vector_uri": {
       "description": [
-        "Specify a string with the fully qualified path and filename for OUTPUT_VECTOR."
+        "Specify a string with the fully qualified path and filename for OUTPUT_VECTOR.. The file extension should match .shp"
       ],
       "default": "!",
       "type": "string"

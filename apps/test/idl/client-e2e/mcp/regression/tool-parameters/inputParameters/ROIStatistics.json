@@ -77,7 +77,7 @@
     },
     "output_report_uri": {
       "description": [
-        "Specify a string with the fully qualified path and filename of a text file that will contain the statistics."
+        "Specify a string with the fully qualified path and filename of a text file that will contain the statistics.. The file extension should match .json"
       ],
       "type": "string"
     }

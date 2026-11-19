@@ -1,4 +1,5 @@
-import { IDLInteractionManager } from '@idl/idl/idl-interaction-manager';
+import type { IDLInteractionManager } from '@idl/idl/idl-interaction-manager';
+
 import { IDLMachineReadIOLineRequestHandler } from './from-machine-requests/idl-machine-read-io-line-request-handler';
 
 /**

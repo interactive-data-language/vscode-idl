@@ -45,7 +45,7 @@
     },
     "output_uri": {
       "description": [
-        "Specify a string with the fully qualified path and filename for the exported PNG file."
+        "Specify a string with the fully qualified path and filename for the exported PNG file.. The file extension should match .png"
       ],
       "default": "!",
       "type": "string"

@@ -4,17 +4,6 @@
   "sourceRoot": "libs/tokenizer/idl-type-tokens/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/tokenizer/idl-type-tokens/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project idl-type-tokens --web",
+  "targets": {}
 }

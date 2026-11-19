@@ -1,4 +1,10 @@
-import { Component, input, type OnInit, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  type OnInit,
+  output,
+} from '@angular/core';
 import { NgxMaterialModule } from '@idl/ngx/material';
 
 /**
@@ -17,6 +23,7 @@ export function RoundToNearest(num: number, to: number) {
     `,
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgxMaterialModule],
 })
 export class AnimationControlsComponent implements OnInit {

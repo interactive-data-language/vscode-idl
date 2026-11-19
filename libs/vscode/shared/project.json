@@ -4,17 +4,6 @@
   "sourceRoot": "libs/vscode/shared/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/vscode/shared"],
-      "options": {
-        "jestConfig": "libs/vscode/shared/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project vscode-shared --web",
+  "targets": {}
 }

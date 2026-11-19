@@ -27,8 +27,6 @@ async function ValidateCommand(server: MCPServer, command: string) {
   /** Parse */
   const parsed = Parser(command, cancel);
 
-  TOKEN_NAMES.ARG_DEFINITION;
-
   let valid = true;
 
   /** Message if we have an error */

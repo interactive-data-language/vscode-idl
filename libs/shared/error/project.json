@@ -4,16 +4,6 @@
   "sourceRoot": "libs/shared/error/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/shared/error/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project error-shared --web",
+  "targets": {}
 }

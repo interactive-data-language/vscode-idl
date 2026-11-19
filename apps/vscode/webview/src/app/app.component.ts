@@ -1,4 +1,10 @@
-import { Component, HostBinding, inject, type OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  inject,
+  type OnInit,
+} from '@angular/core';
 import { DEFAULT_VSCODE_MESSAGE } from '@idl/vscode/webview-shared';
 import { MaterialCssVarsService } from 'angular-material-css-vars';
 
@@ -12,6 +18,7 @@ import { VSCodeService } from './services/services/vscode.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MaterialModule, HomeComponent, ProfilerComponent],
 })
 export class AppComponent implements OnInit {

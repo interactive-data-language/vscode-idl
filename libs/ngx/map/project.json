@@ -5,17 +5,6 @@
   "prefix": "ngx-map",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/ngx/map/jest.config.cts",
-        "tsConfig": "libs/ngx/map/tsconfig.spec.json"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
-  }
+  "// targets": "to see all targets run: nx show project ngx-map --web",
+  "targets": {}
 }

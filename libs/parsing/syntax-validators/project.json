@@ -4,17 +4,6 @@
   "sourceRoot": "libs/parsing/syntax-validators/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/parsing/syntax-validators"],
-      "options": {
-        "jestConfig": "libs/parsing/syntax-validators/jest.config.ts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project parsing-syntax-validators --web",
+  "targets": {}
 }
