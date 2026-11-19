@@ -7,6 +7,7 @@ import express from 'express';
 import type { Server } from 'http';
 
 import { Chat } from './chat/chat.class';
+import { AssertPortAvailable } from './helpers/assert-port-available';
 import { LoadConfigFromEnv } from './helpers/load-config-from-env';
 import { UpdateServerConfig } from './helpers/update-server-config';
 import {
@@ -40,6 +41,9 @@ export async function StartAgentsServer(
 ): Promise<IStartAgentsServerResult> {
   // check the environment for configuration
   LoadConfigFromEnv(config);
+
+  // check if port is open before doing any expensive startup work
+  await AssertPortAvailable(config.server.host, config.server.port);
 
   // start the express app
   const app = express();
@@ -102,7 +106,7 @@ export async function StartAgentsServer(
   const { host, port } = config.server;
 
   // Start listening
-  const httpServer: Server = await new Promise((resolve) => {
+  const httpServer: Server = await new Promise((resolve, reject) => {
     const s = app.listen(port, host, () => {
       LOG_MANAGER.log({
         log: IDL_AGENT_SERVER,
@@ -116,6 +120,9 @@ export async function StartAgentsServer(
       });
       resolve(s);
     });
+
+    // covers races where the port is taken after our early check
+    s.once('error', reject);
   });
 
   // Attach WebSocket bridge to the running HTTP server
