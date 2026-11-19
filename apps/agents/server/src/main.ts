@@ -100,7 +100,6 @@ async function main() {
     }
 
     const config = await LoadConfig(configFile);
-    config.server.port = 3000;
 
     const problems = ValidateConfig(config);
     if (problems.length > 0) {
