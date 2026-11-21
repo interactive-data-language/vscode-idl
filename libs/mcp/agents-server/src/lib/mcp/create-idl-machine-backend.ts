@@ -28,7 +28,7 @@ export function CreateIDLMachineBackend(
   bridge: WebSocketToolBridge,
 ): WebSocketExecutionBackend {
   /** Path to the auxiliary PRO files shipped with the extension */
-  const vscodeProDir = GetExtensionPath('resources/idl/vscode');
+  const vscodeProDir = GetExtensionPath('resources/idl');
 
   /** Create a new IDL manager */
   const manager = new IDLMCPExecutionManager(

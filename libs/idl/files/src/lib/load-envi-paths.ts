@@ -12,7 +12,7 @@ export function LoadENVIPaths(bin: string) {
   /** ENVI's search paths for IDL and tasks */
   const paths: string[] = [];
 
-  /** Get ENVI's potejtial folder */
+  /** Get ENVI's potential folder */
   const enviDir = dirname(dirname(dirname(bin)));
 
   // check for an ENVI folder
