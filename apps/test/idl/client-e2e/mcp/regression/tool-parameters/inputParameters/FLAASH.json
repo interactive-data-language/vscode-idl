@@ -95,43 +95,21 @@
         " For FLAASH, sensor calibration data is defined within the FLAASH input configuration. For all other selections, you must also specify a CALIBRATION_FILE."
       ],
       "default": "flaash",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "ASCII"
-        },
-        {
-          "type": "string",
-          "const": "ENVI"
-        },
-        {
-          "type": "string",
-          "const": "Discrete"
-        },
-        {
-          "type": "string",
-          "const": "Filter Format"
-        },
-        {
-          "type": "string",
-          "const": "FLAASH"
-        },
-        {
-          "type": "string",
-          "const": "Spectrograph"
-        }
+      "type": "string",
+      "enum": [
+        "ASCII",
+        "ENVI",
+        "Discrete",
+        "Filter Format",
+        "FLAASH",
+        "Spectrograph"
       ]
     },
     "calibration_units": {
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "Nanometers"
-        },
-        {
-          "type": "string",
-          "const": "Microns"
-        }
+      "type": "string",
+      "enum": [
+        "Nanometers",
+        "Microns"
       ],
       "description": [
         "If a CALIBRATION_FILE was added, specify the wavelength units of the calibration data. Valid values are:",
@@ -217,15 +195,6 @@
             "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
           ]
         },
-        "auxiliary_url": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": [
-            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
-          ]
-        },
         "dataset_index": {
           "type": "number",
           "description": [
@@ -292,31 +261,14 @@
         "Urban"
       ],
       "default": "No Aerosol",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "No Aerosol"
-        },
-        {
-          "type": "string",
-          "const": "High-Visibility Rural"
-        },
-        {
-          "type": "string",
-          "const": "Low-Visibility Rural"
-        },
-        {
-          "type": "string",
-          "const": "Maritime"
-        },
-        {
-          "type": "string",
-          "const": "Urban"
-        },
-        {
-          "type": "string",
-          "const": "Tropospheric"
-        }
+      "type": "string",
+      "enum": [
+        "No Aerosol",
+        "High-Visibility Rural",
+        "Low-Visibility Rural",
+        "Maritime",
+        "Urban",
+        "Tropospheric"
       ]
     },
     "modtran_atm": {
@@ -331,31 +283,14 @@
         "1976 US Standard Atmosphere"
       ],
       "default": "Tropical Atmosphere",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "Tropical Atmosphere"
-        },
-        {
-          "type": "string",
-          "const": "Mid-Latitude Summer"
-        },
-        {
-          "type": "string",
-          "const": "Mid-Latitude Winter"
-        },
-        {
-          "type": "string",
-          "const": "Sub-Arctic Summer"
-        },
-        {
-          "type": "string",
-          "const": "Sub-Arctic Winter"
-        },
-        {
-          "type": "string",
-          "const": "1976 US Standard Atmosphere"
-        }
+      "type": "string",
+      "enum": [
+        "Tropical Atmosphere",
+        "Mid-Latitude Summer",
+        "Mid-Latitude Winter",
+        "Sub-Arctic Summer",
+        "Sub-Arctic Winter",
+        "1976 US Standard Atmosphere"
       ]
     },
     "modtran_mscat": {
@@ -369,19 +304,11 @@
         "Scaled ISAACS: (default) Fast, more accurate than ISAACS."
       ],
       "default": "Scaled ISAACS",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "ISAACS"
-        },
-        {
-          "type": "string",
-          "const": "DISORT"
-        },
-        {
-          "type": "string",
-          "const": "Scaled ISAACS"
-        }
+      "type": "string",
+      "enum": [
+        "ISAACS",
+        "DISORT",
+        "Scaled ISAACS"
       ]
     },
     "modtran_res": {
@@ -394,23 +321,12 @@
         "0.1"
       ],
       "default": 15,
-      "anyOf": [
-        {
-          "type": "number",
-          "const": 15
-        },
-        {
-          "type": "number",
-          "const": 5
-        },
-        {
-          "type": "number",
-          "const": 1
-        },
-        {
-          "type": "number",
-          "const": 0.1
-        }
+      "type": "number",
+      "enum": [
+        15,
+        5,
+        1,
+        0.1
       ]
     },
     "output_raster_uri": {
@@ -452,55 +368,20 @@
     "sensor_cal_feature_list": {
       "type": "array",
       "items": {
-        "anyOf": [
-          {
-            "type": "string",
-            "const": "CO2_2040"
-          },
-          {
-            "type": "string",
-            "const": "H2O_940"
-          },
-          {
-            "type": "string",
-            "const": "O2_763"
-          },
-          {
-            "type": "string",
-            "const": "CO2_1614"
-          },
-          {
-            "type": "string",
-            "const": "H2O_820"
-          },
-          {
-            "type": "string",
-            "const": "H2O_1130"
-          },
-          {
-            "type": "string",
-            "const": "O2_691"
-          },
-          {
-            "type": "string",
-            "const": "O2_1266"
-          },
-          {
-            "type": "string",
-            "const": "Solar_H_434"
-          },
-          {
-            "type": "string",
-            "const": "Solar_H_486"
-          },
-          {
-            "type": "string",
-            "const": "Solar_Mg_517"
-          },
-          {
-            "type": "string",
-            "const": "Solar_H_656"
-          }
+        "type": "string",
+        "enum": [
+          "CO2_2040",
+          "H2O_940",
+          "O2_763",
+          "CO2_1614",
+          "H2O_820",
+          "H2O_1130",
+          "O2_691",
+          "O2_1266",
+          "Solar_H_434",
+          "Solar_H_486",
+          "Solar_Mg_517",
+          "Solar_H_656"
         ]
       },
       "description": [
@@ -530,47 +411,18 @@
         "Unknown (default)"
       ],
       "default": "Unknown",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "AVIRIS"
-        },
-        {
-          "type": "string",
-          "const": "HYDICE"
-        },
-        {
-          "type": "string",
-          "const": "HyMap"
-        },
-        {
-          "type": "string",
-          "const": "Hyperion"
-        },
-        {
-          "type": "string",
-          "const": "NVIS"
-        },
-        {
-          "type": "string",
-          "const": "Compass"
-        },
-        {
-          "type": "string",
-          "const": "Hycas"
-        },
-        {
-          "type": "string",
-          "const": "Mars"
-        },
-        {
-          "type": "string",
-          "const": "Multispectral"
-        },
-        {
-          "type": "string",
-          "const": "Unknown"
-        }
+      "type": "string",
+      "enum": [
+        "AVIRIS",
+        "HYDICE",
+        "HyMap",
+        "Hyperion",
+        "NVIS",
+        "Compass",
+        "Hycas",
+        "Mars",
+        "Multispectral",
+        "Unknown"
       ]
     },
     "solar_azimuth": {
@@ -598,19 +450,11 @@
         "Wavelength-dependent scattering kernel (default)"
       ],
       "default": "Wavelength-dependent scattering kernel",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "Disabled"
-        },
-        {
-          "type": "string",
-          "const": "Legacy exponential scattering kernel"
-        },
-        {
-          "type": "string",
-          "const": "Wavelength-dependent scattering kernel"
-        }
+      "type": "string",
+      "enum": [
+        "Disabled",
+        "Legacy exponential scattering kernel",
+        "Wavelength-dependent scattering kernel"
       ]
     },
     "use_aerosol": {
@@ -625,31 +469,14 @@
         "Linear Regression Retrieval"
       ],
       "default": "Automatic Selection",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "Disabled"
-        },
-        {
-          "type": "string",
-          "const": "Automatic Selection"
-        },
-        {
-          "type": "string",
-          "const": "Vegetation Based Retrieval"
-        },
-        {
-          "type": "string",
-          "const": "Water Based Retrieval"
-        },
-        {
-          "type": "string",
-          "const": "Wavelength Dependent Water Based Retrieval"
-        },
-        {
-          "type": "string",
-          "const": "Linear Regression Retrieval"
-        }
+      "type": "string",
+      "enum": [
+        "Disabled",
+        "Automatic Selection",
+        "Vegetation Based Retrieval",
+        "Water Based Retrieval",
+        "Wavelength Dependent Water Based Retrieval",
+        "Linear Regression Retrieval"
       ]
     },
     "use_polishing": {
@@ -661,19 +488,11 @@
         "Polish using statistical detection of spectral artifacts"
       ],
       "default": "Disabled",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "Disabled"
-        },
-        {
-          "type": "string",
-          "const": "Polish using reference materials"
-        },
-        {
-          "type": "string",
-          "const": "Polish using statistical detection of spectral artifacts"
-        }
+      "type": "string",
+      "enum": [
+        "Disabled",
+        "Polish using reference materials",
+        "Polish using statistical detection of spectral artifacts"
       ]
     },
     "water_abs_choice": {
@@ -686,23 +505,12 @@
         "Automated Selection (default)"
       ],
       "default": "Automatic Selection",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "820"
-        },
-        {
-          "type": "string",
-          "const": "940"
-        },
-        {
-          "type": "string",
-          "const": "1130"
-        },
-        {
-          "type": "string",
-          "const": "Automatic Selection"
-        }
+      "type": "string",
+      "enum": [
+        "820",
+        "940",
+        "1130",
+        "Automatic Selection"
       ]
     },
     "water_mult": {

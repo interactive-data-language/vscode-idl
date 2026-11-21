@@ -47,311 +47,84 @@
       ]
     },
     "color_table_name": {
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "B-W LINEAR"
-        },
-        {
-          "type": "string",
-          "const": "BLUE/WHITE"
-        },
-        {
-          "type": "string",
-          "const": "GRN-RED-BLU-WHT"
-        },
-        {
-          "type": "string",
-          "const": "RED TEMPERATURE"
-        },
-        {
-          "type": "string",
-          "const": "BLUE/GREEN/RED/YELLOW"
-        },
-        {
-          "type": "string",
-          "const": "STD GAMMA-II"
-        },
-        {
-          "type": "string",
-          "const": "PRISM"
-        },
-        {
-          "type": "string",
-          "const": "RED-PURPLE"
-        },
-        {
-          "type": "string",
-          "const": "GREEN/WHITE LINEAR"
-        },
-        {
-          "type": "string",
-          "const": "GRN/WHT EXPONENTIAL"
-        },
-        {
-          "type": "string",
-          "const": "GREEN-PINK"
-        },
-        {
-          "type": "string",
-          "const": "BLUE-RED"
-        },
-        {
-          "type": "string",
-          "const": "16 LEVEL"
-        },
-        {
-          "type": "string",
-          "const": "RAINBOW"
-        },
-        {
-          "type": "string",
-          "const": "STEPS"
-        },
-        {
-          "type": "string",
-          "const": "STERN SPECIAL"
-        },
-        {
-          "type": "string",
-          "const": "Haze"
-        },
-        {
-          "type": "string",
-          "const": "Blue - Pastel - Red"
-        },
-        {
-          "type": "string",
-          "const": "Pastels"
-        },
-        {
-          "type": "string",
-          "const": "Hue Sat Lightness 1"
-        },
-        {
-          "type": "string",
-          "const": "Hue Sat Lightness 2"
-        },
-        {
-          "type": "string",
-          "const": "Hue Sat Value 1"
-        },
-        {
-          "type": "string",
-          "const": "Hue Sat Value 2"
-        },
-        {
-          "type": "string",
-          "const": "Purple-Red + Stripes"
-        },
-        {
-          "type": "string",
-          "const": "Beach"
-        },
-        {
-          "type": "string",
-          "const": "Mac Style"
-        },
-        {
-          "type": "string",
-          "const": "Eos A"
-        },
-        {
-          "type": "string",
-          "const": "Eos B"
-        },
-        {
-          "type": "string",
-          "const": "Hardcandy"
-        },
-        {
-          "type": "string",
-          "const": "Nature"
-        },
-        {
-          "type": "string",
-          "const": "Ocean"
-        },
-        {
-          "type": "string",
-          "const": "Peppermint"
-        },
-        {
-          "type": "string",
-          "const": "Plasma"
-        },
-        {
-          "type": "string",
-          "const": "Blue-Red"
-        },
-        {
-          "type": "string",
-          "const": "Rainbow"
-        },
-        {
-          "type": "string",
-          "const": "Blue Waves"
-        },
-        {
-          "type": "string",
-          "const": "Volcano"
-        },
-        {
-          "type": "string",
-          "const": "Waves"
-        },
-        {
-          "type": "string",
-          "const": "Rainbow18"
-        },
-        {
-          "type": "string",
-          "const": "Rainbow + white"
-        },
-        {
-          "type": "string",
-          "const": "Rainbow + black"
-        },
-        {
-          "type": "string",
-          "const": "CB-Accent"
-        },
-        {
-          "type": "string",
-          "const": "CB-Dark2"
-        },
-        {
-          "type": "string",
-          "const": "CB-Paired"
-        },
-        {
-          "type": "string",
-          "const": "CB-Pastel1"
-        },
-        {
-          "type": "string",
-          "const": "CB-Pastel2"
-        },
-        {
-          "type": "string",
-          "const": "CB-Set1"
-        },
-        {
-          "type": "string",
-          "const": "CB-Set2"
-        },
-        {
-          "type": "string",
-          "const": "CB-Set3"
-        },
-        {
-          "type": "string",
-          "const": "CB-Blues"
-        },
-        {
-          "type": "string",
-          "const": "CB-BuGn"
-        },
-        {
-          "type": "string",
-          "const": "CB-BuPu"
-        },
-        {
-          "type": "string",
-          "const": "CB-GnBu"
-        },
-        {
-          "type": "string",
-          "const": "CB-Greens"
-        },
-        {
-          "type": "string",
-          "const": "CB-Greys"
-        },
-        {
-          "type": "string",
-          "const": "CB-Oranges"
-        },
-        {
-          "type": "string",
-          "const": "CB-OrRd"
-        },
-        {
-          "type": "string",
-          "const": "CB-PuBu"
-        },
-        {
-          "type": "string",
-          "const": "CB-PuBuGn"
-        },
-        {
-          "type": "string",
-          "const": "CB-PuRd"
-        },
-        {
-          "type": "string",
-          "const": "CB-Purples"
-        },
-        {
-          "type": "string",
-          "const": "CB-RdPu"
-        },
-        {
-          "type": "string",
-          "const": "CB-Reds"
-        },
-        {
-          "type": "string",
-          "const": "CB-YlGn"
-        },
-        {
-          "type": "string",
-          "const": "CB-YlGnBu"
-        },
-        {
-          "type": "string",
-          "const": "CB-YlOrBr"
-        },
-        {
-          "type": "string",
-          "const": "CB-BrBG"
-        },
-        {
-          "type": "string",
-          "const": "CB-PiYG"
-        },
-        {
-          "type": "string",
-          "const": "CB-PRGn"
-        },
-        {
-          "type": "string",
-          "const": "CB-PuOr"
-        },
-        {
-          "type": "string",
-          "const": "CB-RdBu"
-        },
-        {
-          "type": "string",
-          "const": "CB-RdGy"
-        },
-        {
-          "type": "string",
-          "const": "CB-RdYlBu"
-        },
-        {
-          "type": "string",
-          "const": "CB-RdYlGn"
-        },
-        {
-          "type": "string",
-          "const": "CB-Spectral"
-        },
-        {
-          "type": "string",
-          "const": "CB-Spectral-Reverse"
-        }
+      "type": "string",
+      "enum": [
+        "B-W LINEAR",
+        "BLUE/WHITE",
+        "GRN-RED-BLU-WHT",
+        "RED TEMPERATURE",
+        "BLUE/GREEN/RED/YELLOW",
+        "STD GAMMA-II",
+        "PRISM",
+        "RED-PURPLE",
+        "GREEN/WHITE LINEAR",
+        "GRN/WHT EXPONENTIAL",
+        "GREEN-PINK",
+        "BLUE-RED",
+        "16 LEVEL",
+        "RAINBOW",
+        "STEPS",
+        "STERN SPECIAL",
+        "Haze",
+        "Blue - Pastel - Red",
+        "Pastels",
+        "Hue Sat Lightness 1",
+        "Hue Sat Lightness 2",
+        "Hue Sat Value 1",
+        "Hue Sat Value 2",
+        "Purple-Red + Stripes",
+        "Beach",
+        "Mac Style",
+        "Eos A",
+        "Eos B",
+        "Hardcandy",
+        "Nature",
+        "Ocean",
+        "Peppermint",
+        "Plasma",
+        "Blue-Red",
+        "Rainbow",
+        "Blue Waves",
+        "Volcano",
+        "Waves",
+        "Rainbow18",
+        "Rainbow + white",
+        "Rainbow + black",
+        "CB-Accent",
+        "CB-Dark2",
+        "CB-Paired",
+        "CB-Pastel1",
+        "CB-Pastel2",
+        "CB-Set1",
+        "CB-Set2",
+        "CB-Set3",
+        "CB-Blues",
+        "CB-BuGn",
+        "CB-BuPu",
+        "CB-GnBu",
+        "CB-Greens",
+        "CB-Greys",
+        "CB-Oranges",
+        "CB-OrRd",
+        "CB-PuBu",
+        "CB-PuBuGn",
+        "CB-PuRd",
+        "CB-Purples",
+        "CB-RdPu",
+        "CB-Reds",
+        "CB-YlGn",
+        "CB-YlGnBu",
+        "CB-YlOrBr",
+        "CB-BrBG",
+        "CB-PiYG",
+        "CB-PRGn",
+        "CB-PuOr",
+        "CB-RdBu",
+        "CB-RdGy",
+        "CB-RdYlBu",
+        "CB-RdYlGn",
+        "CB-Spectral",
+        "CB-Spectral-Reverse"
       ],
       "description": [
         "Specify a string with the name of an IDL color table. The default value is Rainbow. Issue the following command to find valid strings:",
@@ -386,15 +159,6 @@
             "Common extensions to use: .dat, .img, .hsi, .tif, .nitf, .ntf. For complex file formats, this should likely be the metadata file itself and not individual image files which ENVI supports.",
             "",
             "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
-          ]
-        },
-        "auxiliary_url": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": [
-            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
           ]
         },
         "dataset_index": {

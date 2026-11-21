@@ -24,15 +24,6 @@
             "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
           ]
         },
-        "auxiliary_url": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": [
-            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
-          ]
-        },
         "dataset_index": {
           "type": "number",
           "description": [
@@ -50,15 +41,10 @@
       ]
     },
     "interleave": {
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "BSQ"
-        },
-        {
-          "type": "string",
-          "const": "BIP"
-        }
+      "type": "string",
+      "enum": [
+        "BSQ",
+        "BIP"
       ],
       "description": [
         "Specify a string indicating the data interleave of the output raster. If this parameter is not set, the interleave of the input raster will be used. The choices are:",
