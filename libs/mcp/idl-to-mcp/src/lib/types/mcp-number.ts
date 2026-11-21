@@ -10,7 +10,7 @@ export function MCP_Number(values?: string[], min?: number, max?: number) {
    */
   if (values?.length > 0) {
     try {
-      return z.union(values.map((v) => z.literal(+v)) as any);
+      return z.literal(values.map((v) => +v));
     } catch (err) {
       console.warn(err);
     }
