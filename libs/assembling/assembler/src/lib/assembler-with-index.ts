@@ -21,7 +21,10 @@ export async function AssembleWithIndex<T extends FormatterType>(
   const parsed = await GetParsedPROCode(index, file, code, cancel);
 
   // get assembled code!
-  const assembled = Assembler(parsed, cancel, formatting);
+  const assembled = Assembler(parsed, cancel, {
+    ...formatting,
+    isSpec: file.toLowerCase().endsWith('.spec.pro'),
+  });
 
   // clean up cache since we much with the tree
   index.parsedCache.remove(file);

@@ -13,6 +13,7 @@ import type { IParsed } from '@idl/types/syntax-tree';
 
 import { Combiner } from './combiner/combiner';
 import { CombinerBasic } from './combiner/combiner-basic';
+import { IndentSpec } from './helpers/indent-spec';
 
 /**
  * Assembles code back together and applies formatting.
@@ -73,6 +74,15 @@ export function Assembler<T extends FormatterType>(
       break;
     default:
       strings = Combiner(parsed, useOptions);
+
+      // nest suites and tests for spec files
+      if (useOptions.isSpec) {
+        strings = IndentSpec(
+          strings,
+          useOptions.tabWidth,
+          useOptions.spaceOffset,
+        );
+      }
       break;
   }
 

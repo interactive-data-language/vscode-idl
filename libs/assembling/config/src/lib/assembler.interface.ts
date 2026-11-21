@@ -83,6 +83,8 @@ export interface IBaseAssemblerOptions<T extends FormatterType>
  */
 export interface IAssemblerInputOptions<T extends FormatterType>
   extends IBaseAssemblerOptions<T> {
+  /** Is the code from a `.spec.pro` file, which gets extra indentation for Luna suites and tests */
+  isSpec?: boolean;
   /** Config for the assembler that we are using */
   style: Partial<ICodeStyle>;
   /** Do we have a trailing space or not? */
