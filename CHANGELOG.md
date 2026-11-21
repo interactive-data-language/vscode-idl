@@ -14,6 +14,10 @@ New settings for ENVI's MCP Tools:
 
 ## Unreleased
 
+Updated GitHub Copilot integration to support the latest version of VS Code. This update marks a big jump in our version of VS Code that we support (you need to be on the latest as ov Nov 20th, 2026).
+
+Adjusted ENVI MCP tools to reduce the amount of text/context that they consume (input and output parameters).
+
 Fixed an issue where incorrect file extensions could be passed in for output files for ENVI Agent. We now sanitize the files to fix the extension to make sure the agent can stay on track.
 
 For files that don't have a folder specified, we set the folder to ENVI's temporary directory to help keep outputs in one location.
