@@ -406,7 +406,15 @@ repository:
     match: ';\+?\s*(TODO:)?(.*)$'
     captures:
       '1': { name: {{name_escape}} }
-      '2': { patterns: [{ include: '#comment_disabled_problem' }] }
+      '2': { patterns: [{ include: '#comment_inline_code' }, { include: '#comment_disabled_problem' }] }
+
+  # inline IDL code in comments, i.e. ```idl toEqual```
+  comment_inline_code:
+    match: '(```idl)\s+(.*?)(```)'
+    captures:
+      '1': { name: meta.embedded.idl }
+      '2': { name: meta.embedded.idl, patterns: [{ include: '#all_tokens' }] }
+      '3': { name: meta.embedded.idl }
 
   # comment section header
   comment_disabled_problem:
@@ -432,12 +440,14 @@ repository:
 
   # comments in PRO code with accent for TODO statements
   comment_example_code_block:
-    begin: '^\s*(;\s*```idl\s*$)'
+    begin: '^\s*(;\s*)(```idl\s*$)'
     beginCaptures:
-      '0': { name: {{name_comment}} }
-    end: '^\s*;\s*```\s*$|^(?!\s*(;|$))'
+      '1': { name: {{name_comment}} }
+      '2': { name: meta.embedded.idl }
+    end: '^\s*(;\s*)(```\s*$)|^(?!\s*(;|$))'
     endCaptures:
-      '0': { name: {{name_comment}} }
+      '1': { name: {{name_comment}} }
+      '2': { name: meta.embedded.idl }
     patterns:
       - include: '#comment_example_code_line'
 
@@ -446,7 +456,7 @@ repository:
     match: '(;\s*)(.*$)'
     captures:
       '1': { name: {{name_comment}} }
-      '2': { patterns: [{ include: '#all_tokens' }] }
+      '2': { name: meta.embedded.idl, patterns: [{ include: '#all_tokens' }] }
 
   # comment section header - legacy docs using "@param" style
   comment_docs_header_legacy:

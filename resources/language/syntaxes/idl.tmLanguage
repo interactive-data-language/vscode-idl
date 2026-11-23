@@ -797,9 +797,43 @@
             <array>
               <dict>
                 <key>include</key>
+                <string>#comment_inline_code</string>
+              </dict>
+              <dict>
+                <key>include</key>
                 <string>#comment_disabled_problem</string>
               </dict>
             </array>
+          </dict>
+        </dict>
+      </dict>
+      <key>comment_inline_code</key>
+      <dict>
+        <key>match</key>
+        <string>(?i)(```idl)\s+(.*?)(```)</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#all_tokens</string>
+              </dict>
+            </array>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
           </dict>
         </dict>
       </dict>
@@ -864,23 +898,33 @@
       <key>comment_example_code_block</key>
       <dict>
         <key>begin</key>
-        <string>(?i)^\s*(;\s*```idl\s*$)</string>
+        <string>(?i)^\s*(;\s*)(```idl\s*$)</string>
         <key>beginCaptures</key>
         <dict>
-          <key>0</key>
+          <key>1</key>
           <dict>
             <key>name</key>
             <string>comment.line.idl</string>
           </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
+          </dict>
         </dict>
         <key>end</key>
-        <string>(?i)^\s*;\s*```\s*$|^(?!\s*(;|$))</string>
+        <string>(?i)^\s*(;\s*)(```\s*$)|^(?!\s*(;|$))</string>
         <key>endCaptures</key>
         <dict>
-          <key>0</key>
+          <key>1</key>
           <dict>
             <key>name</key>
             <string>comment.line.idl</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -904,6 +948,8 @@
           </dict>
           <key>2</key>
           <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
             <key>patterns</key>
             <array>
               <dict>
