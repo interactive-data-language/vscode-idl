@@ -3,6 +3,8 @@ import { MakeSpaces } from '@idl/parsing/syntax-tree';
 const LUNA_REGEX = /^(\w+)\s*=\s*luna\s*\(/i;
 const SUITE_REGEX = /^\w+\s*=\s*(\w+)\.suite\s*\(/i;
 const TEST_REGEX = /^\w+\s*=\s*(\w+)\.test\s*\(/i;
+const EXPECTS_REGEX = /^(\w+)\s*=\s*\w+\.expects\s*\(/i;
+const DIRECT_EXPECTS_REGEX = /^\(\s*\w+\.expects\s*\(/i;
 const ROUTINE_REGEX = /^(pro|function)\s/i;
 const END_REGEX = /^end\s*(;.*)?$/i;
 
@@ -90,6 +92,14 @@ export function IndentSpec(
             break;
           case TEST_REGEX.test(trimmed) && bodyLevel >= 2:
             level = 2;
+            bodyLevel = 3;
+            break;
+          case EXPECTS_REGEX.test(trimmed) && bodyLevel >= 3:
+            level = 3;
+            bodyLevel = 4;
+            break;
+          case DIRECT_EXPECTS_REGEX.test(trimmed) && bodyLevel >= 3:
+            level = 3;
             bodyLevel = 3;
             break;
           case END_REGEX.test(trimmed):
