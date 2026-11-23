@@ -2,7 +2,7 @@ import type { GlobalTokenType } from '@idl/types/idl-data-types';
 import { MCP_TOOL_LOOKUP } from '@idl/types/mcp';
 
 export const SEARCH_FOR_ROUTINE_DESCRIPTION = `
-Used to search for known IDL routines that you can use to retrieve documentation/more information about. 
+Used to search for known IDL routines that you can use to retrieve documentation/more information about.
 
 You can search for one or more of functions, procedures, function methods, procedure methods, structures, and system variables.
 

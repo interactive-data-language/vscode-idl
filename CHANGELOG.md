@@ -37,6 +37,8 @@ Improved the rendering of IDL code blocks in comment blocks. We now don't use co
 
 Also fixed an issue with in-line IDL code comment blocks breaking highlighting in routine comments.
 
+In the MCP Tool "Search IDL Routines", add a new option for the LLM to control the limit on how many responses are returned by routine type.
+
 ## 6.2.2 - September 2026
 
 Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.

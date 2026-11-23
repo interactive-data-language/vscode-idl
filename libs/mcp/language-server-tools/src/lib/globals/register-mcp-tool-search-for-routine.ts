@@ -1,5 +1,5 @@
 import type { MCPServer } from '@idl/mcp/server';
-import type { IDLIndex } from '@idl/parsing/index';
+import { DEFAULT_FIND_OPTIONS, type IDLIndex } from '@idl/parsing/index';
 import { IDL_TRANSLATION } from '@idl/translation';
 import {
   GLOBAL_TOKEN_TYPES,
@@ -56,9 +56,18 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
           .describe(
             'The search queries to look for, returns an array of matches for each query.',
           ),
+        limit: z
+          .number()
+          .int()
+          .min(1)
+          .max(100)
+          .default(DEFAULT_FIND_OPTIONS.fuzzyLimit)
+          .describe(
+            'The maximum number of matches to return for each query and routine type.',
+          ),
       },
     },
-    async (id, { routines }) => {
+    async (id, { routines, limit }) => {
       /** Init results, one per query */
       const response: { [key: string]: string[] }[] = [];
 
@@ -91,6 +100,7 @@ export function RegisterMCPTool_ResourcesSearchForRoutine(
           queryResults[mappedNames[globalTypes[j]]] = index.globalIndex
             .findMatchingGlobalToken(globalTypes[j], name, {
               fuzzy: true,
+              fuzzyLimit: limit,
               workspaceFilter: getWorkspacesCallback(),
             })
             .map((g) => g.meta.display);

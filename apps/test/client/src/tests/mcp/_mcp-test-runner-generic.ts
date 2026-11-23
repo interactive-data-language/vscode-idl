@@ -8,6 +8,7 @@ import { RunMCPTestGetRoutineDocs } from './tools/general/mcp-test-get-routine-d
 import { RunMCPTestResourcesWorkflow } from './tools/general/mcp-test-resources-workflow';
 import {
   RunMCPTestSearchForRoutineAll,
+  RunMCPTestSearchForRoutineLimit,
   RunMCPTestSearchForRoutineMultiple,
   RunMCPTestSearchForRoutineSingle,
 } from './tools/general/mcp-test-search-for-routines';
@@ -85,6 +86,11 @@ MCP_GENERIC_TEST_RUNNER.addTest({
 MCP_GENERIC_TEST_RUNNER.addTest({
   fn: RunMCPTestSearchForRoutineMultiple,
   name: 'Verify we can fulfill multiple searches at once',
+});
+
+MCP_GENERIC_TEST_RUNNER.addTest({
+  fn: RunMCPTestSearchForRoutineLimit,
+  name: 'Verify the limit parameter caps search results',
 });
 
 MCP_GENERIC_TEST_RUNNER.addTest({

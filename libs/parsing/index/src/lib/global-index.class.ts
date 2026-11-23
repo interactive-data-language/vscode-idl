@@ -185,7 +185,7 @@ export class GlobalIndex {
     inOptions: Partial<IFindGlobalTokenOptions> = {},
   ): IGlobalIndexedToken<T>[] {
     /** Merge options */
-    const options = Object.assign(DEFAULT_FIND_OPTIONS, inOptions);
+    const options = Object.assign({}, DEFAULT_FIND_OPTIONS, inOptions);
 
     // initialize response
     let res: IGlobalIndexedToken<T>[] = [];
