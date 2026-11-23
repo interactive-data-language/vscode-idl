@@ -33,6 +33,10 @@ Migrate from prompts to skills for the extension, which has a few changes:
 
 As part of this migration, we automatically remove any folders from the "~/.idl" directory for the "chat.promptFilesLocations" setting.
 
+Improved the rendering of IDL code blocks in comment blocks. We now don't use comment-color for code that doesn't match a pattern (i.e. parentheses).
+
+Also fixed an issue with in-line IDL code comment blocks breaking highlighting in routine comments.
+
 ## 6.2.2 - September 2026
 
 Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.
