@@ -432,10 +432,10 @@ repository:
 
   # comments in PRO code with accent for TODO statements
   comment_example_code_block:
-    begin: '^\s*(;\s*```idl.*$)'
+    begin: '^\s*(;\s*```idl\s*$)'
     beginCaptures:
       '0': { name: {{name_comment}} }
-    end: '^\s*;\s*```|^(?!\s*(;|$))'
+    end: '^\s*;\s*```\s*$|^(?!\s*(;|$))'
     endCaptures:
       '0': { name: {{name_comment}} }
     patterns:
