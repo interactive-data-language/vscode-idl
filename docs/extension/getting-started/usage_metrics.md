@@ -92,7 +92,7 @@ We track:
 
 - Amount of time it takes the language server to startup and the rate at which it parsed files
 
-- The number of PRO, SAVE, ENVI Task, IDL Task, and idl.json files
+- The number of PRO, SAVE, ENVI Task, IDL Task, and idlformat.json/idl.json files
 
 ---
 

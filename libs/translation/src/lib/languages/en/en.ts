@@ -191,10 +191,10 @@ export const EN: ITranslation = {
       },
       initConfig: {
         allWorkspacesHaveConfig:
-          'All workspaces already have an "idl.json" file',
+          'All workspaces already have an "idlformat.json" file',
         configFileCreated: 'IDL config file created!',
         dialogTitle:
-          'Specify the open workspace to create an "idl.json" file for',
+          'Specify the open workspace to create an "idlformat.json" file for',
         dontAsk: "Don't ask for folder",
         neverAsk: 'Never ask again',
         noWorkspaceOpen: 'No currently open workspaces',
@@ -559,7 +559,7 @@ export const EN: ITranslation = {
           },
           initializeConfig: {
             description: 'for an open workspace',
-            name: 'Initialize "idl.json"',
+            name: 'Initialize "idlformat.json"',
           },
         },
         debugging: {
@@ -1005,7 +1005,7 @@ export const EN: ITranslation = {
     formatOnSave:
       'Format PRO code automatically on file save? This will not affect other languages and will be limited to PRO files.',
     initIDLJSON:
-      'No "idl.json" file found at root level of workspace folder, create? Workspace:',
+      'No "idlformat.json" file found at root level of workspace folder, create? Workspace:',
     lostIDLConnection: 'Lost connection to IDL',
     no: 'No',
     noIDLDirFound: 'IDL directory not found or configured, cannot start IDL',

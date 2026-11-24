@@ -134,7 +134,7 @@ export const IDLConfigStyleSchema = z
   .meta({ id: '1.0.0-options' });
 
 /**
- * Schema for the "idl.json" file that controls code formatting
+ * Schema for the "idlformat.json" file that controls code formatting
  */
 export const IDLConfigSchema = z
   .looseObject({
@@ -213,6 +213,6 @@ export const IDLConfigSchema = z
   .describe('Top-level preferences for how code gets formatted.');
 
 /**
- * Type for the "idl.json" file
+ * Type for the "idlformat.json" file
  */
 export type IIDLConfig = z.infer<typeof IDLConfigSchema>;

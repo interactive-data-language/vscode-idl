@@ -2,7 +2,7 @@
 
 These libraries are intended to be helpers that generate things and are standalone pieces of functionality for creating things like:
 
-- idl.json files
+- idlformat.json files
 - ENVI Tasks
 - IDL Tasks
 

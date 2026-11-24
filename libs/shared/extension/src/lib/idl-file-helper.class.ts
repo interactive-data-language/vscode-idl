@@ -50,14 +50,6 @@ export class IDLFileHelper {
   }
 
   /**
-   * Indicates that a file is a configuration file using the legacy name
-   * (`idl.json`)
-   */
-  static isLegacyConfigFile(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_FORMAT_LEGACY_URI);
-  }
-
-  /**
    * Indicates that a file is an IDL notebook
    */
   static isIDLNotebookFile(file: string): boolean {
@@ -71,6 +63,14 @@ export class IDLFileHelper {
    */
   static isIDLPackageFile(file: string): boolean {
     return file.toLowerCase().endsWith(IDL_PACKAGE_URI);
+  }
+
+  /**
+   * Indicates that a file is a configuration file using the legacy name
+   * (`idl.json`)
+   */
+  static isLegacyConfigFile(file: string): boolean {
+    return file.toLowerCase().endsWith(IDL_FORMAT_LEGACY_URI);
   }
 
   /**

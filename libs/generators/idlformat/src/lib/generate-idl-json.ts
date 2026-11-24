@@ -5,7 +5,7 @@ import { writeFileSync } from 'fs';
 import { join } from 'path';
 
 /**
- * Generator that creates our "idl.json" config file for us
+ * Generator that creates our "idlformat.json" config file for us
  * and is a dedicated place to store the logic for creating this.
  */
 export function GenerateIDLJSON(

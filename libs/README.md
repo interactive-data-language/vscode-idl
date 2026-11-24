@@ -14,7 +14,7 @@ Here is a list of the shared libraries in this directory. Per the note above, an
 - **data-types/core**: Core of logic for parsing and creating IDL types.
 - **data-types/tasks**: Types and helper routines for ENVI and IDL task files.
 - **debug-types**: Type definitions used for debugging and shared with the `id-webview` app
-- **generators**: Code that generates things (like tasks and idl.json files)
+- **generators**: Code that generates things (like tasks and idlformat.json files)
 - **idl**: Creates a spawned instance of IDL that you can interact with
 - **logger**: Library that manages a simple logger to print content to the console
 - **parsing**: Utilities related to parsing IDL code and identifying syntax errors

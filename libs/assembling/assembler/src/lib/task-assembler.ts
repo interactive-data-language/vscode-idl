@@ -8,7 +8,7 @@ import type { ParsedTask } from '@idl/types/tasks';
 
 /**
  * Assembles a parsed task file back into string on disk using
- * the formatting options specified in you r"idl.json" files
+ * the formatting options specified in you r"idlformat.json" files
  */
 export function TaskAssembler<T extends FormatterType>(
   task: ParsedTask,

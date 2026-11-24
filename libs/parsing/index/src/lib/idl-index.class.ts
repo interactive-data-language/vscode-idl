@@ -683,7 +683,7 @@ export class IDLIndex {
   /**
    * Main entry point to index a new file given the filepath and the content of the file
    *
-   * This method internally handles the logic of the type of file we are processing (i.e. task, PRO, idl.json)
+   * This method internally handles the logic of the type of file we are processing (i.e. task, PRO, idlformat.json)
    */
   async indexFile(
     file: string,
@@ -1814,7 +1814,7 @@ export class IDLIndex {
 
   /**
    * Index workspace configuration files and checks that the folders
-   * we index have idl.json files and, if not, sends a message to our
+   * we index have idlformat.json files and, if not, sends a message to our
    * extension client.
    */
   private async indexWorkspaceConfigFiles(

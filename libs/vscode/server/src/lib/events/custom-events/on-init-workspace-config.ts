@@ -16,7 +16,7 @@ import { IDL_LANGUAGE_SERVER_LOGGER } from '../../initialize-language-server';
 import { SERVER_INITIALIZED } from '../../is-initialized';
 
 /**
- * Handle requests to initialize an "idl.json" file
+ * Handle requests to initialize an "idlformat.json" file
  *
  * @param event The event sent from VSCode
  */

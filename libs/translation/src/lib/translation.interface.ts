@@ -919,7 +919,7 @@ export interface ITranslation {
     dontAsk: string;
     /** Text that, after a user changes the default formatter to IDL, asks if they want to format on save */
     formatOnSave: string;
-    /** Init "idl.json" question */
+    /** Init "idlformat.json" question */
     initIDLJSON: string;
     /** When we lose our connection to IDL via websocket */
     lostIDLConnection: string;

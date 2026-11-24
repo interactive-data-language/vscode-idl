@@ -39,6 +39,8 @@ Also fixed an issue with in-line IDL code comment blocks breaking highlighting i
 
 In the MCP Tool "Search IDL Routines", add a new option for the LLM to control the limit on how many responses are returned by routine type.
 
+Renamed the IDL formatting/style configuration file from `idl.json` to `idlformat.json` for consistency with `idlpackage.json` and `idltest.json`. Existing `idl.json` files continue to work, but are deprecated: if both files exist in a folder, `idlformat.json` is used. The "Initialize" command now creates `idlformat.json`.
+
 ## 6.2.2 - September 2026
 
 Fixed an issue with parsing multi-byte characters from the IDL Machine which caused them to not display correctly.

@@ -252,7 +252,7 @@ export interface ICopilotConfig {
 
 /**
  * Extension configuration for VSCode. This comes from user-settings in
- * VSCode and is separate from the "idl.json"
+ * VSCode and is separate from the "idlformat.json"
  */
 export interface IDLExtensionConfig {
   /**
@@ -386,7 +386,7 @@ export const IDL_EXTENSION_CONFIG_KEYS: IDLExtensionsConfigKeys = {
 /**
  * Default configuration for the IDL extension in VSCOde
  *
- * This is NOT the same thing from our "idl.json" file
+ * This is NOT the same thing from our "idlformat.json" file
  */
 export const DEFAULT_IDL_EXTENSION_CONFIG: IDLExtensionConfig = {
   debugMode: false,

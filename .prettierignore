@@ -15,6 +15,7 @@ resources/language/syntaxes/src/*
 resources/idl/routines
 compliance
 /*idl.json
+/*idlformat.json
 *settings.json
 apps/test/maker/src/test-maker/cache/cache.json
 apps/test/client/src/tests/mcp/tools/envi/regression-tests/tool-descriptions
