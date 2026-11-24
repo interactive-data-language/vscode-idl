@@ -436,6 +436,9 @@ repository:
       - include: '#comment_docs_arg_kw'
       - include: '#comment_docs_prop'
       - include: '#comment_example_code_block'
+      - include: '#comment_example_json_block'
+      - include: '#comment_example_python_block'
+      - include: '#comment_example_yaml_block'
       - include: '#comment'
 
   # comments in PRO code with accent for TODO statements
@@ -450,6 +453,64 @@ repository:
       '2': { name: meta.embedded.idl }
     patterns:
       - include: '#comment_example_code_line'
+
+  # fenced code blocks in comments for other languages, selected by the fence id
+  comment_example_json_block:
+    begin: '^\s*(;\s*)(```json\s*$)'
+    beginCaptures:
+      '1': { name: {{name_comment}} }
+      '2': { name: meta.embedded.block.json }
+    end: '^\s*(;\s*)(```\s*$)|^(?!\s*(;|$))'
+    endCaptures:
+      '1': { name: {{name_comment}} }
+      '2': { name: meta.embedded.block.json }
+    patterns:
+      - match: '(;)(.*$)'
+        captures:
+          '1': { name: {{name_comment}} }
+          '2': { name: meta.embedded.block.json, patterns: [{ include: 'source.json' }] }
+      - include: '#comment_example_embedded_dependencies'
+
+  comment_example_python_block:
+    begin: '^\s*(;\s*)(```python\s*$)'
+    beginCaptures:
+      '1': { name: {{name_comment}} }
+      '2': { name: meta.embedded.block.python }
+    end: '^\s*(;\s*)(```\s*$)|^(?!\s*(;|$))'
+    endCaptures:
+      '1': { name: {{name_comment}} }
+      '2': { name: meta.embedded.block.python }
+    patterns:
+      - match: '(;)(.*$)'
+        captures:
+          '1': { name: {{name_comment}} }
+          '2': { name: meta.embedded.block.python, patterns: [{ include: 'source.python' }] }
+      - include: '#comment_example_embedded_dependencies'
+
+  # comment_example_yaml_block:
+  #   begin: '^\s*(;\s*)(```ya?ml\s*$)'
+  #   beginCaptures:
+  #     '1': { name: {{name_comment}} }
+  #     '2': { name: meta.embedded.block.yaml }
+  #   end: '^\s*(;\s*)(```\s*$)|^(?!\s*(;|$))'
+  #   endCaptures:
+  #     '1': { name: {{name_comment}} }
+  #     '2': { name: meta.embedded.block.yaml }
+  #   patterns:
+  #     - match: '(;)(.*$)'
+  #       captures:
+  #         '1': { name: {{name_comment}} }
+  #         '2': { name: meta.embedded.block.yaml, patterns: [{ include: 'source.yaml' }] }
+  #     - include: '#comment_example_embedded_dependencies'
+
+  # never matches; forces the grammar loader to load the embedded grammars used in capture patterns
+  comment_example_embedded_dependencies:
+    begin: '(?!)'
+    end: '(?!)'
+    patterns:
+      - include: 'source.json'
+      - include: 'source.python'
+      # - include: 'source.yaml'
 
   # comments in PRO code with accent for TODO statements
   comment_example_code_line:
