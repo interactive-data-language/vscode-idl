@@ -8,13 +8,21 @@ For much more detail on incremental work for large features, see the developer d
 
 This section of the CHANGELOG documents features that have been added to the extension, but are still in an experimental phase. Feel free to try them out and provide feedback via discussions or issues on our GitHub page.
 
+Tests and Skills for IDL Agent! IDL Agent can now create and run tests for IDL code that it generates. This comes together with a handful of new skills:
+
+- Create IDL Package
+- Create IDL Formatting configuration
+- Setup IDL tests
+- Write tests
+- Run tests
+
+## Unreleased
+
 New settings for ENVI's MCP Tools:
 
 - Fine-tune which ENVI Tools can be invoked by ENVI Agent with a new whitelist and blacklist option
 
-## Unreleased
-
-Updated GitHub Copilot integration to support the latest version of VS Code. This update marks a big jump in our version of VS Code that we support (you need to be on the latest as ov Nov 20th, 2026).
+Updated GitHub Copilot integration to support the latest version of VS Code. This update marks a big jump in our version of VS Code that we support (you need to be on the latest as of Nov 20th, 2026).
 
 Adjusted ENVI MCP tools to reduce the amount of text/context that they consume (input and output parameters).
 
@@ -41,9 +49,13 @@ Also fixed an issue with in-line IDL code comment blocks breaking highlighting i
 
 In the MCP Tool "Search IDL Routines", add a new option for the LLM to control the limit on how many responses are returned by routine type.
 
+New and updated configuration files for controlling IDL in a workspace: `idlformat.json` (formatting/style), `idltest.json` (tests), and `idlpackage.json` (packages). All three share the same format conventions and have JSON schemas, so the VS Code UI provides hover help, validation, and auto-complete when editing them.
+
 Renamed the IDL formatting/style configuration file from `idl.json` to `idlformat.json` for consistency with `idlpackage.json` and `idltest.json`. Existing `idl.json` files continue to work, but are deprecated: if both files exist in a folder, `idlformat.json` is used.
 
 Added three commands to initialize configuration files in a workspace folder: `IDL: Initialize Formatting Config` (`idlformat.json`), `IDL: Initialize Package Config` (`idlpackage.json`), and `IDL: Initialize Test Config` (`idltest.json`). Added a JSON schema for `idltest.json` for validation and completion, and a new `idl-init-package` skill for agents that creates all three files for a new IDL package.
+
+Updated major libraries and tooling, including the language server (LSP) libraries, Nx, TypeScript, and Angular. Migrated the MCP server to version 2 of the MCP SDK with stateless tool execution.
 
 ## 6.2.2 - September 2026
 
