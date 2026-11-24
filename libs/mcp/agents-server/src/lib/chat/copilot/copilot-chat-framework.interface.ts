@@ -1,5 +1,10 @@
 import type { CopilotSession } from '@github/copilot-sdk';
 
+import type { CopilotMCPToolsets } from './mcp-toolsets.class';
+
+/** Name of the IDL MCP server, used to qualify tools in SDK filters. */
+export const IDL_MCP_NAME = 'idl-mcp';
+
 /**
  * Cached, in-memory `CopilotSession` for a given frontend `sessionId` so that
  * back-to-back messages in the same conversation can reuse the live session
@@ -10,6 +15,8 @@ export interface ISessionCacheEntry {
   lastActivity: number;
   /** The live SDK session */
   session: CopilotSession;
+  /** Optional MCP groups loaded in this conversation. */
+  toolsets: CopilotMCPToolsets;
 }
 
 /**

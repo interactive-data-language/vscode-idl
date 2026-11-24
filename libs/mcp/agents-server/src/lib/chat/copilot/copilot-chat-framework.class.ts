@@ -20,26 +20,23 @@ import { GetCopilotExecutable } from '../../helpers/get-copilot-executable';
 import { GetToolDisplayName } from '../../helpers/get-tool-display-name';
 import type { Chat } from '../chat.class';
 import {
-  COPILOT_ALLOWED_TOOLS,
   COPILOT_SESSION_CACHE_CONFIG,
+  IDL_MCP_NAME,
   type ISessionCacheEntry,
 } from './copilot-chat-framework.interface';
+import { LogCopilotToolCall } from './log-copilot-tool-call';
+import { RegisterMCPTool_LoadToolset } from './mcp-tools/register-mcp-tool-load-toolset';
 import {
   RegisterMCPToolsForToDos,
   TODO_TOOL_NAMES,
 } from './mcp-tools/register-mcp-tools-for-todos';
+import { CopilotMCPToolsets } from './mcp-toolsets.class';
+import { MCP_TOOLSET_INSTRUCTIONS } from './mcp-toolsets.interface';
 
 /**
  * Client name reported to the Copilot runtime in the User-Agent header.
  */
 const DEFAULT_CLIENT_NAME = 'idl-chat-agent';
-
-/**
- * Name of IDL MCP server (prefixes all MCP tool names)
- *
- * IF YOU CHANGE THIS, CHANGE THE SessionConfig constant below
- */
-export const IDL_MCP_NAME = 'idl-mcp';
 
 /**
  * Timeout for tool connection and how long tools can run
@@ -514,6 +511,7 @@ export class CopilotChatFramework {
            */
           case 'tool.execution_start': {
             const { toolCallId, toolName } = event.data;
+            LogCopilotToolCall(toolName);
             closeReasoning();
             stepHasTools = true;
             toolNameById.set(toolCallId, toolName);
@@ -614,15 +612,22 @@ export class CopilotChatFramework {
   private buildSessionConfig(
     request: ChatMessageRequest,
     todos: TodoItem[],
+    toolsets: CopilotMCPToolsets,
   ): ResumeSessionConfig {
-    const tools = RegisterMCPToolsForToDos(todos);
+    const tools = [
+      ...RegisterMCPToolsForToDos(todos),
+      RegisterMCPTool_LoadToolset(toolsets, async (availableTools) => {
+        const entry = this.sessionCache.get(request.sessionId);
+        if (entry === undefined) {
+          throw new Error('The chat session is no longer connected.');
+        }
+        await entry.session.rpc.options.update({ availableTools });
+      }),
+    ];
     const port = this.config.server.port;
 
     const sessionConfig: ResumeSessionConfig = {
-      // Restrict the agent to MCP-sourced tools plus our custom todo tools —
-      // mirrors the prior behavior where only those tools were bound.
-      availableTools: ['mcp:*', 'custom:*', ...COPILOT_ALLOWED_TOOLS],
-      // then use excludedTools to block write/shell
+      availableTools: toolsets.getAvailableTools(),
       clientName: DEFAULT_CLIENT_NAME,
       enableSessionTelemetry: false, // make sure telemetry is always off
       // allow reading large files by default
@@ -630,9 +635,6 @@ export class CopilotChatFramework {
         enabled: false,
       },
       mcpServers: {
-        /**
-         * If you change this key name, we need to change the values above for IDL_MCP_NAME
-         */
         [IDL_MCP_NAME]: {
           type: 'http',
           url: `http://localhost:${port}/mcp`,
@@ -654,11 +656,14 @@ export class CopilotChatFramework {
         sections: {
           custom_instructions: {
             action: 'append',
-            content: this.parent.loadManyInstructions([
-              'todo',
-              'fs',
-              request.instructions,
-            ]),
+            content: [
+              this.parent.loadManyInstructions([
+                'todo',
+                'fs',
+                request.instructions,
+              ]),
+              MCP_TOOLSET_INSTRUCTIONS,
+            ].join('\n\n'),
           },
         },
       },
@@ -728,11 +733,16 @@ export class CopilotChatFramework {
     request: ChatMessageRequest,
     todos: TodoItem[],
   ): Promise<CopilotSession> {
-    const baseConfig = this.buildSessionConfig(request, todos);
+    const cached = this.sessionCache.get(request.sessionId);
+    const toolsets =
+      cached?.toolsets ?? new CopilotMCPToolsets(this.parent.getAllowedTools());
+    const baseConfig = this.buildSessionConfig(request, todos, toolsets);
 
     let session: CopilotSession;
+    let resumed = false;
     try {
       session = await this.client.resumeSession(request.sessionId, baseConfig);
+      resumed = true;
     } catch {
       // Session does not exist yet — create it with the same id.
       const createConfig: SessionConfig = {
@@ -746,7 +756,20 @@ export class CopilotChatFramework {
     this.sessionCache.set(request.sessionId, {
       session,
       lastActivity: Date.now(),
+      toolsets,
     });
+
+    if (resumed && cached === undefined) {
+      try {
+        toolsets.restore(await session.getEvents());
+        await session.rpc.options.update({
+          availableTools: toolsets.getAvailableTools(),
+        });
+      } catch (error) {
+        await this.disconnectSession(request.sessionId);
+        throw error;
+      }
+    }
 
     return session;
   }
