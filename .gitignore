@@ -71,3 +71,8 @@ compliance/compliance.json
 .claude/settings.local.json
 
 desktop-agents.config.json
+
+# IDL test files
+*spec.pro.log
+*idl.test.log
+*idltest.log

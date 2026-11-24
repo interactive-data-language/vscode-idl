@@ -270,6 +270,15 @@
         "path": "./resources/agents/skills/idl-init-package/SKILL.md"
       },
       {
+        "path": "./resources/agents/skills/idl-run-tests/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/idl-test-setup/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/idl-write-tests/SKILL.md"
+      },
+      {
         "path": "./resources/agents/skills/save-envi-tool-workflow/SKILL.md"
       }
     ],

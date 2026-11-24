@@ -1,0 +1,9 @@
+{
+  "include": ["**/*.spec.pro"],
+  "exclude": [],
+  "source": {"include": [], "exclude": []},
+  "run": {"isolation": "process", "stopOnFailure": false},
+  "coverage": {"enabled": true, "profile": false},
+  "output": {"level": "normal", "log": "idltest.log"},
+  "debug": false
+}
