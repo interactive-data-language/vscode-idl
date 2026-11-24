@@ -18,7 +18,7 @@ describe(`[auto generated] Parse invalid config files`, () => {
 
     // specify filepath
     const filepath_0 = GetExtensionPath(
-      'apps/test/idl/configs/subdir4/idl.json',
+      'apps/test/idl/configs/subdir4/idlformat.json',
     );
 
     // add file to index

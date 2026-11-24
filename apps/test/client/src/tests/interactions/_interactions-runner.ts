@@ -98,7 +98,7 @@ INTERACTIONS_RUNNER.addTest({
 });
 
 INTERACTIONS_RUNNER.addTest({
-  name: 'idl.json interaction does the right thing',
+  name: 'idlformat.json interaction does the right thing',
   fn: IDLJSONInteractRight,
 });
 

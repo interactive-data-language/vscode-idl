@@ -13,12 +13,12 @@ import type { RunnerFunction } from '../../runner.interface';
 import { TEST_CLIENT_CONFIG } from '../../test-client-config.interface';
 
 /**
- * Verifies idl.json does the right thing with changes and doesnt trigger
+ * Verifies idlformat.json does the right thing with changes and doesnt trigger
  * PRO code parsing in the language server
  */
 export const IDLJSONInteractRight: RunnerFunction = async (init) => {
   const doc = await OpenFileInVSCode(
-    GetExtensionPath('apps/test/idl/client-e2e/idl.json'),
+    GetExtensionPath('apps/test/idl/client-e2e/idlformat.json'),
   );
 
   // short pause to make sure we open and parse

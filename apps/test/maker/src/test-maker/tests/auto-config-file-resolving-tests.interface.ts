@@ -4,7 +4,8 @@ import type { IConfigTests } from '../tests.interface';
  * Automated tests to make sure we can properly resolve our configuration
  * files within nested sub-folders.
  *
- * These config files are the "idl.json" files with style and other controls
+ * These config files are the "idlformat.json" files (or the legacy "idl.json")
+ * with style and other controls
  * that are used in lieu of VSCode's settings.
  */
 export const AUTO_CONFIG_FILE_RESOLVING: IConfigTests[] = [
@@ -18,11 +19,11 @@ export const AUTO_CONFIG_FILE_RESOLVING: IConfigTests[] = [
         actions: [
           {
             action: 'add',
-            file: 'subdir1/idl.json',
+            file: 'subdir1/idlformat.json',
           },
           {
             action: 'add',
-            file: 'subdir2/idl.json',
+            file: 'subdir2/idlformat.json',
           },
           {
             action: 'add',
@@ -45,6 +46,48 @@ export const AUTO_CONFIG_FILE_RESOLVING: IConfigTests[] = [
     ],
   },
   {
+    suiteName: `Prefer idlformat.json over legacy idl.json`,
+    fileName: `precedence.spec.ts`,
+    tests: [
+      {
+        name: 'when the legacy file is indexed first',
+        workspace: 'apps/test/idl/configs',
+        actions: [
+          {
+            action: 'add',
+            file: 'subdir5/idl.json',
+          },
+          {
+            action: 'add',
+            file: 'subdir5/idlformat.json',
+          },
+          {
+            action: 'get',
+            file: 'subdir5/idl.pro',
+          },
+        ],
+      },
+      {
+        name: 'when the legacy file is indexed last',
+        workspace: 'apps/test/idl/configs',
+        actions: [
+          {
+            action: 'add',
+            file: 'subdir5/idlformat.json',
+          },
+          {
+            action: 'add',
+            file: 'subdir5/idl.json',
+          },
+          {
+            action: 'get',
+            file: 'subdir5/idl.pro',
+          },
+        ],
+      },
+    ],
+  },
+  {
     suiteName: `Parse invalid config files`,
     fileName: `bad-file.spec.ts`,
     tests: [
@@ -54,7 +97,7 @@ export const AUTO_CONFIG_FILE_RESOLVING: IConfigTests[] = [
         actions: [
           {
             action: 'add',
-            file: 'subdir4/idl.json',
+            file: 'subdir4/idlformat.json',
           },
           {
             action: 'get',
