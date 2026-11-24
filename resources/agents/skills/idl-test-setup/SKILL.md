@@ -77,8 +77,9 @@ Luna is the test framework (`luna()`), Sol is the runner (`sol()`). Both are IDL
 
 6. **Ignore generated files.** Add these to `.gitignore`:
    ```
-   *.spec.pro.log
-   idltest.log
+   *spec.pro.log
+   *idl.test.log
+   *idltest.log
    sol.log
    luna.log
    ```

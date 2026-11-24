@@ -19,7 +19,15 @@ If the user has the IDL for VS Code extension, they can also create each file wi
 2. Create `idlpackage.json`, `idlformat.json`, and `idltest.json` at the folder root using the templates below.
 3. Create a `src` folder for code. Test files go in `src` and are named `*.spec.pro` so the default `idltest.json` finds them.
 4. Create `run-tests.pro` next to `idltest.json` (see below).
-5. Summarize the files created. To add tests next, use the `idl-test-setup` skill (it covers `idltest.json` in more detail).
+5. Add test output to `.gitignore` (create it if missing):
+
+   ```
+   *spec.pro.log
+   *idl.test.log
+   *idltest.log
+   ```
+
+6. Summarize the files created. To add tests next, use the `idl-test-setup` skill (it covers `idltest.json` in more detail).
 
 ## idlpackage.json
 
