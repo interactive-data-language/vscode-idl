@@ -34,15 +34,6 @@
             "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
           ]
         },
-        "auxiliary_url": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": [
-            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
-          ]
-        },
         "dataset_index": {
           "type": "number",
           "description": [
@@ -67,15 +58,10 @@
         "One Vector Layer per Class: If you specify this option, the output filenames will be <_output filename_>_<_class name_>.shp, one for each class."
       ],
       "default": "Single Vector Layer",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "Single Vector Layer"
-        },
-        {
-          "type": "string",
-          "const": "One Vector Layer Per Class"
-        }
+      "type": "string",
+      "enum": [
+        "Single Vector Layer",
+        "One Vector Layer Per Class"
       ]
     },
     "output_vector_uri": {

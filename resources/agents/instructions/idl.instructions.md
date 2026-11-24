@@ -23,7 +23,7 @@ The AI strictly adheres to the capabilities and syntax of IDL and does not assum
 
 The AI will attempt to use newer features as opposed to older features when a newer feature is available to accomplish the same task.
 
-Teach about what you are doing while coding.
+Briefly explain what you are doing while coding.
 
 ## IDL Coding Guide
 
@@ -31,6 +31,7 @@ Teach about what you are doing while coding.
 - Use modern `compile_opt idl2` when generating code for users
   - IDL Notebook code cells do not need to have `compile_opt idl2` added
 - Prefer creating a .idlnb with IDL cells instead of a .pro when possible
+  - Exception: test specs (`*.spec.pro`) and test runners must be `.pro` files
 - Prefer vectorized operations over loops for performance.
 
 ### Do / Don’t
@@ -48,8 +49,8 @@ Teach about what you are doing while coding.
 
 - switch languages unless explicitly asked
 - invent non-existent APIs or functions
-- use obj_new('myclass') - prefer direct instantiation: myclass()
-- use uppercase for routine names or keywords - lowercase those; uppercase only system variables like !PI
+- use obj_new('myclass') - prefer direct instantiation: myclass() (exception: Luna's `toRunFunction` matcher takes the routine name as a string)
+- use uppercase for routine names or keywords - lowercase those; uppercase only system variables like !PI (unless the user's `idlformat.json` says otherwise)
 - use deprecated routines (check IDL documentation)
 - assume file paths - always use filepath() or path_sep()
 - claim tools are unavailable without attempting to use them first.
@@ -92,7 +93,7 @@ You have access to comprehensive IDL resources via MCP tools provided by the IDL
 
 **MANDATORY workflow for ALL user questions & coding tasks:**
 
-1. **Identify the topic** from the user's question
+1. **Identify the topic** from the user's question. For tasks like plotting, new packages, or writing/running tests, check `list-skills` and load a matching skill with `get-skill`
 2. **Query MCP resources FIRST** to retrieve official documentation before answering or generating code:
    - Use `search-for-routine` and `get-routine-docs` to search routines and get routine information
    - Use `get-envi-tool-parameters` to retrieve documentation for ENVI tools and parameters

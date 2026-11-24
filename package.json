@@ -2,7 +2,7 @@
   "name": "idl-for-vscode",
   "displayName": "%packageJSON.displayName%",
   "description": "%packageJSON.description%",
-  "version": "6.3.0",
+  "version": "7.0.0",
   "publisher": "idl",
   "license": "MIT",
   "encryption": "yes",
@@ -20,11 +20,11 @@
     "build-mcp-tools": "node ./tools/node/update-mcp-tools.js",
     "build-notebook": "nx build notebook-renderer --prod",
     "build-notebook-dev": "nx build notebook-renderer --configuration=development",
-    "build-package-json": "npm run build-tmlang && npm run build-i18n && nx build build-package-json && node ./dist/apps/build/package-json/main.js && prettier --write ./resources/language/schemas/config",
+    "build-package-json": "npm run build-tmlang && npm run build-i18n && nx build build-package-json && node ./dist/apps/build/package-json/main.js && prettier --write ./resources/language/schemas",
     "build-server": "nx run-many --target=build --projects=vscode-server,vscode-parsing-worker --prod",
     "build-test": "nx build test-vscode-e2e-runner && nx build test-client",
     "build-test-maker": "nx build test-maker",
-    "build-json-schemas": "nx build build-json-schemas && node ./dist/apps/build/json-schemas/main.js && prettier --write ./resources/language/schemas/idlpackage ./resources/language/schemas/tasks ./resources/language/schemas/config",
+    "build-json-schemas": "nx build build-json-schemas && node ./dist/apps/build/json-schemas/main.js && prettier --write ./resources/language/schemas",
     "build-tmlang": "nx build build-tmlang-maker && node ./dist/apps/build/tmlang-maker/main.js --trace-warnings",
     "clean": "rimraf ./dist",
     "code-prep": "nx run-many --all --target=lint --fix --parallel=8 && nx format:write",
@@ -57,7 +57,7 @@
     "start-webview": "nx build vscode-webview --watch",
     "test-everything": "npm-run-all test-libs make-integration-tests test-integration",
     "test-integration": "node dist/apps/test/vscode-e2e-runner/main.js",
-    "test-libs": "nx run-many --target=test --runInBand --projects=\"tests*\" --exclude=tests-envi-modeler --parallel=5 && nx run-many --target=test --runInBand --projects=tokenizer-tokenizer,idl-type-tokens --parallel=4 && nx run tests-envi-modeler:test",
+    "test-libs": "nx run-many --target=test --runInBand --projects=\"libs/**\" --exclude=tests-envi-modeler --parallel=2 && nx run tests-envi-modeler:test",
     "test-perf": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 ./dist/apps/dev/performance/main.js",
     "test-perf-profile": "node --expose-gc --max-old-space-size=12000 --max-semi-space-size=64 --prof ./dist/apps/dev/performance/main.js",
     "package-agents-server": "npm run clean && nx run-many --target=build --projects=agents-server,vscode-parsing-worker --prod && node ./tools/node/componentize-agents-server.js"
@@ -225,7 +225,7 @@
     "yaml": "^2.9.1"
   },
   "engines": {
-    "vscode": "^1.106.0",
+    "vscode": "^1.147.0",
     "npm": "^12.0",
     "node": ">=22.22.0"
   },
@@ -267,6 +267,18 @@
         "path": "./resources/agents/skills/idl-create-2d-plot/SKILL.md"
       },
       {
+        "path": "./resources/agents/skills/idl-init-package/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/idl-run-tests/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/idl-test-setup/SKILL.md"
+      },
+      {
+        "path": "./resources/agents/skills/idl-write-tests/SKILL.md"
+      },
+      {
         "path": "./resources/agents/skills/save-envi-tool-workflow/SKILL.md"
       }
     ],
@@ -306,6 +318,18 @@
       {
         "command": "idl.code.generateTask",
         "title": "%commands.idl.code.generateTask%"
+      },
+      {
+        "command": "idl.code.initializeFormatting",
+        "title": "%commands.idl.code.initializeFormatting%"
+      },
+      {
+        "command": "idl.code.initializePackage",
+        "title": "%commands.idl.code.initializePackage%"
+      },
+      {
+        "command": "idl.code.initializeTest",
+        "title": "%commands.idl.code.initializeTest%"
       },
       {
         "command": "idl.code.migrateToDL30API",
@@ -1414,12 +1438,20 @@
         "url": "./resources/language/schemas/tasks/schema.json"
       },
       {
+        "fileMatch": "*idlformat.json",
+        "url": "./resources/language/schemas/idlformat/schema.json"
+      },
+      {
         "fileMatch": "*idl.json",
-        "url": "./resources/language/schemas/config/schema.json"
+        "url": "./resources/language/schemas/idlformat/schema.json"
       },
       {
         "fileMatch": "*idlpackage.json",
         "url": "./resources/language/schemas/idlpackage/schema.json"
+      },
+      {
+        "fileMatch": "*idltest.json",
+        "url": "./resources/language/schemas/idltest/schema.json"
       }
     ],
     "languages": [
@@ -1565,6 +1597,18 @@
         },
         {
           "command": "idl.code.generateTask",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.initializeFormatting",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.initializePackage",
+          "when": "!isWeb"
+        },
+        {
+          "command": "idl.code.initializeTest",
           "when": "!isWeb"
         },
         {

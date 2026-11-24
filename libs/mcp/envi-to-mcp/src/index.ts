@@ -35,3 +35,4 @@ export * from './lib/parameters/mcp-envi-uri';
 export * from './lib/parameters/mcp-envi-variant';
 export * from './lib/parameters/mcp-envi-vector';
 export * from './lib/parameters/mcp-sarscape-data';
+export * from './lib/slim-envi-parameters';

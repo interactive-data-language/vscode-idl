@@ -1,0 +1,9 @@
+{
+  "name": "schemas-idltest",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/schemas/idltest/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project schemas-idltest --web",
+  "targets": {}
+}

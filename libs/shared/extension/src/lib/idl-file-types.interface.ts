@@ -5,7 +5,7 @@ export type IDLFileType =
   | 'envi-task'
   | 'idl-notebook'
   | 'idl-task'
-  | 'idl.json'
+  | 'idl-format'
   | 'pro-def'
   | 'pro'
   | 'save';
@@ -24,7 +24,7 @@ export const IDL_FILE_TYPE_LOOKUP: IDLFileTypeLookup = {
   pro: new Set(),
   'pro-def': new Set(),
   save: new Set(),
-  'idl.json': new Set(),
+  'idl-format': new Set(),
   'idl-task': new Set(),
   'envi-task': new Set(),
   'idl-notebook': new Set(),

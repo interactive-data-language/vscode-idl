@@ -2,7 +2,7 @@ import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { basename, join } from 'path';
 
 /**
- * Migrates a GitHub copilot file (prompt or instructions) to a new
+ * Migrates a GitHub copilot instructions file to a new
  * location and manages adding in custom user instructions
  */
 export function MoveAndUpdateCopilotFile(

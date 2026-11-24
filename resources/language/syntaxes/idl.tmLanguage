@@ -797,9 +797,43 @@
             <array>
               <dict>
                 <key>include</key>
+                <string>#comment_inline_code</string>
+              </dict>
+              <dict>
+                <key>include</key>
                 <string>#comment_disabled_problem</string>
               </dict>
             </array>
+          </dict>
+        </dict>
+      </dict>
+      <key>comment_inline_code</key>
+      <dict>
+        <key>match</key>
+        <string>(?i)(```idl)\s+(.*?)(```)</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#all_tokens</string>
+              </dict>
+            </array>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
           </dict>
         </dict>
       </dict>
@@ -857,6 +891,18 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#comment_example_json_block</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment_example_python_block</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment_example_yaml_block</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#comment</string>
           </dict>
         </array>
@@ -864,23 +910,33 @@
       <key>comment_example_code_block</key>
       <dict>
         <key>begin</key>
-        <string>(?i)^\s*(;\s*```idl.*$)</string>
+        <string>(?i)^\s*(;\s*)(```idl\s*$)</string>
         <key>beginCaptures</key>
         <dict>
-          <key>0</key>
+          <key>1</key>
           <dict>
             <key>name</key>
             <string>comment.line.idl</string>
           </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
+          </dict>
         </dict>
         <key>end</key>
-        <string>(?i)^\s*;\s*```|^(?!\s*(;|$))</string>
+        <string>(?i)^\s*(;\s*)(```\s*$)|^(?!\s*(;|$))</string>
         <key>endCaptures</key>
         <dict>
-          <key>0</key>
+          <key>1</key>
           <dict>
             <key>name</key>
             <string>comment.line.idl</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -888,6 +944,152 @@
           <dict>
             <key>include</key>
             <string>#comment_example_code_line</string>
+          </dict>
+        </array>
+      </dict>
+      <key>comment_example_json_block</key>
+      <dict>
+        <key>begin</key>
+        <string>(?i)^\s*(;\s*)(```json\s*$)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>comment.line.idl</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.block.json</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?i)^\s*(;\s*)(```\s*$)|^(?!\s*(;|$))</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>comment.line.idl</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.block.json</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>(?i)(;)(.*$)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>comment.line.idl</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>meta.embedded.block.json</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>source.json</string>
+                  </dict>
+                </array>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment_example_embedded_dependencies</string>
+          </dict>
+        </array>
+      </dict>
+      <key>comment_example_python_block</key>
+      <dict>
+        <key>begin</key>
+        <string>(?i)^\s*(;\s*)(```python\s*$)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>comment.line.idl</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.block.python</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?i)^\s*(;\s*)(```\s*$)|^(?!\s*(;|$))</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>comment.line.idl</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>meta.embedded.block.python</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>(?i)(;)(.*$)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>comment.line.idl</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>meta.embedded.block.python</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>source.python</string>
+                  </dict>
+                </array>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment_example_embedded_dependencies</string>
+          </dict>
+        </array>
+      </dict>
+      <key>comment_example_embedded_dependencies</key>
+      <dict>
+        <key>begin</key>
+        <string>(?i)(?!)</string>
+        <key>end</key>
+        <string>(?i)(?!)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>source.json</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>source.python</string>
           </dict>
         </array>
       </dict>
@@ -904,6 +1106,8 @@
           </dict>
           <key>2</key>
           <dict>
+            <key>name</key>
+            <string>meta.embedded.idl</string>
             <key>patterns</key>
             <array>
               <dict>

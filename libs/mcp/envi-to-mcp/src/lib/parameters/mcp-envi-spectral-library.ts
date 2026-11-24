@@ -23,6 +23,7 @@ export function MCP_ENVISpectralLibrary() {
       .string()
       .describe(
         'Specify the header file for the spectral library (.hdr extension). This should exist and contains metadata about the library itself.',
-      ),
+      )
+      .optional(),
   });
 }

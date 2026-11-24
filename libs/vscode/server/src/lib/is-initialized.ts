@@ -247,7 +247,7 @@ SERVER_INFO.then(async (res) => {
         num_save: IDL_INDEX.fileTypes['save'].size,
         num_idl_task: IDL_INDEX.fileTypes['idl-task'].size,
         num_envi_task: IDL_INDEX.fileTypes['envi-task'].size,
-        num_idl_json: IDL_INDEX.fileTypes['idl.json'].size,
+        num_idl_json: IDL_INDEX.fileTypes['idl-format'].size,
         num_notebook: IDL_INDEX.fileTypes['idl-notebook'].size,
       };
 

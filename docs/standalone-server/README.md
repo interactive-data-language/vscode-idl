@@ -48,7 +48,14 @@ Server to host.
 | `log`   | `level`, `log`, `content`             | Forwarded from the server's log manager and `console`.                        |
 | `error` | `id?`, `code`, `message`, `problems?` | Codes: `INVALID_CONFIG`, `ALREADY_STARTED`, `START_FAILED`, `REQUEST_FAILED`. |
 
-Problem codes are `IDL_NOT_FOUND`, `IDL_DIRECTORY_INVALID`, and `LLM_NOT_CONFIGURED`. IDL is found from `idl.directory` in the config (the folder containing the IDL executable). If that is empty the server searches for IDL automatically, and a non-empty value that is not valid is reported and never falls back to searching. Unknown message types are ignored, so older and newer hosts and servers can coexist.
+The agents server requires IDL 9.2 or newer. Leave `idl.directory` empty for automatic detection, or set it to the directory containing the IDL executable. A configured directory is never silently replaced by another installation.
+
+- `IDL_NOT_FOUND`: automatic detection could not find a supported installation.
+- `IDL_DIRECTORY_INVALID`: the configured directory does not contain the IDL executable.
+- `IDL_VERSION_UNSUPPORTED`: the resolved executable directory identifies an IDL release older than 9.2. A custom directory with an executable but no recognizable IDL version in its path is accepted.
+- `LLM_NOT_CONFIGURED`: the selected model provider is missing required settings.
+
+Unknown message types are ignored, so older and newer hosts and servers can coexist.
 
 After `start`, config changes need a new worker. If `start` fails (`START_FAILED`) the worker exits.
 

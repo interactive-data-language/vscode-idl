@@ -52,8 +52,8 @@
       "@idl/generators/idl-task": [
         "../../../libs/generators/idl-task/src/index.ts"
       ],
-      "@idl/generators/idl.json": [
-        "../../../libs/generators/idl.json/src/index.ts"
+      "@idl/generators/idlformat": [
+        "../../../libs/generators/idlformat/src/index.ts"
       ],
       "@idl/generators/task-tests": [
         "../../../libs/generators/task-tests/src/index.ts"
@@ -105,7 +105,7 @@
       "@idl/parsing/type-parser": [
         "../../../libs/parsing/type-parser/src/index.ts"
       ],
-      "@idl/schemas/idl.json": ["../../../libs/schemas/idl.json/src/index.ts"],
+      "@idl/schemas/idlformat": ["../../../libs/schemas/idlformat/src/index.ts"],
       "@idl/schemas/tasks": ["../../../libs/schemas/tasks/src/index.ts"],
       "@idl/server-helpers": ["../../../libs/server-helpers/src/index.ts"],
       "@idl/shared/extension": ["../../../libs/shared/extension/src/index.ts"],

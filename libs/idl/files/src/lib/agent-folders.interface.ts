@@ -1,3 +1,4 @@
+import { homedir } from 'os';
 import { join } from 'path';
 
 import { DOT_IDL_FOLDER } from './dot-idl-folder.interface';
@@ -19,32 +20,54 @@ export const OLD_USER_AGENTS_FOLDER = join(
 );
 
 /**
+ * User folder for GitHub Copilot, respects COPILOT_HOME
+ */
+export const COPILOT_HOME_FOLDER = process.env['COPILOT_HOME']
+  ? process.env['COPILOT_HOME']
+  : join(homedir(), '.copilot');
+
+/**
  * User folder for agent instructions that we manage with the extension
+ *
+ * This is the native location that GitHub Copilot reads from
  */
 export const USER_AGENT_INSTRUCTIONS_FOLDER = join(
+  COPILOT_HOME_FOLDER,
+  'instructions',
+);
+
+/**
+ * Legacy user folder for agent instructions that we managed
+ *
+ * @deprecated
+ */
+export const OLD_USER_AGENT_INSTRUCTIONS_FOLDER = join(
   USER_AGENTS_FOLDER,
   'instructions',
 );
 
 /**
- * User folder for agent prompts that we manage with the extension
+ * Legacy user folder for agent prompts that we managed
+ *
+ * @deprecated Only used to clean up old settings
  */
 export const USER_AGENT_PROMPTS_FOLDER = join(USER_AGENTS_FOLDER, 'prompts');
 
 /**
- * User folder for custom instructions
+ * Legacy user folder for custom instructions, contents are moved to
+ * `USER_AGENT_INSTRUCTIONS_FOLDER`
  *
- * Not publicly exposed
+ * @deprecated
  */
-export const USER_CUSTOM_AGENT_INSTRUCTIONS_FOLDER = join(
+export const OLD_USER_CUSTOM_AGENT_INSTRUCTIONS_FOLDER = join(
   USER_AGENTS_FOLDER,
   'user-instructions',
 );
 
 /**
- * User folder for custom prompts
+ * Legacy user folder for custom prompts
  *
- * Not publicly exposed
+ * @deprecated Only used to clean up old settings
  */
 export const USER_CUSTOM_AGENT_PROMPTS_FOLDER = join(
   USER_AGENTS_FOLDER,

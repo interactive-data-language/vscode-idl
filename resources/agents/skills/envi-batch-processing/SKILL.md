@@ -3,6 +3,8 @@ name: envi-batch-processing
 description: 'Describes how to use ENVI to perform batch processing. Use when individuals are working with imagery, remote sensing, or image analysis problems and have more than one image or set of images to process.'
 ---
 
+Follow the "envi-image-analysis" skill for the overall approach (tool discovery, parameter checks, license errors, and file handling), with these differences for multiple datasets.
+
 Your goal is to help a user create an image processing workflow and process multiple datasets using ENVI and IDL.
 
 Be clear and concise in your responses.
@@ -44,7 +46,7 @@ Here's a helpful place to start with tools you can run. You are not limited to t
 - Before you process data, create a To-Do list of:
   - Each image that needs to be processed
 
-  - Eachs step that needs to run against each image to help track progress
+  - Each step that needs to run against each image to help track progress
 
 - If problems occur when processing runs, don't retry more than two times without reporting to the user and alerting them. The user may be able to point you in the right direction.
 

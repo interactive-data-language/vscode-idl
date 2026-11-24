@@ -71,7 +71,7 @@ export class ENVITestDatasets {
     return {
       factory: 'URLRaster',
       url: join(envi, 'data', 'qb_boulder_msi'),
-      auxiliary_url: [join(envi, 'data', 'qb_boulder_msi.hdr')],
+      // auxiliary_url: [join(envi, 'data', 'qb_boulder_msi.hdr')],
     };
   }
 
@@ -123,13 +123,13 @@ export class ENVITestDatasets {
     return {
       factory: 'URLSpectralLibrary',
       url: join(envi, 'resource', 'speclib', 'veg_lib', 'veg_1dry.sli'),
-      auxiliary_url: join(
-        envi,
-        'resource',
-        'speclib',
-        'veg_lib',
-        'veg_1dry.sli',
-      ),
+      // auxiliary_url: join(
+      //   envi,
+      //   'resource',
+      //   'speclib',
+      //   'veg_lib',
+      //   'veg_1dry.sli',
+      // ),
     };
   }
 
@@ -143,11 +143,11 @@ export class ENVITestDatasets {
     return {
       factory: 'URLVector',
       url: join(envi, 'data', 'natural_earth_vectors', 'coastlines.shp'),
-      auxiliary_url: [
-        join(envi, 'data', 'natural_earth_vectors', 'coastlines.dbf'),
-        join(envi, 'data', 'natural_earth_vectors', 'coastlines.shx'),
-        join(envi, 'data', 'natural_earth_vectors', 'coastlines.prj'),
-      ],
+      // auxiliary_url: [
+      //   join(envi, 'data', 'natural_earth_vectors', 'coastlines.dbf'),
+      //   join(envi, 'data', 'natural_earth_vectors', 'coastlines.shx'),
+      //   join(envi, 'data', 'natural_earth_vectors', 'coastlines.prj'),
+      // ],
     };
   }
 }

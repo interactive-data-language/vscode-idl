@@ -1,6 +1,8 @@
 import {
-  IDL_JSON_URI,
+  IDL_FORMAT_LEGACY_URI,
+  IDL_FORMAT_URI,
   IDL_PACKAGE_URI,
+  IDL_TEST_URI,
   TASK_FILE_EXTENSION,
 } from '@idl/shared/extension';
 import { existsSync } from 'fs';
@@ -14,12 +16,20 @@ export const JSON_VALIDATORS = [
     url: './resources/language/schemas/tasks/schema.json',
   },
   {
-    fileMatch: `*${IDL_JSON_URI}`,
-    url: './resources/language/schemas/config/schema.json',
+    fileMatch: `*${IDL_FORMAT_URI}`,
+    url: './resources/language/schemas/idlformat/schema.json',
+  },
+  {
+    fileMatch: `*${IDL_FORMAT_LEGACY_URI}`,
+    url: './resources/language/schemas/idlformat/schema.json',
   },
   {
     fileMatch: `*${IDL_PACKAGE_URI}`,
     url: './resources/language/schemas/idlpackage/schema.json',
+  },
+  {
+    fileMatch: `*${IDL_TEST_URI}`,
+    url: './resources/language/schemas/idltest/schema.json',
   },
 ];
 

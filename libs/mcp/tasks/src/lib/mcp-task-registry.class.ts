@@ -4,7 +4,11 @@ import {
   LatestPackages,
   PackageSource,
 } from '@idl/mcp/analytics-repository';
-import { FixENVIFactory } from '@idl/mcp/envi-to-mcp';
+import {
+  FixENVIFactory,
+  SlimENVIResult,
+  SlimENVISchema,
+} from '@idl/mcp/envi-to-mcp';
 import { IDLParameterToMCPParameter } from '@idl/mcp/idl-to-mcp';
 import {
   type IRegistryListOptions,
@@ -45,6 +49,9 @@ export class MCPTaskRegistry {
   /** Object class that handles filtering items from the task registry */
   filters = new RuleBasedFilter();
 
+  /** Do we trim auxiliary details from returned schemas and results? */
+  slim = true;
+
   /**
    * Logger
    */
@@ -71,9 +78,15 @@ export class MCPTaskRegistry {
   private tasks: { [key: string]: ITaskRegistryEntry } = {};
 
   constructor(options: IMCPTaskRegistryOptions) {
-    const { repository, filters, logger, strict = true } = options;
+    const { repository, filters, logger, slim, strict } = options;
     this.logger = logger;
-    this.strict = strict;
+    // only override class defaults when explicitly provided
+    if (slim !== undefined) {
+      this.slim = slim;
+    }
+    if (strict !== undefined) {
+      this.strict = strict;
+    }
     this.repository = repository;
     if (filters !== undefined) {
       this.filters.updateFilters(filters);
@@ -138,8 +151,13 @@ export class MCPTaskRegistry {
       return;
     }
 
-    // get
-    return { ...this.tasks[lc], notes: this.notes[lc] };
+    /** Full detail is always stored, only trim what we return */
+    const entry = { ...this.tasks[lc], notes: this.notes[lc] };
+    if (this.slim) {
+      entry.inputParameters = SlimENVISchema(entry.inputParameters);
+      entry.outputParameters = SlimENVISchema(entry.outputParameters);
+    }
+    return entry;
   }
 
   /**
@@ -441,6 +459,9 @@ export class MCPTaskRegistry {
    */
   sanitizeOutputParameters(outputParameters: { [key: string]: any }) {
     FixENVIFactory(outputParameters);
+    if (this.slim) {
+      SlimENVIResult(outputParameters);
+    }
   }
 
   /**

@@ -18,7 +18,7 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
 
     // specify filepath
     const filepath_0 = GetExtensionPath(
-      'apps/test/idl/configs/subdir1/idl.json',
+      'apps/test/idl/configs/subdir1/idlformat.json',
     );
 
     // add file to index
@@ -26,7 +26,7 @@ describe(`[auto generated] Correctly identify parses and returns config files`, 
 
     // specify filepath
     const filepath_1 = GetExtensionPath(
-      'apps/test/idl/configs/subdir2/idl.json',
+      'apps/test/idl/configs/subdir2/idlformat.json',
     );
 
     // add file to index

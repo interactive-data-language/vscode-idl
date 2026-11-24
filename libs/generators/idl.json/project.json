@@ -1,9 +1,0 @@
-{
-  "name": "generators-idl.json",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/generators/idl.json/src",
-  "projectType": "library",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project generators-idl.json --web",
-  "targets": {}
-}

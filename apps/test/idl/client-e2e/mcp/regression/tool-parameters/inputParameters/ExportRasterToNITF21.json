@@ -24,15 +24,6 @@
             "See the documentation for what files should be the primary URL https://www.nv5geospatialsoftware.com/docs/SupportedFormats.html."
           ]
         },
-        "auxiliary_url": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": [
-            "If a file has any auxiliary files, specify them here. This would include files with the same base name as the url and extensions such as .enp or .hdr file. Auxiliary files MUST be included if they exist. ALWAYS check for header files."
-          ]
-        },
         "dataset_index": {
           "type": "number",
           "description": [
@@ -71,47 +62,18 @@
         "The default value is No Compression."
       ],
       "default": "No Compression",
-      "anyOf": [
-        {
-          "type": "string",
-          "const": "EPJE Num Lossless"
-        },
-        {
-          "type": "string",
-          "const": "EPJE Vis Lossless"
-        },
-        {
-          "type": "string",
-          "const": "JPEG DCT (High)"
-        },
-        {
-          "type": "string",
-          "const": "JPEG DCT (Low)"
-        },
-        {
-          "type": "string",
-          "const": "JPEG DCT (Medium)"
-        },
-        {
-          "type": "string",
-          "const": "No Compression"
-        },
-        {
-          "type": "string",
-          "const": "NPJE Num Lossless"
-        },
-        {
-          "type": "string",
-          "const": "NPJE Vis Lossless"
-        },
-        {
-          "type": "string",
-          "const": "Transcode EPJE to NPJE"
-        },
-        {
-          "type": "string",
-          "const": "Transcode NPJE to EPJE"
-        }
+      "type": "string",
+      "enum": [
+        "EPJE Num Lossless",
+        "EPJE Vis Lossless",
+        "JPEG DCT (High)",
+        "JPEG DCT (Low)",
+        "JPEG DCT (Medium)",
+        "No Compression",
+        "NPJE Num Lossless",
+        "NPJE Vis Lossless",
+        "Transcode EPJE to NPJE",
+        "Transcode NPJE to EPJE"
       ]
     },
     "output_raster_uri": {

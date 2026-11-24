@@ -1,0 +1,30 @@
+{
+  "name": "addition_example",
+  "description": "Returns the sum of a and b.",
+  "base_class": "IDLTaskFromProcedure",
+  "routine": "addition",
+  "schema": "idltask_1.1",
+  "revision": "1.0.0",
+  "parameters": [
+    {
+      "name": "A",
+      "type": "INT",
+      "direction": "input",
+      "required": true,
+      "test_exact": true
+    },
+    {
+      "name": "B",
+      "type": "INT",
+      "direction": "input",
+      "required": true,
+      "test_exact": true
+    },
+    {
+      "name": "C",
+      "type": "INT",
+      "direction": "output",
+      "required": true
+    }
+  ]
+}

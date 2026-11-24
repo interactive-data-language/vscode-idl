@@ -101,7 +101,7 @@ export interface ILanguageServerStartupPayload extends IHardwareInfo {
    */
   num_envi_task: number;
   /**
-   * Number of idl.json config files
+   * Number of idlformat.json (or legacy idl.json) config files
    */
   num_idl_json: number;
   /**

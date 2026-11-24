@@ -21,6 +21,11 @@ export interface IMCPTaskRegistryOptions {
   logger: LogManager;
   /** Analytics repositories to pull tasks from */
   repository?: AnalyticsRepositoryRegistry;
+  /**
+   * Trim auxiliary details (i.e. `auxiliary_url`) from the schemas we return
+   * and from results coming back from IDL
+   */
+  slim?: boolean;
   /** Are we operating in strict mode or not? Defaults to true */
   strict?: boolean;
 }

@@ -77,6 +77,6 @@ export const RunMCPTestRunENVITool: RunnerFunction = async (init) => {
   expect(results.result['output_raster']).toEqual({
     factory: 'URLRaster',
     url: outUri,
-    auxiliary_url: [outUri.replace('.dat', '.hdr')],
+    // auxiliary_url: [outUri.replace('.dat', '.hdr')],
   });
 };

@@ -35,10 +35,10 @@ export interface SaveParseEventPayload extends BaseParseEventPayload {
 }
 
 /**
- * Payload for idl.json file parse events
+ * Payload for idl format config file parse events
  */
-export interface IdlJsonParseEventPayload extends BaseParseEventPayload {
-  type: 'idl.json';
+export interface IdlFormatParseEventPayload extends BaseParseEventPayload {
+  type: 'idl-format';
 }
 
 /**
@@ -75,7 +75,7 @@ export type ParseEventPayloadMap = {
   pro: ProParseEventPayload;
   'pro-def': ProDefParseEventPayload;
   save: SaveParseEventPayload;
-  'idl.json': IdlJsonParseEventPayload;
+  'idl-format': IdlFormatParseEventPayload;
   'idl-task': IdlTaskParseEventPayload;
   'envi-task': EnviTaskParseEventPayload;
   'idl-notebook': IdlNotebookParseEventPayload;

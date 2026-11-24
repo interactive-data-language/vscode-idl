@@ -1,0 +1,9 @@
+{
+  "name": "generators-idlformat",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/generators/idlformat/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project generators-idlformat --web",
+  "targets": {}
+}

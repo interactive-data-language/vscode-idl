@@ -1,0 +1,9 @@
+{
+  "name": "generators-idltest",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/generators/idltest/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project generators-idltest --web",
+  "targets": {}
+}

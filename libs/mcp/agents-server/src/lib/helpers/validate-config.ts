@@ -1,6 +1,6 @@
 import type { IAgentServerConfig } from '@idl/types/agents';
 
-import { ResolveIDLDirectory } from './resolve-idl-directory';
+import { ResolveIDLDirectoryOrProblem } from './resolve-idl-directory';
 import type { IConfigProblem } from './validate-config.interface';
 
 /**
@@ -12,21 +12,9 @@ import type { IConfigProblem } from './validate-config.interface';
 export function ValidateConfig(config: IAgentServerConfig): IConfigProblem[] {
   const problems: IConfigProblem[] = [];
 
-  if (ResolveIDLDirectory(config) === undefined) {
-    const directory = config.idl.directory.trim();
-
-    problems.push(
-      directory !== ''
-        ? {
-            code: 'IDL_DIRECTORY_INVALID',
-            message: `"idl.directory" does not contain an IDL executable: ${directory}`,
-          }
-        : {
-            code: 'IDL_NOT_FOUND',
-            message:
-              'Unable to find IDL. Install IDL, set "idl.directory", or set the IDL_DIR environment variable.',
-          },
-    );
+  const idl = ResolveIDLDirectoryOrProblem(config);
+  if (typeof idl !== 'string') {
+    problems.push(idl);
   }
 
   const llm = config.agent.llm;

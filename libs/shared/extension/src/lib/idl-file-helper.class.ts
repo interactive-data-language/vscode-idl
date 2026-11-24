@@ -4,7 +4,8 @@ import { URI } from 'vscode-uri';
 
 import { CleanPath } from './clean-path';
 import {
-  IDL_JSON_URI,
+  IDL_FORMAT_LEGACY_URI,
+  IDL_FORMAT_URI,
   IDL_NOTEBOOK_EXTENSION,
   IDL_PACKAGE_URI,
   IDL_SAVE_FILE_EXTENSION,
@@ -39,10 +40,13 @@ export class IDLFileHelper {
   }
 
   /**
-   * Indicates that a file is a configuration file
+   * Indicates that a file is a configuration file (current or legacy name)
    */
   static isConfigFile(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_JSON_URI);
+    const lower = file.toLowerCase();
+    return (
+      lower.endsWith(IDL_FORMAT_URI) || lower.endsWith(IDL_FORMAT_LEGACY_URI)
+    );
   }
 
   /**
@@ -59,6 +63,14 @@ export class IDLFileHelper {
    */
   static isIDLPackageFile(file: string): boolean {
     return file.toLowerCase().endsWith(IDL_PACKAGE_URI);
+  }
+
+  /**
+   * Indicates that a file is a configuration file using the legacy name
+   * (`idl.json`)
+   */
+  static isLegacyConfigFile(file: string): boolean {
+    return file.toLowerCase().endsWith(IDL_FORMAT_LEGACY_URI);
   }
 
   /**

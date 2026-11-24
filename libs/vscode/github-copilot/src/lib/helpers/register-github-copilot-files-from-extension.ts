@@ -1,91 +1,42 @@
 import {
   FindFiles,
   GetExtensionPath,
-  OLD_USER_AGENTS_FOLDER,
   USER_AGENT_INSTRUCTIONS_FOLDER,
-  USER_AGENTS_FOLDER,
 } from '@idl/idl/files';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
-import { existsSync, readdirSync, unlinkSync } from 'fs';
-import { join } from 'path';
-import * as vscode from 'vscode';
+import { existsSync, unlinkSync } from 'fs';
+import { basename, join } from 'path';
 
-import { HomeRelativePath } from './home-relative-path';
 import { MoveAndUpdateCopilotFile } from './move-and-update-copilot-file';
 
 /**
- * Registers instructions files that we provide as part of the extension
- * with GitHub Copilot's configuration
+ * Copies the instructions files that we provide as part of the extension
+ * to the user's GitHub Copilot instructions folder, which Copilot
+ * discovers natively
  */
 export async function RegisterGitHubCopilotFilesFromExtension() {
-  // Get the configuration for chat settings
-  const config = vscode.workspace.getConfiguration('chat');
-
-  /** Settings key */
-  const settingKey = 'instructionsFilesLocations';
-
   /** Folder that our instructions should go into */
   const destinationDir = USER_AGENT_INSTRUCTIONS_FOLDER;
-
-  /**
-   * Clean up existing files
-   *
-   * Don't just nuke the folder - it gets locked sometimes by VSCode when files
-   * are registered (or at least it looks like that)
-   */
-  if (existsSync(destinationDir)) {
-    const existingFiles = readdirSync(destinationDir).map((file) =>
-      join(destinationDir, file),
-    );
-    for (let i = 0; i < existingFiles.length; i++) {
-      unlinkSync(existingFiles[i]);
-    }
-  }
-
-  // relative path for destination
-  const destinationRelative = HomeRelativePath(destinationDir);
-
-  /** Get old relative path for agents content */
-  const oldRelative = HomeRelativePath(OLD_USER_AGENTS_FOLDER);
-
-  /**
-   * Get instruction files
-   *
-   * Use spread operator to clone so that we can use it
-   */
-  const filesLocations = {
-    ...(config.get<Record<string, boolean>>(settingKey) || {}),
-  };
 
   /** Get folder with our instructions */
   const dir = GetExtensionPath('resources/agents/instructions');
 
-  // remove existing in case we added some that are now gone
-  const existing = Object.keys(filesLocations);
+  /** Find instruction files that we provide */
+  const allFiles = await FindFiles(dir, '**/*.instructions.md');
 
-  // get existing flags
-  const states: { [key: string]: boolean } = {};
-
-  // remove any existing files from settings in case we deleted/removed instructions
-  for (let i = 0; i < existing.length; i++) {
-    // check if old location to clean up setting
-    if (existing[i].startsWith(oldRelative)) {
-      delete filesLocations[existing[i]];
-      continue;
-    }
-
-    if (
-      // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
-      existing[i].startsWith(USER_AGENTS_FOLDER) ||
-      existing[i].startsWith(destinationRelative)
-    ) {
-      states[existing[i]] = filesLocations[existing[i]];
-      delete filesLocations[existing[i]];
+  /**
+   * Clean up existing files that we manage
+   *
+   * Do not remove other files because the folder is shared with the user
+   */
+  for (let i = 0; i < allFiles.length; i++) {
+    const existingFile = join(destinationDir, basename(allFiles[i]));
+    if (existsSync(existingFile)) {
+      unlinkSync(existingFile);
     }
   }
 
-  /** Find instruction files that we should automatically register */
-  let files = await FindFiles(dir, '**/*.instructions.md');
+  let files = allFiles;
 
   /**
    * Exclude ENVI items from being auto copied/updated
@@ -95,23 +46,7 @@ export async function RegisterGitHubCopilotFilesFromExtension() {
   }
 
   // Move all files
-  // we need a absolute path for operations like copy/move/read/write. But we want to register the home-relative path with copilot settings to be compliant.
   for (let i = 0; i < files.length; i++) {
     MoveAndUpdateCopilotFile(files[i], destinationDir);
   }
-
-  // Use home-relative paths.
-  // Register directory if files exist
-  if (files.length > 0) {
-    // save state
-    filesLocations[destinationRelative] =
-      destinationRelative in states ? states[destinationRelative] : true;
-  }
-
-  // Update the configuration globally
-  await config.update(
-    settingKey,
-    filesLocations,
-    vscode.ConfigurationTarget.Global,
-  );
 }

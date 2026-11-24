@@ -15,13 +15,13 @@ export interface ENVIROI {
 }
 
 export interface ENVISpectralLibrary {
-  auxiliary_url: string;
+  auxiliary_url?: string;
   factory: 'URLSpectralLibrary';
   url: string;
 }
 
 export interface ENVIVector {
-  auxiliary_url: string[];
+  auxiliary_url?: string[];
   factory: 'URLVector';
   url: string;
 }

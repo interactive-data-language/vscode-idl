@@ -21,6 +21,7 @@ import {
 import { ProCodeCodeActionsNotebook } from './code-actions/pro-code-code-actions-notebook';
 import { ProCodeCodeActionsNotebook2 } from './code-actions/pro-code-code-actions-notebook-2';
 import { AddDocs } from './commands/add-docs';
+import { InitializeConfigFiles } from './commands/initialize-config-files';
 import {
   MigrateCodeDL30,
   MigrateCodeDL30_2,
@@ -68,6 +69,11 @@ INTERACTIONS_RUNNER.addTest({
 });
 
 INTERACTIONS_RUNNER.addTest({
+  name: 'Initialize idlformat.json, idlpackage.json, and idltest.json',
+  fn: InitializeConfigFiles,
+});
+
+INTERACTIONS_RUNNER.addTest({
   name: 'Index IDL folder right on startup and properly sync problems on open, edit, close',
   fn: IndexIDLFolderRightAndOpenEditClose,
 });
@@ -98,7 +104,7 @@ INTERACTIONS_RUNNER.addTest({
 });
 
 INTERACTIONS_RUNNER.addTest({
-  name: 'idl.json interaction does the right thing',
+  name: 'idlformat.json interaction does the right thing',
   fn: IDLJSONInteractRight,
 });
 

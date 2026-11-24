@@ -137,3 +137,41 @@ export const RunMCPTestSearchForRoutineMultiple: RunnerFunction = async (
   // this test will need to be updated if the MCP server chagnes
   expect(Object.keys(routineMatches[1]).length).toEqual(6);
 };
+
+/**
+ * Makes sure the limit parameter caps the number of matches
+ */
+export const RunMCPTestSearchForRoutineLimit: RunnerFunction = async (init) => {
+  /** Search with a small limit */
+  const limited = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE, {
+    routines: [{ name: 'plot', type: 'Function' }],
+    limit: 3,
+  });
+
+  expect(limited.isError).toBeFalsy();
+
+  const limitedMatches: { [key: string]: string[] }[] = JSON.parse(
+    GetTextContent(limited.content),
+  );
+
+  // the limit applies to fuzzy matches, an exact match is added in addition
+  expect(limitedMatches[0]['Function'].length).toBeLessThanOrEqual(4);
+  expect(limitedMatches[0]['Function'].length).toBeGreaterThan(0);
+
+  /** Search with a larger limit */
+  const larger = await CallMCPTool(MCP_TOOL_LOOKUP.SEARCH_FOR_ROUTINE, {
+    routines: [{ name: 'plot', type: 'Function' }],
+    limit: 100,
+  });
+
+  expect(larger.isError).toBeFalsy();
+
+  const largerMatches: { [key: string]: string[] }[] = JSON.parse(
+    GetTextContent(larger.content),
+  );
+
+  // more results come back when the limit is raised
+  expect(largerMatches[0]['Function'].length).toBeGreaterThan(
+    limitedMatches[0]['Function'].length,
+  );
+};

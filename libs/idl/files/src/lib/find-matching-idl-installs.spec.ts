@@ -22,5 +22,6 @@ describe('IDL version helpers', () => {
       GetIDLVersionFromDir('/usr/local/nv5/idl93/bin/bin.linux.x86_64'),
     ).toEqual('9.3');
     expect(GetIDLVersionFromDir('/usr/local/bin')).toBeUndefined();
+    expect(GetIDLVersionFromDir('/custom/idl91-backup/bin')).toBeUndefined();
   });
 });

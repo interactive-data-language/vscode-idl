@@ -10,6 +10,8 @@ import { HomeRelativePath } from './home-relative-path';
 /**
  * Cleans up legacy prompts folders on disk and removes prompt settings
  * from VS Code's chat configuration.
+ *
+ * @deprecated Prompts were removed; this can be deleted in a future release
  */
 export async function CleanupLegacyPromptSettings(): Promise<void> {
   // Get configuration for chat settings

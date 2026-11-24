@@ -1,12 +1,16 @@
-import { FindIDL, ValidateIDLDir } from '@idl/idl/files';
+import { IDL_DIRS } from '@idl/idl/files';
 import { DEFAULT_AGENT_SERVER_CONFIG } from '@idl/types/agents';
 import { copy } from 'fast-copy';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
+import { platform, tmpdir } from 'os';
+import { join } from 'path';
 
 import { ValidateConfig } from './validate-config';
 
-jest.mock('@idl/idl/files', () => ({
-  FindIDL: jest.fn(),
-  ValidateIDLDir: jest.fn(),
+// Do not let installs registered on the test machine affect discovery.
+jest.mock('child_process', () => ({
+  ...jest.requireActual('child_process'),
+  execFileSync: jest.fn(() => ''),
 }));
 
 /** Default config with an OpenAI key set */
@@ -25,49 +29,80 @@ function ConfigWithKey() {
 }
 
 describe('ValidateConfig', () => {
-  const originalKey = process.env.OPENAI_API_KEY;
+  let root: string;
+
+  function InstallIDL(folder: string): string {
+    const directory = join(root, folder, 'bin');
+    mkdirSync(directory, { recursive: true });
+    writeFileSync(
+      join(directory, platform() === 'win32' ? 'idl.exe' : 'idl'),
+      '',
+    );
+    return directory;
+  }
 
   beforeEach(() => {
+    root = mkdtempSync(join(tmpdir(), 'agents-validation-'));
+    jest.replaceProperty(IDL_DIRS, platform(), [InstallIDL('IDL92')]);
+    jest.replaceProperty(process, 'env', { ...process.env });
     delete process.env.OPENAI_API_KEY;
-    (FindIDL as jest.Mock).mockReset().mockReturnValue('/path/to/idl');
-    (ValidateIDLDir as jest.Mock).mockReset();
+    delete process.env.IDL_DIR;
   });
 
-  afterAll(() => {
-    if (originalKey === undefined) {
-      delete process.env.OPENAI_API_KEY;
-    } else {
-      process.env.OPENAI_API_KEY = originalKey;
-    }
+  afterEach(() => {
+    jest.restoreAllMocks();
+    rmSync(root, { recursive: true, force: true });
   });
 
-  it('reports a missing IDL install', () => {
-    (FindIDL as jest.Mock).mockReturnValue(undefined);
+  it('reports that IDL 9.2+ is not found when only an old install can be discovered', () => {
+    IDL_DIRS[platform()] = [InstallIDL('IDL91')];
 
-    expect(ValidateConfig(ConfigWithKey()).map((p) => p.code)).toEqual([
-      'IDL_NOT_FOUND',
+    expect(ValidateConfig(ConfigWithKey())).toEqual([
+      { code: 'IDL_NOT_FOUND', message: expect.stringContaining('9.2+') },
     ]);
   });
 
-  it('uses a valid configured IDL directory without searching', () => {
-    (FindIDL as jest.Mock).mockReturnValue(undefined);
-    (ValidateIDLDir as jest.Mock).mockReturnValue(true);
+  it('reports the configured old executable directory instead of using a newer install', () => {
     const config = ConfigWithKey();
-    config.idl.directory = '/custom/idl/bin';
+    config.idl.directory = InstallIDL('IDL91');
 
+    const problems = ValidateConfig(config);
+    expect(problems).toEqual([
+      {
+        code: 'IDL_VERSION_UNSUPPORTED',
+        message: expect.stringContaining(config.idl.directory),
+      },
+    ]);
+    expect(problems[0].message).toContain('9.2+');
+  });
+
+  it('also checks the directory resolved by the IDL_DIR fallback', () => {
+    IDL_DIRS[platform()] = [];
+    const bin = InstallIDL('IDL89');
+    process.env.IDL_DIR = platform() === 'win32' ? bin : join(root, 'IDL89');
+
+    expect(ValidateConfig(ConfigWithKey())).toEqual([
+      {
+        code: 'IDL_VERSION_UNSUPPORTED',
+        message: expect.stringContaining(bin),
+      },
+    ]);
+  });
+
+  it('accepts a custom-named directory with an executable and no known version', () => {
+    IDL_DIRS[platform()] = [];
+    const config = ConfigWithKey();
+    config.idl.directory = InstallIDL('custom-runtime');
     expect(ValidateConfig(config)).toEqual([]);
-    expect(FindIDL).not.toHaveBeenCalled();
   });
 
   it('reports an invalid configured IDL directory without falling back', () => {
-    (ValidateIDLDir as jest.Mock).mockReturnValue(false);
     const config = ConfigWithKey();
-    config.idl.directory = '/custom/idl/bin';
+    config.idl.directory = root;
 
     expect(ValidateConfig(config).map((p) => p.code)).toEqual([
       'IDL_DIRECTORY_INVALID',
     ]);
-    expect(FindIDL).not.toHaveBeenCalled();
   });
 
   it('reports an OpenAI config without an API key', () => {

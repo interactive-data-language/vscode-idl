@@ -62,8 +62,12 @@ export const IDL_COMMANDS = {
     VIEW_SETTING: `${BASE_CLIENT}viewSettings`,
   },
   CODE: {
-    /** Initialize IDL config (idl.json) in workspace */
-    // INITIALIZE_CONFIG: `${BASE_CODE}initializeConfig`,
+    /** Initialize IDL formatting config (idlformat.json) in workspace */
+    INITIALIZE_FORMATTING: `${BASE_CODE}initializeFormatting`,
+    /** Initialize IDL package config (idlpackage.json) in workspace */
+    INITIALIZE_PACKAGE: `${BASE_CODE}initializePackage`,
+    /** Initialize IDL test config (idltest.json) in workspace */
+    INITIALIZE_TEST: `${BASE_CODE}initializeTest`,
     /** Add/update docs for file */
     ADD_DOCS_TO_FILE: `${BASE_CODE}addDocsToFile`,
     /** Formats a file */

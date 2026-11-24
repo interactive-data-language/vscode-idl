@@ -1,5 +1,6 @@
 import { FindMatchingIDLInstalls } from '@idl/idl/files';
 import {
+  AGENTS_SERVER_MIN_IDL_VERSION,
   type IConfigProblem,
   type IStartAgentsServerResult,
   LoadConfig,
@@ -179,7 +180,10 @@ async function mainAsWorker() {
           PostMessage({
             type: 'idl-locations',
             id: msg.id,
-            locations: FindMatchingIDLInstalls('9.2', '>='),
+            locations: FindMatchingIDLInstalls(
+              AGENTS_SERVER_MIN_IDL_VERSION,
+              '>=',
+            ),
           });
           break;
 

@@ -23,7 +23,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
   // update base schema
   const base = JSON.parse(
     readFileSync(
-      GetExtensionPath('resources/language/schemas/config/schema.json'),
+      GetExtensionPath('resources/language/schemas/idlformat/schema.json'),
       { encoding: 'utf-8' },
     ),
   );
@@ -139,7 +139,7 @@ function UpdateSchemaFiles(config: { [key: string]: any }, nls: IPackageNLS) {
 
   // save to disk
   writeFileSync(
-    GetExtensionPath('resources/language/schemas/config/schema.json'),
+    GetExtensionPath('resources/language/schemas/idlformat/schema.json'),
     JSON.stringify(base, undefined, 2),
   );
 }

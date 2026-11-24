@@ -43,9 +43,9 @@ It is CRITICAL you select the right files when opening a dataset, running a tool
 
 ALWAYS load relevant resources based on the type of data:
 
-- For rasters, load the IDL resource "resoure-raster-formats"
+- For rasters, load the IDL resource "resource-raster-formats"
 
-- For vectors, load the IDL resource "resoure-vector-formats"
+- For vectors, load the IDL resource "resource-vector-formats"
 
 It is CRITICAL because many multi-file formats require a special file to be opened in ENVI for metadata to be correct.
 

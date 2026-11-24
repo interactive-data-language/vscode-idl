@@ -1,0 +1,12 @@
+{
+  "include": ["src/**/*.spec.pro"],
+  "exclude": ["src/sol/test/**", "src/**/tmp_*/**"],
+  "source": {
+    "include": ["src/**/*.pro"],
+    "exclude": ["src/**/*.spec.pro", "src/sol/test/**", "src/**/tmp_*/**"]
+  },
+  "run": { "isolation": "process", "stopOnFailure": false },
+  "coverage": { "enabled": true, "profile": true },
+  "output": { "level": "normal", "log": "idltest.log" },
+  "debug": false
+}

@@ -69,7 +69,7 @@ export async function InitializeClient(
   // update folders
   EXTENSION_FOLDER = CleanPath(ctx.extensionPath);
   I18N_FOLDER = join(EXTENSION_FOLDER, 'dist', 'i18n');
-  VSCODE_PRO_DIR = join(EXTENSION_FOLDER, 'resources', 'idl', 'vscode');
+  VSCODE_PRO_DIR = join(EXTENSION_FOLDER, 'resources', 'idl');
   VSCODE_NOTEBOOK_PRO_DIR = join(
     EXTENSION_FOLDER,
     'resources',
