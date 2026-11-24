@@ -23,6 +23,7 @@ import { copy } from 'fast-copy';
 
 import { GetRestartReasons } from '../helpers/get-restart-reasons';
 import { SaveConfig } from '../helpers/load-config';
+import { AGENTS_SERVER_MIN_IDL_VERSION } from '../helpers/resolve-idl-directory';
 import { UpdateServerConfig } from '../helpers/update-server-config';
 import { ValidateConfig } from '../helpers/validate-config';
 import { MCP_INSTRUCTION_REGISTRY } from '../mcp/create-standalone-mcp-server';
@@ -228,10 +229,12 @@ export function CreateConfigRoutes(
     '/list/idl-locations',
     'IDL Locations',
     async () =>
-      FindMatchingIDLInstalls('9.2', '>=').map((location) => ({
-        id: location,
-        name: location,
-      })),
+      FindMatchingIDLInstalls(AGENTS_SERVER_MIN_IDL_VERSION, '>=').map(
+        (location) => ({
+          id: location,
+          name: location,
+        }),
+      ),
   );
 
   return router;

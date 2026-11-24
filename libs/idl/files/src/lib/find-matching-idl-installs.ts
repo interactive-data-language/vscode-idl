@@ -15,7 +15,7 @@ import { ValidateIDLDir } from './validate-idl-dir';
  *
  * Needs to be the last one because ENVI folders don't match (i.e. envi62)
  */
-const IDL_FOLDER_REGEX = /idl(\d)(\d)(?![\d])/gi;
+const IDL_FOLDER_REGEX = /(?:^|[\\/])idl(\d)(\d)(?=[\\/]|$)/gi;
 
 /**
  * Converts an IDL version folder (idl92) or a version string (9.2) to

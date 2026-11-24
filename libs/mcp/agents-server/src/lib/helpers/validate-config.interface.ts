@@ -4,6 +4,7 @@
 export type ConfigProblemCode =
   | 'IDL_DIRECTORY_INVALID'
   | 'IDL_NOT_FOUND'
+  | 'IDL_VERSION_UNSUPPORTED'
   | 'LLM_NOT_CONFIGURED';
 
 /**

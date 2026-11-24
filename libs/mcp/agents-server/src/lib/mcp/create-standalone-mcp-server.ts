@@ -26,7 +26,7 @@ import { DEFAULT_IDL_EXTENSION_CONFIG } from '@idl/vscode/extension-config';
 import { LSP_WORKER_THREAD_MESSAGE_LOOKUP } from '@idl/workers/parsing';
 import type { Application } from 'express';
 
-import { ResolveIDLDirectory } from '../helpers/resolve-idl-directory';
+import { ResolveIDLDirectoryOrProblem } from '../helpers/resolve-idl-directory';
 import { CreateIDLMachineBackend } from './create-idl-machine-backend';
 import { LoadLocalAgentPersona } from './load-local-agent-persona';
 
@@ -78,15 +78,9 @@ export async function CreateStandaloneMCPServer(
   /**
    * Find a version of IDL, using the configured directory if there is one
    */
-  const idlPath = ResolveIDLDirectory(config);
-
-  // verify that we found the IDL search path
-  if (!idlPath) {
-    throw new Error(
-      config.idl.directory.trim() !== ''
-        ? `Configured IDL directory does not contain IDL: ${config.idl.directory}`
-        : 'Unable to find IDL, cannot proceed',
-    );
+  const idlPath = ResolveIDLDirectoryOrProblem(config);
+  if (typeof idlPath !== 'string') {
+    throw new Error(idlPath.message);
   }
 
   // register other paths we need to index
