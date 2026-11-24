@@ -4,7 +4,7 @@ import { URI } from 'vscode-uri';
 
 import { CleanPath } from './clean-path';
 import {
-  IDL_JSON_URI,
+  IDL_FORMAT_URI,
   IDL_NOTEBOOK_EXTENSION,
   IDL_PACKAGE_URI,
   IDL_SAVE_FILE_EXTENSION,
@@ -42,7 +42,7 @@ export class IDLFileHelper {
    * Indicates that a file is a configuration file
    */
   static isConfigFile(file: string): boolean {
-    return file.toLowerCase().endsWith(IDL_JSON_URI);
+    return file.toLowerCase().endsWith(IDL_FORMAT_URI);
   }
 
   /**

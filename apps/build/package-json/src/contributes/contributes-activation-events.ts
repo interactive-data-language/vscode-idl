@@ -11,7 +11,7 @@ export const BASE_ACTIVATION_EVENTS: string[] = [
   // // manual activation events, but these dont always let our extension start
   // `workspaceContains:${PRO_CODE_GLOB_PATTERN}`,
   // `workspaceContains:${PRO_DEF_GLOB_PATTERN}`,
-  // `workspaceContains:${IDL_JSON_GLOB_PATTERN}`,
+  // `workspaceContains:${IDL_FORMAT_GLOB_PATTERN}`,
   // `workspaceContains:${IDL_PACKAGE_GLOB_PATTERN}`,
   // `workspaceContains:${TASK_FILE_GLOB_PATTERN}`,
   // `workspaceContains:${NOTEBOOK_GLOB_PATTERN}`,

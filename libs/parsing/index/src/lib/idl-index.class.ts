@@ -1606,7 +1606,7 @@ export class IDLIndex {
      * does get reported to the user vis messages to VSCode
      */
     try {
-      this.fileTypes['idl.json'].add(file);
+      this.fileTypes['idl-format'].add(file);
       this.knownFiles[file] = undefined;
       this.configByFolder[dirname(file)] = await LoadConfig(file, content);
     } catch (err) {
@@ -1801,7 +1801,7 @@ export class IDLIndex {
 
     // check for a config file
     for (let i = 0; i < checkThese.length; i++) {
-      // if (!existsSync(join(checkThese[i], 'idl.json'))) {
+      // if (!existsSync(join(checkThese[i], IDL_FORMAT_URI))) {
       //   this.log.log({
       //     log: IDL_LSP_LOG,
       //     type: 'info',

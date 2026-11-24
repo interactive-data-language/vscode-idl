@@ -1,5 +1,5 @@
 import {
-  IDL_JSON_URI,
+  IDL_FORMAT_URI,
   IDL_PACKAGE_URI,
   TASK_FILE_EXTENSION,
 } from '@idl/shared/extension';
@@ -14,7 +14,7 @@ export const JSON_VALIDATORS = [
     url: './resources/language/schemas/tasks/schema.json',
   },
   {
-    fileMatch: `*${IDL_JSON_URI}`,
+    fileMatch: `*${IDL_FORMAT_URI}`,
     url: './resources/language/schemas/config/schema.json',
   },
   {

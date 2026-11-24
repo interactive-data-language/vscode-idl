@@ -66,7 +66,7 @@ export function RegisterCodeCommands(ctx: ExtensionContext) {
   //             .map((folder) => CleanPath(folder.uri.fsPath))
   //             .filter(
   //               (folder) =>
-  //                 !existsSync(join(folder, IDL_JSON_URI))
+  //                 !existsSync(join(folder, IDL_FORMAT_URI))
   //             );
 
   //           // check if we have a special folder
