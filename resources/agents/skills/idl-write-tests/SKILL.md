@@ -77,8 +77,8 @@ Assign `it.expects(x)._not_` to a variable before using it as an argument.
 ```
 
 - `toThrow*`, `toRunWithin` and `toPrint` default to a procedure. Add `/is_function` for functions. Don't name a keyword `function`, it is an IDL reserved word.
-- Pass arguments straight after the matcher inputs (`arg1` to `arg9`). Extra keywords pass through to the routine.
-- Create objects with `obj_new`, not by calling the class function directly: `(it.expects('obj_new')).toRunFunction, 'my_class', arg`.
+- Pass arguments straight after the matcher inputs (`arg1` to `arg8`). Extra keywords pass through to the routine.
+- Create objects with `obj_new` here (the one exception to preferring `myclass()`), because the routine is passed by name: `(it.expects('obj_new')).toRunFunction, 'my_class', arg`.
 - If your code uses `scope_level()`, call it directly in the test instead. Routines run from inside the expectation code, which has a different scope.
 - If your code handles an error and moves on, it must call `message, /reset` in its catch block. Otherwise errors bubble up through the IDL-IDLBridge.
 

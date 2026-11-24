@@ -39,9 +39,11 @@ The naming convention follows "Workflow Name", where the name should be a very s
 
 2. Compose the workflow instructions following the content pattern above.
 
-**DON'T** add details for how steps connect together
+**DON'T** add details for how steps connect together (parameters are looked up with `get-envi-tool-parameters` when the workflow is used)
 
 **DO** keep the step descriptions short and concise
+
+3. Show the content to the user, then save it with `save-envi-tool-workflow` using the workflow name and the markdown content. Names must be unique (case-insensitive); if the name exists, ask for a different one.
 
 Here is an example used for image registration:
 

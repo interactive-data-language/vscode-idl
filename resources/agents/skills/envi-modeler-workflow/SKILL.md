@@ -39,7 +39,6 @@ CRITICAL: if any tool fails with an "ENVI Agent license" error, stop work altoge
    - Which output parameters feed the next task's input.
    - Which parameters differ from their defaults (only those go into `static_input`).
    - Which parameters should be exposed to the user (go into `inputparameters` node).
-4. If sample data is provided, query datasets with `query-dataset-with-envi` for metadata context.
 
 ### Step 3: Review with the user
 
@@ -56,9 +55,7 @@ CRITICAL: if any tool fails with an "ENVI Agent license" error, stop work altoge
 
 Use `create-envi-modeler-workflow` with:
 
-**IMPORTANT:** The tool will fail if the output file already exists. Each workflow must have a unique filename. Use a timestamp or unique identifier in the filename if creating multiple workflows.
-
-**output_path**: a fully-qualified path ending in `.model`.
+**output_path**: a fully-qualified path ending in `.model`. Must be unique: the tool fails if the file exists, so use a timestamp or unique identifier when creating multiple workflows.
 
 **nodes** — ordered left-to-right:
 
@@ -82,8 +79,6 @@ Use `create-envi-modeler-workflow` with:
   - `iterator` → task parameter (the parameter name goes in `to_parameters`)
   - task output → `aggregator`
 - Use named parameters everywhere else.
-
-**output_path**: a fully-qualified path ending in `.model`. Must be unique — the tool rejects existing files to prevent accidental overwrites.
 
 ### Step 6: Open results
 

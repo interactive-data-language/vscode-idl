@@ -11,7 +11,7 @@ Luna is the test framework (`luna()`), Sol is the runner (`sol()`). Both are IDL
 
 1. **Put Sol and Luna on IDL's path.** Add the `src` folder of the sol-and-luna repo (or the installed package) to `IDL_PATH` or the workspace's IDL path settings. Check that `luna()` and `sol()` compile.
 
-2. **Choose a test layout.** Spec files end in `.spec.pro` and live next to the code or in a `test` folder:
+2. **Choose a test layout.** Spec files end in `.spec.pro` and live next to the code (the default `include` glob below only matches `src/`; change it if you use another folder):
 
    ```
    my-repo/
@@ -22,7 +22,7 @@ Luna is the test framework (`luna()`), Sol is the runner (`sol()`). Both are IDL
        my_routine.spec.pro
    ```
 
-   Use one spec file per routine or per expectation group. Each spec file is a main-level program, so it can't define routines.
+   Use one spec file per routine or per expectation group. A spec is a main-level program; define any helper routines before the main-level code.
 
 3. **Create `idltest.json` at the repository root.** Every option is optional. The file is only read, never written. Paths are relative to the file and support `*`, `?` and `**`.
 

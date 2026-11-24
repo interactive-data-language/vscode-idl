@@ -36,7 +36,7 @@ CRITICAL: if any of these tools fail with an "ENVI Agent license" error, stop wo
 
 **Don’t:**
 
-- Use the same output file multiple times when running processing. Outputs are auto-opened in ENVI and will be locked byt he file system so you can't delete them
+- Use the same output file multiple times when running processing. Outputs are auto-opened in ENVI and will be locked by the file system so you can't delete them
 - Spawn command prompts or shells to delete files, use a different filename
 - Read header files directly, use the "query-dataset-with-envi" to get metadata
 

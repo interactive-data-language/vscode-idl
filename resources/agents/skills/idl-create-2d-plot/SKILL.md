@@ -7,49 +7,49 @@ description: 'Guide for IDL routines to use when creating 2D plots'
 
 ### Basic Plotting Functions
 
-**PLOT()** - Use for continuous data, line graphs, trends
+**plot()** - Use for continuous data, line graphs, trends
 
 - Best for: Time series, mathematical functions, connected data points
 - Example: Temperature over time, signal processing
 
-**SCATTERPLOT()** - Use for discrete, unconnected data points
+**scatterplot()** - Use for discrete, unconnected data points
 
 - Best for: Correlations, distributions, individual measurements
 - Example: Height vs weight, experimental observations
 
-**BARPLOT()** - Use for categorical comparisons
+**barplot()** - Use for categorical comparisons
 
 - Best for: Comparing categories, frequency distributions
 - Example: Sales by region, survey responses
 
-**ERRORPLOT()** - Use when showing uncertainty
+**errorplot()** - Use when showing uncertainty
 
 - Best for: Scientific data with error bars, confidence intervals
 - Example: Experimental measurements with standard deviations
 
-**POLARPLOT()** - Use for angular/cyclical data
+**polarplot()** - Use for angular/cyclical data
 
 - Best for: Directional data, periodic phenomena
 - Example: Wind direction, antenna radiation patterns
 
-**CONTOUR()** - Use for 2D scalar fields
+**contour()** - Use for 2D scalar fields
 
 - Best for: Elevation maps, temperature distributions, potential fields
 - Example: Topographic maps, pressure systems
 
-**FILLPLOT()** - Use to show area between curves
+**fillplot()** - Use to show area between curves
 
 - Best for: Confidence bands, ranges, differences between datasets
 - Example: Upper/lower bounds, shaded regions
 
-**BOXPLOT()** - Use for statistical distributions
+**boxplot()** - Use for statistical distributions
 
 - Best for: Comparing distributions, showing quartiles and outliers
 - Example: Test scores across classes, salary distributions
 
 ---
 
-## 2. Function Graphics vs Direct Graphics
+## Function Graphics vs Direct Graphics
 
 ### Always Prefer Function Graphics
 
@@ -70,7 +70,7 @@ description: 'Guide for IDL routines to use when creating 2D plots'
 
 ---
 
-## 3. Creating Effective Plots
+## Creating Effective Plots
 
 ### Basic Plot Structure
 
@@ -105,9 +105,9 @@ p = plot(x, y, $
 
 ---
 
-## 4. Multi-Plot Layouts
+## Multi-Plot Layouts
 
-### Using `LAYOUT` Keyword
+### Using the `layout` Keyword
 
 ```idl
 compile_opt idl2
@@ -121,13 +121,13 @@ p4 = plot(x, y4, layout=[2,2,4], title='Plot 4')
 
 ### Positioning Rules
 
-- `LAYOUT = [columns, rows, position]`
+- `layout = [columns, rows, position]`
 - Positions are numbered left-to-right, top-to-bottom (1-based)
-- Use `/CURRENT` to add plots without clearing the window
+- Use `/current` to add plots without clearing the window
 
 ---
 
-## 5. Exporting Plots
+## Exporting Plots
 
 ```idl
 ; Save to image file

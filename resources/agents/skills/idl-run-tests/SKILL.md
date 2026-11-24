@@ -58,4 +58,6 @@ Sol prints one line per spec file (`Processed file N of M in X.X s (path)`). Fai
 
 ## Reporting back
 
-Summarize: pass or fail, the `Tests:` line, and for each failure the spec file, test name, and expected versus received. Don't paste the whole log.
+Read the result before reporting. `run-idl-file` returns console output, so a successful tool call does not mean the tests passed: check for `PASS`/`FAIL` and the `Tests:` line, and treat a run with zero tests as a problem (for example, a wrong path or glob). A suite run through Sol (`run-tests.pro`) prints per-file lines and writes its logs to disk, so open the logs for the details.
+
+Summarize: pass or fail, the `Tests:` line (when present), and for each failure the spec file, test name, and expected versus received. Don't paste the whole log.

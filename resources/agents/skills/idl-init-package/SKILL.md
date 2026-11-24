@@ -18,7 +18,7 @@ If the user has the IDL for VS Code extension, they can also create each file wi
 1. Confirm the folder to initialize and the package name (default to the folder name).
 2. Create `idlpackage.json`, `idlformat.json`, and `idltest.json` at the folder root using the templates below.
 3. Create a `src` folder for code. Test files go in `src` and are named `*.spec.pro` so the default `idltest.json` finds them.
-4. Summarize the files created.
+4. Summarize the files created. To add tests next, use the `idl-test-setup` skill (it covers `idltest.json` in more detail).
 
 ## idlpackage.json
 
@@ -41,6 +41,8 @@ Describes the package for the IDL Package Manager (IPM).
 ## idlformat.json
 
 Controls how the extension formats and styles IDL code for the folder (`tabWidth`, `style`, `autoFix`, `autoDoc`, `styleAndFormat`). Any property that is not set uses the extension defaults, so start small and add only what the user wants to change:
+
+The `idlformat.json` values below are user style settings and take precedence over the lowercase defaults in the IDL instructions.
 
 ```json
 {
