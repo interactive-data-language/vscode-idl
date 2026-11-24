@@ -4,19 +4,14 @@
   "properties": {
     "formatter": {
       "type": "string",
-      "enum": [
-        "fiddle"
-      ],
+      "enum": ["fiddle"],
       "title": "Formatter",
       "description": "Specify the formatting ruleset for your code.",
       "default": "fiddle"
     },
     "eol": {
       "type": "string",
-      "enum": [
-        "lf",
-        "crlf"
-      ],
+      "enum": ["lf", "crlf"],
       "title": "End-of-line",
       "description": "Indicate whether we use the new line character (\"lf\", recommended) or Windows-style carriage-return-new-line (\"crlf\").",
       "default": "lf"
@@ -73,159 +68,98 @@
       "properties": {
         "quotes": {
           "type": "string",
-          "enum": [
-            "single",
-            "double",
-            "none"
-          ],
+          "enum": ["single", "double", "none"],
           "title": "Quote Formatting",
           "description": "For string literals what type of quote we use. Includes numbers defined using quotes.",
           "default": "single"
         },
         "methods": {
           "type": "string",
-          "enum": [
-            "dot",
-            "arrow",
-            "none"
-          ],
+          "enum": ["dot", "arrow", "none"],
           "title": "Method Formatting",
           "description": "Do we use a dot or arrow for method invocation",
           "default": "dot"
         },
         "keywords": {
           "type": "string",
-          "enum": [
-            "lower",
-            "upper",
-            "none"
-          ],
+          "enum": ["lower", "upper", "none"],
           "title": "Keyword Formatting",
           "description": "Formatting for keywords, includes binary keywords",
           "default": "lower"
         },
         "properties": {
           "type": "string",
-          "enum": [
-            "lower",
-            "upper",
-            "match",
-            "camel",
-            "pascal",
-            "none"
-          ],
+          "enum": ["lower", "upper", "match", "camel", "pascal", "none"],
           "title": "Property Formatting",
           "description": "Controls the case style of properties",
           "default": "camel"
         },
         "control": {
           "type": "string",
-          "enum": [
-            "lower",
-            "upper",
-            "none"
-          ],
+          "enum": ["lower", "upper", "none"],
           "title": "Control Formatting",
           "description": "How are control statements, such as \"for\", \"if\", \"pro\", formatted",
           "default": "lower"
         },
         "numbers": {
           "type": "string",
-          "enum": [
-            "lower",
-            "upper",
-            "none"
-          ],
+          "enum": ["lower", "upper", "none"],
           "title": "Number Formatting",
           "description": "Controls accents to letters that set the data type and their case",
           "default": "lower"
         },
         "hex": {
           "type": "string",
-          "enum": [
-            "lower",
-            "upper",
-            "none"
-          ],
+          "enum": ["lower", "upper", "none"],
           "title": "Hex Number Formatting",
           "description": "Indicates formatting for hexadecimal (hex) numbers (either defined with quotes or \"0x\")",
           "default": "lower"
         },
         "octal": {
           "type": "string",
-          "enum": [
-            "lower",
-            "upper",
-            "none"
-          ],
+          "enum": ["lower", "upper", "none"],
           "title": "Octal Number Formatting",
           "description": "Indicates formatting for octal numbers (either defined with quotes or \"0o\")",
           "default": "lower"
         },
         "binary": {
           "type": "string",
-          "enum": [
-            "lower",
-            "upper",
-            "none"
-          ],
+          "enum": ["lower", "upper", "none"],
           "title": "Binary Number Formatting",
           "description": "Indicates formatting for binary numbers (either defined with quotes or \"0b\")",
           "default": "lower"
         },
         "routines": {
           "type": "string",
-          "enum": [
-            "match",
-            "camel",
-            "pascal",
-            "none"
-          ],
+          "enum": ["match", "camel", "pascal", "none"],
           "title": "Routine Formatting",
           "description": "When we encounter a known routine (functions and procedures), how do we format it with respect to the definition",
           "default": "match"
         },
         "routineMethods": {
           "type": "string",
-          "enum": [
-            "match",
-            "camel",
-            "pascal",
-            "none"
-          ],
+          "enum": ["match", "camel", "pascal", "none"],
           "title": "Routine Method Formatting",
           "description": "When we encounter a known routine method (function methods and procedure methods), how do we format it with respect to the definition?",
           "default": "camel"
         },
         "systemVariables": {
           "type": "string",
-          "enum": [
-            "lower",
-            "upper",
-            "none"
-          ],
+          "enum": ["lower", "upper", "none"],
           "title": "System Variable Formatting",
           "description": "Case formatting for system variables",
           "default": "lower"
         },
         "structureNames": {
           "type": "string",
-          "enum": [
-            "match",
-            "camel",
-            "pascal",
-            "none"
-          ],
+          "enum": ["match", "camel", "pascal", "none"],
           "title": "Structure Name Formatting",
           "description": "When we have a known named structure, how do we format the name?",
           "default": "pascal"
         },
         "localVariables": {
           "type": "string",
-          "enum": [
-            "match",
-            "none"
-          ],
+          "enum": ["match", "none"],
           "title": "Local Variable Formatting",
           "description": "If local variables match the case for the first instance that we find",
           "default": "match"

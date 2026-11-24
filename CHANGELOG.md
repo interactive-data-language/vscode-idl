@@ -39,7 +39,9 @@ Also fixed an issue with in-line IDL code comment blocks breaking highlighting i
 
 In the MCP Tool "Search IDL Routines", add a new option for the LLM to control the limit on how many responses are returned by routine type.
 
-Renamed the IDL formatting/style configuration file from `idl.json` to `idlformat.json` for consistency with `idlpackage.json` and `idltest.json`. Existing `idl.json` files continue to work, but are deprecated: if both files exist in a folder, `idlformat.json` is used. The "Initialize" command now creates `idlformat.json`.
+Renamed the IDL formatting/style configuration file from `idl.json` to `idlformat.json` for consistency with `idlpackage.json` and `idltest.json`. Existing `idl.json` files continue to work, but are deprecated: if both files exist in a folder, `idlformat.json` is used.
+
+Added three commands to initialize configuration files in a workspace folder: `IDL: Initialize Formatting Config` (`idlformat.json`), `IDL: Initialize Package Config` (`idlpackage.json`), and `IDL: Initialize Test Config` (`idltest.json`). Added a JSON schema for `idltest.json` for validation and completion, and a new `idl-init-package` skill for agents that creates all three files for a new IDL package.
 
 ## 6.2.2 - September 2026
 

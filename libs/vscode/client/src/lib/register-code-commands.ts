@@ -3,7 +3,10 @@ import { IDL_COMMAND_LOG } from '@idl/logger';
 import {
   CleanPath,
   IDL_COMMANDS,
+  IDL_FORMAT_URI,
   IDL_LANGUAGE_NAME,
+  IDL_PACKAGE_URI,
+  IDL_TEST_URI,
 } from '@idl/shared/extension';
 import { IDL_TRANSLATION } from '@idl/translation';
 import type { IAutoFixIDLDiagnostic } from '@idl/types/diagnostic';
@@ -13,7 +16,10 @@ import {
 } from '@idl/types/problem-codes';
 import { USAGE_METRIC_LOOKUP } from '@idl/usage-metrics';
 import { IDL_EXTENSION_CONFIG } from '@idl/vscode/config';
-import { LANGUAGE_SERVER_MESSAGE_LOOKUP } from '@idl/vscode/events/messages';
+import {
+  type InitWorkspaceConfigType,
+  LANGUAGE_SERVER_MESSAGE_LOOKUP,
+} from '@idl/vscode/events/messages';
 import { IDL_EXTENSION_CONFIG_KEYS } from '@idl/vscode/extension-config';
 import {
   IDL_LOGGER,
@@ -27,7 +33,8 @@ import {
   ReplaceDocumentContent,
 } from '@idl/vscode/shared';
 import { VSCodeTelemetryLogger } from '@idl/vscode/usage-metrics';
-import { basename } from 'path';
+import { existsSync } from 'fs';
+import { basename, join } from 'path';
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 
@@ -43,79 +50,113 @@ const cmdErrors = IDL_TRANSLATION.commands.errors;
 export function RegisterCodeCommands(ctx: ExtensionContext) {
   IDL_LOGGER.log({ content: 'Registering code commands' });
 
-  // ctx.subscriptions.push(
-  //   vscode.commands.registerCommand(
-  //     IDL_COMMANDS.CODE.INITIALIZE_CONFIG,
-  //     async () => {
-  //       try {
-  //         LogCommandInfo('Initialize config');
+  /** Commands that create config files, which all share the same flow */
+  const initCommands: {
+    command: string;
+    error: string;
+    file: string;
+    type: InitWorkspaceConfigType;
+  }[] = [
+    {
+      command: IDL_COMMANDS.CODE.INITIALIZE_FORMATTING,
+      error: cmdErrors.code.initializeFormatting,
+      file: IDL_FORMAT_URI,
+      type: 'formatting',
+    },
+    {
+      command: IDL_COMMANDS.CODE.INITIALIZE_PACKAGE,
+      error: cmdErrors.code.initializePackage,
+      file: IDL_PACKAGE_URI,
+      type: 'package',
+    },
+    {
+      command: IDL_COMMANDS.CODE.INITIALIZE_TEST,
+      error: cmdErrors.code.initializeTest,
+      file: IDL_TEST_URI,
+      type: 'test',
+    },
+  ];
 
-  //         /**
-  //          * Get workspace folders
-  //          */
-  //         const folders = vscode.workspace.workspaceFolders;
+  for (const { command, error, file, type } of initCommands) {
+    ctx.subscriptions.push(
+      vscode.commands.registerCommand(command, async (folderArg?: string) => {
+        try {
+          LogCommandInfo(`Initialize ${file}`);
 
-  //         // make sure we have workspace folders
-  //         if (folders === undefined) {
-  //           vscode.window.showInformationMessage(
-  //             IDL_TRANSLATION.commands.notifications.initConfig.noWorkspaceOpen
-  //           );
-  //         } else {
-  //           // filter out folders that have existing idl.json
-  //           const checkFolders = folders
-  //             .map((folder) => CleanPath(folder.uri.fsPath))
-  //             .filter(
-  //               (folder) =>
-  //                 !existsSync(join(folder, IDL_FORMAT_URI))
-  //             );
+          // callers can pass a folder to skip the workspace picker
+          if (typeof folderArg === 'string') {
+            VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+              idl_command: command,
+            });
 
-  //           // check if we have a special folder
-  //           if (checkFolders.length === 0) {
-  //             vscode.window.showInformationMessage(
-  //               IDL_TRANSLATION.commands.notifications.initConfig
-  //                 .allWorkspacesHaveConfig
-  //             );
-  //           } else {
-  //             // target is what we return
-  //             const res = await vscode.window.showQuickPick(
-  //               checkFolders.map((folder) => {
-  //                 return {
-  //                   label: basename(folder),
-  //                   description: folder,
-  //                   target: folder, // return value
-  //                 };
-  //               }),
-  //               {
-  //                 title:
-  //                   IDL_TRANSLATION.commands.notifications.initConfig
-  //                     .dialogTitle,
-  //                 canPickMany: false,
-  //               }
-  //             );
+            LANGUAGE_SERVER_MESSENGER.sendNotification(
+              LANGUAGE_SERVER_MESSAGE_LOOKUP.INIT_WORKSPACE_CONFIG,
+              { folder: CleanPath(folderArg), type },
+            );
+            return;
+          }
 
-  //             // make sure we have a folder
-  //             if (res !== undefined) {
-  //               VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
-  //                 idl_command: IDL_COMMANDS.CODE.INITIALIZE_CONFIG,
-  //               });
+          const folders = vscode.workspace.workspaceFolders;
 
-  //               LANGUAGE_SERVER_MESSENGER.sendNotification(
-  //                 LANGUAGE_SERVER_MESSAGE_LOOKUP.INIT_WORKSPACE_CONFIG,
-  //                 { folder: res.target }
-  //               );
-  //             }
-  //           }
-  //         }
-  //       } catch (err) {
-  //         LogCommandError(
-  //           'Error while executing command to initialize "idl.json" files in workspace',
-  //           err,
-  //           cmdErrors.code.initializeConfig
-  //         );
-  //       }
-  //     }
-  //   )
-  // );
+          // make sure we have workspace folders
+          if (folders === undefined) {
+            vscode.window.showInformationMessage(
+              IDL_TRANSLATION.commands.notifications.initConfig.noWorkspaceOpen,
+            );
+            return;
+          }
+
+          // only offer folders that don't have the file
+          const checkFolders = folders
+            .map((folder) => CleanPath(folder.uri.fsPath))
+            .filter((folder) => !existsSync(join(folder, file)));
+
+          if (checkFolders.length === 0) {
+            vscode.window.showInformationMessage(
+              IDL_TRANSLATION.commands.notifications.initConfig.allWorkspacesHaveConfig.replace(
+                '{0}',
+                file,
+              ),
+            );
+            return;
+          }
+
+          const res = await vscode.window.showQuickPick(
+            checkFolders.map((folder) => ({
+              label: basename(folder),
+              description: folder,
+              target: folder,
+            })),
+            {
+              title:
+                IDL_TRANSLATION.commands.notifications.initConfig.dialogTitle.replace(
+                  '{0}',
+                  file,
+                ),
+              canPickMany: false,
+            },
+          );
+
+          if (res !== undefined) {
+            VSCodeTelemetryLogger(USAGE_METRIC_LOOKUP.RUN_COMMAND, {
+              idl_command: command,
+            });
+
+            LANGUAGE_SERVER_MESSENGER.sendNotification(
+              LANGUAGE_SERVER_MESSAGE_LOOKUP.INIT_WORKSPACE_CONFIG,
+              { folder: res.target, type },
+            );
+          }
+        } catch (err) {
+          LogCommandError(
+            `Error while executing command to initialize "${file}" in workspace`,
+            err,
+            error,
+          );
+        }
+      }),
+    );
+  }
 
   ctx.subscriptions.push(
     vscode.commands.registerCommand(

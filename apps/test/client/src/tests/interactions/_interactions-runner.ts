@@ -21,6 +21,7 @@ import {
 import { ProCodeCodeActionsNotebook } from './code-actions/pro-code-code-actions-notebook';
 import { ProCodeCodeActionsNotebook2 } from './code-actions/pro-code-code-actions-notebook-2';
 import { AddDocs } from './commands/add-docs';
+import { InitializeConfigFiles } from './commands/initialize-config-files';
 import {
   MigrateCodeDL30,
   MigrateCodeDL30_2,
@@ -65,6 +66,11 @@ export const INTERACTIONS_RUNNER = new Runner(INTERACTIONS_TEST_LOGGER);
 INTERACTIONS_RUNNER.addTest({
   name: 'Add docs, update test, add docs again',
   fn: AddDocs,
+});
+
+INTERACTIONS_RUNNER.addTest({
+  name: 'Initialize idlformat.json, idlpackage.json, and idltest.json',
+  fn: InitializeConfigFiles,
 });
 
 INTERACTIONS_RUNNER.addTest({

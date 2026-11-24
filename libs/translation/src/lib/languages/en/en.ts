@@ -46,7 +46,9 @@ export const EN: ITranslation = {
         viewSettings: 'IDL: View Extension Settings',
       },
       code: {
-        initializeConfig: 'IDL: Initialize Config',
+        initializeFormatting: 'IDL: Initialize Formatting Config',
+        initializePackage: 'IDL: Initialize Package Config',
+        initializeTest: 'IDL: Initialize Test Config',
         addDocsToFile: 'IDL: Add/Update Docs for File',
         disableProblemSetting: 'IDL: Disable Problem Code via Setting',
         fixProblem: 'IDL: Fix Problem for Code Action',
@@ -125,7 +127,9 @@ export const EN: ITranslation = {
         formatFile: 'Error while formatting file',
         formatWorkspace: 'Error while formatting workspace',
         generateTask: 'Error while generating task',
-        initializeConfig: 'Error while initializing config for workspace',
+        initializeFormatting: 'Error while initializing formatting config',
+        initializePackage: 'Error while initializing package config',
+        initializeTest: 'Error while initializing test config',
         migrateToDL30API: 'Error while migrating code',
         migrateToDL40API: 'Error while migrating code',
       },
@@ -190,11 +194,9 @@ export const EN: ITranslation = {
           'Specify the open workspace to format all PRO files in workspace',
       },
       initConfig: {
-        allWorkspacesHaveConfig:
-          'All workspaces already have an "idlformat.json" file',
-        configFileCreated: 'IDL config file created!',
-        dialogTitle:
-          'Specify the open workspace to create an "idlformat.json" file for',
+        allWorkspacesHaveConfig: 'All workspaces already have a "{0}" file',
+        configFileCreated: 'Created "{0}"!',
+        dialogTitle: 'Specify the open workspace to create a "{0}" file for',
         dontAsk: "Don't ask for folder",
         neverAsk: 'Never ask again',
         noWorkspaceOpen: 'No currently open workspaces',

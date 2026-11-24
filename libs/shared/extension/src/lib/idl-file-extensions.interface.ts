@@ -26,6 +26,9 @@ export const IDL_FORMAT_LEGACY_URI = 'idl.json';
  */
 export const IDL_PACKAGE_URI = 'idlpackage.json';
 
+/** Name of the file that configures running tests for an IDL project */
+export const IDL_TEST_URI = 'idltest.json';
+
 /**
  * File extension for IDL notebooks
  */

@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/idltest",
+  "definitions": {
+    "idltest": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "default": ["src/**/*.spec.pro"],
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Include",
+          "description": "Glob patterns for the test files to run"
+        },
+        "exclude": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Exclude",
+          "description": "Glob patterns for test files to skip"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/idltest-source"
+            }
+          ]
+        },
+        "run": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/idltest-run"
+            }
+          ]
+        },
+        "coverage": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/idltest-coverage"
+            }
+          ]
+        },
+        "output": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/idltest-output"
+            }
+          ]
+        },
+        "debug": {
+          "default": false,
+          "type": "boolean",
+          "title": "Debug",
+          "description": "Enable debug output from the test runner"
+        }
+      },
+      "additionalProperties": {},
+      "title": "IDL Test Configuration"
+    },
+    "idltest-source": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "default": ["src/**/*.pro"],
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Include",
+          "description": "Glob patterns for source files that are measured by code coverage"
+        },
+        "exclude": {
+          "default": ["**/*.spec.pro"],
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Exclude",
+          "description": "Glob patterns for files to exclude from the source files used for code coverage"
+        }
+      }
+    },
+    "idltest-run": {
+      "type": "object",
+      "properties": {
+        "isolation": {
+          "default": "process",
+          "type": "string",
+          "enum": ["process", "shared"],
+          "title": "Isolation",
+          "description": "How tests are isolated from each other. \"process\" runs tests in separate IDL processes and \"shared\" runs all tests in the same IDL session."
+        },
+        "stopOnFailure": {
+          "default": false,
+          "type": "boolean",
+          "title": "Stop on failure",
+          "description": "Stop running tests after the first failure"
+        }
+      }
+    },
+    "idltest-coverage": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "default": true,
+          "type": "boolean",
+          "title": "Enabled",
+          "description": "Collect code coverage while running tests"
+        },
+        "profile": {
+          "default": false,
+          "type": "boolean",
+          "title": "Profile",
+          "description": "Profile code while running tests"
+        }
+      }
+    },
+    "idltest-output": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "default": "normal",
+          "type": "string",
+          "enum": ["quiet", "normal", "verbose"],
+          "title": "Level",
+          "description": "How much information is reported while running tests"
+        },
+        "log": {
+          "default": "idltest.log",
+          "type": "string",
+          "title": "Log",
+          "description": "Path to the log file for test output"
+        }
+      }
+    }
+  }
+}

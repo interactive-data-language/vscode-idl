@@ -241,8 +241,11 @@
         "./libs/types/analytics-repository/src/index.ts"
       ],
       "@idl/schemas/idlpackage": ["./libs/schemas/idlpackage/src/index.ts"],
+      "@idl/schemas/idltest": ["./libs/schemas/idltest/src/index.ts"],
       "@idl/schemas/idlformat": ["./libs/schemas/idlformat/src/index.ts"],
-      "@idl/generators/idlformat": ["./libs/generators/idlformat/src/index.ts"]
+      "@idl/generators/idlformat": ["./libs/generators/idlformat/src/index.ts"],
+      "@idl/generators/idlpackage": ["./libs/generators/idlpackage/src/index.ts"],
+      "@idl/generators/idltest": ["./libs/generators/idltest/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

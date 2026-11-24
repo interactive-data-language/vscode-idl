@@ -37,8 +37,12 @@ export interface ICommandTranslation {
     formatWorkspace: string;
     /** Generates a task file */
     generateTask: string;
-    /** Initialize IDL config in workspace */
-    initializeConfig: string;
+    /** Initialize IDL formatting config (idlformat.json) in workspace */
+    initializeFormatting: string;
+    /** Initialize IDL package config (idlpackage.json) in workspace */
+    initializePackage: string;
+    /** Initialize IDL test config (idltest.json) in workspace */
+    initializeTest: string;
     /** Migrate PRO code to the ENVI DL 3.0 API */
     migrateToDL30API: string;
     /** Migrate PRO code to the ENVI DL 4.0 API */
@@ -345,11 +349,11 @@ export interface ITranslation {
         pickWorkspace: string;
       };
       initConfig: {
-        /** Message when no workspace folders are open */
+        /** Message when all workspaces already have the file. Use "{0}" for the file name */
         allWorkspacesHaveConfig: string;
-        /** Message when a config file has been created */
+        /** Message when a config file has been created. Use "{0}" for the file name */
         configFileCreated: string;
-        /** Title of the dialog for picking workspace folders to initialize config files for */
+        /** Title of the dialog for picking workspace folders to initialize config files for. Use "{0}" for the file name */
         dialogTitle: string;
         /** Don't ask again for folder */
         dontAsk: string;

@@ -1,5 +1,6 @@
 import { IDLConfigSchema } from '@idl/schemas/idlformat';
 import { IDLPackageSchema } from '@idl/schemas/idlpackage';
+import { IDLTestSchema } from '@idl/schemas/idltest';
 import { CreateTaskFileJSONSchema } from '@idl/schemas/tasks';
 import { mkdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
@@ -25,7 +26,12 @@ const SCHEMAS: ISchemaToGenerate[] = [
       z.toJSONSchema(IDLPackageSchema, { target: 'draft-7', io: 'input' }),
   },
   {
-    file: 'resources/language/schemas/config/schema.json',
+    file: 'resources/language/schemas/idltest/schema.json',
+    create: () =>
+      z.toJSONSchema(IDLTestSchema, { target: 'draft-7', io: 'input' }),
+  },
+  {
+    file: 'resources/language/schemas/idlformat/schema.json',
     create: () =>
       z.toJSONSchema(IDLConfigSchema, { target: 'draft-7', io: 'input' }),
   },
