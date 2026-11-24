@@ -1,4 +1,5 @@
 export const GITHUB_TOOL_DISPLAY_NAMES = {
+  'load-toolset': 'Load Toolset',
   view: 'Read File',
   create: 'Create File or Folder',
   web_fetch: 'Web Fetch',
