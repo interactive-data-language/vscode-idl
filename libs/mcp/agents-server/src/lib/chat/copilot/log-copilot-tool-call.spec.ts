@@ -6,24 +6,25 @@ import { LogCopilotToolCall } from './log-copilot-tool-call';
 
 describe('Copilot tool-call log', () => {
   let directory: string;
-  const originalFile = process.env.IDL_AGENT_TOOL_LOG;
-
   beforeEach(() => {
     directory = mkdtempSync(join(tmpdir(), 'idl-tool-log-'));
-    process.env.IDL_AGENT_TOOL_LOG = join(
-      directory,
-      'logs',
-      'tool-calls.jsonl',
-    );
+    jest.replaceProperty(process, 'env', {
+      ...process.env,
+      APPDATA: directory,
+      IDL_AGENT_TOOL_LOG: join(directory, 'logs', 'tool-calls.jsonl'),
+    });
   });
 
   afterEach(() => {
-    if (originalFile === undefined) {
-      delete process.env.IDL_AGENT_TOOL_LOG;
-    } else {
-      process.env.IDL_AGENT_TOOL_LOG = originalFile;
-    }
+    jest.restoreAllMocks();
     rmSync(directory, { recursive: true, force: true });
+  });
+
+  it('writes directly in the roaming desktop app folder by default', () => {
+    delete process.env.IDL_AGENT_TOOL_LOG;
+    LogCopilotToolCall('load-toolset');
+    const file = join(directory, 'envi-desktop-agent-dev', 'tool-calls.jsonl');
+    expect(JSON.parse(readFileSync(file, 'utf8')).tool).toBe('load-toolset');
   });
 
   it('creates the directory and appends every call, including duplicates, with only time and name', () => {

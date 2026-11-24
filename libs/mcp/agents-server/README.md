@@ -40,16 +40,10 @@ the raw `tool` name. Repeated calls are recorded separately, including built-in,
 custom, and MCP tools. Calls are recorded when they start, even if they later
 fail. No arguments, results, prompts, or credentials are recorded.
 
-The parent app supplies the absolute filename through `IDL_AGENT_TOOL_LOG`, for
-example `<userData>/logs/tool-calls.jsonl`. Without it, standalone servers write to
-`~/.idl/agents/tool-calls.jsonl`. The directory and file are created on the first
-call; the file is appended across restarts without rotation. Write failures are
-reported on the server console without interrupting chat.
-
-For a separately hosted server, set the path in that server's environment before
-starting it; a connecting desktop app cannot change its destination:
-
-```powershell
-$env:IDL_AGENT_TOOL_LOG = Join-Path $env:APPDATA 'envi-desktop-agent-dev\logs\tool-calls.jsonl'
-npx nx serve agents-server
-```
+On Windows, the standalone server defaults to
+`%APPDATA%\envi-desktop-agent-dev\tool-calls.jsonl`. If `APPDATA` is unset,
+it uses `~/.idl/agents/tool-calls.jsonl`. To override the location, set
+`IDL_AGENT_TOOL_LOG` to an absolute filename before starting the server.
+The desktop launcher supplies `<userData>/tool-calls.jsonl` when it starts a
+worker. Attaching to an already running server does not change its log path.
+The first tool call creates the file; later calls append without rotation.

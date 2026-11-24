@@ -4,9 +4,11 @@ import { dirname, join } from 'path';
 
 /** Append every tool invocation to the host's log, including repeated calls. */
 export function LogCopilotToolCall(tool: string): void {
+  const directory = process.env.APPDATA
+    ? join(process.env.APPDATA, 'envi-desktop-agent-dev')
+    : USER_AGENTS_FOLDER;
   const file =
-    process.env.IDL_AGENT_TOOL_LOG ||
-    join(USER_AGENTS_FOLDER, 'tool-calls.jsonl');
+    process.env.IDL_AGENT_TOOL_LOG || join(directory, 'tool-calls.jsonl');
   try {
     mkdirSync(dirname(file), { recursive: true });
     appendFileSync(
