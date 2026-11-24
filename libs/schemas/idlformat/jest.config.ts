@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'schemas-idl.json',
+  displayName: 'schemas-idlformat',
   preset: '../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',
@@ -13,5 +13,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/schemas/idl.json',
+  coverageDirectory: '../../../coverage/libs/schemas/idlformat',
 };

@@ -3,7 +3,7 @@ import type {
   IAssemblerInputOptions,
 } from '@idl/assembling/config';
 import { TaskFormatter } from '@idl/assembling/tasks';
-import { MergeConfig } from '@idl/schemas/idl.json';
+import { MergeConfig } from '@idl/schemas/idlformat';
 import type { ParsedTask } from '@idl/types/tasks';
 
 /**

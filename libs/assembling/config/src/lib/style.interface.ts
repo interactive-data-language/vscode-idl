@@ -82,7 +82,7 @@ export type QuoteStyleFlags =
  * Any changes to style flags also needs to be captured/updated in the JSON schema
  * file as well. It can be found here:
  *
- * libs/schemas/idl.json/src/lib/schemas/idl-config.schema.ts
+ * libs/schemas/idlformat/src/lib/schemas/idl-config.schema.ts
  */
 
 /** Two options for Fiddle configuration */

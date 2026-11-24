@@ -1,4 +1,4 @@
-import { IDLConfigSchema } from '@idl/schemas/idl.json';
+import { IDLConfigSchema } from '@idl/schemas/idlformat';
 import { IDLPackageSchema } from '@idl/schemas/idlpackage';
 import { CreateTaskFileJSONSchema } from '@idl/schemas/tasks';
 import { mkdirSync, writeFileSync } from 'fs';

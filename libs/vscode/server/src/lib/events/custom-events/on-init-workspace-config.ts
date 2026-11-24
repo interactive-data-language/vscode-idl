@@ -3,7 +3,7 @@ import {
   type FormatterType,
   type IAssemblerOptions,
 } from '@idl/assembling/config';
-import { GenerateIDLJSON } from '@idl/generators/idl.json';
+import { GenerateIDLJSON } from '@idl/generators/idlformat';
 import { IDL_LSP_LOG } from '@idl/logger';
 import { IDL_TRANSLATION } from '@idl/translation';
 import type {

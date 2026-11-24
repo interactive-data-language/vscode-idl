@@ -17,7 +17,7 @@ import type {
 import { Parser } from '@idl/parser';
 import { GetIncludeFile } from '@idl/parsing/syntax-tree';
 import { TaskToGlobalToken } from '@idl/parsing/tasks';
-import { LoadConfig } from '@idl/schemas/idl.json';
+import { LoadConfig } from '@idl/schemas/idlformat';
 import { LoadTask } from '@idl/schemas/tasks';
 import { IDL_FILE_TYPE_LOOKUP, IDLFileHelper } from '@idl/shared/extension';
 import { NODE_MEMORY_CONFIG } from '@idl/system-memory';

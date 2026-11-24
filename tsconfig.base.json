@@ -48,7 +48,6 @@
       "@idl/error-shared": ["./libs/shared/error/src/index.ts"],
       "@idl/generators/envi-task": ["./libs/generators/envi-task/src/index.ts"],
       "@idl/generators/idl-task": ["./libs/generators/idl-task/src/index.ts"],
-      "@idl/generators/idl.json": ["./libs/generators/idl.json/src/index.ts"],
       "@idl/generators/task-tests": [
         "./libs/generators/task-tests/src/index.ts"
       ],
@@ -92,7 +91,6 @@
         "./libs/parsing/syntax-validators/src/index.ts"
       ],
       "@idl/parsing/type-parser": ["./libs/parsing/type-parser/src/index.ts"],
-      "@idl/schemas/idl.json": ["./libs/schemas/idl.json/src/index.ts"],
       "@idl/schemas/tasks": ["./libs/schemas/tasks/src/index.ts"],
       "@idl/server-helpers": ["./libs/server-helpers/src/index.ts"],
       "@idl/shared/extension": ["./libs/shared/extension/src/index.ts"],
@@ -242,7 +240,9 @@
       "@idl/types/analytics-repository": [
         "./libs/types/analytics-repository/src/index.ts"
       ],
-      "@idl/schemas/idlpackage": ["./libs/schemas/idlpackage/src/index.ts"]
+      "@idl/schemas/idlpackage": ["./libs/schemas/idlpackage/src/index.ts"],
+      "@idl/schemas/idlformat": ["./libs/schemas/idlformat/src/index.ts"],
+      "@idl/generators/idlformat": ["./libs/generators/idlformat/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
