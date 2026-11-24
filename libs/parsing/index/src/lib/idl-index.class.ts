@@ -19,7 +19,12 @@ import { GetIncludeFile } from '@idl/parsing/syntax-tree';
 import { TaskToGlobalToken } from '@idl/parsing/tasks';
 import { LoadConfig } from '@idl/schemas/idlformat';
 import { LoadTask } from '@idl/schemas/tasks';
-import { IDL_FILE_TYPE_LOOKUP, IDLFileHelper } from '@idl/shared/extension';
+import {
+  IDL_FILE_TYPE_LOOKUP,
+  IDL_FORMAT_LEGACY_URI,
+  IDL_FORMAT_URI,
+  IDLFileHelper,
+} from '@idl/shared/extension';
 import { NODE_MEMORY_CONFIG } from '@idl/system-memory';
 import type { IncludeToken } from '@idl/tokenizer';
 import { IDL_TRANSLATION } from '@idl/translation';
@@ -58,7 +63,7 @@ import { copy } from 'fast-copy';
 import { deepEqual } from 'fast-equals';
 import { existsSync, readFileSync } from 'fs';
 import { cpus, platform } from 'os';
-import { basename, dirname } from 'path';
+import { basename, dirname, join } from 'path';
 import { performance } from 'perf_hooks';
 import { NotebookCellKind } from 'vscode-languageserver';
 import type { DocumentSymbol, Position } from 'vscode-languageserver-types';
@@ -1386,8 +1391,33 @@ export class IDLIndex {
   /**
    * Index code for a potential pseudo file (one that might be unsaved or we have unsaved edits)
    */
+  /**
+   * Removes a config file from the index.
+   *
+   * Handles precedence between "idlformat.json" and the legacy "idl.json" that
+   * share the same folder.
+   */
   async removeConfigFile(file: string) {
-    delete this.configByFolder[dirname(file)];
+    const folder = dirname(file);
+    const name = basename(file).toLowerCase();
+
+    switch (true) {
+      // legacy file removed, but we still have the current one that takes precedence
+      case name === IDL_FORMAT_LEGACY_URI &&
+        existsSync(join(folder, IDL_FORMAT_URI)):
+        break;
+
+      // current file removed, fall back to the legacy file if it exists
+      case name === IDL_FORMAT_URI &&
+        existsSync(join(folder, IDL_FORMAT_LEGACY_URI)):
+        delete this.configByFolder[folder];
+        await this.indexConfigFile(join(folder, IDL_FORMAT_LEGACY_URI));
+        break;
+
+      default:
+        delete this.configByFolder[folder];
+        break;
+    }
   }
 
   /**
@@ -1608,6 +1638,26 @@ export class IDLIndex {
     try {
       this.fileTypes['idl-format'].add(file);
       this.knownFiles[file] = undefined;
+
+      // legacy files are ignored when the current config file is also present
+      if (
+        basename(file).toLowerCase() === IDL_FORMAT_LEGACY_URI &&
+        existsSync(join(dirname(file), IDL_FORMAT_URI))
+      ) {
+        return;
+      }
+
+      // deprecation notice for the legacy name
+      if (IDLFileHelper.isLegacyConfigFile(file)) {
+        this.log.log({
+          log: IDL_LSP_LOG,
+          type: 'warn',
+          content: [
+            `"${IDL_FORMAT_LEGACY_URI}" is deprecated, rename to "${IDL_FORMAT_URI}": "${file}"`,
+          ],
+        });
+      }
+
       this.configByFolder[dirname(file)] = await LoadConfig(file, content);
     } catch (err) {
       this.log.log({

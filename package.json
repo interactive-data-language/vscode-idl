@@ -1414,6 +1414,10 @@
         "url": "./resources/language/schemas/tasks/schema.json"
       },
       {
+        "fileMatch": "*idlformat.json",
+        "url": "./resources/language/schemas/config/schema.json"
+      },
+      {
         "fileMatch": "*idl.json",
         "url": "./resources/language/schemas/config/schema.json"
       },

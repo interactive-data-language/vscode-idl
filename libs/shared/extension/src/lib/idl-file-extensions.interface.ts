@@ -9,9 +9,17 @@ export const EPT_FILE_EXTENSION = '.ept';
 export const EVS_FILE_EXTENSION = '.evs';
 
 /**
- * File naming for config files
+ * File naming for config files that control formatting and style
  */
-export const IDL_FORMAT_URI = 'idl.json';
+export const IDL_FORMAT_URI = 'idlformat.json';
+
+/**
+ * Legacy file naming for config files that control formatting and style
+ * (before it was renamed to `idlformat.json`).
+ *
+ * Still supported, but `idlformat.json` takes precedence if both exist
+ */
+export const IDL_FORMAT_LEGACY_URI = 'idl.json';
 
 /**
  * File naming for IDL Package JSON file
@@ -54,9 +62,9 @@ export const TASK_FILE_EXTENSION = '.task';
 export const TASK_STYLE_FILE_EXTENSION = '.style';
 
 /**
- * Glob pattern for IDL format config files
+ * Glob pattern for IDL format config files (current and legacy names)
  */
-export const IDL_FORMAT_GLOB_PATTERN = `**/*${IDL_FORMAT_URI}`;
+export const IDL_FORMAT_GLOB_PATTERN = `**/*(*${IDL_FORMAT_URI}|*${IDL_FORMAT_LEGACY_URI})`;
 
 /**
  * Glob pattern for IDL Package files
@@ -91,9 +99,9 @@ export const TASK_FILE_GLOB_PATTERN = `**/*${TASK_FILE_EXTENSION}`;
 /**
  * Glob pattern for all files
  */
-export const ALL_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_FORMAT_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
+export const ALL_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_EXTENSION}|*${IDL_SAVE_FILE_EXTENSION}|*${IDL_FORMAT_URI}|*${IDL_FORMAT_LEGACY_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
 
 /**
  * Glob pattern for files we want to actively watch in VSCode
  */
-export const NOTIFY_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_EXTENSION}|*${IDL_FORMAT_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;
+export const NOTIFY_FILES_GLOB_PATTERN = `**/*(*${PRO_FILE_EXTENSION}|*${PRO_DEF_EXTENSION}|*${IDL_FORMAT_URI}|*${IDL_FORMAT_LEGACY_URI}|*${TASK_FILE_EXTENSION}|*${IDL_NOTEBOOK_EXTENSION})`;

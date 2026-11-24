@@ -1,4 +1,5 @@
 import {
+  IDL_FORMAT_LEGACY_URI,
   IDL_FORMAT_URI,
   IDL_PACKAGE_URI,
   TASK_FILE_EXTENSION,
@@ -15,6 +16,10 @@ export const JSON_VALIDATORS = [
   },
   {
     fileMatch: `*${IDL_FORMAT_URI}`,
+    url: './resources/language/schemas/config/schema.json',
+  },
+  {
+    fileMatch: `*${IDL_FORMAT_LEGACY_URI}`,
     url: './resources/language/schemas/config/schema.json',
   },
   {
