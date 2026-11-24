@@ -53,8 +53,13 @@ Luna is the test framework (`luna()`), Sol is the runner (`sol()`). Both are IDL
    ```idl
    compile_opt idl2
 
+   ; create test class - next to idltest.json
    s = sol()
+
+   ; run all tests
    status = s.runTests()
+
+   ; write summary to disk
    s.generateTestSummary
 
    end

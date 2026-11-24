@@ -18,7 +18,8 @@ If the user has the IDL for VS Code extension, they can also create each file wi
 1. Confirm the folder to initialize and the package name (default to the folder name).
 2. Create `idlpackage.json`, `idlformat.json`, and `idltest.json` at the folder root using the templates below.
 3. Create a `src` folder for code. Test files go in `src` and are named `*.spec.pro` so the default `idltest.json` finds them.
-4. Summarize the files created. To add tests next, use the `idl-test-setup` skill (it covers `idltest.json` in more detail).
+4. Create `run-tests.pro` next to `idltest.json` (see below).
+5. Summarize the files created. To add tests next, use the `idl-test-setup` skill (it covers `idltest.json` in more detail).
 
 ## idlpackage.json
 
@@ -94,3 +95,22 @@ Configures how tests are found and run.
 - `coverage.enabled`/`coverage.profile`: collect coverage or profile code while testing.
 - `output.level`: `quiet`, `normal`, or `verbose`. `output.log` is the log file path.
 - `debug`: enable debug output from the test runner.
+
+## run-tests.pro
+
+A small main-level program next to `idltest.json` that runs every test.
+
+```idl
+compile_opt idl2
+
+; create test class - next to idltest.json
+s = sol()
+
+; run all tests
+status = s.runTests()
+
+; write summary to disk
+s.generateTestSummary
+
+end
+```
