@@ -33,6 +33,8 @@ Migrate from prompts to skills for the extension, which has a few changes:
 
 As part of this migration, we automatically remove any folders from the "~/.idl" directory for the "chat.promptFilesLocations" setting.
 
+Moved the instructions that we manage to "~/.copilot/instructions" (native GitHub Copilot location). Any files from the old "~/.idl/agents/user-instructions" folder are moved there so they are preserved, and the old folders are removed from the "chat.instructionsFilesLocations" setting.
+
 Improved the rendering of IDL code blocks in comment blocks. We now don't use comment-color for code that doesn't match a pattern (i.e. parentheses).
 
 Also fixed an issue with in-line IDL code comment blocks breaking highlighting in routine comments.

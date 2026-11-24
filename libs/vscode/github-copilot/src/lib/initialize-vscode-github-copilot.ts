@@ -6,9 +6,9 @@ import type * as vscode from 'vscode';
 import { RegisterCopilotCommands } from './commands/register-copilot-commands';
 import { CleanupLegacyPromptSettings } from './helpers/cleanup-legacy-prompt-settings';
 import { InstructionsSync } from './helpers/instructions-sync.class';
+import { MigrateLegacyInstructions } from './helpers/migrate-legacy-instructions';
 import { RegisterGitHubCopilotFilesFromExtension } from './helpers/register-github-copilot-files-from-extension';
 import { RegisterGitHubCopilotFilesFromIDLPackages } from './helpers/register-github-copilot-files-from-idl-packages';
-import { RegisterGitHubCopilotFilesFromUser } from './helpers/register-github-copilot-files-from-user';
 
 /**
  * Initializes our GitHub Copilot VSCode integration
@@ -42,9 +42,9 @@ export async function InitializeVSCodeGitHubCopilot(
    * Attempt to add instructions
    */
   try {
+    await MigrateLegacyInstructions();
     await RegisterGitHubCopilotFilesFromExtension();
-    await RegisterGitHubCopilotFilesFromIDLPackages('instructions');
-    await RegisterGitHubCopilotFilesFromUser('instructions');
+    await RegisterGitHubCopilotFilesFromIDLPackages();
   } catch (err) {
     IDL_LOGGER.log({
       log: IDL_COPILOT_VSCODE_LOG,

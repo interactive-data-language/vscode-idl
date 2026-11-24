@@ -5,20 +5,15 @@ import * as vscode from 'vscode';
 import { HomeRelativePath } from './home-relative-path';
 
 /**
- * Registers prompts and instruction files from the IDL Packages folder
+ * Registers instruction files from the IDL Packages folder
  * automatically for GitHub Copilot
  */
-export async function RegisterGitHubCopilotFilesFromIDLPackages(
-  type: 'instructions' | 'prompts',
-) {
+export async function RegisterGitHubCopilotFilesFromIDLPackages() {
   // Get the configuration for chat settings
   const config = vscode.workspace.getConfiguration('chat');
 
   /** Get settings key */
-  const settingKey =
-    type === 'instructions'
-      ? 'instructionsFilesLocations'
-      : 'promptFilesLocations';
+  const settingKey = 'instructionsFilesLocations';
 
   // return if .idl folder doesnt exist
   const packageDir = GetIDLPackagePath();
@@ -30,7 +25,7 @@ export async function RegisterGitHubCopilotFilesFromIDLPackages(
   const destinationRelative = HomeRelativePath(packageDir);
 
   /**
-   * Get prompt files
+   * Get instruction files
    *
    * Use spread operator to clone so that we can use it
    */
@@ -44,7 +39,7 @@ export async function RegisterGitHubCopilotFilesFromIDLPackages(
   // get existing flags
   const states: { [key: string]: boolean } = {};
 
-  // remove any existing files from settings in case we deleted/removed prompts
+  // remove any existing files from settings in case we deleted/removed instructions
   for (let i = 0; i < existing.length; i++) {
     if (
       // keep check for the glob pattern only for delete. This is to move us over from a old pattern to a new one.
