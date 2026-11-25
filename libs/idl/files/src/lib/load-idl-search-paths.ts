@@ -19,6 +19,7 @@ export function LoadIDLSearchPaths(
   // add in IDL routines included with the extension that people can use
   paths[GetExtensionPath('resources/idl/vscode/notebooks')] = true;
   paths[GetExtensionPath('resources/idl/vscode/packaging')] = false;
+  paths[GetExtensionPath('resources/idl/vscode/sol-and-luna')] = true;
 
   // check for .idl package folder and auto-add if it exists
   const packageDir = GetIDLPackagePath();
