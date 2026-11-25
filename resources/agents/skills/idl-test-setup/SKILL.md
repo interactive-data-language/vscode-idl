@@ -75,7 +75,7 @@ Luna is the test framework (`luna()`), Sol is the runner (`sol()`). Both are IDL
 
 5. **Add a first spec**, then run everything. See the `idl-write-tests` skill for how to write it.
 
-6. **Ignore generated files.** Add these to `.gitignore`:
+6. **Ignore generated files.** Add these to `.gitignore` or create if doesn't exist:
    ```
    *spec.pro.log
    *idl.test.log
