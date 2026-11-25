@@ -465,16 +465,15 @@ function sol::RunTests, no_restart = no_restart, filter = filter
   ; clean up our child process if we are sharing it
   self._closeBridge, obd
 
-  ; get the total processing time
-  time = strtrim(systime(/seconds) - tStart, 2)
-  self._print, 'Time to run all tests [ ' + strmid(time, 0, strpos(time, '.') + 2) + ' (s) ] ', /space_after
-
-  ; alert user
-  if (self.passed) then begin
-    self._print, 'Passed all tests!', /space_after
-  endif else begin
-    self._print, '%FAILED% - see logs and above for more details', /space_after
-  endelse
+  ; print the summary in the same style as Luna
+  stats = self.testStats
+  nTests = n_elements(stats) gt 0 ? stats['nTests'] : 0
+  nFailed = n_elements(stats) gt 0 ? stats['nFailed'] : 0
+  counts = strtrim(nTests, 2) + ' total'
+  if (nTests - nFailed gt 0) then counts = strtrim(nTests - nFailed, 2) + ' passed, ' + counts
+  if (nFailed gt 0) then counts = strtrim(nFailed, 2) + ' failed, ' + counts
+  elapsed = string(systime(/seconds) - tStart, format = '(F0.1)')
+  self._print, ['', self.passed ? 'PASS' : 'FAIL', 'Tests:   ' + counts, 'Time:    ' + strtrim(elapsed, 2) + ' s', ''], /implied_print
 
   ; return our status
   return, self.passed
